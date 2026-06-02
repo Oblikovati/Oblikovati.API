@@ -39,6 +39,20 @@ const (
 
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
+
+	MethodAppearancesList   = "appearances.list"
+	MethodAppearancesGet    = "appearances.get"
+	MethodAppearancesCreate = "appearances.create"
+	MethodAppearancesUpdate = "appearances.update"
+
+	MethodMaterialsList   = "materials.list"
+	MethodMaterialsGet    = "materials.get"
+	MethodMaterialsCreate = "materials.create"
+	MethodMaterialsUpdate = "materials.update"
+
+	MethodModelAssignMaterial     = "model.assignMaterial"
+	MethodModelAssignAppearance   = "model.assignAppearance"
+	MethodModelPhysicalProperties = "model.physicalProperties"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
