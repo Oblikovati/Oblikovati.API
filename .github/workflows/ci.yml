@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    # bash on every OS for consistent shell semantics.
+    shell: bash
+
+jobs:
+  # The Apache-2.0 public API contract module: build, vet, test, and enforce the
+  # license boundary — /api must never import the GPL application module
+  # github.com/Oblikovati/oblikovati (ADR-0018). This module is self-contained, so
+  # it builds with no sibling checkout.
+  api:
+    runs-on: ubuntu-latest
+    env:
+      CGO_ENABLED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go build ./...
+      - run: go vet ./...
+      - run: go test ./...
+      - name: License boundary (api must not import the GPL application)
+        run: |
+          if go list -deps ./... | grep -q 'Oblikovati/oblikovati'; then
+            echo "ERROR: /api imports the GPL application module (ADR-0018 violated)"
+            go list -deps ./... | grep 'Oblikovati/oblikovati'
+            exit 1
+          fi
+          echo "OK: /api has no dependency on the application module"
+      - name: SPDX headers present
+        run: python3 scripts/check-spdx.py --check

@@ -1,0 +1,14 @@
+# Go workspace file — local-dev only; ties this module to sibling checkouts
+# (../Oblikovati, ../Oblikovati.AddIns). Not committed; CI checks out siblings.
+go.work
+go.work.sum
+
+# Binaries / test artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+coverage.out
