@@ -4,25 +4,27 @@ package types
 
 // Mechanical groups a material's structural properties (Inventor Material parity). Units
 // follow Inventor's conventions so values transfer 1:1 from existing material libraries.
+// The yaml tags keep the on-disk document/library form readable (the tags are plain
+// strings, so types still has no yaml dependency).
 type Mechanical struct {
-	YoungsModulus           float64 `json:"youngsModulus"`           // GPa
-	PoissonsRatio           float64 `json:"poissonsRatio"`           // dimensionless
-	YieldStrength           float64 `json:"yieldStrength"`           // MPa
-	UltimateTensileStrength float64 `json:"ultimateTensileStrength"` // MPa
+	YoungsModulus           float64 `json:"youngsModulus" yaml:"youngsModulus"`                     // GPa
+	PoissonsRatio           float64 `json:"poissonsRatio" yaml:"poissonsRatio"`                     // dimensionless
+	YieldStrength           float64 `json:"yieldStrength" yaml:"yieldStrength"`                     // MPa
+	UltimateTensileStrength float64 `json:"ultimateTensileStrength" yaml:"ultimateTensileStrength"` // MPa
 }
 
 // Thermal groups a material's heat-related properties.
 type Thermal struct {
-	Conductivity   float64 `json:"conductivity"`   // W/(m·K)
-	ExpansionCoeff float64 `json:"expansionCoeff"` // 1/K (linear)
-	SpecificHeat   float64 `json:"specificHeat"`   // J/(kg·K)
+	Conductivity   float64 `json:"conductivity" yaml:"conductivity"`     // W/(m·K)
+	ExpansionCoeff float64 `json:"expansionCoeff" yaml:"expansionCoeff"` // 1/K (linear)
+	SpecificHeat   float64 `json:"specificHeat" yaml:"specificHeat"`     // J/(kg·K)
 }
 
 // Electrical groups a material's electrical properties. Inventor's Material stops at
 // mechanical/thermal; electrical is added here because the user models it explicitly.
 type Electrical struct {
-	Resistivity          float64 `json:"resistivity"`          // Ω·m
-	RelativePermittivity float64 `json:"relativePermittivity"` // dimensionless (εr)
+	Resistivity          float64 `json:"resistivity" yaml:"resistivity"`                   // Ω·m
+	RelativePermittivity float64 `json:"relativePermittivity" yaml:"relativePermittivity"` // dimensionless (εr)
 }
 
 // PhysicalProperties is the computed mass/geometry summary of a body or part given its
