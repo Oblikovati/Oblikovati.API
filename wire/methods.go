@@ -17,6 +17,7 @@ package wire
 const (
 	MethodCommandsList    = "commands.list"
 	MethodCommandsExecute = "commands.execute"
+	MethodCommandsCreate  = "commands.create"
 
 	MethodDocumentsList     = "documents.list"
 	MethodDocumentsCreate   = "documents.create"

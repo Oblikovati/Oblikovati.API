@@ -7,6 +7,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/Oblikovati/api/types"
 	"github.com/Oblikovati/api/wire"
 )
 
@@ -76,6 +77,32 @@ func TestCommandsExecuteWrapsIDArg(t *testing.T) {
 	var sent wire.ExecuteCommandArgs
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil || sent.ID != "sketch.finish" {
 		t.Errorf("sent = %+v (err %v), want id=sketch.finish", sent, err)
+	}
+}
+
+func TestCommandsCreateMarshalsButtonMetadata(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
+	c := New(ft)
+
+	res, err := c.Commands().Create(wire.CreateCommandArgs{
+		ID: "AddIn.Ping", DisplayName: "Ping", Tab: "AddInTab",
+		Category: "Demo", Icon: "extrude", ButtonStyle: types.LargeIconButton,
+	})
+	if err != nil {
+		t.Fatalf("Create: %v", err)
+	}
+	if !res.OK {
+		t.Error("OK = false, want true")
+	}
+	if ft.gotMethod != wire.MethodCommandsCreate {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodCommandsCreate)
+	}
+	var sent wire.CreateCommandArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.ID != "AddIn.Ping" || sent.DisplayName != "Ping" || sent.ButtonStyle != types.LargeIconButton {
+		t.Errorf("sent = %+v, want id=AddIn.Ping displayName=Ping style=large-icon", sent)
 	}
 }
 
