@@ -36,6 +36,9 @@ const (
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
+
+	MethodThemeActive = "theme.active"
+	MethodThemeList   = "theme.list"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

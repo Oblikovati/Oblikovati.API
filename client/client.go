@@ -20,7 +20,7 @@ type Transport interface {
 // calls the host, and unmarshals the wire reply, so add-ins program against Go types
 // instead of hand-rolling JSON. Reach the operation groups via [Client.Documents],
 // [Client.Parameters], [Client.Model], [Client.Sketch], [Client.Features],
-// [Client.Commands].
+// [Client.Commands], [Client.Theme].
 type Client struct {
 	t Transport
 }
