@@ -35,6 +35,12 @@ type AddSketchEntityArgs struct {
 	// width. These belong to the composite kinds (rectangle/slot/polygon).
 	Sides int    `json:"sides,omitempty"`
 	Width string `json:"width,omitempty"`
+
+	// EntityRefs are existing entity ids the kind operates on (the two line ids for the
+	// fillet/chamfer corner blends). Radius is the fillet radius / chamfer first distance;
+	// Distance2 is the chamfer second distance (defaults to Radius when empty).
+	EntityRefs []uint64 `json:"entityRefs,omitempty"`
+	Distance2  string   `json:"distance2,omitempty"`
 }
 
 // AddSketchEntityResult is the response of [MethodSketchAddEntity]: the primary entity's

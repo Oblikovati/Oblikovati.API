@@ -19,6 +19,8 @@ const (
 	SketchEntityRectangle     SketchEntityKind = "rectangle"
 	SketchEntityPolygon       SketchEntityKind = "polygon"
 	SketchEntitySlot          SketchEntityKind = "slot"
+	SketchEntityFillet        SketchEntityKind = "fillet"
+	SketchEntityChamfer       SketchEntityKind = "chamfer"
 	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 

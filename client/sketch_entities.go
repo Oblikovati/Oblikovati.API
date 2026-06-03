@@ -115,3 +115,21 @@ func (s Sketch) AddSlot(index int, c0, c1 []float64, width string, construction 
 		Points: [][]float64{c0, c1}, Width: width, Construction: construction,
 	})
 }
+
+// AddFillet rounds the corner between two existing lines (by entity id) with a tangent
+// arc of the given unit-bearing radius, trimming both lines.
+func (s Sketch) AddFillet(index int, line1, line2 uint64, radius string) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityFillet),
+		EntityRefs: []uint64{line1, line2}, Radius: radius,
+	})
+}
+
+// AddChamfer bevels the corner between two existing lines with distances d1 and d2 (each
+// unit-bearing); pass an empty d2 for an equal-distance chamfer.
+func (s Sketch) AddChamfer(index int, line1, line2 uint64, d1, d2 string) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityChamfer),
+		EntityRefs: []uint64{line1, line2}, Radius: d1, Distance2: d2,
+	})
+}
