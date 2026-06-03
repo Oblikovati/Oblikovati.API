@@ -19,6 +19,8 @@ const (
 	MethodCommandsExecute = "commands.execute"
 	MethodCommandsCreate  = "commands.create"
 
+	MethodRibbonList = "ribbon.list"
+
 	MethodDocumentsList     = "documents.list"
 	MethodDocumentsCreate   = "documents.create"
 	MethodDocumentsActivate = "documents.activate"
