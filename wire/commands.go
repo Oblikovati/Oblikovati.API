@@ -9,8 +9,10 @@ import "github.com/Oblikovati/api/types"
 type CommandInfo struct {
 	ID          string            `json:"id"`
 	DisplayName string            `json:"displayName"`
+	Ribbon      types.RibbonKey   `json:"ribbon,omitempty"`
 	Tab         string            `json:"tab,omitempty"`
 	Category    string            `json:"category,omitempty"`
+	Environment types.Environment `json:"environment,omitempty"`
 	Alias       string            `json:"alias,omitempty"`
 	Tooltip     string            `json:"tooltip,omitempty"`
 	Icon        string            `json:"icon,omitempty"`
@@ -34,11 +36,18 @@ type ExecuteCommandArgs struct {
 // metadata that appears in the ribbon; clicking it runs no host logic but fires a
 // command-ended event the add-in receives via its Notify entry point and acts on. ID
 // and DisplayName are required; the rest place and style the button.
+//
+// Ribbon picks which document ribbon the button lands on (empty ⇒ the Part ribbon);
+// Environment scopes it to a context (empty/base ⇒ always shown; sketch ⇒ the contextual
+// Sketch tab). Together with Tab/Category this is Inventor's "add my button to the Draw
+// panel of the Sketch tab of the Part ribbon" (RibbonUI_Overview).
 type CreateCommandArgs struct {
 	ID          string            `json:"id"`
 	DisplayName string            `json:"displayName"`
+	Ribbon      types.RibbonKey   `json:"ribbon,omitempty"`
 	Tab         string            `json:"tab,omitempty"`
 	Category    string            `json:"category,omitempty"`
+	Environment types.Environment `json:"environment,omitempty"`
 	Alias       string            `json:"alias,omitempty"`
 	Tooltip     string            `json:"tooltip,omitempty"`
 	Icon        string            `json:"icon,omitempty"`
