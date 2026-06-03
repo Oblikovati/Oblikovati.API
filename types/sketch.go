@@ -16,6 +16,9 @@ const (
 	SketchEntityEllipse       SketchEntityKind = "ellipse"
 	SketchEntityEllipticalArc SketchEntityKind = "ellipticalArc"
 	SketchEntitySpline        SketchEntityKind = "spline"
+	SketchEntityRectangle     SketchEntityKind = "rectangle"
+	SketchEntityPolygon       SketchEntityKind = "polygon"
+	SketchEntitySlot          SketchEntityKind = "slot"
 	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 

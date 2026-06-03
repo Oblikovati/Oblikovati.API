@@ -90,3 +90,28 @@ func (s Sketch) AddSpline(index int, variant string, points [][]float64, closed,
 		Points: points, Closed: closed, Construction: construction,
 	})
 }
+
+// AddRectangle adds an axis-aligned rectangle from two opposite corners (each [x,y] cm).
+func (s Sketch) AddRectangle(index int, corner, opposite []float64, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityRectangle),
+		Points: [][]float64{corner, opposite}, Construction: construction,
+	})
+}
+
+// AddPolygon adds a regular polygon with the given side count, centered at center with a
+// vertex (inscribed) or edge-midpoint (when variant is "circumscribed") at through.
+func (s Sketch) AddPolygon(index int, center, through []float64, sides int, variant string, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityPolygon), Variant: variant,
+		Points: [][]float64{center, through}, Sides: sides, Construction: construction,
+	})
+}
+
+// AddSlot adds a center-to-center straight slot of the given unit-bearing width.
+func (s Sketch) AddSlot(index int, c0, c1 []float64, width string, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntitySlot),
+		Points: [][]float64{c0, c1}, Width: width, Construction: construction,
+	})
+}

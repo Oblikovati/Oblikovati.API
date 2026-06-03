@@ -30,13 +30,19 @@ type AddSketchEntityArgs struct {
 
 	// Closed marks a spline a closed loop (spline kinds only).
 	Closed bool `json:"closed,omitempty"`
+
+	// Sides is the edge count for the polygon kind (≥ 3); Width is a unit-bearing slot
+	// width. These belong to the composite kinds (rectangle/slot/polygon).
+	Sides int    `json:"sides,omitempty"`
+	Width string `json:"width,omitempty"`
 }
 
-// AddSketchEntityResult is the response of [MethodSketchAddEntity]: the new entity's
-// session id, its base kind, and the session ids of its defining points (for use as
-// constraint/dimension references).
+// AddSketchEntityResult is the response of [MethodSketchAddEntity]: the primary entity's
+// session id, its base kind, the session ids of its defining points, and — for composite
+// kinds (rectangle/slot/polygon) that create several entities — every created entity id.
 type AddSketchEntityResult struct {
-	EntityID uint64   `json:"entityId"`
-	Kind     string   `json:"kind"`
-	PointIDs []uint64 `json:"pointIds"`
+	EntityID  uint64   `json:"entityId"`
+	Kind      string   `json:"kind"`
+	PointIDs  []uint64 `json:"pointIds"`
+	EntityIDs []uint64 `json:"entityIds,omitempty"`
 }
