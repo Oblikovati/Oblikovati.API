@@ -130,6 +130,29 @@ func TestSketchAddEllipseMarshalsAxisAndRadii(t *testing.T) {
 	}
 }
 
+func TestSketchConstrainParallelMarshalsKindAndRefs(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"parallel","dof":3}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().Constrain(0).Parallel(5, 9)
+	if err != nil {
+		t.Fatalf("Parallel: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchAddConstraint {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchAddConstraint)
+	}
+	var sent wire.AddConstraintArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "parallel" || len(sent.Entities) != 2 || sent.Entities[0] != 5 || sent.Entities[1] != 9 {
+		t.Errorf("sent = %+v, want parallel of [5,9]", sent)
+	}
+	if got.DOF != 3 {
+		t.Errorf("decoded DOF = %d, want 3", got.DOF)
+	}
+}
+
 func TestSketchSolveDecodesStatus(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"sketchIndex":0,"dof":0,"status":"well","converged":true,"healthy":true}`)}
 	c := New(ft)
