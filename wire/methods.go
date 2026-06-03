@@ -46,6 +46,7 @@ const (
 	MethodSketchConstraints = "sketch.constraints"
 	MethodSketchDimensions  = "sketch.dimensions"
 	MethodSketchSetProperty = "sketch.setProperty"
+	MethodSketchAddEntity   = "sketch.addEntity"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"

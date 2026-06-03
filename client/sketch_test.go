@@ -75,6 +75,45 @@ func TestSketchListSendsNilBodyAndDecodes(t *testing.T) {
 	}
 }
 
+func TestSketchAddCircleByCenterRadiusMarshalsKindVariant(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":7,"kind":"circle","pointIds":[6]}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().AddCircleByCenterRadius(0, []float64{0, 0}, "10 mm", false)
+	if err != nil {
+		t.Fatalf("AddCircleByCenterRadius: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchAddEntity {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchAddEntity)
+	}
+	var sent wire.AddSketchEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "circle" || sent.Variant != "centerRadius" || sent.Radius != "10 mm" || len(sent.Points) != 1 {
+		t.Errorf("sent = %+v, want circle/centerRadius/10 mm/1 point", sent)
+	}
+	if got.EntityID != 7 || len(got.PointIDs) != 1 {
+		t.Errorf("decoded = %+v, want entity 7 / 1 point id", got)
+	}
+}
+
+func TestSketchAddArcByThreePointsSetsVariant(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":9,"kind":"arc","pointIds":[6,7,8]}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch().AddArcByThreePoints(0, []float64{2, 0}, []float64{0, 2}, []float64{-2, 0}, false); err != nil {
+		t.Fatalf("AddArcByThreePoints: %v", err)
+	}
+	var sent wire.AddSketchEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "arc" || sent.Variant != "threePoint" || len(sent.Points) != 3 {
+		t.Errorf("sent = %+v, want arc/threePoint/3 points", sent)
+	}
+}
+
 func TestSketchSolveDecodesStatus(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"sketchIndex":0,"dof":0,"status":"well","converged":true,"healthy":true}`)}
 	c := New(ft)
