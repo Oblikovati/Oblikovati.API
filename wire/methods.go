@@ -51,6 +51,9 @@ const (
 	MethodSketchAddConstraint    = "sketch.addConstraint"
 	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
 
+	MethodSketchAddDimension   = "sketch.addDimension"
+	MethodSketchDriveDimension = "sketch.driveDimension"
+
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 

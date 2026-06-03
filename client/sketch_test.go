@@ -153,6 +153,29 @@ func TestSketchConstrainParallelMarshalsKindAndRefs(t *testing.T) {
 	}
 }
 
+func TestSketchDimensionRadiusMarshalsExpression(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"radius","parameter":"d0","value":2,"dof":0}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().Dimension(0).Radius(7, "20 mm")
+	if err != nil {
+		t.Fatalf("Radius: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchAddDimension {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchAddDimension)
+	}
+	var sent wire.AddDimensionArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "radius" || sent.Expression != "20 mm" || len(sent.Entities) != 1 || sent.Entities[0] != 7 {
+		t.Errorf("sent = %+v, want radius of circle 7 @ 20 mm", sent)
+	}
+	if got.Parameter != "d0" || got.Value != 2 {
+		t.Errorf("decoded = %+v, want parameter d0 / value 2", got)
+	}
+}
+
 func TestSketchSolveDecodesStatus(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"sketchIndex":0,"dof":0,"status":"well","converged":true,"healthy":true}`)}
 	c := New(ft)
