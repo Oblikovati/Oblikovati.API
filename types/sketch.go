@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: Apache-2.0
+
+package types
+
+// SketchEntityKind discriminates the kind of a 2D sketch entity in the wire
+// protocol — the value of [github.com/Oblikovati/api/wire.AddSketchEntityArgs.Kind]
+// and of each enumerated entity's Kind. The set grows as M21 adds entity families
+// (conics/splines, slots, polygons, …); the string values are frozen.
+type SketchEntityKind string
+
+const (
+	SketchEntityLine    SketchEntityKind = "line"
+	SketchEntityPoint   SketchEntityKind = "point"
+	SketchEntityCircle  SketchEntityKind = "circle"
+	SketchEntityArc     SketchEntityKind = "arc"
+	SketchEntityEllipse SketchEntityKind = "ellipse"
+	SketchEntitySpline  SketchEntityKind = "spline"
+	SketchEntityUnknown SketchEntityKind = "unknown"
+)
+
+// GeometricConstraintKind discriminates a sketch geometric (non-dimensional)
+// constraint. Used by [github.com/Oblikovati/api/wire.AddConstraintArgs.Kind] and by
+// the enumerated constraint's Kind. String values are frozen.
+type GeometricConstraintKind string
+
+const (
+	GeoConstraintCoincident    GeometricConstraintKind = "coincident"
+	GeoConstraintPointOnLine   GeometricConstraintKind = "pointOnLine"
+	GeoConstraintMidpoint      GeometricConstraintKind = "midpoint"
+	GeoConstraintPointOnCircle GeometricConstraintKind = "pointOnCircle"
+	GeoConstraintHorizontal    GeometricConstraintKind = "horizontal"
+	GeoConstraintVertical      GeometricConstraintKind = "vertical"
+	GeoConstraintParallel      GeometricConstraintKind = "parallel"
+	GeoConstraintPerpendicular GeometricConstraintKind = "perpendicular"
+	GeoConstraintCollinear     GeometricConstraintKind = "collinear"
+	GeoConstraintConcentric    GeometricConstraintKind = "concentric"
+	GeoConstraintEqualLength   GeometricConstraintKind = "equalLength"
+	GeoConstraintEqualRadius   GeometricConstraintKind = "equalRadius"
+	GeoConstraintTangent       GeometricConstraintKind = "tangent"
+	GeoConstraintSymmetry      GeometricConstraintKind = "symmetry"
+	GeoConstraintFix           GeometricConstraintKind = "fix"
+	GeoConstraintSmooth        GeometricConstraintKind = "smooth"
+	GeoConstraintUnknown       GeometricConstraintKind = "unknown"
+)
+
+// DimensionConstraintKind discriminates a sketch dimensional (driving/driven)
+// constraint. Used by [github.com/Oblikovati/api/wire.AddDimensionArgs.Kind] and by
+// the enumerated dimension's Kind. String values are frozen.
+type DimensionConstraintKind string
+
+const (
+	DimConstraintDistance  DimensionConstraintKind = "distance"
+	DimConstraintAngle     DimensionConstraintKind = "angle"
+	DimConstraintRadius    DimensionConstraintKind = "radius"
+	DimConstraintDiameter  DimensionConstraintKind = "diameter"
+	DimConstraintArcLength DimensionConstraintKind = "arcLength"
+	DimConstraintUnknown   DimensionConstraintKind = "unknown"
+)

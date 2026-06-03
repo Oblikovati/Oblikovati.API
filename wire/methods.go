@@ -36,6 +36,16 @@ const (
 	MethodSketchCreate    = "sketch.create"
 	MethodSketchRectangle = "sketch.rectangle"
 
+	MethodSketchList        = "sketch.list"
+	MethodSketchGet         = "sketch.get"
+	MethodSketchEdit        = "sketch.edit"
+	MethodSketchExitEdit    = "sketch.exitEdit"
+	MethodSketchSolve       = "sketch.solve"
+	MethodSketchDelete      = "sketch.delete"
+	MethodSketchEntities    = "sketch.entities"
+	MethodSketchConstraints = "sketch.constraints"
+	MethodSketchDimensions  = "sketch.dimensions"
+
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 
