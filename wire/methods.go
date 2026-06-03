@@ -56,6 +56,7 @@ const (
 
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"
+	MethodSketchTransform        = "sketch.transform"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
