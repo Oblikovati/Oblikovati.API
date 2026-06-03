@@ -85,6 +85,13 @@ func (s Sketch) ConstraintStatus(index int) (wire.ConstraintStatusResult, error)
 	return r, s.c.call(wire.MethodSketchConstraintStatus, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// Profiles enumerates the closed regions the sketch yields (area + hole count); the
+// Index of each feeds features.add's profileIndex.
+func (s Sketch) Profiles(index int) (wire.ListProfilesResult, error) {
+	var r wire.ListProfilesResult
+	return r, s.c.call(wire.MethodSketchProfiles, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
 // SetProperty sets one of the sketch's scalar properties and returns the updated info.
 // Prefer the typed helpers below; this is the escape hatch.
 func (s Sketch) SetProperty(index int, property, value string) (wire.SketchInfo, error) {

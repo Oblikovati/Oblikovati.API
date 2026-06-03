@@ -19,3 +19,13 @@ type Sketch interface {
 	// DegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).
 	DegreesOfFreedom() int
 }
+
+// Profile is the scalar view of a sketch region a feature consumes: its enclosed area and
+// whether it is closed (extrudable into a solid). The host's model/sketch.Profile
+// satisfies this.
+type Profile interface {
+	// Area is the profile's enclosed area in sketch-plane cm² (holes subtracted).
+	Area() float64
+	// IsClosed reports whether the profile encloses a region.
+	IsClosed() bool
+}

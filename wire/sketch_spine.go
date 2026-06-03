@@ -62,6 +62,22 @@ type SolveSketchResult struct {
 	Healthy     bool   `json:"healthy"`
 }
 
+// ProfileInfo is one enumerated profile from [MethodSketchProfiles]: its index, enclosed
+// area (sketch-plane cm², holes subtracted), whether it is closed (a solid-extrudable
+// region), and the number of hole loops it contains. The Index feeds features.add's
+// profileIndex.
+type ProfileInfo struct {
+	Index  int     `json:"index"`
+	Area   float64 `json:"area"`
+	Closed bool    `json:"closed"`
+	Holes  int     `json:"holes"`
+}
+
+// ListProfilesResult is the response of [MethodSketchProfiles].
+type ListProfilesResult struct {
+	Profiles []ProfileInfo `json:"profiles"`
+}
+
 // ConstraintStatusResult is the response of [MethodSketchConstraintStatus]: the sketch's
 // constraint state without moving geometry (a non-mutating DOF analysis). Status is a
 // [github.com/Oblikovati/api/types.ConstraintStatus]; DOF is the remaining free degrees

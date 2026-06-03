@@ -176,6 +176,22 @@ func TestSketchDimensionRadiusMarshalsExpression(t *testing.T) {
 	}
 }
 
+func TestSketchProfilesDecodesArea(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"profiles":[{"index":0,"area":64,"closed":true,"holes":1}]}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().Profiles(0)
+	if err != nil {
+		t.Fatalf("Profiles: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchProfiles {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchProfiles)
+	}
+	if len(got.Profiles) != 1 || got.Profiles[0].Area != 64 || got.Profiles[0].Holes != 1 {
+		t.Errorf("decoded = %+v, want one profile area 64 / 1 hole", got.Profiles)
+	}
+}
+
 func TestSketchSolveDecodesStatus(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"sketchIndex":0,"dof":0,"status":"well","converged":true,"healthy":true}`)}
 	c := New(ft)
