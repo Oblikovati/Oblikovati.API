@@ -21,6 +21,7 @@ const (
 	SketchEntitySlot          SketchEntityKind = "slot"
 	SketchEntityFillet        SketchEntityKind = "fillet"
 	SketchEntityChamfer       SketchEntityKind = "chamfer"
+	SketchEntityImage         SketchEntityKind = "image"
 	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 

@@ -58,6 +58,8 @@ const (
 	MethodSketchProfiles         = "sketch.profiles"
 	MethodSketchTransform        = "sketch.transform"
 	MethodSketchAddPattern       = "sketch.addPattern"
+	MethodSketchOffset           = "sketch.offset"
+	MethodSketchAddImage         = "sketch.addImage"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
