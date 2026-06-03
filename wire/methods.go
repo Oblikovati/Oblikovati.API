@@ -54,6 +54,8 @@ const (
 	MethodSketchAddDimension   = "sketch.addDimension"
 	MethodSketchDriveDimension = "sketch.driveDimension"
 
+	MethodSketchConstraintStatus = "sketch.constraintStatus"
+
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 

@@ -62,6 +62,19 @@ type SolveSketchResult struct {
 	Healthy     bool   `json:"healthy"`
 }
 
+// ConstraintStatusResult is the response of [MethodSketchConstraintStatus]: the sketch's
+// constraint state without moving geometry (a non-mutating DOF analysis). Status is a
+// [github.com/Oblikovati/api/types.ConstraintStatus]; DOF is the remaining free degrees
+// of freedom; Variables/Equations are the system size; Redundant counts the dependent
+// constraints (> 0 ⇒ over-constrained).
+type ConstraintStatusResult struct {
+	Status    string `json:"status"`
+	DOF       int    `json:"dof"`
+	Variables int    `json:"variables"`
+	Equations int    `json:"equations"`
+	Redundant int    `json:"redundant"`
+}
+
 // SketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,
 // session id, kind ([github.com/Oblikovati/api/types.SketchEntityKind]), construction
 // flag, the defining points (each [x,y] in sketch-plane cm), and a radius for circular

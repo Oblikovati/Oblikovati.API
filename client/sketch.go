@@ -79,6 +79,12 @@ func (s Sketch) Dimensions(index int) (wire.ListDimensionsResult, error) {
 	return r, s.c.call(wire.MethodSketchDimensions, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// ConstraintStatus reports the sketch's DOF/over-under-constraint state without solving.
+func (s Sketch) ConstraintStatus(index int) (wire.ConstraintStatusResult, error) {
+	var r wire.ConstraintStatusResult
+	return r, s.c.call(wire.MethodSketchConstraintStatus, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
 // SetProperty sets one of the sketch's scalar properties and returns the updated info.
 // Prefer the typed helpers below; this is the escape hatch.
 func (s Sketch) SetProperty(index int, property, value string) (wire.SketchInfo, error) {

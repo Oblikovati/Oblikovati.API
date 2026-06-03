@@ -36,6 +36,16 @@ const (
 	SketchLinePhantom    SketchLineType = "phantom"
 )
 
+// ConstraintStatus is a sketch's (or entity's) constraint state, derived from the
+// solver's DOF analysis. String values are frozen.
+type ConstraintStatus string
+
+const (
+	ConstraintWell  ConstraintStatus = "well"  // fully constrained: 0 DOF, no redundancy
+	ConstraintUnder ConstraintStatus = "under" // free degrees of freedom remain
+	ConstraintOver  ConstraintStatus = "over"  // redundant or conflicting constraints
+)
+
 // GeometricConstraintKind discriminates a sketch geometric (non-dimensional)
 // constraint. Used by [github.com/Oblikovati/api/wire.AddConstraintArgs.Kind] and by
 // the enumerated constraint's Kind. String values are frozen.
