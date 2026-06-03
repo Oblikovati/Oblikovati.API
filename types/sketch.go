@@ -36,6 +36,14 @@ const (
 	SketchLinePhantom    SketchLineType = "phantom"
 )
 
+// SketchPatternKind discriminates a sketch pattern. String values are frozen.
+type SketchPatternKind string
+
+const (
+	SketchPatternRectangular SketchPatternKind = "rectangular"
+	SketchPatternCircular    SketchPatternKind = "circular"
+)
+
 // ConstraintStatus is a sketch's (or entity's) constraint state, derived from the
 // solver's DOF analysis. String values are frozen.
 type ConstraintStatus string
