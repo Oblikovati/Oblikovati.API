@@ -54,6 +54,9 @@ const (
 	TokenPlaneHover         ThemeToken = "gizmo.plane_hover"
 	TokenPlaneSelected      ThemeToken = "gizmo.plane_selected"
 	TokenSelectionHighlight ThemeToken = "gizmo.selection_highlight"
+	// TokenPlaneFill is the translucent fill of a work plane's display square — its
+	// alpha sets how see-through the plane is, so the user configures the look here.
+	TokenPlaneFill ThemeToken = "gizmo.plane_fill"
 )
 
 // Icons — ribbon glyphs, rasterized as white alpha masks and tinted at draw time.
@@ -75,7 +78,8 @@ func AllThemeTokens() []ThemeToken {
 		TokenViewportBg, TokenGridMinor, TokenGridMajor, TokenGridAxis,
 		TokenSketchGeometry, TokenSketchSelected, TokenSketchCandidate, TokenSketchPreview,
 		TokenDimensionDriving, TokenDimensionDriven, TokenSnapGlyph,
-		TokenPlaneFaint, TokenPlaneHover, TokenPlaneSelected, TokenSelectionHighlight,
+		TokenPlaneFaint, TokenPlaneHover, TokenPlaneSelected, TokenPlaneFill,
+		TokenSelectionHighlight,
 		TokenIconTint, TokenIconDisabled,
 	}
 }
