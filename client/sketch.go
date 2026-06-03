@@ -2,7 +2,10 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import (
+	"github.com/Oblikovati/api/types"
+	"github.com/Oblikovati/api/wire"
+)
 
 // Sketch is the sketch-authoring operation group for the active part.
 type Sketch struct{ c *Client }
@@ -74,4 +77,50 @@ func (s Sketch) Constraints(index int) (wire.ListConstraintsResult, error) {
 func (s Sketch) Dimensions(index int) (wire.ListDimensionsResult, error) {
 	var r wire.ListDimensionsResult
 	return r, s.c.call(wire.MethodSketchDimensions, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
+// SetProperty sets one of the sketch's scalar properties and returns the updated info.
+// Prefer the typed helpers below; this is the escape hatch.
+func (s Sketch) SetProperty(index int, property, value string) (wire.SketchInfo, error) {
+	var r wire.SketchInfo
+	args := wire.SetSketchPropertyArgs{SketchIndex: index, Property: property, Value: value}
+	return r, s.c.call(wire.MethodSketchSetProperty, args, &r)
+}
+
+// SetName renames the sketch.
+func (s Sketch) SetName(index int, name string) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "name", name)
+}
+
+// SetVisible shows or hides the sketch.
+func (s Sketch) SetVisible(index int, visible bool) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "visible", boolText(visible))
+}
+
+// SetColor overrides the sketch's color (empty ⇒ inherit the document default).
+func (s Sketch) SetColor(index int, color string) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "color", color)
+}
+
+// SetLineType overrides the sketch's line style (a [github.com/Oblikovati/api/types.SketchLineType]).
+func (s Sketch) SetLineType(index int, lineType types.SketchLineType) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "lineType", string(lineType))
+}
+
+// SetLineWeight overrides the sketch's line weight (a unit-bearing length like "0.5 mm").
+func (s Sketch) SetLineWeight(index int, weight string) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "lineWeight", weight)
+}
+
+// SetDeferUpdates toggles whether the sketch batches edits (solving on resume).
+func (s Sketch) SetDeferUpdates(index int, defer_ bool) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "deferUpdates", boolText(defer_))
+}
+
+// boolText renders a bool as the "true"/"false" the property setter expects.
+func boolText(b bool) string {
+	if b {
+		return "true"
+	}
+	return "false"
 }

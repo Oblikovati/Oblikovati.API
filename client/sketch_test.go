@@ -6,8 +6,32 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/Oblikovati/api/types"
 	"github.com/Oblikovati/api/wire"
 )
+
+func TestSketchSetLineTypeSendsPropertyAndValue(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"name":"Sketch1","plane":"XY","lineType":"center"}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().SetLineType(0, types.SketchLineCenter)
+	if err != nil {
+		t.Fatalf("SetLineType: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchSetProperty {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchSetProperty)
+	}
+	var sent wire.SetSketchPropertyArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Property != "lineType" || sent.Value != "center" {
+		t.Errorf("sent = %+v, want property lineType / value center", sent)
+	}
+	if got.LineType != "center" {
+		t.Errorf("decoded lineType = %q, want center", got.LineType)
+	}
+}
 
 func TestSketchGetSendsIndexAndDecodes(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"index":2,"name":"Sketch3","plane":"XY","visible":true,"entityCount":8,"dof":8,"editing":false,"healthy":true}`)}

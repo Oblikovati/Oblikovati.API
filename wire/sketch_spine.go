@@ -13,16 +13,30 @@ type SketchArgs struct {
 
 // SketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a
 // sketch's identity, host plane label, visibility, entity count, remaining DOF, edit
-// state, and health.
+// state, health, and the display/solve overrides (color, line type/weight, defer).
 type SketchInfo struct {
-	Index       int    `json:"index"`
-	Name        string `json:"name"`
-	Plane       string `json:"plane"`
-	Visible     bool   `json:"visible"`
-	EntityCount int    `json:"entityCount"`
-	DOF         int    `json:"dof"`
-	Editing     bool   `json:"editing"`
-	Healthy     bool   `json:"healthy"`
+	Index        int     `json:"index"`
+	Name         string  `json:"name"`
+	Plane        string  `json:"plane"`
+	Visible      bool    `json:"visible"`
+	EntityCount  int     `json:"entityCount"`
+	DOF          int     `json:"dof"`
+	Editing      bool    `json:"editing"`
+	Healthy      bool    `json:"healthy"`
+	Color        string  `json:"color,omitempty"`
+	LineType     string  `json:"lineType,omitempty"`
+	LineWeight   float64 `json:"lineWeight,omitempty"`
+	DeferUpdates bool    `json:"deferUpdates,omitempty"`
+}
+
+// SetSketchPropertyArgs is the request of [MethodSketchSetProperty]: which sketch, which
+// property ("name" | "visible" | "color" | "lineType" | "lineWeight" | "deferUpdates"),
+// and the new value as a string (bools as "true"/"false", line weight as a unit-bearing
+// length like "0.5 mm"). The response is the updated [SketchInfo].
+type SetSketchPropertyArgs struct {
+	SketchIndex int    `json:"sketchIndex"`
+	Property    string `json:"property"`
+	Value       string `json:"value"`
 }
 
 // ListSketchesResult is the response of [MethodSketchList].

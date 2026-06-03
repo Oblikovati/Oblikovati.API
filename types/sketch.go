@@ -18,6 +18,18 @@ const (
 	SketchEntityUnknown SketchEntityKind = "unknown"
 )
 
+// SketchLineType is a sketch's line-style override (Inventor LineTypeEnum). The empty
+// value means "inherit the document default". String values are frozen.
+type SketchLineType string
+
+const (
+	SketchLineContinuous SketchLineType = "continuous"
+	SketchLineDashed     SketchLineType = "dashed"
+	SketchLineHidden     SketchLineType = "hidden"
+	SketchLineCenter     SketchLineType = "center"
+	SketchLinePhantom    SketchLineType = "phantom"
+)
+
 // GeometricConstraintKind discriminates a sketch geometric (non-dimensional)
 // constraint. Used by [github.com/Oblikovati/api/wire.AddConstraintArgs.Kind] and by
 // the enumerated constraint's Kind. String values are frozen.
