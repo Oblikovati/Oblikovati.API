@@ -9,13 +9,14 @@ package types
 type SketchEntityKind string
 
 const (
-	SketchEntityLine    SketchEntityKind = "line"
-	SketchEntityPoint   SketchEntityKind = "point"
-	SketchEntityCircle  SketchEntityKind = "circle"
-	SketchEntityArc     SketchEntityKind = "arc"
-	SketchEntityEllipse SketchEntityKind = "ellipse"
-	SketchEntitySpline  SketchEntityKind = "spline"
-	SketchEntityUnknown SketchEntityKind = "unknown"
+	SketchEntityLine          SketchEntityKind = "line"
+	SketchEntityPoint         SketchEntityKind = "point"
+	SketchEntityCircle        SketchEntityKind = "circle"
+	SketchEntityArc           SketchEntityKind = "arc"
+	SketchEntityEllipse       SketchEntityKind = "ellipse"
+	SketchEntityEllipticalArc SketchEntityKind = "ellipticalArc"
+	SketchEntitySpline        SketchEntityKind = "spline"
+	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 
 // SketchLineType is a sketch's line-style override (Inventor LineTypeEnum). The empty

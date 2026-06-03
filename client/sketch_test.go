@@ -114,6 +114,22 @@ func TestSketchAddArcByThreePointsSetsVariant(t *testing.T) {
 	}
 }
 
+func TestSketchAddEllipseMarshalsAxisAndRadii(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":5,"kind":"ellipse","pointIds":[4]}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch().AddEllipse(0, []float64{0, 0}, []float64{1, 0}, "20 mm", "10 mm", false); err != nil {
+		t.Fatalf("AddEllipse: %v", err)
+	}
+	var sent wire.AddSketchEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "ellipse" || len(sent.Axis) != 2 || sent.MajorRadius != "20 mm" || sent.MinorRadius != "10 mm" {
+		t.Errorf("sent = %+v, want ellipse with axis + 20mm/10mm radii", sent)
+	}
+}
+
 func TestSketchSolveDecodesStatus(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"sketchIndex":0,"dof":0,"status":"well","converged":true,"healthy":true}`)}
 	c := New(ft)

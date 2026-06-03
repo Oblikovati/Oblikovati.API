@@ -18,6 +18,18 @@ type AddSketchEntityArgs struct {
 	Radius       string      `json:"radius,omitempty"`
 	CCW          bool        `json:"ccw,omitempty"`
 	Construction bool        `json:"construction,omitempty"`
+
+	// Conic fields (ellipse / ellipticalArc): Points[0] is the center, Axis is the
+	// major-axis direction [x,y], MajorRadius/MinorRadius are unit-bearing lengths, and
+	// StartAngle/EndAngle (unit-bearing angles, ellipticalArc only) bound the sweep.
+	Axis        []float64 `json:"axis,omitempty"`
+	MajorRadius string    `json:"majorRadius,omitempty"`
+	MinorRadius string    `json:"minorRadius,omitempty"`
+	StartAngle  string    `json:"startAngle,omitempty"`
+	EndAngle    string    `json:"endAngle,omitempty"`
+
+	// Closed marks a spline a closed loop (spline kinds only).
+	Closed bool `json:"closed,omitempty"`
 }
 
 // AddSketchEntityResult is the response of [MethodSketchAddEntity]: the new entity's

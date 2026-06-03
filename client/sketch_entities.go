@@ -61,3 +61,32 @@ func (s Sketch) AddArcByThreePoints(index int, a, b, c []float64, construction b
 		Points: [][]float64{a, b, c}, Construction: construction,
 	})
 }
+
+// AddEllipse adds a full ellipse from a center [x,y] (cm), a major-axis direction [x,y],
+// and unit-bearing major/minor radii ("20 mm").
+func (s Sketch) AddEllipse(index int, center, axis []float64, majorR, minorR string, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityEllipse),
+		Points: [][]float64{center}, Axis: axis, MajorRadius: majorR, MinorRadius: minorR,
+		Construction: construction,
+	})
+}
+
+// AddEllipticalArc adds an elliptical arc bounded by unit-bearing start/end angles
+// ("0 deg", "90 deg") measured in the ellipse's major/minor frame.
+func (s Sketch) AddEllipticalArc(index int, center, axis []float64, majorR, minorR, startAngle, endAngle string, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityEllipticalArc),
+		Points: [][]float64{center}, Axis: axis, MajorRadius: majorR, MinorRadius: minorR,
+		StartAngle: startAngle, EndAngle: endAngle, Construction: construction,
+	})
+}
+
+// AddSpline adds a spline through fit points (default) or as a control-point spline when
+// variant is "controlPoint". Points are [x,y] in cm; closed makes a closed loop.
+func (s Sketch) AddSpline(index int, variant string, points [][]float64, closed, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntitySpline), Variant: variant,
+		Points: points, Closed: closed, Construction: construction,
+	})
+}
