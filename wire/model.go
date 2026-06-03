@@ -24,8 +24,12 @@ type ModelTreeResult struct {
 }
 
 // SelectionResult is the response of [MethodModelSelection]: how many entities are
-// selected and their selection kinds.
+// selected, their selection kinds, and — parallel to Kinds — each entity's work-feature
+// reference (a datum plane/axis/point key, or a face/vertex reference) for entities that
+// have one, empty otherwise. A client reads Refs to feed a selected face/point/plane into
+// [MethodWorkPlanesCreate].
 type SelectionResult struct {
-	Count int   `json:"count"`
-	Kinds []int `json:"kinds"`
+	Count int      `json:"count"`
+	Kinds []int    `json:"kinds"`
+	Refs  []string `json:"refs"`
 }

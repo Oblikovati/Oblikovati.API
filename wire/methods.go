@@ -37,6 +37,9 @@ const (
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 
+	MethodWorkPlanesList   = "workPlanes.list"
+	MethodWorkPlanesCreate = "workPlanes.create"
+
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
 
