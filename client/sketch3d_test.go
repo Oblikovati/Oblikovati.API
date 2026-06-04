@@ -273,3 +273,26 @@ func TestSketch3DDeleteEntitiesSendsOp(t *testing.T) {
 		t.Errorf("sent = %+v, want delete of 2 entities", sent)
 	}
 }
+
+func TestSketch3DIncludeSendsRefs(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"created":[5],"healthy":true}`)}
+	c := New(ft)
+
+	res, err := c.Sketch3D().Include(0, []string{"edge-key-1"})
+	if err != nil {
+		t.Fatalf("Include: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DInclude {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DInclude)
+	}
+	var sent wire.IncludeSketch3DArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if len(sent.Refs) != 1 || sent.Refs[0] != "edge-key-1" {
+		t.Errorf("sent = %+v, want one edge ref", sent)
+	}
+	if len(res.Created) != 1 || !res.Healthy {
+		t.Errorf("decoded = %+v, want 1 created / healthy", res)
+	}
+}
