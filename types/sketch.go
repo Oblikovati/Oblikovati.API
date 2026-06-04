@@ -22,6 +22,8 @@ const (
 	SketchEntityFillet        SketchEntityKind = "fillet"
 	SketchEntityChamfer       SketchEntityKind = "chamfer"
 	SketchEntityImage         SketchEntityKind = "image"
+	SketchEntityFillRegion    SketchEntityKind = "fillRegion"
+	SketchEntityText          SketchEntityKind = "text"
 	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 

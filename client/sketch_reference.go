@@ -22,3 +22,18 @@ func (s Sketch) AddImage(index int, ref string, anchor []float64, width, height,
 	}
 	return r, s.c.call(wire.MethodSketchAddImage, args, &r)
 }
+
+// AddFillRegion fills the closed region containing seed ([x,y] cm) with the named style.
+func (s Sketch) AddFillRegion(index int, seed []float64, style string) (wire.AddEntityIDResult, error) {
+	var r wire.AddEntityIDResult
+	args := wire.AddFillRegionArgs{SketchIndex: index, Seed: seed, Style: style}
+	return r, s.c.call(wire.MethodSketchAddFillRegion, args, &r)
+}
+
+// AddText places sketch text at anchor ([x,y] cm) with a unit-bearing height; rotation and
+// justify ("left"|"center"|"right") are optional.
+func (s Sketch) AddText(index int, anchor []float64, text, height, rotation, justify string) (wire.AddEntityIDResult, error) {
+	var r wire.AddEntityIDResult
+	args := wire.AddTextArgs{SketchIndex: index, Anchor: anchor, Text: text, Height: height, Rotation: rotation, Justify: justify}
+	return r, s.c.call(wire.MethodSketchAddText, args, &r)
+}

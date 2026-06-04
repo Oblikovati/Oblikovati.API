@@ -35,3 +35,29 @@ type AddSketchImageArgs struct {
 type AddSketchImageResult struct {
 	EntityID uint64 `json:"entityId"`
 }
+
+// AddFillRegionArgs is the request of [MethodSketchAddFillRegion]: fill the closed region
+// containing Seed ([x,y] cm) with the named Style (empty ⇒ solid).
+type AddFillRegionArgs struct {
+	SketchIndex int       `json:"sketchIndex"`
+	Seed        []float64 `json:"seed"`
+	Style       string    `json:"style,omitempty"`
+}
+
+// AddTextArgs is the request of [MethodSketchAddText]: place Text anchored at Anchor
+// ([x,y] cm), with a unit-bearing Height, an optional unit-bearing Rotation (CCW about
+// the anchor), and a Justify ("left" | "center" | "right").
+type AddTextArgs struct {
+	SketchIndex int       `json:"sketchIndex"`
+	Anchor      []float64 `json:"anchor"`
+	Text        string    `json:"text"`
+	Height      string    `json:"height"`
+	Rotation    string    `json:"rotation,omitempty"`
+	Justify     string    `json:"justify,omitempty"`
+}
+
+// AddEntityIDResult is the trivial response carrying just a created entity's id (used by
+// [MethodSketchAddFillRegion] and [MethodSketchAddText]).
+type AddEntityIDResult struct {
+	EntityID uint64 `json:"entityId"`
+}
