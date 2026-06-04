@@ -96,3 +96,45 @@ func TestSketch3DListSendsNilBodyAndDecodes(t *testing.T) {
 		t.Errorf("decoded = %+v, want one 3D Sketch1", res.Sketches)
 	}
 }
+
+func TestSketch3DParallelSendsKindAndEntities(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"parallel","dof":4}`)}
+	c := New(ft)
+
+	got, err := c.Sketch3D().Parallel(0, 11, 22)
+	if err != nil {
+		t.Fatalf("Parallel: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DAddConstraint {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DAddConstraint)
+	}
+	var sent wire.AddSketch3DConstraintArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "parallel" || len(sent.Entities) != 2 || sent.Entities[0] != 11 || sent.Entities[1] != 22 {
+		t.Errorf("sent = %+v, want parallel over [11,22]", sent)
+	}
+	if got.DOF != 4 {
+		t.Errorf("decoded DOF = %d, want 4", got.DOF)
+	}
+}
+
+func TestSketch3DDeleteConstraintSendsIndices(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().DeleteConstraint(1, 3); err != nil {
+		t.Fatalf("DeleteConstraint: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DDeleteConstraint {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DDeleteConstraint)
+	}
+	var sent wire.DeleteSketch3DConstraintArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.SketchIndex != 1 || sent.ConstraintIndex != 3 {
+		t.Errorf("sent = %+v, want sketch 1 / constraint 3", sent)
+	}
+}
