@@ -130,6 +130,14 @@ const (
 	MethodModelAssignMaterial     = "model.assignMaterial"
 	MethodModelAssignAppearance   = "model.assignAppearance"
 	MethodModelPhysicalProperties = "model.physicalProperties"
+
+	MethodClientGraphicsSet        = "clientGraphics.set"
+	MethodClientGraphicsList       = "clientGraphics.list"
+	MethodClientGraphicsDelete     = "clientGraphics.delete"
+	MethodClientGraphicsSetVisible = "clientGraphics.setVisible"
+
+	MethodInteractionGraphicsUpdate = "interactionGraphics.update"
+	MethodInteractionGraphicsClear  = "interactionGraphics.clear"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
