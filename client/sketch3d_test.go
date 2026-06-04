@@ -296,3 +296,39 @@ func TestSketch3DIncludeSendsRefs(t *testing.T) {
 		t.Errorf("decoded = %+v, want 1 created / healthy", res)
 	}
 }
+
+func TestSketch3DAddIntersectionCurveSendsFaces(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":12,"kind":"intersection","healthy":true}`)}
+	c := New(ft)
+
+	res, err := c.Sketch3D().AddIntersectionCurve(0, "faceA", "faceB", wire.AddSketch3DSurfaceCurveArgs{GridUMax: 10})
+	if err != nil {
+		t.Fatalf("AddIntersectionCurve: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DAddSurfaceCurve {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DAddSurfaceCurve)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "intersection" || len(sent.FaceRefs) != 2 || sent.GridUMax != 10 {
+		t.Errorf("sent = %+v, want intersection over [faceA,faceB] with the grid window", sent)
+	}
+	if !res.Healthy || res.EntityID != 12 {
+		t.Errorf("decoded = %+v, want healthy id 12", res)
+	}
+}
+
+func TestSketch3DAddSilhouetteCurveSendsViewDir(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":13,"kind":"silhouette","healthy":true}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().AddSilhouetteCurve(0, "faceA", []float64{0, 0, 1}, wire.AddSketch3DSurfaceCurveArgs{}); err != nil {
+		t.Fatalf("AddSilhouetteCurve: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.Kind != "silhouette" || len(sent.FaceRefs) != 1 || len(sent.ViewDir) != 3 {
+		t.Errorf("sent = %+v, want silhouette of one face with a view dir", sent)
+	}
+}

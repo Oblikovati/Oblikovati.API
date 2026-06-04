@@ -86,6 +86,7 @@ const (
 	MethodSketch3DPaths            = "sketch3d.paths"
 	MethodSketch3DTransform        = "sketch3d.transform"
 	MethodSketch3DInclude          = "sketch3d.include"
+	MethodSketch3DAddSurfaceCurve  = "sketch3d.addSurfaceCurve"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
