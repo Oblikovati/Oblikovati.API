@@ -79,6 +79,9 @@ const (
 	GeoConstraintSymmetry      GeometricConstraintKind = "symmetry"
 	GeoConstraintFix           GeometricConstraintKind = "fix"
 	GeoConstraintSmooth        GeometricConstraintKind = "smooth"
+	GeoConstraintGround        GeometricConstraintKind = "ground"
+	GeoConstraintOffset        GeometricConstraintKind = "offset"
+	GeoConstraintPattern       GeometricConstraintKind = "patternLink"
 	GeoConstraintUnknown       GeometricConstraintKind = "unknown"
 )
 

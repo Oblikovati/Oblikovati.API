@@ -90,6 +90,21 @@ func (g Constrain) Fix(point uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintFix, point)
 }
 
+// Ground fixes every point of an entity (the whole geometry) in place.
+func (g Constrain) Ground(entity uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintGround, entity)
+}
+
+// Offset holds two lines parallel at their current perpendicular distance.
+func (g Constrain) Offset(line1, line2 uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintOffset, line1, line2)
+}
+
+// PatternLink rigidly links a member point to a seed point at their current offset.
+func (g Constrain) PatternLink(seed, member uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintPattern, seed, member)
+}
+
 // Delete removes the geometric constraint at the given collection index.
 func (g Constrain) Delete(constraintIndex int) (wire.OKResult, error) {
 	var r wire.OKResult
