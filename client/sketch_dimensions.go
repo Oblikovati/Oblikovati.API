@@ -49,6 +49,21 @@ func (g Dimension) ArcLength(arc uint64, expression string) (wire.AddDimensionRe
 	return g.Add(types.DimConstraintArcLength, expression, arc)
 }
 
+// Offset dimensions the perpendicular distance from a point to a line.
+func (g Dimension) Offset(point, line uint64, expression string) (wire.AddDimensionResult, error) {
+	return g.Add(types.DimConstraintOffset, expression, point, line)
+}
+
+// ThreePointAngle dimensions the angle a–vertex–b.
+func (g Dimension) ThreePointAngle(vertex, a, b uint64, expression string) (wire.AddDimensionResult, error) {
+	return g.Add(types.DimConstraintThreePointAngle, expression, vertex, a, b)
+}
+
+// EllipseRadius dimensions an ellipse's major radius.
+func (g Dimension) EllipseRadius(ellipse uint64, expression string) (wire.AddDimensionResult, error) {
+	return g.Add(types.DimConstraintEllipseRadius, expression, ellipse)
+}
+
 // Drive edits a dimension's value (a unit-bearing expression; empty leaves it unchanged).
 func (g Dimension) Drive(dimensionIndex int, expression string) (wire.OKResult, error) {
 	return g.edit(wire.DriveDimensionArgs{SketchIndex: g.index, DimensionIndex: dimensionIndex, Expression: expression})

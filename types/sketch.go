@@ -91,10 +91,13 @@ const (
 type DimensionConstraintKind string
 
 const (
-	DimConstraintDistance  DimensionConstraintKind = "distance"
-	DimConstraintAngle     DimensionConstraintKind = "angle"
-	DimConstraintRadius    DimensionConstraintKind = "radius"
-	DimConstraintDiameter  DimensionConstraintKind = "diameter"
-	DimConstraintArcLength DimensionConstraintKind = "arcLength"
-	DimConstraintUnknown   DimensionConstraintKind = "unknown"
+	DimConstraintDistance        DimensionConstraintKind = "distance"
+	DimConstraintAngle           DimensionConstraintKind = "angle"
+	DimConstraintRadius          DimensionConstraintKind = "radius"
+	DimConstraintDiameter        DimensionConstraintKind = "diameter"
+	DimConstraintArcLength       DimensionConstraintKind = "arcLength"
+	DimConstraintOffset          DimensionConstraintKind = "offsetDim"
+	DimConstraintThreePointAngle DimensionConstraintKind = "threePointAngle"
+	DimConstraintEllipseRadius   DimensionConstraintKind = "ellipseRadius"
+	DimConstraintUnknown         DimensionConstraintKind = "unknown"
 )
