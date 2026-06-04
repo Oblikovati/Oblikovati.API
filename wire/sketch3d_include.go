@@ -17,3 +17,13 @@ type IncludeSketch3DResult struct {
 	Created []uint64 `json:"created,omitempty"`
 	Healthy bool     `json:"healthy"`
 }
+
+// IncludeSketch2DArgs is the request of [MethodSketch3DIncludeSketch]: include geometry of
+// an existing 2D sketch into a 3D sketch as associative reference geometry, lifted through
+// the 2D sketch's host plane. SketchIndex is the target 3D sketch; SourceSketchIndex is
+// the source 2D sketch; EntityIDs are the session ids of the 2D points/curves to include.
+type IncludeSketch2DArgs struct {
+	SketchIndex       int      `json:"sketchIndex"`
+	SourceSketchIndex int      `json:"sourceSketchIndex"`
+	EntityIDs         []uint64 `json:"entityIDs"`
+}
