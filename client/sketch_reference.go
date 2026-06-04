@@ -27,6 +27,20 @@ func (s Sketch) AutoDimension(index int) (wire.AutoDimensionResult, error) {
 	return r, s.c.call(wire.MethodSketchAutoDimension, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// Project projects part edges/vertices (by reference-key string) onto the sketch plane as
+// associative reference geometry; mode "include" projects them as ordinary geometry.
+func (s Sketch) Project(index int, refs []string, mode string) (wire.ProjectGeometryResult, error) {
+	var r wire.ProjectGeometryResult
+	args := wire.ProjectGeometryArgs{SketchIndex: index, Refs: refs, Mode: mode}
+	return r, s.c.call(wire.MethodSketchProject, args, &r)
+}
+
+// Include projects part topology as ordinary sketch geometry (a convenience for Project
+// with mode "include").
+func (s Sketch) Include(index int, refs []string) (wire.ProjectGeometryResult, error) {
+	return s.Project(index, refs, "include")
+}
+
 // AddImage places a raster image (ref is a package-store reference) anchored at [x,y] cm
 // with unit-bearing width/height; rotation and opacity are optional ("" / 0).
 func (s Sketch) AddImage(index int, ref string, anchor []float64, width, height, rotation string, opacity float64) (wire.AddSketchImageResult, error) {

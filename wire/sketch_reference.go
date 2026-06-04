@@ -47,6 +47,23 @@ type AddSketchImageResult struct {
 	EntityID uint64 `json:"entityId"`
 }
 
+// ProjectGeometryArgs is the request of [MethodSketchProject]: project the part topology
+// referenced by Refs (edge/vertex reference-key strings) onto the sketch plane. Mode is
+// "reference" (associative reference geometry, default) or "include" (projected as
+// ordinary sketch geometry). Each ref becomes a projected point (vertex) or curve (edge).
+type ProjectGeometryArgs struct {
+	SketchIndex int      `json:"sketchIndex"`
+	Refs        []string `json:"refs"`
+	Mode        string   `json:"mode,omitempty"`
+}
+
+// ProjectGeometryResult is the response of [MethodSketchProject]: the ids of the created
+// projected entities and whether every reference resolved.
+type ProjectGeometryResult struct {
+	Created []uint64 `json:"created"`
+	Healthy bool     `json:"healthy"`
+}
+
 // AddFillRegionArgs is the request of [MethodSketchAddFillRegion]: fill the closed region
 // containing Seed ([x,y] cm) with the named Style (empty ⇒ solid).
 type AddFillRegionArgs struct {
