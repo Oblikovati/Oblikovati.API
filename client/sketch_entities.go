@@ -91,6 +91,29 @@ func (s Sketch) AddSpline(index int, variant string, points [][]float64, closed,
 	})
 }
 
+// AddEquationCurve adds a parametric curve x(t)/y(t) over t ∈ [t0, t1] (t unitless).
+func (s Sketch) AddEquationCurve(index int, xExpr, yExpr string, t0, t1 float64) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityEquationCurve),
+		XExpr: xExpr, YExpr: yExpr, T0: t0, T1: t1,
+	})
+}
+
+// AddFixedSpline adds an immutable spline through the given fixed points ([x,y] cm each).
+func (s Sketch) AddFixedSpline(index int, points [][]float64) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityFixedSpline), Points: points,
+	})
+}
+
+// AddOffsetSpline adds the offset of a parent spline (by id) at a unit-bearing distance.
+func (s Sketch) AddOffsetSpline(index int, parentSpline uint64, distance string) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityOffsetSpline),
+		EntityRefs: []uint64{parentSpline}, Radius: distance,
+	})
+}
+
 // AddRectangle adds an axis-aligned rectangle from two opposite corners (each [x,y] cm).
 func (s Sketch) AddRectangle(index int, corner, opposite []float64, construction bool) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{

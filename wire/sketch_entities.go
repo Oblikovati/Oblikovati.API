@@ -37,10 +37,17 @@ type AddSketchEntityArgs struct {
 	Width string `json:"width,omitempty"`
 
 	// EntityRefs are existing entity ids the kind operates on (the two line ids for the
-	// fillet/chamfer corner blends). Radius is the fillet radius / chamfer first distance;
-	// Distance2 is the chamfer second distance (defaults to Radius when empty).
+	// fillet/chamfer corner blends; the parent spline id for offsetSpline). Radius is the
+	// fillet radius / chamfer first distance / offset-spline distance; Distance2 is the
+	// chamfer second distance (defaults to Radius when empty).
 	EntityRefs []uint64 `json:"entityRefs,omitempty"`
 	Distance2  string   `json:"distance2,omitempty"`
+
+	// Equation-curve fields: x(t)/y(t) expressions over t ∈ [T0, T1].
+	XExpr string  `json:"xExpr,omitempty"`
+	YExpr string  `json:"yExpr,omitempty"`
+	T0    float64 `json:"t0,omitempty"`
+	T1    float64 `json:"t1,omitempty"`
 }
 
 // AddSketchEntityResult is the response of [MethodSketchAddEntity]: the primary entity's

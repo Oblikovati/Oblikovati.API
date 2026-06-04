@@ -24,6 +24,9 @@ const (
 	SketchEntityImage         SketchEntityKind = "image"
 	SketchEntityFillRegion    SketchEntityKind = "fillRegion"
 	SketchEntityText          SketchEntityKind = "text"
+	SketchEntityEquationCurve SketchEntityKind = "equationCurve"
+	SketchEntityFixedSpline   SketchEntityKind = "fixedSpline"
+	SketchEntityOffsetSpline  SketchEntityKind = "offsetSpline"
 	SketchEntityUnknown       SketchEntityKind = "unknown"
 )
 
