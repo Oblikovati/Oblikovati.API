@@ -138,6 +138,10 @@ const (
 
 	MethodInteractionGraphicsUpdate = "interactionGraphics.update"
 	MethodInteractionGraphicsClear  = "interactionGraphics.clear"
+
+	MethodTransactionUndo  = "transaction.undo"
+	MethodTransactionRedo  = "transaction.redo"
+	MethodTransactionState = "transaction.state"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
