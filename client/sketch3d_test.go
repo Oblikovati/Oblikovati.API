@@ -205,3 +205,35 @@ func TestSketch3DPathsSendsIndex(t *testing.T) {
 		t.Errorf("decoded = %+v, want one closed path of 5 pts", res.Paths)
 	}
 }
+
+func TestSketch3DAddSplineSendsKindAndClosed(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":7,"kind":"controlPointSpline"}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().AddSpline(0, [][]float64{{0, 0, 0}, {1, 0, 1}}, true, false); err != nil {
+		t.Fatalf("AddSpline: %v", err)
+	}
+	var sent wire.AddSketch3DEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "controlPointSpline" || !sent.Closed || len(sent.Points) != 2 {
+		t.Errorf("sent = %+v, want closed controlPointSpline of 2 pts", sent)
+	}
+}
+
+func TestSketch3DAddEquationCurveSendsExprs(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":8,"kind":"equationCurve"}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().AddEquationCurve(0, "cos(t)", "sin(t)", "t", 0, 6.28); err != nil {
+		t.Fatalf("AddEquationCurve: %v", err)
+	}
+	var sent wire.AddSketch3DEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.XExpr != "cos(t)" || sent.ZExpr != "t" || sent.T1 != 6.28 {
+		t.Errorf("sent = %+v, want the x/y/z exprs over [0,6.28]", sent)
+	}
+}

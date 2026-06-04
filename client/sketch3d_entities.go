@@ -69,6 +69,33 @@ func (s Sketch3D) AddEllipticalArc(index int, center, axis, majorAxis []float64,
 	})
 }
 
+// AddSpline adds an interpolation (fit=true) or control-point (fit=false) spline through
+// the given points (each [x,y,z] in cm); closed marks a loop.
+func (s Sketch3D) AddSpline(index int, points [][]float64, closed, fit bool) (wire.AddSketch3DEntityResult, error) {
+	kind := types.Sketch3DEntitySpline
+	if !fit {
+		kind = types.Sketch3DEntityControlPointSpline
+	}
+	return s.AddEntity(wire.AddSketch3DEntityArgs{
+		SketchIndex: index, Kind: string(kind), Points: points, Closed: closed,
+	})
+}
+
+// AddFixedSpline adds an immutable spline through the given points.
+func (s Sketch3D) AddFixedSpline(index int, points [][]float64, closed bool) (wire.AddSketch3DEntityResult, error) {
+	return s.AddEntity(wire.AddSketch3DEntityArgs{
+		SketchIndex: index, Kind: string(types.Sketch3DEntityFixedSpline), Points: points, Closed: closed,
+	})
+}
+
+// AddEquationCurve adds a parametric curve from x(t)/y(t)/z(t) expressions over [t0,t1].
+func (s Sketch3D) AddEquationCurve(index int, xExpr, yExpr, zExpr string, t0, t1 float64) (wire.AddSketch3DEntityResult, error) {
+	return s.AddEntity(wire.AddSketch3DEntityArgs{
+		SketchIndex: index, Kind: string(types.Sketch3DEntityEquationCurve),
+		XExpr: xExpr, YExpr: yExpr, ZExpr: zExpr, T0: t0, T1: t1,
+	})
+}
+
 // AddHelix adds a helical curve. origin [x,y,z] (cm) is the axis base, axis [x,y,z] the
 // winding direction (empty ⇒ +Z), radius a unit-bearing start radius. mode selects which
 // two of pitch/height/revolutions define the helix; pass the matching unit-bearing

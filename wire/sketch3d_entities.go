@@ -41,6 +41,16 @@ type AddSketch3DEntityArgs struct {
 	MinorRadius string    `json:"minorRadius,omitempty"`
 	StartAngle  string    `json:"startAngle,omitempty"`
 	SweepAngle  string    `json:"sweepAngle,omitempty"`
+
+	// Spline fields. For spline/controlPointSpline/fixedSpline, Points are the defining
+	// points (each [x,y,z] in cm); Closed marks a closed loop. For equationCurve, XExpr/
+	// YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1].
+	Closed bool    `json:"closed,omitempty"`
+	XExpr  string  `json:"xExpr,omitempty"`
+	YExpr  string  `json:"yExpr,omitempty"`
+	ZExpr  string  `json:"zExpr,omitempty"`
+	T0     float64 `json:"t0,omitempty"`
+	T1     float64 `json:"t1,omitempty"`
 }
 
 // AddSketch3DEntityResult is the response of [MethodSketch3DAddEntity]: the created
