@@ -21,14 +21,19 @@ type AppearanceInfo struct {
 // MaterialInfo is the JSON shape of a material: identity, density, the property groups,
 // and the id of the appearance it renders with.
 type MaterialInfo struct {
-	ID           string           `json:"id"`
-	DisplayName  string           `json:"displayName"`
-	Source       string           `json:"source"`
-	Density      float64          `json:"density"`
-	Mechanical   types.Mechanical `json:"mechanical"`
-	Thermal      types.Thermal    `json:"thermal"`
-	Electrical   types.Electrical `json:"electrical"`
-	AppearanceID string           `json:"appearanceId"`
+	ID          string           `json:"id"`
+	DisplayName string           `json:"displayName"`
+	Source      string           `json:"source"`
+	Density     float64          `json:"density"`
+	Mechanical  types.Mechanical `json:"mechanical"`
+	Thermal     types.Thermal    `json:"thermal"`
+	Electrical  types.Electrical `json:"electrical"`
+	// IsotropyClass is "isotropic" (or empty), "orthotropic", or "transversely-isotropic".
+	IsotropyClass string `json:"isotropyClass,omitempty"`
+	// Anisotropic carries the direction-dependent elastic constants when IsotropyClass is
+	// not isotropic; zero-valued otherwise.
+	Anisotropic  types.AnisotropicElastic `json:"anisotropic"`
+	AppearanceID string                   `json:"appearanceId"`
 }
 
 // ListAppearancesResult / ListMaterialsResult are the list responses.
