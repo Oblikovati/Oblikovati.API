@@ -237,3 +237,39 @@ func TestSketch3DAddEquationCurveSendsExprs(t *testing.T) {
 		t.Errorf("sent = %+v, want the x/y/z exprs over [0,6.28]", sent)
 	}
 }
+
+func TestSketch3DMoveAndCopySendOp(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"created":[9],"entityCount":2}`)}
+	c := New(ft)
+
+	res, err := c.Sketch3D().Copy(0, []uint64{3}, []float64{0, 5, 0})
+	if err != nil {
+		t.Fatalf("Copy: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DTransform {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DTransform)
+	}
+	var sent wire.Transform3DArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Op != "copy" || len(sent.Vector) != 3 || sent.Vector[1] != 5 {
+		t.Errorf("sent = %+v, want copy by [0,5,0]", sent)
+	}
+	if len(res.Created) != 1 || res.EntityCount != 2 {
+		t.Errorf("decoded = %+v, want 1 created / 2 entities", res)
+	}
+}
+
+func TestSketch3DDeleteEntitiesSendsOp(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityCount":0}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().DeleteEntities(0, []uint64{1, 2}); err != nil {
+		t.Fatalf("DeleteEntities: %v", err)
+	}
+	var sent wire.Transform3DArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.Op != "delete" || len(sent.Entities) != 2 {
+		t.Errorf("sent = %+v, want delete of 2 entities", sent)
+	}
+}

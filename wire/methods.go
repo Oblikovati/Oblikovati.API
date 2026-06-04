@@ -84,6 +84,7 @@ const (
 	MethodSketch3DDriveDimension   = "sketch3d.driveDimension"
 	MethodSketch3DProfiles         = "sketch3d.profiles"
 	MethodSketch3DPaths            = "sketch3d.paths"
+	MethodSketch3DTransform        = "sketch3d.transform"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
