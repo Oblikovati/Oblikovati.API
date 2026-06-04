@@ -28,7 +28,11 @@ const (
 	Sketch3DEntityProjectToSurface   Sketch3DEntityKind = "projectToSurface"
 	Sketch3DEntitySilhouette         Sketch3DEntityKind = "silhouette"
 	Sketch3DEntityOffset             Sketch3DEntityKind = "offset"
-	Sketch3DEntityUnknown            Sketch3DEntityKind = "unknown"
+	// Included reference geometry (Include Geometry: a model vertex/edge linked into the
+	// 3D sketch, tracking its source — M22-F08).
+	Sketch3DEntityIncludedPoint Sketch3DEntityKind = "includedPoint"
+	Sketch3DEntityIncludedCurve Sketch3DEntityKind = "includedCurve"
+	Sketch3DEntityUnknown       Sketch3DEntityKind = "unknown"
 )
 
 // Geometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —
