@@ -36,6 +36,35 @@ const (
 	MethodSketchCreate    = "sketch.create"
 	MethodSketchRectangle = "sketch.rectangle"
 
+	MethodSketchList        = "sketch.list"
+	MethodSketchGet         = "sketch.get"
+	MethodSketchEdit        = "sketch.edit"
+	MethodSketchExitEdit    = "sketch.exitEdit"
+	MethodSketchSolve       = "sketch.solve"
+	MethodSketchDelete      = "sketch.delete"
+	MethodSketchEntities    = "sketch.entities"
+	MethodSketchConstraints = "sketch.constraints"
+	MethodSketchDimensions  = "sketch.dimensions"
+	MethodSketchSetProperty = "sketch.setProperty"
+	MethodSketchAddEntity   = "sketch.addEntity"
+
+	MethodSketchAddConstraint    = "sketch.addConstraint"
+	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
+
+	MethodSketchAddDimension   = "sketch.addDimension"
+	MethodSketchDriveDimension = "sketch.driveDimension"
+
+	MethodSketchConstraintStatus = "sketch.constraintStatus"
+	MethodSketchProfiles         = "sketch.profiles"
+	MethodSketchTransform        = "sketch.transform"
+	MethodSketchAddPattern       = "sketch.addPattern"
+	MethodSketchOffset           = "sketch.offset"
+	MethodSketchAddImage         = "sketch.addImage"
+	MethodSketchAddFillRegion    = "sketch.addFillRegion"
+	MethodSketchAddText          = "sketch.addText"
+	MethodSketchAutoDimension    = "sketch.autoDimension"
+	MethodSketchProject          = "sketch.project"
+
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 
