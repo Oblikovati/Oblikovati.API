@@ -102,6 +102,21 @@ const (
 	MethodViewSetDisplayMode   = "view.setDisplayMode"
 	MethodViewListDisplayModes = "view.listDisplayModes"
 
+	MethodViewGetShadows = "view.getShadows"
+	MethodViewSetShadows = "view.setShadows"
+
+	MethodLightingGetStyle   = "lighting.getStyle"
+	MethodLightingSetStyle   = "lighting.setStyle"
+	MethodLightingListStyles = "lighting.listStyles"
+	MethodLightingListLights = "lighting.listLights"
+	MethodLightingAddLight   = "lighting.addLight"
+	MethodLightingSetLight   = "lighting.setLight"
+
+	MethodEnvironmentGet         = "environment.get"
+	MethodEnvironmentSet         = "environment.set"
+	MethodEnvironmentListPresets = "environment.listPresets"
+	MethodEnvironmentLoadImage   = "environment.loadImage"
+
 	MethodAppearancesList   = "appearances.list"
 	MethodAppearancesGet    = "appearances.get"
 	MethodAppearancesCreate = "appearances.create"
