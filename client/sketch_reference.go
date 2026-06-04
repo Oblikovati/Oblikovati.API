@@ -12,6 +12,21 @@ func (s Sketch) Offset(index int, entity uint64, distance string) (wire.OffsetSk
 	return r, s.c.call(wire.MethodSketchOffset, args, &r)
 }
 
+// OffsetChain offsets a connected chain of lines (ids in order) by a signed unit-bearing
+// distance, mitring the joins; returns the created line ids.
+func (s Sketch) OffsetChain(index int, lines []uint64, distance string) (wire.OffsetSketchResult, error) {
+	var r wire.OffsetSketchResult
+	args := wire.OffsetSketchArgs{SketchIndex: index, Entities: lines, Distance: distance}
+	return r, s.c.call(wire.MethodSketchOffset, args, &r)
+}
+
+// AutoDimension fully constrains the sketch (grounds free geometry to 0 DOF), returning
+// the number of constraints added and the resulting DOF.
+func (s Sketch) AutoDimension(index int) (wire.AutoDimensionResult, error) {
+	var r wire.AutoDimensionResult
+	return r, s.c.call(wire.MethodSketchAutoDimension, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
 // AddImage places a raster image (ref is a package-store reference) anchored at [x,y] cm
 // with unit-bearing width/height; rotation and opacity are optional ("" / 0).
 func (s Sketch) AddImage(index int, ref string, anchor []float64, width, height, rotation string, opacity float64) (wire.AddSketchImageResult, error) {

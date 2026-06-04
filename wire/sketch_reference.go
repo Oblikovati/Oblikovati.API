@@ -2,19 +2,30 @@
 
 package wire
 
-// OffsetSketchArgs is the request of [MethodSketchOffset]: offset the entity Entity (a
-// line/circle/arc id) by the unit-bearing Distance (signed — a parallel line to the left
-// of A→B, or a concentric circle/arc of radius r+d, for a positive distance).
+// OffsetSketchArgs is the request of [MethodSketchOffset]: offset Entity (a line/circle/arc
+// id) by the unit-bearing Distance (signed — a parallel line to the left of A→B, or a
+// concentric circle/arc of radius r+d, for a positive distance). When Entities (a chain of
+// connected line ids, in order) is set instead, the whole chain is offset and mitred.
 type OffsetSketchArgs struct {
-	SketchIndex int    `json:"sketchIndex"`
-	Entity      uint64 `json:"entity"`
-	Distance    string `json:"distance"`
+	SketchIndex int      `json:"sketchIndex"`
+	Entity      uint64   `json:"entity,omitempty"`
+	Entities    []uint64 `json:"entities,omitempty"`
+	Distance    string   `json:"distance"`
 }
 
-// OffsetSketchResult is the response of [MethodSketchOffset]: the new entity's id and kind.
+// OffsetSketchResult is the response of [MethodSketchOffset]: the primary new entity's id
+// and kind, plus all created entity ids (more than one for a chain offset).
 type OffsetSketchResult struct {
-	EntityID uint64 `json:"entityId"`
-	Kind     string `json:"kind"`
+	EntityID uint64   `json:"entityId"`
+	Kind     string   `json:"kind"`
+	Created  []uint64 `json:"created,omitempty"`
+}
+
+// AutoDimensionResult is the response of [MethodSketchAutoDimension]: how many constraints
+// were added and the sketch's resulting DOF (0 when it is now fully constrained).
+type AutoDimensionResult struct {
+	Added int `json:"added"`
+	DOF   int `json:"dof"`
 }
 
 // AddSketchImageArgs is the request of [MethodSketchAddImage]: place a raster image (Ref

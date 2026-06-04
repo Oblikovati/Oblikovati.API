@@ -62,6 +62,7 @@ const (
 	MethodSketchAddImage         = "sketch.addImage"
 	MethodSketchAddFillRegion    = "sketch.addFillRegion"
 	MethodSketchAddText          = "sketch.addText"
+	MethodSketchAutoDimension    = "sketch.autoDimension"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
