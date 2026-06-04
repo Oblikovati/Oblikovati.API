@@ -18,6 +18,19 @@ type AddSketch3DEntityArgs struct {
 	Axis         []float64   `json:"axis,omitempty"`
 	CCW          bool        `json:"ccw,omitempty"`
 	Construction bool        `json:"construction,omitempty"`
+
+	// Helix-only fields (kind "helical"). Mode selects which two of pitch/height/
+	// revolutions define the helix ("pitchHeight" | "pitchRevolution" |
+	// "revolutionHeight" | "spiral"); the third is derived. Pitch/Height are
+	// unit-bearing lengths, Revolutions a turn count, Taper a per-revolution radial
+	// growth length (spiral pitch). Clockwise sets the handedness; Points[0] is the
+	// axis-base origin and Axis the winding axis (defaults to +Z).
+	Mode        string  `json:"mode,omitempty"`
+	Pitch       string  `json:"pitch,omitempty"`
+	Height      string  `json:"height,omitempty"`
+	Revolutions float64 `json:"revolutions,omitempty"`
+	Taper       string  `json:"taper,omitempty"`
+	Clockwise   bool    `json:"clockwise,omitempty"`
 }
 
 // AddSketch3DEntityResult is the response of [MethodSketch3DAddEntity]: the created

@@ -46,3 +46,16 @@ func (s Sketch3D) AddArc(index int, center, start, end []float64, ccw, construct
 		Points: [][]float64{center, start, end}, CCW: ccw, Construction: construction,
 	})
 }
+
+// AddHelix adds a helical curve. origin [x,y,z] (cm) is the axis base, axis [x,y,z] the
+// winding direction (empty ⇒ +Z), radius a unit-bearing start radius. mode selects which
+// two of pitch/height/revolutions define the helix; pass the matching unit-bearing
+// pitch/height and/or a revolution count. See [wire.AddSketch3DEntityArgs] for the modes.
+func (s Sketch3D) AddHelix(index int, origin, axis []float64, radius string, args wire.AddSketch3DEntityArgs) (wire.AddSketch3DEntityResult, error) {
+	args.SketchIndex = index
+	args.Kind = string(types.Sketch3DEntityHelical)
+	args.Points = [][]float64{origin}
+	args.Axis = axis
+	args.Radius = radius
+	return s.AddEntity(args)
+}
