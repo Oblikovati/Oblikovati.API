@@ -33,6 +33,28 @@ func (s Sketch) Mirror(index int, entities []uint64, mirrorLine uint64) (wire.Tr
 	})
 }
 
+// Trim removes the segment of a line containing the pick point ([x,y] cm), cutting at the
+// nearest crossings; returns the surviving line(s).
+func (s Sketch) Trim(index int, line uint64, pick []float64) (wire.TransformSketchResult, error) {
+	return s.transform(wire.TransformSketchArgs{
+		SketchIndex: index, Op: "trim", Entities: []uint64{line}, Vector: pick,
+	})
+}
+
+// Split splits a line at the pick point ([x,y] cm) into two; returns the resulting lines.
+func (s Sketch) Split(index int, line uint64, pick []float64) (wire.TransformSketchResult, error) {
+	return s.transform(wire.TransformSketchArgs{
+		SketchIndex: index, Op: "split", Entities: []uint64{line}, Vector: pick,
+	})
+}
+
+// Extend lengthens the end of a line nearest the pick point ([x,y] cm) to the next crossing.
+func (s Sketch) Extend(index int, line uint64, pick []float64) (wire.TransformSketchResult, error) {
+	return s.transform(wire.TransformSketchArgs{
+		SketchIndex: index, Op: "extend", Entities: []uint64{line}, Vector: pick,
+	})
+}
+
 func (s Sketch) transform(args wire.TransformSketchArgs) (wire.TransformSketchResult, error) {
 	var r wire.TransformSketchResult
 	return r, s.c.call(wire.MethodSketchTransform, args, &r)
