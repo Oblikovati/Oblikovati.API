@@ -74,6 +74,10 @@ const (
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
 
+	MethodViewGetDisplayMode   = "view.getDisplayMode"
+	MethodViewSetDisplayMode   = "view.setDisplayMode"
+	MethodViewListDisplayModes = "view.listDisplayModes"
+
 	MethodAppearancesList   = "appearances.list"
 	MethodAppearancesGet    = "appearances.get"
 	MethodAppearancesCreate = "appearances.create"
