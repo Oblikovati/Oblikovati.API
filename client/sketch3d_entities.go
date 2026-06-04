@@ -47,6 +47,28 @@ func (s Sketch3D) AddArc(index int, center, start, end []float64, ccw, construct
 	})
 }
 
+// AddEllipse adds a full ellipse from a center [x,y,z] (cm), a plane normal axis [x,y,z]
+// (empty ⇒ +Z), an in-plane major-axis direction (empty ⇒ +X), and unit-bearing major/
+// minor radii.
+func (s Sketch3D) AddEllipse(index int, center, axis, majorAxis []float64, majorR, minorR string, construction bool) (wire.AddSketch3DEntityResult, error) {
+	return s.AddEntity(wire.AddSketch3DEntityArgs{
+		SketchIndex: index, Kind: string(types.Sketch3DEntityEllipse),
+		Points: [][]float64{center}, Axis: axis, MajorAxis: majorAxis,
+		MajorRadius: majorR, MinorRadius: minorR, Construction: construction,
+	})
+}
+
+// AddEllipticalArc adds a bounded ellipse spanning startAngle..startAngle+sweepAngle
+// (unit-bearing angles).
+func (s Sketch3D) AddEllipticalArc(index int, center, axis, majorAxis []float64, majorR, minorR, startAngle, sweepAngle string, construction bool) (wire.AddSketch3DEntityResult, error) {
+	return s.AddEntity(wire.AddSketch3DEntityArgs{
+		SketchIndex: index, Kind: string(types.Sketch3DEntityEllipticalArc),
+		Points: [][]float64{center}, Axis: axis, MajorAxis: majorAxis,
+		MajorRadius: majorR, MinorRadius: minorR, StartAngle: startAngle, SweepAngle: sweepAngle,
+		Construction: construction,
+	})
+}
+
 // AddHelix adds a helical curve. origin [x,y,z] (cm) is the axis base, axis [x,y,z] the
 // winding direction (empty ⇒ +Z), radius a unit-bearing start radius. mode selects which
 // two of pitch/height/revolutions define the helix; pass the matching unit-bearing

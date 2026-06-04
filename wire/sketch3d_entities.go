@@ -31,6 +31,16 @@ type AddSketch3DEntityArgs struct {
 	Revolutions float64 `json:"revolutions,omitempty"`
 	Taper       string  `json:"taper,omitempty"`
 	Clockwise   bool    `json:"clockwise,omitempty"`
+
+	// Conic fields (kind "ellipse"/"ellipticalArc"). Points[0] is the center, Axis the
+	// plane normal (defaults to +Z), MajorAxis the in-plane major direction (defaults to
+	// +X). MajorRadius/MinorRadius are unit-bearing lengths; StartAngle/SweepAngle are
+	// unit-bearing angles bounding an elliptical arc.
+	MajorAxis   []float64 `json:"majorAxis,omitempty"`
+	MajorRadius string    `json:"majorRadius,omitempty"`
+	MinorRadius string    `json:"minorRadius,omitempty"`
+	StartAngle  string    `json:"startAngle,omitempty"`
+	SweepAngle  string    `json:"sweepAngle,omitempty"`
 }
 
 // AddSketch3DEntityResult is the response of [MethodSketch3DAddEntity]: the created
