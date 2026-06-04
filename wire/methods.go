@@ -82,6 +82,8 @@ const (
 	MethodSketch3DDeleteConstraint = "sketch3d.deleteConstraint"
 	MethodSketch3DAddDimension     = "sketch3d.addDimension"
 	MethodSketch3DDriveDimension   = "sketch3d.driveDimension"
+	MethodSketch3DProfiles         = "sketch3d.profiles"
+	MethodSketch3DPaths            = "sketch3d.paths"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"

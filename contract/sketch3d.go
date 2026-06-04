@@ -17,3 +17,13 @@ type Sketch3D interface {
 	// DegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).
 	DegreesOfFreedom() int
 }
+
+// Profile3D is the scalar view of a closed, planar loop of a 3D sketch a planar-section
+// feature consumes: its enclosed area and that it is closed. The host's
+// model/sketch.Profile3D satisfies this.
+type Profile3D interface {
+	// Area is the loop's enclosed area in model cm².
+	Area() float64
+	// IsClosed reports whether the loop encloses a region (always true for a Profile3D).
+	IsClosed() bool
+}

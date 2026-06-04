@@ -173,3 +173,35 @@ func TestSketch3DDriveDimensionSends(t *testing.T) {
 		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DDriveDimension)
 	}
 }
+
+func TestSketch3DProfilesSendsIndex(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"profiles":[{"index":0,"area":12,"normal":[0,0,1],"vertices":4}]}`)}
+	c := New(ft)
+
+	res, err := c.Sketch3D().Profiles(0)
+	if err != nil {
+		t.Fatalf("Profiles: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DProfiles {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DProfiles)
+	}
+	if len(res.Profiles) != 1 || res.Profiles[0].Area != 12 {
+		t.Errorf("decoded = %+v, want one profile of area 12", res.Profiles)
+	}
+}
+
+func TestSketch3DPathsSendsIndex(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"paths":[{"index":0,"closed":true,"points":5}]}`)}
+	c := New(ft)
+
+	res, err := c.Sketch3D().Paths(0)
+	if err != nil {
+		t.Fatalf("Paths: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DPaths {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DPaths)
+	}
+	if len(res.Paths) != 1 || !res.Paths[0].Closed || res.Paths[0].Points != 5 {
+		t.Errorf("decoded = %+v, want one closed path of 5 pts", res.Paths)
+	}
+}
