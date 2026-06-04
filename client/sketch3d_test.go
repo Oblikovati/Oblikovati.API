@@ -138,3 +138,38 @@ func TestSketch3DDeleteConstraintSendsIndices(t *testing.T) {
 		t.Errorf("sent = %+v, want sketch 1 / constraint 3", sent)
 	}
 }
+
+func TestSketch3DRadiusSendsKindAndExpression(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"radius","parameter":"d3_0","value":3,"dof":3}`)}
+	c := New(ft)
+
+	got, err := c.Sketch3D().Radius(0, 42, "3 cm")
+	if err != nil {
+		t.Fatalf("Radius: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DAddDimension {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DAddDimension)
+	}
+	var sent wire.AddSketch3DDimensionArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "radius" || sent.Expression != "3 cm" || len(sent.Entities) != 1 || sent.Entities[0] != 42 {
+		t.Errorf("sent = %+v, want radius over [42] = 3 cm", sent)
+	}
+	if got.Value != 3 {
+		t.Errorf("decoded value = %v, want 3", got.Value)
+	}
+}
+
+func TestSketch3DDriveDimensionSends(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().DriveDimension(wire.DriveSketch3DDimensionArgs{SketchIndex: 0, DimensionIndex: 2, Expression: "5 cm", SetDriven: true, Driven: true}); err != nil {
+		t.Fatalf("DriveDimension: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketch3DDriveDimension {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketch3DDriveDimension)
+	}
+}
