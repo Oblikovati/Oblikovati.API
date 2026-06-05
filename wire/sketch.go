@@ -2,10 +2,14 @@
 
 package wire
 
-// CreateSketchArgs is the request of [MethodSketchCreate]: the origin plane for the
-// new sketch (XY | XZ | YZ; empty defaults to XY).
+// CreateSketchArgs is the request of [MethodSketchCreate]: where to start the new sketch.
+// By default it is an origin plane (Plane: XY | XZ | YZ; empty defaults to XY). Set
+// WorkPlaneIndex to sketch on a user work plane instead (its index in list_work_planes) —
+// the way to sketch on a plane built on a feature-created face, so later features reference
+// earlier geometry. WorkPlaneIndex, when set, takes precedence over Plane.
 type CreateSketchArgs struct {
-	Plane string `json:"plane"`
+	Plane          string `json:"plane,omitempty"`
+	WorkPlaneIndex *int   `json:"workPlaneIndex,omitempty"`
 }
 
 // CreateSketchResult is the response of [MethodSketchCreate]: the new sketch's index

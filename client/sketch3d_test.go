@@ -332,3 +332,42 @@ func TestSketch3DAddSilhouetteCurveSendsViewDir(t *testing.T) {
 		t.Errorf("sent = %+v, want silhouette of one face with a view dir", sent)
 	}
 }
+
+func TestSketch3DAddOnFaceCurveSendsUV(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":14,"kind":"onFace","healthy":true}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().AddOnFaceCurve(0, "faceA", []float64{0, 0, 1, 0, 1, 1}); err != nil {
+		t.Fatalf("AddOnFaceCurve: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.Kind != "onFace" || len(sent.FaceRefs) != 1 || len(sent.UV) != 6 {
+		t.Errorf("sent = %+v, want onFace of one face with a 6-element uv", sent)
+	}
+}
+
+func TestSketch3DAddProjectToSurfaceCurveSendsSource(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":15,"kind":"projectToSurface","healthy":true}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().AddProjectToSurfaceCurve(0, 7, "faceA"); err != nil {
+		t.Fatalf("AddProjectToSurfaceCurve: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.Kind != "projectToSurface" || sent.SourceEntityID != 7 || len(sent.FaceRefs) != 1 {
+		t.Errorf("sent = %+v, want projectToSurface of source 7 onto one face", sent)
+	}
+}
+
+func TestSketch3DAddOffsetCurveSendsDistance(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":16,"kind":"offset","healthy":true}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().AddOffsetCurve(0, 7, 2.5, []float64{0, 0, 1}); err != nil {
+		t.Fatalf("AddOffsetCurve: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.Kind != "offset" || sent.SourceEntityID != 7 || sent.OffsetDistance != 2.5 || len(sent.Normal) != 3 {
+		t.Errorf("sent = %+v, want offset of source 7 by 2.5 with a normal", sent)
+	}
+}

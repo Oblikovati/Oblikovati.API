@@ -21,3 +21,11 @@ func (m Model) Selection() (wire.SelectionResult, error) {
 	var r wire.SelectionResult
 	return r, m.c.call(wire.MethodModelSelection, nil, &r)
 }
+
+// ReferenceKeys returns the active part's topology (faces/edges/vertices) with their
+// persistent reference keys — the keys consumed by Include / AddSurfaceCurve / Project /
+// attributes. It is how an add-in obtains a key without a viewport pick.
+func (m Model) ReferenceKeys() (wire.ReferenceKeysResult, error) {
+	var r wire.ReferenceKeysResult
+	return r, m.c.call(wire.MethodModelReferenceKeys, nil, &r)
+}
