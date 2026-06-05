@@ -30,8 +30,9 @@ const (
 	MethodParametersAdd  = "parameters.add"
 	MethodParametersSet  = "parameters.set"
 
-	MethodModelTree      = "model.tree"
-	MethodModelSelection = "model.selection"
+	MethodModelTree          = "model.tree"
+	MethodModelSelection     = "model.selection"
+	MethodModelReferenceKeys = "model.referenceKeys"
 
 	MethodSketchCreate    = "sketch.create"
 	MethodSketchRectangle = "sketch.rectangle"
@@ -142,6 +143,8 @@ const (
 	MethodTransactionUndo  = "transaction.undo"
 	MethodTransactionRedo  = "transaction.redo"
 	MethodTransactionState = "transaction.state"
+
+	MethodLogsTail = "logs.tail"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

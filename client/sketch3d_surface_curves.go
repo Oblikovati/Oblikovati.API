@@ -32,3 +32,37 @@ func (s Sketch3D) AddSilhouetteCurve(index int, face string, viewDir []float64, 
 	grid.ViewDir = viewDir
 	return s.AddSurfaceCurve(grid)
 }
+
+// AddOnFaceCurve adds a curve drawn in a part face's parameter space (by reference key);
+// uv is the flat [u0,v0,u1,v1,…] polyline mapped onto the face's surface.
+func (s Sketch3D) AddOnFaceCurve(index int, face string, uv []float64) (wire.AddSketch3DSurfaceCurveResult, error) {
+	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
+		SketchIndex: index,
+		Kind:        string(types.Sketch3DEntityOnFace),
+		FaceRefs:    []string{face},
+		UV:          uv,
+	})
+}
+
+// AddProjectToSurfaceCurve projects an in-sketch source curve (by entity id) onto a part
+// face (by reference key).
+func (s Sketch3D) AddProjectToSurfaceCurve(index int, sourceEntityID uint64, face string) (wire.AddSketch3DSurfaceCurveResult, error) {
+	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
+		SketchIndex:    index,
+		Kind:           string(types.Sketch3DEntityProjectToSurface),
+		FaceRefs:       []string{face},
+		SourceEntityID: sourceEntityID,
+	})
+}
+
+// AddOffsetCurve offsets an in-sketch source curve (by entity id) by distance in the plane
+// with the given normal [x,y,z] (offset direction = normal × tangent).
+func (s Sketch3D) AddOffsetCurve(index int, sourceEntityID uint64, distance float64, normal []float64) (wire.AddSketch3DSurfaceCurveResult, error) {
+	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
+		SketchIndex:    index,
+		Kind:           string(types.Sketch3DEntityOffset),
+		SourceEntityID: sourceEntityID,
+		OffsetDistance: distance,
+		Normal:         normal,
+	})
+}
