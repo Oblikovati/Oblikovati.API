@@ -4,7 +4,7 @@ package wire
 
 // AddSketch3DConstraintArgs is the request of [MethodSketch3DAddConstraint] — the
 // discriminated 3D geometric-constraint constructor. Kind is the constraint
-// ([github.com/Oblikovati/api/types.Geometric3DConstraintKind]). Entities are the session
+// ([oblikovati/api/types.Geometric3DConstraintKind]). Entities are the session
 // ids of the geometry it relates, in the kind's expected order (parallel/perpendicular:
 // two line ids; midpoint: point id + line id; ground: a point id; parallelToAxis/Plane:
 // a single line id; coincident/concentric: two point ids; collinear: three point ids).

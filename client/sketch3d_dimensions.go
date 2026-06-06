@@ -3,8 +3,8 @@
 package client
 
 import (
-	"github.com/Oblikovati/api/types"
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/types"
+	"oblikovati/api/wire"
 )
 
 // AddDimension is the general 3D dimensional-constraint constructor; prefer the typed

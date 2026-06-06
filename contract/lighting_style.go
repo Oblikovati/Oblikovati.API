@@ -2,7 +2,7 @@
 
 package contract
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // LightingStyle is the in-process contract for a lighting rig — Inventor's LightingStyle,
 // scoped to the global controls our renderer consumes plus the discrete [Light]s. The GPL app

@@ -30,3 +30,23 @@ type CreateDocumentArgs struct {
 type ActivateDocumentArgs struct {
 	ID uint64 `json:"id"`
 }
+
+// CloseDocumentArgs is the request of [MethodDocumentsClose]: the session id of the
+// document to close. Force discards unsaved changes instead of saving them first.
+type CloseDocumentArgs struct {
+	ID    uint64 `json:"id"`
+	Force bool   `json:"force"`
+}
+
+// CloseAllDocumentsArgs is the request of [MethodDocumentsCloseAll]: close every
+// open document. Force discards unsaved changes (the usual choice to start a clean
+// session).
+type CloseAllDocumentsArgs struct {
+	Force bool `json:"force"`
+}
+
+// CloseDocumentsResult is the response of [MethodDocumentsClose] /
+// [MethodDocumentsCloseAll]: how many documents were closed.
+type CloseDocumentsResult struct {
+	Closed int `json:"closed"`
+}

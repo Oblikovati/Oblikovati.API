@@ -1,4 +1,4 @@
-# Oblikovati API (`github.com/Oblikovati/api`)
+# Oblikovati API (`oblikovati/api`)
 
 The **public automation contract** for Oblikovati, as a standalone Go module under
 the **Apache-2.0** license. It is the single source of truth for the API: the GPL
@@ -8,7 +8,7 @@ ones — build against it. See
 [ADR-0018](../Oblikovati/architecture/decisions/ADR-0018-apache-api-contract-module.md).
 
 **Invariant:** this module must never import the implementation module
-`github.com/Oblikovati/oblikovati`. The dependency only flows the other way; CI
+`oblikovati`. The dependency only flows the other way; CI
 fails the build if it is ever violated.
 
 ## Packages

@@ -74,7 +74,7 @@ type SolveSketch3DResult struct {
 }
 
 // Sketch3DEntityInfo is one enumerated entity from [MethodSketch3DEntities]: its index,
-// session id, kind ([github.com/Oblikovati/api/types.Sketch3DEntityKind]), construction
+// session id, kind ([oblikovati/api/types.Sketch3DEntityKind]), construction
 // flag, the defining points (each [x,y,z] in model database units, cm), and a radius for
 // circular kinds (0 otherwise).
 type Sketch3DEntityInfo struct {
@@ -93,7 +93,7 @@ type EnumerateEntities3DResult struct {
 
 // Constraint3DInfo is one enumerated geometric constraint from
 // [MethodSketch3DConstraints]: its index, kind
-// ([github.com/Oblikovati/api/types.Geometric3DConstraintKind]), and the session ids of
+// ([oblikovati/api/types.Geometric3DConstraintKind]), and the session ids of
 // the entities/points it relates.
 type Constraint3DInfo struct {
 	Index    int      `json:"index"`
@@ -108,7 +108,7 @@ type ListConstraints3DResult struct {
 
 // Dimension3DInfo is one enumerated dimensional constraint from
 // [MethodSketch3DDimensions]: its index, kind
-// ([github.com/Oblikovati/api/types.Dimension3DConstraintKind]), backing parameter name
+// ([oblikovati/api/types.Dimension3DConstraintKind]), backing parameter name
 // + expression, current model value (cm/rad), and whether it is driven (reports) rather
 // than driving (constrains).
 type Dimension3DInfo struct {

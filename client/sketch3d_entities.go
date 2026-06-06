@@ -3,8 +3,8 @@
 package client
 
 import (
-	"github.com/Oblikovati/api/types"
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/types"
+	"oblikovati/api/wire"
 )
 
 // AddEntity is the general 3D entity constructor — the escape hatch covering every kind;

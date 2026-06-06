@@ -5,12 +5,17 @@ package wire
 // OffsetSketchArgs is the request of [MethodSketchOffset]: offset Entity (a line/circle/arc
 // id) by the unit-bearing Distance (signed — a parallel line to the left of A→B, or a
 // concentric circle/arc of radius r+d, for a positive distance). When Entities (a chain of
-// connected line ids, in order) is set instead, the whole chain is offset and mitred.
+// connected line ids, in order) is set instead, the whole chain is offset and mitred. When
+// ProfileIndex is set, the whole CLOSED region of that profile is offset (OpenSCAD offset(r):
+// Distance>0 grows, <0 shrinks; convex corners rounded with arcs of radius |Distance|, sampled
+// into ArcSegments spans per corner, default 8).
 type OffsetSketchArgs struct {
-	SketchIndex int      `json:"sketchIndex"`
-	Entity      uint64   `json:"entity,omitempty"`
-	Entities    []uint64 `json:"entities,omitempty"`
-	Distance    string   `json:"distance"`
+	SketchIndex  int      `json:"sketchIndex"`
+	Entity       uint64   `json:"entity,omitempty"`
+	Entities     []uint64 `json:"entities,omitempty"`
+	ProfileIndex *int     `json:"profileIndex,omitempty"`
+	ArcSegments  int      `json:"arcSegments,omitempty"`
+	Distance     string   `json:"distance"`
 }
 
 // OffsetSketchResult is the response of [MethodSketchOffset]: the primary new entity's id

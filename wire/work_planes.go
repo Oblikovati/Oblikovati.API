@@ -3,7 +3,7 @@
 package wire
 
 // CreateWorkPlaneArgs is the request of [MethodWorkPlanesCreate]: which constructor
-// (Kind, a [github.com/Oblikovati/api/types.WorkPlaneKind] value) and its inputs.
+// (Kind, a [oblikovati/api/types.WorkPlaneKind] value) and its inputs.
 //
 //   - Refs are work-feature references the plane is built on — origin constants
 //     (types.WorkRefXYPlane …), refs returned by [MethodWorkPlanesList], or a face

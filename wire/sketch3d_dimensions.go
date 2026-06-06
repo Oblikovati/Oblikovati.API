@@ -4,7 +4,7 @@ package wire
 
 // AddSketch3DDimensionArgs is the request of [MethodSketch3DAddDimension] — the
 // discriminated 3D dimensional-constraint constructor. Kind is the dimension
-// ([github.com/Oblikovati/api/types.Dimension3DConstraintKind]). Entities are the session
+// ([oblikovati/api/types.Dimension3DConstraintKind]). Entities are the session
 // ids of the dimensioned geometry (distance: two point ids; lineLength/radius: one entity
 // id; pointPlaneDistance: one point id; twoLineAngle: two line ids). Expression is the
 // unit-bearing value ("10 mm", "30 deg"). Plane selects the reference origin plane for

@@ -9,7 +9,7 @@ package types
 
 // GraphicsPrimitiveKind names the topology of one graphics primitive (Inventor's
 // LineGraphics/PointGraphics/TriangleGraphics/TextGraphics …). It is the discriminator
-// of a [github.com/Oblikovati/api/wire.GraphicsPrimitive].
+// of a [oblikovati/api/wire.GraphicsPrimitive].
 type GraphicsPrimitiveKind string
 
 const (

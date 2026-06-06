@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Transform applies an editing operation (move/copy/rotate/delete) to a 3D-sketch
 // selection; prefer the typed helpers below.

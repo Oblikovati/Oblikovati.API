@@ -4,7 +4,7 @@ package wire
 
 // AddSketchPatternArgs is the request of [MethodSketchAddPattern] — the discriminated
 // sketch-pattern constructor. Kind is a
-// [github.com/Oblikovati/api/types.SketchPatternKind]; Entities are the seed selection.
+// [oblikovati/api/types.SketchPatternKind]; Entities are the seed selection.
 //
 //   - rectangular: Count1/Count2 instances stepped by Spacing1/Spacing2 (unit-bearing
 //     lengths) along Dir1/Dir2 ([x,y] directions; default [1,0] and [0,1]). The seed is

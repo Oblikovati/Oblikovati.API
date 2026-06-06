@@ -9,6 +9,6 @@
 // These interfaces are for FIRST-PARTY, in-process use (one Go runtime). They are
 // NOT how out-of-process or C-ABI add-ins reach the host — a live Go interface
 // value cannot cross the two-runtime boundary of ADR-0016. Those add-ins use the
-// transport-backed [github.com/Oblikovati/api/client] over the
-// [github.com/Oblikovati/api/wire] JSON contract instead.
+// transport-backed [oblikovati/api/client] over the
+// [oblikovati/api/wire] JSON contract instead.
 package contract

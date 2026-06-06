@@ -4,7 +4,7 @@ package wire
 
 // AddSketch3DSurfaceCurveArgs is the request of [MethodSketch3DAddSurfaceCurve] — the
 // discriminated surface-derived curve constructor. Kind is the curve
-// ([github.com/Oblikovati/api/types.Sketch3DEntityKind]: intersection | silhouette).
+// ([oblikovati/api/types.Sketch3DEntityKind]: intersection | silhouette).
 // FaceRefs are the reference keys of the referenced part faces (intersection: two faces;
 // silhouette: one face; onFace: one face). ViewDir [x,y,z] is the silhouette view
 // direction. UV is the flat [u0,v0,u1,v1,…] parameter-space polyline for an onFace curve

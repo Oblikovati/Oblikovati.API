@@ -2,7 +2,7 @@
 
 package contract
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // Material is the in-process contract for one physical-world material: its density and
 // mechanical/thermal/electrical properties, plus the appearance it renders with. The GPL

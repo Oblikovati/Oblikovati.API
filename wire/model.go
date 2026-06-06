@@ -36,10 +36,13 @@ type SelectionResult struct {
 
 // TopologyRef identifies one piece of part topology by its persistent reference key, with a
 // representative point [x,y,z] (a face's range-box centre, an edge's midpoint, a vertex's
-// position) so a caller can recognise which entity it is.
+// position) so a caller can recognise which entity it is. Kind is the geometry classification
+// for faces — "plane" | "cylinder" | "cone" | "sphere" | "torus" | "spline" — so a caller can
+// pick, say, the cylindrical face to thread (empty for edges/vertices).
 type TopologyRef struct {
 	Key   string    `json:"key"`
 	Point []float64 `json:"point"`
+	Kind  string    `json:"kind,omitempty"`
 }
 
 // BodyTopology groups one body's faces/edges/vertices by reference key.

@@ -3,8 +3,8 @@
 package client
 
 import (
-	"github.com/Oblikovati/api/types"
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/types"
+	"oblikovati/api/wire"
 )
 
 // Constrain is the geometric-constraint group for a sketch, reached via [Sketch.Constrain].

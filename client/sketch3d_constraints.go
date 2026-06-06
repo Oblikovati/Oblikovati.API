@@ -3,8 +3,8 @@
 package client
 
 import (
-	"github.com/Oblikovati/api/types"
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/types"
+	"oblikovati/api/wire"
 )
 
 // AddConstraint is the general 3D geometric-constraint constructor; prefer the typed

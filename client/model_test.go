@@ -5,7 +5,7 @@ package client
 import (
 	"testing"
 
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/wire"
 )
 
 func TestModelReferenceKeysCallsMethod(t *testing.T) {
