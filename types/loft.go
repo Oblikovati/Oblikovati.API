@@ -47,6 +47,10 @@ func (c LoftCondition) IsSharp() bool { return c == LoftSharpPoint }
 // IsPointCondition reports whether the condition applies to a point (apex) section.
 func (c LoftCondition) IsPointCondition() bool { return c.IsTangentToPlane() || c.IsSharp() }
 
+// IsFaceContinuity reports the conditions that continue an adjacent face's surface across the
+// section edge: Tangent (G1) and Smooth (G2). They require the section to be a body face.
+func (c LoftCondition) IsFaceContinuity() bool { return c == LoftTangent || c == LoftSmooth }
+
 // IsFree reports whether the condition leaves the end natural (the zero value "" is treated
 // as Free, so an unset condition keeps the ruled/natural blend).
 func (c LoftCondition) IsFree() bool { return c == "" || c == LoftFree }
