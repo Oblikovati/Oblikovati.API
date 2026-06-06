@@ -2,9 +2,9 @@
 
 package types
 
-// LightDefinitionTypeEnum is the emission shape of a light — Inventor's
-// LightDefinitionTypeEnum: a directional (parallel-ray) sun, an omnidirectional point, or a
-// cone spotlight. The numeric ids are Inventor's exact frozen values (53249–53251).
+// LightDefinitionTypeEnum is the emission shape of a light: a directional (parallel-ray)
+// sun, an omnidirectional point, or a cone spotlight. The numeric ids are stable, frozen
+// values (53249–53251).
 //
 // This is the canonical Apache-2.0 definition; the GPL implementation aliases it
 // (app.LightDefinitionTypeEnum) and maps it onto the renderer's LightKind.

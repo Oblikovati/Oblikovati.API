@@ -95,8 +95,8 @@ func oneShot(clientID string, p wire.GraphicsPrimitive) wire.SetClientGraphicsAr
 // Interaction returns the transient command-preview graphics group.
 func (g Graphics) Interaction() InteractionGraphics { return InteractionGraphics{g.c} }
 
-// InteractionGraphics is the command-scoped preview/overlay surface (Inventor's
-// InteractionGraphics): Update replaces a transient lane's nodes (rubber-band/manipulator
+// InteractionGraphics is the command-scoped preview/overlay surface:
+// Update replaces a transient lane's nodes (rubber-band/manipulator
 // feedback on mouse move) and Clear removes them — both vanish when the command ends.
 type InteractionGraphics struct{ c *Client }
 

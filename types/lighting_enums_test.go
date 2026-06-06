@@ -4,10 +4,10 @@ package types
 
 import "testing"
 
-// TestLightingEnumIdsAreInventorValues pins the frozen Inventor ids for every lighting/shadow
+// TestLightingEnumIdsAreStable pins the frozen ids for every lighting/shadow
 // enum so a rename or renumber is caught (clients and saved automations depend on these exact
-// values). The reference is Oblikovati.Contracts.CSharp/Enums.
-func TestLightingEnumIdsAreInventorValues(t *testing.T) {
+// values).
+func TestLightingEnumIdsAreStable(t *testing.T) {
 	light := map[LightTypeEnum]int32{
 		ModelSpaceLight: 52993, ViewSpaceLight: 52994, GroundPlaneSpaceLight: 52995,
 	}
@@ -81,6 +81,6 @@ func TestLightingEnumNamesAndValidity(t *testing.T) {
 		}
 	}
 	if GroundShadowEnum(0).IsValid() || LightTypeEnum(0).IsValid() {
-		t.Errorf("zero value must be invalid for these Inventor-id enums")
+		t.Errorf("zero value must be invalid for these id-based enums")
 	}
 }

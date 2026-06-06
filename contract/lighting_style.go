@@ -4,7 +4,7 @@ package contract
 
 import "oblikovati/api/types"
 
-// LightingStyle is the in-process contract for a lighting rig — Inventor's LightingStyle,
+// LightingStyle is the in-process contract for a lighting rig,
 // scoped to the global controls our renderer consumes plus the discrete [Light]s. The GPL app
 // satisfies it (compile-time asserted there).
 //
@@ -12,7 +12,7 @@ import "oblikovati/api/types"
 // [0,1] unless noted; Exposure is in stops. StyleType distinguishes a standard light rig from
 // an image-based (HDR) one.
 type LightingStyle interface {
-	// Name is the style's user-facing label (Inventor's LightingStyle.Name).
+	// Name is the style's user-facing label.
 	Name() string
 	// StyleType is whether this is a standard or image-based style.
 	StyleType() types.LightingStyleTypeEnum

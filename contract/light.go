@@ -4,7 +4,7 @@ package contract
 
 import "oblikovati/api/types"
 
-// Light is the in-process contract for one scene light — Inventor's Light, scoped to the
+// Light is the in-process contract for one scene light, scoped to the
 // properties our renderer consumes. It is read-mostly here; mutation goes through the wire
 // methods / the app. The GPL app satisfies it (compile-time asserted there).
 //

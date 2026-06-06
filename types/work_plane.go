@@ -2,8 +2,8 @@
 
 package types
 
-// WorkPlaneKind names a datum-plane constructor (Inventor's WorkPlanes.AddBy* methods),
-// the discriminator of a work-plane create request. The string values are the stable
+// WorkPlaneKind names a datum-plane constructor, the discriminator of a work-plane
+// create request. The string values are the stable
 // wire vocabulary — treat them as frozen.
 //
 // This is the canonical, Apache-2.0 definition of the public kind names; the GPL host

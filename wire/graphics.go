@@ -2,12 +2,12 @@
 
 package wire
 
-// Client/interaction graphics DTOs (Inventor's ClientGraphics + InteractionGraphics).
+// Client/interaction graphics DTOs (persistent client graphics + transient interaction graphics).
 //
-// The model is declarative bulk groups (not Inventor's chatty mutable object model): one
+// The model is declarative bulk groups (not a chatty mutable object model): one
 // [SetClientGraphicsArgs] submits or replaces a whole named group, its geometry shipped
-// as flat arrays. This keeps Inventor's vocabulary — a group (ClientGraphics) holds nodes
-// (GraphicsNode), each node holds primitives, each primitive's geometry comes from
+// as flat arrays. The vocabulary is conventional — a group holds nodes, each node holds
+// primitives, each primitive's geometry comes from
 // coordinate/index/color/normal sets — but is one round-trip per group, the right shape
 // for large simulation-result meshes over the wire.
 //
@@ -19,14 +19,14 @@ package wire
 // an ascending list of scalar stops; Colors is the rgba quad for each stop (len(Colors)
 // == 4*len(Values)). The host interpolates piecewise-linearly between stops and clamps
 // outside the range. A primitive carrying both Scalars and ColorMapper resolves per-vertex
-// colors from them (Inventor's GraphicsColorMapper).
+// colors from them.
 type GraphicsColorMapper struct {
 	Values []float64 `json:"values"`
 	Colors []float32 `json:"colors"`
 }
 
-// GraphicsPrimitive is one drawable primitive in a node (a LineGraphics, PointGraphics,
-// TriangleGraphics, TextGraphics …). Geometry travels inline as flat arrays.
+// GraphicsPrimitive is one drawable primitive in a node (a line, point, triangle, or
+// text primitive). Geometry travels inline as flat arrays.
 //
 //   - Kind is a [oblikovati/api/types.GraphicsPrimitiveKind] value.
 //   - Coordinates/Indices define the vertices and topology.
@@ -34,8 +34,8 @@ type GraphicsColorMapper struct {
 //     else Scalars+ColorMapper; else the overall Color broadcast to every vertex.
 //   - ColorBinding/NormalBinding are the binding modes (types.GraphicsColorBinding/…).
 //   - Text/Anchor/FontSize apply to the "text" kind (Anchor is the xyz world anchor).
-//   - OnTop draws the primitive ignoring the depth test (always visible — Inventor's
-//     BurnThrough); Opacity 0..1 (0 = use the lane/node default, i.e. opaque).
+//   - OnTop draws the primitive ignoring the depth test (always visible, drawn through
+//     occluders); Opacity 0..1 (0 = use the lane/node default, i.e. opaque).
 type GraphicsPrimitive struct {
 	Kind          string               `json:"kind"`
 	Coordinates   []float64            `json:"coordinates,omitempty"`
@@ -59,8 +59,8 @@ type GraphicsPrimitive struct {
 	DepthPriority int                  `json:"depthPriority,omitempty"`
 }
 
-// GraphicsNode groups primitives under one transform and visibility/opacity (Inventor's
-// GraphicsNode). Transform (optional 16-element row-major matrix) places the node's
+// GraphicsNode groups primitives under one transform and visibility/opacity.
+// Transform (optional 16-element row-major matrix) places the node's
 // geometry; Visible nil means "inherit the group's visibility".
 type GraphicsNode struct {
 	Id         string              `json:"id,omitempty"`

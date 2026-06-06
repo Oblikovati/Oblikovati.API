@@ -3,8 +3,8 @@
 package types
 
 // LightingStyleTypeEnum says whether a lighting style is a traditional multi-light rig or an
-// image-based (HDR environment) style — Inventor's LightingStyleTypeEnum. The numeric ids are
-// Inventor's exact frozen values (50750977–50750978).
+// image-based (HDR environment) style. The numeric ids are stable, frozen values
+// (50750977–50750978).
 //
 // This is the canonical Apache-2.0 definition; the GPL implementation aliases it
 // (app.LightingStyleTypeEnum).

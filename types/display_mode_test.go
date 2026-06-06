@@ -4,9 +4,9 @@ package types
 
 import "testing"
 
-// TestDisplayModeIdsAreInventorValues pins the frozen Inventor ids so a rename or renumber is
+// TestDisplayModeIdsAreStable pins the frozen ids so a rename or renumber is
 // caught (clients and saved automations depend on these exact values).
-func TestDisplayModeIdsAreInventorValues(t *testing.T) {
+func TestDisplayModeIdsAreStable(t *testing.T) {
 	cases := map[DisplayModeEnum]int32{
 		WireframeRendering: 8706, ShadedRendering: 8708, RealisticRendering: 8709,
 		ShadedWithEdgesRendering: 8710, WireframeNoHiddenEdges: 8711,
@@ -20,7 +20,7 @@ func TestDisplayModeIdsAreInventorValues(t *testing.T) {
 	}
 }
 
-// TestHiddenEdgeAliasShares8707 documents that the two Inventor names for 8707 are aliases.
+// TestHiddenEdgeAliasShares8707 documents that the two names for 8707 are aliases.
 func TestHiddenEdgeAliasShares8707(t *testing.T) {
 	if HiddenEdgeRendering != ShadedWithHiddenEdgesRendering || int32(HiddenEdgeRendering) != 8707 {
 		t.Errorf("8707 alias broken: HiddenEdge=%d ShadedWithHiddenEdges=%d",

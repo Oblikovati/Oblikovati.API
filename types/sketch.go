@@ -32,8 +32,8 @@ const (
 	SketchEntityUnknown        SketchEntityKind = "unknown"
 )
 
-// SketchLineType is a sketch's line-style override (Inventor LineTypeEnum). The empty
-// value means "inherit the document default". String values are frozen.
+// SketchLineType is a sketch's line-style override. The empty value means "inherit the
+// document default". String values are frozen.
 type SketchLineType string
 
 const (

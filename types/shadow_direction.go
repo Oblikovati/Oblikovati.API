@@ -2,9 +2,9 @@
 
 package types
 
-// ShadowDirectionEnum is the light source that casts the scene's shadows — Inventor's
-// ShadowDirectionEnum: a fixed 45°/overhead direction, one of the four standard lights, or
-// the environment image. The numeric ids are Inventor's exact frozen values (92161–92168).
+// ShadowDirectionEnum is the light source that casts the scene's shadows: a fixed
+// 45°/overhead direction, one of the four standard lights, or the environment image.
+// The numeric ids are stable, frozen values (92161–92168).
 //
 // This is the canonical Apache-2.0 definition; the GPL implementation aliases it
 // (app.ShadowDirectionEnum).

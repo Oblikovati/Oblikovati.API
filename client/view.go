@@ -8,7 +8,7 @@ import (
 )
 
 // View is the viewport operation group: it lets an add-in read and set the display mode
-// (Inventor's View.DisplayMode) so automations can switch the model between shaded, wireframe,
+// so automations can switch the model between shaded, wireframe,
 // realistic, hidden-edge and NPR presentations.
 type View struct{ c *Client }
 

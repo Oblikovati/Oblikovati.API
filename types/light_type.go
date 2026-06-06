@@ -2,10 +2,10 @@
 
 package types
 
-// LightTypeEnum is the coordinate space a light lives in — Inventor's LightTypeEnum. A
-// model-space light is fixed to the model; a view-space light follows the camera (a
-// headlight); a ground-plane-space light is fixed to the ground/ViewCube frame. The numeric
-// ids are Inventor's exact frozen values (52993–52995).
+// LightTypeEnum is the coordinate space a light lives in. A model-space light is fixed to
+// the model; a view-space light follows the camera (a headlight); a ground-plane-space
+// light is fixed to the ground/orientation-cube frame. The numeric ids are stable, frozen
+// values (52993–52995).
 //
 // This is the canonical Apache-2.0 definition; the GPL implementation aliases it
 // (app.LightTypeEnum) and maps it onto the renderer's lighting rig.

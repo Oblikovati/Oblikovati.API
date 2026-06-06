@@ -2,8 +2,8 @@
 
 package types
 
-// Mechanical groups a material's structural properties (Inventor Material parity). Units
-// follow Inventor's conventions so values transfer 1:1 from existing material libraries.
+// Mechanical groups a material's structural properties. Units follow common
+// mechanical-CAD conventions so values transfer 1:1 from existing material libraries.
 // The yaml tags keep the on-disk document/library form readable (the tags are plain
 // strings, so types still has no yaml dependency).
 type Mechanical struct {
@@ -20,8 +20,9 @@ type Thermal struct {
 	SpecificHeat   float64 `json:"specificHeat" yaml:"specificHeat"`     // J/(kg·K)
 }
 
-// Electrical groups a material's electrical properties. Inventor's Material stops at
-// mechanical/thermal; electrical is added here because the user models it explicitly.
+// Electrical groups a material's electrical properties. Common mechanical-CAD material
+// models stop at mechanical/thermal; electrical is added here because the user models it
+// explicitly.
 type Electrical struct {
 	Resistivity          float64 `json:"resistivity" yaml:"resistivity"`                   // Ω·m
 	RelativePermittivity float64 `json:"relativePermittivity" yaml:"relativePermittivity"` // dimensionless (εr)
