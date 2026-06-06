@@ -2,6 +2,24 @@
 
 package types
 
+// LoftType is the loft mode — a plain blend through the sections, or one additionally guided by
+// rails / a centerline / area-graph sections. It mirrors the established loft-type set.
+//
+// This is the canonical, Apache-2.0 definition; the GPL model derives it
+// (model/feature.LoftDefinition.LoftType()).
+type LoftType string
+
+const (
+	// RegularLoft blends through the sections with no extra guides.
+	RegularLoft LoftType = "regular"
+	// LoftWithRails additionally constrains the surface to follow guide rails.
+	LoftWithRails LoftType = "rails"
+	// LoftWithCenterline sweeps the sections along a centerline (reserved).
+	LoftWithCenterline LoftType = "centerline"
+	// LoftWithAreaGraphSections places sections by an area graph along a centerline (reserved).
+	LoftWithAreaGraphSections LoftType = "area-graph"
+)
+
 // LoftCondition selects how a loft surface leaves the starting section (or arrives at the
 // ending section) — the boundary tangency control that lets a loft curve away from a flat
 // ruled blend. It mirrors the established loft-condition set: a free (natural) end, an
