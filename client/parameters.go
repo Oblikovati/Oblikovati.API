@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Parameters is the parameter operation group for the active part.
 type Parameters struct{ c *Client }

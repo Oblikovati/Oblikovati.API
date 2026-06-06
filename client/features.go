@@ -5,7 +5,7 @@ package client
 import (
 	"encoding/json"
 
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/wire"
 )
 
 // Features is the feature-creation operation group for the active part.

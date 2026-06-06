@@ -3,7 +3,7 @@
 package types
 
 // SketchEntityKind discriminates the kind of a 2D sketch entity in the wire
-// protocol — the value of [github.com/Oblikovati/api/wire.AddSketchEntityArgs.Kind]
+// protocol — the value of [oblikovati/api/wire.AddSketchEntityArgs.Kind]
 // and of each enumerated entity's Kind. The set grows as M21 adds entity families
 // (conics/splines, slots, polygons, …); the string values are frozen.
 type SketchEntityKind string
@@ -63,7 +63,7 @@ const (
 )
 
 // GeometricConstraintKind discriminates a sketch geometric (non-dimensional)
-// constraint. Used by [github.com/Oblikovati/api/wire.AddConstraintArgs.Kind] and by
+// constraint. Used by [oblikovati/api/wire.AddConstraintArgs.Kind] and by
 // the enumerated constraint's Kind. String values are frozen.
 type GeometricConstraintKind string
 
@@ -91,7 +91,7 @@ const (
 )
 
 // DimensionConstraintKind discriminates a sketch dimensional (driving/driven)
-// constraint. Used by [github.com/Oblikovati/api/wire.AddDimensionArgs.Kind] and by
+// constraint. Used by [oblikovati/api/wire.AddDimensionArgs.Kind] and by
 // the enumerated dimension's Kind. String values are frozen.
 type DimensionConstraintKind string
 

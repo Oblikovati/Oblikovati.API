@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Documents is the document-management operation group.
 type Documents struct{ c *Client }

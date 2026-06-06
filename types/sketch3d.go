@@ -4,7 +4,7 @@ package types
 
 // Sketch3DEntityKind discriminates the kind of a 3D (non-planar) sketch entity in the
 // wire protocol — the value of
-// [github.com/Oblikovati/api/wire.AddSketch3DEntityArgs.Kind] and of each enumerated
+// [oblikovati/api/wire.AddSketch3DEntityArgs.Kind] and of each enumerated
 // 3D entity's Kind. The set is the full Inventor Sketch3D geometry family; the string
 // values are frozen. Members are wired in across M22 (F02 base curves, F03 conics/
 // splines, F04 helix, F11 surface-derived curves).
@@ -36,7 +36,7 @@ const (
 )
 
 // Geometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —
-// the value of [github.com/Oblikovati/api/wire.AddSketch3DConstraintArgs.Kind] and of
+// the value of [oblikovati/api/wire.AddSketch3DConstraintArgs.Kind] and of
 // each enumerated 3D constraint's Kind. String values are frozen. Members are wired in
 // across M22-F05.
 type Geometric3DConstraintKind string
@@ -65,7 +65,7 @@ const (
 )
 
 // Dimension3DConstraintKind discriminates a 3D dimensional (driving/driven) constraint —
-// the value of [github.com/Oblikovati/api/wire.AddSketch3DDimensionArgs.Kind] and of
+// the value of [oblikovati/api/wire.AddSketch3DDimensionArgs.Kind] and of
 // each enumerated 3D dimension's Kind. String values are frozen. Members are wired in
 // across M22-F06.
 type Dimension3DConstraintKind string

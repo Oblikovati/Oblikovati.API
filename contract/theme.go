@@ -2,7 +2,7 @@
 
 package contract
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // Theme is the in-process contract for one UI color theme: a name, a kind (light/dark/
 // custom), and a color for every semantic token. The GPL implementation's theme.Theme

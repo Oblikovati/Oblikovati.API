@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Profiles enumerates the closed, planar loops of the 3D sketch (area + plane normal +
 // vertex count); each Index can feed a planar-section feature.

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/wire"
 )
 
 func TestSketch3DCreateSendsNameAndDecodes(t *testing.T) {

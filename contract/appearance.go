@@ -2,7 +2,7 @@
 
 package contract
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // Appearance is the in-process contract for one PBR appearance — what the renderer shows
 // for a surface. It is a metallic-roughness description with solid (non-textured) values;

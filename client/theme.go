@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Theme is the UI-theme operation group: it lets an add-in read the host's active
 // theme so its own panels can match the host's colors.

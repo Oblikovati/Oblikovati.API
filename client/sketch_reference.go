@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Offset offsets a single line/circle/arc (by entity id) by a signed unit-bearing
 // distance, returning the new entity's id and kind.

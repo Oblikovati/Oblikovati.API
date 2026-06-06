@@ -2,7 +2,7 @@
 
 package contract
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // Document is the in-process contract for an open document's identity and state —
 // the scalar surface every document kind shares. The GPL implementation's
@@ -13,7 +13,7 @@ import "github.com/Oblikovati/api/types"
 // sub-objects, and Go interfaces are invariant in return position, so exposing
 // them as a contract requires generics or adapters — a deliberate later step.
 // Out-of-process add-ins reach that structure through
-// [github.com/Oblikovati/api/wire] today.
+// [oblikovati/api/wire] today.
 type Document interface {
 	// DocumentType is the kind discriminator (part/assembly/drawing/presentation).
 	DocumentType() types.DocumentType

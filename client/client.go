@@ -10,7 +10,7 @@ import (
 // Transport is the one dependency a client has on the host: send a JSON method
 // request and get the JSON reply (or an error). An add-in backs it with the host's
 // C-ABI ObkHostCall callback (see add-in/include/oblikovati_addin.h); tests back it
-// with a fake. The method strings are the [github.com/Oblikovati/api/wire]
+// with a fake. The method strings are the [oblikovati/api/wire]
 // constants.
 type Transport interface {
 	Call(method string, req []byte) ([]byte, error)

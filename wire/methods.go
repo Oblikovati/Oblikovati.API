@@ -5,7 +5,7 @@
 // in-process C ABI of ADR-0016; tomorrow gRPC or a socket — the DTOs are transport
 // agnostic). These shapes ARE the public automation surface; the GPL host
 // (/source/addin/router) marshals model state into them, and the typed client
-// ([github.com/Oblikovati/api/client]) marshals add-in calls out of them.
+// ([oblikovati/api/client]) marshals add-in calls out of them.
 //
 // Every type here is plain data with stable JSON tags — no behavior, no dependency
 // on the implementation. Field renames are breaking changes to the contract.
@@ -24,6 +24,8 @@ const (
 	MethodDocumentsList     = "documents.list"
 	MethodDocumentsCreate   = "documents.create"
 	MethodDocumentsActivate = "documents.activate"
+	MethodDocumentsClose    = "documents.close"
+	MethodDocumentsCloseAll = "documents.closeAll"
 
 	MethodParametersList = "parameters.list"
 	MethodParametersGet  = "parameters.get"

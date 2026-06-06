@@ -7,8 +7,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/Oblikovati/api/types"
-	"github.com/Oblikovati/api/wire"
+	"oblikovati/api/types"
+	"oblikovati/api/wire"
 )
 
 // fakeTransport records the last method+request and replies with canned bytes, so a

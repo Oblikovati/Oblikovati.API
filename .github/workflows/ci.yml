@@ -16,7 +16,7 @@ defaults:
 jobs:
   # The Apache-2.0 public API contract module: build, vet, test, and enforce the
   # license boundary — /api must never import the GPL application module
-  # github.com/Oblikovati/oblikovati (ADR-0018). This module is self-contained, so
+  # oblikovati (ADR-0018). This module is self-contained, so
   # it builds with no sibling checkout.
   api:
     runs-on: ubuntu-latest

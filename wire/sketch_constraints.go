@@ -4,7 +4,7 @@ package wire
 
 // AddConstraintArgs is the request of [MethodSketchAddConstraint] — the discriminated
 // geometric-constraint constructor. Kind is a
-// [github.com/Oblikovati/api/types.GeometricConstraintKind]; Entities are the session ids
+// [oblikovati/api/types.GeometricConstraintKind]; Entities are the session ids
 // of the geometry it relates (points/lines/curves), in the kind's expected order:
 //
 //   - coincident/horizontal/vertical: two point ids (or one line id)

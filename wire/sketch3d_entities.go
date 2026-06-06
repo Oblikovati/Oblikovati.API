@@ -4,7 +4,7 @@ package wire
 
 // AddSketch3DEntityArgs is the request of [MethodSketch3DAddEntity] — the discriminated
 // 3D entity constructor. Kind is the base entity
-// ([github.com/Oblikovati/api/types.Sketch3DEntityKind]: point | line | circle | arc | …).
+// ([oblikovati/api/types.Sketch3DEntityKind]: point | line | circle | arc | …).
 // Points are the defining points, each [x,y,z] in model database units (cm), in the
 // constructor's expected order (line: A,B; circle: center; arc: center,start,end). Radius
 // is a unit-bearing expression ("10 mm") for circular kinds. Axis is the circle plane's

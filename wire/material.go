@@ -2,7 +2,7 @@
 
 package wire
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // AppearanceInfo is the JSON shape of a PBR appearance. Albedo and Emissive are
 // "#RRGGBBAA" hex (compact, readable, matching the on-disk and theme conventions); the

@@ -2,7 +2,7 @@
 
 package wire
 
-import "github.com/Oblikovati/api/types"
+import "oblikovati/api/types"
 
 // DisplayModeView is the JSON shape of the viewport's current display mode: the enum value and
 // its label. The response of [MethodViewGetDisplayMode] and [MethodViewSetDisplayMode].

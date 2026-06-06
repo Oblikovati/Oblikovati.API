@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Sketch3D is the 3D-sketch-authoring operation group for the active part. A 3D sketch
 // has no host plane — its geometry lives directly in model space (sweep/loft paths,

@@ -2,7 +2,7 @@
 
 package client
 
-import "github.com/Oblikovati/api/wire"
+import "oblikovati/api/wire"
 
 // Transactions is the undo/redo operation group for the active document's transaction
 // stream. Undo and Redo are navigators over that stream — non-destructive cursor moves,
