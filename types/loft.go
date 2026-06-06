@@ -20,6 +20,15 @@ const (
 	LoftWithAreaGraphSections LoftType = "area-graph"
 )
 
+// LoftAreaStop is one control point of a loft area graph (the kLoftWithAreaGraphSections mode):
+// at fractional position T along the loft (0=start, 1=end) the cross-section's area is scaled by
+// Scale (1 = unchanged). The graph is interpolated linearly between stops, so a stop set of
+// {{0,1},{0.5,2},{1,1}} doubles the mid cross-section's area — a barrel controlled by area.
+type LoftAreaStop struct {
+	T     float64 `json:"t"`
+	Scale float64 `json:"scale"`
+}
+
 // LoftCondition selects how a loft surface leaves the starting section (or arrives at the
 // ending section) — the boundary tangency control that lets a loft curve away from a flat
 // ruled blend. It mirrors the established loft-condition set: a free (natural) end, an
