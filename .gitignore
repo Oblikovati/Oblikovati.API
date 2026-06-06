@@ -3,6 +3,9 @@
 go.work
 go.work.sum
 
+# Wiki publish staging (assembled pages + generated API Docs)
+/build/
+
 # Binaries / test artifacts
 *.exe
 *.exe~

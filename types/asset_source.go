@@ -5,7 +5,7 @@ package types
 // AssetSource says where an appearance or material asset comes from, which fixes its
 // edit policy and resolution priority. A document-embedded copy is authoritative for
 // portability, then the project library (the shared catalog), then the shipped
-// built-ins (read-only). This mirrors Inventor's library/document asset distinction.
+// built-ins (read-only). This follows the standard library/document asset distinction.
 //
 // This is the canonical, Apache-2.0 definition; the GPL model aliases it
 // (model/material.Source = types.AssetSource).

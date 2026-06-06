@@ -8,7 +8,7 @@ import (
 )
 
 // Lighting is the scene-lighting operation group: it lets an add-in read and switch the
-// active lighting style (Inventor's LightingStyle) and read/edit the discrete lights, so
+// active lighting style and read/edit the discrete lights, so
 // automations can drive how the model is illuminated.
 type Lighting struct{ c *Client }
 
@@ -57,7 +57,7 @@ func (l Lighting) SetLight(index int, light wire.LightInfo) (wire.LightInfo, err
 }
 
 // Environment is the image-based-lighting operation group: it lets an add-in read, switch,
-// and load the HDR environment the scene reflects (Inventor's LightingStyle image).
+// and load the HDR environment the scene reflects.
 type Environment struct{ c *Client }
 
 // Environment returns the image-based-lighting operation group.

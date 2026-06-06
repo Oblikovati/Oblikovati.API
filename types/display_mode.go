@@ -2,18 +2,18 @@
 
 package types
 
-// DisplayModeEnum is the viewport's display mode — Inventor's DisplayModeEnum, the way a View
-// of a document is drawn. The numeric ids are Inventor's exact values (8706–8716) and are
-// frozen; two names share 8707 (Inventor aliases kHiddenEdgeRendering and
-// kShadedWithHiddenEdgesRendering). This is the canonical Apache-2.0 definition; the GPL
-// implementation aliases it (app.DisplayModeEnum) and maps it onto the renderer's VisualStyle.
+// DisplayModeEnum is the viewport's display mode — the way a view of a document is drawn.
+// The numeric ids are stable, frozen values (8706–8716); two names share 8707 (the aliases
+// HiddenEdgeRendering and ShadedWithHiddenEdgesRendering). This is the canonical Apache-2.0
+// definition; the GPL implementation aliases it (app.DisplayModeEnum) and maps it onto the
+// renderer's visual style.
 type DisplayModeEnum int32
 
 const (
 	// WireframeRendering — every edge, no shaded faces, no hidden-line removal (8706).
 	WireframeRendering DisplayModeEnum = 8706
 	// HiddenEdgeRendering / ShadedWithHiddenEdgesRendering — shaded faces with visible edges
-	// solid and occluded edges dashed (8707; the two names are aliases, per Inventor).
+	// solid and occluded edges dashed (8707; the two names are aliases).
 	HiddenEdgeRendering            DisplayModeEnum = 8707
 	ShadedWithHiddenEdgesRendering DisplayModeEnum = 8707
 	// ShadedRendering — lit faces, no edges (8708).
@@ -64,7 +64,7 @@ func (m DisplayModeEnum) IsValid() bool {
 	return ok
 }
 
-// AllDisplayModes returns every display mode in Inventor gallery order — the source list for a
+// AllDisplayModes returns every display mode in gallery order — the source list for a
 // display-mode picker. The 8707 alias appears once (as the canonical 8707 entry).
 func AllDisplayModes() []DisplayModeEnum {
 	return []DisplayModeEnum{

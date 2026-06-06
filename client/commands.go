@@ -22,8 +22,7 @@ func (cm Commands) Execute(id string) (wire.OKResult, error) {
 	return r, cm.c.call(wire.MethodCommandsExecute, wire.ExecuteCommandArgs{ID: id}, &r)
 }
 
-// Create registers a new ribbon button (Inventor's ButtonDefinition) so an add-in can
-// extend the UI. The button appears in the ribbon immediately; when the user clicks it
+// Create registers a new ribbon button so an add-in can extend the UI. The button appears in the ribbon immediately; when the user clicks it
 // the host fires a command-ended event the add-in receives via its Notify entry point,
 // where it runs the button's action (typically further client calls).
 func (cm Commands) Create(args wire.CreateCommandArgs) (wire.OKResult, error) {

@@ -5,7 +5,7 @@ package types
 // Sketch3DEntityKind discriminates the kind of a 3D (non-planar) sketch entity in the
 // wire protocol — the value of
 // [oblikovati/api/wire.AddSketch3DEntityArgs.Kind] and of each enumerated
-// 3D entity's Kind. The set is the full Inventor Sketch3D geometry family; the string
+// 3D entity's Kind. The set is the full 3D-sketch geometry family; the string
 // values are frozen. Members are wired in across M22 (F02 base curves, F03 conics/
 // splines, F04 helix, F11 surface-derived curves).
 type Sketch3DEntityKind string

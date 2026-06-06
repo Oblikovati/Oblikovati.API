@@ -9,7 +9,7 @@ import (
 
 // WorkPlanes is the datum-plane construction group for the active part: List enumerates
 // the part's planes, Create is the general constructor, and the typed helpers wrap each
-// of Inventor's WorkPlanes.AddBy* methods. References are work-feature reference strings —
+// datum-plane constructor. References are work-feature reference strings —
 // origin constants (types.WorkRefXYPlane …), refs returned by List, or a face reference
 // for the tangent helpers.
 type WorkPlanes struct{ c *Client }

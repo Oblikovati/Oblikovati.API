@@ -4,8 +4,8 @@ package types
 
 // Environment is a ribbon context within a document. The base environment is always shown; a
 // contextual environment (e.g. sketch editing) contributes its tabs only while it is active —
-// the mechanism behind a contextual tab like Inventor's Sketch tab (RibbonUI_Overview). An
-// add-in scopes a control to an environment so it appears only in that context.
+// the mechanism behind a contextual tab such as the Sketch tab. An add-in scopes a control
+// to an environment so it appears only in that context.
 //
 // This is the canonical, Apache-2.0 definition; the GPL implementation aliases it
 // (app.Environment) so existing call sites are unaffected.

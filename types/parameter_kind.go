@@ -2,8 +2,8 @@
 
 package types
 
-// ParameterKind is a parameter's category (Inventor's ParameterTypeEnum), with
-// stable explicit ids. Model/User/Table parameters are user-editable; Reference
+// ParameterKind is a parameter's category, with stable explicit ids.
+// Model/User/Table parameters are user-editable; Reference
 // (driven by geometry) and Derived (linked from another document) are read-only.
 //
 // This is the canonical, Apache-2.0 definition; the GPL implementation aliases it

@@ -4,8 +4,8 @@ package wire
 
 import "oblikovati/api/types"
 
-// CommandInfo is the JSON shape of a registered command (the metadata Inventor put
-// on a ControlDefinition) plus its current enabled state.
+// CommandInfo is the JSON shape of a registered command (its control-definition
+// metadata) plus its current enabled state.
 type CommandInfo struct {
 	ID          string            `json:"id"`
 	DisplayName string            `json:"displayName"`
@@ -32,15 +32,15 @@ type ExecuteCommandArgs struct {
 }
 
 // CreateCommandArgs is the request of [MethodCommandsCreate]: an add-in registering a
-// ribbon button (Inventor's ButtonDefinition). The host creates a command with this
-// metadata that appears in the ribbon; clicking it runs no host logic but fires a
-// command-ended event the add-in receives via its Notify entry point and acts on. ID
-// and DisplayName are required; the rest place and style the button.
+// ribbon button. The host creates a command with this metadata that appears in the
+// ribbon; clicking it runs no host logic but fires a command-ended event the add-in
+// receives via its Notify entry point and acts on. ID and DisplayName are required; the
+// rest place and style the button.
 //
 // Ribbon picks which document ribbon the button lands on (empty ⇒ the Part ribbon);
 // Environment scopes it to a context (empty/base ⇒ always shown; sketch ⇒ the contextual
-// Sketch tab). Together with Tab/Category this is Inventor's "add my button to the Draw
-// panel of the Sketch tab of the Part ribbon" (RibbonUI_Overview).
+// Sketch tab). Together with Tab/Category this places a button on a named panel of a named
+// tab of a chosen ribbon (e.g. the Draw panel of the Sketch tab of the Part ribbon).
 type CreateCommandArgs struct {
 	ID          string            `json:"id"`
 	DisplayName string            `json:"displayName"`

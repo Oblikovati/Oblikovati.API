@@ -4,9 +4,8 @@ package types
 
 // RibbonKey is the internal name of one of the host's ribbons. There is one ribbon per
 // document type plus ZeroDoc (shown when no document is open); the active ribbon is selected
-// by the active document. An add-in targets a ribbon by this name when placing a control —
-// mirroring Inventor's UserInterfaceManager.Ribbons.Item(<name>) (RibbonUI_Overview). The
-// names are stable wire values and must not be renamed.
+// by the active document. An add-in targets a ribbon by this name when placing a control.
+// The names are stable wire values and must not be renamed.
 //
 // This is the canonical, Apache-2.0 definition; the GPL implementation aliases it
 // (app.RibbonKey) so existing call sites are unaffected.

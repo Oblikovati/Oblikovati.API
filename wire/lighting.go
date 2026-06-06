@@ -55,7 +55,7 @@ type LightingStyleView struct {
 }
 
 // SetLightingStyleArgs is the request of [MethodLightingSetStyle]: the style to activate, by
-// name (Inventor identifies lighting styles by name, not by an enum).
+// name (lighting styles are identified by name, not by an enum).
 type SetLightingStyleArgs struct {
 	Name string `json:"name"`
 }
@@ -106,8 +106,7 @@ type SetEnvironmentArgs struct {
 }
 
 // LoadEnvironmentImageArgs is the request of [MethodEnvironmentLoadImage]: the path to an
-// equirectangular HDR file (.hdr) to use as the environment (Inventor's
-// LightingStyle.UploadImage).
+// equirectangular HDR file (.hdr) to use as the environment.
 type LoadEnvironmentImageArgs struct {
 	FilePath string `json:"filePath"`
 }

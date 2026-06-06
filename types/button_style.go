@@ -2,8 +2,8 @@
 
 package types
 
-// ButtonStyle is how a command renders in the ribbon — Inventor's ButtonDisplayType,
-// narrowed to the three styles we support. The control's behavior is identical; only
+// ButtonStyle is how a command renders in the ribbon, narrowed to the three styles we
+// support. The control's behavior is identical; only
 // its size and whether it shows an icon differ.
 //
 // This is the canonical, Apache-2.0 definition; the GPL implementation aliases it

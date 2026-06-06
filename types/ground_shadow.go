@@ -2,9 +2,9 @@
 
 package types
 
-// GroundShadowEnum is how the scene casts shadows onto the ground plane — Inventor's
-// GroundShadowEnum: none, a standard ground shadow, or an X-ray (see-through) ground shadow.
-// The numeric ids are Inventor's exact frozen values (69121–69123).
+// GroundShadowEnum is how the scene casts shadows onto the ground plane: none, a standard
+// ground shadow, or an X-ray (see-through) ground shadow. The numeric ids are stable,
+// frozen values (69121–69123).
 //
 // This is the canonical Apache-2.0 definition; the GPL implementation aliases it
 // (app.GroundShadowEnum).
