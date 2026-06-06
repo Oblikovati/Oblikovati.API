@@ -80,6 +80,11 @@ type AddFillRegionArgs struct {
 // AddTextArgs is the request of [MethodSketchAddText]: place Text anchored at Anchor
 // ([x,y] cm), with a unit-bearing Height, an optional unit-bearing Rotation (CCW about
 // the anchor), and a Justify ("left" | "center" | "right").
+//
+// Font, when set, switches addText from a text ANNOTATION to real GEOMETRY: the host renders
+// the string's true-type/opentype glyph outlines (from the .ttf/.otf at this host-side path)
+// into closed sketch profiles — laid out along the baseline at Height (one em) — so the text
+// can be extruded/embossed. A letter's counter (the hole in A/O/B) becomes a profile hole.
 type AddTextArgs struct {
 	SketchIndex int       `json:"sketchIndex"`
 	Anchor      []float64 `json:"anchor"`
@@ -87,6 +92,7 @@ type AddTextArgs struct {
 	Height      string    `json:"height"`
 	Rotation    string    `json:"rotation,omitempty"`
 	Justify     string    `json:"justify,omitempty"`
+	Font        string    `json:"font,omitempty"` // host-side .ttf/.otf path ⇒ emit glyph geometry
 }
 
 // AddEntityIDResult is the trivial response carrying just a created entity's id (used by
