@@ -26,6 +26,8 @@ const (
 	MethodDocumentsActivate = "documents.activate"
 	MethodDocumentsClose    = "documents.close"
 	MethodDocumentsCloseAll = "documents.closeAll"
+	MethodDocumentsImport   = "documents.import"
+	MethodDocumentsExport   = "documents.export"
 
 	MethodParametersList = "parameters.list"
 	MethodParametersGet  = "parameters.get"
