@@ -28,11 +28,15 @@ type AddSketchEntityArgs struct {
 	StartAngle  string    `json:"startAngle,omitempty"`
 	EndAngle    string    `json:"endAngle,omitempty"`
 
-	// Closed marks a spline a closed loop (spline kinds only).
+	// Closed marks a spline or a polyline a closed loop (spline and polyline kinds). A
+	// closed polyline joins its last point back to its first, yielding one closed profile.
 	Closed bool `json:"closed,omitempty"`
 
 	// Sides is the edge count for the polygon kind (≥ 3); Width is a unit-bearing slot
-	// width. These belong to the composite kinds (rectangle/slot/polygon).
+	// width. These belong to the composite kinds (rectangle/slot/polygon/polyline). The
+	// polyline kind connects arbitrary Points with shared-endpoint lines (Closed ⇒ a
+	// closed profile) — the way to author a non-regular outline (an L-bracket, a custom
+	// extrusion section) over the API.
 	Sides int    `json:"sides,omitempty"`
 	Width string `json:"width,omitempty"`
 
