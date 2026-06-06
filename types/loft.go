@@ -38,6 +38,15 @@ const (
 // driven by an angle-to-plane and impact (the others need adjacent faces or point sections).
 func (c LoftCondition) CurvesViaAngle() bool { return c == LoftAngle || c == LoftDirection }
 
+// IsTangentToPlane reports the tangent-to-plane point-section condition (a domed apex).
+func (c LoftCondition) IsTangentToPlane() bool { return c == LoftTangentToPlane }
+
+// IsSharp reports the sharp-point point-section condition (a straight cone apex).
+func (c LoftCondition) IsSharp() bool { return c == LoftSharpPoint }
+
+// IsPointCondition reports whether the condition applies to a point (apex) section.
+func (c LoftCondition) IsPointCondition() bool { return c.IsTangentToPlane() || c.IsSharp() }
+
 // IsFree reports whether the condition leaves the end natural (the zero value "" is treated
 // as Free, so an unset condition keeps the ruled/natural blend).
 func (c LoftCondition) IsFree() bool { return c == "" || c == LoftFree }
