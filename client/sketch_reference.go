@@ -66,3 +66,25 @@ func (s Sketch) AddText(index int, anchor []float64, text, height, rotation, jus
 	args := wire.AddTextArgs{SketchIndex: index, Anchor: anchor, Text: text, Height: height, Rotation: rotation, Justify: justify}
 	return r, s.c.call(wire.MethodSketchAddText, args, &r)
 }
+
+// AddTextWith places sketch text with the full field set (font family/size + vertical
+// alignment), so the text can be embossed/extruded by reference.
+func (s Sketch) AddTextWith(args wire.AddTextArgs) (wire.AddEntityIDResult, error) {
+	var r wire.AddEntityIDResult
+	return r, s.c.call(wire.MethodSketchAddText, args, &r)
+}
+
+// EditText applies a partial edit to an existing sketch text entity (only the set fields),
+// returning the entity's resolved style. Editing re-derives the text's geometry, so any
+// emboss referencing it recomputes.
+func (s Sketch) EditText(args wire.EditTextArgs) (wire.SketchTextResult, error) {
+	var r wire.SketchTextResult
+	return r, s.c.call(wire.MethodSketchEditText, args, &r)
+}
+
+// GetText reads back a sketch text entity's style.
+func (s Sketch) GetText(index int, entity uint64) (wire.SketchTextResult, error) {
+	var r wire.SketchTextResult
+	args := wire.GetTextArgs{SketchIndex: index, EntityID: entity}
+	return r, s.c.call(wire.MethodSketchGetText, args, &r)
+}
