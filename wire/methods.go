@@ -110,6 +110,9 @@ const (
 	MethodViewGetShadows = "view.getShadows"
 	MethodViewSetShadows = "view.setShadows"
 
+	MethodViewGetCamera = "view.getCamera"
+	MethodViewSetCamera = "view.setCamera"
+
 	MethodLightingGetStyle   = "lighting.getStyle"
 	MethodLightingSetStyle   = "lighting.setStyle"
 	MethodLightingListStyles = "lighting.listStyles"
@@ -147,8 +150,20 @@ const (
 	MethodTransactionUndo  = "transaction.undo"
 	MethodTransactionRedo  = "transaction.redo"
 	MethodTransactionState = "transaction.state"
+	MethodTransactionBegin = "transaction.begin"
+	MethodTransactionEnd   = "transaction.end"
+
+	MethodInteractionState = "interaction.state"
 
 	MethodLogsTail = "logs.tail"
+)
+
+// Push-event type tags. These name host→add-in events delivered to the add-in's Notify
+// entry point (ADR-0016), not callable request/response methods — there is no client
+// method for them; an add-in matches on the event's "type" field. See the DTOs in this
+// package (e.g. [EditCommittedEvent]).
+const (
+	EventEditCommitted = "edit.committed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

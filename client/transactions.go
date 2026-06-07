@@ -31,3 +31,21 @@ func (t Transactions) State() (wire.UndoState, error) {
 	var r wire.UndoState
 	return r, t.c.call(wire.MethodTransactionState, nil, &r)
 }
+
+// Begin opens a bounded transaction: every edit recorded until the matching End is
+// coalesced into a single undo step named label. Begin/End nest; only the outermost End
+// commits the group. Use it to make a batch of operations one team-shared undo step.
+//
+//	client.Transactions().Begin("apply remote batch")
+//	// … several edits …
+//	client.Transactions().End()
+func (t Transactions) Begin(label string) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, t.c.call(wire.MethodTransactionBegin, wire.TransactionBeginArgs{Label: label}, &r)
+}
+
+// End closes the innermost open transaction and returns the resulting undo/redo state.
+func (t Transactions) End() (wire.UndoState, error) {
+	var r wire.UndoState
+	return r, t.c.call(wire.MethodTransactionEnd, nil, &r)
+}

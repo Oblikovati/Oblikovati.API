@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: Apache-2.0
+
+package client
+
+import "oblikovati/api/wire"
+
+// Interaction is the operation group for the host's current interaction status: whether
+// the local user is mid-action. A collaboration add-in queries it to gate incoming remote
+// edits — buffering them while the local user is busy (oblikovati-meeting ADR-0005).
+type Interaction struct{ c *Client }
+
+// Interaction returns the interaction-status operation group.
+func (c *Client) Interaction() Interaction { return Interaction{c} }
+
+// State reports whether an interactive tool/command is active or a transaction is open.
+//
+//	if st, _ := client.Interaction().State(); st.Busy { /* buffer remote edits */ }
+func (i Interaction) State() (wire.InteractionState, error) {
+	var r wire.InteractionState
+	return r, i.c.call(wire.MethodInteractionState, nil, &r)
+}

@@ -37,3 +37,21 @@ func (v View) ListDisplayModes() (wire.ListDisplayModesResult, error) {
 	var r wire.ListDisplayModesResult
 	return r, v.c.call(wire.MethodViewListDisplayModes, nil, &r)
 }
+
+// Camera returns the viewport's current camera as a look-at frame (eye/target/up/fov).
+//
+//	cam, _ := client.View().Camera()
+//	// follow a presenter: lerp eye/target toward cam, then SetCamera.
+func (v View) Camera() (wire.CameraView, error) {
+	var r wire.CameraView
+	return r, v.c.call(wire.MethodViewGetCamera, nil, &r)
+}
+
+// SetCamera moves the viewport camera to the given look-at frame and returns the
+// resulting camera (the host may normalize Up or clamp FOV).
+//
+//	client.View().SetCamera(wire.SetCameraArgs{Eye: e, Target: t, Up: u, FOV: f})
+func (v View) SetCamera(a wire.SetCameraArgs) (wire.CameraView, error) {
+	var r wire.CameraView
+	return r, v.c.call(wire.MethodViewSetCamera, a, &r)
+}
