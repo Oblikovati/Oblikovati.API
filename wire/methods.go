@@ -167,6 +167,8 @@ const (
 	MethodInteractionState     = "interaction.state"
 	MethodInteractionSetNotice = "interaction.setNotice"
 
+	MethodScriptRun = "scripts.run"
+
 	MethodLogsTail = "logs.tail"
 )
 
