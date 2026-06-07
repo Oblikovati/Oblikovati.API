@@ -29,3 +29,12 @@ func (cm Commands) Create(args wire.CreateCommandArgs) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, cm.c.call(wire.MethodCommandsCreate, args, &r)
 }
+
+// SetState updates a command's live ribbon state: Active toggles its highlighted (accent)
+// look, and a non-empty DisplayName relabels it. Use it for stateful add-in controls.
+//
+//	client.Commands().SetState(wire.SetCommandStateArgs{ID: id, Active: true, DisplayName: "Presenting"})
+func (cm Commands) SetState(args wire.SetCommandStateArgs) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, cm.c.call(wire.MethodCommandsSetState, args, &r)
+}
