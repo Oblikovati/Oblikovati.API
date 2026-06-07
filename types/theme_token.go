@@ -46,6 +46,9 @@ const (
 	TokenDimensionDriving ThemeToken = "viewport.dimension_driving"
 	TokenDimensionDriven  ThemeToken = "viewport.dimension_driven"
 	TokenSnapGlyph        ThemeToken = "viewport.snap_glyph"
+	// TokenViewportActiveBorder is the outline drawn around the focused view tile in a
+	// split (multi-view) layout, so the user can tell which view is active.
+	TokenViewportActiveBorder ThemeToken = "viewport.active_border"
 )
 
 // Gizmos 3D — manipulator/affordance geometry (work planes, selection highlight).
