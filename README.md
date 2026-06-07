@@ -2,9 +2,10 @@
 
 The **public automation contract** for Oblikovati, as a standalone Go module under
 the **Apache-2.0** license. It is the single source of truth for the API: the GPL
-application (the [`Oblikovati`](../Oblikovati) repo) implements it, and add-ins
-(the [`Oblikovati.AddIns`](../Oblikovati.AddIns) repo) — including closed-source
-ones — build against it. See
+application (the [`Oblikovati`](../Oblikovati) repo) implements it, and add-ins —
+including closed-source ones — build against it. Everything an add-in needs ships
+here: the Go contract and the C ABI header
+([`include/oblikovati_addin.h`](include/oblikovati_addin.h)). See
 [ADR-0018](../Oblikovati/architecture/decisions/ADR-0018-apache-api-contract-module.md).
 
 **Invariant:** this module must never import the implementation module

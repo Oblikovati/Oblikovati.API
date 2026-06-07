@@ -3,7 +3,7 @@
 // Package client is the typed automation client add-ins use to drive a running
 // Oblikovati host. It marshals [oblikovati/api/wire] DTOs onto a
 // caller-supplied [Transport] (the add-in backs it with the host's C-ABI
-// ObkHostCall — see add-in/include/oblikovati_addin.h) and unmarshals the replies.
+// ObkHostCall — see include/oblikovati_addin.h) and unmarshals the replies.
 //
 // This is the out-of-runtime path: an add-in links only the Apache-2.0 /api module
 // and never the GPL implementation, so a closed-source add-in stays decoupled from

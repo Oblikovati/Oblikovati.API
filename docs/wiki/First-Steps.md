@@ -9,9 +9,9 @@ In this walkthrough you build a complete add-in that:
 It is a single Go package compiled as a C-shared library. Everything it links is the
 Apache-2.0 contract `oblikovati/api`.
 
-> The complete, runnable reference add-in lives in the
-> [`Oblikovati.AddIns`](https://github.com/Oblikovati/Oblikovati.AddIns) repository. This page
-> shows the essential pieces so you can write your own from scratch.
+> Everything you need ships in this repository: the Go contract and the C ABI header
+> (`include/oblikovati_addin.h`). The snippets below are the essential pieces, so you
+> can write your own add-in from scratch with nothing else checked out.
 
 ## 1. Project layout
 
@@ -38,14 +38,20 @@ During local development, resolve the contract from a sibling checkout with a wo
 
 ```sh
 git clone https://github.com/Oblikovati/Oblikovati.API.git   # the Apache-2.0 contract
-git clone https://github.com/Oblikovati/Oblikovati.AddIns.git # has include/oblikovati_addin.h
 cd my-addin
 go work init .
 go work edit -replace oblikovati/api=../Oblikovati.API
 ```
 
-You also need the C ABI header `oblikovati_addin.h` (from the `AddIns` repo's `include/`)
-on your cgo include path — it defines the host↔add-in boundary.
+You also need the C ABI header `oblikovati_addin.h` on your cgo include path — it
+defines the host↔add-in boundary and ships in this repo's
+[`include/`](https://github.com/Oblikovati/Oblikovati.API/blob/develop/include/oblikovati_addin.h).
+Copy it next to your sources (the snippets below include from `${SRCDIR}/include`):
+
+```sh
+mkdir -p include
+cp ../Oblikovati.API/include/oblikovati_addin.h include/
+```
 
 ## 2. The C ABI entry points (`export.go`)
 
