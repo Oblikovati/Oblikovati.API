@@ -79,12 +79,12 @@ func TestViewsSetLayoutMarshalsLayout(t *testing.T) {
 	}
 }
 
-func TestViewSetCameraCarriesViewAddressing(t *testing.T) {
+func TestViewSetCameraCarriesDocumentAddressing(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"eye":[2,2,2],"target":[0,0,0],"up":[0,1,0],"fov":0.8}`)}
 	c := New(ft)
 
 	if _, err := c.View().SetCamera(wire.SetCameraArgs{
-		Document: 3, View: 2, Eye: [3]float64{2, 2, 2}, Target: [3]float64{0, 0, 0}, Up: [3]float64{0, 1, 0}, FOV: 0.8,
+		Document: 3, Eye: [3]float64{2, 2, 2}, Target: [3]float64{0, 0, 0}, Up: [3]float64{0, 1, 0}, FOV: 0.8,
 	}); err != nil {
 		t.Fatalf("SetCamera: %v", err)
 	}
@@ -92,7 +92,7 @@ func TestViewSetCameraCarriesViewAddressing(t *testing.T) {
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
-	if sent.Document != 3 || sent.View != 2 {
-		t.Errorf("sent addressing = doc %d view %d, want doc 3 view 2", sent.Document, sent.View)
+	if sent.Document != 3 {
+		t.Errorf("sent addressing = doc %d, want doc 3", sent.Document)
 	}
 }
