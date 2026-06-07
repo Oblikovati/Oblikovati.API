@@ -35,10 +35,14 @@ type ExecuteCommandArgs struct {
 // its own commands' live ribbon state. Active toggles the button's pressed/highlighted look
 // (rendered in the accent color), so a stateful control like a presenter or follow toggle
 // reads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.
-// "Presenter" → "Presenting") — leave it empty to keep the current label.
+// "Presenter" → "Presenting") — leave it empty to keep the current label. Enabled, when
+// non-nil, greys the button out (false) or restores it (true) — e.g. a collaboration add-in
+// disabling its presenter/follow controls until the user joins a session; nil leaves the
+// enabled state unchanged.
 type SetCommandStateArgs struct {
 	ID          string `json:"id"`
 	Active      bool   `json:"active"`
+	Enabled     *bool  `json:"enabled,omitempty"`
 	DisplayName string `json:"displayName,omitempty"`
 }
 
