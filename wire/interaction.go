@@ -19,3 +19,12 @@ type InteractionState struct {
 	ActiveTool    string `json:"activeTool,omitempty"`
 	InTransaction bool   `json:"inTransaction"`
 }
+
+// SetNoticeArgs is the request of [MethodInteractionSetNotice]: a short, transient
+// user-facing message for the host status bar. An add-in uses it to surface state the user
+// would otherwise not see — e.g. a collaboration add-in reporting connection progress or a
+// connection failure (oblikovati-meeting). The host clears the notice on the next user
+// input, so it is for transient status, not persistent UI.
+type SetNoticeArgs struct {
+	Message string `json:"message"`
+}

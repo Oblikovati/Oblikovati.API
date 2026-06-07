@@ -19,3 +19,13 @@ func (i Interaction) State() (wire.InteractionState, error) {
 	var r wire.InteractionState
 	return r, i.c.call(wire.MethodInteractionState, nil, &r)
 }
+
+// SetNotice shows a short, transient message in the host status bar (the host clears it on
+// the next user input). An add-in uses it to surface state the user can't otherwise see —
+// e.g. connection progress or failure.
+//
+//	client.Interaction().SetNotice("Meeting: connection failed")
+func (i Interaction) SetNotice(message string) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, i.c.call(wire.MethodInteractionSetNotice, wire.SetNoticeArgs{Message: message}, &r)
+}

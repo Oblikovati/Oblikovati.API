@@ -3,6 +3,7 @@
 package client
 
 import (
+	"encoding/json"
 	"testing"
 
 	"oblikovati/api/wire"
@@ -24,5 +25,24 @@ func TestInteractionStateSendsNilBodyAndDecodes(t *testing.T) {
 	}
 	if !st.Busy || st.ActiveTool != "ExtrudeTool" {
 		t.Errorf("decoded = %+v, want busy=true activeTool=ExtrudeTool", st)
+	}
+}
+
+func TestInteractionSetNoticeMarshalsMessage(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
+	c := New(ft)
+
+	if _, err := c.Interaction().SetNotice("Meeting: connected"); err != nil {
+		t.Fatalf("SetNotice: %v", err)
+	}
+	if ft.gotMethod != wire.MethodInteractionSetNotice {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodInteractionSetNotice)
+	}
+	var sent wire.SetNoticeArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Message != "Meeting: connected" {
+		t.Errorf("sent message = %q, want %q", sent.Message, "Meeting: connected")
 	}
 }

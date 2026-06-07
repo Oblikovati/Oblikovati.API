@@ -163,7 +163,8 @@ const (
 	MethodTransactionBegin = "transaction.begin"
 	MethodTransactionEnd   = "transaction.end"
 
-	MethodInteractionState = "interaction.state"
+	MethodInteractionState     = "interaction.state"
+	MethodInteractionSetNotice = "interaction.setNotice"
 
 	MethodLogsTail = "logs.tail"
 )
