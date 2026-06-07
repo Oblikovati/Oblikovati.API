@@ -7,27 +7,26 @@ import (
 	"fmt"
 )
 
-// Transport is the one dependency a client has on the host: send a JSON method
-// request and get the JSON reply (or an error). An add-in backs it with the host's
-// C-ABI ObkHostCall callback (see add-in/include/oblikovati_addin.h); tests back it
-// with a fake. The method strings are the [oblikovati/api/wire]
-// constants.
-type Transport interface {
+// Caller is the one dependency a client has on the host: send a JSON method request
+// and get the JSON reply (or an error) — i.e. the transport. An add-in backs it with
+// the host's C-ABI ObkHostCall callback (see add-in/include/oblikovati_addin.h); tests
+// back it with a fake. The method strings are the [oblikovati/api/wire] constants.
+type Caller interface {
 	Call(method string, req []byte) ([]byte, error)
 }
 
-// Client is a typed façade over a [Transport]: each method marshals a wire request,
+// Client is a typed façade over a [Caller]: each method marshals a wire request,
 // calls the host, and unmarshals the wire reply, so add-ins program against Go types
 // instead of hand-rolling JSON. Reach the operation groups via [Client.Documents],
 // [Client.Parameters], [Client.Model], [Client.Sketch], [Client.Features],
 // [Client.Commands], [Client.Theme], [Client.Appearances], [Client.Materials].
 type Client struct {
-	t Transport
+	t Caller
 }
 
 // New wraps a transport. Calls on a Client with a nil transport fail with a clear
 // error rather than panicking, so a half-wired add-in is diagnosable.
-func New(t Transport) *Client { return &Client{t: t} }
+func New(t Caller) *Client { return &Client{t: t} }
 
 // call marshals req (nil → no body), invokes method, and unmarshals the reply into
 // out (nil → reply ignored). Errors name the offending method.
