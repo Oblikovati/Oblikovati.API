@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati/api/types"
+
 // OffsetSketchArgs is the request of [MethodSketchOffset]: offset Entity (a line/circle/arc
 // id) by the unit-bearing Distance (signed — a parallel line to the left of A→B, or a
 // concentric circle/arc of radius r+d, for a positive distance). When Entities (a chain of
@@ -79,20 +81,54 @@ type AddFillRegionArgs struct {
 
 // AddTextArgs is the request of [MethodSketchAddText]: place Text anchored at Anchor
 // ([x,y] cm), with a unit-bearing Height, an optional unit-bearing Rotation (CCW about
-// the anchor), and a Justify ("left" | "center" | "right").
+// the anchor), Justify (horizontal: "left" | "center" | "right"), VJustify (vertical:
+// "baseline" | "lower" | "middle" | "upper"), and an optional Font family name and
+// unit-bearing FontSize.
 //
-// Font, when set, switches addText from a text ANNOTATION to real GEOMETRY: the host renders
-// the string's true-type/opentype glyph outlines (from the .ttf/.otf at this host-side path)
-// into closed sketch profiles — laid out along the baseline at Height (one em) — so the text
-// can be extruded/embossed. A letter's counter (the hole in A/O/B) becomes a profile hole.
+// The created entity is a single sketch TEXT entity (not baked line geometry): it keeps the
+// content + font and DERIVES its glyph outlines on demand, so editing the text re-derives
+// the geometry and an emboss that references the text recomputes from it — nothing is baked
+// into the document. A letter's counter (the hole in A/O/B) becomes a profile hole.
 type AddTextArgs struct {
 	SketchIndex int       `json:"sketchIndex"`
 	Anchor      []float64 `json:"anchor"`
 	Text        string    `json:"text"`
 	Height      string    `json:"height"`
 	Rotation    string    `json:"rotation,omitempty"`
-	Justify     string    `json:"justify,omitempty"`
-	Font        string    `json:"font,omitempty"` // host-side .ttf/.otf path ⇒ emit glyph geometry
+	Justify     string    `json:"justify,omitempty"`  // horizontal alignment
+	VJustify    string    `json:"vJustify,omitempty"` // vertical alignment
+	Font        string    `json:"font,omitempty"`     // font family name ("" ⇒ document default)
+	FontSize    string    `json:"fontSize,omitempty"` // unit-bearing; "" ⇒ track Height
+}
+
+// EditTextArgs is the request of [MethodSketchEditText]: edit the existing sketch text
+// entity EntityID in sketch SketchIndex. Only the non-empty/non-nil fields are applied
+// (a partial edit), so an add-in can change just the content or just the font. Height and
+// FontSize are unit-bearing; Justify/VJustify use the AddTextArgs vocabularies.
+type EditTextArgs struct {
+	SketchIndex int     `json:"sketchIndex"`
+	EntityID    uint64  `json:"entityId"`
+	Text        *string `json:"text,omitempty"`
+	Height      string  `json:"height,omitempty"`
+	Rotation    string  `json:"rotation,omitempty"`
+	Justify     string  `json:"justify,omitempty"`
+	VJustify    string  `json:"vJustify,omitempty"`
+	Font        string  `json:"font,omitempty"`
+	FontSize    string  `json:"fontSize,omitempty"`
+}
+
+// GetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text
+// entity EntityID in sketch SketchIndex.
+type GetTextArgs struct {
+	SketchIndex int    `json:"sketchIndex"`
+	EntityID    uint64 `json:"entityId"`
+}
+
+// SketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):
+// the entity id plus its resolved text style.
+type SketchTextResult struct {
+	EntityID uint64                `json:"entityId"`
+	Style    types.SketchTextStyle `json:"style"`
 }
 
 // AddEntityIDResult is the trivial response carrying just a created entity's id (used by
