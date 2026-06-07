@@ -14,3 +14,15 @@ type UndoState struct {
 	NextUndo string `json:"nextUndo,omitempty"`
 	NextRedo string `json:"nextRedo,omitempty"`
 }
+
+// TransactionBeginArgs is the request of [MethodTransactionBegin]: open a bounded
+// transaction that coalesces every edit recorded until the matching [MethodTransactionEnd]
+// into a single undo step. Label names that step (for the undo menu/tooltip). Begin/End
+// nest; only the outermost End commits the group. Begin returns [OKResult]; End returns
+// the resulting [UndoState].
+//
+// A collaboration add-in drains its buffer of remote operations inside one Begin/End so
+// the whole batch is one team-shared undo step (oblikovati-meeting ADR-0005).
+type TransactionBeginArgs struct {
+	Label string `json:"label,omitempty"`
+}
