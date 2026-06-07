@@ -113,6 +113,14 @@ const (
 	MethodViewGetCamera = "view.getCamera"
 	MethodViewSetCamera = "view.setCamera"
 
+	MethodViewsList      = "views.list"
+	MethodViewsAdd       = "views.add"
+	MethodViewsActivate  = "views.activate"
+	MethodViewsClose     = "views.close"
+	MethodViewsRename    = "views.rename"
+	MethodViewsGetLayout = "views.getLayout"
+	MethodViewsSetLayout = "views.setLayout"
+
 	MethodLightingGetStyle   = "lighting.getStyle"
 	MethodLightingSetStyle   = "lighting.setStyle"
 	MethodLightingListStyles = "lighting.listStyles"
