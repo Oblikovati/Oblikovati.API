@@ -72,13 +72,25 @@ func (s Sketch) AddEllipse(index int, center, axis []float64, majorR, minorR str
 	})
 }
 
-// AddEllipticalArc adds an elliptical arc bounded by unit-bearing start/end angles
-// ("0 deg", "90 deg") measured in the ellipse's major/minor frame.
-func (s Sketch) AddEllipticalArc(index int, center, axis []float64, majorR, minorR, startAngle, endAngle string, construction bool) (wire.AddSketchEntityResult, error) {
+// EllipticalArc is the shape of a 2D elliptical arc for [Sketch.AddEllipticalArc]:
+// a center [x,y] (cm) and major-axis direction [x,y], unit-bearing major/minor radii
+// ("20 mm"), and unit-bearing start/end angles ("0 deg", "90 deg") in the ellipse's
+// major/minor frame. Grouped into a struct so the call stays under the parameter limit
+// and reads by field at the call site.
+type EllipticalArc struct {
+	Center, Axis             []float64
+	MajorRadius, MinorRadius string
+	StartAngle, EndAngle     string
+	Construction             bool
+}
+
+// AddEllipticalArc adds an elliptical arc described by spec.
+func (s Sketch) AddEllipticalArc(index int, spec EllipticalArc) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityEllipticalArc),
-		Points: [][]float64{center}, Axis: axis, MajorRadius: majorR, MinorRadius: minorR,
-		StartAngle: startAngle, EndAngle: endAngle, Construction: construction,
+		Points: [][]float64{spec.Center}, Axis: spec.Axis,
+		MajorRadius: spec.MajorRadius, MinorRadius: spec.MinorRadius,
+		StartAngle: spec.StartAngle, EndAngle: spec.EndAngle, Construction: spec.Construction,
 	})
 }
 

@@ -31,7 +31,7 @@ def header(identifier: str) -> str:
 
 def is_constraint(line: str) -> bool:
     s = line.lstrip()
-    return s.startswith("//go:build") or s.startswith("// +build")
+    return s.startswith(("//go:build", "// +build"))
 
 
 def insert_index(lines: list[str]) -> int:
@@ -51,11 +51,25 @@ def patched(text: str, identifier: str) -> str | None:
     return "".join(lines[:at] + [header(identifier), "\n"] + lines[at:])
 
 
+def within_root(path: Path) -> bool:
+    """True only if path resolves to a location inside ROOT (symlink-safe).
+
+    Guards the write sink in main() so we never follow a symlink/`..` out of the
+    module tree, even though the file list is derived from ROOT.rglob (S2083).
+    """
+    try:
+        path.resolve().relative_to(ROOT)
+    except ValueError:
+        return False
+    return True
+
+
 def go_files() -> list[Path]:
     return [
         p
         for p in sorted(ROOT.rglob("*.go"))
-        if not any(part in SKIP_DIRS for part in p.relative_to(ROOT).parts)
+        if within_root(p)
+        and not any(part in SKIP_DIRS for part in p.relative_to(ROOT).parts)
     ]
 
 
@@ -67,7 +81,7 @@ def main() -> int:
         if out is None:
             continue
         changed.append(path.relative_to(ROOT))
-        if not check:
+        if not check and within_root(path):
             path.write_text(out)
     if check and changed:
         print("missing SPDX header:")

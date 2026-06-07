@@ -107,6 +107,6 @@ func (s Sketch3D) SetColor(index int, color string) (wire.Sketch3DInfo, error) {
 }
 
 // SetDeferUpdates toggles whether the 3D sketch batches edits (solving on resume).
-func (s Sketch3D) SetDeferUpdates(index int, defer_ bool) (wire.Sketch3DInfo, error) {
-	return s.SetProperty(index, "deferUpdates", boolText(defer_))
+func (s Sketch3D) SetDeferUpdates(index int, deferred bool) (wire.Sketch3DInfo, error) {
+	return s.SetProperty(index, "deferUpdates", boolText(deferred))
 }

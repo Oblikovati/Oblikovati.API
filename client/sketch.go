@@ -126,8 +126,8 @@ func (s Sketch) SetLineWeight(index int, weight string) (wire.SketchInfo, error)
 }
 
 // SetDeferUpdates toggles whether the sketch batches edits (solving on resume).
-func (s Sketch) SetDeferUpdates(index int, defer_ bool) (wire.SketchInfo, error) {
-	return s.SetProperty(index, "deferUpdates", boolText(defer_))
+func (s Sketch) SetDeferUpdates(index int, deferred bool) (wire.SketchInfo, error) {
+	return s.SetProperty(index, "deferUpdates", boolText(deferred))
 }
 
 // boolText renders a bool as the "true"/"false" the property setter expects.

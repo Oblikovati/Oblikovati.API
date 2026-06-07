@@ -27,7 +27,7 @@ mkdir -p "$BUILD"
 shopt -s nullglob
 for f in "$SRC"/*.md; do
   base="$(basename "$f")"
-  [ "$base" = "README.md" ] && continue
+  [[ "$base" = "README.md" ]] && continue
   cp "$f" "$BUILD/$base"
 done
 shopt -u nullglob
@@ -39,7 +39,7 @@ scripts/gen-api-docs.sh "$BUILD/API-Docs.md"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
-if git clone --depth 1 "$WIKI_REMOTE" "$WORK" 2>/dev/null && [ -e "$WORK/.git" ]; then
+if git clone --depth 1 "$WIKI_REMOTE" "$WORK" 2>/dev/null && [[ -e "$WORK/.git" ]]; then
   echo "publish-wiki: cloned existing wiki"
 else
   echo "publish-wiki: wiki has no commits yet — initializing a fresh one"

@@ -52,34 +52,32 @@ func TestLightingEnumIdsAreStable(t *testing.T) {
 	}
 }
 
+// namedEnum is the shared shape of the lighting/shadow id-enums: a validity check plus a
+// String() that returns a placeholder ("lightType(?)") for values with no defined name.
+type namedEnum interface {
+	IsValid() bool
+	String() string
+}
+
+// assertNamed fails t for any value that is invalid or stringifies to placeholder, so the
+// per-enum loops below collapse to one call each (keeps the test's complexity low).
+func assertNamed[T namedEnum](t *testing.T, label, placeholder string, values []T) {
+	t.Helper()
+	for _, v := range values {
+		if !v.IsValid() || v.String() == placeholder {
+			t.Errorf("%s %v has no valid name", label, v)
+		}
+	}
+}
+
 // TestLightingEnumNamesAndValidity checks every All* entry is valid with a non-placeholder
 // name, and that an undefined value is reported invalid.
 func TestLightingEnumNamesAndValidity(t *testing.T) {
-	for _, v := range AllLightTypes() {
-		if !v.IsValid() || v.String() == "lightType(?)" {
-			t.Errorf("LightType %d has no valid name", int32(v))
-		}
-	}
-	for _, v := range AllLightDefinitionTypes() {
-		if !v.IsValid() || v.String() == "lightDefinitionType(?)" {
-			t.Errorf("LightDefinitionType %d has no valid name", int32(v))
-		}
-	}
-	for _, v := range AllLightingStyleTypes() {
-		if !v.IsValid() || v.String() == "lightingStyleType(?)" {
-			t.Errorf("LightingStyleType %d has no valid name", int32(v))
-		}
-	}
-	for _, v := range AllShadowDirections() {
-		if !v.IsValid() || v.String() == "shadowDirection(?)" {
-			t.Errorf("ShadowDirection %d has no valid name", int32(v))
-		}
-	}
-	for _, v := range AllGroundShadows() {
-		if !v.IsValid() || v.String() == "groundShadow(?)" {
-			t.Errorf("GroundShadow %d has no valid name", int32(v))
-		}
-	}
+	assertNamed(t, "LightType", "lightType(?)", AllLightTypes())
+	assertNamed(t, "LightDefinitionType", "lightDefinitionType(?)", AllLightDefinitionTypes())
+	assertNamed(t, "LightingStyleType", "lightingStyleType(?)", AllLightingStyleTypes())
+	assertNamed(t, "ShadowDirection", "shadowDirection(?)", AllShadowDirections())
+	assertNamed(t, "GroundShadow", "groundShadow(?)", AllGroundShadows())
 	if GroundShadowEnum(0).IsValid() || LightTypeEnum(0).IsValid() {
 		t.Errorf("zero value must be invalid for these id-based enums")
 	}

@@ -58,14 +58,26 @@ func (s Sketch3D) AddEllipse(index int, center, axis, majorAxis []float64, major
 	})
 }
 
-// AddEllipticalArc adds a bounded ellipse spanning startAngle..startAngle+sweepAngle
-// (unit-bearing angles).
-func (s Sketch3D) AddEllipticalArc(index int, center, axis, majorAxis []float64, majorR, minorR, startAngle, sweepAngle string, construction bool) (wire.AddSketch3DEntityResult, error) {
+// EllipticalArc3D is the shape of a 3D elliptical arc for [Sketch3D.AddEllipticalArc]:
+// a center [x,y,z] (cm), plane normal Axis [x,y,z] (empty ⇒ +Z), in-plane MajorAxis
+// direction (empty ⇒ +X), unit-bearing major/minor radii, and unit-bearing start/sweep
+// angles spanning StartAngle..StartAngle+SweepAngle. Grouped into a struct so the call
+// stays under the parameter limit and reads by field at the call site.
+type EllipticalArc3D struct {
+	Center, Axis, MajorAxis  []float64
+	MajorRadius, MinorRadius string
+	StartAngle, SweepAngle   string
+	Construction             bool
+}
+
+// AddEllipticalArc adds a bounded ellipse described by spec.
+func (s Sketch3D) AddEllipticalArc(index int, spec EllipticalArc3D) (wire.AddSketch3DEntityResult, error) {
 	return s.AddEntity(wire.AddSketch3DEntityArgs{
 		SketchIndex: index, Kind: string(types.Sketch3DEntityEllipticalArc),
-		Points: [][]float64{center}, Axis: axis, MajorAxis: majorAxis,
-		MajorRadius: majorR, MinorRadius: minorR, StartAngle: startAngle, SweepAngle: sweepAngle,
-		Construction: construction,
+		Points: [][]float64{spec.Center}, Axis: spec.Axis, MajorAxis: spec.MajorAxis,
+		MajorRadius: spec.MajorRadius, MinorRadius: spec.MinorRadius,
+		StartAngle: spec.StartAngle, SweepAngle: spec.SweepAngle,
+		Construction: spec.Construction,
 	})
 }
 
