@@ -15,9 +15,10 @@ package wire
 // host router keys its dispatch table on them and the client sends them. Treat the
 // string values as frozen (clients and saved automations depend on them).
 const (
-	MethodCommandsList    = "commands.list"
-	MethodCommandsExecute = "commands.execute"
-	MethodCommandsCreate  = "commands.create"
+	MethodCommandsList     = "commands.list"
+	MethodCommandsExecute  = "commands.execute"
+	MethodCommandsCreate   = "commands.create"
+	MethodCommandsSetState = "commands.setState"
 
 	MethodRibbonList = "ribbon.list"
 

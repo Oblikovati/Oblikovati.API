@@ -31,6 +31,17 @@ type ExecuteCommandArgs struct {
 	ID string `json:"id"`
 }
 
+// SetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of
+// its own commands' live ribbon state. Active toggles the button's pressed/highlighted look
+// (rendered in the accent color), so a stateful control like a presenter or follow toggle
+// reads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.
+// "Presenter" → "Presenting") — leave it empty to keep the current label.
+type SetCommandStateArgs struct {
+	ID          string `json:"id"`
+	Active      bool   `json:"active"`
+	DisplayName string `json:"displayName,omitempty"`
+}
+
 // CreateCommandArgs is the request of [MethodCommandsCreate]: an add-in registering a
 // ribbon button. The host creates a command with this metadata that appears in the
 // ribbon; clicking it runs no host logic but fires a command-ended event the add-in
