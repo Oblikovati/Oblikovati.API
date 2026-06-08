@@ -55,3 +55,31 @@ func (v View) SetCamera(a wire.SetCameraArgs) (wire.CameraView, error) {
 	var r wire.CameraView
 	return r, v.c.call(wire.MethodViewSetCamera, a, &r)
 }
+
+// Capture writes the viewport framebuffer to a PNG and returns its path and pixel size. The host
+// writes the file on the next rendered frame, so read the returned Path after a short delay.
+//
+//	r, _ := client.View().Capture(wire.CaptureViewportArgs{Path: "/tmp/shot.png"})
+//	// poll r.Path until it exists, then load the image.
+func (v View) Capture(a wire.CaptureViewportArgs) (wire.CaptureViewportResult, error) {
+	var r wire.CaptureViewportResult
+	return r, v.c.call(wire.MethodViewportCapture, a, &r)
+}
+
+// SetNormalDebug turns the viewport's normal-debug render on/off (front-facing green, back-facing red)
+// so a capture reveals winding/flipped-normal defects.
+//
+//	client.View().SetNormalDebug(wire.SetNormalDebugArgs{On: true})
+func (v View) SetNormalDebug(a wire.SetNormalDebugArgs) (wire.NormalDebugResult, error) {
+	var r wire.NormalDebugResult
+	return r, v.c.call(wire.MethodViewportSetNormalDebug, a, &r)
+}
+
+// SetMeshColors turns the mesh-debug-colors render on/off (each B-rep face — or each triangle when
+// PerTriangle — a distinct color), so a capture maps a region back to a primitive index in the mesh.
+//
+//	client.View().SetMeshColors(wire.SetMeshColorsArgs{On: true, PerTriangle: true})
+func (v View) SetMeshColors(a wire.SetMeshColorsArgs) (wire.MeshColorsResult, error) {
+	var r wire.MeshColorsResult
+	return r, v.c.call(wire.MethodViewportSetMeshColors, a, &r)
+}
