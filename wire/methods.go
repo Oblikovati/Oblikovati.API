@@ -116,6 +116,10 @@ const (
 	MethodViewGetCamera = "view.getCamera"
 	MethodViewSetCamera = "view.setCamera"
 
+	MethodViewportCapture        = "viewport.capture"
+	MethodViewportSetNormalDebug = "viewport.setNormalDebug"
+	MethodViewportSetMeshColors  = "viewport.setMeshColors"
+
 	MethodViewsList      = "views.list"
 	MethodViewsAdd       = "views.add"
 	MethodViewsActivate  = "views.activate"
