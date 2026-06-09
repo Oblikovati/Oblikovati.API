@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 func TestSketchSetLineTypeSendsPropertyAndValue(t *testing.T) {

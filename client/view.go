@@ -3,8 +3,8 @@
 package client
 
 import (
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 // View is the viewport operation group: it lets an add-in read and set the display mode

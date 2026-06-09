@@ -2,7 +2,7 @@
 
 package wire
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // OffsetSketchArgs is the request of [MethodSketchOffset]: offset Entity (a line/circle/arc
 // id) by the unit-bearing Distance (signed — a parallel line to the left of A→B, or a

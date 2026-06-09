@@ -7,7 +7,7 @@ In this walkthrough you build a complete add-in that:
    cube**.
 
 It is a single Go package compiled as a C-shared library. Everything it links is the
-Apache-2.0 contract `oblikovati/api`.
+Apache-2.0 contract `oblikovati.org/api`.
 
 > Everything you need ships in this repository: the Go contract and the C ABI header
 > (`include/oblikovati_addin.h`). The snippets below are the essential pieces, so you
@@ -30,7 +30,7 @@ module my-addin
 
 go 1.22
 
-require oblikovati/api v0.0.0
+require oblikovati.org/api v0.0.0
 ```
 
 During local development, resolve the contract from a sibling checkout with a workspace
@@ -40,7 +40,7 @@ During local development, resolve the contract from a sibling checkout with a wo
 git clone https://github.com/Oblikovati/Oblikovati.API.git   # the Apache-2.0 contract
 cd my-addin
 go work init .
-go work edit -replace oblikovati/api=../Oblikovati.API
+go work edit -replace oblikovati.org/api=../Oblikovati.API
 ```
 
 You also need the C ABI header `oblikovati_addin.h` on your cgo include path — it
@@ -201,9 +201,9 @@ package main
 import (
 	"encoding/json"
 
-	"oblikovati/api/client"
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 const cubeCommandID = "com.example.cube-button.makeCube"

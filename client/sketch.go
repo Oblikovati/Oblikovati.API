@@ -3,8 +3,8 @@
 package client
 
 import (
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 // Sketch is the sketch-authoring operation group for the active part.
@@ -115,7 +115,7 @@ func (s Sketch) SetColor(index int, color string) (wire.SketchInfo, error) {
 	return s.SetProperty(index, "color", color)
 }
 
-// SetLineType overrides the sketch's line style (a [oblikovati/api/types.SketchLineType]).
+// SetLineType overrides the sketch's line style (a [oblikovati.org/api/types.SketchLineType]).
 func (s Sketch) SetLineType(index int, lineType types.SketchLineType) (wire.SketchInfo, error) {
 	return s.SetProperty(index, "lineType", string(lineType))
 }

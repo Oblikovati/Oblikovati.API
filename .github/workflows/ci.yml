@@ -33,9 +33,12 @@ jobs:
       - run: go test ./...
       - name: License boundary (api must not import the GPL application)
         run: |
-          if go list -deps ./... | grep -q 'Oblikovati/oblikovati'; then
+          # The contract module is oblikovati.org/api; the GPL application is oblikovati.org
+          # (oblikovati.org/kernel, /model, …). Any oblikovati.org dep that is NOT the api itself
+          # is the application leaking into the contract (ADR-0018 violation).
+          if go list -deps ./... | grep -E '^oblikovati\.org(/|$)' | grep -qv '^oblikovati\.org/api'; then
             echo "ERROR: /api imports the GPL application module (ADR-0018 violated)"
-            go list -deps ./... | grep 'Oblikovati/oblikovati'
+            go list -deps ./... | grep -E '^oblikovati\.org(/|$)' | grep -v '^oblikovati\.org/api'
             exit 1
           fi
           echo "OK: /api has no dependency on the application module"

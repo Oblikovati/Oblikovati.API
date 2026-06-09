@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Ribbon is the ribbon operation group — discovery of the active ribbon's structure, so an
 // add-in knows the tab/panel internal names to place its controls into. Placement itself is

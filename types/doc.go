@@ -7,6 +7,6 @@
 //
 // Types here are pure data — no dependency on the implementation, no methods that
 // touch live model state. The richer behavioral surface lives in
-// [oblikovati/api/contract] (in-proc Go interfaces) and
-// [oblikovati/api/wire] (the JSON contract).
+// [oblikovati.org/api/contract] (in-proc Go interfaces) and
+// [oblikovati.org/api/wire] (the JSON contract).
 package types

@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Commands is the command operation group.
 type Commands struct{ c *Client }

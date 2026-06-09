@@ -2,7 +2,7 @@
 
 package contract
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // MeshTranslator is the in-process contract for a foreign-mesh-format translator: it
 // reports which formats it can read/write so the host (or an add-in registering its
@@ -10,7 +10,7 @@ import "oblikovati/api/types"
 // implementation (model/exchange) satisfies it (compile-time asserted there).
 //
 // The actual byte-level translation crosses the wire as documents.import /
-// documents.export ([oblikovati/api/wire]); this contract is the capability query that
+// documents.export ([oblikovati.org/api/wire]); this contract is the capability query that
 // lets the host pick a translator without hard-coding the format list.
 //
 // Example:

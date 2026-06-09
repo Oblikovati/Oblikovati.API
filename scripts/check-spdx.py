@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify (or insert) the Apache-2.0 SPDX header on every Go file in this module.
 
-This is the standalone public API contract module (oblikovati/api),
+This is the standalone public API contract module (oblikovati.org/api),
 Apache-2.0 throughout — see ADR-0018 in the Oblikovati app repo. Unlike the
 monorepo predecessor, there is a single license tree rooted at the repo root, so
 the mapping is just "every *.go -> Apache-2.0".

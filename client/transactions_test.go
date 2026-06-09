@@ -5,7 +5,7 @@ package client
 import (
 	"testing"
 
-	"oblikovati/api/wire"
+	"oblikovati.org/api/wire"
 )
 
 func TestTransactionsUndoSendsNoBodyAndDecodesState(t *testing.T) {

@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Diagnostics is the operation-trace/log group: a real-time, pollable tail of the host's
 // activity (every router call with timing + outcome, plus captured slog records). Tail with

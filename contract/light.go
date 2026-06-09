@@ -2,7 +2,7 @@
 
 package contract
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // Light is the in-process contract for one scene light, scoped to the
 // properties our renderer consumes. It is read-mostly here; mutation goes through the wire

@@ -5,8 +5,8 @@ package client
 import (
 	"testing"
 
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 func TestRibbonListSendsMethodAndDecodesReply(t *testing.T) {

@@ -7,7 +7,7 @@ package wire
 // method-name constants live in methods.go; these are the request/response DTOs.
 
 // ImportRequest is the request of [MethodDocumentsImport]: read the file at Path
-// (interpreted as Format — an [oblikovati/api/types.ExchangeFormat] string) into the
+// (interpreted as Format — an [oblikovati.org/api/types.ExchangeFormat] string) into the
 // active part as an imported-body feature. Options carries free-form translator knobs
 // (e.g. "weldTolerance"); unknown keys are ignored.
 type ImportRequest struct {
@@ -27,7 +27,7 @@ type ImportResponse struct {
 
 // ExportRequest is the request of [MethodDocumentsExport]: write the active part's
 // bodies to Path in Format at the given tessellation Resolution (an
-// [oblikovati/api/types.MeshResolution] string; "" ⇒ medium).
+// [oblikovati.org/api/types.MeshResolution] string; "" ⇒ medium).
 type ExportRequest struct {
 	Path       string `json:"path"`
 	Format     string `json:"format"`

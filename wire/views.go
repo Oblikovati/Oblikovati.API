@@ -2,7 +2,7 @@
 
 package wire
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // A document owns a collection of views (the document's view collection); each view has its
 // own camera, and the layout decides how many render at once. These DTOs are the wire

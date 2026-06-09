@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Move translates a selection of entities in place by [dx,dy] (cm).
 func (s Sketch) Move(index int, entities []uint64, dx, dy float64) (wire.TransformSketchResult, error) {

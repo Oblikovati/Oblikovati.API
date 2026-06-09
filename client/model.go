@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Model is the read-only model-inspection operation group.
 type Model struct{ c *Client }

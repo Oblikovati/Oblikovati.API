@@ -2,7 +2,7 @@
 
 package wire
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // CommandInfo is the JSON shape of a registered command (its control-definition
 // metadata) plus its current enabled state.

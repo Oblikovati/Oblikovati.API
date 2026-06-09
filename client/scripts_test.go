@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"oblikovati/api/wire"
+	"oblikovati.org/api/wire"
 )
 
 func TestScriptsRunMarshalsSourceAndDecodesResult(t *testing.T) {
