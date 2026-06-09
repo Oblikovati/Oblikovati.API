@@ -3,9 +3,8 @@
 package types
 
 // TextHorizontalAlign is how sketch text is positioned horizontally about its anchor
-// point, mirroring Inventor's HorizontalTextAlignmentEnum
-// (kAlignTextLeft/Center/Right). String values are frozen — they appear in the .obk
-// document and on the wire.
+// point (left/center/right, the standard MCAD horizontal text alignments). String values
+// are frozen — they appear in the .obk document and on the wire.
 type TextHorizontalAlign string
 
 const (
@@ -14,10 +13,10 @@ const (
 	TextAlignRight  TextHorizontalAlign = "right"
 )
 
-// TextVerticalAlign is how sketch text is positioned vertically about its anchor point,
-// mirroring Inventor's VerticalTextAlignmentEnum (kAlignTextBaseline/Lower/Middle/Upper).
-// Baseline keeps the text's baseline on the anchor; the others measure from the text's
-// cap box. String values are frozen.
+// TextVerticalAlign is how sketch text is positioned vertically about its anchor point
+// (baseline/lower/middle/upper, the standard MCAD vertical text alignments). Baseline
+// keeps the text's baseline on the anchor; the others measure from the text's cap box.
+// String values are frozen.
 type TextVerticalAlign string
 
 const (
@@ -28,7 +27,7 @@ const (
 )
 
 // SketchTextStyle is the renderable description of a sketch text entity: the content plus
-// the type-setting parameters Inventor splits across TextBox + TextStyle (font Family,
+// the type-setting parameters MCAD apps split across a text box + text style (font Family,
 // FontSize in cm, the character Height in cm that scales the glyph em, the Rotation about
 // the anchor in radians CCW, and horizontal/vertical alignment). It is the value carried
 // by the wire DTOs and the typed client so an add-in can author/edit text without

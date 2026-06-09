@@ -5,7 +5,7 @@ package client
 import "oblikovati/api/wire"
 
 // Views is the per-document view-collection operation group: a document owns a set of
-// views (Inventor's Document.Views), each with its own camera, tiled per a layout. Use it
+// views (the document's view collection), each with its own camera, tiled per a layout. Use it
 // to enumerate, add, activate, close, and rename views, and to choose the tiling layout.
 // A Document field of 0 in any request targets the active document.
 type Views struct{ c *Client }
