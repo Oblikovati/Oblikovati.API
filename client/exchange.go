@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Import reads a foreign mesh file (STL/OBJ/3MF) into the active part as an
 // imported-body feature, returning how many bodies came in, whether the first is a

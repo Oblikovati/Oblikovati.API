@@ -3,8 +3,8 @@
 package client
 
 import (
-	"oblikovati/api/types"
-	"oblikovati/api/wire"
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
 )
 
 // Dimension is the dimensional-constraint group for a sketch, reached via

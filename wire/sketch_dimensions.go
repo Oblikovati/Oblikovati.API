@@ -4,7 +4,7 @@ package wire
 
 // AddDimensionArgs is the request of [MethodSketchAddDimension] — the discriminated
 // dimensional-constraint constructor. Kind is a
-// [oblikovati/api/types.DimensionConstraintKind]; Entities are the session ids
+// [oblikovati.org/api/types.DimensionConstraintKind]; Entities are the session ids
 // of the geometry being dimensioned (in the kind's order); Expression is the unit-bearing
 // value ("40 mm", "30 deg"):
 //

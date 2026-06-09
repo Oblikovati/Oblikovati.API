@@ -4,7 +4,7 @@ package wire
 
 // AddSketchEntityArgs is the request of [MethodSketchAddEntity] — the discriminated
 // entity constructor. Kind is the base entity
-// ([oblikovati/api/types.SketchEntityKind]: line | point | circle | arc | …);
+// ([oblikovati.org/api/types.SketchEntityKind]: line | point | circle | arc | …);
 // Variant selects the overload within that kind ("centerRadius" | "threePoint" |
 // "centerStartEnd"; empty ⇒ the kind's default). Points are the defining points, each
 // [x,y] in sketch-plane database units (cm), in the constructor's expected order. Radius

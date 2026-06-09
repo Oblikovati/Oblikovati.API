@@ -2,7 +2,7 @@
 
 package contract
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // Parameter is the in-process contract for one parametric variable: the authored
 // expression, its category, and the value the model consumes. The GPL
@@ -11,9 +11,9 @@ import "oblikovati/api/types"
 //
 // The evaluated [Quantity], unit, tolerance, and health are not on the contract
 // yet — they return implementation value types that will move into
-// [oblikovati/api/types] as the contract grows. The JSON view of a
+// [oblikovati.org/api/types] as the contract grows. The JSON view of a
 // parameter (expression + formatted value + health) is available now via
-// [oblikovati/api/wire.ParameterInfo].
+// [oblikovati.org/api/wire.ParameterInfo].
 type Parameter interface {
 	// Name is the display label.
 	Name() string

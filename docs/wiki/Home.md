@@ -14,16 +14,16 @@ through a stable, permissively-licensed contract.
 ## What an add-in is
 
 An add-in is a shared library (`.so` / `.dll` / `.dylib`) that the host loads in-process at
-runtime. It links **only** the Apache-2.0 contract module (`oblikovati/api`) and talks to the
+runtime. It links **only** the Apache-2.0 contract module (`oblikovati.org/api`) and talks to the
 host across a small C ABI. Because the boundary is a byte protocol (JSON over a single host
 callback), an add-in can be **closed-source** while the contract it depends on stays open.
 
 ```
 ┌────────────────────┐        C ABI (JSON method calls)        ┌──────────────────────┐
 │   Your add-in      │  ────────────────────────────────────▶  │   Oblikovati host    │
-│  (.so / .dll)      │           oblikovati/api/client          │  (kernel + UI head)  │
+│  (.so / .dll)      │           oblikovati.org/api/client          │  (kernel + UI head)  │
 │  links only        │  ◀────────────────────────────────────  │  owns the live model │
-│  oblikovati/api    │            replies / events              │                      │
+│  oblikovati.org/api    │            replies / events              │                      │
 └────────────────────┘                                          └──────────────────────┘
 ```
 
@@ -39,7 +39,7 @@ callback), an add-in can be **closed-source** while the contract it depends on s
 
 ## License at a glance
 
-- The **contract** you build against (`oblikovati/api`) is **Apache-2.0**.
+- The **contract** you build against (`oblikovati.org/api`) is **Apache-2.0**.
 - The **host application** is GPL-2.0 and is never linked by an add-in.
 - Your add-in may carry **any license you choose** — see [[Testing Automation]] for how the
   build keeps that boundary honest.

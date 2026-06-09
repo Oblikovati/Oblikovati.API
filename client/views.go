@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Views is the per-document view-collection operation group: a document owns a set of
 // views (the document's view collection), each with its own camera, tiled per a layout. Use it

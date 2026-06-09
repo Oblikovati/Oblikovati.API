@@ -28,7 +28,7 @@ type GraphicsColorMapper struct {
 // GraphicsPrimitive is one drawable primitive in a node (a line, point, triangle, or
 // text primitive). Geometry travels inline as flat arrays.
 //
-//   - Kind is a [oblikovati/api/types.GraphicsPrimitiveKind] value.
+//   - Kind is a [oblikovati.org/api/types.GraphicsPrimitiveKind] value.
 //   - Coordinates/Indices define the vertices and topology.
 //   - Per-vertex color is resolved in priority order: Colors (rgba quads) if present;
 //     else Scalars+ColorMapper; else the overall Color broadcast to every vertex.

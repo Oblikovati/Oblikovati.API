@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Scripts is the operation group for running a Lua program against the live model in one
 // call (the sandboxed runtime of ADR-0028). An MCP/LLM client uses it to submit a whole

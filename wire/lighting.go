@@ -2,7 +2,7 @@
 
 package wire
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // LightInfo is the JSON shape of one scene light — the element of [LightListResult] and the
 // payload of [MethodLightingAddLight] / [MethodLightingSetLight]. Direction/Position are

@@ -2,7 +2,7 @@
 
 package wire
 
-import "oblikovati/api/types"
+import "oblikovati.org/api/types"
 
 // RibbonControlInfo is one command control (button) on a panel — its command id and display
 // name, so an add-in can discover what is already there before inserting next to it.

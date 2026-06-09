@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Appearances is the appearance operation group: list/read the PBR appearances available
 // to the active document and create/edit custom ones.

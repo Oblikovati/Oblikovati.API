@@ -18,10 +18,10 @@ mkdir -p "$(dirname "$OUT")"
 
 # Packages in logical reading order: vocabulary → interfaces → wire DTOs → client.
 PKGS=(
-  oblikovati/api/types
-  oblikovati/api/contract
-  oblikovati/api/wire
-  oblikovati/api/client
+  oblikovati.org/api/types
+  oblikovati.org/api/contract
+  oblikovati.org/api/wire
+  oblikovati.org/api/client
 )
 
 GOMARKDOC="${GOMARKDOC:-gomarkdoc}"
@@ -45,7 +45,7 @@ fi
 {
   echo "# API Docs"
   echo
-  echo "_Auto-generated from the \`oblikovati/api\` Go source and doc comments on every merge"
+  echo "_Auto-generated from the \`oblikovati.org/api\` Go source and doc comments on every merge"
   echo "to \`develop\`. Do not edit this page by hand._"
   echo
   cat "$TMP"

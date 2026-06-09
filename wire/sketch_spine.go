@@ -80,7 +80,7 @@ type ListProfilesResult struct {
 
 // ConstraintStatusResult is the response of [MethodSketchConstraintStatus]: the sketch's
 // constraint state without moving geometry (a non-mutating DOF analysis). Status is a
-// [oblikovati/api/types.ConstraintStatus]; DOF is the remaining free degrees
+// [oblikovati.org/api/types.ConstraintStatus]; DOF is the remaining free degrees
 // of freedom; Variables/Equations are the system size; Redundant counts the dependent
 // constraints (> 0 ⇒ over-constrained).
 type ConstraintStatusResult struct {
@@ -92,7 +92,7 @@ type ConstraintStatusResult struct {
 }
 
 // SketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,
-// session id, kind ([oblikovati/api/types.SketchEntityKind]), construction
+// session id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction
 // flag, the defining points (each [x,y] in sketch-plane cm), and a radius for circular
 // kinds (0 otherwise).
 type SketchEntityInfo struct {
@@ -110,7 +110,7 @@ type EnumerateEntitiesResult struct {
 }
 
 // ConstraintInfo is one enumerated geometric constraint from [MethodSketchConstraints]:
-// its index, kind ([oblikovati/api/types.GeometricConstraintKind]), and the
+// its index, kind ([oblikovati.org/api/types.GeometricConstraintKind]), and the
 // session ids of the entities it relates.
 type ConstraintInfo struct {
 	Index    int      `json:"index"`
@@ -124,7 +124,7 @@ type ListConstraintsResult struct {
 }
 
 // DimensionInfo is one enumerated dimensional constraint from [MethodSketchDimensions]:
-// its index, kind ([oblikovati/api/types.DimensionConstraintKind]), backing
+// its index, kind ([oblikovati.org/api/types.DimensionConstraintKind]), backing
 // parameter name + expression, current model value (cm/rad), and whether it is driven
 // (reports) rather than driving (constrains).
 type DimensionInfo struct {

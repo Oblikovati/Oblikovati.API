@@ -1,12 +1,12 @@
 # Oblikovati API Architecture
 
-The public automation contract is the standalone Go module **`oblikovati/api`**, licensed
+The public automation contract is the standalone Go module **`oblikovati.org/api`**, licensed
 **Apache-2.0**. It is the single source of truth for the API surface: the host implements it,
 and add-ins build against it. This page explains its shape and how to use it well.
 
 ## Invariant: the contract never imports the application
 
-`oblikovati/api` must **never** import the GPL application module. The dependency flows one way
+`oblikovati.org/api` must **never** import the GPL application module. The dependency flows one way
 only — the app depends on the contract, not the reverse — and CI fails the build if it is ever
 violated. This is what lets a closed-source add-in link the contract without touching GPL code.
 
@@ -108,7 +108,7 @@ First-party (same runtime)            Add-in (own runtime)
 
 Every change is **two parts, in this order**:
 
-1. **Contract first, in `oblikovati/api`:**
+1. **Contract first, in `oblikovati.org/api`:**
    - enum / value type → `types` (define it **once** here),
    - in-proc Go interface → `contract`,
    - method-name constant + request/response DTOs → `wire`,

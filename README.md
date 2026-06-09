@@ -1,4 +1,4 @@
-# Oblikovati API (`oblikovati/api`)
+# Oblikovati API (`oblikovati.org/api`)
 
 The **public automation contract** for Oblikovati, as a standalone Go module under
 the **Apache-2.0** license. It is the single source of truth for the API: the GPL

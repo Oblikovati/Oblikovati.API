@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Include links the referenced part edges/vertices (by reference key) into the 3D sketch
 // as associative reference geometry, returning the created entity ids and whether every

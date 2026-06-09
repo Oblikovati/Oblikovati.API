@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Fonts is the font operation group: it lists the faces a text/emboss can use — the host's
 // bundled faces plus the OS-installed fonts (ADR-0031).

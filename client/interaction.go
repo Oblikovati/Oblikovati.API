@@ -2,7 +2,7 @@
 
 package client
 
-import "oblikovati/api/wire"
+import "oblikovati.org/api/wire"
 
 // Interaction is the operation group for the host's current interaction status: whether
 // the local user is mid-action. A collaboration add-in queries it to gate incoming remote

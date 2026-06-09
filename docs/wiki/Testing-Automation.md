@@ -9,7 +9,7 @@ external I/O (here, the host) with **named fake types**, not inline stubs.
 
 ## The license boundary, in one rule
 
-> The **shipped** add-in library links **only** `oblikovati/api` (Apache-2.0). It must never
+> The **shipped** add-in library links **only** `oblikovati.org/api` (Apache-2.0). It must never
 > link the GPL application.
 
 Add-in logic talks to the host through the `client.Transport` interface, so it has **no compile
@@ -29,7 +29,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"oblikovati/api/wire"
+	"oblikovati.org/api/wire"
 )
 
 // fakeTransport is a named test double for client.Transport: it records every method
@@ -136,11 +136,11 @@ go list -deps . | grep -E '^oblikovati(/|$)'
 If your integration tests require the GPL host, guard them so this check runs on the shipped
 build only (e.g. the integration tests live behind a build tag, or in a separate module whose
 `require` on the application is plainly test-scope). The contract module itself enforces the
-mirror-image rule: `oblikovati/api` is checked to never import the application.
+mirror-image rule: `oblikovati.org/api` is checked to never import the application.
 
 ## Testing the contract itself
 
-If you contribute to `oblikovati/api`, note how it is tested:
+If you contribute to `oblikovati.org/api`, note how it is tested:
 
 - `types` and `wire` are **pure data** — tested by pinning frozen ids and JSON round-trips.
 - `client` is tested with a **fake transport** (the same technique as above), so it needs no host.
