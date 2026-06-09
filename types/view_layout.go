@@ -4,8 +4,8 @@ package types
 
 // ViewLayout is how a document's open views are tiled in the viewport — how many views
 // are shown at once and in what arrangement. A document always has at least one view;
-// the layout decides how many of them render simultaneously (Inventor shows views in
-// separate windows; we tile them in one viewport). This is the canonical Apache-2.0
+// the layout decides how many of them render simultaneously (many MCAD apps show views
+// in separate windows; we tile them in one viewport). This is the canonical Apache-2.0
 // definition; the GPL implementation aliases it and maps it onto the tiled renderer.
 type ViewLayout int32
 

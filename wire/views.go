@@ -4,7 +4,7 @@ package wire
 
 import "oblikovati/api/types"
 
-// A document owns a collection of views (Inventor's Document.Views); each view has its
+// A document owns a collection of views (the document's view collection); each view has its
 // own camera, and the layout decides how many render at once. These DTOs are the wire
 // shape of that collection and its mutations. Where a request carries a Document field,
 // 0 means the active document.
@@ -32,7 +32,7 @@ type ListViewsArgs struct {
 }
 
 // AddViewArgs is the request of [MethodViewsAdd]: create a new view of a document
-// (Inventor's Views.Add). When CopyActiveCamera is set the new view starts at the active
+// (adds to the document's view collection). When CopyActiveCamera is set the new view starts at the active
 // view's camera; otherwise it gets a default framed camera. The new view becomes active.
 type AddViewArgs struct {
 	Document         uint64 `json:"document,omitempty"`

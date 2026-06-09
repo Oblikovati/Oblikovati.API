@@ -74,6 +74,14 @@ func (s Sketch) AddTextWith(args wire.AddTextArgs) (wire.AddEntityIDResult, erro
 	return r, s.c.call(wire.MethodSketchAddText, args, &r)
 }
 
+// SetTextFont sets the font of the sketch text entity entityID: pass a system font file path
+// (its bytes are embedded into the document) or a bundled face family. The font becomes a
+// document resource the text/emboss resolves by, so the document stays self-contained (ADR-0031).
+func (s Sketch) SetTextFont(args wire.SetTextFontArgs) (wire.SetTextFontResult, error) {
+	var r wire.SetTextFontResult
+	return r, s.c.call(wire.MethodSketchSetTextFont, args, &r)
+}
+
 // EditText applies a partial edit to an existing sketch text entity (only the set fields),
 // returning the entity's resolved style. Editing re-derives the text's geometry, so any
 // emboss referencing it recomputes.

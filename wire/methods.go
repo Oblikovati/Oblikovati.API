@@ -70,6 +70,7 @@ const (
 	MethodSketchAddText          = "sketch.addText"
 	MethodSketchEditText         = "sketch.editText"
 	MethodSketchGetText          = "sketch.getText"
+	MethodSketchSetTextFont      = "sketch.setTextFont"
 	MethodSketchAutoDimension    = "sketch.autoDimension"
 	MethodSketchProject          = "sketch.project"
 
@@ -105,6 +106,8 @@ const (
 
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
+
+	MethodFontsList = "fonts.list"
 
 	MethodViewGetDisplayMode   = "view.getDisplayMode"
 	MethodViewSetDisplayMode   = "view.setDisplayMode"
