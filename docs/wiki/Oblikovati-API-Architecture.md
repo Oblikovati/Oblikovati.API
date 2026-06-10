@@ -43,9 +43,9 @@ The bytes that actually cross the boundary:
   JSON tags. A field rename is a breaking change.
 
 Operations are grouped by prefix: `documents.*`, `parameters.*`, `model.*`, `sketch.*`,
-`sketch3d.*`, `features.*`, `workPlanes.*`, `commands.*`, `ribbon.*`, `view.*`, `lighting.*`,
-`environment.*`, `appearances.*`, `materials.*`, `clientGraphics.*`, `interactionGraphics.*`,
-`transaction.*`, `logs.*`.
+`sketch3d.*`, `features.*`, `workPlanes.*`, `workPoints.*`, `commands.*`, `ribbon.*`,
+`view.*`, `lighting.*`, `environment.*`, `appearances.*`, `materials.*`, `clientGraphics.*`,
+`interactionGraphics.*`, `transaction.*`, `logs.*`.
 
 ### `client` — the typed façade
 
@@ -61,7 +61,8 @@ c.Sketch()      // create sketches, add geometry, constrain, solve, list profile
 c.Sketch3D()    // the 3D-sketch equivalent
 c.Features()    // list feature kinds (+schema) and add features
 c.Model()       // model tree, selection, reference keys, physical properties
-c.WorkPlanes()  // datum-plane construction
+c.WorkPlanes()  // construct datum planes, redefine a placed one in place
+c.WorkPoints()  // datum points at a fixed position
 c.Commands()    // list / execute / create ribbon commands
 c.Ribbon()      // discover the active ribbon's tabs/panels/controls
 c.View()        // get/set display mode and shadows
