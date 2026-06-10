@@ -47,6 +47,7 @@ type WorkPlaneInfo struct {
 	Normal   []float64          `json:"normal"`
 	IsOrigin bool               `json:"isOrigin"`
 	Healthy  bool               `json:"healthy"`
+	Reason   string             `json:"reason,omitempty"`  // why Healthy is false (empty when healthy)
 	Kind     string             `json:"kind,omitempty"`    // a types.WorkPlaneKind value
 	Scalars  []WorkPlaneScalar  `json:"scalars,omitempty"` // editable distance/angle inputs
 	Slots    []WorkPlaneRefSlot `json:"slots,omitempty"`   // re-pickable reference inputs
