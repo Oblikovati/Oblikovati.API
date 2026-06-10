@@ -30,6 +30,26 @@ func (w WorkPlanes) Create(args wire.CreateWorkPlaneArgs) (wire.CreateWorkPlaneR
 	return r, w.c.call(wire.MethodWorkPlanesCreate, args, &r)
 }
 
+// Redefine edits a placed user work plane in place: set editable scalars and/or re-point
+// reference slots, discovered from the plane's List entry (its Scalars and Slots). Returns
+// the plane's refreshed info.
+func (w WorkPlanes) Redefine(args wire.RedefineWorkPlaneArgs) (wire.RedefineWorkPlaneResult, error) {
+	var r wire.RedefineWorkPlaneResult
+	return r, w.c.call(wire.MethodWorkPlanesRedefine, args, &r)
+}
+
+// SetScalar redefines plane index's scalar slot to a unit-bearing value ("30 mm", "60 deg") —
+// the common single-value redefine (an offset distance or a line-plane angle).
+func (w WorkPlanes) SetScalar(index, scalar int, value string) (wire.RedefineWorkPlaneResult, error) {
+	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, Scalars: []wire.ScalarEdit{{Index: scalar, Value: value}}})
+}
+
+// Repick redefines plane index by re-pointing its reference slot at ref (an origin constant,
+// a List ref, or a face key) — the common single-reference redefine.
+func (w WorkPlanes) Repick(index, slot int, ref string) (wire.RedefineWorkPlaneResult, error) {
+	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, Repick: []wire.SlotRepick{{Slot: slot, Ref: ref}}})
+}
+
 // Offset adds a plane parallel to base, offset by a unit-bearing distance ("10 mm").
 func (w WorkPlanes) Offset(base, distance string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneOffset), Refs: []string{base}, Offset: distance})

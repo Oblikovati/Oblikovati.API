@@ -66,3 +66,42 @@ func TestWorkPlanesListSendsNilBodyAndDecodes(t *testing.T) {
 		t.Errorf("decoded = %+v, want the XY origin plane", res.Planes)
 	}
 }
+
+func TestWorkPlanesSetScalarMarshalsRedefine(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"plane":{"index":3,"name":"Work Plane1","healthy":true}}`)}
+	c := New(ft)
+
+	got, err := c.WorkPlanes().SetScalar(3, 0, "50 mm")
+	if err != nil {
+		t.Fatalf("SetScalar: %v", err)
+	}
+	if ft.gotMethod != wire.MethodWorkPlanesRedefine {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodWorkPlanesRedefine)
+	}
+	var sent wire.RedefineWorkPlaneArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Index != 3 || len(sent.Scalars) != 1 || sent.Scalars[0].Index != 0 || sent.Scalars[0].Value != "50 mm" {
+		t.Errorf("sent = %+v, want index 3 scalar 0 = 50 mm", sent)
+	}
+	if got.Plane.Index != 3 || !got.Plane.Healthy {
+		t.Errorf("decoded = %+v, want plane index 3 healthy", got.Plane)
+	}
+}
+
+func TestWorkPlanesRepickMarshalsRedefine(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"plane":{"index":3,"name":"Work Plane1","healthy":true}}`)}
+	c := New(ft)
+
+	if _, err := c.WorkPlanes().Repick(3, 0, types.WorkRefXZPlane); err != nil {
+		t.Fatalf("Repick: %v", err)
+	}
+	var sent wire.RedefineWorkPlaneArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Index != 3 || len(sent.Repick) != 1 || sent.Repick[0].Slot != 0 || sent.Repick[0].Ref != types.WorkRefXZPlane {
+		t.Errorf("sent = %+v, want index 3 slot 0 -> XZ plane", sent)
+	}
+}
