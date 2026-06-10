@@ -101,8 +101,9 @@ const (
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 
-	MethodWorkPlanesList   = "workPlanes.list"
-	MethodWorkPlanesCreate = "workPlanes.create"
+	MethodWorkPlanesList     = "workPlanes.list"
+	MethodWorkPlanesCreate   = "workPlanes.create"
+	MethodWorkPlanesRedefine = "workPlanes.redefine"
 
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
