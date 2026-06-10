@@ -105,6 +105,8 @@ const (
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
 
+	MethodWorkPointsCreate = "workPoints.create"
+
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
 
