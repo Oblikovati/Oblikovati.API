@@ -11,7 +11,9 @@ package wire
 // tangent/smooth: two curve ids (line/arc/spline — the join lands on their nearest
 // endpoints, and smooth needs at least one spline); equal: two circle/helix ids (their
 // radius DOFs); splineFitPoints: a fit-spline id + a point id (attached to the nearest
-// fit point); helical: a helix id + the circle it starts on, with parallel axes).
+// fit point); helical: a helix id + the circle it starts on, with parallel axes;
+// bend: an arc id + the two lines it joins — the bend radius is captured from the
+// arc's current geometry).
 type AddSketch3DConstraintArgs struct {
 	SketchIndex int      `json:"sketchIndex"`
 	Kind        string   `json:"kind"`
