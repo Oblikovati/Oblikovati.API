@@ -21,7 +21,7 @@ type Rgba struct {
 
 // Array returns the color as the [4]float32 the head passes to ImGui and the renderer.
 //
-//	tint := theme.Color(types.TokenIconTint).Array() // [4]float32 for ImageButton
+//	tint := theme.Color(types.TokenIconPrimary).Array() // [4]float32 for ImageButton
 func (c Rgba) Array() [4]float32 { return [4]float32{c.R, c.G, c.B, c.A} }
 
 // Hex formats the color as "#RRGGBBAA" (lower-case), the form stored in theme files.
