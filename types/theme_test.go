@@ -53,3 +53,14 @@ func TestAllThemeTokensUnique(t *testing.T) {
 		seen[tk] = true
 	}
 }
+
+// Regression for Oblikovati#656: TokenViewportActiveBorder was declared but left out of
+// AllThemeTokens, so the editor never showed it and completeness tests never checked it.
+func TestAllThemeTokensIncludesViewportActiveBorder(t *testing.T) {
+	for _, tk := range AllThemeTokens() {
+		if tk == TokenViewportActiveBorder {
+			return
+		}
+	}
+	t.Errorf("AllThemeTokens() is missing %q", TokenViewportActiveBorder)
+}
