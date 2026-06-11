@@ -74,6 +74,22 @@ extern int ObkAddInActivate(ObkHostCall call, ObkHostFree freeFn);
 extern int ObkAddInDeactivate(void);
 extern int ObkAddInNotify(const uint8_t *ev, int len);
 extern void ObkFree(uint8_t *p);
+
+/*
+ * OPTIONAL export: the add-in's automation surface (ApplicationAddIn.Automation,
+ * M05-F01 #252). The host resolves it leniently after load — an add-in without it
+ * simply reports hasAutomation:false in the registry. When present, the host routes
+ * addins.callAutomation requests here: `method` plus a JSON `req` chosen by THIS
+ * add-in's own contract (the host passes both through opaquely). On OBK_OK the
+ * add-in sets *resp/*respLen to a buffer it allocated, which the host copies and
+ * then releases via ObkFree; on OBK_ERR *resp is a UTF-8 error message (same
+ * ownership). Constraints: the call arrives on the host's session goroutine, so the
+ * handler must return promptly and must NOT call ObkHostCall synchronously — the
+ * dispatcher that would run it is the one waiting on this very call.
+ */
+extern int ObkAddInAutomation(const char *method,
+                              const uint8_t *req, int reqLen,
+                              uint8_t **resp, int *respLen);
 #endif /* OBK_BUILDING_ADDIN */
 
 #ifdef __cplusplus
