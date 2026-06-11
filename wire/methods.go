@@ -194,6 +194,19 @@ const (
 	MethodScriptRun = "scripts.run"
 
 	MethodLogsTail = "logs.tail"
+
+	// Add-in registry & automation (M05-F01: #245, #251, #252).
+	MethodAddInsList            = "addins.list"
+	MethodAddInsGet             = "addins.get"
+	MethodAddInsActivate        = "addins.activate"
+	MethodAddInsDeactivate      = "addins.deactivate"
+	MethodAddInsSetLoadBehavior = "addins.setLoadBehavior"
+	MethodAddInsCallAutomation  = "addins.callAutomation"
+
+	// External client applications driving the session (M05-F01, #245).
+	MethodClientAppsRegister   = "clientApps.register"
+	MethodClientAppsUnregister = "clientApps.unregister"
+	MethodClientAppsList       = "clientApps.list"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
