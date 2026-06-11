@@ -15,9 +15,13 @@ type CommandInfo struct {
 	Environment types.Environment `json:"environment,omitempty"`
 	Alias       string            `json:"alias,omitempty"`
 	Tooltip     string            `json:"tooltip,omitempty"`
-	Icon        string            `json:"icon,omitempty"`
-	ButtonStyle types.ButtonStyle `json:"buttonStyle,omitempty"`
-	Enabled     bool              `json:"enabled"`
+	// TooltipTitle / TooltipExpanded are the progressive tooltip (M05-F09): the
+	// title heads the hover tip; the expanded text appears after a longer hover.
+	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
+	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
+	Icon            string            `json:"icon,omitempty"`
+	ButtonStyle     types.ButtonStyle `json:"buttonStyle,omitempty"`
+	Enabled         bool              `json:"enabled"`
 }
 
 // ListCommandsResult is the response of [MethodCommandsList].
@@ -68,8 +72,12 @@ type CreateCommandArgs struct {
 	Environment types.Environment `json:"environment,omitempty"`
 	Alias       string            `json:"alias,omitempty"`
 	Tooltip     string            `json:"tooltip,omitempty"`
-	Icon        string            `json:"icon,omitempty"`
-	ButtonStyle types.ButtonStyle `json:"buttonStyle,omitempty"`
-	Kind        types.ControlKind `json:"kind,omitempty"`
-	Items       []string          `json:"items,omitempty"`
+	// The progressive tooltip (M05-F09): title heads the hover tip; the expanded
+	// text appears after a longer hover.
+	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
+	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
+	Icon            string            `json:"icon,omitempty"`
+	ButtonStyle     types.ButtonStyle `json:"buttonStyle,omitempty"`
+	Kind            types.ControlKind `json:"kind,omitempty"`
+	Items           []string          `json:"items,omitempty"`
 }
