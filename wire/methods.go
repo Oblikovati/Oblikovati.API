@@ -242,6 +242,12 @@ const (
 	MethodErrorsList         = "errors.list"
 	MethodErrorsClear        = "errors.clear"
 	MethodErrorsShow         = "errors.show"
+
+	// In-canvas mini-toolbars (M05-F07, #614).
+	MethodMiniToolbarSet    = "miniToolbar.set"
+	MethodMiniToolbarUpdate = "miniToolbar.update"
+	MethodMiniToolbarRemove = "miniToolbar.remove"
+	MethodMiniToolbarList   = "miniToolbar.list"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -265,6 +271,12 @@ const (
 	// EventPromptAnswered delivers a pending prompt's answer
 	// (see [PromptAnsweredEvent], M05-F09 #616).
 	EventPromptAnswered = "prompt.answered"
+	// EventMiniToolbarChanged streams a mini-toolbar control edit
+	// (see [MiniToolbarChangedEvent], M05-F07 #614).
+	EventMiniToolbarChanged = "miniToolbar.changed"
+	// EventMiniToolbarCommitted delivers a mini-toolbar's OK/Apply/Cancel
+	// (see [MiniToolbarCommittedEvent], M05-F07 #614).
+	EventMiniToolbarCommitted = "miniToolbar.committed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
