@@ -18,3 +18,11 @@ func (rb Ribbon) List() (wire.ListRibbonResult, error) {
 	var r wire.ListRibbonResult
 	return r, rb.c.call(wire.MethodRibbonList, nil, &r)
 }
+
+// Environments returns the UI environments the command framework scopes by (base,
+// sketch, …), flagging the active one — so an add-in placing contextual commands
+// knows which contexts exist (add-in-created environments: Oblikovati#667).
+func (rb Ribbon) Environments() (wire.ListEnvironmentsResult, error) {
+	var r wire.ListEnvironmentsResult
+	return r, rb.c.call(wire.MethodUIListEnvironments, nil, &r)
+}

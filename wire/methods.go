@@ -207,6 +207,20 @@ const (
 	MethodClientAppsRegister   = "clientApps.register"
 	MethodClientAppsUnregister = "clientApps.unregister"
 	MethodClientAppsList       = "clientApps.list"
+
+	// Add-in browser panes (M05-F03: #247, #256).
+	MethodBrowserSetPane    = "browser.setPane"
+	MethodBrowserDeletePane = "browser.deletePane"
+	MethodBrowserListPanes  = "browser.listPanes"
+
+	// Add-in dockable windows (M05-F03, #247).
+	MethodDockableWindowsSet        = "dockableWindows.set"
+	MethodDockableWindowsSetVisible = "dockableWindows.setVisible"
+	MethodDockableWindowsDelete     = "dockableWindows.delete"
+	MethodDockableWindowsList       = "dockableWindows.list"
+
+	// UI environments (M05-F03, #247; add-in environments: Oblikovati#667).
+	MethodUIListEnvironments = "ui.listEnvironments"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -215,6 +229,12 @@ const (
 // package (e.g. [EditCommittedEvent]).
 const (
 	EventEditCommitted = "edit.committed"
+	// EventBrowserNode notifies an add-in of interaction with one of its browser
+	// pane nodes (see [BrowserNodeEvent], M05-F03 #256).
+	EventBrowserNode = "browser.node"
+	// EventDockableWindowChanged notifies an add-in its dockable window was shown
+	// or hidden (see [DockableWindowChangedEvent], M05-F03 #247).
+	EventDockableWindowChanged = "dockableWindow.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
