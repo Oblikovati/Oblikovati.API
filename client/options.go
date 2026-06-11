@@ -1,0 +1,108 @@
+// SPDX-License-Identifier: Apache-2.0
+
+package client
+
+import (
+	"fmt"
+
+	"oblikovati.org/api/wire"
+)
+
+// Options is the application-options operation group (M05-F11): typed per-user
+// option groups — general (startup), display (color scheme + ViewCube), sketch
+// (grid/snapping), part (modeling defaults) — read and written as whole groups.
+type Options struct{ c *Client }
+
+// Options returns the application-options operation group.
+func (c *Client) Options() Options { return Options{c} }
+
+// Groups returns the available option group names.
+func (o Options) Groups() (wire.ListOptionGroupsResult, error) {
+	var r wire.ListOptionGroupsResult
+	return r, o.c.call(wire.MethodOptionsListGroups, nil, &r)
+}
+
+// getGroup fetches one group and returns the union view.
+func (o Options) getGroup(group string) (wire.OptionGroupView, error) {
+	var r wire.OptionGroupView
+	err := o.c.call(wire.MethodOptionsGetGroup, wire.GetOptionGroupArgs{Group: group}, &r)
+	return r, err
+}
+
+// General returns the general options (startup behavior).
+func (o Options) General() (wire.GeneralOptionsView, error) {
+	r, err := o.getGroup(wire.OptionGroupGeneral)
+	if err != nil {
+		return wire.GeneralOptionsView{}, err
+	}
+	if r.General == nil {
+		return wire.GeneralOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no general payload", wire.OptionGroupGeneral)
+	}
+	return *r.General, nil
+}
+
+// SetGeneral writes the general options.
+//
+//	client.Options().SetGeneral(wire.GeneralOptionsView{StartupAction: types.StartupEmptyWorkspace})
+func (o Options) SetGeneral(v wire.GeneralOptionsView) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.OptionGroupView{Group: wire.OptionGroupGeneral, General: &v}
+	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
+}
+
+// Display returns the display options (color scheme + ViewCube).
+func (o Options) Display() (wire.DisplayOptionsView, error) {
+	r, err := o.getGroup(wire.OptionGroupDisplay)
+	if err != nil {
+		return wire.DisplayOptionsView{}, err
+	}
+	if r.Display == nil {
+		return wire.DisplayOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no display payload", wire.OptionGroupDisplay)
+	}
+	return *r.Display, nil
+}
+
+// SetDisplay writes the display options.
+func (o Options) SetDisplay(v wire.DisplayOptionsView) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.OptionGroupView{Group: wire.OptionGroupDisplay, Display: &v}
+	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
+}
+
+// Sketch returns the sketch options (grid + snapping).
+func (o Options) Sketch() (wire.SketchOptionsView, error) {
+	r, err := o.getGroup(wire.OptionGroupSketch)
+	if err != nil {
+		return wire.SketchOptionsView{}, err
+	}
+	if r.Sketch == nil {
+		return wire.SketchOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no sketch payload", wire.OptionGroupSketch)
+	}
+	return *r.Sketch, nil
+}
+
+// SetSketch writes the sketch options.
+func (o Options) SetSketch(v wire.SketchOptionsView) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.OptionGroupView{Group: wire.OptionGroupSketch, Sketch: &v}
+	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
+}
+
+// Part returns the part-modeling defaults.
+func (o Options) Part() (wire.PartOptionsView, error) {
+	r, err := o.getGroup(wire.OptionGroupPart)
+	if err != nil {
+		return wire.PartOptionsView{}, err
+	}
+	if r.Part == nil {
+		return wire.PartOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no part payload", wire.OptionGroupPart)
+	}
+	return *r.Part, nil
+}
+
+// SetPart writes the part-modeling defaults.
+func (o Options) SetPart(v wire.PartOptionsView) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.OptionGroupView{Group: wire.OptionGroupPart, Part: &v}
+	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
+}

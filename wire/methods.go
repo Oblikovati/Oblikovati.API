@@ -221,6 +221,11 @@ const (
 
 	// UI environments (M05-F03, #247; add-in environments: Oblikovati#667).
 	MethodUIListEnvironments = "ui.listEnvironments"
+
+	// Application options (M05-F11, #618).
+	MethodOptionsListGroups = "options.listGroups"
+	MethodOptionsGetGroup   = "options.getGroup"
+	MethodOptionsSetGroup   = "options.setGroup"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
