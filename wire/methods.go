@@ -254,6 +254,12 @@ const (
 	MethodDialogsShowWebDialog  = "dialogs.showWebDialog"
 	MethodDialogsCloseWebDialog = "dialogs.closeWebDialog"
 	MethodDialogsListWebViews   = "dialogs.listWebViews"
+
+	// Document windows: frames & tabs (M05-F10, #617).
+	MethodWindowsListFrames  = "windows.listFrames"
+	MethodWindowsListTabs    = "windows.listTabs"
+	MethodWindowsActivateTab = "windows.activateTab"
+	MethodWindowsCloseTab    = "windows.closeTab"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
