@@ -71,3 +71,21 @@ func TestUIContextMenuAndVisibility(t *testing.T) {
 		t.Fatalf("ObjectVisibility = (%+v, %v), want planes hidden, axes shown", vis, err)
 	}
 }
+
+func TestUIEnvironmentRegistration(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
+	c := New(ft)
+	if _, err := c.UI().RegisterEnvironment(7, "Weldment"); err != nil {
+		t.Fatalf("RegisterEnvironment: %v", err)
+	}
+	var sent wire.RegisterEnvironmentArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil || sent.Environment != 7 || sent.Name != "Weldment" {
+		t.Errorf("sent = %s, want the weldment environment", ft.gotReq)
+	}
+	if _, err := c.UI().ActivateEnvironment(7); err != nil {
+		t.Fatalf("ActivateEnvironment: %v", err)
+	}
+	if ft.gotMethod != wire.MethodUIActivateEnvironment {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodUIActivateEnvironment)
+	}
+}

@@ -97,3 +97,19 @@ type EnvironmentChangedEvent struct {
 	Type        string            `json:"type"` // always EventEnvironmentChanged
 	Environment types.Environment `json:"environment"`
 }
+
+// RegisterEnvironmentArgs is the request of [MethodUIRegisterEnvironment]: an
+// add-in declaring its own contextual UI environment (M05-F16, Oblikovati#667).
+// Environment must be ≥ 2 (0 and 1 are the built-in base/sketch); commands
+// registered with the value form the environment's contextual tabs.
+type RegisterEnvironmentArgs struct {
+	Environment types.Environment `json:"environment"`
+	Name        string            `json:"name"`
+}
+
+// ActivateEnvironmentArgs is the request of [MethodUIActivateEnvironment]: enter a
+// REGISTERED add-in environment (its contextual tabs appear); the base value (0)
+// leaves it.
+type ActivateEnvironmentArgs struct {
+	Environment types.Environment `json:"environment"`
+}

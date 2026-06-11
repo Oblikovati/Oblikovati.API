@@ -56,3 +56,20 @@ func (u UI) SetObjectVisibility(v wire.ObjectVisibilityView) (wire.OKResult, err
 	var r wire.OKResult
 	return r, u.c.call(wire.MethodUISetObjectVisibility, wire.SetObjectVisibilityArgs{Visibility: v}, &r)
 }
+
+// RegisterEnvironment declares this add-in's contextual UI environment (value ≥ 2;
+// commands created with it form the environment's tabs) — M05-F16.
+//
+//	client.UI().RegisterEnvironment(7, "Weldment")
+func (u UI) RegisterEnvironment(env types.Environment, name string) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.RegisterEnvironmentArgs{Environment: env, Name: name}
+	return r, u.c.call(wire.MethodUIRegisterEnvironment, args, &r)
+}
+
+// ActivateEnvironment enters a registered environment (base, 0, leaves it); the
+// switch reaches every add-in as a ui.environmentChanged event.
+func (u UI) ActivateEnvironment(env types.Environment) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, u.c.call(wire.MethodUIActivateEnvironment, wire.ActivateEnvironmentArgs{Environment: env}, &r)
+}
