@@ -42,6 +42,10 @@ const (
 	SketchLineHidden     SketchLineType = "hidden"
 	SketchLineCenter     SketchLineType = "center"
 	SketchLinePhantom    SketchLineType = "phantom"
+	// SketchLineCustom is a definition loaded from an industry-standard .lin
+	// line-type file via sketch.setCustomLineType; it is set by that method,
+	// not directly through sketch.setProperty.
+	SketchLineCustom SketchLineType = "custom"
 )
 
 // SketchPatternKind discriminates a sketch pattern. String values are frozen.
