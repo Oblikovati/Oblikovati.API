@@ -285,6 +285,9 @@ const (
 	MethodUISetContextMenu      = "ui.setContextMenu"
 	MethodUIGetObjectVisibility = "ui.getObjectVisibility"
 	MethodUISetObjectVisibility = "ui.setObjectVisibility"
+	// Add-in UI environments (M05-F16, Oblikovati#667).
+	MethodUIRegisterEnvironment = "ui.registerEnvironment"
+	MethodUIActivateEnvironment = "ui.activateEnvironment"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
