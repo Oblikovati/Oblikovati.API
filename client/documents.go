@@ -27,3 +27,21 @@ func (d Documents) Activate(id uint64) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDocumentsActivate, wire.ActivateDocumentArgs{ID: id}, &r)
 }
+
+// Close closes the document with the given session id; force discards unsaved
+// changes instead of saving them first.
+//
+//	closed, err := c.Documents().Close(doc.ID, false)
+func (d Documents) Close(id uint64, force bool) (wire.CloseDocumentsResult, error) {
+	var r wire.CloseDocumentsResult
+	return r, d.c.call(wire.MethodDocumentsClose, wire.CloseDocumentArgs{ID: id, Force: force}, &r)
+}
+
+// CloseAll closes every open document; force discards unsaved changes (the usual
+// choice to reset to a clean session).
+//
+//	closed, err := c.Documents().CloseAll(true)
+func (d Documents) CloseAll(force bool) (wire.CloseDocumentsResult, error) {
+	var r wire.CloseDocumentsResult
+	return r, d.c.call(wire.MethodDocumentsCloseAll, wire.CloseAllDocumentsArgs{Force: force}, &r)
+}
