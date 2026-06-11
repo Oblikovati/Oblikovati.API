@@ -261,6 +261,12 @@ const (
 	MethodWindowsActivateTab = "windows.activateTab"
 	MethodWindowsCloseTab    = "windows.closeTab"
 
+	// Help routing & language info (M05-F14, #621).
+	MethodHelpRegisterContext = "help.registerContext"
+	MethodHelpDisplay         = "help.display"
+	MethodHelpPath            = "help.path"
+	MethodLanguageInfo        = "language.info"
+
 	// Interactive gizmos: the triad and manipulator handles (M05-F13, #620).
 	MethodTriadShow          = "triad.show"
 	MethodTriadUpdate        = "triad.update"
