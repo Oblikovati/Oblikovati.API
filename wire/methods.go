@@ -261,6 +261,14 @@ const (
 	MethodWindowsActivateTab = "windows.activateTab"
 	MethodWindowsCloseTab    = "windows.closeTab"
 
+	// Interactive gizmos: the triad and manipulator handles (M05-F13, #620).
+	MethodTriadShow          = "triad.show"
+	MethodTriadUpdate        = "triad.update"
+	MethodTriadHide          = "triad.hide"
+	MethodTriadGet           = "triad.get"
+	MethodManipulatorsSet    = "manipulators.set"
+	MethodManipulatorsRemove = "manipulators.remove"
+
 	// UI shell: search, marking menus, context menus, object visibility (M05-F12, #619).
 	MethodUISearch              = "ui.search"
 	MethodUIGetMarkingMenu      = "ui.getMarkingMenu"
@@ -309,6 +317,12 @@ const (
 	EventSelectionChanged = "selection.changed"
 	// EventEnvironmentChanged reports the UI environment switching (M05-F12 #619).
 	EventEnvironmentChanged = "ui.environmentChanged"
+	// EventTriadDrag streams a triad gesture (see [TriadDragEvent], M05-F13 #620).
+	EventTriadDrag = "triad.drag"
+	// EventTriadSegment reports the hovered triad segment changing (M05-F13 #620).
+	EventTriadSegment = "triad.segment"
+	// EventManipulatorDrag streams a manipulator-handle gesture (M05-F13 #620).
+	EventManipulatorDrag = "manipulator.drag"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
