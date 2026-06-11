@@ -248,6 +248,12 @@ const (
 	MethodMiniToolbarUpdate = "miniToolbar.update"
 	MethodMiniToolbarRemove = "miniToolbar.remove"
 	MethodMiniToolbarList   = "miniToolbar.list"
+
+	// Host-provided modal dialogs (M05-F08, #615).
+	MethodDialogsShowFileDialog = "dialogs.showFileDialog"
+	MethodDialogsShowWebDialog  = "dialogs.showWebDialog"
+	MethodDialogsCloseWebDialog = "dialogs.closeWebDialog"
+	MethodDialogsListWebViews   = "dialogs.listWebViews"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -277,6 +283,12 @@ const (
 	// EventMiniToolbarCommitted delivers a mini-toolbar's OK/Apply/Cancel
 	// (see [MiniToolbarCommittedEvent], M05-F07 #614).
 	EventMiniToolbarCommitted = "miniToolbar.committed"
+	// EventFileDialogChosen delivers a file dialog's chosen paths
+	// (see [FileDialogChosenEvent], M05-F08 #615).
+	EventFileDialogChosen = "dialog.fileChosen"
+	// EventWebDialogChanged notifies a web view was shown or closed
+	// (see [WebDialogChangedEvent], M05-F08 #615).
+	EventWebDialogChanged = "webDialog.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
