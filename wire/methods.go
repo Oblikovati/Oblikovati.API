@@ -29,6 +29,9 @@ const (
 	MethodDocumentsCloseAll = "documents.closeAll"
 	MethodDocumentsImport   = "documents.import"
 	MethodDocumentsExport   = "documents.export"
+	// Flavored document subtypes (M05-F15, Oblikovati#665).
+	MethodDocumentsRegisterSubType = "documents.registerSubType"
+	MethodDocumentsListSubTypes    = "documents.listSubTypes"
 
 	MethodParametersList = "parameters.list"
 	MethodParametersGet  = "parameters.get"
@@ -329,6 +332,9 @@ const (
 	EventTriadSegment = "triad.segment"
 	// EventManipulatorDrag streams a manipulator-handle gesture (M05-F13 #620).
 	EventManipulatorDrag = "manipulator.drag"
+	// EventClientOperation tells a subtype's owner its flavored document needs
+	// servicing (see [ClientOperationEvent], M05-F15 Oblikovati#665).
+	EventClientOperation = "client.operation"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

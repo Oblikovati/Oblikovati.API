@@ -45,3 +45,20 @@ func (d Documents) CloseAll(force bool) (wire.CloseDocumentsResult, error) {
 	var r wire.CloseDocumentsResult
 	return r, d.c.call(wire.MethodDocumentsCloseAll, wire.CloseAllDocumentsArgs{Force: force}, &r)
 }
+
+// RegisterSubType declares a flavored document subtype over a base type; the
+// flavor's lifecycle reaches the owner as client.operation push events (M05-F15).
+//
+//	client.Documents().RegisterSubType(wire.RegisterDocumentSubTypeArgs{
+//	    ID: "com.x.sim.study", BaseType: "part", DisplayName: "Simulation Study",
+//	})
+func (d Documents) RegisterSubType(args wire.RegisterDocumentSubTypeArgs) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, d.c.call(wire.MethodDocumentsRegisterSubType, args, &r)
+}
+
+// SubTypes returns the registered flavored subtypes.
+func (d Documents) SubTypes() (wire.ListDocumentSubTypesResult, error) {
+	var r wire.ListDocumentSubTypesResult
+	return r, d.c.call(wire.MethodDocumentsListSubTypes, nil, &r)
+}
