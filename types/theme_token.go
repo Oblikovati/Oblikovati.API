@@ -62,10 +62,16 @@ const (
 	TokenPlaneFill ThemeToken = "gizmo.plane_fill"
 )
 
-// Icons — ribbon glyphs, rasterized as white alpha masks and tinted at draw time.
+// Icons — ribbon glyphs. An icon carries up to four color roles: primary main
+// linework, secondary accent (the action/result element of the glyph), tertiary
+// supporting detail (anchors, construction marks), and a background plate. Each role
+// rasterizes to its own mask and is colored from these tokens when the theme applies,
+// so one glyph set follows every theme.
 const (
-	TokenIconTint     ThemeToken = "icon.tint"
-	TokenIconDisabled ThemeToken = "icon.disabled"
+	TokenIconPrimary    ThemeToken = "icon.primary"
+	TokenIconSecondary  ThemeToken = "icon.secondary"
+	TokenIconTertiary   ThemeToken = "icon.tertiary"
+	TokenIconBackground ThemeToken = "icon.background"
 )
 
 // AllThemeTokens lists every token once, in display order (Chrome, Viewport, Gizmos,
@@ -84,7 +90,7 @@ func AllThemeTokens() []ThemeToken {
 		TokenViewportActiveBorder,
 		TokenPlaneFaint, TokenPlaneHover, TokenPlaneSelected, TokenPlaneFill,
 		TokenSelectionHighlight,
-		TokenIconTint, TokenIconDisabled,
+		TokenIconPrimary, TokenIconSecondary, TokenIconTertiary, TokenIconBackground,
 	}
 }
 
