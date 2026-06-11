@@ -56,6 +56,9 @@ type SetCommandStateArgs struct {
 // Environment scopes it to a context (empty/base ⇒ always shown; sketch ⇒ the contextual
 // Sketch tab). Together with Tab/Category this places a button on a named panel of a named
 // tab of a chosen ribbon (e.g. the Draw panel of the Sketch tab of the Part ribbon).
+// Kind picks the control's behavior (default a one-shot button). A PopupControl
+// names other registered commands in Items: the button opens a menu of them and
+// each item runs its own command — the CommandBarPopUp equivalent (M05-F03, #247).
 type CreateCommandArgs struct {
 	ID          string            `json:"id"`
 	DisplayName string            `json:"displayName"`
@@ -67,4 +70,6 @@ type CreateCommandArgs struct {
 	Tooltip     string            `json:"tooltip,omitempty"`
 	Icon        string            `json:"icon,omitempty"`
 	ButtonStyle types.ButtonStyle `json:"buttonStyle,omitempty"`
+	Kind        types.ControlKind `json:"kind,omitempty"`
+	Items       []string          `json:"items,omitempty"`
 }
