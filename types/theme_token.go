@@ -81,6 +81,7 @@ func AllThemeTokens() []ThemeToken {
 		TokenViewportBg, TokenGridMinor, TokenGridMajor, TokenGridAxis,
 		TokenSketchGeometry, TokenSketchSelected, TokenSketchCandidate, TokenSketchPreview,
 		TokenDimensionDriving, TokenDimensionDriven, TokenSnapGlyph,
+		TokenViewportActiveBorder,
 		TokenPlaneFaint, TokenPlaneHover, TokenPlaneSelected, TokenPlaneFill,
 		TokenSelectionHighlight,
 		TokenIconTint, TokenIconDisabled,
