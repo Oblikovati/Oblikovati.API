@@ -54,6 +54,11 @@ const (
 	MethodSketchSetProperty = "sketch.setProperty"
 	MethodSketchAddEntity   = "sketch.addEntity"
 
+	// Custom line types loaded from industry-standard .lin definition files
+	// (issue Oblikovati#161).
+	MethodSketchGetCustomLineType = "sketch.getCustomLineType"
+	MethodSketchSetCustomLineType = "sketch.setCustomLineType"
+
 	MethodSketchAddConstraint    = "sketch.addConstraint"
 	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
 
