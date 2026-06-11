@@ -42,6 +42,12 @@ type AddSketch3DEntityArgs struct {
 	StartAngle  string    `json:"startAngle,omitempty"`
 	SweepAngle  string    `json:"sweepAngle,omitempty"`
 
+	// Bend-only field (kind "bend"): the session ids of the two connected lines whose
+	// corner the bend fills. Radius is the bend radius ("5 mm"). The lines are trimmed
+	// to the tangent points, the returned arc joins them, and a bend constraint keeps
+	// the join tangent (Inventor's SketchArcs3D.AddAsBend).
+	Lines []uint64 `json:"lines,omitempty"`
+
 	// Spline fields. For spline/controlPointSpline/fixedSpline, Points are the defining
 	// points (each [x,y,z] in cm); Closed marks a closed loop. For equationCurve, XExpr/
 	// YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1].
