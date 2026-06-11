@@ -226,6 +226,22 @@ const (
 	MethodOptionsListGroups = "options.listGroups"
 	MethodOptionsGetGroup   = "options.getGroup"
 	MethodOptionsSetGroup   = "options.setGroup"
+
+	// Status, progress & user messaging (M05-F09, #616).
+	MethodStatusSetText      = "status.setText"
+	MethodStatusGetText      = "status.getText"
+	MethodProgressBegin      = "progress.begin"
+	MethodProgressUpdate     = "progress.update"
+	MethodProgressEnd        = "progress.end"
+	MethodBalloonTipRegister = "balloonTip.register"
+	MethodBalloonTipShow     = "balloonTip.show"
+	MethodPromptsShow        = "prompts.show"
+	MethodErrorsAddMessage   = "errors.addMessage"
+	MethodErrorsBeginSection = "errors.beginSection"
+	MethodErrorsEndSection   = "errors.endSection"
+	MethodErrorsList         = "errors.list"
+	MethodErrorsClear        = "errors.clear"
+	MethodErrorsShow         = "errors.show"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -240,6 +256,15 @@ const (
 	// EventDockableWindowChanged notifies an add-in its dockable window was shown
 	// or hidden (see [DockableWindowChangedEvent], M05-F03 #247).
 	EventDockableWindowChanged = "dockableWindow.changed"
+	// EventProgressCancelled notifies the owner its progress bar was cancelled
+	// (see [ProgressCancelledEvent], M05-F09 #616).
+	EventProgressCancelled = "progress.cancelled"
+	// EventBalloonTipClicked notifies the owner its balloon was clicked
+	// (see [BalloonTipClickedEvent], M05-F09 #616).
+	EventBalloonTipClicked = "balloonTip.clicked"
+	// EventPromptAnswered delivers a pending prompt's answer
+	// (see [PromptAnsweredEvent], M05-F09 #616).
+	EventPromptAnswered = "prompt.answered"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
