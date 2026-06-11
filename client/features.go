@@ -26,3 +26,43 @@ func (f Features) Add(args wire.AddFeatureArgs) (json.RawMessage, error) {
 	var r json.RawMessage
 	return r, f.c.call(wire.MethodFeaturesAdd, args, &r)
 }
+
+// Get returns one placed feature's state and editable scalars by its stable id
+// (from model.tree), e.g. Get(7).
+func (f Features) Get(id uint64) (wire.FeatureDetailResult, error) {
+	var r wire.FeatureDetailResult
+	return r, f.c.call(wire.MethodFeaturesGet, wire.FeatureRefArgs{ID: id}, &r)
+}
+
+// Edit sets editable scalars of a placed feature in place and recomputes, e.g.
+// Edit(wire.EditFeatureArgs{ID: 7, Scalars: []wire.ScalarEdit{{Index: 0, Value: "5 mm"}}}).
+func (f Features) Edit(args wire.EditFeatureArgs) (wire.FeatureDetailResult, error) {
+	var r wire.FeatureDetailResult
+	return r, f.c.call(wire.MethodFeaturesEdit, args, &r)
+}
+
+// Delete removes a placed feature from the history and recomputes, e.g. Delete(7).
+func (f Features) Delete(id uint64) (wire.DeleteFeatureResult, error) {
+	var r wire.DeleteFeatureResult
+	return r, f.c.call(wire.MethodFeaturesDelete, wire.FeatureRefArgs{ID: id}, &r)
+}
+
+// Rename sets a feature's display name (the id stays stable), e.g. Rename(7, "Boss").
+func (f Features) Rename(id uint64, name string) (wire.FeatureDetailResult, error) {
+	var r wire.FeatureDetailResult
+	return r, f.c.call(wire.MethodFeaturesRename, wire.RenameFeatureArgs{ID: id, Name: name}, &r)
+}
+
+// SetSuppressed sets explicit suppression and recomputes, e.g. SetSuppressed(7, true).
+func (f Features) SetSuppressed(id uint64, suppressed bool) (wire.FeatureDetailResult, error) {
+	var r wire.FeatureDetailResult
+	args := wire.SetFeatureSuppressedArgs{ID: id, Suppressed: suppressed}
+	return r, f.c.call(wire.MethodFeaturesSetSuppressed, args, &r)
+}
+
+// Reorder moves a feature to a new history index and recomputes, e.g. Reorder(7, 0).
+func (f Features) Reorder(id uint64, newIndex int) (wire.FeatureDetailResult, error) {
+	var r wire.FeatureDetailResult
+	args := wire.ReorderFeatureArgs{ID: id, NewIndex: newIndex}
+	return r, f.c.call(wire.MethodFeaturesReorder, args, &r)
+}

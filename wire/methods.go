@@ -101,6 +101,15 @@ const (
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 
+	// Feature lifecycle after placement (issue Oblikovati#140): features are
+	// addressed by the stable id reported in [FeatureInfo] (model.tree).
+	MethodFeaturesGet           = "features.get"
+	MethodFeaturesEdit          = "features.edit"
+	MethodFeaturesDelete        = "features.delete"
+	MethodFeaturesRename        = "features.rename"
+	MethodFeaturesSetSuppressed = "features.setSuppressed"
+	MethodFeaturesReorder       = "features.reorder"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"

@@ -25,3 +25,77 @@ type AddFeatureArgs struct {
 	Kind string          `json:"kind"`
 	Args json.RawMessage `json:"args"`
 }
+
+// FeatureRefArgs is the request of [MethodFeaturesGet] and [MethodFeaturesDelete]:
+// one placed feature, addressed by the stable id from [FeatureInfo] (model.tree).
+// The id survives rename and reorder; an index does not, so the wire never uses one
+// to address a feature.
+type FeatureRefArgs struct {
+	ID uint64 `json:"id"`
+}
+
+// FeatureScalar describes one editable scalar of a placed feature — a distance,
+// radius, angle, or pattern count — mirroring [WorkPlaneScalar]: its slot Index,
+// Label, the Unit its value is shown in ("mm", "deg", …), and the current Value in
+// that unit. Integer marks a whole-number input (a pattern count). An edit sets it
+// via [ScalarEdit] keyed on Index.
+type FeatureScalar struct {
+	Index   int     `json:"index"`
+	Label   string  `json:"label"`
+	Unit    string  `json:"unit,omitempty"`
+	Value   float64 `json:"value"`
+	Integer bool    `json:"integer,omitempty"`
+}
+
+// FeatureDetail is one placed feature with its history position and the editable
+// scalar inputs [MethodFeaturesEdit] accepts. Scalars is empty for features whose
+// definition exposes nothing editable (e.g. cosmetic features).
+type FeatureDetail struct {
+	FeatureInfo
+	Index   int             `json:"index"`
+	Scalars []FeatureScalar `json:"scalars,omitempty"`
+}
+
+// FeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],
+// [MethodFeaturesRename], [MethodFeaturesSetSuppressed], and [MethodFeaturesReorder]:
+// the feature's refreshed state after the call (post-recompute health included).
+type FeatureDetailResult struct {
+	Feature FeatureDetail `json:"feature"`
+}
+
+// EditFeatureArgs is the request of [MethodFeaturesEdit]: set editable scalars of
+// the feature in place (Inventor's Edit Feature). Every edit is validated before
+// any is applied, then the part recomputes once. Scalar indices come from
+// [FeatureDetail.Scalars]; values are unit-bearing expressions ("5 mm", "30 deg").
+type EditFeatureArgs struct {
+	ID      uint64       `json:"id"`
+	Scalars []ScalarEdit `json:"scalars"`
+}
+
+// DeleteFeatureResult is the response of [MethodFeaturesDelete].
+type DeleteFeatureResult struct {
+	ID      uint64 `json:"id"`
+	Deleted bool   `json:"deleted"`
+}
+
+// RenameFeatureArgs is the request of [MethodFeaturesRename]. The id is stable
+// across renames; the new name must be non-empty and unique within the part.
+type RenameFeatureArgs struct {
+	ID   uint64 `json:"id"`
+	Name string `json:"name"`
+}
+
+// SetFeatureSuppressedArgs is the request of [MethodFeaturesSetSuppressed]: set
+// (not toggle) explicit suppression, so the call is idempotent for replication.
+type SetFeatureSuppressedArgs struct {
+	ID         uint64 `json:"id"`
+	Suppressed bool   `json:"suppressed"`
+}
+
+// ReorderFeatureArgs is the request of [MethodFeaturesReorder]: move the feature to
+// NewIndex in history order (0-based, from model.tree). A move that would place a
+// feature before one it depends on is rejected.
+type ReorderFeatureArgs struct {
+	ID       uint64 `json:"id"`
+	NewIndex int    `json:"newIndex"`
+}
