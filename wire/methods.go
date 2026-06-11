@@ -260,6 +260,14 @@ const (
 	MethodWindowsListTabs    = "windows.listTabs"
 	MethodWindowsActivateTab = "windows.activateTab"
 	MethodWindowsCloseTab    = "windows.closeTab"
+
+	// UI shell: search, marking menus, context menus, object visibility (M05-F12, #619).
+	MethodUISearch              = "ui.search"
+	MethodUIGetMarkingMenu      = "ui.getMarkingMenu"
+	MethodUISetMarkingMenu      = "ui.setMarkingMenu"
+	MethodUISetContextMenu      = "ui.setContextMenu"
+	MethodUIGetObjectVisibility = "ui.getObjectVisibility"
+	MethodUISetObjectVisibility = "ui.setObjectVisibility"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -295,6 +303,12 @@ const (
 	// EventWebDialogChanged notifies a web view was shown or closed
 	// (see [WebDialogChangedEvent], M05-F08 #615).
 	EventWebDialogChanged = "webDialog.changed"
+	// EventCommandStarted reports a command beginning (M05-F12 #619).
+	EventCommandStarted = "command.started"
+	// EventSelectionChanged reports the selection set changing (M05-F12 #619).
+	EventSelectionChanged = "selection.changed"
+	// EventEnvironmentChanged reports the UI environment switching (M05-F12 #619).
+	EventEnvironmentChanged = "ui.environmentChanged"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
