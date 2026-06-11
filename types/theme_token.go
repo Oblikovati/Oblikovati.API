@@ -31,6 +31,9 @@ const (
 	TokenChromeButtonActive  ThemeToken = "chrome.button_active"
 	TokenChromeAccent        ThemeToken = "chrome.accent"
 	TokenChromeScrollbar     ThemeToken = "chrome.scrollbar"
+	// TokenChromeDanger flags an error/required affordance — e.g. a feature panel's
+	// required-but-empty selector outline, or a validation message.
+	TokenChromeDanger ThemeToken = "chrome.danger"
 )
 
 // Viewport 2D — the sketch/grid/dimension overlays drawn into the 3D view.
@@ -83,7 +86,7 @@ func AllThemeTokens() []ThemeToken {
 		TokenChromeHeaderBg, TokenChromeText, TokenChromeTextDisabled, TokenChromeBorder,
 		TokenChromeControlBg, TokenChromeControlHover, TokenChromeControlActive,
 		TokenChromeButton, TokenChromeButtonHover, TokenChromeButtonActive,
-		TokenChromeAccent, TokenChromeScrollbar,
+		TokenChromeAccent, TokenChromeScrollbar, TokenChromeDanger,
 		TokenViewportBg, TokenGridMinor, TokenGridMajor, TokenGridAxis,
 		TokenSketchGeometry, TokenSketchSelected, TokenSketchCandidate, TokenSketchPreview,
 		TokenDimensionDriving, TokenDimensionDriven, TokenSnapGlyph,
