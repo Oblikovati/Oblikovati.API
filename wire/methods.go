@@ -197,6 +197,11 @@ const (
 	MethodFeaturesSetSuppressed = "features.setSuppressed"
 	MethodFeaturesReorder       = "features.reorder"
 
+	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
+	// one source of truth for thread data across tapping and drawings.
+	MethodThreadsTableQuery = "threads.tableQuery"
+	MethodThreadsResolve    = "threads.resolve"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
