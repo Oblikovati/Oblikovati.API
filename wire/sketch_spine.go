@@ -94,14 +94,19 @@ type ConstraintStatusResult struct {
 // SketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,
 // session id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction
 // flag, the defining points (each [x,y] in sketch-plane cm), and a radius for circular
-// kinds (0 otherwise).
+// kinds (0 otherwise). MoveableStatus answers whether interactive tools may drag the
+// entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling — M06-F11,
+// Oblikovati/Oblikovati#626); FitMethod is the interpolation parameterization for the
+// spline kind ([oblikovati.org/api/types.SplineFitMethod] wire spelling).
 type SketchEntityInfo struct {
-	Index        int         `json:"index"`
-	ID           uint64      `json:"id"`
-	Kind         string      `json:"kind"`
-	Construction bool        `json:"construction"`
-	Points       [][]float64 `json:"points"`
-	Radius       float64     `json:"radius,omitempty"`
+	Index          int         `json:"index"`
+	ID             uint64      `json:"id"`
+	Kind           string      `json:"kind"`
+	Construction   bool        `json:"construction"`
+	Points         [][]float64 `json:"points"`
+	Radius         float64     `json:"radius,omitempty"`
+	MoveableStatus string      `json:"moveableStatus,omitempty"`
+	FitMethod      string      `json:"fitMethod,omitempty"`
 }
 
 // EnumerateEntitiesResult is the response of [MethodSketchEntities].
@@ -111,11 +116,17 @@ type EnumerateEntitiesResult struct {
 
 // ConstraintInfo is one enumerated geometric constraint from [MethodSketchConstraints]:
 // its index, kind ([oblikovati.org/api/types.GeometricConstraintKind]), and the
-// session ids of the entities it relates.
+// session ids of the entities it relates. Deletable is false for system-owned
+// constraints (the textBox anchor — M06-F11, Oblikovati/Oblikovati#626);
+// sketch.deleteConstraint rejects those. ClientID and Name carry the owning add-in and
+// the record name of a "custom" tag constraint.
 type ConstraintInfo struct {
-	Index    int      `json:"index"`
-	Kind     string   `json:"kind"`
-	Entities []uint64 `json:"entities"`
+	Index     int      `json:"index"`
+	Kind      string   `json:"kind"`
+	Entities  []uint64 `json:"entities"`
+	Deletable bool     `json:"deletable"`
+	ClientID  string   `json:"clientId,omitempty"`
+	Name      string   `json:"name,omitempty"`
 }
 
 // ListConstraintsResult is the response of [MethodSketchConstraints].

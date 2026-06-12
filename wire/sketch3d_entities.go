@@ -45,18 +45,28 @@ type AddSketch3DEntityArgs struct {
 	// Bend-only field (kind "bend"): the session ids of the two connected lines whose
 	// corner the bend fills. Radius is the bend radius ("5 mm"). The lines are trimmed
 	// to the tangent points, the returned arc joins them, and a bend constraint keeps
-	// the join tangent (Inventor's SketchArcs3D.AddAsBend).
+	// the join tangent (the reference API's SketchArcs3D.AddAsBend).
 	Lines []uint64 `json:"lines,omitempty"`
 
 	// Spline fields. For spline/controlPointSpline/fixedSpline, Points are the defining
-	// points (each [x,y,z] in cm); Closed marks a closed loop. For equationCurve, XExpr/
-	// YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1].
-	Closed bool    `json:"closed,omitempty"`
-	XExpr  string  `json:"xExpr,omitempty"`
-	YExpr  string  `json:"yExpr,omitempty"`
-	ZExpr  string  `json:"zExpr,omitempty"`
-	T0     float64 `json:"t0,omitempty"`
-	T1     float64 `json:"t1,omitempty"`
+	// points (each [x,y,z] in cm); Closed marks a closed loop; FitMethod is the
+	// interpolation parameterization ([oblikovati.org/api/types.SplineFitMethod] wire
+	// spelling, empty ⇒ "smooth" — M06-F11, Oblikovati/Oblikovati#626). For
+	// equationCurve, XExpr/YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1].
+	Closed    bool    `json:"closed,omitempty"`
+	FitMethod string  `json:"fitMethod,omitempty"`
+	XExpr     string  `json:"xExpr,omitempty"`
+	YExpr     string  `json:"yExpr,omitempty"`
+	ZExpr     string  `json:"zExpr,omitempty"`
+	T0        float64 `json:"t0,omitempty"`
+	T1        float64 `json:"t1,omitempty"`
+
+	// Variable-shape helix fields (kind "helical" — M06-F09, #624): a row
+	// table varying pitch/diameter per station replaces the constant shape;
+	// Start/End set the end transition conditions (nil ⇒ natural ends).
+	Rows  []HelixShapeRow    `json:"rows,omitempty"`
+	Start *HelixEndCondition `json:"start,omitempty"`
+	End   *HelixEndCondition `json:"end,omitempty"`
 }
 
 // AddSketch3DEntityResult is the response of [MethodSketch3DAddEntity]: the created

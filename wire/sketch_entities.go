@@ -32,6 +32,11 @@ type AddSketchEntityArgs struct {
 	// closed polyline joins its last point back to its first, yielding one closed profile.
 	Closed bool `json:"closed,omitempty"`
 
+	// FitMethod is the interpolation parameterization for the spline kind
+	// ([oblikovati.org/api/types.SplineFitMethod] wire spelling; empty ⇒
+	// "smooth", the pre-field behavior — M06-F11, Oblikovati/Oblikovati#626).
+	FitMethod string `json:"fitMethod,omitempty"`
+
 	// Sides is the edge count for the polygon kind (≥ 3); Width is a unit-bearing slot
 	// width. These belong to the composite kinds (rectangle/slot/polygon/polyline). The
 	// polyline kind connects arbitrary Points with shared-endpoint lines (Closed ⇒ a
@@ -57,9 +62,15 @@ type AddSketchEntityArgs struct {
 // AddSketchEntityResult is the response of [MethodSketchAddEntity]: the primary entity's
 // session id, its base kind, the session ids of its defining points, and — for composite
 // kinds (rectangle/slot/polygon) that create several entities — every created entity id.
+// When sketch inference is enabled (M06-F10, Oblikovati/Oblikovati#625),
+// InferredConstraints reports the geometric constraints the engine auto-applied during
+// creation and InferredPoints how defining points were snapped onto existing geometry.
 type AddSketchEntityResult struct {
 	EntityID  uint64   `json:"entityId"`
 	Kind      string   `json:"kind"`
 	PointIDs  []uint64 `json:"pointIds"`
 	EntityIDs []uint64 `json:"entityIds,omitempty"`
+
+	InferredConstraints []AppliedConstraintInference `json:"inferredConstraints,omitempty"`
+	InferredPoints      []AppliedPointInference      `json:"inferredPoints,omitempty"`
 }

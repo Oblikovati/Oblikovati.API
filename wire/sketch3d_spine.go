@@ -76,14 +76,17 @@ type SolveSketch3DResult struct {
 // Sketch3DEntityInfo is one enumerated entity from [MethodSketch3DEntities]: its index,
 // session id, kind ([oblikovati.org/api/types.Sketch3DEntityKind]), construction
 // flag, the defining points (each [x,y,z] in model database units, cm), and a radius for
-// circular kinds (0 otherwise).
+// circular kinds (0 otherwise). MoveableStatus answers whether interactive tools may
+// drag the entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling —
+// M06-F11, Oblikovati/Oblikovati#626).
 type Sketch3DEntityInfo struct {
-	Index        int         `json:"index"`
-	ID           uint64      `json:"id"`
-	Kind         string      `json:"kind"`
-	Construction bool        `json:"construction,omitempty"`
-	Points       [][]float64 `json:"points,omitempty"`
-	Radius       float64     `json:"radius,omitempty"`
+	Index          int         `json:"index"`
+	ID             uint64      `json:"id"`
+	Kind           string      `json:"kind"`
+	Construction   bool        `json:"construction,omitempty"`
+	Points         [][]float64 `json:"points,omitempty"`
+	Radius         float64     `json:"radius,omitempty"`
+	MoveableStatus string      `json:"moveableStatus,omitempty"`
 }
 
 // EnumerateEntities3DResult is the response of [MethodSketch3DEntities].
