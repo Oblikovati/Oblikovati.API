@@ -202,6 +202,13 @@ const (
 	MethodThreadsTableQuery = "threads.tableQuery"
 	MethodThreadsResolve    = "threads.resolve"
 
+	// Freeform cage editing after placement (M10-F03 PBI-114,
+	// Oblikovati#699): the feature is addressed by its stable id, like the
+	// features.* lifecycle methods.
+	MethodFreeformSetLevel     = "freeform.setLevel"
+	MethodFreeformMoveVertices = "freeform.moveVertices"
+	MethodFreeformCreaseEdges  = "freeform.creaseEdges"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
