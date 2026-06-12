@@ -49,3 +49,11 @@ func (t Transactions) End() (wire.UndoState, error) {
 	var r wire.UndoState
 	return r, t.c.call(wire.MethodTransactionEnd, nil, &r)
 }
+
+// Abort discards the innermost open transaction instead of committing it: the model
+// reverts to the group's pre-Begin state and no undo step is recorded. Use it when a
+// batch fails partway so the document is not left half-edited (M04-F05).
+func (t Transactions) Abort() (wire.UndoState, error) {
+	var r wire.UndoState
+	return r, t.c.call(wire.MethodTransactionAbort, nil, &r)
+}
