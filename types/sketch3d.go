@@ -32,7 +32,10 @@ const (
 	// 3D sketch, tracking its source — M22-F08).
 	Sketch3DEntityIncludedPoint Sketch3DEntityKind = "includedPoint"
 	Sketch3DEntityIncludedCurve Sketch3DEntityKind = "includedCurve"
-	Sketch3DEntityUnknown       Sketch3DEntityKind = "unknown"
+	// Sketch3DEntitySplineHandle is the tangency handle attached to one fit
+	// point of a 3D interpolation spline (M06-F11, Oblikovati/Oblikovati#626).
+	Sketch3DEntitySplineHandle Sketch3DEntityKind = "splineHandle"
+	Sketch3DEntityUnknown      Sketch3DEntityKind = "unknown"
 )
 
 // Geometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —

@@ -29,7 +29,10 @@ const (
 	SketchEntityOffsetSpline   SketchEntityKind = "offsetSpline"
 	SketchEntityProjectedPoint SketchEntityKind = "projectedPoint"
 	SketchEntityProjectedCurve SketchEntityKind = "projectedCurve"
-	SketchEntityUnknown        SketchEntityKind = "unknown"
+	// SketchEntitySplineHandle is the tangency handle attached to one fit
+	// point of an interpolation spline (M06-F11, Oblikovati/Oblikovati#626).
+	SketchEntitySplineHandle SketchEntityKind = "splineHandle"
+	SketchEntityUnknown      SketchEntityKind = "unknown"
 )
 
 // SketchLineType is a sketch's line-style override. The empty value means "inherit the
@@ -91,7 +94,15 @@ const (
 	GeoConstraintGround        GeometricConstraintKind = "ground"
 	GeoConstraintOffset        GeometricConstraintKind = "offset"
 	GeoConstraintPattern       GeometricConstraintKind = "patternLink"
-	GeoConstraintUnknown       GeometricConstraintKind = "unknown"
+	// GeoConstraintTextBox is the auto-created anchor tying a text box to its
+	// anchor geometry; it is never deletable on its own (M06-F11,
+	// Oblikovati/Oblikovati#626).
+	GeoConstraintTextBox GeometricConstraintKind = "textBox"
+	// GeoConstraintCustom is an add-in-owned tag constraint: a named,
+	// attribute-carrying record on sketch entities, not a solver callback
+	// (M06-F11).
+	GeoConstraintCustom  GeometricConstraintKind = "custom"
+	GeoConstraintUnknown GeometricConstraintKind = "unknown"
 )
 
 // DimensionConstraintKind discriminates a sketch dimensional (driving/driven)
