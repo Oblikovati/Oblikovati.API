@@ -12,10 +12,10 @@ import "oblikovati.org/api/types"
 // identity when omitted), with the allowed segments (empty ⇒ all). Command, when
 // set, ties the triad's lifetime to that command like interaction graphics.
 type TriadSpec struct {
-	Position [3]float64           `json:"position"`
-	AxisX    *[3]float64          `json:"axisX,omitempty"`
-	AxisY    *[3]float64          `json:"axisY,omitempty"`
-	AxisZ    *[3]float64          `json:"axisZ,omitempty"`
+	Position types.Point          `json:"position"`
+	AxisX    *types.UnitVector    `json:"axisX,omitempty"`
+	AxisY    *types.UnitVector    `json:"axisY,omitempty"`
+	AxisZ    *types.UnitVector    `json:"axisZ,omitempty"`
 	Allowed  []types.TriadSegment `json:"allowed,omitempty"`
 	Visible  bool                 `json:"visible"`
 	Command  string               `json:"command,omitempty"`
@@ -29,9 +29,9 @@ type ShowTriadArgs struct {
 // DragContext rides every drag event: where the gesture started, the current
 // pointer ray, the modifiers, and any point inference the position snapped to.
 type DragContext struct {
-	Start     [3]float64               `json:"start"`
-	RayOrigin [3]float64               `json:"rayOrigin"`
-	RayDir    [3]float64               `json:"rayDir"`
+	Start     types.Point              `json:"start"`
+	RayOrigin types.Point              `json:"rayOrigin"`
+	RayDir    types.Vector             `json:"rayDir"`
 	Shift     bool                     `json:"shift,omitempty"`
 	Ctrl      bool                     `json:"ctrl,omitempty"`
 	Inference types.PointInferenceKind `json:"inference,omitempty"`
@@ -45,7 +45,7 @@ type TriadDragEvent struct {
 	Phase    string              `json:"phase"`
 	Segment  types.TriadSegment  `json:"segment"`
 	MoveType types.TriadMoveType `json:"moveType"`
-	Delta    [16]float64         `json:"delta"`
+	Delta    types.Matrix        `json:"delta"`
 	Context  DragContext         `json:"context"`
 }
 
@@ -61,9 +61,9 @@ type TriadSegmentEvent struct {
 // RadiusPx pixels, typically placed over the add-in's client graphics — the
 // custom-gizmo building block (ManipulatorEvents).
 type ManipulatorHandleSpec struct {
-	ID       string     `json:"id"`
-	Position [3]float64 `json:"position"`
-	RadiusPx float64    `json:"radiusPx,omitempty"`
+	ID       string      `json:"id"`
+	Position types.Point `json:"position"`
+	RadiusPx float64     `json:"radiusPx,omitempty"`
 }
 
 // SetManipulatorsArgs is the request of [MethodManipulatorsSet]: replace one
@@ -88,6 +88,6 @@ type ManipulatorDragEvent struct {
 	Gizmo    string      `json:"gizmo"`
 	Handle   string      `json:"handle"`
 	Phase    string      `json:"phase"`
-	Position [3]float64  `json:"position"`
+	Position types.Point `json:"position"`
 	Context  DragContext `json:"context"`
 }

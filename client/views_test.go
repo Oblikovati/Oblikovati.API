@@ -84,7 +84,7 @@ func TestViewSetCameraCarriesDocumentAddressing(t *testing.T) {
 	c := New(ft)
 
 	if _, err := c.View().SetCamera(wire.SetCameraArgs{
-		Document: 3, Eye: [3]float64{2, 2, 2}, Target: [3]float64{0, 0, 0}, Up: [3]float64{0, 1, 0}, FOV: 0.8,
+		Document: 3, Eye: types.NewPoint(2, 2, 2), Target: types.NewPoint(0, 0, 0), Up: types.NewVector(0, 1, 0), FOV: 0.8,
 	}); err != nil {
 		t.Fatalf("SetCamera: %v", err)
 	}

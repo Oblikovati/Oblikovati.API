@@ -14,8 +14,8 @@ type LightInfo struct {
 	On                  bool                          `json:"on"`
 	Color               types.Rgba                    `json:"color"`
 	Intensity           float64                       `json:"intensity"`
-	Direction           [3]float64                    `json:"direction"`
-	Position            [3]float64                    `json:"position"`
+	Direction           types.Vector                  `json:"direction"`
+	Position            types.Point                   `json:"position"`
 	SpotInnerAngle      float64                       `json:"spotInnerAngle"`
 	SpotOuterAngle      float64                       `json:"spotOuterAngle"`
 	Attenuation         [3]float64                    `json:"attenuation"`

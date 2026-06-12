@@ -14,7 +14,7 @@ func TestTriadShowForcesVisible(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)
 	if _, err := c.Triad().Show(wire.TriadSpec{
-		Position: [3]float64{1, 2, 3},
+		Position: types.NewPoint(1, 2, 3),
 		Allowed:  []types.TriadSegment{types.TriadXAxis, types.TriadZRing},
 	}); err != nil {
 		t.Fatalf("Show: %v", err)
@@ -23,13 +23,13 @@ func TestTriadShowForcesVisible(t *testing.T) {
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
-	if !sent.Triad.Visible || sent.Triad.Position[2] != 3 || len(sent.Triad.Allowed) != 2 {
+	if !sent.Triad.Visible || sent.Triad.Position.Z != 3 || len(sent.Triad.Allowed) != 2 {
 		t.Errorf("sent = %+v, want a visible constrained triad", sent.Triad)
 	}
 
 	ft.reply = []byte(`{"position":[1,2,3],"visible":true}`)
 	got, err := c.Triad().Get()
-	if err != nil || !got.Visible || got.Position[0] != 1 {
+	if err != nil || !got.Visible || got.Position.X != 1 {
 		t.Fatalf("Get = (%+v, %v), want the placed triad", got, err)
 	}
 }
@@ -38,7 +38,7 @@ func TestManipulatorsSetAndRemove(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)
 	if _, err := c.Manipulators().Set("sim.handles", []wire.ManipulatorHandleSpec{
-		{ID: "tip", Position: [3]float64{0, 0, 5}, RadiusPx: 10},
+		{ID: "tip", Position: types.NewPoint(0, 0, 5), RadiusPx: 10},
 	}); err != nil {
 		t.Fatalf("Set: %v", err)
 	}

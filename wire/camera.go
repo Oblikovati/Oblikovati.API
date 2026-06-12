@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // CameraView is the JSON shape of the viewport's camera as a look-at frame: the eye
 // position, the target it looks at, the up vector, and the vertical field of view in
 // radians. It is the response of [MethodViewGetCamera] and [MethodViewSetCamera].
@@ -11,12 +13,14 @@ package wire
 // (e.g. for slerp during presenter-follow, see the oblikovati-meeting ADR-0003)
 // derives the rotation from eye→target and up on its own side.
 //
-// Eye, Target and Up are [x, y, z] in document/model units.
+// Eye and Target are positions, Up a direction — the M01-F05 geometry value
+// types, whose [x, y, z] JSON form is identical to the [3]float64 encoding this
+// type used before they existed.
 type CameraView struct {
-	Eye    [3]float64 `json:"eye"`
-	Target [3]float64 `json:"target"`
-	Up     [3]float64 `json:"up"`
-	FOV    float64    `json:"fov"`
+	Eye    types.Point  `json:"eye"`
+	Target types.Point  `json:"target"`
+	Up     types.Vector `json:"up"`
+	FOV    float64      `json:"fov"`
 }
 
 // SetCameraArgs is the request of [MethodViewSetCamera]: the camera frame to apply, plus
@@ -29,10 +33,10 @@ type CameraView struct {
 type SetCameraArgs struct {
 	Document uint64 `json:"document,omitempty"` // 0 ⇒ active document; applies to that document's active view
 
-	Eye    [3]float64 `json:"eye"`
-	Target [3]float64 `json:"target"`
-	Up     [3]float64 `json:"up"`
-	FOV    float64    `json:"fov"`
+	Eye    types.Point  `json:"eye"`
+	Target types.Point  `json:"target"`
+	Up     types.Vector `json:"up"`
+	FOV    float64      `json:"fov"`
 }
 
 // GetCameraArgs is the request of [MethodViewGetCamera]: which document's active-view
