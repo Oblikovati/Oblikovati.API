@@ -134,6 +134,25 @@ const (
 	MethodSketchAutoDimension    = "sketch.autoDimension"
 	MethodSketchProject          = "sketch.project"
 
+	// Sketch blocks: reusable entity groups instanced with a placement
+	// transform (M06-F07, Oblikovati/Oblikovati#622).
+	MethodSketchBlockDefinitionCreate = "sketch.blockDefinitions.create"
+	MethodSketchBlockDefinitionList   = "sketch.blockDefinitions.list"
+	MethodSketchBlockDefinitionDelete = "sketch.blockDefinitions.delete"
+	MethodSketchAddBlockInstance      = "sketch.addBlockInstance"
+	MethodSketchListBlockInstances    = "sketch.blockInstances"
+
+	// Region properties of a closed profile (M06-F08, #623).
+	MethodSketchRegionProperties = "sketch.regionProperties"
+
+	// Sketch inference options: enable/disable + constraint-family priority
+	// (M06-F10, #625).
+	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
+	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
+
+	// Spline tangency handles (M06-F11, #626).
+	MethodSketchSetSplineHandle = "sketch.setSplineHandle"
+
 	MethodSketch3DCreate           = "sketch3d.create"
 	MethodSketch3DList             = "sketch3d.list"
 	MethodSketch3DGet              = "sketch3d.get"
@@ -157,6 +176,14 @@ const (
 	MethodSketch3DInclude          = "sketch3d.include"
 	MethodSketch3DIncludeSketch    = "sketch3d.includeSketch"
 	MethodSketch3DAddSurfaceCurve  = "sketch3d.addSurfaceCurve"
+
+	// Region properties of a planar closed 3D profile (M06-F08, #623).
+	MethodSketch3DRegionProperties = "sketch3d.regionProperties"
+	// Helical curve definition edit — constant or variable shape rows plus
+	// end conditions (M06-F09, #624).
+	MethodSketch3DEditHelix = "sketch3d.editHelix"
+	// 3D spline tangency handles (M06-F11, #626).
+	MethodSketch3DSetSplineHandle = "sketch3d.setSplineHandle"
 
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"

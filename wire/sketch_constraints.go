@@ -15,10 +15,15 @@ package wire
 //   - pointOnCircle: a point id + a circular-curve id
 //   - symmetry: two point ids + a line id (the mirror line)
 //   - fix: one point id
+//   - custom: any entity ids to tag; ClientID is the owning add-in id
+//     (required) and Name the record's name — an attribute-carrying marker,
+//     not a solver constraint (M06-F11, Oblikovati/Oblikovati#626)
 type AddConstraintArgs struct {
 	SketchIndex int      `json:"sketchIndex"`
 	Kind        string   `json:"kind"`
 	Entities    []uint64 `json:"entities"`
+	ClientID    string   `json:"clientId,omitempty"`
+	Name        string   `json:"name,omitempty"`
 }
 
 // AddConstraintResult is the response of [MethodSketchAddConstraint]: the new
