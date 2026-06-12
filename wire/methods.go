@@ -45,6 +45,13 @@ const (
 	MethodParametersDelete            = "parameters.delete"
 	MethodParametersDrivenBy          = "parameters.drivenBy"
 	MethodParametersDependents        = "parameters.dependents"
+	// Custom parameter groups (M02-F05, Oblikovati#604).
+	MethodParametersGroupsList           = "parameters.groups.list"
+	MethodParametersGroupsAdd            = "parameters.groups.add"
+	MethodParametersGroupsDelete         = "parameters.groups.delete"
+	MethodParametersGroupsSetDisplayName = "parameters.groups.setDisplayName"
+	MethodParametersGroupsAddMember      = "parameters.groups.addMember"
+	MethodParametersGroupsRemoveMember   = "parameters.groups.removeMember"
 
 	MethodModelTree          = "model.tree"
 	MethodModelSelection     = "model.selection"

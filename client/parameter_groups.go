@@ -1,0 +1,49 @@
+// SPDX-License-Identifier: Apache-2.0
+
+package client
+
+import "oblikovati.org/api/wire"
+
+// Custom parameter groups (M02-F05, Oblikovati/Oblikovati#604), on the
+// Parameters operation group.
+
+// ListGroups returns the active part's custom parameter groups with their
+// members, in creation order.
+func (p Parameters) ListGroups() (wire.ListParameterGroupsResult, error) {
+	var r wire.ListParameterGroupsResult
+	return r, p.c.call(wire.MethodParametersGroupsList, nil, &r)
+}
+
+// AddGroup creates an empty custom group keyed by an immutable internal name;
+// an empty display name defaults to it.
+func (p Parameters) AddGroup(args wire.ParameterGroupAddArgs) (wire.ParameterGroupInfo, error) {
+	var r wire.ParameterGroupInfo
+	return r, p.c.call(wire.MethodParametersGroupsAdd, args, &r)
+}
+
+// DeleteGroup removes a group; args.DeleteParameters opts into also deleting
+// the member parameters (otherwise the members stay, only the group goes).
+func (p Parameters) DeleteGroup(args wire.ParameterGroupDeleteArgs) error {
+	return p.c.call(wire.MethodParametersGroupsDelete, args, nil)
+}
+
+// SetGroupDisplayName edits a group's display name (the internal name can
+// never change) and returns the updated group.
+func (p Parameters) SetGroupDisplayName(args wire.ParameterGroupDisplayNameArgs) (wire.ParameterGroupInfo, error) {
+	var r wire.ParameterGroupInfo
+	return r, p.c.call(wire.MethodParametersGroupsSetDisplayName, args, &r)
+}
+
+// AddGroupMember adds a parameter to a group (membership in other groups is
+// untouched) and returns the updated group.
+func (p Parameters) AddGroupMember(args wire.ParameterGroupMemberArgs) (wire.ParameterGroupInfo, error) {
+	var r wire.ParameterGroupInfo
+	return r, p.c.call(wire.MethodParametersGroupsAddMember, args, &r)
+}
+
+// RemoveGroupMember detaches a parameter from a group — the parameter itself
+// is kept — and returns the updated group.
+func (p Parameters) RemoveGroupMember(args wire.ParameterGroupMemberArgs) (wire.ParameterGroupInfo, error) {
+	var r wire.ParameterGroupInfo
+	return r, p.c.call(wire.MethodParametersGroupsRemoveMember, args, &r)
+}
