@@ -51,6 +51,11 @@ const (
 	MethodParametersSetAllModelValueType = "parameters.setAllModelValueType"
 	MethodParametersExport               = "parameters.export"
 	MethodParametersImport               = "parameters.import"
+	// Derived parameter tables (M02-F06, Oblikovati#605).
+	MethodParametersDerivedTablesList      = "parameters.derivedTables.list"
+	MethodParametersDerivedTablesAdd       = "parameters.derivedTables.add"
+	MethodParametersDerivedTablesSetLinked = "parameters.derivedTables.setLinked"
+	MethodParametersDerivedTablesDelete    = "parameters.derivedTables.delete"
 	// Custom parameter groups (M02-F05, Oblikovati#604).
 	MethodParametersGroupsList           = "parameters.groups.list"
 	MethodParametersGroupsAdd            = "parameters.groups.add"
