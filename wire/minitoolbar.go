@@ -36,7 +36,7 @@ type MiniToolbarControlSpec struct {
 type MiniToolbarSpec struct {
 	ID          string                   `json:"id"`
 	Command     string                   `json:"command,omitempty"`
-	Anchor      *[3]float64              `json:"anchor,omitempty"`
+	Anchor      *types.Point             `json:"anchor,omitempty"`
 	ScreenX     float64                  `json:"screenX,omitempty"`
 	ScreenY     float64                  `json:"screenY,omitempty"`
 	Visible     bool                     `json:"visible"`

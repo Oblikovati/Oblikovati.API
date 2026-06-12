@@ -13,7 +13,7 @@ import (
 func TestMiniToolbarSetMarshalsSpec(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)
-	anchor := [3]float64{1, 2, 3}
+	anchor := types.NewPoint(1, 2, 3)
 	tb := wire.MiniToolbarSpec{
 		ID: "sim.probe", Visible: true, HeadsUpText: "Probe", Anchor: &anchor,
 		ShowOK: true, ShowCancel: true,
@@ -32,7 +32,7 @@ func TestMiniToolbarSetMarshalsSpec(t *testing.T) {
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
-	if sent.Toolbar.Anchor == nil || sent.Toolbar.Anchor[2] != 3 ||
+	if sent.Toolbar.Anchor == nil || sent.Toolbar.Anchor.Z != 3 ||
 		len(sent.Toolbar.Controls) != 2 || sent.Toolbar.Controls[0].Value != "10 mm" {
 		t.Errorf("sent = %+v, want the anchored two-control spec intact", sent.Toolbar)
 	}

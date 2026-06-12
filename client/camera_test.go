@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"testing"
 
+	"oblikovati.org/api/types"
 	"oblikovati.org/api/wire"
 )
 
@@ -15,7 +16,7 @@ func TestViewSetCameraMarshalsFrameAndDecodesReply(t *testing.T) {
 	c := New(ft)
 
 	got, err := c.View().SetCamera(wire.SetCameraArgs{
-		Eye: [3]float64{5, 6, 7}, Target: [3]float64{1, 2, 3}, Up: [3]float64{0, 1, 0}, FOV: 0.9,
+		Eye: types.NewPoint(5, 6, 7), Target: types.NewPoint(1, 2, 3), Up: types.NewVector(0, 1, 0), FOV: 0.9,
 	})
 	if err != nil {
 		t.Fatalf("SetCamera: %v", err)
@@ -27,10 +28,10 @@ func TestViewSetCameraMarshalsFrameAndDecodesReply(t *testing.T) {
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
-	if sent.Eye != [3]float64{5, 6, 7} || sent.Target != [3]float64{1, 2, 3} || sent.FOV != 0.9 {
+	if sent.Eye != types.NewPoint(5, 6, 7) || sent.Target != types.NewPoint(1, 2, 3) || sent.FOV != 0.9 {
 		t.Errorf("sent = %+v, want eye=[5 6 7] target=[1 2 3] fov=0.9", sent)
 	}
-	if got.Eye != [3]float64{0, 0, 10} {
+	if got.Eye != types.NewPoint(0, 0, 10) {
 		t.Errorf("decoded eye = %v, want [0 0 10]", got.Eye)
 	}
 }
@@ -49,7 +50,7 @@ func TestViewCameraSendsNilBodyAndDecodes(t *testing.T) {
 	if ft.gotReq != nil {
 		t.Errorf("no-arg getter should send nil body, got %q", ft.gotReq)
 	}
-	if got.FOV != 1.0 || got.Eye != [3]float64{1, 1, 1} {
+	if got.FOV != 1.0 || got.Eye != types.NewPoint(1, 1, 1) {
 		t.Errorf("decoded = %+v, want eye=[1 1 1] fov=1", got)
 	}
 }
