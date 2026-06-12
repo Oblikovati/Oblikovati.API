@@ -106,3 +106,24 @@ func (o Options) SetPart(v wire.PartOptionsView) (wire.OKResult, error) {
 	args := wire.OptionGroupView{Group: wire.OptionGroupPart, Part: &v}
 	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
 }
+
+// Save returns the save policy (thumbnail capture, dependents, old-version
+// retention) (M03-F09).
+func (o Options) Save() (wire.SaveOptionsView, error) {
+	r, err := o.getGroup(wire.OptionGroupSave)
+	if err != nil {
+		return wire.SaveOptionsView{}, err
+	}
+	if r.Save == nil {
+		return wire.SaveOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no save payload", wire.OptionGroupSave)
+	}
+	return *r.Save, nil
+}
+
+// SetSave writes the save policy; the host rejects capture modes it cannot
+// perform rather than persisting a dead setting.
+func (o Options) SetSave(v wire.SaveOptionsView) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.OptionGroupView{Group: wire.OptionGroupSave, Save: &v}
+	return r, o.c.call(wire.MethodOptionsSetGroup, args, &r)
+}

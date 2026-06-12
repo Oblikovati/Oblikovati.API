@@ -33,6 +33,32 @@ const (
 	MethodDocumentsRegisterSubType = "documents.registerSubType"
 	MethodDocumentsListSubTypes    = "documents.listSubTypes"
 
+	// Document open/save lifecycle (#138) and the save policy layer around it:
+	// SaveCopyAs and batch save (M03-F09, #610).
+	MethodDocumentsOpen       = "documents.open"
+	MethodDocumentsSave       = "documents.save"
+	MethodDocumentsSaveAs     = "documents.saveAs"
+	MethodDocumentsSaveCopyAs = "documents.saveCopyAs"
+	MethodDocumentsBatchSave  = "documents.batchSave"
+
+	// The file as an object distinct from its documents, with file-level
+	// reference descriptors and repair (M03-F07, #608).
+	MethodFilesGet                    = "files.get"
+	MethodFilesListReferences         = "files.listReferences"
+	MethodFilesReplaceReference       = "files.replaceReference"
+	MethodDocumentsListFileReferences = "documents.listFileReferences"
+
+	// Linked/embedded external-file attachments on a document (M03-F08, #609).
+	MethodDocumentsListAttachments  = "documents.listAttachments"
+	MethodDocumentsAddAttachment    = "documents.addAttachment"
+	MethodDocumentsRemoveAttachment = "documents.removeAttachment"
+
+	// The add-in data registry on documents (M03-F10, #611).
+	MethodDocumentsListInterests  = "documents.listInterests"
+	MethodDocumentsAddInterest    = "documents.addInterest"
+	MethodDocumentsRemoveInterest = "documents.removeInterest"
+	MethodDocumentsHasInterest    = "documents.hasInterest"
+
 	MethodParametersList = "parameters.list"
 	MethodParametersGet  = "parameters.get"
 	MethodParametersAdd  = "parameters.add"
