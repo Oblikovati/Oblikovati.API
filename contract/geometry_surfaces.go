@@ -6,8 +6,8 @@ import "oblikovati.org/api/types"
 
 // The transient-surface contracts (M01-F05, #602): each surface carries its
 // kind discriminator and evaluates positions/normals over (u, v); the
-// member-level evaluator surface (area, curvatures, iso-curves…) lands with
-// M01-F06.
+// member-level evaluator surface (area, curvatures, iso-curves…) is reached
+// via Evaluator() (M01-F06, #603).
 
 // Surface is the umbrella every transient surface satisfies.
 type Surface interface {
@@ -23,6 +23,8 @@ type Surface interface {
 	Domains() (uLo, uHi, vLo, vHi float64)
 	// Parameter inverts Evaluate for a point on (or near) the surface.
 	Parameter(p types.Point) (u, v float64)
+	// Evaluator returns the member-level query surface of this surface.
+	Evaluator() SurfaceEvaluator
 }
 
 // Plane is an unbounded planar surface with an orthonormal in-plane basis.
