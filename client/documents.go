@@ -62,3 +62,48 @@ func (d Documents) SubTypes() (wire.ListDocumentSubTypesResult, error) {
 	var r wire.ListDocumentSubTypesResult
 	return r, d.c.call(wire.MethodDocumentsListSubTypes, nil, &r)
 }
+
+// FileReferences returns the document-side view of a document's file
+// references: status plus the bridge to the resolved document (M03-F07).
+func (d Documents) FileReferences(id uint64) (wire.ListDocumentFileReferencesResult, error) {
+	var r wire.ListDocumentFileReferencesResult
+	args := wire.ListDocumentFileReferencesArgs{Document: id}
+	return r, d.c.call(wire.MethodDocumentsListFileReferences, args, &r)
+}
+
+// Open loads the document at the given full document name (or returns the
+// already-open one) and makes it active (#138).
+//
+//	info, err := c.Documents().Open(wire.OpenDocumentArgs{FullDocumentName: "/w/bracket.obk", Visible: true})
+func (d Documents) Open(args wire.OpenDocumentArgs) (wire.DocumentInfo, error) {
+	var r wire.DocumentInfo
+	return r, d.c.call(wire.MethodDocumentsOpen, args, &r)
+}
+
+// Save writes the document at its current file binding (#138).
+func (d Documents) Save(id uint64) (wire.SaveDocumentResult, error) {
+	var r wire.SaveDocumentResult
+	return r, d.c.call(wire.MethodDocumentsSave, wire.SaveDocumentArgs{Document: id}, &r)
+}
+
+// SaveAs writes the document under a new full document name, which becomes its
+// identity (#138).
+func (d Documents) SaveAs(id uint64, newFullDocumentName string) (wire.SaveDocumentResult, error) {
+	var r wire.SaveDocumentResult
+	args := wire.SaveDocumentAsArgs{Document: id, NewFullDocumentName: newFullDocumentName}
+	return r, d.c.call(wire.MethodDocumentsSaveAs, args, &r)
+}
+
+// SaveCopyAs writes a copy of the document to a target file without
+// retargeting the in-memory document (M03-F09).
+func (d Documents) SaveCopyAs(args wire.SaveCopyAsArgs) (wire.SaveDocumentResult, error) {
+	var r wire.SaveDocumentResult
+	return r, d.c.call(wire.MethodDocumentsSaveCopyAs, args, &r)
+}
+
+// BatchSave executes one save operation over several documents, continuing
+// past per-item failures and returning per-file outcomes (M03-F09).
+func (d Documents) BatchSave(args wire.BatchSaveArgs) (wire.BatchSaveResult, error) {
+	var r wire.BatchSaveResult
+	return r, d.c.call(wire.MethodDocumentsBatchSave, args, &r)
+}
