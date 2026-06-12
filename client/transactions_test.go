@@ -42,3 +42,24 @@ func TestTransactionsStateDecodesLabels(t *testing.T) {
 		t.Errorf("decoded state = %+v, want canUndo=true nextUndo=Fillet", st)
 	}
 }
+
+// TestTransactionsAbortSendsNoBodyAndDecodesState covers the abort path: the
+// discard of an open bounded transaction (M04-F05, Oblikovati#613).
+func TestTransactionsAbortSendsNoBodyAndDecodesState(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"canUndo":true,"canRedo":false,"nextUndo":"Sketch"}`)}
+	c := New(ft)
+
+	st, err := c.Transactions().Abort()
+	if err != nil {
+		t.Fatalf("Abort: %v", err)
+	}
+	if ft.gotMethod != wire.MethodTransactionAbort {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodTransactionAbort)
+	}
+	if ft.gotReq != nil {
+		t.Errorf("request body = %q, want nil for a no-arg method", ft.gotReq)
+	}
+	if !st.CanUndo || st.NextUndo != "Sketch" {
+		t.Errorf("decoded state = %+v, want canUndo=true nextUndo=Sketch", st)
+	}
+}

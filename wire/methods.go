@@ -216,6 +216,10 @@ const (
 	MethodTransactionState = "transaction.state"
 	MethodTransactionBegin = "transaction.begin"
 	MethodTransactionEnd   = "transaction.end"
+	// MethodTransactionAbort discards the innermost open bounded transaction —
+	// the model reverts to the group's pre-Begin state instead of committing it
+	// (M04-F05, Oblikovati#613). Returns the resulting [UndoState].
+	MethodTransactionAbort = "transaction.abort"
 
 	MethodInteractionState     = "interaction.state"
 	MethodInteractionSetNotice = "interaction.setNotice"
@@ -364,6 +368,28 @@ const (
 	// EventClientOperation tells a subtype's owner its flavored document needs
 	// servicing (see [ClientOperationEvent], M05-F15 Oblikovati#665).
 	EventClientOperation = "client.operation"
+
+	// Transaction lifecycle events (see [TransactionEventPayload], M04-F05
+	// Oblikovati#613): every move of a document's transaction stream.
+	EventTransactionCommitted = "transaction.committed"
+	EventTransactionUndone    = "transaction.undone"
+	EventTransactionRedone    = "transaction.redone"
+	EventTransactionAborted   = "transaction.aborted"
+	EventTransactionDeleted   = "transaction.deleted"
+
+	// File-access events (see [FileResolutionEventPayload] and
+	// [FileDirtyEventPayload], M04-F05 Oblikovati#613).
+	EventFileResolution = "file.resolution"
+	EventFileDirty      = "file.dirty"
+
+	// File-UI hook events (see [FileDialogHookPayload], M04-F05
+	// Oblikovati#613): the new/open/save-as flows and their dialogs.
+	EventFileNew              = "file.new"
+	EventFileNewDialog        = "file.newDialog"
+	EventFileOpenDialog       = "file.openDialog"
+	EventFileSaveAsDialog     = "file.saveAsDialog"
+	EventFileOpenFromMRU      = "file.openFromMRU"
+	EventFilePopulateMetadata = "file.populateMetadata"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
