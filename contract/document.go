@@ -18,6 +18,10 @@ type Document interface {
 	// DocumentType is the kind discriminator (part/assembly/drawing/presentation).
 	DocumentType() types.DocumentType
 
+	// SubType refines the base type with a flavored sub-type id (M03-F11) —
+	// types.SubTypePlain for an unflavored document.
+	SubType() types.DocumentSubTypeID
+
 	// DisplayName is the user-facing name (derived from the file name unless an
 	// explicit override is set).
 	DisplayName() string
