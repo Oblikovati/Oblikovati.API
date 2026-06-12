@@ -33,13 +33,12 @@ func (b Body) Wires(bodyIndex int) (wire.BodyWiresResult, error) {
 }
 
 // OffsetPlanarWire offsets a planar wire by distance in the plane with the
-// given normal, closing gap corners per closure.
-func (b Body) OffsetPlanarWire(bodyIndex, wireIndex int, normal []float64, distance float64, closure types.OffsetCornerClosureType) (wire.OffsetPlanarWireResult, error) {
+// given normal, closing gap corners per closure. Set args.Handle to offset a
+// transient body's wire (a section/silhouette result).
+func (b Body) OffsetPlanarWire(args wire.OffsetPlanarWireArgs, closure types.OffsetCornerClosureType) (wire.OffsetPlanarWireResult, error) {
+	args.CornerClosure = closure.String()
 	var r wire.OffsetPlanarWireResult
-	return r, b.c.call(wire.MethodWireOffsetPlanar, wire.OffsetPlanarWireArgs{
-		BodyIndex: bodyIndex, WireIndex: wireIndex, Normal: normal,
-		Distance: distance, CornerClosure: closure.String(),
-	}, &r)
+	return r, b.c.call(wire.MethodWireOffsetPlanar, args, &r)
 }
 
 // LocateUsingPoint finds the topology entity nearest the point within the
