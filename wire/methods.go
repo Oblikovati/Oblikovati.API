@@ -45,6 +45,12 @@ const (
 	MethodParametersDelete            = "parameters.delete"
 	MethodParametersDrivenBy          = "parameters.drivenBy"
 	MethodParametersDependents        = "parameters.dependents"
+	// Parameter settings, tolerance sweeps & exchange (M02-F07, Oblikovati#606).
+	MethodParametersGetSettings          = "parameters.getSettings"
+	MethodParametersSetSettings          = "parameters.setSettings"
+	MethodParametersSetAllModelValueType = "parameters.setAllModelValueType"
+	MethodParametersExport               = "parameters.export"
+	MethodParametersImport               = "parameters.import"
 	// Custom parameter groups (M02-F05, Oblikovati#604).
 	MethodParametersGroupsList           = "parameters.groups.list"
 	MethodParametersGroupsAdd            = "parameters.groups.add"
