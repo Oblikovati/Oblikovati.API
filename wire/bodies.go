@@ -68,9 +68,12 @@ type BodyWiresResult struct {
 // OffsetPlanarWireArgs is the request of [MethodWireOffsetPlanar]. Positive
 // distance offsets toward normal × tangent (the left of travel about the
 // plane normal); CornerClosure is a
-// [oblikovati.org/api/types.OffsetCornerClosureType] wire spelling.
+// [oblikovati.org/api/types.OffsetCornerClosureType] wire spelling. The wire
+// lives either on a document body (BodyIndex) or on a transient body
+// (Handle > 0 — sections and silhouettes produce those).
 type OffsetPlanarWireArgs struct {
-	BodyIndex     int       `json:"bodyIndex"`
+	BodyIndex     int       `json:"bodyIndex,omitempty"`
+	Handle        int       `json:"handle,omitempty"`
 	WireIndex     int       `json:"wireIndex"`
 	Normal        []float64 `json:"normal"`
 	Distance      float64   `json:"distance"`

@@ -112,7 +112,9 @@ func TestBrepCreateFromDefinitionCarriesGraph(t *testing.T) {
 func TestWireOffsetPlanarSpellsClosure(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"handle":5,"wires":[{"points":[0,0,0,1,0,0],"closed":false}]}`)}
 	c := New(ft)
-	r, err := c.Body().OffsetPlanarWire(0, 0, []float64{0, 0, 1}, 0.5, types.CircularCornerClosure)
+	r, err := c.Body().OffsetPlanarWire(wire.OffsetPlanarWireArgs{
+		Handle: 2, WireIndex: 0, Normal: []float64{0, 0, 1}, Distance: 0.5,
+	}, types.CircularCornerClosure)
 	if err != nil {
 		t.Fatal(err)
 	}
