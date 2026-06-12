@@ -60,6 +60,12 @@ func (c Containment) String() string {
 	return "containment(?)"
 }
 
+// ParseContainment resolves a wire spelling back to its containment
+// (M07-F07, Oblikovati/Oblikovati#630 — point-inside queries reply with it).
+func ParseContainment(s string) (Containment, bool) {
+	return enumFromName(containmentNames, s)
+}
+
 // ParamAnomaly reports the irregularities of one parameter direction: whether
 // the parameterization wraps (and with what period), hits singular points
 // (a sphere pole, a cone apex, a polyline corner), or runs unbounded.

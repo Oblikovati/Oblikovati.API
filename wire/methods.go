@@ -256,6 +256,48 @@ const (
 	MethodModelAssignAppearance   = "model.assignAppearance"
 	MethodModelPhysicalProperties = "model.physicalProperties"
 
+	// Body topology and queries (M07-F06/F07, Oblikovati/Oblikovati#629/#630).
+	MethodBodyList             = "body.list"
+	MethodBodyShells           = "body.shells"
+	MethodBodyWires            = "body.wires"
+	MethodWireOffsetPlanar     = "wire.offsetPlanar"
+	MethodBodyLocateUsingPoint = "body.locateUsingPoint"
+	MethodBodyFindUsingRay     = "body.findUsingRay"
+	MethodBodyIsPointInside    = "body.isPointInside"
+	MethodBodyConvexityEdges   = "body.convexityEdges"
+	MethodBodyValidate         = "body.validate"
+	MethodBodyRangeBox         = "body.rangeBox"
+	MethodBodyBindTransientKey = "body.bindTransientKey"
+
+	// Facet/stroke calculation and retrieval (M07-F03 remainder,
+	// Oblikovati/Oblikovati#293): the calculate variants cache per tolerance,
+	// the existing variants retrieve without re-faceting.
+	MethodBodyCalculateFacets  = "body.calculateFacets"
+	MethodBodyExistingFacets   = "body.existingFacets"
+	MethodBodyFacetTolerances  = "body.facetTolerances"
+	MethodBodyCalculateStrokes = "body.calculateStrokes"
+	MethodBodyExistingStrokes  = "body.existingStrokes"
+	MethodBodyStrokeTolerances = "body.strokeTolerances"
+	MethodFaceCalculateFacets  = "face.calculateFacets"
+	MethodFaceCalculateStrokes = "face.calculateStrokes"
+
+	// The transient B-rep factory (M07-F05, Oblikovati/Oblikovati#628):
+	// ownerless bodies addressed by session handles.
+	MethodBrepCreatePrimitive      = "brep.createPrimitive"
+	MethodBrepBoolean              = "brep.boolean"
+	MethodBrepTransform            = "brep.transform"
+	MethodBrepCopy                 = "brep.copy"
+	MethodBrepSectionWithPlane     = "brep.sectionWithPlane"
+	MethodBrepDeleteFaces          = "brep.deleteFaces"
+	MethodBrepSilhouette           = "brep.silhouette"
+	MethodBrepRuledSurface         = "brep.ruledSurface"
+	MethodBrepImprint              = "brep.imprint"
+	MethodBrepIdenticalBodies      = "brep.identicalBodies"
+	MethodBrepCreateFromDefinition = "brep.createFromDefinition"
+	MethodBrepDescribe             = "brep.describe"
+	MethodBrepList                 = "brep.list"
+	MethodBrepDelete               = "brep.delete"
+
 	MethodClientGraphicsSet        = "clientGraphics.set"
 	MethodClientGraphicsList       = "clientGraphics.list"
 	MethodClientGraphicsDelete     = "clientGraphics.delete"
