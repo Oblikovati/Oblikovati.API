@@ -7,8 +7,9 @@ import "oblikovati.org/api/types"
 // The transient-curve contracts (M01-F05, #602): ownerless immutable curve
 // values created through [TransientGeometry]. Every curve carries its kind
 // discriminator and can evaluate positions/tangents over its parameter domain;
-// the member-level evaluator surface (curvature, arc length, strokes…) lands
-// with M01-F06. Angles are radians; lengths are database units (cm).
+// the member-level evaluator surface (curvature, arc length, strokes…) is
+// reached via Evaluator() (M01-F06, #603). Angles are radians; lengths are
+// database units (cm).
 
 // Curve is the umbrella every 3D transient curve satisfies.
 type Curve interface {
@@ -22,6 +23,8 @@ type Curve interface {
 	Tangent(t float64) types.Vector
 	// Domain returns the parameter range (±Inf for unbounded curves).
 	Domain() (lo, hi float64)
+	// Evaluator returns the member-level query surface of this curve.
+	Evaluator() CurveEvaluator
 }
 
 // Curve2d is the umbrella every 2D transient curve satisfies.
@@ -31,6 +34,8 @@ type Curve2d interface {
 	Evaluate(t float64) types.Point2d
 	Tangent(t float64) types.Vector2d
 	Domain() (lo, hi float64)
+	// Evaluator returns the member-level query surface of this curve.
+	Evaluator() Curve2dEvaluator
 }
 
 // Line is an unbounded 3D line.
