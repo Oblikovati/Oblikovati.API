@@ -16,6 +16,7 @@ const (
 	OptionGroupDisplay = "display"
 	OptionGroupSketch  = "sketch"
 	OptionGroupPart    = "part"
+	OptionGroupSave    = "save"
 )
 
 // GeneralOptionsView is the "general" group: application-level behavior.
@@ -65,6 +66,7 @@ type OptionGroupView struct {
 	Display *DisplayOptionsView `json:"display,omitempty"`
 	Sketch  *SketchOptionsView  `json:"sketch,omitempty"`
 	Part    *PartOptionsView    `json:"part,omitempty"`
+	Save    *SaveOptionsView    `json:"save,omitempty"`
 }
 
 // ListOptionGroupsResult is the response of [MethodOptionsListGroups].
