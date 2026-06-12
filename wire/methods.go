@@ -37,6 +37,14 @@ const (
 	MethodParametersGet  = "parameters.get"
 	MethodParametersAdd  = "parameters.add"
 	MethodParametersSet  = "parameters.set"
+	// Member-level parameter surface (M02-F08, Oblikovati#607).
+	MethodParametersGetDetail         = "parameters.getDetail"
+	MethodParametersUpdate            = "parameters.update"
+	MethodParametersSetTolerance      = "parameters.setTolerance"
+	MethodParametersSetExpressionList = "parameters.setExpressionList"
+	MethodParametersDelete            = "parameters.delete"
+	MethodParametersDrivenBy          = "parameters.drivenBy"
+	MethodParametersDependents        = "parameters.dependents"
 
 	MethodModelTree          = "model.tree"
 	MethodModelSelection     = "model.selection"
