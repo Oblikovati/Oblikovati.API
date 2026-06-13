@@ -26,6 +26,14 @@ func (a AssemblyFeatures) Add(args wire.AddAssemblyFeatureArgs) (wire.AssemblyFe
 	return r, a.c.call(wire.MethodAssemblyFeaturesAdd, args, &r)
 }
 
+// AddHole drills a hole of the given diameter and depth from center along axis through
+// the active assembly's participants — a parametric kind needing no sketch. E.g.
+// AddHole(wire.AddAssemblyHoleArgs{Center: [3]float64{5, 5, 0}, Axis: [3]float64{0, 0, 1}, Diameter: 6, Depth: 20}).
+func (a AssemblyFeatures) AddHole(args wire.AddAssemblyHoleArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddHole, args, &r)
+}
+
 // AddProxyCut adds a feature whose tool is the geometry of the source occurrence,
 // supplied as an occurrence-context proxy and re-resolved each rebuild (associative), so
 // the machining follows the source. E.g. AddProxyCut(sourceOccurrenceID, "difference").

@@ -59,6 +59,18 @@ type SetAssemblyParticipantsArgs struct {
 	Participants []uint64 `json:"participants"`
 }
 
+// AddAssemblyHoleArgs is the request of [MethodAssemblyFeaturesAddHole]: drill a hole
+// of Diameter and Depth (document units) from Center along Axis (a direction in the
+// assembly's space) through every participating occurrence — a parametric assembly
+// feature kind that needs no sketch (M11-F08 kind set, #735). Diameter and Depth must
+// be positive and Axis non-zero.
+type AddAssemblyHoleArgs struct {
+	Center   [3]float64 `json:"center"`
+	Axis     [3]float64 `json:"axis"`
+	Diameter float64    `json:"diameter"`
+	Depth    float64    `json:"depth"`
+}
+
 // AddProxyCutFeatureArgs is the request of [MethodAssemblyFeaturesAddProxyCut]: add a
 // feature whose tool is supplied as an occurrence-context proxy — the geometry of the
 // Source occurrence (by session id), resolved into assembly space and re-resolved on
