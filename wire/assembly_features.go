@@ -59,6 +59,19 @@ type SetAssemblyParticipantsArgs struct {
 	Participants []uint64 `json:"participants"`
 }
 
+// AddAssemblyExtrudeArgs is the request of [MethodAssemblyFeaturesAddExtrude]: extrude
+// the ProfileIndex-th closed region of the active assembly's SketchIndex-th sketch
+// (authored on an assembly work plane) by Distance (document units) into every
+// participant, applying Operation (a [types.BooleanType] spelling: "difference" cuts a
+// pocket, "union" adds a boss). The assembly sketching subsystem (#739) supplies the
+// profile; Distance must be positive.
+type AddAssemblyExtrudeArgs struct {
+	SketchIndex  int     `json:"sketchIndex"`
+	ProfileIndex int     `json:"profileIndex"`
+	Distance     float64 `json:"distance"`
+	Operation    string  `json:"operation"`
+}
+
 // AddAssemblyHoleArgs is the request of [MethodAssemblyFeaturesAddHole]: drill a hole
 // of Diameter and Depth (document units) from Center along Axis (a direction in the
 // assembly's space) through every participating occurrence — a parametric assembly
