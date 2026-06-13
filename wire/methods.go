@@ -217,6 +217,18 @@ const (
 	MethodAssemblyDeriveBreakLink  = "assembly.deriveBreakLink"
 	MethodAssemblyShrinkwrapCreate = "assembly.shrinkwrapCreate"
 
+	// Assembly occurrences (M11-F01/F02, Oblikovati#728): read the active assembly's
+	// occurrence tree and place/transform/ground/suppress/replace/remove components.
+	// Occurrences are addressed by session id (the ids the occurrence push events carry).
+	MethodAssemblyOccurrences       = "assembly.occurrences"
+	MethodAssemblyPlace             = "assembly.place"
+	MethodAssemblyPlaceByDefinition = "assembly.placeByDefinition"
+	MethodAssemblyTransform         = "assembly.transform"
+	MethodAssemblyGround            = "assembly.ground"
+	MethodAssemblySuppress          = "assembly.suppress"
+	MethodAssemblyReplace           = "assembly.replace"
+	MethodAssemblyRemove            = "assembly.remove"
+
 	// Assembly feature program (M11-F08, Oblikovati#633/#725): the machining features
 	// authored in the assembly, their per-occurrence participation and suppression, and
 	// the end-of-features rollback marker.
