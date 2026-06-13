@@ -209,6 +209,14 @@ const (
 	MethodFreeformMoveVertices = "freeform.moveVertices"
 	MethodFreeformCreaseEdges  = "freeform.creaseEdges"
 
+	// Assembly derive/shrinkwrap (M11-F06, Oblikovati#631/#716): derive a source
+	// assembly into the active part as a base body, or simplify it into a lightweight
+	// shrinkwrap body; break the link to freeze the current result. The derived feature
+	// is addressed by its stable id, like the features.* lifecycle methods.
+	MethodAssemblyDeriveCreate     = "assembly.deriveCreate"
+	MethodAssemblyDeriveBreakLink  = "assembly.deriveBreakLink"
+	MethodAssemblyShrinkwrapCreate = "assembly.shrinkwrapCreate"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
