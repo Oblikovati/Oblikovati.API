@@ -497,6 +497,15 @@ const (
 	EventFileSaveAsDialog     = "file.saveAsDialog"
 	EventFileOpenFromMRU      = "file.openFromMRU"
 	EventFilePopulateMetadata = "file.populateMetadata"
+
+	// Assembly occurrence-lifecycle events (see [OccurrenceEventPayload], M11-F07
+	// Oblikovati#723): a component was placed, removed, replaced, moved, or had its
+	// suppression toggled. The host coalesces a solver drag into one transformed event.
+	EventOccurrenceAdded       = "occurrence.added"
+	EventOccurrenceDeleted     = "occurrence.deleted"
+	EventOccurrenceReplaced    = "occurrence.replaced"
+	EventOccurrenceTransformed = "occurrence.transformed"
+	EventOccurrenceSuppressed  = "occurrence.suppressed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
