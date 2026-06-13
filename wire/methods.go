@@ -524,6 +524,10 @@ const (
 	EventOccurrenceReplaced    = "occurrence.replaced"
 	EventOccurrenceTransformed = "occurrence.transformed"
 	EventOccurrenceSuppressed  = "occurrence.suppressed"
+
+	// Assembly feature-program event (see [AssemblyFeaturesChangedEvent], M11-F08
+	// Oblikovati#725): the assembly's machining-feature program was re-evaluated.
+	EventAssemblyFeaturesChanged = "assemblyFeatures.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

@@ -128,6 +128,25 @@ func TestEventDispatcherRoutesOccurrenceEvents(t *testing.T) {
 	}
 }
 
+// TestEventDispatcherRoutesAssemblyFeatureEvents checks the feature-program change
+// event routes to its typed callback with per-feature health decoded.
+func TestEventDispatcherRoutesAssemblyFeatureEvents(t *testing.T) {
+	d := NewEventDispatcher()
+	var got wire.AssemblyFeaturesChangedEvent
+	d.OnAssemblyFeatures(func(e wire.AssemblyFeaturesChangedEvent) { got = e })
+
+	ev := []byte(`{"type":"assemblyFeatures.changed","document":5,"features":[{"id":3,"suppressed":true},{"id":4,"health":"sick: lost ref"}]}`)
+	if !d.Dispatch(ev) {
+		t.Fatal("assemblyFeatures.changed must route")
+	}
+	if got.Document != 5 || len(got.Features) != 2 {
+		t.Fatalf("payload = %+v, want document 5 with 2 features", got)
+	}
+	if !got.Features[0].Suppressed || got.Features[1].Health != "sick: lost ref" {
+		t.Errorf("feature health = %+v, want suppressed + a sick reason", got.Features)
+	}
+}
+
 // TestEventDispatcherIgnoresForeignAndMalformedEvents pins the false returns:
 // other event families and broken JSON are left to the caller.
 func TestEventDispatcherIgnoresForeignAndMalformedEvents(t *testing.T) {
