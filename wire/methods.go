@@ -222,6 +222,7 @@ const (
 	// the end-of-features rollback marker.
 	MethodAssemblyFeaturesList                = "assemblyFeatures.list"
 	MethodAssemblyFeaturesAdd                 = "assemblyFeatures.add"
+	MethodAssemblyFeaturesAddProxyCut         = "assemblyFeatures.addProxyCut"
 	MethodAssemblyFeaturesSetParticipants     = "assemblyFeatures.setParticipants"
 	MethodAssemblyFeaturesSetParticipantPaths = "assemblyFeatures.setParticipantPaths"
 	MethodAssemblyFeaturesSetSuppressed       = "assemblyFeatures.setSuppressed"
