@@ -59,6 +59,18 @@ type SetAssemblyParticipantsArgs struct {
 	Participants []uint64 `json:"participants"`
 }
 
+// AddProxyCutFeatureArgs is the request of [MethodAssemblyFeaturesAddProxyCut]: add a
+// feature whose tool is supplied as an occurrence-context proxy — the geometry of the
+// Source occurrence (by session id), resolved into assembly space and re-resolved on
+// every rebuild, so the machining follows the source as it moves or changes (M11-F08
+// proxy inputs, #734). Operation is a [types.BooleanType] spelling ("difference" cuts).
+// The source occurrence is excluded from the new feature's default participation (a
+// component does not machine itself).
+type AddProxyCutFeatureArgs struct {
+	Source    uint64 `json:"source"`
+	Operation string `json:"operation"`
+}
+
 // SetAssemblyParticipantPathsArgs is the request of
 // [MethodAssemblyFeaturesSetParticipantPaths]: restrict feature ID to the given nested
 // occurrence paths (each a sequence of instance names, root first), disambiguating a

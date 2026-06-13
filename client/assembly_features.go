@@ -26,6 +26,15 @@ func (a AssemblyFeatures) Add(args wire.AddAssemblyFeatureArgs) (wire.AssemblyFe
 	return r, a.c.call(wire.MethodAssemblyFeaturesAdd, args, &r)
 }
 
+// AddProxyCut adds a feature whose tool is the geometry of the source occurrence,
+// supplied as an occurrence-context proxy and re-resolved each rebuild (associative), so
+// the machining follows the source. E.g. AddProxyCut(sourceOccurrenceID, "difference").
+func (a AssemblyFeatures) AddProxyCut(source uint64, operation string) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	args := wire.AddProxyCutFeatureArgs{Source: source, Operation: operation}
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddProxyCut, args, &r)
+}
+
 // SetParticipants replaces a feature's participation set with the occurrences named by
 // their session ids, e.g. SetParticipants(featureID, []uint64{7, 8}).
 func (a AssemblyFeatures) SetParticipants(id uint64, participants []uint64) (wire.AssemblyFeatureResult, error) {
