@@ -34,6 +34,16 @@ func (a AssemblyFeatures) SetParticipants(id uint64, participants []uint64) (wir
 	return r, a.c.call(wire.MethodAssemblyFeaturesSetParticipants, args, &r)
 }
 
+// SetParticipantPaths restricts a feature to specific nested occurrence paths (each a
+// sequence of instance names, root first), disambiguating a sub-assembly placed more
+// than once; passing no paths clears the restriction. E.g.
+// SetParticipantPaths(featureID, [][]string{{"gearbox:1", "bolt:3"}}).
+func (a AssemblyFeatures) SetParticipantPaths(id uint64, paths [][]string) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	args := wire.SetAssemblyParticipantPathsArgs{ID: id, Paths: paths}
+	return r, a.c.call(wire.MethodAssemblyFeaturesSetParticipantPaths, args, &r)
+}
+
 // SetSuppressed suppresses or unsuppresses the named features in one batch and returns
 // the refreshed program, e.g. SetSuppressed([]uint64{3}, true).
 func (a AssemblyFeatures) SetSuppressed(ids []uint64, suppressed bool) (wire.AssemblyFeaturesResult, error) {
