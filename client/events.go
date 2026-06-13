@@ -24,8 +24,9 @@ type EventDispatcher struct {
 	onTransaction    []func(wire.TransactionEventPayload)
 	onFileResolution []func(wire.FileResolutionEventPayload)
 	onFileDirty      []func(wire.FileDirtyEventPayload)
-	onFileDialogHook []func(wire.FileDialogHookPayload)
-	onOccurrence     []func(wire.OccurrenceEventPayload)
+	onFileDialogHook  []func(wire.FileDialogHookPayload)
+	onOccurrence      []func(wire.OccurrenceEventPayload)
+	onAssemblyFeature []func(wire.AssemblyFeaturesChangedEvent)
 }
 
 // NewEventDispatcher returns a dispatcher with no callbacks registered.
@@ -61,6 +62,13 @@ func (d *EventDispatcher) OnFileDialogHook(fn func(wire.FileDialogHookPayload)) 
 // Type says which fired and carries the affected occurrence's identity (M11-F07).
 func (d *EventDispatcher) OnOccurrence(fn func(wire.OccurrenceEventPayload)) {
 	d.onOccurrence = append(d.onOccurrence, fn)
+}
+
+// OnAssemblyFeatures subscribes to assemblyFeatures.changed: the active assembly's
+// machining-feature program was re-evaluated (the payload carries each feature's
+// resulting health; re-read detail with assemblyFeatures.list) (M11-F08).
+func (d *EventDispatcher) OnAssemblyFeatures(fn func(wire.AssemblyFeaturesChangedEvent)) {
+	d.onAssemblyFeature = append(d.onAssemblyFeature, fn)
 }
 
 // transactionEventTypes are the type tags decoded as [wire.TransactionEventPayload].
@@ -117,6 +125,8 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 		return fireDecoded(eventJSON, d.onFileDialogHook)
 	case occurrenceEventTypes[eventType]:
 		return fireDecoded(eventJSON, d.onOccurrence)
+	case eventType == wire.EventAssemblyFeaturesChanged:
+		return fireDecoded(eventJSON, d.onAssemblyFeature)
 	}
 	return false
 }
@@ -124,7 +134,7 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 // fireDecoded unmarshals the payload once and hands it to every callback.
 func fireDecoded[P wire.TransactionEventPayload | wire.FileResolutionEventPayload |
 	wire.FileDirtyEventPayload | wire.FileDialogHookPayload |
-	wire.OccurrenceEventPayload](eventJSON []byte, fns []func(P)) bool {
+	wire.OccurrenceEventPayload | wire.AssemblyFeaturesChangedEvent](eventJSON []byte, fns []func(P)) bool {
 	var payload P
 	if err := json.Unmarshal(eventJSON, &payload); err != nil {
 		return false
