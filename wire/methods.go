@@ -217,6 +217,16 @@ const (
 	MethodAssemblyDeriveBreakLink  = "assembly.deriveBreakLink"
 	MethodAssemblyShrinkwrapCreate = "assembly.shrinkwrapCreate"
 
+	// Assembly feature program (M11-F08, Oblikovati#633/#725): the machining features
+	// authored in the assembly, their per-occurrence participation and suppression, and
+	// the end-of-features rollback marker.
+	MethodAssemblyFeaturesList            = "assemblyFeatures.list"
+	MethodAssemblyFeaturesAdd             = "assemblyFeatures.add"
+	MethodAssemblyFeaturesSetParticipants = "assemblyFeatures.setParticipants"
+	MethodAssemblyFeaturesSetSuppressed   = "assemblyFeatures.setSuppressed"
+	MethodAssemblyGetEndOfFeatures        = "assembly.getEndOfFeatures"
+	MethodAssemblySetEndOfFeatures        = "assembly.setEndOfFeatures"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
