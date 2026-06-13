@@ -229,6 +229,14 @@ const (
 	MethodAssemblyReplace           = "assembly.replace"
 	MethodAssemblyRemove            = "assembly.remove"
 
+	// Assembly replication (M11-F04, Oblikovati#729): replicate placed components —
+	// pattern (circular/rectangular), mirror across a plane, independent copy, and
+	// substitute a set of components with one simplified representation.
+	MethodAssemblyPatternCreate = "assembly.patternCreate"
+	MethodAssemblyMirror        = "assembly.mirror"
+	MethodAssemblyCopy          = "assembly.copy"
+	MethodAssemblySubstitute    = "assembly.substitute"
+
 	// Assembly feature program (M11-F08, Oblikovati#633/#725): the machining features
 	// authored in the assembly, their per-occurrence participation and suppression, and
 	// the end-of-features rollback marker.
