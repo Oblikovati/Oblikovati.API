@@ -26,6 +26,14 @@ func (a AssemblyFeatures) Add(args wire.AddAssemblyFeatureArgs) (wire.AssemblyFe
 	return r, a.c.call(wire.MethodAssemblyFeaturesAdd, args, &r)
 }
 
+// AddExtrude extrudes a closed sketch profile (authored on an assembly work plane) into
+// every participant — a profiled pocket ("difference") or boss ("union"). E.g.
+// AddExtrude(wire.AddAssemblyExtrudeArgs{SketchIndex: 0, ProfileIndex: 0, Distance: 6, Operation: "difference"}).
+func (a AssemblyFeatures) AddExtrude(args wire.AddAssemblyExtrudeArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddExtrude, args, &r)
+}
+
 // AddHole drills a hole of the given diameter and depth from center along axis through
 // the active assembly's participants — a parametric kind needing no sketch. E.g.
 // AddHole(wire.AddAssemblyHoleArgs{Center: [3]float64{5, 5, 0}, Axis: [3]float64{0, 0, 1}, Diameter: 6, Depth: 20}).
