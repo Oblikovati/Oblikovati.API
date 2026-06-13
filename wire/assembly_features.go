@@ -72,6 +72,22 @@ type AddAssemblyExtrudeArgs struct {
 	Operation    string  `json:"operation"`
 }
 
+// AddAssemblyRevolveArgs is the request of [MethodAssemblyFeaturesAddRevolve]: revolve
+// the ProfileIndex-th closed region of the active assembly's SketchIndex-th sketch
+// (authored on an assembly work plane) about the axis line through Origin along Axis (a
+// direction in the assembly's space) by Angle (radians, in (0,2π]; 2π is a full turn) into
+// every participant, applying Operation (a [types.BooleanType] spelling: "difference"
+// turns a groove, "union" adds a turned boss). The assembly sketching subsystem (#739)
+// supplies the profile (M11-F08 kind set, #735). Angle must be in (0,2π] and Axis non-zero.
+type AddAssemblyRevolveArgs struct {
+	SketchIndex  int        `json:"sketchIndex"`
+	ProfileIndex int        `json:"profileIndex"`
+	Origin       [3]float64 `json:"origin"`
+	Axis         [3]float64 `json:"axis"`
+	Angle        float64    `json:"angle"`
+	Operation    string     `json:"operation"`
+}
+
 // AddAssemblyHoleArgs is the request of [MethodAssemblyFeaturesAddHole]: drill a hole
 // of Diameter and Depth (document units) from Center along Axis (a direction in the
 // assembly's space) through every participating occurrence — a parametric assembly

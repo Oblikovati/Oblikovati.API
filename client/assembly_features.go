@@ -34,6 +34,15 @@ func (a AssemblyFeatures) AddExtrude(args wire.AddAssemblyExtrudeArgs) (wire.Ass
 	return r, a.c.call(wire.MethodAssemblyFeaturesAddExtrude, args, &r)
 }
 
+// AddRevolve revolves a closed sketch profile (authored on an assembly work plane) about
+// the axis line (origin + direction) into every participant — a turned groove
+// ("difference") or boss ("union"). Angle is radians in (0,2π] (2π is a full turn). E.g.
+// AddRevolve(wire.AddAssemblyRevolveArgs{SketchIndex: 0, ProfileIndex: 0, Origin: [3]float64{0, 0, 0}, Axis: [3]float64{0, 1, 0}, Angle: math.Pi, Operation: "difference"}).
+func (a AssemblyFeatures) AddRevolve(args wire.AddAssemblyRevolveArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddRevolve, args, &r)
+}
+
 // AddHole drills a hole of the given diameter and depth from center along axis through
 // the active assembly's participants — a parametric kind needing no sketch. E.g.
 // AddHole(wire.AddAssemblyHoleArgs{Center: [3]float64{5, 5, 0}, Axis: [3]float64{0, 0, 1}, Diameter: 6, Depth: 20}).
