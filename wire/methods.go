@@ -223,6 +223,7 @@ const (
 	MethodAssemblyFeaturesList                = "assemblyFeatures.list"
 	MethodAssemblyFeaturesAdd                 = "assemblyFeatures.add"
 	MethodAssemblyFeaturesAddProxyCut         = "assemblyFeatures.addProxyCut"
+	MethodAssemblyFeaturesAddHole             = "assemblyFeatures.addHole"
 	MethodAssemblyFeaturesSetParticipants     = "assemblyFeatures.setParticipants"
 	MethodAssemblyFeaturesSetParticipantPaths = "assemblyFeatures.setParticipantPaths"
 	MethodAssemblyFeaturesSetSuppressed       = "assemblyFeatures.setSuppressed"
