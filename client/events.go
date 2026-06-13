@@ -25,6 +25,7 @@ type EventDispatcher struct {
 	onFileResolution []func(wire.FileResolutionEventPayload)
 	onFileDirty      []func(wire.FileDirtyEventPayload)
 	onFileDialogHook []func(wire.FileDialogHookPayload)
+	onOccurrence     []func(wire.OccurrenceEventPayload)
 }
 
 // NewEventDispatcher returns a dispatcher with no callbacks registered.
@@ -55,6 +56,13 @@ func (d *EventDispatcher) OnFileDialogHook(fn func(wire.FileDialogHookPayload)) 
 	d.onFileDialogHook = append(d.onFileDialogHook, fn)
 }
 
+// OnOccurrence subscribes to the five assembly occurrence-lifecycle events
+// (occurrence.added/.deleted/.replaced/.transformed/.suppressed); the payload's
+// Type says which fired and carries the affected occurrence's identity (M11-F07).
+func (d *EventDispatcher) OnOccurrence(fn func(wire.OccurrenceEventPayload)) {
+	d.onOccurrence = append(d.onOccurrence, fn)
+}
+
 // transactionEventTypes are the type tags decoded as [wire.TransactionEventPayload].
 var transactionEventTypes = map[string]bool{
 	wire.EventTransactionCommitted: true,
@@ -72,6 +80,15 @@ var fileDialogHookEventTypes = map[string]bool{
 	wire.EventFileSaveAsDialog:     true,
 	wire.EventFileOpenFromMRU:      true,
 	wire.EventFilePopulateMetadata: true,
+}
+
+// occurrenceEventTypes are the type tags decoded as [wire.OccurrenceEventPayload].
+var occurrenceEventTypes = map[string]bool{
+	wire.EventOccurrenceAdded:       true,
+	wire.EventOccurrenceDeleted:     true,
+	wire.EventOccurrenceReplaced:    true,
+	wire.EventOccurrenceTransformed: true,
+	wire.EventOccurrenceSuppressed:  true,
 }
 
 // Dispatch decodes one Notify event and fires the matching callbacks, reporting
@@ -98,13 +115,16 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 		return fireDecoded(eventJSON, d.onFileDirty)
 	case fileDialogHookEventTypes[eventType]:
 		return fireDecoded(eventJSON, d.onFileDialogHook)
+	case occurrenceEventTypes[eventType]:
+		return fireDecoded(eventJSON, d.onOccurrence)
 	}
 	return false
 }
 
 // fireDecoded unmarshals the payload once and hands it to every callback.
 func fireDecoded[P wire.TransactionEventPayload | wire.FileResolutionEventPayload |
-	wire.FileDirtyEventPayload | wire.FileDialogHookPayload](eventJSON []byte, fns []func(P)) bool {
+	wire.FileDirtyEventPayload | wire.FileDialogHookPayload |
+	wire.OccurrenceEventPayload](eventJSON []byte, fns []func(P)) bool {
 	var payload P
 	if err := json.Unmarshal(eventJSON, &payload); err != nil {
 		return false

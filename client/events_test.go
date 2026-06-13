@@ -88,6 +88,46 @@ func TestEventDispatcherRoutesFileEvents(t *testing.T) {
 	}
 }
 
+// TestEventDispatcherRoutesOccurrenceEvents drives every occurrence type tag through
+// Dispatch and checks the typed payload — identity, suppression, and the new/prior
+// placement on a transformed event — reaches the callback.
+func TestEventDispatcherRoutesOccurrenceEvents(t *testing.T) {
+	d := NewEventDispatcher()
+	var got []wire.OccurrenceEventPayload
+	d.OnOccurrence(func(e wire.OccurrenceEventPayload) { got = append(got, e) })
+
+	events := [][]byte{
+		[]byte(`{"type":"occurrence.added","document":4,"occurrence":7,"name":"bracket:1"}`),
+		[]byte(`{"type":"occurrence.deleted","document":4,"occurrence":7,"name":"bracket:1"}`),
+		[]byte(`{"type":"occurrence.replaced","document":4,"occurrence":8,"name":"pin:2"}`),
+		[]byte(`{"type":"occurrence.suppressed","document":4,"occurrence":8,"name":"pin:2","suppressed":true}`),
+		[]byte(`{"type":"occurrence.transformed","document":4,"occurrence":8,"name":"pin:2",` +
+			`"transform":[1,0,0,5,0,1,0,0,0,0,1,0,0,0,0,1],` +
+			`"previous":[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]}`),
+	}
+	for _, ev := range events {
+		if !d.Dispatch(ev) {
+			t.Errorf("Dispatch(%s) = false, want it routed", ev)
+		}
+	}
+	if len(got) != len(events) {
+		t.Fatalf("callback fired %d times, want %d", len(got), len(events))
+	}
+	if got[0].Occurrence != 7 || got[0].Name != "bracket:1" || got[0].Document != 4 {
+		t.Errorf("added payload = %+v, want occurrence 7 bracket:1 on document 4", got[0])
+	}
+	if !got[3].Suppressed {
+		t.Errorf("suppressed payload = %+v, want Suppressed=true", got[3])
+	}
+	move := got[4]
+	if move.Transform == nil || move.Previous == nil {
+		t.Fatalf("transformed payload = %+v, want both placements decoded", move)
+	}
+	if move.Transform.Cells[3] != 5 || move.Previous.Cells[3] != 0 {
+		t.Errorf("transformed placements = %v / %v, want new X=5 and prior X=0", move.Transform.Cells[3], move.Previous.Cells[3])
+	}
+}
+
 // TestEventDispatcherIgnoresForeignAndMalformedEvents pins the false returns:
 // other event families and broken JSON are left to the caller.
 func TestEventDispatcherIgnoresForeignAndMalformedEvents(t *testing.T) {
