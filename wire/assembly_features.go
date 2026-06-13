@@ -19,6 +19,11 @@ type AssemblyFeatureInfo struct {
 	Suppressed   bool     `json:"suppressed,omitempty"`
 	Health       string   `json:"health,omitempty"`
 	Participants []uint64 `json:"participants,omitempty"`
+	// ParticipantPaths is the feature's nested-path restriction (each path a sequence of
+	// occurrence instance names, root first), present only when the feature is restricted
+	// to specific placements of a sub-assembly placed more than once. Empty means it
+	// machines every path through a participating leaf occurrence (the default).
+	ParticipantPaths [][]string `json:"participantPaths,omitempty"`
 }
 
 // AssemblyFeaturesResult is the reply of [MethodAssemblyFeaturesList]: the feature
@@ -52,6 +57,16 @@ type AddAssemblyFeatureArgs struct {
 type SetAssemblyParticipantsArgs struct {
 	ID           uint64   `json:"id"`
 	Participants []uint64 `json:"participants"`
+}
+
+// SetAssemblyParticipantPathsArgs is the request of
+// [MethodAssemblyFeaturesSetParticipantPaths]: restrict feature ID to the given nested
+// occurrence paths (each a sequence of instance names, root first), disambiguating a
+// sub-assembly placed more than once. Passing no paths clears the restriction so the
+// feature again machines every path through a participating leaf occurrence.
+type SetAssemblyParticipantPathsArgs struct {
+	ID    uint64     `json:"id"`
+	Paths [][]string `json:"paths"`
 }
 
 // SetAssemblyFeaturesSuppressedArgs is the request of
