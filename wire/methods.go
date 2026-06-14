@@ -291,6 +291,25 @@ const (
 	MethodAssemblyConstraintsSolve                 = "assemblyConstraints.solve"
 	MethodAssemblyConstraintsHealth                = "assemblyConstraints.health"
 
+	// Assembly joints (M12-F02, Oblikovati#359/#364): the simplified joints that establish
+	// a degree-of-freedom set between two occurrences, and the DS-joint (DOF/imposed-motion)
+	// view. Joints and constraints solve together (assemblyConstraints.solve/health).
+	MethodAssemblyJointsList           = "assemblyJoints.list"
+	MethodAssemblyJointsAddRigid       = "assemblyJoints.addRigid"
+	MethodAssemblyJointsAddRotational  = "assemblyJoints.addRotational"
+	MethodAssemblyJointsAddSlider      = "assemblyJoints.addSlider"
+	MethodAssemblyJointsAddCylindrical = "assemblyJoints.addCylindrical"
+	MethodAssemblyJointsAddPlanar      = "assemblyJoints.addPlanar"
+	MethodAssemblyJointsAddBall        = "assemblyJoints.addBall"
+	MethodAssemblyJointsDelete         = "assemblyJoints.delete"
+	MethodAssemblyJointsSetLimits      = "assemblyJoints.setLimits"
+	MethodAssemblyJointsSetFlip        = "assemblyJoints.setFlip"
+
+	MethodDSJointsList             = "dsJoints.list"
+	MethodDSJointsAdd              = "dsJoints.add"
+	MethodDSJointsSetImposedMotion = "dsJoints.setImposedMotion"
+	MethodDSJointsDelete           = "dsJoints.delete"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
@@ -615,6 +634,12 @@ const (
 	EventAssemblyConstraintAdded   = "assemblyConstraints.added"
 	EventAssemblyConstraintDeleted = "assemblyConstraints.deleted"
 	EventAssemblyResolved          = "assembly.resolved"
+
+	// Assembly joint events (see [JointEventPayload], M12-F02 Oblikovati#359/#364): a joint
+	// was added or removed (positions also change via the occurrence.transformed events the
+	// combined solve raises).
+	EventAssemblyJointAdded   = "assemblyJoints.added"
+	EventAssemblyJointDeleted = "assemblyJoints.deleted"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
