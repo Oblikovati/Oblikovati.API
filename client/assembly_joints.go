@@ -28,7 +28,8 @@ func (a AssemblyJoints) List() (wire.AssemblyJointsResult, error) {
 // mcp:tool add_rigid_joint
 // mcp:summary Add a rigid joint fixing two components together (0 DOF) at their joint origins (each: occurrence id + entity reference key). Solves and returns the joint.
 func (a AssemblyJoints) AddRigid(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddRigid, args)
+	var r wire.AssemblyJointResult
+	return r, a.c.call(wire.MethodAssemblyJointsAddRigid, args, &r)
 }
 
 // AddRotational allows one rotation about the joint axis (1 DOF).
@@ -36,7 +37,8 @@ func (a AssemblyJoints) AddRigid(args wire.AddJointArgs) (wire.AssemblyJointResu
 // mcp:tool add_rotational_joint
 // mcp:summary Add a rotational joint — one rotation about the joint axis (1 DOF), a hinge — between two component joint origins. flip reverses the facing sense. Solves and returns the joint.
 func (a AssemblyJoints) AddRotational(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddRotational, args)
+	var r wire.AssemblyJointResult
+	return r, a.c.call(wire.MethodAssemblyJointsAddRotational, args, &r)
 }
 
 // AddSlider allows one translation along the joint axis (1 DOF).
@@ -44,7 +46,8 @@ func (a AssemblyJoints) AddRotational(args wire.AddJointArgs) (wire.AssemblyJoin
 // mcp:tool add_slider_joint
 // mcp:summary Add a slider joint — one translation along the joint axis (1 DOF) — between two component joint origins. Solves and returns the joint.
 func (a AssemblyJoints) AddSlider(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddSlider, args)
+	var r wire.AssemblyJointResult
+	return r, a.c.call(wire.MethodAssemblyJointsAddSlider, args, &r)
 }
 
 // AddCylindrical allows translation along and rotation about the axis (2 DOF).
@@ -52,7 +55,8 @@ func (a AssemblyJoints) AddSlider(args wire.AddJointArgs) (wire.AssemblyJointRes
 // mcp:tool add_cylindrical_joint
 // mcp:summary Add a cylindrical joint — translation along and rotation about the joint axis (2 DOF) — between two component joint origins. Solves and returns the joint.
 func (a AssemblyJoints) AddCylindrical(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddCylindrical, args)
+	var r wire.AssemblyJointResult
+	return r, a.c.call(wire.MethodAssemblyJointsAddCylindrical, args, &r)
 }
 
 // AddPlanar allows two in-plane translations and a rotation about the normal (3 DOF).
@@ -60,7 +64,8 @@ func (a AssemblyJoints) AddCylindrical(args wire.AddJointArgs) (wire.AssemblyJoi
 // mcp:tool add_planar_joint
 // mcp:summary Add a planar joint — two in-plane translations + rotation about the plane normal (3 DOF) — between two component joint origins. Solves and returns the joint.
 func (a AssemblyJoints) AddPlanar(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddPlanar, args)
+	var r wire.AssemblyJointResult
+	return r, a.c.call(wire.MethodAssemblyJointsAddPlanar, args, &r)
 }
 
 // AddBall allows three rotations about a common point (3 DOF).
@@ -68,13 +73,8 @@ func (a AssemblyJoints) AddPlanar(args wire.AddJointArgs) (wire.AssemblyJointRes
 // mcp:tool add_ball_joint
 // mcp:summary Add a ball joint — three rotations about a common point (3 DOF) — between two component joint origins. Solves and returns the joint.
 func (a AssemblyJoints) AddBall(args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
-	return a.add(wire.MethodAssemblyJointsAddBall, args)
-}
-
-// add is the shared body of the typed add-joint methods.
-func (a AssemblyJoints) add(method string, args wire.AddJointArgs) (wire.AssemblyJointResult, error) {
 	var r wire.AssemblyJointResult
-	return r, a.c.call(method, args, &r)
+	return r, a.c.call(wire.MethodAssemblyJointsAddBall, args, &r)
 }
 
 // Delete removes the joint and returns the refreshed set, e.g. Delete(id).
