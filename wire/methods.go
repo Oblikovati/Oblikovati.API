@@ -33,6 +33,11 @@ const (
 	MethodDocumentsRegisterSubType = "documents.registerSubType"
 	MethodDocumentsListSubTypes    = "documents.listSubTypes"
 
+	// Document iProperties — metadata sets read/written by add-ins, BOMs, title blocks (#156).
+	MethodDocumentsListProperties = "documents.listProperties"
+	MethodDocumentsGetProperty    = "documents.getProperty"
+	MethodDocumentsSetProperty    = "documents.setProperty"
+
 	// Document open/save lifecycle (#138) and the save policy layer around it:
 	// SaveCopyAs and batch save (M03-F09, #610).
 	MethodDocumentsOpen       = "documents.open"

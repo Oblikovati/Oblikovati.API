@@ -2,7 +2,10 @@
 
 package client
 
-import "oblikovati.org/api/wire"
+import (
+	"oblikovati.org/api/types"
+	"oblikovati.org/api/wire"
+)
 
 // Documents is the document-management operation group.
 type Documents struct{ c *Client }
@@ -106,4 +109,30 @@ func (d Documents) SaveCopyAs(args wire.SaveCopyAsArgs) (wire.SaveDocumentResult
 func (d Documents) BatchSave(args wire.BatchSaveArgs) (wire.BatchSaveResult, error) {
 	var r wire.BatchSaveResult
 	return r, d.c.call(wire.MethodDocumentsBatchSave, args, &r)
+}
+
+// ListProperties returns every iProperty of the document, across all its sets (#156).
+//
+//	props, err := c.Documents().ListProperties(doc.ID)
+func (d Documents) ListProperties(id uint64) (wire.ListPropertiesResult, error) {
+	var r wire.ListPropertiesResult
+	return r, d.c.call(wire.MethodDocumentsListProperties, wire.ListPropertiesArgs{Document: id}, &r)
+}
+
+// GetProperty returns one document property addressed by its set and name (#156).
+func (d Documents) GetProperty(id uint64, set, name string) (wire.PropertyResult, error) {
+	var r wire.PropertyResult
+	args := wire.GetPropertyArgs{Document: id, Set: set, Name: name}
+	return r, d.c.call(wire.MethodDocumentsGetProperty, args, &r)
+}
+
+// SetProperty creates or replaces a document property's typed value, returning its new
+// state (#156).
+//
+//	c.Documents().SetProperty(doc.ID, "Design Tracking Properties", "Part Number",
+//	    types.StringVariant("BRK-001"))
+func (d Documents) SetProperty(id uint64, set, name string, value types.Variant) (wire.PropertyResult, error) {
+	var r wire.PropertyResult
+	args := wire.SetPropertyArgs{Document: id, Set: set, Name: name, Value: value}
+	return r, d.c.call(wire.MethodDocumentsSetProperty, args, &r)
 }
