@@ -182,6 +182,17 @@ type DeleteAssemblyConstraintArgs struct {
 	ID uint64 `json:"id"`
 }
 
+// ConstraintEventPayload is the body of the assembly relationship events
+// ([EventAssemblyConstraintAdded], [EventAssemblyConstraintDeleted], [EventAssemblyResolved]):
+// which assembly (Document), and for add/delete the affected constraint's id and kind.
+// The resolved event carries no constraint (Constraint is 0, Kind empty).
+type ConstraintEventPayload struct {
+	Type       string `json:"type"`
+	Document   uint64 `json:"document"`
+	Constraint uint64 `json:"constraint,omitempty"`
+	Kind       string `json:"kind,omitempty"`
+}
+
 // SetConstraintLimitsArgs is the request of [MethodAssemblyConstraintsSetLimits]: set (or
 // clear) the driven-value Limits of the constraint with id ID.
 type SetConstraintLimitsArgs struct {
