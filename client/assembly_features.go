@@ -100,6 +100,13 @@ func (a AssemblyFeatures) AddFillet(args wire.AddAssemblyFilletArgs) (wire.Assem
 	return r, a.c.call(wire.MethodAssemblyFeaturesAddFillet, args, &r)
 }
 
+// AddMoveFace translates the given component faces by the vector on every participant, e.g.
+// AddMoveFace(wire.AddAssemblyMoveFaceArgs{Faces: []wire.AssemblyFaceRef{{Occurrence: o, Face: key}}, Translation: [3]float64{0, 0, 1}}).
+func (a AssemblyFeatures) AddMoveFace(args wire.AddAssemblyMoveFaceArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddMoveFace, args, &r)
+}
+
 // Edit sets editable scalars of assembly feature id in place and returns the refreshed
 // feature, e.g. Edit(3, []wire.ScalarEdit{{Index: 0, Value: "8 mm"}}) to deepen a pocket.
 // Scalar indices come from the feature's Scalars; the whole batch is validated before any
