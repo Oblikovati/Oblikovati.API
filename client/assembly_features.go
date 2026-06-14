@@ -86,6 +86,16 @@ func (a AssemblyFeatures) SetSuppressed(ids []uint64, suppressed bool) (wire.Ass
 	return r, a.c.call(wire.MethodAssemblyFeaturesSetSuppressed, args, &r)
 }
 
+// Edit sets editable scalars of assembly feature id in place and returns the refreshed
+// feature, e.g. Edit(3, []wire.ScalarEdit{{Index: 0, Value: "8 mm"}}) to deepen a pocket.
+// Scalar indices come from the feature's Scalars; the whole batch is validated before any
+// is applied.
+func (a AssemblyFeatures) Edit(id uint64, scalars []wire.ScalarEdit) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	args := wire.EditAssemblyFeatureArgs{ID: id, Scalars: scalars}
+	return r, a.c.call(wire.MethodAssemblyFeaturesEdit, args, &r)
+}
+
 // GetEndOfFeatures returns the active assembly's end-of-features marker state.
 func (a AssemblyFeatures) GetEndOfFeatures() (wire.EndOfFeaturesResult, error) {
 	var r wire.EndOfFeaturesResult

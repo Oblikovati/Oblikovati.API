@@ -24,6 +24,11 @@ type AssemblyFeatureInfo struct {
 	// to specific placements of a sub-assembly placed more than once. Empty means it
 	// machines every path through a participating leaf occurrence (the default).
 	ParticipantPaths [][]string `json:"participantPaths,omitempty"`
+	// Scalars are the editable scalar inputs [MethodAssemblyFeaturesEdit] accepts (the
+	// same [FeatureScalar] shape the part features.* surface uses), in display order.
+	// Empty for kinds whose tool is fixed at construction (e.g. the box cut and the
+	// drilled hole), which expose nothing editable after placement.
+	Scalars []FeatureScalar `json:"scalars,omitempty"`
 }
 
 // AssemblyFeaturesResult is the reply of [MethodAssemblyFeaturesList]: the feature
@@ -49,6 +54,16 @@ type AddAssemblyFeatureArgs struct {
 	ToolMin   [3]float64 `json:"toolMin"`
 	ToolMax   [3]float64 `json:"toolMax"`
 	Operation string     `json:"operation"`
+}
+
+// EditAssemblyFeatureArgs is the request of [MethodAssemblyFeaturesEdit]: set editable
+// scalars of assembly feature ID in place (the assembly-context Edit Feature), mirroring
+// the part [EditFeatureArgs]. Scalar indices come from [AssemblyFeatureInfo.Scalars];
+// values are unit-bearing expressions ("5 mm", "30 deg"). Every edit is validated before
+// any is applied, then the feature program recomputes once.
+type EditAssemblyFeatureArgs struct {
+	ID      uint64       `json:"id"`
+	Scalars []ScalarEdit `json:"scalars"`
 }
 
 // SetAssemblyParticipantsArgs is the request of [MethodAssemblyFeaturesSetParticipants]:
