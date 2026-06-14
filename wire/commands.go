@@ -35,6 +35,27 @@ type ExecuteCommandArgs struct {
 	ID string `json:"id"`
 }
 
+// SubmitCommandLineArgs is the request of [MethodCommandLineSubmit]: one line of Command
+// Window input — a command word ("EXTRUDE"), an alias ("E"), a coordinate/value/keyword for
+// the active command's current step ("10,5", "25", "Close"), or "" to finish/repeat. The
+// host drives the same command-line REPL the UI uses, so an add-in or MCP tool can model
+// headlessly: submit "LINE", then "0,0", then "10,0".
+type SubmitCommandLineArgs struct {
+	Line string `json:"line"`
+}
+
+// CommandLineResult is the response of [MethodCommandLineSubmit]. Output is the scrollback
+// lines this submission produced (echoes, prompts, results). Prompt is the active command's
+// next step prompt, and Awaiting is true while a command is mid-interaction (more input
+// expected). Error carries a command-line error (e.g. an unknown command) as a message
+// rather than a transport failure, so the caller can show it inline like the UI does.
+type CommandLineResult struct {
+	Output   []string `json:"output,omitempty"`
+	Prompt   string   `json:"prompt,omitempty"`
+	Awaiting bool     `json:"awaiting"`
+	Error    string   `json:"error,omitempty"`
+}
+
 // SetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of
 // its own commands' live ribbon state. Active toggles the button's pressed/highlighted look
 // (rendered in the accent color), so a stateful control like a presenter or follow toggle

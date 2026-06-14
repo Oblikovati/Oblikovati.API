@@ -28,6 +28,20 @@ func (cm Commands) Execute(id string) (wire.OKResult, error) {
 	return r, cm.c.call(wire.MethodCommandsExecute, wire.ExecuteCommandArgs{ID: id}, &r)
 }
 
+// SubmitLine feeds one line to the Command Window's REPL and returns what it produced: the
+// new scrollback output, the active command's next prompt, and whether more input is
+// awaited. Drive a command across calls — SubmitLine("LINE"), SubmitLine("0,0"),
+// SubmitLine("10,0") — or inline it, SubmitLine("LINE 0,0 10,0"). An empty line finishes
+// or repeats the current command. A command-line error (e.g. an unknown word) comes back in
+// the result's Error field, not as a transport error.
+//
+// mcp:tool submit_command
+// mcp:summary Submit one line to the shell-style command window (a command/alias, or a coordinate/value/keyword for the active command's current step). Returns output, the next prompt, and whether more input is awaited.
+func (cm Commands) SubmitLine(line string) (wire.CommandLineResult, error) {
+	var r wire.CommandLineResult
+	return r, cm.c.call(wire.MethodCommandLineSubmit, wire.SubmitCommandLineArgs{Line: line}, &r)
+}
+
 // Create registers a new ribbon button so an add-in can extend the UI. The button appears in the ribbon immediately; when the user clicks it
 // the host fires a command-ended event the add-in receives via its Notify entry point,
 // where it runs the button's action (typically further client calls).
