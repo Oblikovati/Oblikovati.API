@@ -271,6 +271,26 @@ const (
 	MethodAssemblyGetEndOfFeatures            = "assembly.getEndOfFeatures"
 	MethodAssemblySetEndOfFeatures            = "assembly.setEndOfFeatures"
 
+	// Assembly constraints (M12-F01, Oblikovati#358/#363): the relationships that
+	// position one occurrence relative to another, the solve that applies them, and the
+	// assembly's health / per-occurrence degrees-of-freedom report.
+	MethodAssemblyConstraintsList                  = "assemblyConstraints.list"
+	MethodAssemblyConstraintsAddMate               = "assemblyConstraints.addMate"
+	MethodAssemblyConstraintsAddFlush              = "assemblyConstraints.addFlush"
+	MethodAssemblyConstraintsAddAngle              = "assemblyConstraints.addAngle"
+	MethodAssemblyConstraintsAddTangent            = "assemblyConstraints.addTangent"
+	MethodAssemblyConstraintsAddInsert             = "assemblyConstraints.addInsert"
+	MethodAssemblyConstraintsAddSymmetry           = "assemblyConstraints.addSymmetry"
+	MethodAssemblyConstraintsAddRotateRotate       = "assemblyConstraints.addRotateRotate"
+	MethodAssemblyConstraintsAddRotateTranslate    = "assemblyConstraints.addRotateTranslate"
+	MethodAssemblyConstraintsAddTranslateTranslate = "assemblyConstraints.addTranslateTranslate"
+	MethodAssemblyConstraintsAddTransitional       = "assemblyConstraints.addTransitional"
+	MethodAssemblyConstraintsAddCustom             = "assemblyConstraints.addCustom"
+	MethodAssemblyConstraintsDelete                = "assemblyConstraints.delete"
+	MethodAssemblyConstraintsSetLimits             = "assemblyConstraints.setLimits"
+	MethodAssemblyConstraintsSolve                 = "assemblyConstraints.solve"
+	MethodAssemblyConstraintsHealth                = "assemblyConstraints.health"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
@@ -587,6 +607,14 @@ const (
 	// Assembly feature-program event (see [AssemblyFeaturesChangedEvent], M11-F08
 	// Oblikovati#725): the assembly's machining-feature program was re-evaluated.
 	EventAssemblyFeaturesChanged = "assemblyFeatures.changed"
+
+	// Assembly relationship events (see [ConstraintEventPayload], M12-F01
+	// Oblikovati#358/#363): a constraint was added or deleted, or the assembly was
+	// re-solved (occurrence placements may have changed — also signalled by the
+	// occurrence.transformed events the solve raises).
+	EventAssemblyConstraintAdded   = "assemblyConstraints.added"
+	EventAssemblyConstraintDeleted = "assemblyConstraints.deleted"
+	EventAssemblyResolved          = "assembly.resolved"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
