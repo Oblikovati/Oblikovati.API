@@ -20,6 +20,8 @@ const (
 	MethodCommandsCreate   = "commands.create"
 	MethodCommandsSetState = "commands.setState"
 
+	MethodCommandLineSubmit = "commandLine.submit"
+
 	MethodRibbonList = "ribbon.list"
 
 	MethodDocumentsList     = "documents.list"
