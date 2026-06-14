@@ -21,9 +21,9 @@ import (
 // It is not safe for concurrent registration after dispatching begins; wire the
 // callbacks up during add-in activation.
 type EventDispatcher struct {
-	onTransaction    []func(wire.TransactionEventPayload)
-	onFileResolution []func(wire.FileResolutionEventPayload)
-	onFileDirty      []func(wire.FileDirtyEventPayload)
+	onTransaction     []func(wire.TransactionEventPayload)
+	onFileResolution  []func(wire.FileResolutionEventPayload)
+	onFileDirty       []func(wire.FileDirtyEventPayload)
 	onFileDialogHook  []func(wire.FileDialogHookPayload)
 	onOccurrence      []func(wire.OccurrenceEventPayload)
 	onAssemblyFeature []func(wire.AssemblyFeaturesChangedEvent)

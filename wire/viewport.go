@@ -21,6 +21,24 @@ type CaptureViewportResult struct {
 	Height int    `json:"height"`
 }
 
+// CaptureWindowArgs is the request of [MethodViewportCaptureWindow]: write the WHOLE application
+// window — the ImGui chrome (ribbon, browser, dialogs) composited with the 3D viewport, i.e.
+// everything the user sees — to a PNG at Path (empty ⇒ a default temp location). Unlike
+// [CaptureViewportArgs], which captures only the 3D framebuffer, this captures the full swapchain
+// image, so it shows open dialogs and UI state. The host writes the file asynchronously (within a
+// frame); the caller reads it once written.
+type CaptureWindowArgs struct {
+	Path string `json:"path,omitempty"`
+}
+
+// CaptureWindowResult is the reply of [MethodViewportCaptureWindow]: the PNG path the host will write
+// and the window's pixel size. The file appears within a frame of the call (poll Path / its mtime).
+type CaptureWindowResult struct {
+	Path   string `json:"path"`
+	Width  int    `json:"width"`
+	Height int    `json:"height"`
+}
+
 // SetNormalDebugArgs is the request of [MethodViewportSetNormalDebug]: turn the viewport's normal-debug
 // render On or off — shaded triangles draw front-facing GREEN and back-facing RED, so winding /
 // flipped-normal defects (hidden by normal two-sided shading) are obvious in a capture.
