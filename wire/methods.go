@@ -406,6 +406,11 @@ const (
 	MethodAddInsSetLoadBehavior = "addins.setLoadBehavior"
 	MethodAddInsCallAutomation  = "addins.callAutomation"
 
+	// Host application info an add-in queries at runtime. apiVersion reports the
+	// full api.Version the host implements, so an add-in compatible at the major
+	// boundary can still adapt to minor/patch differences.
+	MethodApplicationApiVersion = "application.apiVersion"
+
 	// External client applications driving the session (M05-F01, #245).
 	MethodClientAppsRegister   = "clientApps.register"
 	MethodClientAppsUnregister = "clientApps.unregister"
