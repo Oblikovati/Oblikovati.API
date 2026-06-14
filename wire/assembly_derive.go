@@ -38,3 +38,24 @@ type ShrinkwrapCreateArgs struct {
 type DeriveBreakLinkArgs struct {
 	ID uint64 `json:"id"`
 }
+
+// DeriveStatusArgs is the request of [MethodAssemblyDeriveStatus] and
+// [MethodAssemblyDeriveUpdate]: address a derive-family feature (derived-assembly,
+// derived-part, or shrinkwrap) by its id (from model.tree).
+type DeriveStatusArgs struct {
+	ID uint64 `json:"id"`
+}
+
+// DeriveStatusResult reports whether a derived component is out of date relative to its
+// source document — the reference API's drive state. OutOfDate is true when the source's
+// current recipe revision (CurrentRevision) differs from the one captured when the derive
+// was last created/updated (SavedRevision); it is the basis for the "out of date" badge.
+// Linked is false after a break-link (the source is frozen). SourceDocument is the source's
+// full document name. CurrentRevision is empty when the source is not currently resolvable.
+type DeriveStatusResult struct {
+	OutOfDate       bool   `json:"outOfDate"`
+	Linked          bool   `json:"linked"`
+	SourceDocument  string `json:"sourceDocument"`
+	SavedRevision   string `json:"savedRevision,omitempty"`
+	CurrentRevision string `json:"currentRevision,omitempty"`
+}

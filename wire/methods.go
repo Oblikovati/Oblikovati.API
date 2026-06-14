@@ -215,6 +215,8 @@ const (
 	// is addressed by its stable id, like the features.* lifecycle methods.
 	MethodAssemblyDeriveCreate     = "assembly.deriveCreate"
 	MethodAssemblyDeriveBreakLink  = "assembly.deriveBreakLink"
+	MethodAssemblyDeriveStatus     = "assembly.deriveStatus"
+	MethodAssemblyDeriveUpdate     = "assembly.deriveUpdate"
 	MethodAssemblyShrinkwrapCreate = "assembly.shrinkwrapCreate"
 
 	// Assembly occurrences (M11-F01/F02, Oblikovati#728): read the active assembly's

@@ -34,3 +34,17 @@ func (a Assembly) DeriveBreakLink(id uint64) (wire.FeatureDetailResult, error) {
 	var r wire.FeatureDetailResult
 	return r, a.c.call(wire.MethodAssemblyDeriveBreakLink, wire.DeriveBreakLinkArgs{ID: id}, &r)
 }
+
+// DeriveStatus reports whether the derive feature with the given id is out of date
+// relative to its source document (its drive state), e.g. DeriveStatus(featureID).
+func (a Assembly) DeriveStatus(id uint64) (wire.DeriveStatusResult, error) {
+	var r wire.DeriveStatusResult
+	return r, a.c.call(wire.MethodAssemblyDeriveStatus, wire.DeriveStatusArgs{ID: id}, &r)
+}
+
+// DeriveUpdate re-syncs the derive feature with the given id to its source's current
+// revision, clearing its out-of-date state, e.g. DeriveUpdate(featureID).
+func (a Assembly) DeriveUpdate(id uint64) (wire.DeriveStatusResult, error) {
+	var r wire.DeriveStatusResult
+	return r, a.c.call(wire.MethodAssemblyDeriveUpdate, wire.DeriveStatusArgs{ID: id}, &r)
+}
