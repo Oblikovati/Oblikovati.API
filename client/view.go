@@ -66,6 +66,7 @@ func (v View) Camera() (wire.CameraView, error) {
 //
 // mcp:tool set_camera
 // mcp:summary Move a document's active-view camera to a look-at frame (eye, target, up in model units; fov radians); document 0 = active. Returns the resulting camera.
+// mcp:input setCameraArg
 func (v View) SetCamera(a wire.SetCameraArgs) (wire.CameraView, error) {
 	var r wire.CameraView
 	return r, v.c.call(wire.MethodViewSetCamera, a, &r)
