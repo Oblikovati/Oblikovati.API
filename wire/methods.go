@@ -252,6 +252,7 @@ const (
 	MethodAssemblyFeaturesAddHole             = "assemblyFeatures.addHole"
 	MethodAssemblyFeaturesAddExtrude          = "assemblyFeatures.addExtrude"
 	MethodAssemblyFeaturesAddRevolve          = "assemblyFeatures.addRevolve"
+	MethodAssemblyFeaturesEdit                = "assemblyFeatures.edit"
 	MethodAssemblyFeaturesSetParticipants     = "assemblyFeatures.setParticipants"
 	MethodAssemblyFeaturesSetParticipantPaths = "assemblyFeatures.setParticipantPaths"
 	MethodAssemblyFeaturesSetSuppressed       = "assemblyFeatures.setSuppressed"
