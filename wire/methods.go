@@ -258,6 +258,7 @@ const (
 	MethodAssemblyFeaturesAddChamfer          = "assemblyFeatures.addChamfer"
 	MethodAssemblyFeaturesAddFillet           = "assemblyFeatures.addFillet"
 	MethodAssemblyFeaturesAddMoveFace         = "assemblyFeatures.addMoveFace"
+	MethodAssemblyFeaturesAddSweep            = "assemblyFeatures.addSweep"
 	MethodAssemblyFeaturesEdit                = "assemblyFeatures.edit"
 	MethodAssemblyFeaturesSetParticipants     = "assemblyFeatures.setParticipants"
 	MethodAssemblyFeaturesSetParticipantPaths = "assemblyFeatures.setParticipantPaths"

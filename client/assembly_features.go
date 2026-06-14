@@ -100,6 +100,13 @@ func (a AssemblyFeatures) AddFillet(args wire.AddAssemblyFilletArgs) (wire.Assem
 	return r, a.c.call(wire.MethodAssemblyFeaturesAddFillet, args, &r)
 }
 
+// AddSweep sweeps an assembly sketch profile along the given polyline path into every
+// participant, e.g. AddSweep(wire.AddAssemblySweepArgs{SketchIndex: 0, ProfileIndex: 0, Path: [][3]float64{{0,0,0},{0,0,1}}, Operation: "difference"}).
+func (a AssemblyFeatures) AddSweep(args wire.AddAssemblySweepArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddSweep, args, &r)
+}
+
 // AddMoveFace translates the given component faces by the vector on every participant, e.g.
 // AddMoveFace(wire.AddAssemblyMoveFaceArgs{Faces: []wire.AssemblyFaceRef{{Occurrence: o, Face: key}}, Translation: [3]float64{0, 0, 1}}).
 func (a AssemblyFeatures) AddMoveFace(args wire.AddAssemblyMoveFaceArgs) (wire.AssemblyFeatureResult, error) {

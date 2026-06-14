@@ -157,6 +157,19 @@ type AddAssemblyMoveFaceArgs struct {
 	Translation [3]float64        `json:"translation"`
 }
 
+// AddAssemblySweepArgs is the request of [MethodAssemblyFeaturesAddSweep]: sweep the
+// ProfileIndex-th closed region of the active assembly's SketchIndex-th sketch along Path —
+// an explicit polyline (>= 2 points) in the assembly's space, the assembly-context analogue
+// of the revolve's explicit axis — into every participant, applying Operation (a
+// [types.BooleanType] spelling: "difference" cuts a channel, "union" adds a rib). The
+// profile follows the path normal-to-path (M11-F08 kind set, #735).
+type AddAssemblySweepArgs struct {
+	SketchIndex  int          `json:"sketchIndex"`
+	ProfileIndex int          `json:"profileIndex"`
+	Path         [][3]float64 `json:"path"`
+	Operation    string       `json:"operation"`
+}
+
 // AddProxyCutFeatureArgs is the request of [MethodAssemblyFeaturesAddProxyCut]: add a
 // feature whose tool is supplied as an occurrence-context proxy — the geometry of the
 // Source occurrence (by session id), resolved into assembly space and re-resolved on
