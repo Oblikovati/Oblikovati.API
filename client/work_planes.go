@@ -7,8 +7,8 @@ import (
 	"oblikovati.org/api/wire"
 )
 
-// WorkPlanes is the datum-plane construction group for the active part: List enumerates
-// the part's planes, Create is the general constructor, and the typed helpers wrap each
+// WorkPlanes is the datum-plane construction group for the active part or assembly: List
+// enumerates the model's planes, Create is the general constructor, and the typed helpers wrap each
 // datum-plane constructor. References are work-feature reference strings —
 // origin constants (types.WorkRefXYPlane …), refs returned by List, or a face reference
 // for the tangent helpers.
@@ -17,10 +17,10 @@ type WorkPlanes struct{ c *Client }
 // WorkPlanes returns the work-plane construction group.
 func (c *Client) WorkPlanes() WorkPlanes { return WorkPlanes{c} }
 
-// List returns the part's datum planes (origin frame first, then user planes).
+// List returns the active model's datum planes (origin frame first, then user planes).
 //
 // mcp:tool list_work_planes
-// mcp:summary List the active part's work planes (origin + user). Each user plane reports its kind plus the inputs redefine_work_plane accepts: its scalars (offset/angle: index, label, unit, value) and its reference slots (index, label, kind: plane|axis|point|face).
+// mcp:summary List the work planes of the active part or assembly (origin + user). Each user plane reports its kind plus the inputs redefine_work_plane accepts: its scalars (offset/angle: index, label, unit, value) and its reference slots (index, label, kind: plane|axis|point|face).
 func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
 	var r wire.ListWorkPlanesResult
 	return r, w.c.call(wire.MethodWorkPlanesList, nil, &r)

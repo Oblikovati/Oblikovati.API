@@ -4,8 +4,8 @@ package client
 
 import "oblikovati.org/api/wire"
 
-// WorkPoints is the datum-point construction group for the active part. A created point's
-// reference can feed a work plane (e.g. a three-point plane through three points) or a
+// WorkPoints is the datum-point construction group for the active part or assembly. A created
+// point's reference can feed a work plane (e.g. a three-point plane through three points) or a
 // work-plane redefine's slot re-pick.
 type WorkPoints struct{ c *Client }
 
