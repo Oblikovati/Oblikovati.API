@@ -132,3 +132,13 @@ type SetImposedMotionArgs struct {
 type DeleteDSJointArgs struct {
 	ID uint64 `json:"id"`
 }
+
+// JointEventPayload is the body of the assembly joint events ([EventAssemblyJointAdded],
+// [EventAssemblyJointDeleted]): which assembly (Document), and the affected joint's id and
+// kind.
+type JointEventPayload struct {
+	Type     string `json:"type"`
+	Document uint64 `json:"document"`
+	Joint    uint64 `json:"joint"`
+	Kind     string `json:"kind,omitempty"`
+}

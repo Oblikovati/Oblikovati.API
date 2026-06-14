@@ -634,6 +634,12 @@ const (
 	EventAssemblyConstraintAdded   = "assemblyConstraints.added"
 	EventAssemblyConstraintDeleted = "assemblyConstraints.deleted"
 	EventAssemblyResolved          = "assembly.resolved"
+
+	// Assembly joint events (see [JointEventPayload], M12-F02 Oblikovati#359/#364): a joint
+	// was added or removed (positions also change via the occurrence.transformed events the
+	// combined solve raises).
+	EventAssemblyJointAdded   = "assemblyJoints.added"
+	EventAssemblyJointDeleted = "assemblyJoints.deleted"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
