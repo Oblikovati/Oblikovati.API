@@ -140,6 +140,23 @@ type AddAssemblyFilletArgs struct {
 	Radius float64           `json:"radius"`
 }
 
+// AssemblyFaceRef addresses a face of a placed component for an assembly face-edit feature:
+// the Occurrence (session id) whose component the face belongs to, and the face's reference
+// Key on that component (from model.referenceKeys). The feature moves that face on every
+// participating instance of the component, resolved per placement (#735).
+type AssemblyFaceRef struct {
+	Occurrence uint64 `json:"occurrence"`
+	Face       string `json:"face"`
+}
+
+// AddAssemblyMoveFaceArgs is the request of [MethodAssemblyFeaturesAddMoveFace]: translate
+// the given component Faces by Translation (a vector in document units, assembly space) on
+// every participant — the assembly-context Move Face.
+type AddAssemblyMoveFaceArgs struct {
+	Faces       []AssemblyFaceRef `json:"faces"`
+	Translation [3]float64        `json:"translation"`
+}
+
 // AddProxyCutFeatureArgs is the request of [MethodAssemblyFeaturesAddProxyCut]: add a
 // feature whose tool is supplied as an occurrence-context proxy — the geometry of the
 // Source occurrence (by session id), resolved into assembly space and re-resolved on
