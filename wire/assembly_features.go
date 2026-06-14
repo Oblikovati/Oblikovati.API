@@ -115,6 +115,31 @@ type AddAssemblyHoleArgs struct {
 	Depth    float64    `json:"depth"`
 }
 
+// AssemblyEdgeRef addresses an edge of a placed component for an assembly dress-up feature:
+// the Occurrence (session id) whose component the edge belongs to, and the edge's reference
+// Key on that component (a key from model.referenceKeys run on the component). The feature
+// machines that edge on every participating instance of the component, resolved per
+// placement (#735).
+type AssemblyEdgeRef struct {
+	Occurrence uint64 `json:"occurrence"`
+	Edge       string `json:"edge"`
+}
+
+// AddAssemblyChamferArgs is the request of [MethodAssemblyFeaturesAddChamfer]: chamfer the
+// given component Edges by Distance (document units) on every participant — a flat setback
+// on each placed instance of the picked edges.
+type AddAssemblyChamferArgs struct {
+	Edges    []AssemblyEdgeRef `json:"edges"`
+	Distance float64           `json:"distance"`
+}
+
+// AddAssemblyFilletArgs is the request of [MethodAssemblyFeaturesAddFillet]: round the given
+// component Edges to constant Radius (document units) on every participant.
+type AddAssemblyFilletArgs struct {
+	Edges  []AssemblyEdgeRef `json:"edges"`
+	Radius float64           `json:"radius"`
+}
+
 // AddProxyCutFeatureArgs is the request of [MethodAssemblyFeaturesAddProxyCut]: add a
 // feature whose tool is supplied as an occurrence-context proxy — the geometry of the
 // Source occurrence (by session id), resolved into assembly space and re-resolved on

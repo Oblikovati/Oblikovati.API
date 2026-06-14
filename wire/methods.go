@@ -255,6 +255,8 @@ const (
 	MethodAssemblyFeaturesAddHole             = "assemblyFeatures.addHole"
 	MethodAssemblyFeaturesAddExtrude          = "assemblyFeatures.addExtrude"
 	MethodAssemblyFeaturesAddRevolve          = "assemblyFeatures.addRevolve"
+	MethodAssemblyFeaturesAddChamfer          = "assemblyFeatures.addChamfer"
+	MethodAssemblyFeaturesAddFillet           = "assemblyFeatures.addFillet"
 	MethodAssemblyFeaturesEdit                = "assemblyFeatures.edit"
 	MethodAssemblyFeaturesSetParticipants     = "assemblyFeatures.setParticipants"
 	MethodAssemblyFeaturesSetParticipantPaths = "assemblyFeatures.setParticipantPaths"
