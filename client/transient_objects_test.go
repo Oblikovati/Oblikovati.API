@@ -4,6 +4,7 @@ package client
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"oblikovati.org/api/types"
@@ -130,5 +131,25 @@ func TestObjectCollectionByVariantKeyedAccess(t *testing.T) {
 	}
 	if !c.Remove("seed") || c.Count() != 0 {
 		t.Error("Remove must delete the keyed entry")
+	}
+}
+
+// Guards the three index-addressed accessors that share errIndexRangeFmt: each
+// must error out of range and report the offending index and the bound.
+func TestObjectCollectionByVariantIndexOutOfRange(t *testing.T) {
+	c := TransientObjects{}.CreateObjectCollectionByVariant()
+	if err := c.Add("seed", types.NewObjectRef("face", 3)); err != nil {
+		t.Fatalf("Add: %v", err)
+	}
+	if _, err := c.KeyAt(5); err == nil {
+		t.Error("KeyAt out of range must error")
+	}
+	if _, err := c.At(5); err == nil {
+		t.Error("At out of range must error")
+	}
+	if err := c.RemoveAt(5); err == nil {
+		t.Error("RemoveAt out of range must error")
+	} else if want := "index 5 out of range [0,1)"; !strings.Contains(err.Error(), want) {
+		t.Errorf("RemoveAt error = %q, want it to contain %q", err, want)
 	}
 }
