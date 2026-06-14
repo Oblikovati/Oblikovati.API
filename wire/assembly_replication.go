@@ -50,6 +50,20 @@ type MirrorComponentsArgs struct {
 	Normal  [3]float64 `json:"normal"`
 }
 
+// MirrorIntoPartArgs is the request of [MethodAssemblyMirrorIntoPart]: like
+// [MethodAssemblyMirror], but for each chiral Source it derives a NEW opposite-hand PART
+// document (the source geometry reflected across the plane through Origin with unit Normal,
+// baked into its own editable, separately-openable part) and places THAT as the mirrored
+// occurrence — rather than sharing the source definition handed only by the placement. The
+// reply is the created occurrences (each instancing a freshly derived mirror part). A
+// Source that does not reference a saved component document is rejected (there is no source
+// document to derive from).
+type MirrorIntoPartArgs struct {
+	Sources []uint64   `json:"sources"`
+	Origin  [3]float64 `json:"origin"`
+	Normal  [3]float64 `json:"normal"`
+}
+
 // CopyComponentsArgs is the request of [MethodAssemblyCopy]: add an independent copy of
 // each Source occurrence (by session id) — same component and placement, a new instance.
 type CopyComponentsArgs struct {

@@ -23,6 +23,13 @@ func (a Assembly) Mirror(args wire.MirrorComponentsArgs) (wire.NewOccurrencesRes
 	return r, a.c.call(wire.MethodAssemblyMirror, args, &r)
 }
 
+// MirrorIntoPart mirrors each source occurrence into a NEW opposite-hand part document and
+// places it, e.g. MirrorIntoPart(wire.MirrorIntoPartArgs{Sources: []uint64{id}, Normal: [3]float64{1, 0, 0}}).
+func (a Assembly) MirrorIntoPart(args wire.MirrorIntoPartArgs) (wire.NewOccurrencesResult, error) {
+	var r wire.NewOccurrencesResult
+	return r, a.c.call(wire.MethodAssemblyMirrorIntoPart, args, &r)
+}
+
 // Copy adds an independent copy of each source occurrence, e.g. Copy(id1, id2).
 func (a Assembly) Copy(sources ...uint64) (wire.NewOccurrencesResult, error) {
 	var r wire.NewOccurrencesResult
