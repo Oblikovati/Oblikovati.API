@@ -15,6 +15,9 @@ func (c *Client) Fonts() Fonts { return Fonts{c} }
 // carries the file path whose bytes are embedded into the document when it is chosen.
 //
 //	faces, _ := client.Fonts().List()
+//
+// mcp:tool fonts_list
+// mcp:summary Returns every selectable face (bundled "embedded" + host "system"); a system face carries the file path whose bytes are embedded into the document when it is chosen.
 func (f Fonts) List() (wire.ListFontsResult, error) {
 	var r wire.ListFontsResult
 	return r, f.c.call(wire.MethodFontsList, nil, &r)

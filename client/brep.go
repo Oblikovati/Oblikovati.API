@@ -16,12 +16,18 @@ type TransientBRep struct{ c *Client }
 func (c *Client) TransientBRep() TransientBRep { return TransientBRep{c} }
 
 // CreatePrimitive creates a solid block/cylinderCone/sphere/torus.
+//
+// mcp:tool brep_create_primitive
+// mcp:summary Creates a solid block/cylinderCone/sphere/torus.
 func (t TransientBRep) CreatePrimitive(args wire.CreatePrimitiveArgs) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepCreatePrimitive, args, &r)
 }
 
 // DoBoolean combines the blank (modified in place) with the tool.
+//
+// mcp:tool brep_boolean
+// mcp:summary Combines the blank (modified in place) with the tool.
 func (t TransientBRep) DoBoolean(blankHandle int, tool wire.BrepBodyRef, op types.BooleanType) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepBoolean, wire.BrepBooleanArgs{
@@ -30,12 +36,18 @@ func (t TransientBRep) DoBoolean(blankHandle int, tool wire.BrepBodyRef, op type
 }
 
 // Transform maps the body by a 4×4 row-major rigid/similarity matrix.
+//
+// mcp:tool brep_transform
+// mcp:summary Maps the body by a 4×4 row-major rigid/similarity matrix.
 func (t TransientBRep) Transform(handle int, matrix []float64) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepTransform, wire.BrepTransformArgs{Handle: handle, Matrix: matrix}, &r)
 }
 
 // Copy clones a transient or document body into a new transient body.
+//
+// mcp:tool brep_copy
+// mcp:summary Clones a transient or document body into a new transient body.
 func (t TransientBRep) Copy(source wire.BrepBodyRef) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepCopy, wire.BrepCopyArgs{Source: source}, &r)
@@ -43,6 +55,9 @@ func (t TransientBRep) Copy(source wire.BrepBodyRef) (wire.BrepHandleResult, err
 
 // CreateIntersectionWithPlane sections a body with a plane; the section
 // curves come back as wires on a new transient body.
+//
+// mcp:tool brep_section_with_plane
+// mcp:summary Sections a body with a plane; the section curves come back as wires on a new transient body.
 func (t TransientBRep) CreateIntersectionWithPlane(source wire.BrepBodyRef, planeOrigin, planeNormal []float64) (wire.BrepWiresResult, error) {
 	var r wire.BrepWiresResult
 	return r, t.c.call(wire.MethodBrepSectionWithPlane, wire.BrepSectionArgs{
@@ -52,6 +67,9 @@ func (t TransientBRep) CreateIntersectionWithPlane(source wire.BrepBodyRef, plan
 
 // DeleteFaces removes the named faces (or with keepInstead all others)
 // without healing.
+//
+// mcp:tool brep_delete_faces
+// mcp:summary Removes the named faces (or with keepInstead all others) without healing.
 func (t TransientBRep) DeleteFaces(handle int, faceKeys []string, keepInstead bool) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepDeleteFaces, wire.BrepDeleteFacesArgs{
@@ -60,12 +78,18 @@ func (t TransientBRep) DeleteFaces(handle int, faceKeys []string, keepInstead bo
 }
 
 // CreateSilhouetteCurve traces one face's silhouette from a view direction.
+//
+// mcp:tool brep_silhouette
+// mcp:summary Traces one face's silhouette from a view direction.
 func (t TransientBRep) CreateSilhouetteCurve(args wire.BrepSilhouetteArgs) (wire.BrepWiresResult, error) {
 	var r wire.BrepWiresResult
 	return r, t.c.call(wire.MethodBrepSilhouette, args, &r)
 }
 
 // CreateRuledSurface builds the ruled surface between two wire sections.
+//
+// mcp:tool brep_ruled_surface
+// mcp:summary Builds the ruled surface between two wire sections.
 func (t TransientBRep) CreateRuledSurface(sectionOne, sectionTwo wire.BrepWireRef) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepRuledSurface, wire.BrepRuledSurfaceArgs{
@@ -75,12 +99,18 @@ func (t TransientBRep) CreateRuledSurface(sectionOne, sectionTwo wire.BrepWireRe
 
 // ImprintBodies face-splits two bodies along their intersections without
 // removing material.
+//
+// mcp:tool brep_imprint
+// mcp:summary Face-splits two bodies along their intersections without removing material.
 func (t TransientBRep) ImprintBodies(args wire.BrepImprintArgs) (wire.BrepImprintResult, error) {
 	var r wire.BrepImprintResult
 	return r, t.c.call(wire.MethodBrepImprint, args, &r)
 }
 
 // GetIdenticalBodies groups congruent bodies.
+//
+// mcp:tool brep_identical_bodies
+// mcp:summary Groups congruent bodies.
 func (t TransientBRep) GetIdenticalBodies(args wire.BrepIdenticalBodiesArgs) (wire.BrepIdenticalBodiesResult, error) {
 	var r wire.BrepIdenticalBodiesResult
 	return r, t.c.call(wire.MethodBrepIdenticalBodies, args, &r)
@@ -88,24 +118,36 @@ func (t TransientBRep) GetIdenticalBodies(args wire.BrepIdenticalBodiesArgs) (wi
 
 // CreateFromDefinition compiles a bottom-up definition graph into a body,
 // returning per-definition issues instead when the graph is unsound.
+//
+// mcp:tool brep_create_from_definition
+// mcp:summary Compiles a bottom-up definition graph into a body, returning per-definition issues instead when the graph is unsound.
 func (t TransientBRep) CreateFromDefinition(def types.BrepBodyDefinition) (wire.BrepCreateFromDefinitionResult, error) {
 	var r wire.BrepCreateFromDefinitionResult
 	return r, t.c.call(wire.MethodBrepCreateFromDefinition, wire.BrepCreateFromDefinitionArgs{Definition: def}, &r)
 }
 
 // Describe returns a transient body's current stats.
+//
+// mcp:tool brep_describe
+// mcp:summary Returns a transient body's current stats.
 func (t TransientBRep) Describe(handle int) (wire.BrepHandleResult, error) {
 	var r wire.BrepHandleResult
 	return r, t.c.call(wire.MethodBrepDescribe, wire.BrepHandleArgs{Handle: handle}, &r)
 }
 
 // List enumerates the live transient handles.
+//
+// mcp:tool brep_list
+// mcp:summary Enumerates the live transient handles.
 func (t TransientBRep) List() (wire.BrepListResult, error) {
 	var r wire.BrepListResult
 	return r, t.c.call(wire.MethodBrepList, struct{}{}, &r)
 }
 
 // Delete frees a transient body.
+//
+// mcp:tool brep_delete
+// mcp:summary Frees a transient body.
 func (t TransientBRep) Delete(handle int) error {
 	var r wire.OKResult
 	return t.c.call(wire.MethodBrepDelete, wire.BrepHandleArgs{Handle: handle}, &r)

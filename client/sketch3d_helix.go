@@ -23,6 +23,9 @@ func (s Sketch3D) AddVariableHelix(index int, origin, axis []float64, radius str
 
 // EditHelixDefinition redefines an existing helical curve in place — constant
 // or variable shape plus end conditions — and regenerates it (M06-F09).
+//
+// mcp:tool sketch3d_edit_helix
+// mcp:summary Redefines an existing helical curve in place — constant or variable shape plus end conditions — and regenerates it (M06-F09).
 func (s Sketch3D) EditHelixDefinition(args wire.EditHelixArgs) (wire.HelixDefinitionView, error) {
 	var r wire.HelixDefinitionView
 	return r, s.c.call(wire.MethodSketch3DEditHelix, args, &r)

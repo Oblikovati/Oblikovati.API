@@ -15,6 +15,9 @@ func (c *Client) Assembly() Assembly { return Assembly{c} }
 
 // DeriveCreate derives the open assembly document source into the active part as a
 // base body, e.g. DeriveCreate(assemblyDocID).
+//
+// mcp:tool assembly_derive_create
+// mcp:summary Derives the open assembly document source into the active part as a base body, e.g.
 func (a Assembly) DeriveCreate(source uint64) (wire.FeatureDetailResult, error) {
 	var r wire.FeatureDetailResult
 	return r, a.c.call(wire.MethodAssemblyDeriveCreate, wire.DeriveCreateArgs{Source: source}, &r)
@@ -23,6 +26,9 @@ func (a Assembly) DeriveCreate(source uint64) (wire.FeatureDetailResult, error) 
 // ShrinkwrapCreate derives the open assembly document into the active part as a
 // simplified, lightweight base body per the given removal/envelope options, e.g.
 // ShrinkwrapCreate(wire.ShrinkwrapCreateArgs{Source: id, EnvelopeStyle: types.EnvelopeWhole}).
+//
+// mcp:tool assembly_shrinkwrap_create
+// mcp:summary Derives the open assembly document into the active part as a simplified, lightweight base body per the given removal/envelope options, e.g.
 func (a Assembly) ShrinkwrapCreate(args wire.ShrinkwrapCreateArgs) (wire.FeatureDetailResult, error) {
 	var r wire.FeatureDetailResult
 	return r, a.c.call(wire.MethodAssemblyShrinkwrapCreate, args, &r)
@@ -30,6 +36,9 @@ func (a Assembly) ShrinkwrapCreate(args wire.ShrinkwrapCreateArgs) (wire.Feature
 
 // DeriveBreakLink freezes and severs the source link of the derived-assembly or
 // shrinkwrap feature with the given id, e.g. DeriveBreakLink(featureID).
+//
+// mcp:tool assembly_derive_break_link
+// mcp:summary Freezes and severs the source link of the derived-assembly or shrinkwrap feature with the given id, e.g.
 func (a Assembly) DeriveBreakLink(id uint64) (wire.FeatureDetailResult, error) {
 	var r wire.FeatureDetailResult
 	return r, a.c.call(wire.MethodAssemblyDeriveBreakLink, wire.DeriveBreakLinkArgs{ID: id}, &r)
@@ -37,6 +46,9 @@ func (a Assembly) DeriveBreakLink(id uint64) (wire.FeatureDetailResult, error) {
 
 // DeriveStatus reports whether the derive feature with the given id is out of date
 // relative to its source document (its drive state), e.g. DeriveStatus(featureID).
+//
+// mcp:tool assembly_derive_status
+// mcp:summary Reports whether the derive feature with the given id is out of date relative to its source document (its drive state), e.g.
 func (a Assembly) DeriveStatus(id uint64) (wire.DeriveStatusResult, error) {
 	var r wire.DeriveStatusResult
 	return r, a.c.call(wire.MethodAssemblyDeriveStatus, wire.DeriveStatusArgs{ID: id}, &r)
@@ -44,6 +56,9 @@ func (a Assembly) DeriveStatus(id uint64) (wire.DeriveStatusResult, error) {
 
 // DeriveUpdate re-syncs the derive feature with the given id to its source's current
 // revision, clearing its out-of-date state, e.g. DeriveUpdate(featureID).
+//
+// mcp:tool assembly_derive_update
+// mcp:summary Re-syncs the derive feature with the given id to its source's current revision, clearing its out-of-date state, e.g.
 func (a Assembly) DeriveUpdate(id uint64) (wire.DeriveStatusResult, error) {
 	var r wire.DeriveStatusResult
 	return r, a.c.call(wire.MethodAssemblyDeriveUpdate, wire.DeriveStatusArgs{ID: id}, &r)

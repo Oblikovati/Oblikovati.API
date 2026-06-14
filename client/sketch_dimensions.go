@@ -19,6 +19,9 @@ type Dimension struct {
 func (s Sketch) Dimension(index int) Dimension { return Dimension{s.c, index} }
 
 // Add applies a dimension of the given kind — the escape hatch; prefer the named helpers.
+//
+// mcp:tool add_sketch_dimension
+// mcp:summary Add a dimensional constraint: {sketchIndex, kind, entities:[ids…], expression}. kind is distance|radius|diameter|angle|arcLength|offset; expression carries units, e.g. "40 mm".
 func (g Dimension) Add(kind types.DimensionConstraintKind, expression string, entities ...uint64) (wire.AddDimensionResult, error) {
 	var r wire.AddDimensionResult
 	args := wire.AddDimensionArgs{SketchIndex: g.index, Kind: string(kind), Entities: entities, Expression: expression}
@@ -79,6 +82,8 @@ func (g Dimension) SetLimits(dimensionIndex int, min, max float64) (wire.OKResul
 	return g.edit(wire.DriveDimensionArgs{SketchIndex: g.index, DimensionIndex: dimensionIndex, SetLimits: true, Min: min, Max: max})
 }
 
+// mcp:tool drive_sketch_dimension
+// mcp:summary Change a dimension's expression (and optionally its driven flag / animation limits) and recompute.
 func (g Dimension) edit(args wire.DriveDimensionArgs) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, g.c.call(wire.MethodSketchDriveDimension, args, &r)

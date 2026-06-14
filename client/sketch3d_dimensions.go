@@ -9,6 +9,9 @@ import (
 
 // AddDimension is the general 3D dimensional-constraint constructor; prefer the typed
 // helpers below for the common kinds.
+//
+// mcp:tool add_sketch3d_dimension
+// mcp:summary Add a dimensional constraint to a 3D sketch (kind + entities + unit expression).
 func (s Sketch3D) AddDimension(args wire.AddSketch3DDimensionArgs) (wire.AddSketch3DDimensionResult, error) {
 	var r wire.AddSketch3DDimensionResult
 	return r, s.c.call(wire.MethodSketch3DAddDimension, args, &r)
@@ -49,6 +52,9 @@ func (s Sketch3D) TwoLineAngle(index int, l1, l2 uint64, value string) (wire.Add
 }
 
 // DriveDimension edits a 3D dimension's value and/or driving state.
+//
+// mcp:tool drive_sketch3d_dimension
+// mcp:summary Change a 3D-sketch dimension's expression and recompute.
 func (s Sketch3D) DriveDimension(args wire.DriveSketch3DDimensionArgs) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, s.c.call(wire.MethodSketch3DDriveDimension, args, &r)

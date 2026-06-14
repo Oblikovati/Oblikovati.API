@@ -18,6 +18,9 @@ func (s Sketch) Pattern(index int) Pattern { return Pattern{s.c, index} }
 
 // Rectangular duplicates the seed entities on a count1×count2 grid stepped by the
 // unit-bearing spacings along the default axes; returns the created copy ids.
+//
+// mcp:tool add_sketch_pattern
+// mcp:summary Pattern selected entities: {sketchIndex, kind:"rectangular"|"circular", entities, …} with counts and spacing/angle expressions.
 func (p Pattern) Rectangular(entities []uint64, count1, count2 int, spacing1, spacing2 string) (wire.AddSketchPatternResult, error) {
 	var r wire.AddSketchPatternResult
 	args := wire.AddSketchPatternArgs{
@@ -29,6 +32,9 @@ func (p Pattern) Rectangular(entities []uint64, count1, count2 int, spacing1, sp
 
 // Circular duplicates the seed entities into count instances spread over the unit-bearing
 // angle about center ([x,y] cm); returns the created copy ids.
+//
+// mcp:tool add_sketch_pattern
+// mcp:summary Pattern selected entities: {sketchIndex, kind:"rectangular"|"circular", entities, …} with counts and spacing/angle expressions.
 func (p Pattern) Circular(entities []uint64, center []float64, count int, angle string) (wire.AddSketchPatternResult, error) {
 	var r wire.AddSketchPatternResult
 	args := wire.AddSketchPatternArgs{

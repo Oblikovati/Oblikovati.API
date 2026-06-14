@@ -18,6 +18,9 @@ func (c *Client) Dialogs() Dialogs { return Dialogs{c} }
 //	client.Dialogs().ShowFileDialog(wire.ShowFileDialogArgs{
 //	    ID: "sim.report", Save: true, Title: "Save report", Filter: "HTML (*.html)|*.html",
 //	})
+//
+// mcp:tool dialogs_show_file_dialog
+// mcp:summary Opens the host's file dialog; the user's choice arrives as a [wire.FileDialogChosenEvent] keyed by args.ID.
 func (d Dialogs) ShowFileDialog(args wire.ShowFileDialogArgs) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDialogsShowFileDialog, args, &r)
@@ -25,18 +28,27 @@ func (d Dialogs) ShowFileDialog(args wire.ShowFileDialogArgs) (wire.OKResult, er
 
 // ShowWebDialog presents a web view: floating (modal or not), or docked when the
 // spec carries a docking state.
+//
+// mcp:tool dialogs_show_web_dialog
+// mcp:summary Presents a web view: floating (modal or not), or docked when the spec carries a docking state.
 func (d Dialogs) ShowWebDialog(spec wire.WebDialogSpec) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDialogsShowWebDialog, wire.ShowWebDialogArgs{Dialog: spec}, &r)
 }
 
 // CloseWebDialog dismisses a web view.
+//
+// mcp:tool dialogs_close_web_dialog
+// mcp:summary Dismisses a web view.
 func (d Dialogs) CloseWebDialog(id string) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDialogsCloseWebDialog, wire.CloseWebDialogArgs{ID: id}, &r)
 }
 
 // ListWebViews returns the presented web views in creation order.
+//
+// mcp:tool dialogs_list_web_views
+// mcp:summary Returns the presented web views in creation order.
 func (d Dialogs) ListWebViews() (wire.ListWebViewsResult, error) {
 	var r wire.ListWebViewsResult
 	return r, d.c.call(wire.MethodDialogsListWebViews, nil, &r)

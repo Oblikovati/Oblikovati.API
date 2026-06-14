@@ -9,6 +9,9 @@ import (
 
 // AddEntity is the general entity constructor — the escape hatch covering every kind and
 // variant; prefer the typed helpers below for the common constructors.
+//
+// mcp:tool add_sketch_entity
+// mcp:summary Add a 2D primitive to a sketch: {sketchIndex, kind, points:[[x,y],…]} with kind one of line|circle|arc|rectangle|slot|polygon|polyline|ellipse|spline|point. Optional variant (e.g. "threePoint","centerPoint"), radius (unit expr), ccw, construction. For kind "polyline" pass points:[[x,y],…] and optional closed:true (an arbitrary outline; closed ⇒ one closed profile). Coordinates are cm in sketch space.
 func (s Sketch) AddEntity(args wire.AddSketchEntityArgs) (wire.AddSketchEntityResult, error) {
 	var r wire.AddSketchEntityResult
 	return r, s.c.call(wire.MethodSketchAddEntity, args, &r)

@@ -23,12 +23,18 @@ func (c *Client) DockableWindows() DockableWindows { return DockableWindows{c} }
 //	        {Kind: types.PanelButton, Text: "Run", CommandID: "Sim.Run"},
 //	    },
 //	})
+//
+// mcp:tool dockable_windows_set
+// mcp:summary Creates the window or replaces its title/content if it exists.
 func (d DockableWindows) Set(w wire.DockableWindowSpec) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDockableWindowsSet, wire.SetDockableWindowArgs{Window: w}, &r)
 }
 
 // SetVisible shows or hides the window without touching its content.
+//
+// mcp:tool dockable_windows_set_visible
+// mcp:summary Shows or hides the window without touching its content.
 func (d DockableWindows) SetVisible(id string, visible bool) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.SetDockableWindowVisibleArgs{ID: id, Visible: visible}
@@ -36,12 +42,18 @@ func (d DockableWindows) SetVisible(id string, visible bool) (wire.OKResult, err
 }
 
 // Delete removes the window entirely.
+//
+// mcp:tool dockable_windows_delete
+// mcp:summary Removes the window entirely.
 func (d DockableWindows) Delete(id string) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, d.c.call(wire.MethodDockableWindowsDelete, wire.DeleteDockableWindowArgs{ID: id}, &r)
 }
 
 // List returns every add-in dockable window in creation order.
+//
+// mcp:tool dockable_windows_list
+// mcp:summary Returns every add-in dockable window in creation order.
 func (d DockableWindows) List() (wire.ListDockableWindowsResult, error) {
 	var r wire.ListDockableWindowsResult
 	return r, d.c.call(wire.MethodDockableWindowsList, nil, &r)

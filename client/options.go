@@ -17,12 +17,18 @@ type Options struct{ c *Client }
 func (c *Client) Options() Options { return Options{c} }
 
 // Groups returns the available option group names.
+//
+// mcp:tool options_list_groups
+// mcp:summary Returns the available option group names.
 func (o Options) Groups() (wire.ListOptionGroupsResult, error) {
 	var r wire.ListOptionGroupsResult
 	return r, o.c.call(wire.MethodOptionsListGroups, nil, &r)
 }
 
 // getGroup fetches one group and returns the union view.
+//
+// mcp:tool options_get_group
+// mcp:summary Fetches one group and returns the union view.
 func (o Options) getGroup(group string) (wire.OptionGroupView, error) {
 	var r wire.OptionGroupView
 	err := o.c.call(wire.MethodOptionsGetGroup, wire.GetOptionGroupArgs{Group: group}, &r)
@@ -44,6 +50,9 @@ func (o Options) General() (wire.GeneralOptionsView, error) {
 // SetGeneral writes the general options.
 //
 //	client.Options().SetGeneral(wire.GeneralOptionsView{StartupAction: types.StartupEmptyWorkspace})
+//
+// mcp:tool options_set_group
+// mcp:summary Writes the display options.
 func (o Options) SetGeneral(v wire.GeneralOptionsView) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.OptionGroupView{Group: wire.OptionGroupGeneral, General: &v}
@@ -63,6 +72,9 @@ func (o Options) Display() (wire.DisplayOptionsView, error) {
 }
 
 // SetDisplay writes the display options.
+//
+// mcp:tool options_set_group
+// mcp:summary Writes the display options.
 func (o Options) SetDisplay(v wire.DisplayOptionsView) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.OptionGroupView{Group: wire.OptionGroupDisplay, Display: &v}
@@ -82,6 +94,9 @@ func (o Options) Sketch() (wire.SketchOptionsView, error) {
 }
 
 // SetSketch writes the sketch options.
+//
+// mcp:tool options_set_group
+// mcp:summary Writes the display options.
 func (o Options) SetSketch(v wire.SketchOptionsView) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.OptionGroupView{Group: wire.OptionGroupSketch, Sketch: &v}
@@ -101,6 +116,9 @@ func (o Options) Part() (wire.PartOptionsView, error) {
 }
 
 // SetPart writes the part-modeling defaults.
+//
+// mcp:tool options_set_group
+// mcp:summary Writes the display options.
 func (o Options) SetPart(v wire.PartOptionsView) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.OptionGroupView{Group: wire.OptionGroupPart, Part: &v}
@@ -122,6 +140,9 @@ func (o Options) Save() (wire.SaveOptionsView, error) {
 
 // SetSave writes the save policy; the host rejects capture modes it cannot
 // perform rather than persisting a dead setting.
+//
+// mcp:tool options_set_group
+// mcp:summary Writes the display options.
 func (o Options) SetSave(v wire.SaveOptionsView) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.OptionGroupView{Group: wire.OptionGroupSave, Save: &v}

@@ -9,6 +9,9 @@ import (
 
 // AddEntity is the general 3D entity constructor — the escape hatch covering every kind;
 // prefer the typed helpers below for the common constructors.
+//
+// mcp:tool add_sketch3d_entity
+// mcp:summary Add a 3D curve to a sketch: {sketchIndex, kind, points:[[x,y,z],…]} with kind line|arc|circle|spline|point|helix and friends. Coordinates are cm.
 func (s Sketch3D) AddEntity(args wire.AddSketch3DEntityArgs) (wire.AddSketch3DEntityResult, error) {
 	var r wire.AddSketch3DEntityResult
 	return r, s.c.call(wire.MethodSketch3DAddEntity, args, &r)

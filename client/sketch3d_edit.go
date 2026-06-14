@@ -6,6 +6,9 @@ import "oblikovati.org/api/wire"
 
 // Transform applies an editing operation (move/copy/rotate/delete) to a 3D-sketch
 // selection; prefer the typed helpers below.
+//
+// mcp:tool transform_sketch3d
+// mcp:summary Transform selected 3D-sketch entities (move/copy/rotate) by a vector/axis/angle.
 func (s Sketch3D) Transform(args wire.Transform3DArgs) (wire.Transform3DResult, error) {
 	var r wire.Transform3DResult
 	return r, s.c.call(wire.MethodSketch3DTransform, args, &r)

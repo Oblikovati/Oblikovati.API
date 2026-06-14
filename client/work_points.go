@@ -14,6 +14,9 @@ func (c *Client) WorkPoints() WorkPoints { return WorkPoints{c} }
 
 // Create adds a datum point fixed at position [x, y, z] (model units) and returns its index,
 // reference, and name.
+//
+// mcp:tool create_work_point
+// mcp:summary Create a datum work point fixed at a position (at:[x,y,z], model units). Returns its ref (e.g. "point/1") to use as a point input — three points make a three-points work plane, or re-point such a plane's slot via redefine_work_plane.
 func (w WorkPoints) Create(args wire.CreateWorkPointArgs) (wire.CreateWorkPointResult, error) {
 	var r wire.CreateWorkPointResult
 	return r, w.c.call(wire.MethodWorkPointsCreate, args, &r)

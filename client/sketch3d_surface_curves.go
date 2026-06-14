@@ -9,6 +9,9 @@ import (
 
 // AddSurfaceCurve is the general surface-derived curve constructor; prefer the typed
 // helpers below.
+//
+// mcp:tool add_sketch3d_surface_curve
+// mcp:summary Add a curve that lies on a part face/surface to a 3D sketch (project/intersection/silhouette).
 func (s Sketch3D) AddSurfaceCurve(args wire.AddSketch3DSurfaceCurveArgs) (wire.AddSketch3DSurfaceCurveResult, error) {
 	var r wire.AddSketch3DSurfaceCurveResult
 	return r, s.c.call(wire.MethodSketch3DAddSurfaceCurve, args, &r)
