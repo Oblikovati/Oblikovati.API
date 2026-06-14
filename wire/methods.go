@@ -435,6 +435,15 @@ const (
 	MethodOptionsGetGroup   = "options.getGroup"
 	MethodOptionsSetGroup   = "options.setGroup"
 
+	// Command alias & keyboard-shortcut customization (M05-F17, #831).
+	MethodKeymapList     = "keymap.list"
+	MethodKeymapSetChord = "keymap.setChord"
+	MethodKeymapSetAlias = "keymap.setAlias"
+	MethodKeymapReset    = "keymap.reset"
+	MethodKeymapResetAll = "keymap.resetAll"
+	MethodKeymapExport   = "keymap.export"
+	MethodKeymapImport   = "keymap.import"
+
 	// Status, progress & user messaging (M05-F09, #616).
 	MethodStatusSetText      = "status.setText"
 	MethodStatusGetText      = "status.getText"
