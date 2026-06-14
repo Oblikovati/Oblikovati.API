@@ -1,0 +1,48 @@
+# Tag and publish a release when the api.Version constant is bumped on develop.
+# Reads the version from version.go and, if the matching vX.Y.Z tag does not yet
+# exist, creates the tag and a GitHub release from the changelog. Idempotent: a
+# push that does not change Version is a no-op (the tag already exists), so
+# unrelated merges to develop never re-tag.
+name: release
+
+on:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read api.Version
+        id: version
+        run: |
+          v=$(grep -oE 'Version = "[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?"' version.go | head -1 | sed -E 's/.*"(.*)"/\1/')
+          if [ -z "$v" ]; then
+            echo "could not read Version from version.go" >&2
+            exit 1
+          fi
+          echo "tag=v$v" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag and release if new
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag='${{ steps.version.outputs.tag }}'
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "$tag already released; nothing to do."
+            exit 0
+          fi
+          git tag "$tag"
+          git push origin "$tag"
+          gh release create "$tag" --title "$tag" --notes "See CHANGELOG.md for ${tag#v}."

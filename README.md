@@ -54,3 +54,11 @@ Both the `Oblikovati` application and the bridge add-in consume this module via 
 `go.work` workspace over sibling checkouts, so changes here are picked up without
 publishing. Every `.go` file carries an `SPDX-License-Identifier: Apache-2.0`
 header, enforced by `scripts/check-spdx.py`.
+
+## Versioning
+
+This module follows [Semantic Versioning 2.0.0](https://semver.org). The version
+is the `api.Version` constant in [`version.go`](version.go); the git tag for a
+release is `v<version>`. While the major version is `0` the API is in initial
+development and may change in any minor release. Changes are recorded in
+[CHANGELOG.md](CHANGELOG.md); the release process is in [RELEASING.md](RELEASING.md).
