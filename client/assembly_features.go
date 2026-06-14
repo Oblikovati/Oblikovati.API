@@ -86,6 +86,20 @@ func (a AssemblyFeatures) SetSuppressed(ids []uint64, suppressed bool) (wire.Ass
 	return r, a.c.call(wire.MethodAssemblyFeaturesSetSuppressed, args, &r)
 }
 
+// AddChamfer chamfers the given component edges by distance on every participant, e.g.
+// AddChamfer(wire.AddAssemblyChamferArgs{Edges: []wire.AssemblyEdgeRef{{Occurrence: o, Edge: key}}, Distance: 2}).
+func (a AssemblyFeatures) AddChamfer(args wire.AddAssemblyChamferArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddChamfer, args, &r)
+}
+
+// AddFillet rounds the given component edges to radius on every participant, e.g.
+// AddFillet(wire.AddAssemblyFilletArgs{Edges: []wire.AssemblyEdgeRef{{Occurrence: o, Edge: key}}, Radius: 1}).
+func (a AssemblyFeatures) AddFillet(args wire.AddAssemblyFilletArgs) (wire.AssemblyFeatureResult, error) {
+	var r wire.AssemblyFeatureResult
+	return r, a.c.call(wire.MethodAssemblyFeaturesAddFillet, args, &r)
+}
+
 // Edit sets editable scalars of assembly feature id in place and returns the refreshed
 // feature, e.g. Edit(3, []wire.ScalarEdit{{Index: 0, Value: "8 mm"}}) to deepen a pocket.
 // Scalar indices come from the feature's Scalars; the whole batch is validated before any
