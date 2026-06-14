@@ -66,6 +66,17 @@ func (v View) Capture(a wire.CaptureViewportArgs) (wire.CaptureViewportResult, e
 	return r, v.c.call(wire.MethodViewportCapture, a, &r)
 }
 
+// CaptureWindow writes the WHOLE application window — the chrome (ribbon, browser, open dialogs)
+// composited with the 3D viewport — to a PNG and returns its path and pixel size. Unlike Capture
+// (the 3D framebuffer alone) it shows UI state. The host writes the file once the next frame
+// composites, so read the returned Path after a short delay.
+//
+//	r, _ := client.View().CaptureWindow(wire.CaptureWindowArgs{Path: "/tmp/window.png"})
+func (v View) CaptureWindow(a wire.CaptureWindowArgs) (wire.CaptureWindowResult, error) {
+	var r wire.CaptureWindowResult
+	return r, v.c.call(wire.MethodViewportCaptureWindow, a, &r)
+}
+
 // SetNormalDebug turns the viewport's normal-debug render on/off (front-facing green, back-facing red)
 // so a capture reveals winding/flipped-normal defects.
 //

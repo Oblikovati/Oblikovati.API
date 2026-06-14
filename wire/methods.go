@@ -288,6 +288,7 @@ const (
 	MethodViewSetCamera = "view.setCamera"
 
 	MethodViewportCapture        = "viewport.capture"
+	MethodViewportCaptureWindow  = "viewport.captureWindow"
 	MethodViewportSetNormalDebug = "viewport.setNormalDebug"
 	MethodViewportSetMeshColors  = "viewport.setMeshColors"
 
