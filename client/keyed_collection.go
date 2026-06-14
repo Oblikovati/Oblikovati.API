@@ -18,6 +18,10 @@ type ObjectCollectionByVariant struct {
 	entries wire.KeyedObjectRefList
 }
 
+// errIndexRangeFmt is the shared out-of-range message for the index-addressed
+// accessors (KeyAt/At/RemoveAt); args are the offending index and the length.
+const errIndexRangeFmt = "client: ObjectCollectionByVariant index %d out of range [0,%d)"
+
 var _ contract.ObjectCollectionByVariant = (*ObjectCollectionByVariant)(nil)
 
 // Count returns the number of entries.
@@ -26,7 +30,7 @@ func (c *ObjectCollectionByVariant) Count() int { return len(c.entries) }
 // KeyAt returns the key at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) KeyAt(index int) (string, error) {
 	if index < 0 || index >= len(c.entries) {
-		return "", fmt.Errorf("client: ObjectCollectionByVariant index %d out of range [0,%d)", index, len(c.entries))
+		return "", fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
 	}
 	return c.entries[index].Key, nil
 }
@@ -34,7 +38,7 @@ func (c *ObjectCollectionByVariant) KeyAt(index int) (string, error) {
 // At returns the reference at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) At(index int) (types.ObjectRef, error) {
 	if index < 0 || index >= len(c.entries) {
-		return types.ObjectRef{}, fmt.Errorf("client: ObjectCollectionByVariant index %d out of range [0,%d)", index, len(c.entries))
+		return types.ObjectRef{}, fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
 	}
 	return c.entries[index].Ref, nil
 }
@@ -69,7 +73,7 @@ func (c *ObjectCollectionByVariant) Remove(key string) bool {
 // RemoveAt deletes the entry at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) RemoveAt(index int) error {
 	if index < 0 || index >= len(c.entries) {
-		return fmt.Errorf("client: ObjectCollectionByVariant index %d out of range [0,%d)", index, len(c.entries))
+		return fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
 	}
 	c.entries = append(c.entries[:index], c.entries[index+1:]...)
 	return nil
