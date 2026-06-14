@@ -232,10 +232,11 @@ const (
 	// Assembly replication (M11-F04, Oblikovati#729): replicate placed components —
 	// pattern (circular/rectangular), mirror across a plane, independent copy, and
 	// substitute a set of components with one simplified representation.
-	MethodAssemblyPatternCreate = "assembly.patternCreate"
-	MethodAssemblyMirror        = "assembly.mirror"
-	MethodAssemblyCopy          = "assembly.copy"
-	MethodAssemblySubstitute    = "assembly.substitute"
+	MethodAssemblyPatternCreate  = "assembly.patternCreate"
+	MethodAssemblyMirror         = "assembly.mirror"
+	MethodAssemblyMirrorIntoPart = "assembly.mirrorIntoPart"
+	MethodAssemblyCopy           = "assembly.copy"
+	MethodAssemblySubstitute     = "assembly.substitute"
 
 	// Assembly bill of materials (M11-F05, Oblikovati#730): read a structured or
 	// parts-only BOM view of the active assembly, and export a view to CSV with optional
