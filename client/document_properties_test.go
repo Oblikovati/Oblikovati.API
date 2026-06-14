@@ -38,6 +38,34 @@ func TestDocumentsSetPropertySendsTypedValue(t *testing.T) {
 	}
 }
 
+// TestDocumentsGetPropertyAddressesProperty asserts GetProperty hits the right method with the
+// document id, set, and name, and decodes the returned typed value (#156).
+func TestDocumentsGetPropertyAddressesProperty(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"property":{"set":"Design Tracking Properties","name":"Part Number","value":{"type":"string","value":"BRK-001"}}}`)}
+	c := New(ft)
+
+	got, err := c.Documents().GetProperty(7, "Design Tracking Properties", "Part Number")
+	if err != nil {
+		t.Fatalf("GetProperty: %v", err)
+	}
+	if ft.gotMethod != wire.MethodDocumentsGetProperty {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodDocumentsGetProperty)
+	}
+	var sent wire.GetPropertyArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Document != 7 || sent.Set != "Design Tracking Properties" || sent.Name != "Part Number" {
+		t.Errorf("sent = %+v, want document 7 / Design Tracking / Part Number", sent)
+	}
+	if got.Property.Name != "Part Number" {
+		t.Errorf("decoded property name = %q, want Part Number", got.Property.Name)
+	}
+	if v, ok := got.Property.Value.Str(); !ok || v != "BRK-001" {
+		t.Errorf("decoded value = %v (ok=%v), want string BRK-001", v, ok)
+	}
+}
+
 // TestDocumentsListPropertiesAddressesDocument asserts ListProperties hits the right method with
 // the document id and decodes the property list.
 func TestDocumentsListPropertiesAddressesDocument(t *testing.T) {
