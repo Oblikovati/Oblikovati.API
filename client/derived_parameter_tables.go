@@ -9,6 +9,9 @@ import "oblikovati.org/api/wire"
 
 // ListDerivedTables returns the active part's derived parameter tables with
 // their links, candidates, and health.
+//
+// mcp:tool parameters_derived_tables_list
+// mcp:summary Returns the active part's derived parameter tables with their links, candidates, and health.
 func (p Parameters) ListDerivedTables() (wire.ListDerivedParameterTablesResult, error) {
 	var r wire.ListDerivedParameterTablesResult
 	return r, p.c.call(wire.MethodParametersDerivedTablesList, nil, &r)
@@ -16,6 +19,9 @@ func (p Parameters) ListDerivedTables() (wire.ListDerivedParameterTablesResult, 
 
 // AddDerivedTable links parameters from another document into this one,
 // returning the created table.
+//
+// mcp:tool parameters_derived_tables_add
+// mcp:summary Links parameters from another document into this one, returning the created table.
 func (p Parameters) AddDerivedTable(args wire.DerivedParameterTableAddArgs) (wire.DerivedParameterTableInfo, error) {
 	var r wire.DerivedParameterTableInfo
 	return r, p.c.call(wire.MethodParametersDerivedTablesAdd, args, &r)
@@ -24,6 +30,9 @@ func (p Parameters) AddDerivedTable(args wire.DerivedParameterTableAddArgs) (wir
 // SetDerivedTableLinked replaces a table's linked subset — newly linked names
 // gain derived parameters, unlinked ones lose theirs — and returns the
 // updated table.
+//
+// mcp:tool parameters_derived_tables_set_linked
+// mcp:summary Replaces a table's linked subset — newly linked names gain derived parameters, unlinked ones lose theirs — and returns the updated table.
 func (p Parameters) SetDerivedTableLinked(args wire.DerivedParameterTableSetLinkedArgs) (wire.DerivedParameterTableInfo, error) {
 	var r wire.DerivedParameterTableInfo
 	return r, p.c.call(wire.MethodParametersDerivedTablesSetLinked, args, &r)
@@ -31,6 +40,9 @@ func (p Parameters) SetDerivedTableLinked(args wire.DerivedParameterTableSetLink
 
 // DeleteDerivedTable removes a table and its derived parameters. A table
 // owned by a derived component cannot be deleted directly.
+//
+// mcp:tool parameters_derived_tables_delete
+// mcp:summary Removes a table and its derived parameters.
 func (p Parameters) DeleteDerivedTable(id int) error {
 	return p.c.call(wire.MethodParametersDerivedTablesDelete, wire.DerivedParameterTableDeleteArgs{ID: id}, nil)
 }

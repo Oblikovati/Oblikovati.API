@@ -15,6 +15,9 @@ func (c *Client) Triad() Triad { return Triad{c} }
 // Show places (and shows) the triad.
 //
 //	client.Triad().Show(wire.TriadSpec{Position: [3]float64{0, 0, 5}, Visible: true})
+//
+// mcp:tool triad_show
+// mcp:summary Places (and shows) the triad.
 func (t Triad) Show(spec wire.TriadSpec) (wire.OKResult, error) {
 	var r wire.OKResult
 	spec.Visible = true
@@ -22,18 +25,27 @@ func (t Triad) Show(spec wire.TriadSpec) (wire.OKResult, error) {
 }
 
 // Update repositions/reorients the visible triad.
+//
+// mcp:tool triad_update
+// mcp:summary Repositions/reorients the visible triad.
 func (t Triad) Update(spec wire.TriadSpec) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, t.c.call(wire.MethodTriadUpdate, wire.ShowTriadArgs{Triad: spec}, &r)
 }
 
 // Hide dismisses the triad.
+//
+// mcp:tool triad_hide
+// mcp:summary Dismisses the triad.
 func (t Triad) Hide() (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, t.c.call(wire.MethodTriadHide, nil, &r)
 }
 
 // Get returns the current triad spec (visible or not).
+//
+// mcp:tool triad_get
+// mcp:summary Returns the current triad spec (visible or not).
 func (t Triad) Get() (wire.TriadSpec, error) {
 	var r wire.TriadSpec
 	return r, t.c.call(wire.MethodTriadGet, nil, &r)
@@ -48,12 +60,18 @@ type Manipulators struct{ c *Client }
 func (c *Client) Manipulators() Manipulators { return Manipulators{c} }
 
 // Set replaces one gizmo's handle set.
+//
+// mcp:tool manipulators_set
+// mcp:summary Replaces one gizmo's handle set.
 func (m Manipulators) Set(id string, handles []wire.ManipulatorHandleSpec) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, m.c.call(wire.MethodManipulatorsSet, wire.SetManipulatorsArgs{ID: id, Handles: handles}, &r)
 }
 
 // Remove dismisses a gizmo's handles.
+//
+// mcp:tool manipulators_remove
+// mcp:summary Dismisses a gizmo's handles.
 func (m Manipulators) Remove(id string) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, m.c.call(wire.MethodManipulatorsRemove, wire.RemoveManipulatorsArgs{ID: id}, &r)

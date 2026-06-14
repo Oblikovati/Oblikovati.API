@@ -20,6 +20,9 @@ func (s Sketch) Constrain(index int) Constrain { return Constrain{s.c, index} }
 
 // Add applies a constraint of the given kind to the referenced entities — the escape
 // hatch covering every kind; prefer the named helpers below.
+//
+// mcp:tool add_sketch_constraint
+// mcp:summary Add a geometric constraint: {sketchIndex, kind, entities:[ids…]}. kind is coincident|horizontal|vertical|parallel|perpendicular|collinear|concentric|tangent|equalLength|equalRadius|pointOnLine|midpoint|pointOnCircle|fix|ground|symmetric|smooth. Entity arity depends on the kind.
 func (g Constrain) Add(kind types.GeometricConstraintKind, entities ...uint64) (wire.AddConstraintResult, error) {
 	var r wire.AddConstraintResult
 	args := wire.AddConstraintArgs{SketchIndex: g.index, Kind: string(kind), Entities: entities}
@@ -106,6 +109,9 @@ func (g Constrain) PatternLink(seed, member uint64) (wire.AddConstraintResult, e
 }
 
 // Delete removes the geometric constraint at the given collection index.
+//
+// mcp:tool delete_sketch_constraint
+// mcp:summary Delete a geometric constraint by its index (see list_sketch_constraints).
 func (g Constrain) Delete(constraintIndex int) (wire.OKResult, error) {
 	var r wire.OKResult
 	args := wire.DeleteConstraintArgs{SketchIndex: g.index, ConstraintIndex: constraintIndex}

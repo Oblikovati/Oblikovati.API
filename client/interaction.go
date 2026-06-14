@@ -15,6 +15,9 @@ func (c *Client) Interaction() Interaction { return Interaction{c} }
 // State reports whether an interactive tool/command is active or a transaction is open.
 //
 //	if st, _ := client.Interaction().State(); st.Busy { /* buffer remote edits */ }
+//
+// mcp:tool interaction_state
+// mcp:summary Reports whether an interactive tool/command is active or a transaction is open.
 func (i Interaction) State() (wire.InteractionState, error) {
 	var r wire.InteractionState
 	return r, i.c.call(wire.MethodInteractionState, nil, &r)
@@ -25,6 +28,9 @@ func (i Interaction) State() (wire.InteractionState, error) {
 // e.g. connection progress or failure.
 //
 //	client.Interaction().SetNotice("Meeting: connection failed")
+//
+// mcp:tool interaction_set_notice
+// mcp:summary Shows a short, transient message in the host status bar (the host clears it on the next user input).
 func (i Interaction) SetNotice(message string) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, i.c.call(wire.MethodInteractionSetNotice, wire.SetNoticeArgs{Message: message}, &r)

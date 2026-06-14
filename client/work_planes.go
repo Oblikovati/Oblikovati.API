@@ -18,6 +18,9 @@ type WorkPlanes struct{ c *Client }
 func (c *Client) WorkPlanes() WorkPlanes { return WorkPlanes{c} }
 
 // List returns the part's datum planes (origin frame first, then user planes).
+//
+// mcp:tool list_work_planes
+// mcp:summary List the active part's work planes (origin + user). Each user plane reports its kind plus the inputs redefine_work_plane accepts: its scalars (offset/angle: index, label, unit, value) and its reference slots (index, label, kind: plane|axis|point|face).
 func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
 	var r wire.ListWorkPlanesResult
 	return r, w.c.call(wire.MethodWorkPlanesList, nil, &r)
@@ -25,6 +28,9 @@ func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
 
 // Create adds a datum plane from an explicit request — the escape hatch covering every
 // kind; prefer the typed helpers below for the common constructors.
+//
+// mcp:tool create_work_plane
+// mcp:summary Create a user work plane (offset, three-point, two-plane, tangent, …); see the args schema. Pair with capture_viewport to SEE the datum plane (drawn as a translucent square).
 func (w WorkPlanes) Create(args wire.CreateWorkPlaneArgs) (wire.CreateWorkPlaneResult, error) {
 	var r wire.CreateWorkPlaneResult
 	return r, w.c.call(wire.MethodWorkPlanesCreate, args, &r)
@@ -33,6 +39,9 @@ func (w WorkPlanes) Create(args wire.CreateWorkPlaneArgs) (wire.CreateWorkPlaneR
 // Redefine edits a placed user work plane in place: set editable scalars and/or re-point
 // reference slots, discovered from the plane's List entry (its Scalars and Slots). Returns
 // the plane's refreshed info.
+//
+// mcp:tool redefine_work_plane
+// mcp:summary Edit a placed user work plane in place by its index (from list_work_planes): set scalars (e.g. an offset distance or line-plane angle: scalars:[{index,value:"50 mm"}]) and/or re-point reference slots at new geometry (repick:[{slot,ref:"origin/plane/xz"}]). Returns the plane's refreshed geometry; capture_viewport shows it move.
 func (w WorkPlanes) Redefine(args wire.RedefineWorkPlaneArgs) (wire.RedefineWorkPlaneResult, error) {
 	var r wire.RedefineWorkPlaneResult
 	return r, w.c.call(wire.MethodWorkPlanesRedefine, args, &r)

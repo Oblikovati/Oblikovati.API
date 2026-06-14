@@ -55,6 +55,8 @@ func (s Sketch) Extend(index int, line uint64, pick []float64) (wire.TransformSk
 	})
 }
 
+// mcp:tool transform_sketch
+// mcp:summary Transform selected entities in a sketch: {sketchIndex, op, entities:[ids…]} with op move|copy|rotate|mirror|trim|split|extend, plus vector/center/angle/mirrorLine as the op needs.
 func (s Sketch) transform(args wire.TransformSketchArgs) (wire.TransformSketchResult, error) {
 	var r wire.TransformSketchResult
 	return r, s.c.call(wire.MethodSketchTransform, args, &r)

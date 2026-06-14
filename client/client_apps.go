@@ -18,6 +18,9 @@ func (c *Client) ClientApplications() ClientApplications { return ClientApplicat
 //
 //	reg, _ := client.ClientApplications().Register("acme-pipeline")
 //	defer client.ClientApplications().Unregister(reg.ID)
+//
+// mcp:tool client_apps_register
+// mcp:summary Announces an external client by display name and returns the session-unique id to pass to [ClientApplications.Unregister] on disconnect.
 func (g ClientApplications) Register(name string) (wire.RegisterClientApplicationResult, error) {
 	var r wire.RegisterClientApplicationResult
 	args := wire.RegisterClientApplicationArgs{Name: name}
@@ -25,12 +28,18 @@ func (g ClientApplications) Register(name string) (wire.RegisterClientApplicatio
 }
 
 // Unregister removes a previously registered external client.
+//
+// mcp:tool client_apps_unregister
+// mcp:summary Removes a previously registered external client.
 func (g ClientApplications) Unregister(id int) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, g.c.call(wire.MethodClientAppsUnregister, wire.UnregisterClientApplicationArgs{ID: id}, &r)
 }
 
 // List returns the registered external clients in registration order.
+//
+// mcp:tool client_apps_list
+// mcp:summary Returns the registered external clients in registration order.
 func (g ClientApplications) List() (wire.ListClientApplicationsResult, error) {
 	var r wire.ListClientApplicationsResult
 	return r, g.c.call(wire.MethodClientAppsList, nil, &r)
