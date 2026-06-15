@@ -235,7 +235,8 @@ const (
 	MethodAssemblyTransform         = "assembly.transform"
 	MethodAssemblyGround            = "assembly.ground"
 	MethodAssemblySuppress          = "assembly.suppress"
-	MethodAssemblySetFlexible       = "assembly.setFlexible" // M12-F06
+	MethodAssemblySetFlexible       = "assembly.setFlexible"      // M12-F06
+	MethodAssemblySetFlexibleChild  = "assembly.setFlexibleChild" // M12-F06 independent solve
 	MethodAssemblyReplace           = "assembly.replace"
 	MethodAssemblyRemove            = "assembly.remove"
 

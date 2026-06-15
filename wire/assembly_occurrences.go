@@ -86,6 +86,16 @@ type SetFlexibleOccurrenceArgs struct {
 	Flexible bool   `json:"flexible"`
 }
 
+// SetFlexibleChildArgs is the request of [MethodAssemblySetFlexibleChild] (M12-F06): position
+// the child component named Child within the flexible subassembly occurrence Occurrence,
+// independently of the subassembly's other placements. Transform is the child's row-major 4×4
+// placement in the subassembly's space.
+type SetFlexibleChildArgs struct {
+	Occurrence uint64       `json:"occurrence"`
+	Child      string       `json:"child"`
+	Transform  types.Matrix `json:"transform"`
+}
+
 // ReplaceOccurrenceArgs is the request of [MethodAssemblyReplace]: swap the component of the
 // occurrence with id ID for the one held by the open Document (by document id), keeping the
 // occurrence's id, name, transform, and state — the "replace component" operation.
