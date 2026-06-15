@@ -78,6 +78,18 @@ func (a Assembly) SetFlexible(id uint64, flexible bool) (wire.OccurrenceResult, 
 	return r, a.c.call(wire.MethodAssemblySetFlexible, wire.SetFlexibleOccurrenceArgs{ID: id, Flexible: flexible}, &r)
 }
 
+// SetFlexibleChild positions a child component within a flexible subassembly occurrence
+// independently of the subassembly's other placements (M12-F06 independent solve), e.g.
+// SetFlexibleChild(wire.SetFlexibleChildArgs{Occurrence: id, Child: "arm:1", Transform: m}).
+//
+// mcp:tool set_flexible_child
+// mcp:summary Position a child component (child: its instance name) within a flexible subassembly occurrence (occurrence id) to a row-major 4×4 transform (16 cells) — independently of the subassembly's other placements. The occurrence must be flexible. Returns the occurrence's refreshed info.
+// mcp:input setFlexibleChildArg
+func (a Assembly) SetFlexibleChild(args wire.SetFlexibleChildArgs) (wire.OccurrenceResult, error) {
+	var r wire.OccurrenceResult
+	return r, a.c.call(wire.MethodAssemblySetFlexibleChild, args, &r)
+}
+
 // Replace swaps the occurrence's component for the one held by the open document (by id),
 // keeping the occurrence's id/name/transform/state, e.g. Replace(occID, docID).
 //
