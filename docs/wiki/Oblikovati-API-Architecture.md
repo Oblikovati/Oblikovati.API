@@ -42,10 +42,25 @@ The bytes that actually cross the boundary:
 - **Request/response DTOs** (`CreateSketchArgs`, `AddFeatureArgs`, `DocumentInfo`, …) with stable
   JSON tags. A field rename is a breaking change.
 
-Operations are grouped by prefix: `documents.*`, `parameters.*`, `model.*`, `sketch.*`,
-`sketch3d.*`, `features.*`, `workPlanes.*`, `workPoints.*`, `commands.*`, `ribbon.*`,
-`view.*`, `lighting.*`, `environment.*`, `appearances.*`, `materials.*`, `clientGraphics.*`,
-`interactionGraphics.*`, `transaction.*`, `logs.*`.
+Operations are grouped by prefix. The surface spans the whole application, not just part
+modeling:
+
+- **Documents & recipe** — `documents.*`, `parameters.*`, `model.*`, `modelStates.*`,
+  `sketch.*`, `sketch3d.*`, `features.*`
+- **Datums & transient geometry** — `workPlanes.*`, `workPoints.*`, `workSurfaces.*`,
+  `body.*`, `face.*`, `brep.*`, `freeform.*`
+- **Assemblies** — `assembly.*`, `assemblyConstraints.*`, `assemblyJoints.*`,
+  `assemblyFeatures.*`, `assemblyDrive.*`, `contactSets.*`, `interference.*`
+- **Representations** — `designReps.*`, `positionalReps.*`, `lodReps.*`
+- **View & appearance** — `view.*`, `views.*`, `lighting.*`, `environment.*`,
+  `appearances.*`, `materials.*`, `theme.*`, `clientGraphics.*`, `interactionGraphics.*`
+- **Shell & interaction** — `ribbon.*`, `commands.*`, `keymap.*`, `commandLine.*`,
+  `windows.*`, `dockableWindows.*`, `dialogs.*`, `miniToolbars.*`, `browser.*`, `triad.*`,
+  `manipulators.*`, `progress.*`
+- **Automation & app** — `application.*`, `addins.*`, `scripts.*` (embedded Lua),
+  `transaction.*`, `file.*`, `fonts.*`, `options.*`, `logs.*`
+
+The [[API Docs]] page is the exhaustive, always-current reference generated from the source.
 
 ### `client` — the typed façade
 
@@ -55,21 +70,47 @@ JSON. Each group mirrors a wire prefix:
 ```go
 c := client.New(transport)
 
+// Documents & the recipe
 c.Documents()   // create / list / activate documents
 c.Parameters()  // add / get / set / list named parameters
 c.Sketch()      // create sketches, add geometry, constrain, solve, list profiles
 c.Sketch3D()    // the 3D-sketch equivalent
 c.Features()    // list feature kinds (+schema) and add features
 c.Model()       // model tree, selection, reference keys, physical properties
+c.ModelStates() // model states (configurations)
+
+// Datums & transient geometry
 c.WorkPlanes()  // construct datum planes, redefine a placed one in place
 c.WorkPoints()  // datum points at a fixed position
-c.Commands()    // list / execute / create ribbon commands
-c.Ribbon()      // discover the active ribbon's tabs/panels/controls
-c.View()        // get/set display mode and shadows
+c.Body()        // c.TransientBRep(), c.WorkSurfaces(), c.Freeform()
+
+// Assemblies
+c.Assembly()              // place / transform / ground / suppress occurrences (+ batch place)
+c.AssemblyConstraints()   // mate / flush / angle / insert relationships
+c.AssemblyJoints()        // c.DSJoints(): rigid / rotational / slider / … joints
+c.AssemblyFeatures()      // c.AssemblyDrive(), c.ContactSets(), c.Interference()
+
+// Representations
+c.DesignReps()  // c.PositionalReps(), c.LODReps()
+
+// View, appearance & graphics
+c.View()        // c.Views(): display mode, camera, shadows, named views
 c.Lighting()    // lighting style + discrete lights
 c.Materials()   // material library + assignment
-c.Theme(), c.Appearances(), c.Graphics(), c.Transactions() // …and more
+c.Theme(), c.Appearances(), c.Graphics(), c.Interaction() // styling + overlay graphics
+
+// Shell & interaction
+c.Commands()    // list / execute / create ribbon commands
+c.Ribbon()      // discover the active ribbon's tabs/panels/controls
+c.Keymap()      // command aliases & keyboard shortcuts
+c.Windows(), c.DockableWindows(), c.Dialogs(), c.Browser(), c.MiniToolbars(), c.Triad()
+
+// Automation & app
+c.Application()  // host info, including the API version (apiVersion)
+c.AddIns()       // c.Scripts() (embedded Lua), c.Files(), c.Transactions(), c.Options()
 ```
+
+That is a representative slice; the [[API Docs]] page lists every group and method.
 
 ## The one dependency: `Transport`
 
@@ -133,3 +174,21 @@ Rules of thumb:
   across recompute.
 - **Stable identities.** Method strings and enum values are frozen — saved automations depend on
   them.
+
+## Versioning & compatibility
+
+The contract follows [Semantic Versioning](https://semver.org). `api.Version` (with `api.Major()`
+and `api.Minor()`) is the single source of truth, and each release is tagged `vX.Y.Z` on the repo.
+Pin a release with `require oblikovati.org/api vX.Y.Z` (or `go get oblikovati.org/api@latest`).
+
+- **Releases are automatic.** On every merge to `develop`, CI derives the next version from the
+  **scope of the merged commits** (conventional commits: `feat` → minor, `fix` → patch,
+  `!`/`BREAKING CHANGE` → major; while `0.x`, both feat and breaking move minor), bumps
+  `version.go` + `CHANGELOG.md`, tags it, and publishes the GitHub release. See `RELEASING.md`.
+- **A load-time handshake protects add-ins.** An add-in exports the major/minor it was compiled
+  against (`ObkAddInApiMajor`/`ObkAddInApiMinor`, derived from `api.Major()`/`api.Minor()`). The
+  host loads it only when the **major matches** and the add-in's **minor is ≤ the host's** — so a
+  newer host still runs an add-in built against an older minor, but not one that expects API the
+  host lacks. The full host version is readable at runtime via `application.apiVersion`.
+- **0.x is initial development.** While the major is `0` the surface may still change in any minor
+  release; there is no backward-compatibility guarantee yet.

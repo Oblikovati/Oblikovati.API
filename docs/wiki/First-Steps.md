@@ -30,11 +30,13 @@ module my-addin
 
 go 1.22
 
-require oblikovati.org/api v0.0.0
+require oblikovati.org/api v0.2.0 // pin a published release; see the repo's tags
 ```
 
-During local development, resolve the contract from a sibling checkout with a workspace
-(`go.work` is for local builds only and is git-ignored):
+Releases are tagged `vX.Y.Z` on the contract repo, so pin the latest one (or `go get
+oblikovati.org/api@latest`). During local development, resolve the contract from a sibling
+checkout with a workspace instead (`go.work` is for local builds only and is git-ignored),
+which overrides the `require` above against your working tree:
 
 ```sh
 git clone https://github.com/Oblikovati/Oblikovati.API.git   # the Apache-2.0 contract
@@ -55,8 +57,11 @@ cp ../Oblikovati.API/include/oblikovati_addin.h include/
 
 ## 2. The C ABI entry points (`export.go`)
 
-The host loads your library and resolves six exported functions. Most are boilerplate; the two
-that matter are **Activate** (wire yourself up) and **Notify** (react to host events).
+The host loads your library and resolves eight exported functions. Most are boilerplate; the two
+that carry your logic are **Activate** (wire yourself up) and **Notify** (react to host events).
+Two more — **ApiMajor / ApiMinor** — report the contract version you compiled against so the host
+can refuse an incompatible build *before* activating it (see the handshake note below). They are
+**mandatory**: an add-in that omits either version export is not loaded.
 
 ```go
 package main
@@ -72,6 +77,8 @@ import "C"
 import (
 	"sync"
 	"unsafe"
+
+	"oblikovati.org/api" // the root package: api.Major()/api.Minor()
 )
 
 const addInID = "com.example.cube-button"
@@ -91,6 +98,16 @@ func ObkAddInId() *C.char { return idC }
 
 //export ObkAddInManifest
 func ObkAddInManifest() *C.char { return manC }
+
+// The compatibility handshake: report the api contract version this add-in was
+// COMPILED against. The host reads these right after loading the library and BEFORE
+// activating it, and refuses to load an incompatible build (see the note below).
+//
+//export ObkAddInApiMajor
+func ObkAddInApiMajor() C.int { return C.int(api.Major()) }
+
+//export ObkAddInApiMinor
+func ObkAddInApiMinor() C.int { return C.int(api.Minor()) }
 
 //export ObkAddInActivate
 func ObkAddInActivate(call C.ObkHostCall, freeFn C.ObkHostFree) C.int {
@@ -129,6 +146,14 @@ func ObkFree(p *C.uint8_t) { C.free(unsafe.Pointer(p)) }
 
 func main() {}
 ```
+
+> **The version handshake.** `oblikovati.org/api` follows [Semantic Versioning](https://semver.org).
+> The host loads an add-in only when its compiled-against **major** equals the host's (a major bump
+> is the breaking-change boundary) and its **minor** is the same or **older** than the host's (minor
+> bumps are additive, so a host satisfies an add-in built against an older minor, but not a newer one
+> that expects API the host lacks). Deriving both from `api.Major()`/`api.Minor()` keeps them correct
+> for free as you rebuild against newer contracts. You can read the host's own version at runtime with
+> the `application.apiVersion` call.
 
 ## 3. The transport (`hostcaller.go`)
 

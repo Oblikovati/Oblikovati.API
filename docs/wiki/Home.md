@@ -2,8 +2,9 @@
 
 Welcome. This wiki is for developers building **add-ins** for Oblikovati — the
 parametric, feature-based CAD application. Add-ins extend the host with new ribbon
-commands and drive the live model (sketches, parameters, features, view, materials)
-through a stable, permissively-licensed contract.
+commands and drive the live model — parts and assemblies (sketches, parameters, features,
+occurrences, representations, view, materials) — through a stable, permissively-licensed
+contract.
 
 > **This wiki is generated.** It is rebuilt automatically from
 > [`Oblikovati.API`](https://github.com/Oblikovati/Oblikovati.API) every time a pull
