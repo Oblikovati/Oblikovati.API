@@ -235,6 +235,7 @@ const (
 	MethodAssemblyTransform         = "assembly.transform"
 	MethodAssemblyGround            = "assembly.ground"
 	MethodAssemblySuppress          = "assembly.suppress"
+	MethodAssemblySetFlexible       = "assembly.setFlexible" // M12-F06
 	MethodAssemblyReplace           = "assembly.replace"
 	MethodAssemblyRemove            = "assembly.remove"
 
@@ -345,6 +346,18 @@ const (
 	MethodModelStatesActivate = "modelStates.activate"
 	MethodModelStatesList     = "modelStates.list"
 	MethodModelStatesDelete   = "modelStates.delete"
+
+	// Assembly contact & interference (M12-F05, Oblikovati#362/#368): contact sets (resist
+	// interpenetration when dragged), the contact-solver toggle, and static interference
+	// analysis (overlapping volumes between occurrences).
+	MethodContactSetsCreate       = "contactSets.create"
+	MethodContactSetsList         = "contactSets.list"
+	MethodContactSetsDelete       = "contactSets.delete"
+	MethodContactSetsAddMember    = "contactSets.addMember"
+	MethodContactSetsRemoveMember = "contactSets.removeMember"
+	MethodContactSolverSetEnabled = "contactSolver.setEnabled"
+	MethodContactSolverStatus     = "contactSolver.status"
+	MethodInterferenceAnalyze     = "interference.analyze"
 
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
