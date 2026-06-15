@@ -56,6 +56,12 @@ recompute from *parameters* and *sketches*.
 This recipe is what an add-in manipulates: you add parameters, author sketches, and apply
 features, then read back the resulting geometry and physical properties.
 
+A document is either a **part** (one solid recipe, as above) or an **assembly** — a tree of
+*occurrences*, each a placement of another part or sub-assembly, positioned by **constraints**
+and **joints** and organized into **representations** (design views, positional, level-of-detail).
+The contract drives both; the assembly surface is the `assembly.*` / `assemblyConstraints.*` /
+`assemblyJoints.*` method groups described in [[Oblikovati API Architecture]].
+
 ### UI head
 
 The head renders the model (Vulkan viewport), presents the **ribbon** (tabs → panels →
