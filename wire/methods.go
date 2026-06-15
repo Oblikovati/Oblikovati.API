@@ -229,16 +229,17 @@ const (
 	// Assembly occurrences (M11-F01/F02, Oblikovati#728): read the active assembly's
 	// occurrence tree and place/transform/ground/suppress/replace/remove components.
 	// Occurrences are addressed by session id (the ids the occurrence push events carry).
-	MethodAssemblyOccurrences       = "assembly.occurrences"
-	MethodAssemblyPlace             = "assembly.place"
-	MethodAssemblyPlaceByDefinition = "assembly.placeByDefinition"
-	MethodAssemblyTransform         = "assembly.transform"
-	MethodAssemblyGround            = "assembly.ground"
-	MethodAssemblySuppress          = "assembly.suppress"
-	MethodAssemblySetFlexible       = "assembly.setFlexible"      // M12-F06
-	MethodAssemblySetFlexibleChild  = "assembly.setFlexibleChild" // M12-F06 independent solve
-	MethodAssemblyReplace           = "assembly.replace"
-	MethodAssemblyRemove            = "assembly.remove"
+	MethodAssemblyOccurrences            = "assembly.occurrences"
+	MethodAssemblyPlace                  = "assembly.place"
+	MethodAssemblyPlaceByDefinition      = "assembly.placeByDefinition"
+	MethodAssemblyPlaceByDefinitionBatch = "assembly.placeByDefinitionBatch"
+	MethodAssemblyTransform              = "assembly.transform"
+	MethodAssemblyGround                 = "assembly.ground"
+	MethodAssemblySuppress               = "assembly.suppress"
+	MethodAssemblySetFlexible            = "assembly.setFlexible"      // M12-F06
+	MethodAssemblySetFlexibleChild       = "assembly.setFlexibleChild" // M12-F06 independent solve
+	MethodAssemblyReplace                = "assembly.replace"
+	MethodAssemblyRemove                 = "assembly.remove"
 
 	// Assembly replication (M11-F04, Oblikovati#729): replicate placed components —
 	// pattern (circular/rectangular), mirror across a plane, independent copy, and
@@ -697,7 +698,7 @@ const (
 	EventAssemblyJointDeleted = "assemblyJoints.deleted"
 
 	// Representation/model-state events (M12-F04, Oblikovati#361/#367).
-	EventRepresentationCaptured = "representations.captured"
+	EventRepresentationCaptured  = "representations.captured"
 	EventRepresentationActivated = "representations.activated"
 	EventModelStateActivated     = "modelStates.activated"
 )

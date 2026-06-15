@@ -40,6 +40,20 @@ func (a Assembly) PlaceByDefinition(args wire.PlaceByDefinitionArgs) (wire.Occur
 	return r, a.c.call(wire.MethodAssemblyPlaceByDefinition, args, &r)
 }
 
+// PlaceByDefinitionBatch places many instances of the component an existing occurrence already
+// instances, in ONE call, e.g. PlaceByDefinitionBatch(wire.PlaceByDefinitionBatchArgs{Source: occID,
+// Placements: []wire.BatchPlacement{{Name: "pin:2", Transform: t2}, {Name: "pin:3", Transform: t3}}}).
+// For a large assembly this is far faster than PlaceByDefinition in a loop: a live host recomputes
+// once for the whole batch instead of once per copy.
+//
+// mcp:tool place_component_copies
+// mcp:summary Place MANY instances of the component an existing occurrence (source: its id) already instances, in one call — placements is a list of {name, transform (16-cell row-major)}. Far faster than place_component_copy per copy for a large assembly (one recompute, not one per placement). Returns the new occurrences in order.
+// mcp:input placeComponentCopiesArg
+func (a Assembly) PlaceByDefinitionBatch(args wire.PlaceByDefinitionBatchArgs) (wire.PlaceByDefinitionBatchResult, error) {
+	var r wire.PlaceByDefinitionBatchResult
+	return r, a.c.call(wire.MethodAssemblyPlaceByDefinitionBatch, args, &r)
+}
+
 // Transform repositions the occurrence, e.g. Transform(wire.TransformOccurrenceArgs{ID: id, Transform: t}).
 //
 // mcp:tool transform_occurrence
