@@ -317,6 +317,35 @@ const (
 	// optional collision-stop.
 	MethodAssemblyDrivePreview = "assemblyDrive.preview"
 
+	// Assembly representations (M12-F04, Oblikovati#361/#367): the three override-layer
+	// families — design-view, positional, level-of-detail — plus model states selecting one
+	// of each. Capture snapshots the current scene; activate applies a representation.
+	MethodDesignRepsCapture       = "designReps.capture"
+	MethodDesignRepsActivate      = "designReps.activate"
+	MethodDesignRepsList          = "designReps.list"
+	MethodDesignRepsDelete        = "designReps.delete"
+	MethodDesignRepsSetVisibility = "designReps.setVisibility"
+	MethodDesignRepsSetAppearance = "designReps.setAppearance"
+	MethodDesignRepsAddSection    = "designReps.addSection"
+
+	MethodPositionalRepsCapture     = "positionalReps.capture"
+	MethodPositionalRepsActivate    = "positionalReps.activate"
+	MethodPositionalRepsList        = "positionalReps.list"
+	MethodPositionalRepsDelete      = "positionalReps.delete"
+	MethodPositionalRepsSetOverride = "positionalReps.setOverride"
+	MethodPositionalRepsSetFlexible = "positionalReps.setFlexible"
+
+	MethodLODRepsCapture       = "lodReps.capture"
+	MethodLODRepsActivate      = "lodReps.activate"
+	MethodLODRepsList          = "lodReps.list"
+	MethodLODRepsDelete        = "lodReps.delete"
+	MethodLODRepsSetSuppressed = "lodReps.setSuppressed"
+
+	MethodModelStatesCreate   = "modelStates.create"
+	MethodModelStatesActivate = "modelStates.activate"
+	MethodModelStatesList     = "modelStates.list"
+	MethodModelStatesDelete   = "modelStates.delete"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
@@ -647,6 +676,11 @@ const (
 	// combined solve raises).
 	EventAssemblyJointAdded   = "assemblyJoints.added"
 	EventAssemblyJointDeleted = "assemblyJoints.deleted"
+
+	// Representation/model-state events (M12-F04, Oblikovati#361/#367).
+	EventRepresentationCaptured = "representations.captured"
+	EventRepresentationActivated = "representations.activated"
+	EventModelStateActivated     = "modelStates.activated"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
