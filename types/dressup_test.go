@@ -43,3 +43,8 @@ func TestSplitTypeFrozenBlock(t *testing.T) {
 	want := map[SplitType]string{32769: "trimSolid", 32770: "splitFaces", 32771: "splitBody"}
 	assertFrozenBlock(t, "SplitType", want, splitTypeNames, ParseSplitType)
 }
+
+func TestChamferTypeFrozenBlock(t *testing.T) {
+	want := map[ChamferType]string{26881: "distance", 26882: "distanceAndAngle", 26883: "twoDistances"}
+	assertFrozenBlock(t, "ChamferType", want, chamferTypeNames, ParseChamferType)
+}

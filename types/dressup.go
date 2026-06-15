@@ -140,3 +140,30 @@ func (t SplitType) String() string { return enumName(splitTypeNames, t) }
 
 // ParseSplitType resolves a wire spelling back to its type.
 func ParseSplitType(s string) (SplitType, bool) { return enumFromName(splitTypeNames, s) }
+
+// ChamferType discriminates how an edge chamfer's setback is specified (parity:
+// ChamferDefinitionType): an equal distance on both faces, a distance on one face plus the
+// chamfer-face angle, or two independent distances (asymmetric). The numeric values are
+// frozen at the reference API's ids and must never be renumbered.
+type ChamferType int32
+
+const (
+	// ChamferDistance — equal setback distance along both adjacent faces.
+	ChamferDistance ChamferType = 26881
+	// ChamferDistanceAndAngle — a distance on the first face and the chamfer-face angle.
+	ChamferDistanceAndAngle ChamferType = 26882
+	// ChamferTwoDistances — independent setback distances on each adjacent face (asymmetric).
+	ChamferTwoDistances ChamferType = 26883
+)
+
+var chamferTypeNames = map[ChamferType]string{
+	ChamferDistance:         "distance",
+	ChamferDistanceAndAngle: "distanceAndAngle",
+	ChamferTwoDistances:     "twoDistances",
+}
+
+// String returns the chamfer type's wire spelling.
+func (t ChamferType) String() string { return enumName(chamferTypeNames, t) }
+
+// ParseChamferType resolves a wire spelling back to its type.
+func ParseChamferType(s string) (ChamferType, bool) { return enumFromName(chamferTypeNames, s) }
