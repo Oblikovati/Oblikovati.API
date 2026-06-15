@@ -56,6 +56,29 @@ type PlaceByDefinitionArgs struct {
 	Transform types.Matrix `json:"transform"`
 }
 
+// BatchPlacement is one entry of a [PlaceByDefinitionBatchArgs]: the new occurrence's Name and its
+// Transform (a 4×4 placement in the assembly's space).
+type BatchPlacement struct {
+	Name      string       `json:"name"`
+	Transform types.Matrix `json:"transform"`
+}
+
+// PlaceByDefinitionBatchArgs is the request of [MethodAssemblyPlaceByDefinitionBatch]: place MANY
+// instances of the component Source already instances, in one call. Placing copies one at a time
+// bumps the assembly's geometry version per call, so a live host recomputes/re-tessellates per
+// placement — batching collapses that to a single recompute, the difference between minutes and
+// seconds for a large (e.g. 10k-fastener) assembly.
+type PlaceByDefinitionBatchArgs struct {
+	Source     uint64           `json:"source"`
+	Placements []BatchPlacement `json:"placements"`
+}
+
+// PlaceByDefinitionBatchResult is the response of [MethodAssemblyPlaceByDefinitionBatch]: the new
+// occurrences in placement order.
+type PlaceByDefinitionBatchResult struct {
+	Occurrences []OccurrenceInfo `json:"occurrences"`
+}
+
 // TransformOccurrenceArgs is the request of [MethodAssemblyTransform]: reposition the
 // occurrence with id ID to Transform (its placement in the assembly's space).
 type TransformOccurrenceArgs struct {
