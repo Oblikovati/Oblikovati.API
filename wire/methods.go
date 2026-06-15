@@ -312,6 +312,11 @@ const (
 	MethodDSJointsSetImposedMotion = "dsJoints.setImposedMotion"
 	MethodDSJointsDelete           = "dsJoints.delete"
 
+	// Assembly drive (M12-F03, Oblikovati#366): sweep a joint's driven variable through a
+	// range, re-solving each step, to animate the assembly (kinematic motion study) with an
+	// optional collision-stop.
+	MethodAssemblyDrivePreview = "assemblyDrive.preview"
+
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
