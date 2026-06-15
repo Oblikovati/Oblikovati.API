@@ -75,7 +75,8 @@ func (d DesignReps) SetAppearance(args wire.SetAppearanceArgs) (wire.DesignViewR
 // AddSection adds a section/clipping plane to a design-view representation.
 //
 // mcp:tool add_design_view_section
-// mcp:summary Add a section/clipping plane (origin + normal, optional flipped) to a design-view representation. Returns the updated representation.
+// mcp:input addSectionArg
+// mcp:summary Add a section/clipping plane (origin + normal as [x,y,z], optional flipped) to a design-view representation. Returns the updated representation.
 func (d DesignReps) AddSection(args wire.AddSectionArgs) (wire.DesignViewResult, error) {
 	var r wire.DesignViewResult
 	return r, d.c.call(wire.MethodDesignRepsAddSection, args, &r)
