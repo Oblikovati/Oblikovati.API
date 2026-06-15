@@ -1,8 +1,11 @@
-# Tag and publish a release when the api.Version constant is bumped on develop.
-# Reads the version from version.go and, if the matching vX.Y.Z tag does not yet
-# exist, creates the tag and a GitHub release from the changelog. Idempotent: a
-# push that does not change Version is a no-op (the tag already exists), so
-# unrelated merges to develop never re-tag.
+# Auto-version, tag, and publish a release on every merge to develop.
+#
+# The version is no longer hand-edited: this workflow derives the next Semantic Version
+# from the SCOPE of the conventional-commit messages merged since the last tag (feat →
+# minor, fix → patch, "!"/BREAKING CHANGE → major; while 0.x both feat and breaking move
+# minor — see RELEASING.md), via scripts/nextver. It then rewrites version.go +
+# CHANGELOG.md, commits that back to develop with [skip ci], tags vX.Y.Z, and publishes
+# the GitHub release. A merge whose commits are docs/chore/ci-only releases nothing.
 name: release
 
 on:
@@ -12,37 +15,62 @@ on:
 permissions:
   contents: write
 
+# Serialize releases so two merges can't race to bump/tag the same version.
 concurrency:
   group: release
   cancel-in-progress: false
 
 jobs:
-  tag:
+  release:
+    # Don't re-run on our own "[skip ci]" version-bump commit (belt-and-suspenders: GitHub
+    # already skips the run for [skip ci] push events).
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Read api.Version
-        id: version
-        run: |
-          v=$(grep -oE 'Version = "[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?"' version.go | head -1 | sed -E 's/.*"(.*)"/\1/')
-          if [ -z "$v" ]; then
-            echo "could not read Version from version.go" >&2
-            exit 1
-          fi
-          echo "tag=v$v" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
 
-      - name: Create tag and release if new
+      - name: Derive next version from commit scope and apply
+        id: bump
+        run: |
+          last=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
+          range=${last:+$last..HEAD}
+          echo "commit range: ${range:-<all history>} (last tag: ${last:-none})"
+          out=$(git log $range --no-merges --format='%B%x00' \
+            | go run ./scripts/nextver -apply -dir . -notes-out "$RUNNER_TEMP/notes.md")
+          next=$(printf '%s\n' "$out" | sed -n 's/^next=//p')
+          if [ -z "$next" ]; then
+            echo "No releasable change since ${last:-the start}; nothing to do."
+            exit 0
+          fi
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          echo "tag=v$next" >> "$GITHUB_OUTPUT"
+
+      - name: Validate the bumped version (semver + handshake invariants)
+        if: ${{ steps.bump.outputs.next }}
+        run: go test ./...
+
+      - name: Commit the bump, tag, and publish
+        if: ${{ steps.bump.outputs.next }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag='${{ steps.version.outputs.tag }}'
+          tag='${{ steps.bump.outputs.tag }}'
           if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-            echo "$tag already released; nothing to do."
+            echo "$tag already exists; nothing to do."
             exit 0
           fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add version.go CHANGELOG.md
+          git commit -m "chore(release): $tag [skip ci]"
+          git push origin "HEAD:develop"
           git tag "$tag"
           git push origin "$tag"
-          gh release create "$tag" --title "$tag" --notes "See CHANGELOG.md for ${tag#v}."
+          gh release create "$tag" --title "$tag" --notes-file "$RUNNER_TEMP/notes.md"

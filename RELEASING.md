@@ -23,19 +23,39 @@ alters a wire DTO's JSON shape such that an existing peer would misread it.
   `/v3`, … . A backward-compatible addition bumps the **MINOR**; a fix bumps the
   **PATCH**.
 
-## Cutting a release
+## Cutting a release (automatic)
 
-1. Determine the new version from the changes since the last tag, per the policy
-   above.
-2. Bump `Version` in `version.go`.
-3. In `CHANGELOG.md`, move the `## [Unreleased]` entries under a new
-   `## [x.y.z] - YYYY-MM-DD` heading and refresh the compare links at the bottom.
-4. Open a PR; merge to `develop` once CI is green.
-5. On the merge, the release workflow
-   ([`.github/workflows/release.yml`](.github/workflows/release.yml)) reads
-   `version.go`, creates the `vx.y.z` tag, and publishes a GitHub release. It is
-   idempotent: a push that does not change `Version` is a no-op because the tag
-   already exists, so unrelated merges to `develop` never re-tag.
+Releases are **not** hand-cut. On every merge to `develop` the release workflow
+([`.github/workflows/release.yml`](.github/workflows/release.yml)) derives the next
+version from the **scope of the commits merged since the last tag** and does the rest:
+
+1. [`scripts/nextver`](scripts/nextver) reads the conventional-commit messages since the
+   last `vX.Y.Z` tag, picks the strongest scope, and applies the policy above to compute
+   the next version.
+2. It rewrites `Version` in `version.go` and rolls `CHANGELOG.md` (moves `## [Unreleased]`
+   over a new `## [x.y.z] - DATE` section and refreshes the compare links).
+3. The workflow commits that back to `develop` as `chore(release): vX.Y.Z [skip ci]`
+   (the `[skip ci]` stops the bump commit from triggering another release), tags
+   `vx.y.z`, and publishes the GitHub release with notes from the changelog section.
+
+A merge whose commits are all `docs`/`chore`/`ci`/`test`/`refactor` releases nothing.
+
+### Telling the workflow the scope: conventional commits
+
+The bump is only as correct as the commit subjects, so use
+[Conventional Commits](https://www.conventionalcommits.org):
+
+| Commit subject | Scope | 0.x bump | ≥1.0 bump |
+| --- | --- | --- | --- |
+| `feat: …` / `feat(scope): …` | additive | MINOR | MINOR |
+| `fix: …` / `perf:` / `revert:` | fix | PATCH | PATCH |
+| `feat!: …` or a `BREAKING CHANGE:` footer | breaking | MINOR | MAJOR |
+| `docs:`/`chore:`/`ci:`/`test:`/`style:`/`build:`/`refactor:` | none | — | — |
+
+Any **unrecognized** subject (no conventional type, e.g. `wire: add …`) is treated as a
+conservative **PATCH** so the version never silently stalls — but an additive surface
+change deserves a MINOR, so prefix it with `feat:`. The logic lives in `scripts/nextver`
+and is covered by `go test ./scripts/nextver`.
 
 ## Consuming a release
 
