@@ -64,7 +64,7 @@ type FeatureDetailResult struct {
 }
 
 // EditFeatureArgs is the request of [MethodFeaturesEdit]: set editable scalars of
-// the feature in place (Inventor's Edit Feature). Every edit is validated before
+// the feature in place (an in-place edit-feature). Every edit is validated before
 // any is applied, then the part recomputes once. Scalar indices come from
 // [FeatureDetail.Scalars]; values are unit-bearing expressions ("5 mm", "30 deg").
 type EditFeatureArgs struct {

@@ -323,6 +323,11 @@ const (
 
 	MethodWorkPointsCreate = "workPoints.create"
 
+	MethodWorkSurfacesList       = "workSurfaces.list"
+	MethodWorkSurfacesGet        = "workSurfaces.get"
+	MethodWorkSurfacesSetVisible = "workSurfaces.setVisible"
+	MethodWorkSurfacesRename     = "workSurfaces.rename"
+
 	MethodThemeActive = "theme.active"
 	MethodThemeList   = "theme.list"
 
