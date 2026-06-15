@@ -22,14 +22,17 @@ type DeriveCreateArgs struct {
 // open assembly document Source into the active part as a simplified, lightweight base
 // body. RemoveStyle/MinPartVolume drop parts before merging (MinPartVolume in document
 // units³ applies to RemoveSmallParts); EnvelopeStyle replaces the kept parts with
-// bounding-box proxies; PatchHoles fills internal voids first. The zero options reduce
-// to a plain include-all derive.
+// bounding-box proxies; PatchHoles fills internal voids first; MaxHoleDiameter (when > 0,
+// document units) caps surface-opening through-holes/pockets no wider than it, closing them
+// flush while keeping the real outer geometry. The zero options reduce to a plain include-all
+// derive.
 type ShrinkwrapCreateArgs struct {
-	Source        uint64                        `json:"source"`
-	RemoveStyle   types.ShrinkwrapRemoveStyle   `json:"removeStyle,omitempty"`
-	MinPartVolume float64                       `json:"minPartVolume,omitempty"`
-	EnvelopeStyle types.ShrinkwrapEnvelopeStyle `json:"envelopeStyle,omitempty"`
-	PatchHoles    bool                          `json:"patchHoles,omitempty"`
+	Source          uint64                        `json:"source"`
+	RemoveStyle     types.ShrinkwrapRemoveStyle   `json:"removeStyle,omitempty"`
+	MinPartVolume   float64                       `json:"minPartVolume,omitempty"`
+	EnvelopeStyle   types.ShrinkwrapEnvelopeStyle `json:"envelopeStyle,omitempty"`
+	PatchHoles      bool                          `json:"patchHoles,omitempty"`
+	MaxHoleDiameter float64                       `json:"maxHoleDiameter,omitempty"`
 }
 
 // DeriveBreakLinkArgs is the request of [MethodAssemblyDeriveBreakLink]: freeze and
