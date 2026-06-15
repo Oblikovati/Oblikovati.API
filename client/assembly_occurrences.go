@@ -68,6 +68,16 @@ func (a Assembly) Suppress(id uint64, suppressed bool) (wire.OccurrenceResult, e
 	return r, a.c.call(wire.MethodAssemblySuppress, wire.SuppressOccurrenceArgs{ID: id, Suppressed: suppressed}, &r)
 }
 
+// SetFlexible marks a subassembly occurrence flexible (it solves independently per placement)
+// or rigid, e.g. SetFlexible(id, true).
+//
+// mcp:tool set_flexible_occurrence
+// mcp:summary Mark a subassembly occurrence (id) flexible (flexible:true — its components solve independently per placement of the shared definition) or rigid. Mutually exclusive with adaptive; only a subassembly occurrence can be flexible (M12-F06).
+func (a Assembly) SetFlexible(id uint64, flexible bool) (wire.OccurrenceResult, error) {
+	var r wire.OccurrenceResult
+	return r, a.c.call(wire.MethodAssemblySetFlexible, wire.SetFlexibleOccurrenceArgs{ID: id, Flexible: flexible}, &r)
+}
+
 // Replace swaps the occurrence's component for the one held by the open document (by id),
 // keeping the occurrence's id/name/transform/state, e.g. Replace(occID, docID).
 //

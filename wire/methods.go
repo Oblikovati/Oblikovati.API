@@ -235,6 +235,7 @@ const (
 	MethodAssemblyTransform         = "assembly.transform"
 	MethodAssemblyGround            = "assembly.ground"
 	MethodAssemblySuppress          = "assembly.suppress"
+	MethodAssemblySetFlexible       = "assembly.setFlexible" // M12-F06
 	MethodAssemblyReplace           = "assembly.replace"
 	MethodAssemblyRemove            = "assembly.remove"
 
@@ -316,6 +317,47 @@ const (
 	// range, re-solving each step, to animate the assembly (kinematic motion study) with an
 	// optional collision-stop.
 	MethodAssemblyDrivePreview = "assemblyDrive.preview"
+
+	// Assembly representations (M12-F04, Oblikovati#361/#367): the three override-layer
+	// families — design-view, positional, level-of-detail — plus model states selecting one
+	// of each. Capture snapshots the current scene; activate applies a representation.
+	MethodDesignRepsCapture       = "designReps.capture"
+	MethodDesignRepsActivate      = "designReps.activate"
+	MethodDesignRepsList          = "designReps.list"
+	MethodDesignRepsDelete        = "designReps.delete"
+	MethodDesignRepsSetVisibility = "designReps.setVisibility"
+	MethodDesignRepsSetAppearance = "designReps.setAppearance"
+	MethodDesignRepsAddSection    = "designReps.addSection"
+
+	MethodPositionalRepsCapture     = "positionalReps.capture"
+	MethodPositionalRepsActivate    = "positionalReps.activate"
+	MethodPositionalRepsList        = "positionalReps.list"
+	MethodPositionalRepsDelete      = "positionalReps.delete"
+	MethodPositionalRepsSetOverride = "positionalReps.setOverride"
+	MethodPositionalRepsSetFlexible = "positionalReps.setFlexible"
+
+	MethodLODRepsCapture       = "lodReps.capture"
+	MethodLODRepsActivate      = "lodReps.activate"
+	MethodLODRepsList          = "lodReps.list"
+	MethodLODRepsDelete        = "lodReps.delete"
+	MethodLODRepsSetSuppressed = "lodReps.setSuppressed"
+
+	MethodModelStatesCreate   = "modelStates.create"
+	MethodModelStatesActivate = "modelStates.activate"
+	MethodModelStatesList     = "modelStates.list"
+	MethodModelStatesDelete   = "modelStates.delete"
+
+	// Assembly contact & interference (M12-F05, Oblikovati#362/#368): contact sets (resist
+	// interpenetration when dragged), the contact-solver toggle, and static interference
+	// analysis (overlapping volumes between occurrences).
+	MethodContactSetsCreate       = "contactSets.create"
+	MethodContactSetsList         = "contactSets.list"
+	MethodContactSetsDelete       = "contactSets.delete"
+	MethodContactSetsAddMember    = "contactSets.addMember"
+	MethodContactSetsRemoveMember = "contactSets.removeMember"
+	MethodContactSolverSetEnabled = "contactSolver.setEnabled"
+	MethodContactSolverStatus     = "contactSolver.status"
+	MethodInterferenceAnalyze     = "interference.analyze"
 
 	MethodWorkPlanesList     = "workPlanes.list"
 	MethodWorkPlanesCreate   = "workPlanes.create"
@@ -652,6 +694,11 @@ const (
 	// combined solve raises).
 	EventAssemblyJointAdded   = "assemblyJoints.added"
 	EventAssemblyJointDeleted = "assemblyJoints.deleted"
+
+	// Representation/model-state events (M12-F04, Oblikovati#361/#367).
+	EventRepresentationCaptured = "representations.captured"
+	EventRepresentationActivated = "representations.activated"
+	EventModelStateActivated     = "modelStates.activated"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

@@ -20,6 +20,7 @@ type OccurrenceInfo struct {
 	Suppressed bool             `json:"suppressed,omitempty"`
 	Grounded   bool             `json:"grounded,omitempty"`
 	Adaptive   bool             `json:"adaptive,omitempty"`
+	Flexible   bool             `json:"flexible,omitempty"` // subassembly solves independently per placement (M12-F06)
 	Substitute bool             `json:"substitute,omitempty"`
 	Children   []OccurrenceInfo `json:"children,omitempty"`
 }
@@ -74,6 +75,15 @@ type GroundOccurrenceArgs struct {
 type SuppressOccurrenceArgs struct {
 	ID         uint64 `json:"id"`
 	Suppressed bool   `json:"suppressed"`
+}
+
+// SetFlexibleOccurrenceArgs is the request of [MethodAssemblySetFlexible] (M12-F06): mark the
+// subassembly occurrence with id ID flexible (Flexible=true) so it solves its components
+// independently per placement, or rigid. Mutually exclusive with adaptive; only a subassembly
+// occurrence can be flexible.
+type SetFlexibleOccurrenceArgs struct {
+	ID       uint64 `json:"id"`
+	Flexible bool   `json:"flexible"`
 }
 
 // ReplaceOccurrenceArgs is the request of [MethodAssemblyReplace]: swap the component of the
