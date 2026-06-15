@@ -47,7 +47,7 @@ func (cm Commands) SubmitLine(line string) (wire.CommandLineResult, error) {
 // where it runs the button's action (typically further client calls).
 //
 // mcp:tool create_command
-// mcp:summary Register a ribbon button (Inventor's ButtonDefinition): id + displayName, with optional ribbon/tab/category/environment placement. Clicking it fires a command.ended event.
+// mcp:summary Register a ribbon button definition: id + displayName, with optional ribbon/tab/category/environment placement. Clicking it fires a command.ended event.
 func (cm Commands) Create(args wire.CreateCommandArgs) (wire.OKResult, error) {
 	var r wire.OKResult
 	return r, cm.c.call(wire.MethodCommandsCreate, args, &r)
