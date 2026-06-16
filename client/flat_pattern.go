@@ -80,3 +80,31 @@ func (f FlatPattern) MapEntity(args wire.MapEntityArgs) (wire.MapEntityResult, e
 	var r wire.MapEntityResult
 	return r, f.c.call(wire.MethodFlatPatternMapEntity, args, &r)
 }
+
+// ListPlates returns the developed flat's plates — one per connected flat region — with each
+// plate's extents/area under the active orientation.
+//
+// mcp:tool flat_pattern_list_plates
+// mcp:summary List the developed flat's plates (one per connected flat region of the sheet-metal part) with each plate's length/width/area under the active orientation.
+func (f FlatPattern) ListPlates() (wire.PlatesResult, error) {
+	var r wire.PlatesResult
+	return r, f.c.call(wire.MethodFlatPatternListPlates, struct{}{}, &r)
+}
+
+// GetSettings returns the part's flat-pattern settings.
+//
+// mcp:tool flat_pattern_get_settings
+// mcp:summary Report the active sheet-metal part's flat-pattern settings (deferUpdate: whether the flat only recomputes on demand).
+func (f FlatPattern) GetSettings() (wire.SettingsResult, error) {
+	var r wire.SettingsResult
+	return r, f.c.call(wire.MethodFlatPatternGetSettings, struct{}{}, &r)
+}
+
+// SetSettings edits the part's flat-pattern settings.
+//
+// mcp:tool flat_pattern_set_settings
+// mcp:summary Edit the flat-pattern settings (deferUpdate: suppress the automatic flat recompute so a heavy flat develops only on demand). Returns the updated settings.
+func (f FlatPattern) SetSettings(args wire.SetSettingsArgs) (wire.SettingsResult, error) {
+	var r wire.SettingsResult
+	return r, f.c.call(wire.MethodFlatPatternSetSettings, args, &r)
+}
