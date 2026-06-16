@@ -8,6 +8,11 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(exchange): add DWG import surface — `FormatDWG`, the `import.dwg` wire method
+  with `ImportDWGArgs`/`ImportDWGResult`, and the `Client.ImportDWG` typed call
+
 ## [0.14.0] - 2026-06-16
 
 ### Added

@@ -20,12 +20,23 @@ const (
 	Format3MF ExchangeFormat = "3mf"
 	// FormatSTEP reserves the ISO 10303 B-rep format (translator ships separately, M17-F02).
 	FormatSTEP ExchangeFormat = "step"
+	// FormatDWG is the AutoCAD DWG drawing format. Unlike the mesh/B-rep formats it
+	// carries 2D/3D curve geometry, so it imports into a sketch (2D Sketch on a chosen
+	// plane, or Sketch3D) rather than into surface bodies.
+	FormatDWG ExchangeFormat = "dwg"
 )
 
 // IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
 // the mesh-exchange translator handles. STEP is a B-rep format (a different translator).
 func (f ExchangeFormat) IsMesh() bool {
 	return f == FormatSTL || f == FormatOBJ || f == Format3MF
+}
+
+// IsSketch reports whether the format imports as sketch curve geometry (DWG) rather
+// than as surface bodies (mesh/STEP). Such an import targets a sketch and, when 2D,
+// a chosen work plane.
+func (f ExchangeFormat) IsSketch() bool {
+	return f == FormatDWG
 }
 
 // MeshResolution selects the tessellation density of an exported mesh: coarser (low)
