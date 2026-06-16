@@ -138,3 +138,24 @@ type SettingsResult struct {
 type SetSettingsArgs struct {
 	DeferUpdate bool `json:"deferUpdate,omitempty"`
 }
+
+// BendOrderInfo is one bend's place in the press-brake sequence: the feature that created it,
+// its 1-based order, and its bend angle (degrees) and inside radius (database units cm).
+type BendOrderInfo struct {
+	Feature string  `json:"feature"`
+	Order   int     `json:"order"`
+	Angle   float64 `json:"angle"`
+	Radius  float64 `json:"radius"`
+}
+
+// BendOrderResult is the reply of listBendOrder/setBendOrder: the part's bends in order.
+type BendOrderResult struct {
+	Bends []BendOrderInfo `json:"bends"`
+}
+
+// SetBendOrderArgs sets the bend sequence: Order lists the bend features (by name) in the
+// desired order; any bend the list omits keeps its natural (creation) order after the listed
+// ones. An empty Order resets to the natural order.
+type SetBendOrderArgs struct {
+	Order []string `json:"order"`
+}

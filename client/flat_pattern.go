@@ -108,3 +108,23 @@ func (f FlatPattern) SetSettings(args wire.SetSettingsArgs) (wire.SettingsResult
 	var r wire.SettingsResult
 	return r, f.c.call(wire.MethodFlatPatternSetSettings, args, &r)
 }
+
+// ListBendOrder returns the part's bends in their press-brake sequence (each with its 1-based
+// order, angle and radius).
+//
+// mcp:tool flat_pattern_list_bend_order
+// mcp:summary List the sheet-metal part's bends in press-brake sequence order (feature, 1-based order, angle, radius) — the bend-order annotation shown on the flat pattern.
+func (f FlatPattern) ListBendOrder() (wire.BendOrderResult, error) {
+	var r wire.BendOrderResult
+	return r, f.c.call(wire.MethodFlatPatternListBendOrder, struct{}{}, &r)
+}
+
+// SetBendOrder sets the bend sequence: Order lists the bend features by name; omitted bends
+// keep their natural order after the listed ones (an empty Order resets to natural).
+//
+// mcp:tool flat_pattern_set_bend_order
+// mcp:summary Set the press-brake bend sequence by listing the bend features in order (omitted bends keep natural order after them; empty resets to creation order). Returns the new order.
+func (f FlatPattern) SetBendOrder(args wire.SetBendOrderArgs) (wire.BendOrderResult, error) {
+	var r wire.BendOrderResult
+	return r, f.c.call(wire.MethodFlatPatternSetBendOrder, args, &r)
+}
