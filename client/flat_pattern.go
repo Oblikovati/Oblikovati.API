@@ -128,3 +128,30 @@ func (f FlatPattern) SetBendOrder(args wire.SetBendOrderArgs) (wire.BendOrderRes
 	var r wire.BendOrderResult
 	return r, f.c.call(wire.MethodFlatPatternSetBendOrder, args, &r)
 }
+
+// AddCenterline adds a cosmetic centerline (a manufacturing annotation line) to the flat.
+//
+// mcp:tool flat_pattern_add_centerline
+// mcp:summary Add a cosmetic centerline (an annotation line from start to end, in flat 2D coordinates) to the flat pattern. Returns all centerlines.
+func (f FlatPattern) AddCenterline(args wire.AddCenterlineArgs) (wire.CenterlinesResult, error) {
+	var r wire.CenterlinesResult
+	return r, f.c.call(wire.MethodFlatPatternAddCenterline, args, &r)
+}
+
+// ListCenterlines returns the flat's cosmetic centerlines.
+//
+// mcp:tool flat_pattern_list_centerlines
+// mcp:summary List the flat pattern's cosmetic centerlines (each an index and a start→end line segment in flat 2D coordinates).
+func (f FlatPattern) ListCenterlines() (wire.CenterlinesResult, error) {
+	var r wire.CenterlinesResult
+	return r, f.c.call(wire.MethodFlatPatternListCenterlines, struct{}{}, &r)
+}
+
+// DeleteCenterline removes the cosmetic centerline at the given index.
+//
+// mcp:tool flat_pattern_delete_centerline
+// mcp:summary Delete the flat pattern's cosmetic centerline at the given index. Returns the remaining centerlines.
+func (f FlatPattern) DeleteCenterline(args wire.DeleteCenterlineArgs) (wire.CenterlinesResult, error) {
+	var r wire.CenterlinesResult
+	return r, f.c.call(wire.MethodFlatPatternDeleteCenterline, args, &r)
+}

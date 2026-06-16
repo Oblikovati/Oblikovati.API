@@ -250,6 +250,12 @@ const (
 	// pattern and in drawing views.
 	MethodFlatPatternListBendOrder = "flatPattern.listBendOrder"
 	MethodFlatPatternSetBendOrder  = "flatPattern.setBendOrder"
+	// Cosmetic centerlines (M13-F06, Oblikovati#809): annotation lines drawn on the flat
+	// pattern (e.g. a hole-pattern centerline) for manufacturing reference. They persist and
+	// appear on the flat and in drawing views.
+	MethodFlatPatternAddCenterline    = "flatPattern.addCenterline"
+	MethodFlatPatternListCenterlines  = "flatPattern.listCenterlines"
+	MethodFlatPatternDeleteCenterline = "flatPattern.deleteCenterline"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

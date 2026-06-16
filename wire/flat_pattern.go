@@ -159,3 +159,28 @@ type BendOrderResult struct {
 type SetBendOrderArgs struct {
 	Order []string `json:"order"`
 }
+
+// CenterlineInfo is one cosmetic centerline on the flat: its index and the line segment
+// (start→end) in flat 2D coordinates (database units, cm).
+type CenterlineInfo struct {
+	Index int           `json:"index"`
+	Start types.Point2d `json:"start"`
+	End   types.Point2d `json:"end"`
+}
+
+// CenterlinesResult is the reply of addCenterline/listCenterlines/deleteCenterline: the flat's
+// cosmetic centerlines.
+type CenterlinesResult struct {
+	Centerlines []CenterlineInfo `json:"centerlines"`
+}
+
+// AddCenterlineArgs adds a cosmetic centerline from Start to End in flat 2D coordinates.
+type AddCenterlineArgs struct {
+	Start types.Point2d `json:"start"`
+	End   types.Point2d `json:"end"`
+}
+
+// DeleteCenterlineArgs removes the cosmetic centerline at Index.
+type DeleteCenterlineArgs struct {
+	Index int `json:"index"`
+}
