@@ -204,6 +204,15 @@ const (
 	MethodFeaturesSetSuppressed = "features.setSuppressed"
 	MethodFeaturesReorder       = "features.reorder"
 
+	// Sheet-metal rule/style surface (M13-F01, Oblikovati#373/#369): the active part's
+	// sheet-metal environment — its rule (thickness/bend-radius/relief/gap) and unfold
+	// method. getStyle reports the active rule; setStyle edits it and recomputes (the rule
+	// is parameter-backed, so a thickness/K-factor change repropagates to every wall);
+	// bendAllowance previews the developed flat length of one bend under the active method.
+	MethodSheetMetalGetStyle      = "sheetMetal.getStyle"
+	MethodSheetMetalSetStyle      = "sheetMetal.setStyle"
+	MethodSheetMetalBendAllowance = "sheetMetal.bendAllowance"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
