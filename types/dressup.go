@@ -29,6 +29,43 @@ func (t FilletType) String() string { return enumName(filletTypeNames, t) }
 // ParseFilletType resolves a wire spelling back to its type.
 func ParseFilletType(s string) (FilletType, bool) { return enumFromName(filletTypeNames, s) }
 
+// FilletCornerType selects how an edge fillet treats a corner where two filleted edges meet at a
+// vertex whose third edge stays sharp (the two rolling-ball cylinders cannot be joined by a single
+// sphere unless that third edge is also rounded). It is an Oblikovati extension with no reference-API
+// equivalent, so the numeric block below is OURS (chosen clear of the frozen reference blocks above)
+// — but, once shipped, it is equally frozen: never renumber.
+//
+//   - FilletCornerMiter — the two cylinders mutually trim along their intersection seam (a crease);
+//     the geometrically exact rolling-ball result for rounding only two of a corner's three edges.
+//   - FilletCornerSetback — a spherical corner patch tangent to the three faces, set back from the
+//     sharp edge by a small planar setback face (a smoothed corner; not the exact rolling-ball form).
+//   - FilletCornerRound — round the corner fully into a single sphere octant by also rolling over the
+//     third edge (the true 3-edge blend; the corner becomes G1-smooth all round).
+type FilletCornerType int32
+
+const (
+	// FilletCornerMiter is the default: a crease seam where the two cylinders mutually trim.
+	FilletCornerMiter FilletCornerType = 200001
+	// FilletCornerSetback is a spherical patch set back from the sharp edge by a planar face.
+	FilletCornerSetback FilletCornerType = 200002
+	// FilletCornerRound rounds the corner fully into a sphere octant (rolls over the third edge).
+	FilletCornerRound FilletCornerType = 200003
+)
+
+var filletCornerTypeNames = map[FilletCornerType]string{
+	FilletCornerMiter:   "miter",
+	FilletCornerSetback: "setback",
+	FilletCornerRound:   "round",
+}
+
+// String returns the corner type's wire spelling.
+func (t FilletCornerType) String() string { return enumName(filletCornerTypeNames, t) }
+
+// ParseFilletCornerType resolves a wire spelling back to its corner type.
+func ParseFilletCornerType(s string) (FilletCornerType, bool) {
+	return enumFromName(filletCornerTypeNames, s)
+}
+
 // FeatureApproximationType is the approximation a thicken / face-offset
 // feature may accept when the exact offset is not computable (#331 parity).
 // An exact result satisfies every bound below, so a kernel computing the

@@ -48,3 +48,9 @@ func TestChamferTypeFrozenBlock(t *testing.T) {
 	want := map[ChamferType]string{26881: "distance", 26882: "distanceAndAngle", 26883: "twoDistances"}
 	assertFrozenBlock(t, "ChamferType", want, chamferTypeNames, ParseChamferType)
 }
+
+// FilletCornerType is an Oblikovati extension (no reference enum); its block is ours but frozen.
+func TestFilletCornerTypeFrozenBlock(t *testing.T) {
+	want := map[FilletCornerType]string{200001: "miter", 200002: "setback", 200003: "round"}
+	assertFrozenBlock(t, "FilletCornerType", want, filletCornerTypeNames, ParseFilletCornerType)
+}

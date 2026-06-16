@@ -134,10 +134,13 @@ type AddAssemblyChamferArgs struct {
 }
 
 // AddAssemblyFilletArgs is the request of [MethodAssemblyFeaturesAddFillet]: round the given
-// component Edges to constant Radius (document units) on every participant.
+// component Edges to constant Radius (document units) on every participant. CornerType selects how a
+// vertex where two filleted edges meet (third edge sharp) is treated — a [types.FilletCornerType]
+// wire spelling ("miter" | "setback" | "round"); empty defaults to "miter".
 type AddAssemblyFilletArgs struct {
-	Edges  []AssemblyEdgeRef `json:"edges"`
-	Radius float64           `json:"radius"`
+	Edges      []AssemblyEdgeRef `json:"edges"`
+	Radius     float64           `json:"radius"`
+	CornerType string            `json:"cornerType,omitempty"`
 }
 
 // AssemblyFaceRef addresses a face of a placed component for an assembly face-edit feature:
