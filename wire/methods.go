@@ -597,6 +597,12 @@ const (
 	// Add-in UI environments (M05-F16, Oblikovati#667).
 	MethodUIRegisterEnvironment = "ui.registerEnvironment"
 	MethodUIActivateEnvironment = "ui.activateEnvironment"
+
+	// Application color schemes (M16-F06, Oblikovati#642): the named palettes (background,
+	// highlight, selection colors) the viewport and selection pipeline traffic in.
+	MethodColorSchemesList      = "colorSchemes.list"
+	MethodColorSchemesGetActive = "colorSchemes.getActive"
+	MethodColorSchemesSetActive = "colorSchemes.setActive"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
