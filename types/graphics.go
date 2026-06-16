@@ -23,8 +23,17 @@ const (
 	GraphicsTriangles GraphicsPrimitiveKind = "triangles"
 	// GraphicsTriangleStrip is a triangle strip (each vertex extends the previous two).
 	GraphicsTriangleStrip GraphicsPrimitiveKind = "triangleStrip"
+	// GraphicsTriangleFan is a triangle fan (each vertex joins the first and the previous).
+	GraphicsTriangleFan GraphicsPrimitiveKind = "triangleFan"
 	// GraphicsText is a world-anchored text label.
 	GraphicsText GraphicsPrimitiveKind = "text"
+	// GraphicsSurface renders an existing B-rep body/face by reference key, with an optional
+	// override color/transform — the SurfaceGraphics equivalent (geometry stays host-side).
+	GraphicsSurface GraphicsPrimitiveKind = "surface"
+	// GraphicsCurve renders an existing B-rep edge by reference key — the CurveGraphics equivalent.
+	GraphicsCurve GraphicsPrimitiveKind = "curve"
+	// GraphicsImage is a world- or screen-anchored image billboard (a textured quad).
+	GraphicsImage GraphicsPrimitiveKind = "image"
 )
 
 // GraphicsColorBinding says how a primitive's colors map onto its geometry. With

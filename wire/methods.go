@@ -481,6 +481,15 @@ const (
 	MethodClientGraphicsDelete     = "clientGraphics.delete"
 	MethodClientGraphicsSetVisible = "clientGraphics.setVisible"
 
+	// Client-graphics object model — targeted retained-mode mutations and the named
+	// color-mapper registry (M16-F05, Oblikovati#641). These move/toggle/flag a node without
+	// resubmitting its (possibly large) mesh; the group transport stays the bulk clientGraphics.set.
+	MethodGraphicsNodeSetTransform     = "graphicsNode.setTransform"
+	MethodGraphicsNodeSetVisible       = "graphicsNode.setVisible"
+	MethodGraphicsNodeSetSelectable    = "graphicsNode.setSelectable"
+	MethodClientGraphicsRegisterMapper = "clientGraphics.registerColorMapper"
+	MethodClientGraphicsListMappers    = "clientGraphics.listColorMappers"
+
 	MethodInteractionGraphicsUpdate = "interactionGraphics.update"
 	MethodInteractionGraphicsClear  = "interactionGraphics.clear"
 

@@ -95,6 +95,83 @@ func (g Graphics) AddLabel(clientID, text string, anchor []float64, color []floa
 	}))
 }
 
+// AddBodyOverlay renders an existing B-rep body/face (by its persistent reference key) as a
+// persistent overlay in an override color — the geometry stays host-side (no mesh shipped).
+//
+// mcp:tool add_body_overlay
+// mcp:summary Overlay an existing B-rep body/face (by reference key) in an override color, rendered host-side.
+func (g Graphics) AddBodyOverlay(clientID, bodyKey string, color []float32) (wire.SetClientGraphicsResult, error) {
+	return g.Set(oneShot(clientID, wire.GraphicsPrimitive{
+		Kind: string(types.GraphicsSurface), BodyKey: bodyKey, Color: color,
+	}))
+}
+
+// AddImage submits a world-anchored image billboard (a textured quad) sized in model units.
+//
+// mcp:tool add_image_overlay
+// mcp:summary Place an image billboard (textured quad) at a world point in the viewport.
+func (g Graphics) AddImage(clientID, imagePath string, anchor []float64, width, height float64) (wire.SetClientGraphicsResult, error) {
+	return g.Set(oneShot(clientID, wire.GraphicsPrimitive{
+		Kind: string(types.GraphicsImage), ImagePath: imagePath, Anchor: anchor,
+		ImageWidth: width, ImageHeight: height, Behavior: types.FrontFacingBehavior,
+	}))
+}
+
+// AddStripMesh submits a triangle-strip mesh in one color (coords xyz triples in strip order)
+// — the compact encoding for terrain/ribbon overlays.
+//
+// mcp:tool add_strip_mesh
+// mcp:summary Draw a triangle-strip mesh overlay in one color (vertices in strip order).
+func (g Graphics) AddStripMesh(clientID string, coords []float64, color []float32) (wire.SetClientGraphicsResult, error) {
+	return g.Set(oneShot(clientID, wire.GraphicsPrimitive{
+		Kind: string(types.GraphicsTriangleStrip), Coordinates: coords, Color: color,
+		ColorBinding: string(types.GraphicsColorOverall),
+	}))
+}
+
+// RegisterColorMapper stores a named, reusable color mapper that heatmap primitives reference
+// by name (via the MapperName field) instead of carrying an inline legend.
+//
+// mcp:tool register_color_mapper
+// mcp:summary Register a named, reusable heatmap color mapper shared across overlays.
+func (g Graphics) RegisterColorMapper(name string, mapper wire.GraphicsColorMapper) error {
+	return g.c.call(wire.MethodClientGraphicsRegisterMapper, wire.RegisterColorMapperArgs{Name: name, Mapper: mapper}, nil)
+}
+
+// ColorMappers lists the registered named color mappers.
+//
+// mcp:tool list_color_mappers
+// mcp:summary List the registered named color mappers.
+func (g Graphics) ColorMappers() (wire.ColorMappersResult, error) {
+	var r wire.ColorMappersResult
+	return r, g.c.call(wire.MethodClientGraphicsListMappers, nil, &r)
+}
+
+// SetNodeTransform moves one node within a group without resubmitting its geometry (transform
+// is a 16-element row-major matrix; empty resets to identity).
+//
+// mcp:tool set_graphics_node_transform
+// mcp:summary Move one client-graphics node (by id) without resending its mesh.
+func (g Graphics) SetNodeTransform(clientID, nodeID string, transform []float64) error {
+	return g.c.call(wire.MethodGraphicsNodeSetTransform, wire.SetNodeTransformArgs{ClientId: clientID, NodeId: nodeID, Transform: transform}, nil)
+}
+
+// SetNodeVisible toggles one node's visibility within a group without resubmitting geometry.
+//
+// mcp:tool set_graphics_node_visible
+// mcp:summary Show or hide one client-graphics node (by id) without resending its mesh.
+func (g Graphics) SetNodeVisible(clientID, nodeID string, visible bool) error {
+	return g.c.call(wire.MethodGraphicsNodeSetVisible, wire.SetNodeVisibleArgs{ClientId: clientID, NodeId: nodeID, Visible: visible}, nil)
+}
+
+// SetNodeSelectable toggles whether one node's primitives participate in picking.
+//
+// mcp:tool set_graphics_node_selectable
+// mcp:summary Toggle whether one client-graphics node (by id) is pickable.
+func (g Graphics) SetNodeSelectable(clientID, nodeID string, selectable bool) error {
+	return g.c.call(wire.MethodGraphicsNodeSetSelectable, wire.SetNodeSelectableArgs{ClientId: clientID, NodeId: nodeID, Selectable: selectable}, nil)
+}
+
 // oneShot wraps one primitive into a single-node persistent group request.
 func oneShot(clientID string, p wire.GraphicsPrimitive) wire.SetClientGraphicsArgs {
 	return wire.SetClientGraphicsArgs{
