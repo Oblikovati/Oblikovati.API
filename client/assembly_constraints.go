@@ -73,6 +73,16 @@ func (a AssemblyConstraints) AddInsert(args wire.AddInsertArgs) (wire.Constraint
 	return r, a.c.call(wire.MethodAssemblyConstraintsAddInsert, args, &r)
 }
 
+// Snap is "grip snap": it infers the assembly constraint that snaps geometry A (on the component to
+// move) onto target geometry B and re-solves, e.g. Snap(wire.SnapConstraintArgs{A: faceA, B: faceB}).
+//
+// mcp:tool assembly_snap_constrain
+// mcp:summary Grip snap: pick a geometry A on the component to move and a target B on another component; the host infers the constraint that snaps A onto B (planar faces -> mate/flush, cylinder axes -> insert, axis pair -> mate, plane+cylinder -> tangent, point -> coincident), creates it, and re-solves so the part jumps into place. prefer ("mate"|"flush"|"insert"|"tangent") overrides the inference. Returns the created constraint (its type is what was inferred).
+func (a AssemblyConstraints) Snap(args wire.SnapConstraintArgs) (wire.ConstraintResult, error) {
+	var r wire.ConstraintResult
+	return r, a.c.call(wire.MethodAssemblyConstraintsSnap, args, &r)
+}
+
 // AddSymmetry positions A and B symmetrically about a plane, e.g.
 // AddSymmetry(wire.AddSymmetryArgs{A: faceA, B: faceB, Plane: mid}).
 //
