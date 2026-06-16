@@ -14,6 +14,20 @@ func TestExchangeFormatIsMesh(t *testing.T) {
 	if FormatSTEP.IsMesh() {
 		t.Errorf("FormatSTEP.IsMesh() = true, want false (STEP is a B-rep format)")
 	}
+	if FormatDWG.IsMesh() {
+		t.Errorf("FormatDWG.IsMesh() = true, want false (DWG is a sketch/drawing format)")
+	}
+}
+
+func TestExchangeFormatIsSketch(t *testing.T) {
+	if !FormatDWG.IsSketch() {
+		t.Errorf("FormatDWG.IsSketch() = false, want true")
+	}
+	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatSTEP} {
+		if f.IsSketch() {
+			t.Errorf("%q.IsSketch() = true, want false", f)
+		}
+	}
 }
 
 func TestMeshResolutionNormalizedDefaultsToMedium(t *testing.T) {
