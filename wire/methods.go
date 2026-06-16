@@ -223,6 +223,14 @@ const (
 	// allowance with no model recompute.
 	MethodSheetMetalUnfold = "sheetMetal.unfold"
 
+	// Flat-pattern orientations (M13-F05, Oblikovati#635): named alignment states that frame
+	// the developed flat for drawing views and export. The active orientation drives the flat's
+	// reported length/width; orientations persist in the document.
+	MethodFlatPatternListOrientations    = "flatPattern.listOrientations"
+	MethodFlatPatternAddOrientation      = "flatPattern.addOrientation"
+	MethodFlatPatternActivateOrientation = "flatPattern.activateOrientation"
+	MethodFlatPatternDeleteOrientation   = "flatPattern.deleteOrientation"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
