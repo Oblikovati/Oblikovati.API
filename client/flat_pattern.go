@@ -50,3 +50,22 @@ func (f FlatPattern) DeleteOrientation(args wire.DeleteOrientationArgs) (wire.Or
 	var r wire.OrientationsResult
 	return r, f.c.call(wire.MethodFlatPatternDeleteOrientation, args, &r)
 }
+
+// EdgesOfType returns the developed flat's classified fold/tangent edges, optionally filtered
+// to one type (bendUp/bendDown/tangent).
+//
+// mcp:tool flat_pattern_edges_of_type
+// mcp:summary List the developed flat's classified edges (bend-up/bend-down fold lines, tangent lines), optionally filtered to one type — the bend layer of a flat-pattern drawing/export.
+func (f FlatPattern) EdgesOfType(args wire.EdgesOfTypeArgs) (wire.EdgesResult, error) {
+	var r wire.EdgesResult
+	return r, f.c.call(wire.MethodFlatPatternEdgesOfType, args, &r)
+}
+
+// Faces returns the developed flat's classified faces (front/back) with their areas.
+//
+// mcp:tool flat_pattern_faces
+// mcp:summary Report the developed flat's classified faces — the front (top) and back (bottom) faces and their developed areas.
+func (f FlatPattern) Faces() (wire.FacesResult, error) {
+	var r wire.FacesResult
+	return r, f.c.call(wire.MethodFlatPatternFaces, struct{}{}, &r)
+}

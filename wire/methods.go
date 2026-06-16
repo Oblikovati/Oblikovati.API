@@ -230,6 +230,11 @@ const (
 	MethodFlatPatternAddOrientation      = "flatPattern.addOrientation"
 	MethodFlatPatternActivateOrientation = "flatPattern.activateOrientation"
 	MethodFlatPatternDeleteOrientation   = "flatPattern.deleteOrientation"
+	// Flat-pattern edge/face classification (M13-F05, Oblikovati#635): the bend-up/bend-down
+	// fold lines and the front/back faces of the developed flat — the manufacturing/drawing
+	// classification of the flat's topology (the DXF layer-mapping input).
+	MethodFlatPatternEdgesOfType = "flatPattern.edgesOfType"
+	MethodFlatPatternFaces       = "flatPattern.faces"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

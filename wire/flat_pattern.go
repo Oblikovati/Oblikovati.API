@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // Flat-pattern orientation DTOs (M13-F05, Oblikovati/Oblikovati#635). An orientation is a
 // saved alignment state of the developed flat: an alignment axis (a reference key, or empty
 // for the part's natural axes) laid horizontal or vertical, an extra alignment rotation, and
@@ -54,4 +56,36 @@ type ActivateOrientationArgs struct {
 }
 type DeleteOrientationArgs struct {
 	Name string `json:"name"`
+}
+
+// EdgesOfTypeArgs filters the flat's classified edges to a single type ("bendUp", "bendDown"
+// or "tangent"); an empty Type returns all classified edges.
+type EdgesOfTypeArgs struct {
+	Type string `json:"type,omitempty"`
+}
+
+// FlatEdgeInfo is one classified edge of the developed flat: the fold/tangent line segment
+// (in flat 2D, database units cm) and its type, plus the bend angle for a fold line.
+type FlatEdgeInfo struct {
+	Start types.Point2d `json:"start"`
+	End   types.Point2d `json:"end"`
+	Type  string        `json:"type"`
+	Angle float64       `json:"angle,omitempty"`
+}
+
+// EdgesResult is the reply of edgesOfType: the matching classified edges.
+type EdgesResult struct {
+	Edges []FlatEdgeInfo `json:"edges"`
+}
+
+// FlatFaceInfo is one classified flat face: its type ("front"/"back"/…) and developed area
+// (cm²).
+type FlatFaceInfo struct {
+	Type string  `json:"type"`
+	Area float64 `json:"area"`
+}
+
+// FacesResult is the reply of faces: the developed flat's classified faces (front and back).
+type FacesResult struct {
+	Faces []FlatFaceInfo `json:"faces"`
 }
