@@ -611,6 +611,15 @@ const (
 	MethodDisplaySetOptions          = "display.setOptions"
 	MethodDocumentGetDisplaySettings = "document.getDisplaySettings"
 	MethodDocumentSetDisplaySettings = "document.setDisplaySettings"
+
+	// Styles & standards (M16-F02, Oblikovati#403/#408): the document's color styles, the
+	// style-library cascade, and library import. (Lighting styles use the lighting.* methods.)
+	MethodStylesList          = "styles.list"
+	MethodStylesGet           = "styles.get"
+	MethodStylesSet           = "styles.set"
+	MethodStylesDelete        = "styles.delete"
+	MethodStylesListLibraries = "styles.listLibraries"
+	MethodStylesImportLibrary = "styles.importLibrary"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -715,6 +724,12 @@ const (
 	EventRepresentationCaptured  = "representations.captured"
 	EventRepresentationActivated = "representations.activated"
 	EventModelStateActivated     = "modelStates.activated"
+
+	// Style events (see [StyleChangedEvent], M16-F02 Oblikovati#403/#408): a color or lighting
+	// style was added, edited, or deleted — consumers re-resolve their styling.
+	EventStyleAdded   = "style.added"
+	EventStyleChanged = "style.changed"
+	EventStyleDeleted = "style.deleted"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
