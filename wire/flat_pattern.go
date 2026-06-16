@@ -89,3 +89,20 @@ type FlatFaceInfo struct {
 type FacesResult struct {
 	Faces []FlatFaceInfo `json:"faces"`
 }
+
+// MapEntityArgs maps one topology entity between the folded model and the developed flat by
+// reference key. Key is a topology reference key as model.referenceKeys reports it (so a key
+// can be fed straight back in); ToFlat maps folded→flat (false maps flat→folded). The mapping
+// is face-level: a folded top/bottom face maps to the flat front/back face and back.
+type MapEntityArgs struct {
+	Key    string `json:"key"`
+	ToFlat bool   `json:"toFlat,omitempty"`
+}
+
+// MapEntityResult is the reply of mapEntity: the corresponding entity's reference key, its
+// kind ("face"), and whether a counterpart was found.
+type MapEntityResult struct {
+	Key   string `json:"key,omitempty"`
+	Kind  string `json:"kind,omitempty"`
+	Found bool   `json:"found"`
+}

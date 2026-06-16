@@ -235,6 +235,10 @@ const (
 	// classification of the flat's topology (the DXF layer-mapping input).
 	MethodFlatPatternEdgesOfType = "flatPattern.edgesOfType"
 	MethodFlatPatternFaces       = "flatPattern.faces"
+	// mapEntity maps a folded-model topology entity to its developed-flat counterpart (or back)
+	// by reference key (M13-F05, Oblikovati#635), so a drawing dimension or selection on the flat
+	// survives recompute.
+	MethodFlatPatternMapEntity = "flatPattern.mapEntity"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
