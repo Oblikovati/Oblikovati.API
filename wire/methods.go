@@ -285,6 +285,7 @@ const (
 	MethodAssemblyConstraintsAddAngle              = "assemblyConstraints.addAngle"
 	MethodAssemblyConstraintsAddTangent            = "assemblyConstraints.addTangent"
 	MethodAssemblyConstraintsAddInsert             = "assemblyConstraints.addInsert"
+	MethodAssemblyConstraintsSnap                  = "assemblyConstraints.snap"
 	MethodAssemblyConstraintsAddSymmetry           = "assemblyConstraints.addSymmetry"
 	MethodAssemblyConstraintsAddRotateRotate       = "assemblyConstraints.addRotateRotate"
 	MethodAssemblyConstraintsAddRotateTranslate    = "assemblyConstraints.addRotateTranslate"

@@ -126,6 +126,19 @@ type AddInsertArgs struct {
 	Aligned bool              `json:"aligned,omitempty"`
 }
 
+// SnapConstraintArgs is the request of [MethodAssemblyConstraintsSnap]: "grip snap" — pick a
+// geometry A on the component to move and a target geometry B on another component, and the host
+// INFERS the assembly constraint that snaps A onto B (planar faces → mate or flush; cylinder axes →
+// insert; an axis pair → mate; plane + cylinder → tangent; a point → coincident mate), creates it at
+// offset 0, and re-solves so the part jumps into place. Prefer overrides the inference with an
+// [types.AssemblyConstraintType] wire spelling ("mate"|"flush"|"insert"|"tangent"); "" ⇒ auto. The
+// reply is the usual [ConstraintResult]; its Constraint.Type is the inferred (or preferred) kind.
+type SnapConstraintArgs struct {
+	A      ConstraintGeomRef `json:"a"`
+	B      ConstraintGeomRef `json:"b"`
+	Prefer string            `json:"prefer,omitempty"`
+}
+
 // AddSymmetryArgs is the request of [MethodAssemblyConstraintsAddSymmetry]: position
 // geometry A and geometry B symmetrically about the Plane (a planar face/work-plane ref).
 type AddSymmetryArgs struct {
