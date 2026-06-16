@@ -239,6 +239,12 @@ const (
 	// by reference key (M13-F05, Oblikovati#635), so a drawing dimension or selection on the flat
 	// survives recompute.
 	MethodFlatPatternMapEntity = "flatPattern.mapEntity"
+	// Flat-pattern plates + settings (M13-F05, Oblikovati#635): the disjoint developed regions
+	// (one plate per connected flat region) and the per-document settings (deferred flat-pattern
+	// update so a heavy flat only recomputes on demand).
+	MethodFlatPatternListPlates  = "flatPattern.listPlates"
+	MethodFlatPatternGetSettings = "flatPattern.getSettings"
+	MethodFlatPatternSetSettings = "flatPattern.setSettings"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

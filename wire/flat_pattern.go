@@ -106,3 +106,35 @@ type MapEntityResult struct {
 	Kind  string `json:"kind,omitempty"`
 	Found bool   `json:"found"`
 }
+
+// PlateInfo is one developed flat plate — a connected flat region of a (possibly multi-body)
+// sheet-metal part: its index, and its extents/area under the active orientation (database
+// units cm; cm²).
+type PlateInfo struct {
+	Index  int     `json:"index"`
+	Length float64 `json:"length"`
+	Width  float64 `json:"width"`
+	Area   float64 `json:"area"`
+}
+
+// PlatesResult is the reply of listPlates: the developed flat's plates (one per connected
+// region).
+type PlatesResult struct {
+	Plates []PlateInfo `json:"plates"`
+}
+
+// FlatPatternSettings is the per-document flat-pattern settings. DeferUpdate suppresses the
+// automatic flat-pattern recompute, so a heavy flat is only developed on demand.
+type FlatPatternSettings struct {
+	DeferUpdate bool `json:"deferUpdate"`
+}
+
+// SettingsResult is the reply of getSettings/setSettings: the settings after the call.
+type SettingsResult struct {
+	Settings FlatPatternSettings `json:"settings"`
+}
+
+// SetSettingsArgs edits the flat-pattern settings.
+type SetSettingsArgs struct {
+	DeferUpdate bool `json:"deferUpdate,omitempty"`
+}
