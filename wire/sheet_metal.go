@@ -57,3 +57,25 @@ type BendAllowanceResult struct {
 	BendAllowance float64 `json:"bendAllowance"`
 	BendDeduction float64 `json:"bendDeduction"`
 }
+
+// BendInfo is one bend in the part's bend lineage (M13-F04): the feature that introduced
+// it and the unfold values the flat pattern develops it by. Angle is in degrees; the
+// lengths (radius/thickness/allowance/deduction) are in database units (cm), matching the
+// rest of the sheet-metal surface. The allowance is the developed neutral-axis arc length
+// the flat must include; the deduction is the setback subtracted from outside flange
+// lengths. Together they let an add-in predict the flat extents before the flat is built.
+type BendInfo struct {
+	Feature   string  `json:"feature"`
+	Angle     float64 `json:"angle"`
+	Radius    float64 `json:"radius"`
+	Thickness float64 `json:"thickness"`
+	Allowance float64 `json:"allowance"`
+	Deduction float64 `json:"deduction"`
+}
+
+// BendsResult is the reply of bends: every bend in the folded part, in creation order, plus
+// the summed bend allowance (the total developed length the flat adds for all bends).
+type BendsResult struct {
+	Bends          []BendInfo `json:"bends"`
+	TotalAllowance float64    `json:"totalAllowance"`
+}
