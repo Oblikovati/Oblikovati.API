@@ -212,6 +212,11 @@ const (
 	MethodSheetMetalGetStyle      = "sheetMetal.getStyle"
 	MethodSheetMetalSetStyle      = "sheetMetal.setStyle"
 	MethodSheetMetalBendAllowance = "sheetMetal.bendAllowance"
+	// bends reports the part's bend lineage (M13-F04, Oblikovati#377): every bend the
+	// wall/bend features introduced, with the unfold values (allowance/deduction) the flat
+	// pattern develops it by. This is the flat pattern's prerequisite — the architecture
+	// requires every bend to record its unfold parameters.
+	MethodSheetMetalBends = "sheetMetal.bends"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

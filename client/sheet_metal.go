@@ -41,3 +41,14 @@ func (s SheetMetal) BendAllowance(args wire.BendAllowanceArgs) (wire.BendAllowan
 	var r wire.BendAllowanceResult
 	return r, s.c.call(wire.MethodSheetMetalBendAllowance, args, &r)
 }
+
+// Bends reports the folded part's bend lineage — every bend the wall/bend features
+// introduced, with the unfold values the flat pattern develops it by — and the total
+// developed length added by all bends. It is the flat pattern's prerequisite.
+//
+// mcp:tool sheet_metal_bends
+// mcp:summary List the bends in the active sheet-metal part (feature, angle, radius, bend allowance and deduction per bend, plus the summed allowance) — the bend lineage the flat pattern develops from.
+func (s SheetMetal) Bends() (wire.BendsResult, error) {
+	var r wire.BendsResult
+	return r, s.c.call(wire.MethodSheetMetalBends, struct{}{}, &r)
+}
