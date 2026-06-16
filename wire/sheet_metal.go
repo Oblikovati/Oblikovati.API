@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // Sheet-metal rule/style DTOs (M13-F01). The active sheet-metal part carries a rule that
 // fixes constant thickness, default bend radius, relief geometry and the unfold method; a
 // flat pattern develops each bend using that method's bend allowance. These DTOs move the
@@ -78,4 +80,28 @@ type BendInfo struct {
 type BendsResult struct {
 	Bends          []BendInfo `json:"bends"`
 	TotalAllowance float64    `json:"totalAllowance"`
+}
+
+// FlatBendLineInfo is one fold line in the flat pattern: the segment (in base-plane 2D, cm)
+// and the bend angle in degrees — what a DXF export draws on the bend layer.
+type FlatBendLineInfo struct {
+	Start types.Point2d `json:"start"`
+	End   types.Point2d `json:"end"`
+	Angle float64       `json:"angle"`
+}
+
+// FlatPatternInfo is the developed flat: its 2D extents (the footprint bounding box in
+// base-plane coordinates), the gauge, the developed footprint area, and the fold lines. All
+// lengths are in database units (cm), matching the rest of the sheet-metal surface; areas in
+// cm². It lets an add-in size stock and place bend lines before cutting.
+type FlatPatternInfo struct {
+	Extents   types.Box2d        `json:"extents"`
+	Thickness float64            `json:"thickness"`
+	Area      float64            `json:"area"`
+	Bends     []FlatBendLineInfo `json:"bends"`
+}
+
+// UnfoldResult is the reply of unfold: the developed flat pattern of the active part.
+type UnfoldResult struct {
+	Flat FlatPatternInfo `json:"flat"`
 }
