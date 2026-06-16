@@ -400,6 +400,14 @@ const (
 	MethodViewsGetLayout = "views.getLayout"
 	MethodViewsSetLayout = "views.setLayout"
 
+	// Named views & standard orientations (M16-F03, Oblikovati#404/#409): capture the active
+	// camera under a name and restore it exactly; jump to a standard orientation (front/top/iso).
+	MethodViewsCaptureNamed  = "views.captureNamed"
+	MethodViewsListNamed     = "views.listNamed"
+	MethodViewsRestoreNamed  = "views.restoreNamed"
+	MethodViewsDeleteNamed   = "views.deleteNamed"
+	MethodViewSetOrientation = "view.setOrientation"
+
 	MethodLightingGetStyle   = "lighting.getStyle"
 	MethodLightingSetStyle   = "lighting.setStyle"
 	MethodLightingListStyles = "lighting.listStyles"
@@ -730,6 +738,11 @@ const (
 	EventStyleAdded   = "style.added"
 	EventStyleChanged = "style.changed"
 	EventStyleDeleted = "style.deleted"
+
+	// Camera event (see [CameraChangedEvent], M16-F03 Oblikovati#404/#409): the active view's
+	// camera moved (orbit/pan/zoom/fit/named-view restore) — collaboration and overlay add-ins
+	// re-sync to the new frame.
+	EventCameraChanged = "camera.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

@@ -77,3 +77,41 @@ func (v Views) SetLayout(args wire.SetLayoutArgs) (wire.LayoutResult, error) {
 	var r wire.LayoutResult
 	return r, v.c.call(wire.MethodViewsSetLayout, args, &r)
 }
+
+// CaptureNamed saves the active view's current camera under a name (replacing any existing
+// named view of that name) and returns the saved view.
+//
+// mcp:tool capture_named_view
+// mcp:summary Save the active view's current camera under a name so restore_named_view can return to it exactly; document 0 = active.
+func (v Views) CaptureNamed(args wire.CaptureNamedViewArgs) (wire.NamedViewInfo, error) {
+	var r wire.NamedViewInfo
+	return r, v.c.call(wire.MethodViewsCaptureNamed, args, &r)
+}
+
+// ListNamed enumerates a document's saved named views.
+//
+// mcp:tool list_named_views
+// mcp:summary List a document's saved named views (the names restore_named_view accepts); document 0 = active.
+func (v Views) ListNamed(document uint64) (wire.NamedViewsResult, error) {
+	var r wire.NamedViewsResult
+	return r, v.c.call(wire.MethodViewsListNamed, wire.ListViewsArgs{Document: document}, &r)
+}
+
+// RestoreNamed restores a saved named view's camera to the active view (animated), returning
+// the resulting camera.
+//
+// mcp:tool restore_named_view
+// mcp:summary Restore a saved named view's camera to the active view exactly; see list_named_views; document 0 = active.
+func (v Views) RestoreNamed(args wire.NamedViewRefArgs) (wire.CameraView, error) {
+	var r wire.CameraView
+	return r, v.c.call(wire.MethodViewsRestoreNamed, args, &r)
+}
+
+// DeleteNamed removes a saved named view.
+//
+// mcp:tool delete_named_view
+// mcp:summary Delete a saved named view by name; document 0 = active.
+func (v Views) DeleteNamed(args wire.NamedViewRefArgs) (wire.OKResult, error) {
+	var r wire.OKResult
+	return r, v.c.call(wire.MethodViewsDeleteNamed, args, &r)
+}

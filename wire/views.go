@@ -10,12 +10,15 @@ import "oblikovati.org/api/types"
 // 0 means the active document.
 
 // ViewInfo is the JSON shape of one view: its index in the document's collection, its
-// name, whether it is the active view, and its camera frame.
+// name, whether it is the active view, its kind, its camera frame, and the display mode it
+// renders in (the camera + display-mode pair a client view carries).
 type ViewInfo struct {
-	Index  int        `json:"index"`
-	Name   string     `json:"name"`
-	Active bool       `json:"active"`
-	Camera CameraView `json:"camera"`
+	Index       int                   `json:"index"`
+	Name        string                `json:"name"`
+	Active      bool                  `json:"active"`
+	ViewType    types.ViewTypeEnum    `json:"viewType"`
+	Camera      CameraView            `json:"camera"`
+	DisplayMode types.DisplayModeEnum `json:"displayMode"`
 }
 
 // ListViewsResult is the response of [MethodViewsList]: every view of a document, which
