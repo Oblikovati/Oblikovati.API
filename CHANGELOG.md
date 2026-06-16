@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-16
+
+### Added
+
+- feat(types): add FilletCornerType (miter/setback/round) corner-treatment enum
+
 ## [0.2.0] - 2026-06-15
 
 ### Added
@@ -52,6 +58,7 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Oblikovati/Oblikovati.API/releases/tag/v0.1.0
