@@ -8,6 +8,16 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-16
+
+### Added
+
+- feat(graphics): client-graphics object model, full reference parity (M16-F05, #641)
+- feat(views): add view enums, named views & CameraEvents API (M16-F03, #404/#409/#410)
+- feat(styles): add style manager, color styles & libraries API (M16-F02, #403/#408)
+- feat(display): add display options & document display settings API (M16-F07, #643)
+- feat(types): add Color value object + ColorScheme API (M16-F06, #642)
+
 ## [0.3.0] - 2026-06-16
 
 ### Added
@@ -58,7 +68,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/Oblikovati/Oblikovati.API/releases/tag/v0.1.0
