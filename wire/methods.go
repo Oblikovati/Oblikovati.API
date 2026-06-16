@@ -603,6 +603,14 @@ const (
 	MethodColorSchemesList      = "colorSchemes.list"
 	MethodColorSchemesGetActive = "colorSchemes.getActive"
 	MethodColorSchemesSetActive = "colorSchemes.setActive"
+
+	// Display options & settings (M16-F07, Oblikovati#643): the application-level display
+	// options and the per-document display settings (background, edges, ground plane, shadows)
+	// that parameterize the M23 display modes.
+	MethodDisplayGetOptions          = "display.getOptions"
+	MethodDisplaySetOptions          = "display.setOptions"
+	MethodDocumentGetDisplaySettings = "document.getDisplaySettings"
+	MethodDocumentSetDisplaySettings = "document.setDisplaySettings"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
