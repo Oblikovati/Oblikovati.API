@@ -101,6 +101,8 @@ const (
 	MethodModelSelection     = "model.selection"
 	MethodModelReferenceKeys = "model.referenceKeys"
 
+	MethodImportDWG = "import.dwg"
+
 	MethodSketchCreate    = "sketch.create"
 	MethodSketchRectangle = "sketch.rectangle"
 
