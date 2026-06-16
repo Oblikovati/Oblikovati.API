@@ -69,3 +69,14 @@ func (f FlatPattern) Faces() (wire.FacesResult, error) {
 	var r wire.FacesResult
 	return r, f.c.call(wire.MethodFlatPatternFaces, struct{}{}, &r)
 }
+
+// MapEntity maps a topology entity between the folded model and the developed flat by
+// reference key (folded→flat when ToFlat, else flat→folded), so a drawing dimension or
+// selection survives recompute.
+//
+// mcp:tool flat_pattern_map_entity
+// mcp:summary Map a topology entity (by reference key) between the folded sheet-metal model and its developed flat pattern (set toFlat for folded→flat, else flat→folded). Face-level: top/bottom faces map to the flat front/back face.
+func (f FlatPattern) MapEntity(args wire.MapEntityArgs) (wire.MapEntityResult, error) {
+	var r wire.MapEntityResult
+	return r, f.c.call(wire.MethodFlatPatternMapEntity, args, &r)
+}
