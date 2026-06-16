@@ -245,6 +245,11 @@ const (
 	MethodFlatPatternListPlates  = "flatPattern.listPlates"
 	MethodFlatPatternGetSettings = "flatPattern.getSettings"
 	MethodFlatPatternSetSettings = "flatPattern.setSettings"
+	// Bend-order annotation (M13-F06, Oblikovati#809): number/sequence the part's bends for
+	// press-brake sequencing; the order is editable and persists, and is shown on the flat
+	// pattern and in drawing views.
+	MethodFlatPatternListBendOrder = "flatPattern.listBendOrder"
+	MethodFlatPatternSetBendOrder  = "flatPattern.setBendOrder"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
