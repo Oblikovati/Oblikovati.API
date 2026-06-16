@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // Client/interaction graphics DTOs (persistent client graphics + transient interaction graphics).
 //
 // The model is declarative bulk groups (not a chatty mutable object model): one
@@ -57,6 +59,32 @@ type GraphicsPrimitive struct {
 	Opacity       float32              `json:"opacity,omitempty"`
 	OnTop         bool                 `json:"onTop,omitempty"`
 	DepthPriority int                  `json:"depthPriority,omitempty"`
+
+	// Body-derived primitives ("surface"/"curve"): render an existing B-rep body/face/edge by
+	// its persistent reference key (BodyKey) or transient handle (TransientKey) with the override
+	// Color/Transform — the geometry stays host-side (no mesh shipped over the wire).
+	BodyKey      string `json:"bodyKey,omitempty"`
+	TransientKey uint64 `json:"transientKey,omitempty"`
+
+	// Image billboards ("image"): ImagePath is the source image; ImageWidth/ImageHeight size the
+	// quad (model units, or pixels when Behavior is pixel-scaling); Anchor is its world point.
+	ImagePath   string  `json:"imagePath,omitempty"`
+	ImageWidth  float64 `json:"imageWidth,omitempty"`
+	ImageHeight float64 `json:"imageHeight,omitempty"`
+
+	// TextureCoords are uv pairs (len%2==0, one per vertex) for an image-mapped overlay mesh.
+	TextureCoords []float64 `json:"textureCoords,omitempty"`
+
+	// MapperName references a color mapper registered via [MethodClientGraphicsRegisterMapper]
+	// (an alternative to the inline ColorMapper) so a legend is shared across primitives.
+	MapperName string `json:"mapperName,omitempty"`
+
+	// Selectable makes this primitive participate in picking (nil = inherit the node default);
+	// Behavior is the view-relative behavior of an image/text billboard (front-facing / pixel
+	// scaling); LineSpace is the coordinate space a line's width/pattern is defined in.
+	Selectable *bool                              `json:"selectable,omitempty"`
+	Behavior   types.DisplayTransformBehaviorEnum `json:"behavior,omitempty"`
+	LineSpace  types.LineDefinitionSpaceEnum      `json:"lineSpace,omitempty"`
 }
 
 // GraphicsNode groups primitives under one transform and visibility/opacity.
@@ -68,6 +96,12 @@ type GraphicsNode struct {
 	Visible    *bool               `json:"visible,omitempty"`
 	Opacity    float32             `json:"opacity,omitempty"`
 	Primitives []GraphicsPrimitive `json:"primitives"`
+
+	// Selectable makes the node's primitives pickable (default false: overlay graphics do not
+	// intercept picks). ComponentKey anchors the node to a component/feature by reference key so
+	// it transforms with that owner rather than the document root (the ComponentGraphics case).
+	Selectable   bool   `json:"selectable,omitempty"`
+	ComponentKey string `json:"componentKey,omitempty"`
 }
 
 // SetClientGraphicsArgs is the request of [MethodClientGraphicsSet]: submit or replace
@@ -120,4 +154,48 @@ type SetClientGraphicsVisibleArgs struct {
 type UpdateInteractionGraphicsArgs struct {
 	Lane  string         `json:"lane"`
 	Nodes []GraphicsNode `json:"nodes"`
+}
+
+// SetNodeTransformArgs is the request of [MethodGraphicsNodeSetTransform]: replace one node's
+// transform without resubmitting its (possibly large) geometry. Transform is a 16-element
+// row-major 4x4 matrix; an empty Transform resets to identity.
+type SetNodeTransformArgs struct {
+	ClientId  string    `json:"clientId"`
+	NodeId    string    `json:"nodeId"`
+	Transform []float64 `json:"transform,omitempty"`
+}
+
+// SetNodeVisibleArgs is the request of [MethodGraphicsNodeSetVisible]: toggle one node's
+// visibility within a group without resubmitting geometry.
+type SetNodeVisibleArgs struct {
+	ClientId string `json:"clientId"`
+	NodeId   string `json:"nodeId"`
+	Visible  bool   `json:"visible"`
+}
+
+// SetNodeSelectableArgs is the request of [MethodGraphicsNodeSetSelectable]: toggle whether
+// one node's primitives participate in picking.
+type SetNodeSelectableArgs struct {
+	ClientId   string `json:"clientId"`
+	NodeId     string `json:"nodeId"`
+	Selectable bool   `json:"selectable"`
+}
+
+// RegisterColorMapperArgs is the request of [MethodClientGraphicsRegisterMapper]: store a named,
+// reusable color mapper that primitives reference by Name (via GraphicsPrimitive.MapperName)
+// instead of carrying an inline copy of the legend.
+type RegisterColorMapperArgs struct {
+	Name   string              `json:"name"`
+	Mapper GraphicsColorMapper `json:"mapper"`
+}
+
+// ColorMapperInfo is one entry of [ColorMappersResult]: a registered named mapper.
+type ColorMapperInfo struct {
+	Name      string `json:"name"`
+	StopCount int    `json:"stopCount"`
+}
+
+// ColorMappersResult is the response of [MethodClientGraphicsListMappers].
+type ColorMappersResult struct {
+	Mappers []ColorMapperInfo `json:"mappers"`
 }

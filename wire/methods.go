@@ -400,6 +400,14 @@ const (
 	MethodViewsGetLayout = "views.getLayout"
 	MethodViewsSetLayout = "views.setLayout"
 
+	// Named views & standard orientations (M16-F03, Oblikovati#404/#409): capture the active
+	// camera under a name and restore it exactly; jump to a standard orientation (front/top/iso).
+	MethodViewsCaptureNamed  = "views.captureNamed"
+	MethodViewsListNamed     = "views.listNamed"
+	MethodViewsRestoreNamed  = "views.restoreNamed"
+	MethodViewsDeleteNamed   = "views.deleteNamed"
+	MethodViewSetOrientation = "view.setOrientation"
+
 	MethodLightingGetStyle   = "lighting.getStyle"
 	MethodLightingSetStyle   = "lighting.setStyle"
 	MethodLightingListStyles = "lighting.listStyles"
@@ -472,6 +480,15 @@ const (
 	MethodClientGraphicsList       = "clientGraphics.list"
 	MethodClientGraphicsDelete     = "clientGraphics.delete"
 	MethodClientGraphicsSetVisible = "clientGraphics.setVisible"
+
+	// Client-graphics object model — targeted retained-mode mutations and the named
+	// color-mapper registry (M16-F05, Oblikovati#641). These move/toggle/flag a node without
+	// resubmitting its (possibly large) mesh; the group transport stays the bulk clientGraphics.set.
+	MethodGraphicsNodeSetTransform     = "graphicsNode.setTransform"
+	MethodGraphicsNodeSetVisible       = "graphicsNode.setVisible"
+	MethodGraphicsNodeSetSelectable    = "graphicsNode.setSelectable"
+	MethodClientGraphicsRegisterMapper = "clientGraphics.registerColorMapper"
+	MethodClientGraphicsListMappers    = "clientGraphics.listColorMappers"
 
 	MethodInteractionGraphicsUpdate = "interactionGraphics.update"
 	MethodInteractionGraphicsClear  = "interactionGraphics.clear"
@@ -597,6 +614,29 @@ const (
 	// Add-in UI environments (M05-F16, Oblikovati#667).
 	MethodUIRegisterEnvironment = "ui.registerEnvironment"
 	MethodUIActivateEnvironment = "ui.activateEnvironment"
+
+	// Application color schemes (M16-F06, Oblikovati#642): the named palettes (background,
+	// highlight, selection colors) the viewport and selection pipeline traffic in.
+	MethodColorSchemesList      = "colorSchemes.list"
+	MethodColorSchemesGetActive = "colorSchemes.getActive"
+	MethodColorSchemesSetActive = "colorSchemes.setActive"
+
+	// Display options & settings (M16-F07, Oblikovati#643): the application-level display
+	// options and the per-document display settings (background, edges, ground plane, shadows)
+	// that parameterize the M23 display modes.
+	MethodDisplayGetOptions          = "display.getOptions"
+	MethodDisplaySetOptions          = "display.setOptions"
+	MethodDocumentGetDisplaySettings = "document.getDisplaySettings"
+	MethodDocumentSetDisplaySettings = "document.setDisplaySettings"
+
+	// Styles & standards (M16-F02, Oblikovati#403/#408): the document's color styles, the
+	// style-library cascade, and library import. (Lighting styles use the lighting.* methods.)
+	MethodStylesList          = "styles.list"
+	MethodStylesGet           = "styles.get"
+	MethodStylesSet           = "styles.set"
+	MethodStylesDelete        = "styles.delete"
+	MethodStylesListLibraries = "styles.listLibraries"
+	MethodStylesImportLibrary = "styles.importLibrary"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
@@ -701,6 +741,17 @@ const (
 	EventRepresentationCaptured  = "representations.captured"
 	EventRepresentationActivated = "representations.activated"
 	EventModelStateActivated     = "modelStates.activated"
+
+	// Style events (see [StyleChangedEvent], M16-F02 Oblikovati#403/#408): a color or lighting
+	// style was added, edited, or deleted — consumers re-resolve their styling.
+	EventStyleAdded   = "style.added"
+	EventStyleChanged = "style.changed"
+	EventStyleDeleted = "style.deleted"
+
+	// Camera event (see [CameraChangedEvent], M16-F03 Oblikovati#404/#409): the active view's
+	// camera moved (orbit/pan/zoom/fit/named-view restore) — collaboration and overlay add-ins
+	// re-sync to the new frame.
+	EventCameraChanged = "camera.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.

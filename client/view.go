@@ -72,6 +72,18 @@ func (v View) SetCamera(a wire.SetCameraArgs) (wire.CameraView, error) {
 	return r, v.c.call(wire.MethodViewSetCamera, a, &r)
 }
 
+// SetOrientation jumps the active view to a standard orientation (front/top/iso…), optionally
+// fitting the model to the view, and returns the resulting camera.
+//
+//	client.View().SetOrientation(wire.SetOrientationArgs{Orientation: types.IsoTopRightViewOrientation, Fit: true})
+//
+// mcp:tool set_view_orientation
+// mcp:summary Jump the active view to a standard orientation (front/top/iso…) by id; set fit to frame the model. Returns the resulting camera.
+func (v View) SetOrientation(a wire.SetOrientationArgs) (wire.CameraView, error) {
+	var r wire.CameraView
+	return r, v.c.call(wire.MethodViewSetOrientation, a, &r)
+}
+
 // Capture writes the viewport framebuffer to a PNG and returns its path and pixel size. The host
 // writes the file on the next rendered frame, so read the returned Path after a short delay.
 //
