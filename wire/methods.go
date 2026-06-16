@@ -217,6 +217,11 @@ const (
 	// pattern develops it by. This is the flat pattern's prerequisite — the architecture
 	// requires every bend to record its unfold parameters.
 	MethodSheetMetalBends = "sheetMetal.bends"
+	// unfold develops the folded part into its flat pattern (M13-F04, Oblikovati#377) and
+	// reports the flat: its 2D extents, gauge, developed area and fold lines. The flat is a
+	// derived body, so a thickness/K-factor edit changes its extents through the bend
+	// allowance with no model recompute.
+	MethodSheetMetalUnfold = "sheetMetal.unfold"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

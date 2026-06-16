@@ -52,3 +52,14 @@ func (s SheetMetal) Bends() (wire.BendsResult, error) {
 	var r wire.BendsResult
 	return r, s.c.call(wire.MethodSheetMetalBends, struct{}{}, &r)
 }
+
+// Unfold develops the active part into its flat pattern and reports the flat: 2D extents,
+// gauge, developed area and fold lines. The flat is derived from the folded model and the
+// rule, so a thickness or K-factor edit changes its extents through the bend allowance.
+//
+// mcp:tool sheet_metal_unfold
+// mcp:summary Develop the active sheet-metal part into its flat pattern and report the flat: its 2D extents, thickness, developed area and the fold lines (with bend angles).
+func (s SheetMetal) Unfold() (wire.UnfoldResult, error) {
+	var r wire.UnfoldResult
+	return r, s.c.call(wire.MethodSheetMetalUnfold, struct{}{}, &r)
+}
