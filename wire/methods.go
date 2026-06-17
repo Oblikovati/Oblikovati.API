@@ -66,6 +66,22 @@ const (
 	MethodDocumentsRemoveInterest = "documents.removeInterest"
 	MethodDocumentsHasInterest    = "documents.hasInterest"
 
+	// Document units of measure + unit/expression service (Oblikovati#146).
+	MethodDocumentsGetUnits = "documents.getUnits"
+	MethodDocumentsSetUnits = "documents.setUnits"
+
+	MethodUnitsConvert                        = "units.convert"
+	MethodUnitsGetStringFromValue             = "units.getStringFromValue"
+	MethodUnitsGetPreciseStringFromValue      = "units.getPreciseStringFromValue"
+	MethodUnitsGetValueFromExpression         = "units.getValueFromExpression"
+	MethodUnitsGetDatabaseUnitsFromExpression = "units.getDatabaseUnitsFromExpression"
+	MethodUnitsIsExpressionValid              = "units.isExpressionValid"
+	MethodUnitsCompatibleUnits                = "units.compatibleUnits"
+	MethodUnitsGetTypeFromString              = "units.getTypeFromString"
+	MethodUnitsGetStringFromType              = "units.getStringFromType"
+	MethodUnitsGetLocaleCorrectedExpression   = "units.getLocaleCorrectedExpression"
+	MethodUnitsGetDrivingParameters           = "units.getDrivingParameters"
+
 	MethodParametersList = "parameters.list"
 	MethodParametersGet  = "parameters.get"
 	MethodParametersAdd  = "parameters.add"
