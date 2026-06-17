@@ -16,6 +16,11 @@ import "oblikovati.org/api/types"
 type DrawingView interface {
 	// Name is the view's display name (unique within the drawing).
 	Name() string
+	// Type discriminates the view kind (base, projected, auxiliary, section, detail, break).
+	Type() types.DrawingViewType
+	// ParentView is the name of the view this one derives from (projected/auxiliary/section/
+	// detail), or "" for a base view.
+	ParentView() string
 	// IsProjected reports whether this is a projected view (derived from a base view) rather
 	// than a base view.
 	IsProjected() bool

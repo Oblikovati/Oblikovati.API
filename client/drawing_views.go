@@ -42,6 +42,15 @@ func (d DrawingViews) AddProjected(args wire.AddProjectedViewArgs) (wire.ViewRes
 	return r, d.c.call(wire.MethodDrawingViewsAddProjected, args, &r)
 }
 
+// AddAuxiliary adds a view projected perpendicular to a fold line on a parent view.
+//
+// mcp:tool drawing_add_auxiliary_view
+// mcp:summary Add an auxiliary view off a parent view: projected perpendicular to a fold line at foldAngleDeg (0 folds down like a top view, 90 folds to the side), inheriting the parent's scale/style; placed at centerXmm/centerYmm. Shows an inclined face true-size.
+func (d DrawingViews) AddAuxiliary(args wire.AddAuxiliaryViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddAuxiliary, args, &r)
+}
+
 // Delete removes the named view (and any views projected from it).
 //
 // mcp:tool drawing_delete_view

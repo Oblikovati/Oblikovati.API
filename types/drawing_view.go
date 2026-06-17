@@ -74,6 +74,76 @@ func ParseDrawingViewStyle(s string) (DrawingViewStyle, bool) {
 	return enumFromName(drawingViewStyleNames, s)
 }
 
+// DrawingViewType discriminates the kind of a drawing view. The reference contracts model
+// auxiliary/overlay/slice as a base DrawingView carrying this discriminator (not distinct
+// interfaces); only section and detail are also distinct contracts. The zero value is
+// DrawingViewBase.
+type DrawingViewType int32
+
+const (
+	// DrawingViewBase projects a standard orientation of the model.
+	DrawingViewBase DrawingViewType = iota
+	// DrawingViewProjected is an orthographic view derived from a base view by a direction.
+	DrawingViewProjected
+	// DrawingViewAuxiliary is projected perpendicular to a fold line drawn on a parent view —
+	// it shows an inclined face true-size.
+	DrawingViewAuxiliary
+	// DrawingViewSection shows the model cut by a plane (with cut-face hatching).
+	DrawingViewSection
+	// DrawingViewDetail magnifies a circular region of a parent view at a larger scale.
+	DrawingViewDetail
+	// DrawingViewBreak removes a band of a view to compress a long part (with break lines).
+	DrawingViewBreak
+)
+
+var drawingViewTypeNames = map[DrawingViewType]string{
+	DrawingViewBase:      "base",
+	DrawingViewProjected: "projected",
+	DrawingViewAuxiliary: "auxiliary",
+	DrawingViewSection:   "section",
+	DrawingViewDetail:    "detail",
+	DrawingViewBreak:     "break",
+}
+
+// String returns the view type's wire spelling ("base", "auxiliary").
+func (t DrawingViewType) String() string { return enumName(drawingViewTypeNames, t) }
+
+// ParseDrawingViewType resolves a wire spelling back to its view type.
+func ParseDrawingViewType(s string) (DrawingViewType, bool) {
+	return enumFromName(drawingViewTypeNames, s)
+}
+
+// DrawingCurveKind classifies a drawing curve so the head can style it: an edge of the model
+// (visible/hidden), a section-cut outline, a hatch line, or a break-line glyph. The zero value
+// is DrawingEdgeCurve, so the existing visible/hidden edge curves keep their meaning.
+type DrawingCurveKind int32
+
+const (
+	// DrawingEdgeCurve is a projected model edge (the visible/hidden flag styles it solid/dashed).
+	DrawingEdgeCurve DrawingCurveKind = iota
+	// DrawingSectionCurve is a section-cut outline (drawn bold).
+	DrawingSectionCurve
+	// DrawingHatchCurve is one hatch line filling a section face.
+	DrawingHatchCurve
+	// DrawingBreakCurve is a break-line glyph segment.
+	DrawingBreakCurve
+)
+
+var drawingCurveKindNames = map[DrawingCurveKind]string{
+	DrawingEdgeCurve:    "edge",
+	DrawingSectionCurve: "section",
+	DrawingHatchCurve:   "hatch",
+	DrawingBreakCurve:   "break",
+}
+
+// String returns the curve kind's wire spelling.
+func (k DrawingCurveKind) String() string { return enumName(drawingCurveKindNames, k) }
+
+// ParseDrawingCurveKind resolves a wire spelling back to its curve kind.
+func ParseDrawingCurveKind(s string) (DrawingCurveKind, bool) {
+	return enumFromName(drawingCurveKindNames, s)
+}
+
 // ProjectionDirection names where a projected view sits relative to its base view; it also
 // fixes the orthographic direction the projection looks from. The zero value is ProjectRight.
 type ProjectionDirection int32
