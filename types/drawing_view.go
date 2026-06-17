@@ -94,6 +94,13 @@ const (
 	DrawingViewDetail
 	// DrawingViewBreak removes a band of a view to compress a long part (with break lines).
 	DrawingViewBreak
+	// DrawingViewSlice shows only the zero-thickness slice at a section line (no projection behind).
+	DrawingViewSlice
+	// DrawingViewBreakout reveals the interior within a bounded region of a parent view (a local
+	// cut-away).
+	DrawingViewBreakout
+	// DrawingViewDraft is a model-less view: a framed container for manually-drawn 2D geometry.
+	DrawingViewDraft
 )
 
 var drawingViewTypeNames = map[DrawingViewType]string{
@@ -103,6 +110,9 @@ var drawingViewTypeNames = map[DrawingViewType]string{
 	DrawingViewSection:   "section",
 	DrawingViewDetail:    "detail",
 	DrawingViewBreak:     "break",
+	DrawingViewSlice:     "slice",
+	DrawingViewBreakout:  "breakout",
+	DrawingViewDraft:     "draft",
 }
 
 // String returns the view type's wire spelling ("base", "auxiliary").
