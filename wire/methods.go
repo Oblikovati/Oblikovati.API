@@ -279,6 +279,15 @@ const (
 	MethodDrawingStylesGetActiveStyle = "drawingStyles.getActiveStyle"
 	MethodDrawingStylesSetStandard    = "drawingStyles.setStandard"
 
+	// Drawing views (M14-F02 PBI-139, Oblikovati#386): project the referenced model onto the
+	// active sheet — a base view from a standard orientation and projected views off it — with
+	// hidden-line removal producing visible/hidden drawing curves.
+	MethodDrawingViewsList          = "drawingViews.list"
+	MethodDrawingViewsAddBase       = "drawingViews.addBase"
+	MethodDrawingViewsAddProjected  = "drawingViews.addProjected"
+	MethodDrawingViewsDelete        = "drawingViews.delete"
+	MethodDrawingViewsCurves        = "drawingViews.curves"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
