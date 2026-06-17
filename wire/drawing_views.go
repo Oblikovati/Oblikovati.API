@@ -80,6 +80,20 @@ type AddSectionViewArgs struct {
 	CenterYMM  float64 `json:"centerYmm,omitempty"`
 }
 
+// AddDetailViewArgs is the request of [MethodDrawingViewsAddDetail]: a magnified view of the
+// circular region (BoundaryXMM, BoundaryYMM, RadiusMM — on the parent, sheet millimetres) of
+// ParentView, at the larger Scale, placed at (CenterXMM, CenterYMM).
+type AddDetailViewArgs struct {
+	Name        string  `json:"name,omitempty"`
+	ParentView  string  `json:"parentView"`
+	BoundaryXMM float64 `json:"boundaryXmm"`
+	BoundaryYMM float64 `json:"boundaryYmm"`
+	RadiusMM    float64 `json:"radiusMm"`
+	Scale       float64 `json:"scale"`
+	CenterXMM   float64 `json:"centerXmm,omitempty"`
+	CenterYMM   float64 `json:"centerYmm,omitempty"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {

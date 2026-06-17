@@ -45,3 +45,13 @@ type SectionDrawingView interface {
 	// SectionLineMM is the cut line on the parent view, in sheet millimetres.
 	SectionLineMM() (x1, y1, x2, y2 float64)
 }
+
+// DetailDrawingView is a magnified view of a circular region of a parent view: the parent's
+// projection clipped to the boundary circle and re-placed at a larger scale. Like section, the
+// reference API gives it its own interface.
+type DetailDrawingView interface {
+	DrawingView
+	// DetailBoundaryMM is the magnified region's circle on the parent view (sheet millimetres):
+	// centre and radius.
+	DetailBoundaryMM() (cx, cy, r float64)
+}
