@@ -261,6 +261,17 @@ const (
 	MethodFlatPatternListCenterlines  = "flatPattern.listCenterlines"
 	MethodFlatPatternDeleteCenterline = "flatPattern.deleteCenterline"
 
+	// Drawing document sheets (M14-F01, Oblikovati#384): the active drawing's sheets
+	// (sizes/orientation, borders, title blocks), the active-sheet selection, the
+	// primary referenced model (whose iProperties feed title-block fields), and a title
+	// block's resolved field values.
+	MethodDrawingListSheets        = "drawing.listSheets"
+	MethodDrawingAddSheet          = "drawing.addSheet"
+	MethodDrawingRemoveSheet       = "drawing.removeSheet"
+	MethodDrawingSetActiveSheet    = "drawing.setActiveSheet"
+	MethodDrawingSetModelReference = "drawing.setModelReference"
+	MethodDrawingTitleBlockFields  = "drawing.titleBlockFields"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
