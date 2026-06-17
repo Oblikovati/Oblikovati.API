@@ -237,3 +237,35 @@ func (t ChamferConcaveStrategy) String() string { return enumName(chamferConcave
 func ParseChamferConcaveStrategy(s string) (ChamferConcaveStrategy, bool) {
 	return enumFromName(chamferConcaveStrategyNames, s)
 }
+
+// FilletConcaveStrategy selects how a fillet treats a CONCAVE (internal) edge — one where the two
+// faces fold over the material (dihedral > π), e.g. the inside corner where a rib meets a plate. A
+// convex edge always rounds its corner away and ignores this. The fillet keeps an exact rolling-ball
+// cylinder face either way; only which side the ball rolls on (and thus whether material is added or
+// removed) changes. An Oblikovati extension (no reference-API equivalent); the block is OURS but, once
+// shipped, equally frozen: never renumber.
+//
+//   - FilletConcaveOutward — fill the inside corner with material (a concave fillet bridging the two
+//     faces). The DEFAULT; the zero value resolves to it.
+//   - FilletConcaveInward — round a recess into the corner instead (material removed).
+type FilletConcaveStrategy int32
+
+const (
+	// FilletConcaveOutward fills the inside corner with material (the default, also the zero value).
+	FilletConcaveOutward FilletConcaveStrategy = 200111
+	// FilletConcaveInward rounds a recess into the inside corner instead (material removed).
+	FilletConcaveInward FilletConcaveStrategy = 200112
+)
+
+var filletConcaveStrategyNames = map[FilletConcaveStrategy]string{
+	FilletConcaveOutward: "outward",
+	FilletConcaveInward:  "inward",
+}
+
+// String returns the concave strategy's wire spelling.
+func (t FilletConcaveStrategy) String() string { return enumName(filletConcaveStrategyNames, t) }
+
+// ParseFilletConcaveStrategy resolves a wire spelling back to its strategy.
+func ParseFilletConcaveStrategy(s string) (FilletConcaveStrategy, bool) {
+	return enumFromName(filletConcaveStrategyNames, s)
+}
