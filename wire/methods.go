@@ -316,10 +316,16 @@ const (
 
 	// Drawing annotations (M14-F02 #813): the centre-of-gravity marker (driven by the
 	// referenced model's mass properties) and revision-cloud sheet markup.
-	MethodDrawingAnnotationsList              = "drawingAnnotations.list"
-	MethodDrawingAnnotationsAddCoG            = "drawingAnnotations.addCoG"
-	MethodDrawingAnnotationsAddRevisionCloud  = "drawingAnnotations.addRevisionCloud"
-	MethodDrawingAnnotationsDelete            = "drawingAnnotations.delete"
+	MethodDrawingAnnotationsList             = "drawingAnnotations.list"
+	MethodDrawingAnnotationsAddCoG           = "drawingAnnotations.addCoG"
+	MethodDrawingAnnotationsAddRevisionCloud = "drawingAnnotations.addRevisionCloud"
+	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
+
+	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
+	// snapped to projected model vertices so the measured value tracks the model.
+	MethodDrawingDimensionsList      = "drawingDimensions.list"
+	MethodDrawingDimensionsAddLinear = "drawingDimensions.addLinear"
+	MethodDrawingDimensionsDelete    = "drawingDimensions.delete"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
