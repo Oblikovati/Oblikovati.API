@@ -314,6 +314,13 @@ const (
 	MethodDrawingViewsDelete       = "drawingViews.delete"
 	MethodDrawingViewsCurves       = "drawingViews.curves"
 
+	// Drawing annotations (M14-F02 #813): the centre-of-gravity marker (driven by the
+	// referenced model's mass properties) and revision-cloud sheet markup.
+	MethodDrawingAnnotationsList              = "drawingAnnotations.list"
+	MethodDrawingAnnotationsAddCoG            = "drawingAnnotations.addCoG"
+	MethodDrawingAnnotationsAddRevisionCloud  = "drawingAnnotations.addRevisionCloud"
+	MethodDrawingAnnotationsDelete            = "drawingAnnotations.delete"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
