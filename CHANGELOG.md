@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-06-17
+
+### Added
+
+- feat(types,wire,client): drawing view contract (M14-F02)
+
 ## [0.18.0] - 2026-06-17
 
 ### Added
@@ -170,7 +176,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.18.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.19.0...HEAD
+[0.19.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.16.0...v0.17.0
 [0.16.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.15.1...v0.16.0
