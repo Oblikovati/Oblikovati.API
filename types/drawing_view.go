@@ -208,3 +208,26 @@ func (d ProjectionDirection) String() string { return enumName(projectionDirecti
 func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
 	return enumFromName(projectionDirectionNames, s)
 }
+
+// DrawingAnnotationKind classifies a drawing annotation. The zero value is CoGMarkerAnnotation.
+type DrawingAnnotationKind int32
+
+const (
+	// CoGMarkerAnnotation is a centre-of-gravity indicator on a view, driven by the model's mass.
+	CoGMarkerAnnotation DrawingAnnotationKind = iota
+	// RevisionCloudAnnotation is a scalloped cloud highlighting a changed sheet region.
+	RevisionCloudAnnotation
+)
+
+var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
+	CoGMarkerAnnotation:     "cog",
+	RevisionCloudAnnotation: "revisionCloud",
+}
+
+// String returns the annotation kind's wire spelling.
+func (k DrawingAnnotationKind) String() string { return enumName(drawingAnnotationKindNames, k) }
+
+// ParseDrawingAnnotationKind resolves a wire spelling back to its annotation kind.
+func ParseDrawingAnnotationKind(s string) (DrawingAnnotationKind, bool) {
+	return enumFromName(drawingAnnotationKindNames, s)
+}
