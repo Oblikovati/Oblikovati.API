@@ -271,6 +271,9 @@ const (
 	MethodDrawingSetActiveSheet    = "drawing.setActiveSheet"
 	MethodDrawingSetModelReference = "drawing.setModelReference"
 	MethodDrawingTitleBlockFields  = "drawing.titleBlockFields"
+	// Drawing sheet DXF export (M14-F05 PBI-145, Oblikovati#392): write the active sheet —
+	// its views' visible/hidden edges, border and title block — to a DXF file, on named layers.
+	MethodDrawingExportDXF = "drawing.exportDXF"
 
 	// Drawing drafting standards + styles (M14-F01 PBI-138, Oblikovati#385): the active
 	// drawing's drafting standard and its dimension/text/line style preset. Switching the

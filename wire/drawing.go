@@ -91,3 +91,17 @@ type TitleBlockFieldsResult struct {
 	DefinitionName string            `json:"definitionName"`
 	Fields         []TitleBlockField `json:"fields"`
 }
+
+// ExportDrawingDXFArgs is the request of [MethodDrawingExportDXF]: write the active sheet to
+// the DXF file at Path. Version is a types.DXFVersion spelling ("r2000"/"r2018"; "" ⇒ r2000).
+type ExportDrawingDXFArgs struct {
+	Path    string `json:"path"`
+	Version string `json:"version,omitempty"`
+}
+
+// ExportDrawingDXFResult is the response of [MethodDrawingExportDXF]: the file written and the
+// number of DXF entities (view edges, border and title-block lines/text) in it.
+type ExportDrawingDXFResult struct {
+	Path     string `json:"path"`
+	Entities int    `json:"entities"`
+}
