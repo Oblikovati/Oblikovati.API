@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-06-17
+
+### Fixed
+
+- exchange: add DXF format, import/export methods and typed client
+
 ## [0.15.0] - 2026-06-17
 
 ### Added
@@ -146,7 +152,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.15.1...HEAD
+[0.15.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.14.1...v0.15.0
 [0.14.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.14.0...v0.14.1
 [0.14.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.13.0...v0.14.0
