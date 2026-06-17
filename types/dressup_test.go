@@ -54,3 +54,10 @@ func TestFilletCornerTypeFrozenBlock(t *testing.T) {
 	want := map[FilletCornerType]string{200001: "miter", 200002: "setback", 200003: "round"}
 	assertFrozenBlock(t, "FilletCornerType", want, filletCornerTypeNames, ParseFilletCornerType)
 }
+
+// ChamferConcaveStrategy is an Oblikovati extension (no reference enum); its block is ours but frozen.
+func TestChamferConcaveStrategyFrozenBlock(t *testing.T) {
+	want := map[ChamferConcaveStrategy]string{200101: "outward", 200102: "inward"}
+	assertFrozenBlock(t, "ChamferConcaveStrategy", want, chamferConcaveStrategyNames,
+		ParseChamferConcaveStrategy)
+}

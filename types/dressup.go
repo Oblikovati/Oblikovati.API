@@ -204,3 +204,36 @@ func (t ChamferType) String() string { return enumName(chamferTypeNames, t) }
 
 // ParseChamferType resolves a wire spelling back to its type.
 func ParseChamferType(s string) (ChamferType, bool) { return enumFromName(chamferTypeNames, s) }
+
+// ChamferConcaveStrategy selects how an edge chamfer treats a CONCAVE (internal) edge — one
+// where the two faces fold over the material so the dihedral exceeds π (e.g. the inside corner
+// where a rib meets a plate). A convex edge always cuts its corner and ignores this. An
+// Oblikovati extension with no reference-API equivalent, so the numeric block below is OURS
+// (chosen clear of the frozen reference blocks) — but, once shipped, equally frozen: never
+// renumber.
+//
+//   - ChamferConcaveOutward — fill the inside corner with material: a flat 45° gusset that
+//     bridges the two faces (Boolean union). The DEFAULT; the zero value resolves to it.
+//   - ChamferConcaveInward — instead cut a recessed groove into the corner, relieving it
+//     (Boolean cut on the material side).
+type ChamferConcaveStrategy int32
+
+const (
+	// ChamferConcaveOutward fills the inside corner with material (the default, also the zero value).
+	ChamferConcaveOutward ChamferConcaveStrategy = 200101
+	// ChamferConcaveInward cuts a recessed relief groove into the inside corner instead.
+	ChamferConcaveInward ChamferConcaveStrategy = 200102
+)
+
+var chamferConcaveStrategyNames = map[ChamferConcaveStrategy]string{
+	ChamferConcaveOutward: "outward",
+	ChamferConcaveInward:  "inward",
+}
+
+// String returns the concave strategy's wire spelling.
+func (t ChamferConcaveStrategy) String() string { return enumName(chamferConcaveStrategyNames, t) }
+
+// ParseChamferConcaveStrategy resolves a wire spelling back to its strategy.
+func ParseChamferConcaveStrategy(s string) (ChamferConcaveStrategy, bool) {
+	return enumFromName(chamferConcaveStrategyNames, s)
+}
