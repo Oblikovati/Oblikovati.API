@@ -78,6 +78,33 @@ func (d DrawingViews) AddBreak(args wire.AddBreakViewArgs) (wire.ViewResult, err
 	return r, d.c.call(wire.MethodDrawingViewsAddBreak, args, &r)
 }
 
+// AddSlice adds a slice view: only the zero-thickness cut outline at a section line on the parent.
+//
+// mcp:tool drawing_add_slice_view
+// mcp:summary Add a slice view off a parent: only the zero-thickness slice outline at the section line (x1,y1)-(x2,y2) on the parent (sheet mm), with nothing projected behind it; placed at centerXmm/centerYmm.
+func (d DrawingViews) AddSlice(args wire.AddSliceViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddSlice, args, &r)
+}
+
+// AddBreakout adds a breakout view: a parent copy with the interior revealed in a bounded region.
+//
+// mcp:tool drawing_add_breakout_view
+// mcp:summary Add a breakout view off a parent: a local cut-away revealing the interior inside the circular region (boundaryXmm/boundaryYmm/radiusMm on the parent, sheet mm); placed at centerXmm/centerYmm.
+func (d DrawingViews) AddBreakout(args wire.AddBreakoutViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddBreakout, args, &r)
+}
+
+// AddDraft adds a model-less framed draft view for manual 2D geometry.
+//
+// mcp:tool drawing_add_draft_view
+// mcp:summary Add a draft view: a model-less framed container (widthMm × heightMm, sheet mm) at centerXmm/centerYmm for manually-drawn 2D geometry.
+func (d DrawingViews) AddDraft(args wire.AddDraftViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddDraft, args, &r)
+}
+
 // Delete removes the named view (and any views projected from it).
 //
 // mcp:tool drawing_delete_view

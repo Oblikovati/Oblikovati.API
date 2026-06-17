@@ -108,6 +108,42 @@ type AddBreakViewArgs struct {
 	CenterYMM   float64 `json:"centerYmm,omitempty"`
 }
 
+// AddSliceViewArgs is the request of [MethodDrawingViewsAddSlice]: a zero-thickness slice at the
+// section line (X1,Y1)-(X2,Y2) on the parent (sheet mm) — only the cut outline, nothing behind.
+type AddSliceViewArgs struct {
+	Name       string  `json:"name,omitempty"`
+	ParentView string  `json:"parentView"`
+	X1         float64 `json:"x1"`
+	Y1         float64 `json:"y1"`
+	X2         float64 `json:"x2"`
+	Y2         float64 `json:"y2"`
+	CenterXMM  float64 `json:"centerXmm,omitempty"`
+	CenterYMM  float64 `json:"centerYmm,omitempty"`
+}
+
+// AddBreakoutViewArgs is the request of [MethodDrawingViewsAddBreakout]: a copy of ParentView
+// with the interior revealed inside the circular region (BoundaryXMM, BoundaryYMM, RadiusMM on
+// the parent, sheet mm) — a local cut-away. Placed at (CenterXMM, CenterYMM).
+type AddBreakoutViewArgs struct {
+	Name        string  `json:"name,omitempty"`
+	ParentView  string  `json:"parentView"`
+	BoundaryXMM float64 `json:"boundaryXmm"`
+	BoundaryYMM float64 `json:"boundaryYmm"`
+	RadiusMM    float64 `json:"radiusMm"`
+	CenterXMM   float64 `json:"centerXmm,omitempty"`
+	CenterYMM   float64 `json:"centerYmm,omitempty"`
+}
+
+// AddDraftViewArgs is the request of [MethodDrawingViewsAddDraft]: a model-less framed view of
+// WidthMM × HeightMM (sheet mm) at (CenterXMM, CenterYMM) — a container for manual 2D geometry.
+type AddDraftViewArgs struct {
+	Name      string  `json:"name,omitempty"`
+	WidthMM   float64 `json:"widthMm"`
+	HeightMM  float64 `json:"heightMm"`
+	CenterXMM float64 `json:"centerXmm,omitempty"`
+	CenterYMM float64 `json:"centerYmm,omitempty"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {
