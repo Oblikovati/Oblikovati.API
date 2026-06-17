@@ -102,6 +102,8 @@ const (
 	MethodModelReferenceKeys = "model.referenceKeys"
 
 	MethodImportDWG = "import.dwg"
+	MethodImportDXF = "import.dxf"
+	MethodExportDXF = "export.dxf"
 
 	MethodSketchCreate    = "sketch.create"
 	MethodSketchRectangle = "sketch.rectangle"
