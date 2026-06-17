@@ -24,6 +24,10 @@ const (
 	// carries 2D/3D curve geometry, so it imports into a sketch (2D Sketch on a chosen
 	// plane, or Sketch3D) rather than into surface bodies.
 	FormatDWG ExchangeFormat = "dwg"
+	// FormatDXF is the ASCII DXF drawing-exchange format — DWG's open, text sibling. Like
+	// DWG it carries curve geometry and imports into a sketch; on export the version is
+	// selectable (see DXFVersion).
+	FormatDXF ExchangeFormat = "dxf"
 )
 
 // IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
@@ -32,11 +36,35 @@ func (f ExchangeFormat) IsMesh() bool {
 	return f == FormatSTL || f == FormatOBJ || f == Format3MF
 }
 
-// IsSketch reports whether the format imports as sketch curve geometry (DWG) rather
+// IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF) rather
 // than as surface bodies (mesh/STEP). Such an import targets a sketch and, when 2D,
 // a chosen work plane.
 func (f ExchangeFormat) IsSketch() bool {
-	return f == FormatDWG
+	return f == FormatDWG || f == FormatDXF
+}
+
+// DXFVersion selects the generation an exported DXF targets. The geometry is identical
+// across versions; the version sets $ACADVER and the surrounding section scaffolding. The
+// zero value "" is treated as R2000.
+//
+// Example:
+//
+//	req := wire.ExportDXFArgs{Path: "part.dxf", Version: string(types.DXFR2018)}
+type DXFVersion string
+
+const (
+	// DXFR2000 is the AutoCAD 2000 (AC1015) generation — broadest compatibility.
+	DXFR2000 DXFVersion = "r2000"
+	// DXFR2018 is the AutoCAD 2018 (AC1032) generation.
+	DXFR2018 DXFVersion = "r2018"
+)
+
+// Normalized maps the zero value to R2000, leaving any explicit value unchanged.
+func (v DXFVersion) Normalized() DXFVersion {
+	if v == "" {
+		return DXFR2000
+	}
+	return v
 }
 
 // MeshResolution selects the tessellation density of an exported mesh: coarser (low)

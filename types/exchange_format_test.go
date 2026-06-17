@@ -17,16 +17,30 @@ func TestExchangeFormatIsMesh(t *testing.T) {
 	if FormatDWG.IsMesh() {
 		t.Errorf("FormatDWG.IsMesh() = true, want false (DWG is a sketch/drawing format)")
 	}
+	if FormatDXF.IsMesh() {
+		t.Errorf("FormatDXF.IsMesh() = true, want false (DXF is a sketch/drawing format)")
+	}
 }
 
 func TestExchangeFormatIsSketch(t *testing.T) {
-	if !FormatDWG.IsSketch() {
-		t.Errorf("FormatDWG.IsSketch() = false, want true")
+	for _, f := range []ExchangeFormat{FormatDWG, FormatDXF} {
+		if !f.IsSketch() {
+			t.Errorf("%q.IsSketch() = false, want true", f)
+		}
 	}
 	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatSTEP} {
 		if f.IsSketch() {
 			t.Errorf("%q.IsSketch() = true, want false", f)
 		}
+	}
+}
+
+func TestDXFVersionNormalizedDefaultsToR2000(t *testing.T) {
+	if got := DXFVersion("").Normalized(); got != DXFR2000 {
+		t.Errorf("empty.Normalized() = %q, want r2000", got)
+	}
+	if got := DXFR2018.Normalized(); got != DXFR2018 {
+		t.Errorf("r2018.Normalized() = %q, want r2018", got)
 	}
 }
 
