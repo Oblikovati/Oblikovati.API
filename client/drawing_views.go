@@ -69,6 +69,15 @@ func (d DrawingViews) AddDetail(args wire.AddDetailViewArgs) (wire.ViewResult, e
 	return r, d.c.call(wire.MethodDrawingViewsAddDetail, args, &r)
 }
 
+// AddBreak adds a break view: the parent compressed by removing a band along an axis.
+//
+// mcp:tool drawing_add_break_view
+// mcp:summary Add a break view: the parent view compressed by removing a band (orientation = horizontal removes a vertical band, vertical removes a horizontal one) between gapStartMm and gapEndMm on the parent (sheet mm), with break lines at the cut; placed at centerXmm/centerYmm.
+func (d DrawingViews) AddBreak(args wire.AddBreakViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddBreak, args, &r)
+}
+
 // Delete removes the named view (and any views projected from it).
 //
 // mcp:tool drawing_delete_view
