@@ -113,6 +113,31 @@ func ParseDrawingViewType(s string) (DrawingViewType, bool) {
 	return enumFromName(drawingViewTypeNames, s)
 }
 
+// BreakOrientation is the axis along which a break view compresses: a horizontal break removes
+// a vertical band (shortening a wide part), a vertical break removes a horizontal band. The zero
+// value is BreakHorizontal.
+type BreakOrientation int32
+
+const (
+	// BreakHorizontal removes a vertical band, compressing the view horizontally.
+	BreakHorizontal BreakOrientation = iota
+	// BreakVertical removes a horizontal band, compressing the view vertically.
+	BreakVertical
+)
+
+var breakOrientationNames = map[BreakOrientation]string{
+	BreakHorizontal: "horizontal",
+	BreakVertical:   "vertical",
+}
+
+// String returns the break orientation's wire spelling.
+func (o BreakOrientation) String() string { return enumName(breakOrientationNames, o) }
+
+// ParseBreakOrientation resolves a wire spelling back to its break orientation.
+func ParseBreakOrientation(s string) (BreakOrientation, bool) {
+	return enumFromName(breakOrientationNames, s)
+}
+
 // DrawingCurveKind classifies a drawing curve so the head can style it: an edge of the model
 // (visible/hidden), a section-cut outline, a hatch line, or a break-line glyph. The zero value
 // is DrawingEdgeCurve, so the existing visible/hidden edge curves keep their meaning.

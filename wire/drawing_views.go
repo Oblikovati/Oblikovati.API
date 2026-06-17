@@ -94,6 +94,20 @@ type AddDetailViewArgs struct {
 	CenterYMM   float64 `json:"centerYmm,omitempty"`
 }
 
+// AddBreakViewArgs is the request of [MethodDrawingViewsAddBreak]: a compressed view of the
+// parent with a band removed. Orientation is "horizontal" (remove a vertical band) or
+// "vertical"; GapStartMM/GapEndMM bound the removed band along that axis on the parent (sheet
+// millimetres). The view is placed at (CenterXMM, CenterYMM).
+type AddBreakViewArgs struct {
+	Name        string  `json:"name,omitempty"`
+	ParentView  string  `json:"parentView"`
+	Orientation string  `json:"orientation,omitempty"` // types.BreakOrientation ("" ⇒ horizontal)
+	GapStartMM  float64 `json:"gapStartMm"`
+	GapEndMM    float64 `json:"gapEndMm"`
+	CenterXMM   float64 `json:"centerXmm,omitempty"`
+	CenterYMM   float64 `json:"centerYmm,omitempty"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {
