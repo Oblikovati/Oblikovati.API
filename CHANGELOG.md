@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-06-17
+
+### Added
+
+- feat(drawing): CoG marker & revision-cloud annotation contracts (M14-F02 #813)
+
 ## [0.26.0] - 2026-06-17
 
 ### Added
@@ -218,7 +224,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.26.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.27.0...HEAD
+[0.27.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.26.0...v0.27.0
 [0.26.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.25.0...v0.26.0
 [0.25.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.24.0...v0.25.0
 [0.24.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.23.0...v0.24.0
