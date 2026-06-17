@@ -35,3 +35,13 @@ type DrawingView interface {
 	// CurveCount is the number of drawing curves (visible + hidden) the view holds.
 	CurveCount() int
 }
+
+// SectionDrawingView is a view cut from a parent view by a section line: the model is sliced by
+// the plane through that line (perpendicular to the parent), the near half removed, the cut
+// outline drawn bold and the exposed faces hatched. The reference contracts give section views a
+// distinct interface (unlike auxiliary/projected, which are a plain DrawingView + a type tag).
+type SectionDrawingView interface {
+	DrawingView
+	// SectionLineMM is the cut line on the parent view, in sheet millimetres.
+	SectionLineMM() (x1, y1, x2, y2 float64)
+}

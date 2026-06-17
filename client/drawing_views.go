@@ -51,6 +51,15 @@ func (d DrawingViews) AddAuxiliary(args wire.AddAuxiliaryViewArgs) (wire.ViewRes
 	return r, d.c.call(wire.MethodDrawingViewsAddAuxiliary, args, &r)
 }
 
+// AddSection adds a section view cutting the parent's model along a section line.
+//
+// mcp:tool drawing_add_section_view
+// mcp:summary Add a section view off a parent view: the model is cut by the plane through the section line (x1,y1)-(x2,y2) drawn on the parent (sheet mm), the near half removed, the cut outline drawn bold and the exposed faces hatched; placed at centerXmm/centerYmm.
+func (d DrawingViews) AddSection(args wire.AddSectionViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddSection, args, &r)
+}
+
 // Delete removes the named view (and any views projected from it).
 //
 // mcp:tool drawing_delete_view
