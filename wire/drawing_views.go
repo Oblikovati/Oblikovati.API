@@ -65,6 +65,21 @@ type AddAuxiliaryViewArgs struct {
 	CenterYMM    float64 `json:"centerYmm,omitempty"`
 }
 
+// AddSectionViewArgs is the request of [MethodDrawingViewsAddSection]: a section view of the
+// parent's model, cut by the plane through the section line (X1,Y1)-(X2,Y2) on the parent (sheet
+// millimetres), perpendicular to the parent. The near half is removed, the cut outline drawn
+// bold and the exposed faces hatched; the view is placed at (CenterXMM, CenterYMM).
+type AddSectionViewArgs struct {
+	Name       string  `json:"name,omitempty"`
+	ParentView string  `json:"parentView"`
+	X1         float64 `json:"x1"`
+	Y1         float64 `json:"y1"`
+	X2         float64 `json:"x2"`
+	Y2         float64 `json:"y2"`
+	CenterXMM  float64 `json:"centerXmm,omitempty"`
+	CenterYMM  float64 `json:"centerYmm,omitempty"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {
