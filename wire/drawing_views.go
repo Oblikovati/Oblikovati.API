@@ -11,10 +11,12 @@ package wire
 // DrawingViewInfo is the JSON shape of one drawing view.
 type DrawingViewInfo struct {
 	Name         string  `json:"name"`
-	Projected    bool    `json:"projected"`
-	BaseView     string  `json:"baseView,omitempty"`  // set for a projected view
-	Orientation  string  `json:"orientation"`         // types.BaseViewOrientation spelling
-	Direction    string  `json:"direction,omitempty"` // types.ProjectionDirection (projected views)
+	Type         string  `json:"type"`                   // types.DrawingViewType spelling (base/projected/auxiliary/…)
+	Projected    bool    `json:"projected"`              // true only for an orthographic projected view
+	BaseView     string  `json:"baseView,omitempty"`     // the parent view (projected/auxiliary/…)
+	Orientation  string  `json:"orientation"`            // types.BaseViewOrientation spelling
+	Direction    string  `json:"direction,omitempty"`    // types.ProjectionDirection (projected views)
+	FoldAngleDeg float64 `json:"foldAngleDeg,omitempty"` // fold-line angle on the parent (auxiliary views)
 	Scale        float64 `json:"scale"`
 	Style        string  `json:"style"` // types.DrawingViewStyle spelling
 	CenterXMM    float64 `json:"centerXmm"`
@@ -51,6 +53,18 @@ type AddProjectedViewArgs struct {
 	CenterYMM float64 `json:"centerYmm,omitempty"`
 }
 
+// AddAuxiliaryViewArgs is the request of [MethodDrawingViewsAddAuxiliary]: a view projected
+// perpendicular to a fold line drawn on the parent view at FoldAngleDeg (degrees, measured
+// from the parent's horizontal axis), inheriting the parent's scale and style. A fold angle of
+// 0 folds down (like a top projection); 90 folds to the side.
+type AddAuxiliaryViewArgs struct {
+	Name         string  `json:"name,omitempty"`
+	ParentView   string  `json:"parentView"`
+	FoldAngleDeg float64 `json:"foldAngleDeg"`
+	CenterXMM    float64 `json:"centerXmm,omitempty"`
+	CenterYMM    float64 `json:"centerYmm,omitempty"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {
@@ -77,6 +91,7 @@ type DrawingCurveSegment struct {
 	BX      float64 `json:"bx"`
 	BY      float64 `json:"by"`
 	Visible bool    `json:"visible"`
+	Kind    string  `json:"kind,omitempty"` // types.DrawingCurveKind ("edge" default; section/hatch/break)
 	EdgeKey string  `json:"edgeKey,omitempty"`
 }
 
