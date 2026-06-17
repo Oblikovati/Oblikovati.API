@@ -272,6 +272,13 @@ const (
 	MethodDrawingSetModelReference = "drawing.setModelReference"
 	MethodDrawingTitleBlockFields  = "drawing.titleBlockFields"
 
+	// Drawing drafting standards + styles (M14-F01 PBI-138, Oblikovati#385): the active
+	// drawing's drafting standard and its dimension/text/line style preset. Switching the
+	// standard re-points the preset so every annotation re-renders to it.
+	MethodDrawingStylesListStandards  = "drawingStyles.listStandards"
+	MethodDrawingStylesGetActiveStyle = "drawingStyles.getActiveStyle"
+	MethodDrawingStylesSetStandard    = "drawingStyles.setStandard"
+
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
 	MethodThreadsTableQuery = "threads.tableQuery"
