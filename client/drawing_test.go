@@ -58,6 +58,10 @@ func TestDrawingMethodsRoute(t *testing.T) {
 			_, e := c.Drawing().TitleBlockFields(wire.TitleBlockFieldsArgs{})
 			return e
 		}},
+		{wire.MethodDrawingExportDXF, func(c *Client) error {
+			_, e := c.Drawing().ExportDXF(wire.ExportDrawingDXFArgs{Path: "sheet.dxf"})
+			return e
+		}},
 	} {
 		ft := &fakeTransport{reply: []byte(`{}`)}
 		if err := tc.call(New(ft)); err != nil {

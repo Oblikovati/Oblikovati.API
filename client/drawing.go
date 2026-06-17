@@ -72,3 +72,13 @@ func (d Drawing) TitleBlockFields(args wire.TitleBlockFieldsArgs) (wire.TitleBlo
 	var r wire.TitleBlockFieldsResult
 	return r, d.c.call(wire.MethodDrawingTitleBlockFields, args, &r)
 }
+
+// ExportDXF writes the active sheet to a DXF file — its views' visible/hidden edges, border and
+// title block on named layers.
+//
+// mcp:tool drawing_export_dxf
+// mcp:summary Export the active drawing sheet to a DXF file (path, version r2000|r2018): view edges on Visible/Hidden layers, the border, and the title-block grid + field text.
+func (d Drawing) ExportDXF(args wire.ExportDrawingDXFArgs) (wire.ExportDrawingDXFResult, error) {
+	var r wire.ExportDrawingDXFResult
+	return r, d.c.call(wire.MethodDrawingExportDXF, args, &r)
+}
