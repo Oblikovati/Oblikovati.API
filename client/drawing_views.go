@@ -60,6 +60,15 @@ func (d DrawingViews) AddSection(args wire.AddSectionViewArgs) (wire.ViewResult,
 	return r, d.c.call(wire.MethodDrawingViewsAddSection, args, &r)
 }
 
+// AddDetail adds a magnified detail view of a circular region of a parent view.
+//
+// mcp:tool drawing_add_detail_view
+// mcp:summary Add a detail view: a magnified circular region (boundaryXmm/boundaryYmm/radiusMm on the parent, sheet mm) of a parent view, at the larger scale, placed at centerXmm/centerYmm.
+func (d DrawingViews) AddDetail(args wire.AddDetailViewArgs) (wire.ViewResult, error) {
+	var r wire.ViewResult
+	return r, d.c.call(wire.MethodDrawingViewsAddDetail, args, &r)
+}
+
 // Delete removes the named view (and any views projected from it).
 //
 // mcp:tool drawing_delete_view

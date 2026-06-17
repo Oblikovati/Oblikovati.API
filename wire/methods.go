@@ -306,6 +306,7 @@ const (
 	MethodDrawingViewsAddProjected = "drawingViews.addProjected"
 	MethodDrawingViewsAddAuxiliary = "drawingViews.addAuxiliary"
 	MethodDrawingViewsAddSection   = "drawingViews.addSection"
+	MethodDrawingViewsAddDetail    = "drawingViews.addDetail"
 	MethodDrawingViewsDelete       = "drawingViews.delete"
 	MethodDrawingViewsCurves       = "drawingViews.curves"
 
