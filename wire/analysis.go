@@ -7,7 +7,8 @@ package wire
 
 // MeasureArgs is the request of [MethodAnalysisMeasure]: measure an entity (or pair) of the active
 // part's body BodyIndex, identified by reference key(s). Type selects the quantity: "length"
-// (edge KeyA), "area" (face KeyA), or "distance" (vertices KeyA and KeyB).
+// (edge KeyA), "area" (face KeyA), "distance" (straight line between vertices KeyA and KeyB), or
+// "minDistance" (closest approach between the two entities KeyA and KeyB, each a vertex/edge/face).
 type MeasureArgs struct {
 	BodyIndex int    `json:"bodyIndex,omitempty"`
 	Type      string `json:"type"`
