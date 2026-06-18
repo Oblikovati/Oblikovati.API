@@ -329,6 +329,8 @@ const (
 	MethodDrawingAnnotationsAddHoleTable     = "drawingAnnotations.addHoleTable"
 	MethodDrawingAnnotationsAddRevTable      = "drawingAnnotations.addRevisionTable"
 	MethodDrawingAnnotationsAddRevTag        = "drawingAnnotations.addRevisionTag"
+	MethodDrawingAnnotationsAddNote          = "drawingAnnotations.addNote"
+	MethodDrawingAnnotationsAddCustomTable   = "drawingAnnotations.addCustomTable"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
