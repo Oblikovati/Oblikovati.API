@@ -7,17 +7,20 @@ package wire
 
 // MeasureArgs is the request of [MethodAnalysisMeasure]: measure an entity (or pair) of the active
 // part's body BodyIndex, identified by reference key(s). Type selects the quantity: "length"
-// (edge KeyA), "area" (face KeyA), "distance" (straight line between vertices KeyA and KeyB), or
-// "minDistance" (closest approach between the two entities KeyA and KeyB, each a vertex/edge/face).
+// (edge KeyA), "area" (face KeyA), "distance" (straight line between vertices KeyA and KeyB),
+// "minDistance" (closest approach between the two entities KeyA and KeyB, each a vertex/edge/face),
+// or "angle" (between two entities KeyA and KeyB — an edge's direction or a planar face's normal —
+// or, when KeyC is given, the angle at apex vertex KeyB between vertices KeyA and KeyC).
 type MeasureArgs struct {
 	BodyIndex int    `json:"bodyIndex,omitempty"`
 	Type      string `json:"type"`
 	KeyA      string `json:"keyA"`
 	KeyB      string `json:"keyB,omitempty"`
+	KeyC      string `json:"keyC,omitempty"`
 }
 
 // MeasureResult is the response of [MethodAnalysisMeasure]: the measured value and its unit
-// ("mm" for length/distance, "mm²" for area).
+// ("mm" for length/distance/minDistance, "mm²" for area, "deg" for angle).
 type MeasureResult struct {
 	Type  string  `json:"type"`
 	Value float64 `json:"value"`

@@ -26,7 +26,7 @@ func (a Analysis) MassProperties(args wire.MassPropertiesArgs) (wire.MassPropert
 // Measure reports a geometric quantity of one or two of the active part's entities.
 //
 // mcp:tool analysis_measure
-// mcp:summary Measure an entity of the active part's body (bodyIndex) by reference key: type "length" (edge keyA), "area" (face keyA), "distance" (between vertices keyA and keyB), or "minDistance" (closest approach between two entities keyA and keyB, each a vertex/edge/face). Returns the value with its unit (mm or mm²).
+// mcp:summary Measure an entity of the active part's body (bodyIndex) by reference key: type "length" (edge keyA), "area" (face keyA), "distance" (between vertices keyA and keyB), "minDistance" (closest approach between two entities keyA and keyB, each a vertex/edge/face), or "angle" (between two entities keyA and keyB, an edge direction or planar-face normal; or with keyC, the angle at apex vertex keyB between vertices keyA and keyC). Returns the value with its unit (mm, mm² or deg).
 func (a Analysis) Measure(args wire.MeasureArgs) (wire.MeasureResult, error) {
 	var r wire.MeasureResult
 	return r, a.c.call(wire.MethodAnalysisMeasure, args, &r)
