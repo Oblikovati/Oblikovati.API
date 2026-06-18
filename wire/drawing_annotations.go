@@ -157,6 +157,29 @@ type AddRevisionTagArgs struct {
 	Revision string  `json:"revision"`
 }
 
+// AddDrawingNoteArgs is the request of [MethodDrawingAnnotationsAddNote]: a free text note anchored
+// at (XMM, YMM) on the sheet. If LeaderXMM/LeaderYMM are given (non-zero), a leader is drawn from
+// the note to that point — the feature it annotates.
+type AddDrawingNoteArgs struct {
+	Name      string  `json:"name,omitempty"`
+	XMM       float64 `json:"xmm"`
+	YMM       float64 `json:"ymm"`
+	Text      string  `json:"text"`
+	LeaderXMM float64 `json:"leaderXmm,omitempty"`
+	LeaderYMM float64 `json:"leaderYmm,omitempty"`
+}
+
+// AddCustomTableArgs is the request of [MethodDrawingAnnotationsAddCustomTable]: a general-purpose
+// table at (XMM, YMM) on the sheet (its top-left corner) with the given column Headers and Rows
+// (each row's cells align to the headers). The table is user-supplied content, persisted verbatim.
+type AddCustomTableArgs struct {
+	Name    string     `json:"name,omitempty"`
+	XMM     float64    `json:"xmm"`
+	YMM     float64    `json:"ymm"`
+	Headers []string   `json:"headers"`
+	Rows    [][]string `json:"rows,omitempty"`
+}
+
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
 type DeleteAnnotationArgs struct {
 	Name string `json:"name"`

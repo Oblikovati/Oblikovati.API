@@ -246,6 +246,11 @@ const (
 	// RevisionTagAnnotation is a revision tag: a triangle holding a revision letter, placed on the
 	// sheet to flag where that revision changed the drawing.
 	RevisionTagAnnotation
+	// DrawingNoteAnnotation is a free text note on the sheet, with an optional leader line to the
+	// point it annotates.
+	DrawingNoteAnnotation
+	// CustomTableAnnotation is a general-purpose table: arbitrary column headers and rows in a grid.
+	CustomTableAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -261,6 +266,8 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	HoleTableAnnotation:           "holeTable",
 	RevisionTableAnnotation:       "revisionTable",
 	RevisionTagAnnotation:         "revisionTag",
+	DrawingNoteAnnotation:         "drawingNote",
+	CustomTableAnnotation:         "customTable",
 }
 
 // String returns the annotation kind's wire spelling.

@@ -131,6 +131,24 @@ func (d DrawingAnnotations) AddRevisionTag(args wire.AddRevisionTagArgs) (wire.A
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddRevTag, args, &r)
 }
 
+// AddNote adds a free text note (with an optional leader) at a sheet point.
+//
+// mcp:tool drawing_add_note
+// mcp:summary Add a free text note anchored at a sheet point (xmm/ymm); if leaderXmm/leaderYmm are given, a leader is drawn from the note to that point.
+func (d DrawingAnnotations) AddNote(args wire.AddDrawingNoteArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddNote, args, &r)
+}
+
+// AddCustomTable adds a general-purpose table (arbitrary headers + rows) at a sheet point.
+//
+// mcp:tool drawing_add_custom_table
+// mcp:summary Add a general-purpose table at a sheet point (xmm/ymm = top-left) with the given column headers and rows (each row's cells align to the headers). The rowCount in the result is the data-row count.
+func (d DrawingAnnotations) AddCustomTable(args wire.AddCustomTableArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddCustomTable, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
