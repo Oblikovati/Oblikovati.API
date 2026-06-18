@@ -17,7 +17,7 @@ func (c *Client) Analysis() Analysis { return Analysis{c} }
 // mass) for the given material density.
 //
 // mcp:tool analysis_mass_properties
-// mcp:summary Compute the active part's mass properties — volume (mm³), surface area (mm²), centre of mass (mm) and mass (g) — over all its solid bodies. densityGCm3 is the material density in g/cm³ (0 ⇒ 1.0).
+// mcp:summary Compute the active part's mass properties over all its solid bodies — volume (mm³), surface area (mm²), centre of mass (mm), mass (g), and mass moment of inertia about the centroid (g·mm²) with principal moments/axes. densityGCm3 overrides the material density (0 ⇒ the assigned material's, else 1.0); accuracy is low|medium|high.
 func (a Analysis) MassProperties(args wire.MassPropertiesArgs) (wire.MassPropertiesResult, error) {
 	var r wire.MassPropertiesResult
 	return r, a.c.call(wire.MethodAnalysisMassProperties, args, &r)
