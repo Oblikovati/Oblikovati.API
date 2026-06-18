@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.62.0] - 2026-06-18
+
+### Added
+
+- feat(features): re-pick geometric references in features.edit (#163)
+
 ## [0.61.0] - 2026-06-18
 
 ### Added
@@ -434,7 +440,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.61.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.62.0...HEAD
+[0.62.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.61.0...v0.62.0
 [0.61.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.60.0...v0.61.0
 [0.60.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.59.0...v0.60.0
 [0.59.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.58.0...v0.59.0
