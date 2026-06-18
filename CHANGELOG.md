@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.53.0] - 2026-06-18
+
+### Added
+
+- feat: minDistance measure type between two entities
+
 ## [0.52.1] - 2026-06-18
 
 ### Fixed
@@ -380,7 +386,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.52.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.53.0...HEAD
+[0.53.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.52.1...v0.53.0
 [0.52.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.52.0...v0.52.1
 [0.52.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.51.0...v0.52.0
 [0.51.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.50.0...v0.51.0
