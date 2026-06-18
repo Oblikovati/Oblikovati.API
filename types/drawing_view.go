@@ -251,6 +251,9 @@ const (
 	DrawingNoteAnnotation
 	// CustomTableAnnotation is a general-purpose table: arbitrary column headers and rows in a grid.
 	CustomTableAnnotation
+	// HoleNoteAnnotation is a feature note on a base view's holes: a leadered diameter callout per
+	// hole, computed from the hole's circular edge and re-resolved when the model changes.
+	HoleNoteAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -268,6 +271,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	RevisionTagAnnotation:         "revisionTag",
 	DrawingNoteAnnotation:         "drawingNote",
 	CustomTableAnnotation:         "customTable",
+	HoleNoteAnnotation:            "holeNote",
 }
 
 // String returns the annotation kind's wire spelling.
