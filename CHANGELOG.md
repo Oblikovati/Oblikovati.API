@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.59.0] - 2026-06-18
+
+### Added
+
+- feat: analysis.modelHealth — aggregate feature health
+
 ## [0.58.0] - 2026-06-18
 
 ### Added
@@ -416,7 +422,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.58.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.59.0...HEAD
+[0.59.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.57.0...v0.58.0
 [0.57.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.56.0...v0.57.0
 [0.56.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.55.0...v0.56.0
