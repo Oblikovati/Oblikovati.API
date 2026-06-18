@@ -10,8 +10,8 @@ package wire
 // DrawingAnnotationInfo is the JSON shape of one drawing annotation.
 type DrawingAnnotationInfo struct {
 	Name       string `json:"name"`
-	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud")
-	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker is on
+	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark")
+	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
 	Tag        string `json:"tag,omitempty"`      // a revision cloud's label
 	CurveCount int    `json:"curveCount"`
 }
@@ -37,6 +37,18 @@ type AddRevisionCloudArgs struct {
 	WidthMM  float64 `json:"widthMm"`
 	HeightMM float64 `json:"heightMm"`
 	Tag      string  `json:"tag,omitempty"`
+}
+
+// AddCenterMarksArgs is the request of [MethodDrawingAnnotationsAddCenterMarks]: a centre mark
+// (crosshair) at the centre of every circular model edge in ViewName. Each mark attaches to its
+// edge, so it re-projects when the model changes. Coincident projections are marked once.
+type AddCenterMarksArgs struct {
+	ViewName string `json:"viewName"`
+}
+
+// CenterMarksResult is the response of [MethodDrawingAnnotationsAddCenterMarks]: the marks created.
+type CenterMarksResult struct {
+	Annotations []DrawingAnnotationInfo `json:"annotations"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].

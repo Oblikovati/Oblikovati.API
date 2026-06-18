@@ -41,6 +41,15 @@ func (d DrawingAnnotations) AddRevisionCloud(args wire.AddRevisionCloudArgs) (wi
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddRevisionCloud, args, &r)
 }
 
+// AddCenterMarks adds a centre mark (crosshair) at every circular model edge's centre in a view.
+//
+// mcp:tool drawing_add_center_marks
+// mcp:summary Add a centre mark (crosshair) at the centre of every circular model edge in a drawing view (the auto centre-mark-all-holes action). Each mark attaches to its edge and re-projects when the model changes.
+func (d DrawingAnnotations) AddCenterMarks(args wire.AddCenterMarksArgs) (wire.CenterMarksResult, error) {
+	var r wire.CenterMarksResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddCenterMarks, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
