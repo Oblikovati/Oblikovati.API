@@ -44,11 +44,13 @@ func (f Features) Get(id uint64) (wire.FeatureDetailResult, error) {
 	return r, f.c.call(wire.MethodFeaturesGet, wire.FeatureRefArgs{ID: id}, &r)
 }
 
-// Edit sets editable scalars of a placed feature in place and recomputes, e.g.
-// Edit(wire.EditFeatureArgs{ID: 7, Scalars: []wire.ScalarEdit{{Index: 0, Value: "5 mm"}}}).
+// Edit edits a placed feature in place and recomputes: set editable scalars and/or re-pick
+// its geometric references (a fillet's edges, an extrude's profile, a mirror's plane). E.g.
+// Edit(wire.EditFeatureArgs{ID: 7, Scalars: []wire.ScalarEdit{{Index: 0, Value: "5 mm"}}}) or
+// Edit(wire.EditFeatureArgs{ID: 7, Repick: []wire.FeatureRepick{{Slot: 0, Ref: edgeKey}}}).
 //
 // mcp:tool features_edit
-// mcp:summary Sets editable scalars of a placed feature in place and recomputes, e.g.
+// mcp:summary Edit a placed feature in place — set scalars and/or re-pick its geometric references (edges/faces/profile/plane) — then recompute.
 func (f Features) Edit(args wire.EditFeatureArgs) (wire.FeatureDetailResult, error) {
 	var r wire.FeatureDetailResult
 	return r, f.c.call(wire.MethodFeaturesEdit, args, &r)
