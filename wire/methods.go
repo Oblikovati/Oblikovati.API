@@ -325,6 +325,7 @@ const (
 	MethodDrawingAnnotationsAddDatum         = "drawingAnnotations.addDatumFeature"
 	MethodDrawingAnnotationsAddSurfaceText   = "drawingAnnotations.addSurfaceTexture"
 	MethodDrawingAnnotationsAddPartsList     = "drawingAnnotations.addPartsList"
+	MethodDrawingAnnotationsAddBalloon       = "drawingAnnotations.addBalloon"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
