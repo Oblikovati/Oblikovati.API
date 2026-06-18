@@ -61,6 +61,22 @@ type AddAngularDimensionArgs struct {
 	Y2       float64 `json:"y2"`
 }
 
+// AddDimensionSetArgs is the request of [MethodDrawingDimensionsAddBaseline] /
+// [MethodDrawingDimensionsAddChain]: a set of linear dimensions on ViewName from a list of pick
+// points (each [x,y] sheet mm, snapped to the nearest projected model vertex). A baseline set
+// measures from the first point to each of the others (stacked); a chain set measures between
+// consecutive points (in a line). Type selects the measured component (aligned/horizontal/vertical).
+type AddDimensionSetArgs struct {
+	ViewName string      `json:"viewName"`
+	Type     string      `json:"type,omitempty"`
+	Points   [][]float64 `json:"points"`
+}
+
+// DimensionSetResult is the response of the dimension-set methods: the created dimensions.
+type DimensionSetResult struct {
+	Dimensions []DrawingDimensionInfo `json:"dimensions"`
+}
+
 // DeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].
 type DeleteDimensionArgs struct {
 	Name string `json:"name"`

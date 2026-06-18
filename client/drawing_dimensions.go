@@ -49,6 +49,25 @@ func (d DrawingDimensions) AddAngular(args wire.AddAngularDimensionArgs) (wire.D
 	return r, d.c.call(wire.MethodDrawingDimensionsAddAngular, args, &r)
 }
 
+// AddBaseline adds a baseline set: linear dimensions from the first pick point to each of the
+// others, stacked.
+//
+// mcp:tool drawing_add_baseline_dimensions
+// mcp:summary Add a baseline dimension set on a drawing view: linear dimensions from the first pick point to each of the other points (each [x,y] sheet mm, snapped to model vertices), stacked. type = aligned|horizontal|vertical. The values update with the model.
+func (d DrawingDimensions) AddBaseline(args wire.AddDimensionSetArgs) (wire.DimensionSetResult, error) {
+	var r wire.DimensionSetResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddBaseline, args, &r)
+}
+
+// AddChain adds a chain set: linear dimensions between consecutive pick points, in a line.
+//
+// mcp:tool drawing_add_chain_dimensions
+// mcp:summary Add a chain dimension set on a drawing view: linear dimensions between consecutive pick points (each [x,y] sheet mm, snapped to model vertices), running in a line. type = aligned|horizontal|vertical. The values update with the model.
+func (d DrawingDimensions) AddChain(args wire.AddDimensionSetArgs) (wire.DimensionSetResult, error) {
+	var r wire.DimensionSetResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddChain, args, &r)
+}
+
 // Delete removes the named dimension.
 //
 // mcp:tool drawing_delete_dimension
