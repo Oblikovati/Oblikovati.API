@@ -690,6 +690,8 @@ const (
 	// (volume, surface area, centre of mass, mass) of the active part; measurement of entities.
 	MethodAnalysisMassProperties = "analysis.massProperties"
 	MethodAnalysisMeasure        = "analysis.measure"
+	// Model health aggregation (M18-F02 #430): enumerate the active part's unhealthy features.
+	MethodAnalysisModelHealth = "analysis.modelHealth"
 
 	// Add-in registry & automation (M05-F01: #245, #251, #252).
 	MethodAddInsList            = "addins.list"

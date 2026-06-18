@@ -23,6 +23,16 @@ func (a Analysis) MassProperties(args wire.MassPropertiesArgs) (wire.MassPropert
 	return r, a.c.call(wire.MethodAnalysisMassProperties, args, &r)
 }
 
+// ModelHealth aggregates the active part's feature health — the overall status, the sick count, and
+// every feature that is not OK.
+//
+// mcp:tool analysis_model_health
+// mcp:summary Aggregate the active part's model health: the overall (worst) status across its features, the count of sick features, and every feature that is not "ok" (with its status and reason) so they can be listed for repair.
+func (a Analysis) ModelHealth(args wire.ModelHealthArgs) (wire.ModelHealthResult, error) {
+	var r wire.ModelHealthResult
+	return r, a.c.call(wire.MethodAnalysisModelHealth, args, &r)
+}
+
 // Measure reports a geometric quantity of one or two of the active part's entities.
 //
 // mcp:tool analysis_measure

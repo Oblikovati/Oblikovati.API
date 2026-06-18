@@ -28,6 +28,27 @@ type MeasureResult struct {
 	Unit  string  `json:"unit"`
 }
 
+// ModelHealthArgs is the request of [MethodAnalysisModelHealth]: aggregate the active part's
+// feature health. It has no fields — it inspects the active document.
+type ModelHealthArgs struct{}
+
+// FeatureHealth is one feature's health on the wire: its Name, Status ("ok"/"warning"/"sick"/
+// "suppressed", matching [oblikovati.org/api/types.HealthStatus]) and a Reason when not OK.
+type FeatureHealth struct {
+	Name   string `json:"name"`
+	Status string `json:"status"`
+	Reason string `json:"reason,omitempty"`
+}
+
+// ModelHealthResult is the response of [MethodAnalysisModelHealth]: the overall (worst) status
+// across the part's features, the count of sick features, and every feature that is not OK so the
+// UI can list them for repair.
+type ModelHealthResult struct {
+	Overall   string          `json:"overall"`
+	SickCount int             `json:"sickCount"`
+	Unhealthy []FeatureHealth `json:"unhealthy,omitempty"`
+}
+
 // MassPropertiesArgs is the request of [MethodAnalysisMassProperties]: compute the active part's
 // mass properties. DensityGCm3 is the material density in g/cm³ used for the mass (0 ⇒ 1.0, so the
 // mass equals the volume in cm³).
