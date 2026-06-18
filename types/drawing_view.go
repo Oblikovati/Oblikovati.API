@@ -225,6 +225,9 @@ const (
 	// FeatureControlFrameAnnotation is a GD&T feature control frame: a boxed geometric-tolerance
 	// callout (characteristic symbol · tolerance · datum references) placed on the sheet.
 	FeatureControlFrameAnnotation
+	// DatumFeatureAnnotation is a GD&T datum feature symbol: a letter in a box with a filled
+	// datum triangle, marking the datum a feature control frame references.
+	DatumFeatureAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -233,6 +236,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	CenterMarkAnnotation:          "centerMark",
 	CenterlineAnnotation:          "centerline",
 	FeatureControlFrameAnnotation: "featureControlFrame",
+	DatumFeatureAnnotation:        "datumFeature",
 }
 
 // String returns the annotation kind's wire spelling.

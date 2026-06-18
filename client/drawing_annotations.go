@@ -68,6 +68,15 @@ func (d DrawingAnnotations) AddFeatureControlFrame(args wire.AddFeatureControlFr
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddFCF, args, &r)
 }
 
+// AddDatumFeature adds a GD&T datum feature symbol (a lettered box + datum triangle) at a sheet point.
+//
+// mcp:tool drawing_add_datum_feature
+// mcp:summary Add a GD&T datum feature symbol at a sheet point (xmm/ymm): the datum letter (e.g. "A") in a box with a filled datum triangle, marking a datum that feature control frames reference.
+func (d DrawingAnnotations) AddDatumFeature(args wire.AddDatumFeatureArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddDatum, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
