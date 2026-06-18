@@ -6,7 +6,7 @@ package wire
 // part — volume, surface area, centre of mass and mass.
 
 // MeasureArgs is the request of [MethodAnalysisMeasure]: measure an entity (or pair) of the active
-// part's body BodyIndex, identified by hex reference key(s). Type selects the quantity: "length"
+// part's body BodyIndex, identified by reference key(s). Type selects the quantity: "length"
 // (edge KeyA), "area" (face KeyA), or "distance" (vertices KeyA and KeyB).
 type MeasureArgs struct {
 	BodyIndex int    `json:"bodyIndex,omitempty"`
