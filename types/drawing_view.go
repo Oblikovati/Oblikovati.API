@@ -228,6 +228,9 @@ const (
 	// DatumFeatureAnnotation is a GD&T datum feature symbol: a letter in a box with a filled
 	// datum triangle, marking the datum a feature control frame references.
 	DatumFeatureAnnotation
+	// SurfaceTextureAnnotation is an ISO 1302 surface texture symbol: the checkmark glyph with a
+	// roughness value, stating a surface's finish requirement.
+	SurfaceTextureAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -237,6 +240,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	CenterlineAnnotation:          "centerline",
 	FeatureControlFrameAnnotation: "featureControlFrame",
 	DatumFeatureAnnotation:        "datumFeature",
+	SurfaceTextureAnnotation:      "surfaceTexture",
 }
 
 // String returns the annotation kind's wire spelling.
