@@ -34,6 +34,20 @@ type SelectionResult struct {
 	Refs  []string `json:"refs"`
 }
 
+// SelectArgs is the request of [MethodModelSelect] (#157): select the entities named by Refs —
+// reference strings as returned in a [SelectionResult] (face/vertex). Mode "add" extends the
+// current selection; any other value (or empty) replaces it. The reply is the new selection.
+type SelectArgs struct {
+	Refs []string `json:"refs"`
+	Mode string   `json:"mode,omitempty"`
+}
+
+// DeselectArgs is the request of [MethodModelDeselect] (#157): remove the named entities from the
+// current selection (references not currently selected are ignored). The reply is the new selection.
+type DeselectArgs struct {
+	Refs []string `json:"refs"`
+}
+
 // TopologyRef identifies one piece of part topology by its persistent reference key, with a
 // representative point [x,y,z] (a face's range-box centre, an edge's midpoint, a vertex's
 // position) so a caller can recognise which entity it is. Kind is the geometry classification

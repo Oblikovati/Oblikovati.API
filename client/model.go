@@ -28,6 +28,34 @@ func (m Model) Selection() (wire.SelectionResult, error) {
 	return r, m.c.call(wire.MethodModelSelection, nil, &r)
 }
 
+// Select selects the entities named by their reference strings (from a SelectionResult). Mode
+// "add" extends the current selection; "replace" (or empty) replaces it. Returns the new selection.
+//
+// mcp:tool select_entities
+// mcp:summary Select model entities by their reference strings (mode add|replace).
+func (m Model) Select(refs []string, mode string) (wire.SelectionResult, error) {
+	var r wire.SelectionResult
+	return r, m.c.call(wire.MethodModelSelect, wire.SelectArgs{Refs: refs, Mode: mode}, &r)
+}
+
+// Deselect removes the named entities from the current selection. Returns the new selection.
+//
+// mcp:tool deselect_entities
+// mcp:summary Remove model entities (by reference string) from the current selection.
+func (m Model) Deselect(refs []string) (wire.SelectionResult, error) {
+	var r wire.SelectionResult
+	return r, m.c.call(wire.MethodModelDeselect, wire.DeselectArgs{Refs: refs}, &r)
+}
+
+// ClearSelection clears the whole selection. Returns the now-empty selection.
+//
+// mcp:tool clear_selection
+// mcp:summary Clear the current selection.
+func (m Model) ClearSelection() (wire.SelectionResult, error) {
+	var r wire.SelectionResult
+	return r, m.c.call(wire.MethodModelClearSelection, nil, &r)
+}
+
 // ReferenceKeys returns the active part's topology (faces/edges/vertices) with their
 // persistent reference keys — the keys consumed by Include / AddSurfaceCurve / Project /
 // attributes. It is how an add-in obtains a key without a viewport pick.

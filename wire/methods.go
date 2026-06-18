@@ -129,6 +129,13 @@ const (
 	MethodModelSelection     = "model.selection"
 	MethodModelReferenceKeys = "model.referenceKeys"
 
+	// Selection mutation (#157) — make the previously read-only selection writable: select the
+	// entities named by their reference strings (from a SelectionResult), remove them, or clear
+	// the whole set. The reply is the new SelectionResult.
+	MethodModelSelect         = "model.select"
+	MethodModelDeselect       = "model.deselect"
+	MethodModelClearSelection = "model.clearSelection"
+
 	MethodImportDWG = "import.dwg"
 	MethodImportDXF = "import.dxf"
 	MethodExportDXF = "export.dxf"
