@@ -319,6 +319,7 @@ const (
 	MethodDrawingAnnotationsList             = "drawingAnnotations.list"
 	MethodDrawingAnnotationsAddCoG           = "drawingAnnotations.addCoG"
 	MethodDrawingAnnotationsAddRevisionCloud = "drawingAnnotations.addRevisionCloud"
+	MethodDrawingAnnotationsAddCenterMarks   = "drawingAnnotations.addCenterMarks"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,

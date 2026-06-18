@@ -217,11 +217,14 @@ const (
 	CoGMarkerAnnotation DrawingAnnotationKind = iota
 	// RevisionCloudAnnotation is a scalloped cloud highlighting a changed sheet region.
 	RevisionCloudAnnotation
+	// CenterMarkAnnotation is a crosshair at a circular edge's centre, associative to that edge.
+	CenterMarkAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	CoGMarkerAnnotation:     "cog",
 	RevisionCloudAnnotation: "revisionCloud",
+	CenterMarkAnnotation:    "centerMark",
 }
 
 // String returns the annotation kind's wire spelling.
