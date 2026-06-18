@@ -237,6 +237,11 @@ const (
 	// 3D spline tangency handles (M06-F11, #626).
 	MethodSketch3DSetSplineHandle = "sketch3d.setSplineHandle"
 
+	// A 3D sketch's own persistent reference key (#153). 3D entity keys are reported by
+	// MethodSketch3DEntities, and any key (2D or 3D) rebinds through
+	// MethodSketchResolveReference.
+	MethodSketch3DReferenceKey = "sketch3d.referenceKey"
+
 	MethodFeaturesList = "features.list"
 	MethodFeaturesAdd  = "features.add"
 

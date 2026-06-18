@@ -84,6 +84,17 @@ func (s Sketch3D) Entities(index int) (wire.EnumerateEntities3DResult, error) {
 	return r, s.c.call(wire.MethodSketch3DEntities, wire.Sketch3DArgs{SketchIndex: index}, &r)
 }
 
+// ReferenceKey returns the 3D sketch's persistent reference key (#153): a document-scoped
+// UUID stable across save/load and edits. Store it to refer to the sketch durably; rebind it
+// (or any 3D entity key from Entities) with [Sketch.ResolveReference].
+//
+// mcp:tool sketch3d_reference_key
+// mcp:summary Get a 3D sketch's persistent reference key — a document-scoped UUID stable across save/load, for durable references.
+func (s Sketch3D) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error) {
+	var r wire.SketchReferenceKeyResult
+	return r, s.c.call(wire.MethodSketch3DReferenceKey, wire.Sketch3DArgs{SketchIndex: index}, &r)
+}
+
 // Constraints enumerates the 3D sketch's geometric constraints.
 //
 // mcp:tool list_sketch3d_constraints
