@@ -10,7 +10,7 @@ package wire
 // DrawingAnnotationInfo is the JSON shape of one drawing annotation.
 type DrawingAnnotationInfo struct {
 	Name       string `json:"name"`
-	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList")
+	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList"/"balloon")
 	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
 	Tag        string `json:"tag,omitempty"`      // a revision cloud's label
 	CurveCount int    `json:"curveCount"`
@@ -104,6 +104,18 @@ type AddPartsListArgs struct {
 	Name string  `json:"name,omitempty"`
 	XMM  float64 `json:"xmm"`
 	YMM  float64 `json:"ymm"`
+}
+
+// AddBalloonArgs is the request of [MethodDrawingAnnotationsAddBalloon]: a balloon (a circle
+// holding the parts-list Item number) centred at (XMM, YMM) on the sheet. If LeaderXMM/LeaderYMM
+// are given (non-zero), a leader is drawn from the balloon to that point — the component it tags.
+type AddBalloonArgs struct {
+	Name      string  `json:"name,omitempty"`
+	XMM       float64 `json:"xmm"`
+	YMM       float64 `json:"ymm"`
+	Item      int     `json:"item"`
+	LeaderXMM float64 `json:"leaderXmm,omitempty"`
+	LeaderYMM float64 `json:"leaderYmm,omitempty"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].

@@ -95,6 +95,15 @@ func (d DrawingAnnotations) AddPartsList(args wire.AddPartsListArgs) (wire.Annot
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddPartsList, args, &r)
 }
 
+// AddBalloon adds a balloon (a circled parts-list item number with an optional leader) at a sheet point.
+//
+// mcp:tool drawing_add_balloon
+// mcp:summary Add a balloon at a sheet point (xmm/ymm = circle centre): a circle holding the parts-list item number, with an optional leader to the component it tags (leaderXmm/leaderYmm). Balloons reference parts-list items.
+func (d DrawingAnnotations) AddBalloon(args wire.AddBalloonArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddBalloon, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation

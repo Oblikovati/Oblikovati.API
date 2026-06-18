@@ -234,6 +234,9 @@ const (
 	// PartsListAnnotation is a parts list table sourced from the referenced assembly's BOM (item
 	// number, part number, description, quantity), updating with the assembly.
 	PartsListAnnotation
+	// BalloonAnnotation is a balloon: a circle holding a parts-list item number, with an optional
+	// leader to the component it tags.
+	BalloonAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -245,6 +248,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	DatumFeatureAnnotation:        "datumFeature",
 	SurfaceTextureAnnotation:      "surfaceTexture",
 	PartsListAnnotation:           "partsList",
+	BalloonAnnotation:             "balloon",
 }
 
 // String returns the annotation kind's wire spelling.
