@@ -59,6 +59,15 @@ func (d DrawingAnnotations) AddCenterlines(args wire.AddCenterlinesArgs) (wire.A
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddCenterlines, args, &r)
 }
 
+// AddFeatureControlFrame adds a GD&T feature control frame at a sheet point.
+//
+// mcp:tool drawing_add_feature_control_frame
+// mcp:summary Add a GD&T feature control frame at a sheet point (xmm/ymm): a boxed geometric-tolerance callout with a characteristic (types.GeometricCharacteristic wire spelling, e.g. position|flatness|perpendicularity|parallelism|straightness|circularity), a tolerance value, and ordered datum reference letters.
+func (d DrawingAnnotations) AddFeatureControlFrame(args wire.AddFeatureControlFrameArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddFCF, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
