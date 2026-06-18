@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.60.0] - 2026-06-18
+
+### Added
+
+- feat(sketch): persistent reference keys for sketches and entities (#153)
+
 ## [0.59.0] - 2026-06-18
 
 ### Added
@@ -422,7 +428,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.59.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.60.0...HEAD
+[0.60.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.59.0...v0.60.0
 [0.59.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.58.0...v0.59.0
 [0.58.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.57.0...v0.58.0
 [0.57.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.56.0...v0.57.0
