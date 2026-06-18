@@ -152,7 +152,7 @@ func (d DrawingAnnotations) AddCustomTable(args wire.AddCustomTableArgs) (wire.A
 // AddHoleNotes adds a feature note on each hole in a base view: a leadered diameter callout.
 //
 // mcp:tool drawing_add_hole_notes
-// mcp:summary Add hole notes to a base view (viewName): a leadered Ø-diameter callout computed from each hole's circular edge and re-resolved when the model changes. quantity "combined" groups holes by diameter into one "<n>x Ø<d>" callout per size (default "perHole" = one per hole). The rowCount in the result is the callout count.
+// mcp:summary Add hole notes to a base view (viewName): a leadered Ø-diameter callout computed from each hole's circular edge and re-resolved when the model changes. quantity "combined" groups holes by diameter into one "<n>x Ø<d>" callout per size (default "perHole" = one per hole). Optional format template with {d} (diameter) and {n} (count) placeholders, e.g. "Ø{d} THRU". The rowCount in the result is the callout count.
 func (d DrawingAnnotations) AddHoleNotes(args wire.AddHoleNotesArgs) (wire.AnnotationResult, error) {
 	var r wire.AnnotationResult
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddHoleNotes, args, &r)

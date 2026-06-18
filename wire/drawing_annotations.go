@@ -190,6 +190,10 @@ type AddHoleNotesArgs struct {
 	// Quantity is the grouping mode ("perHole" = one callout per hole, the default; "combined" =
 	// one "<n>x Ø<d>" callout per distinct diameter). Empty means perHole.
 	Quantity string `json:"quantity,omitempty"`
+	// Format is an optional callout template with {d} (diameter) and {n} (hole count) placeholders —
+	// e.g. "Ø{d} THRU" or "TAP M8 x{n}". Empty uses the default ("Ø{d}", or "{n}x Ø{d}" combined).
+	// The {d} value is computed from the hole, so the callout stays associative to the model.
+	Format string `json:"format,omitempty"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
