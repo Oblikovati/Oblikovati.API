@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-06-18
+
+### Added
+
+- feat: surface texture symbol annotation contract (M14-F03 PBI-142, #389)
+
 ## [0.38.0] - 2026-06-18
 
 ### Added
@@ -290,7 +296,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.38.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.39.0...HEAD
+[0.39.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.38.0...v0.39.0
 [0.38.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.37.0...v0.38.0
 [0.37.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.36.0...v0.37.0
 [0.36.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.35.0...v0.36.0
