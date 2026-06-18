@@ -180,6 +180,15 @@ type AddCustomTableArgs struct {
 	Rows    [][]string `json:"rows,omitempty"`
 }
 
+// AddHoleNotesArgs is the request of [MethodDrawingAnnotationsAddHoleNotes]: a feature note on each
+// hole in the base view ViewName — a leadered diameter callout (Ø<d>) computed from the hole's
+// circular edge. The notes re-resolve when the model changes (rowCount in the result is the hole
+// count).
+type AddHoleNotesArgs struct {
+	Name     string `json:"name,omitempty"`
+	ViewName string `json:"viewName"`
+}
+
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
 type DeleteAnnotationArgs struct {
 	Name string `json:"name"`
