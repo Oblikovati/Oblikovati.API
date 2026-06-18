@@ -21,8 +21,10 @@ type ResolveSketchReferenceArgs struct {
 
 // ResolveSketchReferenceResult is the response of [MethodSketchResolveReference]. Found is
 // false when no current sketch/entity matches the key (a legitimate, non-fatal outcome — the
-// referent was deleted). Kind is "sketch" or "sketchEntity"; SketchIndex locates the owning
-// sketch; EntityID is the matched entity's current session id (0 when Kind is "sketch").
+// referent was deleted). Kind is "sketch" / "sketchEntity" for a 2D sketch or its entity, or
+// "sketch3d" / "sketch3dEntity" for a 3D sketch or its entity; SketchIndex locates the owning
+// sketch within its own (2D or 3D) collection; EntityID is the matched entity's current
+// session id (0 when Kind names a sketch).
 type ResolveSketchReferenceResult struct {
 	Found       bool   `json:"found"`
 	Kind        string `json:"kind,omitempty"`

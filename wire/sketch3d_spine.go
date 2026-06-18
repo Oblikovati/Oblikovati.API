@@ -80,13 +80,17 @@ type SolveSketch3DResult struct {
 // drag the entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling —
 // M06-F11, Oblikovati/Oblikovati#626).
 type Sketch3DEntityInfo struct {
-	Index          int         `json:"index"`
-	ID             uint64      `json:"id"`
-	Kind           string      `json:"kind"`
-	Construction   bool        `json:"construction,omitempty"`
-	Points         [][]float64 `json:"points,omitempty"`
-	Radius         float64     `json:"radius,omitempty"`
-	MoveableStatus string      `json:"moveableStatus,omitempty"`
+	Index        int         `json:"index"`
+	ID           uint64      `json:"id"`
+	Kind         string      `json:"kind"`
+	Construction bool        `json:"construction,omitempty"`
+	Points       [][]float64 `json:"points,omitempty"`
+	Radius       float64     `json:"radius,omitempty"`
+	// ReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a
+	// document-scoped UUID stable across save/load and edits, unlike the session ID. Store
+	// it to refer to this entity durably; rebind it with [MethodSketchResolveReference].
+	ReferenceKey   string `json:"referenceKey,omitempty"`
+	MoveableStatus string `json:"moveableStatus,omitempty"`
 }
 
 // EnumerateEntities3DResult is the response of [MethodSketch3DEntities].
