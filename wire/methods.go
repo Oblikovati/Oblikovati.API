@@ -325,6 +325,7 @@ const (
 	// snapped to projected model vertices so the measured value tracks the model.
 	MethodDrawingDimensionsList      = "drawingDimensions.list"
 	MethodDrawingDimensionsAddLinear = "drawingDimensions.addLinear"
+	MethodDrawingDimensionsAddRadial = "drawingDimensions.addRadial"
 	MethodDrawingDimensionsDelete    = "drawingDimensions.delete"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):

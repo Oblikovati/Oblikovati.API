@@ -18,12 +18,18 @@ const (
 	HorizontalDimension
 	// VerticalDimension measures the vertical (view-Y) component of the distance.
 	VerticalDimension
+	// RadiusDimension measures the radius of a circular edge (annotated "R<value>").
+	RadiusDimension
+	// DiameterDimension measures the diameter of a circular edge (annotated "⌀<value>").
+	DiameterDimension
 )
 
 var drawingDimensionTypeNames = map[DrawingDimensionType]string{
 	AlignedDimension:    "aligned",
 	HorizontalDimension: "horizontal",
 	VerticalDimension:   "vertical",
+	RadiusDimension:     "radius",
+	DiameterDimension:   "diameter",
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").
