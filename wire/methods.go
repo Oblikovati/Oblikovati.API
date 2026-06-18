@@ -667,6 +667,10 @@ const (
 
 	MethodLogsTail = "logs.tail"
 
+	// Analysis & measurement (M18-F01 #423): engineering analysis on the model. Mass properties
+	// (volume, surface area, centre of mass, mass) of the active part.
+	MethodAnalysisMassProperties = "analysis.massProperties"
+
 	// Add-in registry & automation (M05-F01: #245, #251, #252).
 	MethodAddInsList            = "addins.list"
 	MethodAddInsGet             = "addins.get"
