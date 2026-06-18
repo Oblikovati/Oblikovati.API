@@ -237,6 +237,9 @@ const (
 	// BalloonAnnotation is a balloon: a circle holding a parts-list item number, with an optional
 	// leader to the component it tags.
 	BalloonAnnotation
+	// HoleTableAnnotation is a hole table: a row per circular edge in a base view, with its X/Y
+	// position from a datum origin and its diameter, updating with the model.
+	HoleTableAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -249,6 +252,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	SurfaceTextureAnnotation:      "surfaceTexture",
 	PartsListAnnotation:           "partsList",
 	BalloonAnnotation:             "balloon",
+	HoleTableAnnotation:           "holeTable",
 }
 
 // String returns the annotation kind's wire spelling.

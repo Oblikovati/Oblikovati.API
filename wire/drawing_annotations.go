@@ -10,7 +10,7 @@ package wire
 // DrawingAnnotationInfo is the JSON shape of one drawing annotation.
 type DrawingAnnotationInfo struct {
 	Name       string `json:"name"`
-	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList"/"balloon")
+	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList"/"balloon"/"holeTable")
 	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
 	Tag        string `json:"tag,omitempty"`      // a revision cloud's label
 	CurveCount int    `json:"curveCount"`
@@ -116,6 +116,17 @@ type AddBalloonArgs struct {
 	Item      int     `json:"item"`
 	LeaderXMM float64 `json:"leaderXmm,omitempty"`
 	LeaderYMM float64 `json:"leaderYmm,omitempty"`
+}
+
+// AddHoleTableArgs is the request of [MethodDrawingAnnotationsAddHoleTable]: a hole table at (XMM,
+// YMM) on the sheet (its top-left corner), listing every circular edge in the base view ViewName
+// with its X/Y position from the view's datum origin and its diameter. The table updates with the
+// model (rowCount in the result is the hole count).
+type AddHoleTableArgs struct {
+	Name     string  `json:"name,omitempty"`
+	ViewName string  `json:"viewName"`
+	XMM      float64 `json:"xmm"`
+	YMM      float64 `json:"ymm"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
