@@ -11,6 +11,7 @@ func TestMeasureTypeRoundTrip(t *testing.T) {
 		MeasureArea:        "area",
 		MeasureDistance:    "distance",
 		MeasureMinDistance: "minDistance",
+		MeasureAngle:       "angle",
 	}
 	for mt, name := range cases {
 		if got := mt.String(); got != name {

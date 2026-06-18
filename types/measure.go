@@ -19,6 +19,9 @@ const (
 	// MeasureMinDistance is the minimum distance between two entities of any kind
 	// (vertex, edge or face) — their closest approach. Zero when they touch or intersect.
 	MeasureMinDistance
+	// MeasureAngle is the angle in degrees between two entities (an edge's direction or a planar
+	// face's normal), or — with a third vertex — the angle at the apex of three vertices.
+	MeasureAngle
 )
 
 var measureTypeNames = map[MeasureType]string{
@@ -26,9 +29,11 @@ var measureTypeNames = map[MeasureType]string{
 	MeasureArea:        "area",
 	MeasureDistance:    "distance",
 	MeasureMinDistance: "minDistance",
+	MeasureAngle:       "angle",
 }
 
-// String returns the measure type's wire spelling ("length", "area", "distance", "minDistance").
+// String returns the measure type's wire spelling ("length", "area", "distance", "minDistance",
+// "angle").
 func (m MeasureType) String() string { return enumName(measureTypeNames, m) }
 
 // ParseMeasureType resolves a wire spelling back to its measure type.
