@@ -40,6 +40,18 @@ const (
 	MethodDocumentsGetProperty    = "documents.getProperty"
 	MethodDocumentsSetProperty    = "documents.setProperty"
 
+	// Add-in attribute sets (#155) — named, typed values an add-in attaches to a document and
+	// that persist with it: the sanctioned mechanism for add-ins to store their own data and tag
+	// the model. set/get/list address a named attribute in a named set on a document; listSets
+	// enumerates the sets; delete removes an attribute (or a whole set); find locates the open
+	// documents carrying a given set/attribute.
+	MethodAttributesSet      = "attributes.set"
+	MethodAttributesGet      = "attributes.get"
+	MethodAttributesList     = "attributes.list"
+	MethodAttributesListSets = "attributes.listSets"
+	MethodAttributesDelete   = "attributes.delete"
+	MethodAttributesFind     = "attributes.find"
+
 	// Document open/save lifecycle (#138) and the save policy layer around it:
 	// SaveCopyAs and batch save (M03-F09, #610).
 	MethodDocumentsOpen       = "documents.open"
