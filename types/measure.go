@@ -16,15 +16,19 @@ const (
 	MeasureArea
 	// MeasureDistance is the straight-line distance between two vertices.
 	MeasureDistance
+	// MeasureMinDistance is the minimum distance between two entities of any kind
+	// (vertex, edge or face) — their closest approach. Zero when they touch or intersect.
+	MeasureMinDistance
 )
 
 var measureTypeNames = map[MeasureType]string{
-	MeasureLength:   "length",
-	MeasureArea:     "area",
-	MeasureDistance: "distance",
+	MeasureLength:      "length",
+	MeasureArea:        "area",
+	MeasureDistance:    "distance",
+	MeasureMinDistance: "minDistance",
 }
 
-// String returns the measure type's wire spelling ("length", "area", "distance").
+// String returns the measure type's wire spelling ("length", "area", "distance", "minDistance").
 func (m MeasureType) String() string { return enumName(measureTypeNames, m) }
 
 // ParseMeasureType resolves a wire spelling back to its measure type.
