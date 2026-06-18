@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-06-18
+
+### Added
+
+- feat: ordinate drawing dimensions contract (M14-F03 PBI-141, #388)
+
 ## [0.32.0] - 2026-06-18
 
 ### Added
@@ -254,7 +260,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.32.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.33.0...HEAD
+[0.33.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.31.0...v0.32.0
 [0.31.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.29.0...v0.30.0
