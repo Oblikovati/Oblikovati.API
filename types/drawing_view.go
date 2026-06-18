@@ -222,13 +222,17 @@ const (
 	// CenterlineAnnotation is the horizontal+vertical dash-dot symmetry axes through a view's
 	// centre, spanning its extent; associative to the view (re-derives from its bounds).
 	CenterlineAnnotation
+	// FeatureControlFrameAnnotation is a GD&T feature control frame: a boxed geometric-tolerance
+	// callout (characteristic symbol · tolerance · datum references) placed on the sheet.
+	FeatureControlFrameAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
-	CoGMarkerAnnotation:     "cog",
-	RevisionCloudAnnotation: "revisionCloud",
-	CenterMarkAnnotation:    "centerMark",
-	CenterlineAnnotation:    "centerline",
+	CoGMarkerAnnotation:           "cog",
+	RevisionCloudAnnotation:       "revisionCloud",
+	CenterMarkAnnotation:          "centerMark",
+	CenterlineAnnotation:          "centerline",
+	FeatureControlFrameAnnotation: "featureControlFrame",
 }
 
 // String returns the annotation kind's wire spelling.
