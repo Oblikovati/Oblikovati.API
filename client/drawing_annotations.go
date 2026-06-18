@@ -50,6 +50,15 @@ func (d DrawingAnnotations) AddCenterMarks(args wire.AddCenterMarksArgs) (wire.C
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddCenterMarks, args, &r)
 }
 
+// AddCenterlines adds the horizontal+vertical symmetry centerlines through a view's centre.
+//
+// mcp:tool drawing_add_centerlines
+// mcp:summary Add the horizontal and vertical dash-dot symmetry centerlines through a drawing view's centre, spanning its extent. The lines re-derive from the view's bounds, so they track the model.
+func (d DrawingAnnotations) AddCenterlines(args wire.AddCenterlinesArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddCenterlines, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation

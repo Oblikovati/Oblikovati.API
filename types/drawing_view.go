@@ -219,12 +219,16 @@ const (
 	RevisionCloudAnnotation
 	// CenterMarkAnnotation is a crosshair at a circular edge's centre, associative to that edge.
 	CenterMarkAnnotation
+	// CenterlineAnnotation is the horizontal+vertical dash-dot symmetry axes through a view's
+	// centre, spanning its extent; associative to the view (re-derives from its bounds).
+	CenterlineAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	CoGMarkerAnnotation:     "cog",
 	RevisionCloudAnnotation: "revisionCloud",
 	CenterMarkAnnotation:    "centerMark",
+	CenterlineAnnotation:    "centerline",
 }
 
 // String returns the annotation kind's wire spelling.
