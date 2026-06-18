@@ -334,6 +334,12 @@ const (
 	MethodDrawingAnnotationsAddHoleNotes     = "drawingAnnotations.addHoleNotes"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
+	// Drawing sketches (M14-F08 #638): 2D geometry drawn directly in sheet space (millimetres) on a
+	// sheet — linework and boundaries that hatch regions can fill.
+	MethodDrawingSketchesList      = "drawingSketches.list"
+	MethodDrawingSketchesAdd       = "drawingSketches.add"
+	MethodDrawingSketchesAddEntity = "drawingSketches.addEntity"
+
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
 	// snapped to projected model vertices so the measured value tracks the model.
 	MethodDrawingDimensionsList         = "drawingDimensions.list"
