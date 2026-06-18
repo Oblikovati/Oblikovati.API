@@ -24,6 +24,10 @@ const (
 	DiameterDimension
 	// AngularDimension measures the angle between two straight edges, in degrees.
 	AngularDimension
+	// OrdinateDimension measures a point's view-X or view-Y offset from a common datum, shown as a
+	// leader to the value with no dimension line (the running-coordinate callout). Which axis it
+	// measures is chosen when the dimension is created (the "axis" request field).
+	OrdinateDimension
 )
 
 var drawingDimensionTypeNames = map[DrawingDimensionType]string{
@@ -33,6 +37,7 @@ var drawingDimensionTypeNames = map[DrawingDimensionType]string{
 	RadiusDimension:     "radius",
 	DiameterDimension:   "diameter",
 	AngularDimension:    "angular",
+	OrdinateDimension:   "ordinate",
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").

@@ -9,7 +9,7 @@ package wire
 // DrawingDimensionInfo is the JSON shape of one drawing dimension.
 type DrawingDimensionInfo struct {
 	Name       string  `json:"name"`
-	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical|radius|diameter|angular
+	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical|radius|diameter|angular|ordinate
 	ViewName   string  `json:"viewName"`
 	ValueMM    float64 `json:"valueMm"`            // measured model distance (mm), scale-independent; 0 for angular
 	ValueDeg   float64 `json:"valueDeg,omitempty"` // measured angle (degrees) for an angular dimension
@@ -75,6 +75,18 @@ type AddDimensionSetArgs struct {
 // DimensionSetResult is the response of the dimension-set methods: the created dimensions.
 type DimensionSetResult struct {
 	Dimensions []DrawingDimensionInfo `json:"dimensions"`
+}
+
+// AddOrdinateDimensionsArgs is the request of [MethodDrawingDimensionsAddOrdinate]: an ordinate
+// dimension for each point in Points, each measuring that point's offset from the common Datum
+// ([x,y] sheet mm) along Axis. Datum and every point are snapped to the nearest projected model
+// vertex, so the values stay associative. Axis is "horizontal" (the view-X offset) or "vertical"
+// (the view-Y offset). Each ordinate is drawn as a leader to its value with no dimension line.
+type AddOrdinateDimensionsArgs struct {
+	ViewName string      `json:"viewName"`
+	Axis     string      `json:"axis,omitempty"` // horizontal (default) | vertical
+	Datum    []float64   `json:"datum"`          // [x,y] sheet mm — the common origin
+	Points   [][]float64 `json:"points"`         // each [x,y] sheet mm
 }
 
 // DeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].
