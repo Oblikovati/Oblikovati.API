@@ -22,6 +22,8 @@ const (
 	RadiusDimension
 	// DiameterDimension measures the diameter of a circular edge (annotated "⌀<value>").
 	DiameterDimension
+	// AngularDimension measures the angle between two straight edges, in degrees.
+	AngularDimension
 )
 
 var drawingDimensionTypeNames = map[DrawingDimensionType]string{
@@ -30,6 +32,7 @@ var drawingDimensionTypeNames = map[DrawingDimensionType]string{
 	VerticalDimension:   "vertical",
 	RadiusDimension:     "radius",
 	DiameterDimension:   "diameter",
+	AngularDimension:    "angular",
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").

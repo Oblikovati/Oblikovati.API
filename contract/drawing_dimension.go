@@ -16,8 +16,10 @@ type DrawingDimension interface {
 	// ViewName is the drawing view the dimension is attached to.
 	ViewName() string
 	// ValueMM is the measured model distance in millimetres — the true size, independent of the
-	// view scale.
+	// view scale. It is 0 for an angular dimension (see ValueDeg).
 	ValueMM() float64
+	// ValueDeg is the measured angle in degrees for an angular dimension, and 0 otherwise.
+	ValueDeg() float64
 	// Text is the displayed dimension text (the formatted value).
 	Text() string
 	// CurveCount is the number of drawing curves the dimension renders (its extension lines,
