@@ -40,6 +40,15 @@ func (d DrawingDimensions) AddRadial(args wire.AddRadialDimensionArgs) (wire.Dim
 	return r, d.c.call(wire.MethodDrawingDimensionsAddRadial, args, &r)
 }
 
+// AddAngular adds an angular dimension between the two straight edges nearest two pick points.
+//
+// mcp:tool drawing_add_angular_dimension
+// mcp:summary Add an angular dimension on a drawing view between the two straight model edges nearest the pick points (x1,y1,x2,y2 sheet mm). The measured angle (degrees) is reported in valueDeg and updates with the model.
+func (d DrawingDimensions) AddAngular(args wire.AddAngularDimensionArgs) (wire.DimensionResult, error) {
+	var r wire.DimensionResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddAngular, args, &r)
+}
+
 // Delete removes the named dimension.
 //
 // mcp:tool drawing_delete_dimension

@@ -9,10 +9,11 @@ package wire
 // DrawingDimensionInfo is the JSON shape of one drawing dimension.
 type DrawingDimensionInfo struct {
 	Name       string  `json:"name"`
-	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical
+	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical|radius|diameter|angular
 	ViewName   string  `json:"viewName"`
-	ValueMM    float64 `json:"valueMm"` // measured model distance (mm), scale-independent
-	Text       string  `json:"text"`    // displayed dimension text
+	ValueMM    float64 `json:"valueMm"`            // measured model distance (mm), scale-independent; 0 for angular
+	ValueDeg   float64 `json:"valueDeg,omitempty"` // measured angle (degrees) for an angular dimension
+	Text       string  `json:"text"`               // displayed dimension text
 	CurveCount int     `json:"curveCount"`
 }
 
@@ -46,6 +47,18 @@ type AddRadialDimensionArgs struct {
 	Type     string  `json:"type,omitempty"` // radius (default) | diameter
 	PickXMM  float64 `json:"pickXmm"`
 	PickYMM  float64 `json:"pickYmm"`
+}
+
+// AddAngularDimensionArgs is the request of [MethodDrawingDimensionsAddAngular]: an angular
+// dimension on ViewName between the two straight model edges nearest the pick points (sheet mm).
+// The measured angle re-derives when the model changes.
+type AddAngularDimensionArgs struct {
+	Name     string  `json:"name,omitempty"`
+	ViewName string  `json:"viewName"`
+	X1       float64 `json:"x1"`
+	Y1       float64 `json:"y1"`
+	X2       float64 `json:"x2"`
+	Y2       float64 `json:"y2"`
 }
 
 // DeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].

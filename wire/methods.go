@@ -323,10 +323,11 @@ const (
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
 	// snapped to projected model vertices so the measured value tracks the model.
-	MethodDrawingDimensionsList      = "drawingDimensions.list"
-	MethodDrawingDimensionsAddLinear = "drawingDimensions.addLinear"
-	MethodDrawingDimensionsAddRadial = "drawingDimensions.addRadial"
-	MethodDrawingDimensionsDelete    = "drawingDimensions.delete"
+	MethodDrawingDimensionsList       = "drawingDimensions.list"
+	MethodDrawingDimensionsAddLinear  = "drawingDimensions.addLinear"
+	MethodDrawingDimensionsAddRadial  = "drawingDimensions.addRadial"
+	MethodDrawingDimensionsAddAngular = "drawingDimensions.addAngular"
+	MethodDrawingDimensionsDelete     = "drawingDimensions.delete"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
