@@ -113,6 +113,24 @@ func (d DrawingAnnotations) AddHoleTable(args wire.AddHoleTableArgs) (wire.Annot
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddHoleTable, args, &r)
 }
 
+// AddRevisionTable adds a revision table (revision/date/description rows) at a sheet point.
+//
+// mcp:tool drawing_add_revision_table
+// mcp:summary Add a revision table at a sheet point (xmm/ymm = top-left) with rows of {revision, date, description}, recording the drawing's change history. The rowCount in the result is the revision count.
+func (d DrawingAnnotations) AddRevisionTable(args wire.AddRevisionTableArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddRevTable, args, &r)
+}
+
+// AddRevisionTag adds a revision tag (a triangle holding a revision letter) at a sheet point.
+//
+// mcp:tool drawing_add_revision_tag
+// mcp:summary Add a revision tag (a triangle holding the revision letter) centred at a sheet point (xmm/ymm), flagging where that revision changed the drawing.
+func (d DrawingAnnotations) AddRevisionTag(args wire.AddRevisionTagArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddRevTag, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
