@@ -9,7 +9,7 @@ package wire
 // DrawingDimensionInfo is the JSON shape of one drawing dimension.
 type DrawingDimensionInfo struct {
 	Name       string  `json:"name"`
-	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical|radius|diameter|angular|ordinate
+	Type       string  `json:"type"` // types.DrawingDimensionType: aligned|horizontal|vertical|radius|diameter|angular|ordinate|arcLength
 	ViewName   string  `json:"viewName"`
 	ValueMM    float64 `json:"valueMm"`            // measured model distance (mm), scale-independent; 0 for angular
 	ValueDeg   float64 `json:"valueDeg,omitempty"` // measured angle (degrees) for an angular dimension
@@ -87,6 +87,17 @@ type AddOrdinateDimensionsArgs struct {
 	Axis     string      `json:"axis,omitempty"` // horizontal (default) | vertical
 	Datum    []float64   `json:"datum"`          // [x,y] sheet mm — the common origin
 	Points   [][]float64 `json:"points"`         // each [x,y] sheet mm
+}
+
+// AddArcLengthDimensionArgs is the request of [MethodDrawingDimensionsAddArcLength]: an arc-length
+// dimension on ViewName, attached to the circular/arc model edge nearest the pick point (sheet mm).
+// It measures the edge's swept length (a full circle's circumference) with the dimension line
+// following the arc; the value re-measures when the model changes.
+type AddArcLengthDimensionArgs struct {
+	Name     string  `json:"name,omitempty"`
+	ViewName string  `json:"viewName"`
+	PickXMM  float64 `json:"pickXmm"`
+	PickYMM  float64 `json:"pickYmm"`
 }
 
 // DeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].

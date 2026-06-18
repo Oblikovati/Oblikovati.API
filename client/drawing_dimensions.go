@@ -78,6 +78,15 @@ func (d DrawingDimensions) AddOrdinate(args wire.AddOrdinateDimensionsArgs) (wir
 	return r, d.c.call(wire.MethodDrawingDimensionsAddOrdinate, args, &r)
 }
 
+// AddArcLength adds an arc-length dimension on the circular/arc edge nearest a pick point.
+//
+// mcp:tool drawing_add_arc_length_dimension
+// mcp:summary Add an arc-length dimension on a drawing view, attached to the circular/arc model edge nearest the pick point (pickXmm/pickYmm sheet mm). It measures the edge's swept length (a full circle's circumference) with the dimension line following the arc. The value is the true model size and updates with the model.
+func (d DrawingDimensions) AddArcLength(args wire.AddArcLengthDimensionArgs) (wire.DimensionResult, error) {
+	var r wire.DimensionResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddArcLength, args, &r)
+}
+
 // Delete removes the named dimension.
 //
 // mcp:tool drawing_delete_dimension
