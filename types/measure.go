@@ -22,6 +22,8 @@ const (
 	// MeasureAngle is the angle in degrees between two entities (an edge's direction or a planar
 	// face's normal), or — with a third vertex — the angle at the apex of three vertices.
 	MeasureAngle
+	// MeasureLoopLength is the length of a face's outer boundary loop — its perimeter.
+	MeasureLoopLength
 )
 
 var measureTypeNames = map[MeasureType]string{
@@ -30,10 +32,11 @@ var measureTypeNames = map[MeasureType]string{
 	MeasureDistance:    "distance",
 	MeasureMinDistance: "minDistance",
 	MeasureAngle:       "angle",
+	MeasureLoopLength:  "loopLength",
 }
 
 // String returns the measure type's wire spelling ("length", "area", "distance", "minDistance",
-// "angle").
+// "angle", "loopLength").
 func (m MeasureType) String() string { return enumName(measureTypeNames, m) }
 
 // ParseMeasureType resolves a wire spelling back to its measure type.

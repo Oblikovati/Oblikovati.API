@@ -9,8 +9,9 @@ package wire
 // part's body BodyIndex, identified by reference key(s). Type selects the quantity: "length"
 // (edge KeyA), "area" (face KeyA), "distance" (straight line between vertices KeyA and KeyB),
 // "minDistance" (closest approach between the two entities KeyA and KeyB, each a vertex/edge/face),
-// or "angle" (between two entities KeyA and KeyB — an edge's direction or a planar face's normal —
-// or, when KeyC is given, the angle at apex vertex KeyB between vertices KeyA and KeyC).
+// "angle" (between two entities KeyA and KeyB — an edge's direction or a planar face's normal —
+// or, when KeyC is given, the angle at apex vertex KeyB between vertices KeyA and KeyC), or
+// "loopLength" (the perimeter of face KeyA — its outer boundary loop length).
 type MeasureArgs struct {
 	BodyIndex int    `json:"bodyIndex,omitempty"`
 	Type      string `json:"type"`
