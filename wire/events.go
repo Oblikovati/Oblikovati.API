@@ -26,3 +26,13 @@ type EditCommittedEvent struct {
 	Method   string          `json:"method"`
 	Args     json.RawMessage `json:"args,omitempty"`
 }
+
+// ParameterChangedEvent is the JSON shape of an [EventParameterChanged] push event (#148): a
+// parameter's expression/value changed on a document. Like the other push events it is delivered
+// to an add-in's Notify entry point (ADR-0016) with no request/response method — an add-in matches
+// on Type and reads the parameter's new state from Parameter (so it need not re-query).
+type ParameterChangedEvent struct {
+	Type      string        `json:"type"` // always EventParameterChanged
+	Document  uint64        `json:"document"`
+	Parameter ParameterInfo `json:"parameter"`
+}
