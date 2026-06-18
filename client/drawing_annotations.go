@@ -104,6 +104,15 @@ func (d DrawingAnnotations) AddBalloon(args wire.AddBalloonArgs) (wire.Annotatio
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddBalloon, args, &r)
 }
 
+// AddHoleTable adds a hole table for a base view's circular edges at a sheet point.
+//
+// mcp:tool drawing_add_hole_table
+// mcp:summary Add a hole table at a sheet point (xmm/ymm = top-left) listing every circular edge in a base view: HOLE / X / Y (from the view's datum origin) / ⌀ (diameter). The rowCount in the result is the hole count; the table updates with the model.
+func (d DrawingAnnotations) AddHoleTable(args wire.AddHoleTableArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddHoleTable, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation
