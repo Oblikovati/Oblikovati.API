@@ -129,6 +129,34 @@ type AddHoleTableArgs struct {
 	YMM      float64 `json:"ymm"`
 }
 
+// RevisionTableRow is one row of a revision table: a revision identifier, its date, and a
+// description of the change.
+type RevisionTableRow struct {
+	Revision    string `json:"revision"`
+	Date        string `json:"date,omitempty"`
+	Description string `json:"description,omitempty"`
+}
+
+// AddRevisionTableArgs is the request of [MethodDrawingAnnotationsAddRevisionTable]: a revision
+// table at (XMM, YMM) on the sheet (its top-left corner), listing the given Rows (revision, date,
+// description). The rows are user-supplied drawing history, persisted with the drawing.
+type AddRevisionTableArgs struct {
+	Name string             `json:"name,omitempty"`
+	XMM  float64            `json:"xmm"`
+	YMM  float64            `json:"ymm"`
+	Rows []RevisionTableRow `json:"rows,omitempty"`
+}
+
+// AddRevisionTagArgs is the request of [MethodDrawingAnnotationsAddRevisionTag]: a revision tag (a
+// triangle holding the Revision letter) centred at (XMM, YMM) on the sheet, flagging where that
+// revision changed the drawing.
+type AddRevisionTagArgs struct {
+	Name     string  `json:"name,omitempty"`
+	XMM      float64 `json:"xmm"`
+	YMM      float64 `json:"ymm"`
+	Revision string  `json:"revision"`
+}
+
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
 type DeleteAnnotationArgs struct {
 	Name string `json:"name"`

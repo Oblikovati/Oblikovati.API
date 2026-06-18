@@ -240,6 +240,12 @@ const (
 	// HoleTableAnnotation is a hole table: a row per circular edge in a base view, with its X/Y
 	// position from a datum origin and its diameter, updating with the model.
 	HoleTableAnnotation
+	// RevisionTableAnnotation is a revision table: a row per revision (revision, date, description),
+	// recording the drawing's change history.
+	RevisionTableAnnotation
+	// RevisionTagAnnotation is a revision tag: a triangle holding a revision letter, placed on the
+	// sheet to flag where that revision changed the drawing.
+	RevisionTagAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -253,6 +259,8 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	PartsListAnnotation:           "partsList",
 	BalloonAnnotation:             "balloon",
 	HoleTableAnnotation:           "holeTable",
+	RevisionTableAnnotation:       "revisionTable",
+	RevisionTagAnnotation:         "revisionTag",
 }
 
 // String returns the annotation kind's wire spelling.
