@@ -77,6 +77,15 @@ func (d DrawingAnnotations) AddDatumFeature(args wire.AddDatumFeatureArgs) (wire
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddDatum, args, &r)
 }
 
+// AddSurfaceTexture adds an ISO 1302 surface texture symbol (a roughness checkmark) at a sheet point.
+//
+// mcp:tool drawing_add_surface_texture
+// mcp:summary Add an ISO 1302 surface texture symbol at a sheet point (xmm/ymm): the roughness checkmark glyph with a finish value (roughness, e.g. "1.6"). materialRemoval = any (basic, default) | required (machined, with bar) | prohibited (as-cast, with vertex circle).
+func (d DrawingAnnotations) AddSurfaceTexture(args wire.AddSurfaceTextureArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddSurfaceText, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation

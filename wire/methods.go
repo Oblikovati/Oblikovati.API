@@ -323,6 +323,7 @@ const (
 	MethodDrawingAnnotationsAddCenterlines   = "drawingAnnotations.addCenterlines"
 	MethodDrawingAnnotationsAddFCF           = "drawingAnnotations.addFeatureControlFrame"
 	MethodDrawingAnnotationsAddDatum         = "drawingAnnotations.addDatumFeature"
+	MethodDrawingAnnotationsAddSurfaceText   = "drawingAnnotations.addSurfaceTexture"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
