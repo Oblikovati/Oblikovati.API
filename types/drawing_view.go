@@ -231,6 +231,9 @@ const (
 	// SurfaceTextureAnnotation is an ISO 1302 surface texture symbol: the checkmark glyph with a
 	// roughness value, stating a surface's finish requirement.
 	SurfaceTextureAnnotation
+	// PartsListAnnotation is a parts list table sourced from the referenced assembly's BOM (item
+	// number, part number, description, quantity), updating with the assembly.
+	PartsListAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -241,6 +244,7 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	FeatureControlFrameAnnotation: "featureControlFrame",
 	DatumFeatureAnnotation:        "datumFeature",
 	SurfaceTextureAnnotation:      "surfaceTexture",
+	PartsListAnnotation:           "partsList",
 }
 
 // String returns the annotation kind's wire spelling.

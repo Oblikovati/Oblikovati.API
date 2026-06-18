@@ -86,6 +86,15 @@ func (d DrawingAnnotations) AddSurfaceTexture(args wire.AddSurfaceTextureArgs) (
 	return r, d.c.call(wire.MethodDrawingAnnotationsAddSurfaceText, args, &r)
 }
 
+// AddPartsList adds a parts list table sourced from the referenced assembly's BOM at a sheet point.
+//
+// mcp:tool drawing_add_parts_list
+// mcp:summary Add a parts list table at a sheet point (xmm/ymm = top-left): a grid sourced from the referenced assembly's parts-only BOM (item number, part number, description, quantity). The rowCount in the result is the number of BOM items; the table updates with the assembly.
+func (d DrawingAnnotations) AddPartsList(args wire.AddPartsListArgs) (wire.AnnotationResult, error) {
+	var r wire.AnnotationResult
+	return r, d.c.call(wire.MethodDrawingAnnotationsAddPartsList, args, &r)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation

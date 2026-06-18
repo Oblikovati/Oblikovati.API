@@ -10,10 +10,11 @@ package wire
 // DrawingAnnotationInfo is the JSON shape of one drawing annotation.
 type DrawingAnnotationInfo struct {
 	Name       string `json:"name"`
-	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture")
+	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList")
 	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
 	Tag        string `json:"tag,omitempty"`      // a revision cloud's label
 	CurveCount int    `json:"curveCount"`
+	RowCount   int    `json:"rowCount,omitempty"` // a parts list's data-row count (BOM items)
 }
 
 // ListDrawingAnnotationsResult is the response of [MethodDrawingAnnotationsList].
@@ -94,6 +95,15 @@ type AddSurfaceTextureArgs struct {
 	YMM             float64 `json:"ymm"`
 	Roughness       string  `json:"roughness,omitempty"`
 	MaterialRemoval string  `json:"materialRemoval,omitempty"`
+}
+
+// AddPartsListArgs is the request of [MethodDrawingAnnotationsAddPartsList]: a parts list table at
+// (XMM, YMM) on the sheet (its top-left corner), sourced from the referenced assembly's parts-only
+// BOM (item number, part number, description, quantity). The table updates with the assembly.
+type AddPartsListArgs struct {
+	Name string  `json:"name,omitempty"`
+	XMM  float64 `json:"xmm"`
+	YMM  float64 `json:"ymm"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
