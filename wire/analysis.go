@@ -5,6 +5,24 @@ package wire
 // Analysis DTOs (M18-F01 #423): engineering analysis on the model. Mass properties of the active
 // part — volume, surface area, centre of mass and mass.
 
+// MeasureArgs is the request of [MethodAnalysisMeasure]: measure an entity (or pair) of the active
+// part's body BodyIndex, identified by hex reference key(s). Type selects the quantity: "length"
+// (edge KeyA), "area" (face KeyA), or "distance" (vertices KeyA and KeyB).
+type MeasureArgs struct {
+	BodyIndex int    `json:"bodyIndex,omitempty"`
+	Type      string `json:"type"`
+	KeyA      string `json:"keyA"`
+	KeyB      string `json:"keyB,omitempty"`
+}
+
+// MeasureResult is the response of [MethodAnalysisMeasure]: the measured value and its unit
+// ("mm" for length/distance, "mm²" for area).
+type MeasureResult struct {
+	Type  string  `json:"type"`
+	Value float64 `json:"value"`
+	Unit  string  `json:"unit"`
+}
+
 // MassPropertiesArgs is the request of [MethodAnalysisMassProperties]: compute the active part's
 // mass properties. DensityGCm3 is the material density in g/cm³ used for the mass (0 ⇒ 1.0, so the
 // mass equals the volume in cm³).
