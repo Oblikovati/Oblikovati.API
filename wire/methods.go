@@ -628,6 +628,13 @@ const (
 	// the model reverts to the group's pre-Begin state instead of committing it
 	// (M04-F05, Oblikovati#613). Returns the resulting [UndoState].
 	MethodTransactionAbort = "transaction.abort"
+	// MethodTransactionHistory reads one open document's whole undo stream for a history
+	// browser (every step since open, with save checkpoints flagged), without activating it.
+	// Returns [TransactionHistory].
+	MethodTransactionHistory = "transaction.history"
+	// MethodTransactionJumpTo moves one document's undo cursor to an absolute position,
+	// undoing or redoing as many steps as needed in one call. Returns [TransactionHistory].
+	MethodTransactionJumpTo = "transaction.jumpTo"
 
 	MethodInteractionState     = "interaction.state"
 	MethodInteractionSetNotice = "interaction.setNotice"
