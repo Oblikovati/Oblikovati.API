@@ -79,6 +79,34 @@ type AnisotropicElastic struct {
 	Alpha3 float64 `json:"alpha3" yaml:"alpha3"` // 1/K, axis-3 linear thermal expansion
 }
 
+// MassPropertiesAccuracy selects the tessellation fidelity a mass-properties computation uses —
+// trading speed for accuracy on curved geometry (planar bodies are exact at any level). The zero
+// value is MassPropertiesMedium.
+type MassPropertiesAccuracy int32
+
+const (
+	// MassPropertiesMedium is the default tessellation fidelity.
+	MassPropertiesMedium MassPropertiesAccuracy = iota
+	// MassPropertiesLow is a coarse, faster tessellation.
+	MassPropertiesLow
+	// MassPropertiesHigh is a fine, slower tessellation for tighter accuracy on curved bodies.
+	MassPropertiesHigh
+)
+
+var massPropertiesAccuracyNames = map[MassPropertiesAccuracy]string{
+	MassPropertiesMedium: "medium",
+	MassPropertiesLow:    "low",
+	MassPropertiesHigh:   "high",
+}
+
+// String returns the accuracy level's wire spelling ("medium", "low", "high").
+func (a MassPropertiesAccuracy) String() string { return enumName(massPropertiesAccuracyNames, a) }
+
+// ParseMassPropertiesAccuracy resolves a wire spelling back to its accuracy level.
+func ParseMassPropertiesAccuracy(s string) (MassPropertiesAccuracy, bool) {
+	return enumFromName(massPropertiesAccuracyNames, s)
+}
+
 // PhysicalProperties is the computed mass/geometry summary of a body or part given its
 // material's density. Volume/area/centroid come from geometry; mass = density × volume.
 // Lengths are in database units (cm), so volume is cm³, area cm², and — with density in

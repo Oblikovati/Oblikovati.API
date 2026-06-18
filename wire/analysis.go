@@ -9,11 +9,16 @@ package wire
 // mass properties. DensityGCm3 is the material density in g/cm³ used for the mass (0 ⇒ 1.0, so the
 // mass equals the volume in cm³).
 type MassPropertiesArgs struct {
+	// DensityGCm3 overrides the material density (g/cm³). 0 ⇒ the part's assigned material density,
+	// falling back to 1.0 when no material is assigned.
 	DensityGCm3 float64 `json:"densityGCm3,omitempty"`
+	// Accuracy is the tessellation fidelity ("low"/"medium"/"high"; empty ⇒ medium).
+	Accuracy string `json:"accuracy,omitempty"`
 }
 
 // MassPropertiesResult is the response of [MethodAnalysisMassProperties]: the part's combined
-// geometry properties (over all its solid bodies) and mass. Lengths are millimetres.
+// geometry properties (over all its solid bodies), mass, and mass moment of inertia about the
+// centroid. Lengths are millimetres; inertia is g·mm².
 type MassPropertiesResult struct {
 	VolumeMm3      float64 `json:"volumeMm3"`
 	SurfaceAreaMm2 float64 `json:"surfaceAreaMm2"`
@@ -22,4 +27,15 @@ type MassPropertiesResult struct {
 	CentroidXMm    float64 `json:"centroidXMm"`
 	CentroidYMm    float64 `json:"centroidYMm"`
 	CentroidZMm    float64 `json:"centroidZMm"`
+	// Mass moment of inertia about the centroid (g·mm²); Ixy/Iyz/Izx are products of inertia.
+	InertiaXxGmm2 float64 `json:"inertiaXxGmm2"`
+	InertiaYyGmm2 float64 `json:"inertiaYyGmm2"`
+	InertiaZzGmm2 float64 `json:"inertiaZzGmm2"`
+	InertiaXyGmm2 float64 `json:"inertiaXyGmm2"`
+	InertiaYzGmm2 float64 `json:"inertiaYzGmm2"`
+	InertiaZxGmm2 float64 `json:"inertiaZxGmm2"`
+	// Principal moments of inertia (g·mm²) and their axes (unit vectors, rows aligned to the
+	// moments) about the centroid.
+	PrincipalMomentsGmm2 [3]float64    `json:"principalMomentsGmm2"`
+	PrincipalAxes        [3][3]float64 `json:"principalAxes"`
 }
