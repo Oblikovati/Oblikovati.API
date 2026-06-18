@@ -850,6 +850,9 @@ const (
 	EventCommandStarted = "command.started"
 	// EventSelectionChanged reports the selection set changing (M05-F12 #619).
 	EventSelectionChanged = "selection.changed"
+	// EventParameterChanged reports a parameter's expression/value changing (#148) — the granular
+	// notification beyond the generic edit.committed; the payload carries the parameter's new state.
+	EventParameterChanged = "parameters.changed"
 	// EventEnvironmentChanged reports the UI environment switching (M05-F12 #619).
 	EventEnvironmentChanged = "ui.environmentChanged"
 	// EventTriadDrag streams a triad gesture (see [TriadDragEvent], M05-F13 #620).
