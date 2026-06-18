@@ -31,6 +31,15 @@ func (d DrawingDimensions) AddLinear(args wire.AddLinearDimensionArgs) (wire.Dim
 	return r, d.c.call(wire.MethodDrawingDimensionsAddLinear, args, &r)
 }
 
+// AddRadial adds a radius or diameter dimension on the circular edge nearest a pick point.
+//
+// mcp:tool drawing_add_radial_dimension
+// mcp:summary Add a radius or diameter dimension on a drawing view, attached to the circular model edge nearest the pick point (pickXmm/pickYmm sheet mm). type = radius (default) | diameter. The value is the true model size and updates with the model.
+func (d DrawingDimensions) AddRadial(args wire.AddRadialDimensionArgs) (wire.DimensionResult, error) {
+	var r wire.DimensionResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddRadial, args, &r)
+}
+
 // Delete removes the named dimension.
 //
 // mcp:tool drawing_delete_dimension

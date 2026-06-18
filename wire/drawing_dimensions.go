@@ -37,6 +37,17 @@ type AddLinearDimensionArgs struct {
 	OffsetMM float64 `json:"offsetMm,omitempty"`
 }
 
+// AddRadialDimensionArgs is the request of [MethodDrawingDimensionsAddRadial]: a radius or
+// diameter dimension on ViewName, attached to the circular model edge nearest the pick point
+// (sheet mm). Type is "radius" or "diameter". The dimension re-measures when the model changes.
+type AddRadialDimensionArgs struct {
+	Name     string  `json:"name,omitempty"`
+	ViewName string  `json:"viewName"`
+	Type     string  `json:"type,omitempty"` // radius (default) | diameter
+	PickXMM  float64 `json:"pickXmm"`
+	PickYMM  float64 `json:"pickYmm"`
+}
+
 // DeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].
 type DeleteDimensionArgs struct {
 	Name string `json:"name"`
