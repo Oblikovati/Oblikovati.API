@@ -99,14 +99,18 @@ type ConstraintStatusResult struct {
 // Oblikovati/Oblikovati#626); FitMethod is the interpolation parameterization for the
 // spline kind ([oblikovati.org/api/types.SplineFitMethod] wire spelling).
 type SketchEntityInfo struct {
-	Index          int         `json:"index"`
-	ID             uint64      `json:"id"`
-	Kind           string      `json:"kind"`
-	Construction   bool        `json:"construction"`
-	Points         [][]float64 `json:"points"`
-	Radius         float64     `json:"radius,omitempty"`
-	MoveableStatus string      `json:"moveableStatus,omitempty"`
-	FitMethod      string      `json:"fitMethod,omitempty"`
+	Index        int         `json:"index"`
+	ID           uint64      `json:"id"`
+	Kind         string      `json:"kind"`
+	Construction bool        `json:"construction"`
+	Points       [][]float64 `json:"points"`
+	Radius       float64     `json:"radius,omitempty"`
+	// ReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a
+	// document-scoped UUID stable across save/load and edits, unlike the session ID. Store
+	// it to refer to this entity durably; rebind it with [MethodSketchResolveReference].
+	ReferenceKey   string `json:"referenceKey,omitempty"`
+	MoveableStatus string `json:"moveableStatus,omitempty"`
+	FitMethod      string `json:"fitMethod,omitempty"`
 }
 
 // EnumerateEntitiesResult is the response of [MethodSketchEntities].
