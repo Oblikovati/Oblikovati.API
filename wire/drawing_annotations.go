@@ -187,6 +187,9 @@ type AddCustomTableArgs struct {
 type AddHoleNotesArgs struct {
 	Name     string `json:"name,omitempty"`
 	ViewName string `json:"viewName"`
+	// Quantity is the grouping mode ("perHole" = one callout per hole, the default; "combined" =
+	// one "<n>x Ø<d>" callout per distinct diameter). Empty means perHole.
+	Quantity string `json:"quantity,omitempty"`
 }
 
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
