@@ -41,6 +41,30 @@ func (t Transactions) State() (wire.UndoState, error) {
 	return r, t.c.call(wire.MethodTransactionState, nil, &r)
 }
 
+// History reads one open document's whole undo stream — every step since the document was
+// opened, with the cursor position and the save checkpoints — for a history browser. Pass a
+// document id from documents.list, or 0 for the active document. Reading does not activate the
+// document, so a browser can show several documents' timelines side by side.
+//
+// mcp:tool get_history
+// mcp:summary Read a document's full undo history (every step since it was opened, the cursor position, and which steps are saved). document=0 means the active document.
+func (t Transactions) History(document uint64) (wire.TransactionHistory, error) {
+	var r wire.TransactionHistory
+	return r, t.c.call(wire.MethodTransactionHistory, wire.TransactionHistoryArgs{Document: document}, &r)
+}
+
+// JumpTo moves one document's undo cursor to an absolute position (0 = open state,
+// len(entries) = latest), undoing or redoing as many steps as needed in one call. It returns
+// the document's resulting history. Pass a document id from documents.list, or 0 for the
+// active document.
+//
+// mcp:tool jump_to_history
+// mcp:summary Jump a document's undo cursor to an absolute position (0=open state), undoing/redoing as many steps as needed. document=0 means the active document.
+func (t Transactions) JumpTo(document uint64, position int) (wire.TransactionHistory, error) {
+	var r wire.TransactionHistory
+	return r, t.c.call(wire.MethodTransactionJumpTo, wire.TransactionJumpToArgs{Document: document, Position: position}, &r)
+}
+
 // Begin opens a bounded transaction: every edit recorded until the matching End is
 // coalesced into a single undo step named label. Begin/End nest; only the outermost End
 // commits the group. Use it to make a batch of operations one team-shared undo step.
