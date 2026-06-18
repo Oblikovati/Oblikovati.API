@@ -15,14 +15,21 @@ type SketchArgs struct {
 // sketch's identity, host plane label, visibility, entity count, remaining DOF, edit
 // state, health, and the display/solve overrides (color, line type/weight, defer).
 type SketchInfo struct {
-	Index        int     `json:"index"`
-	Name         string  `json:"name"`
-	Plane        string  `json:"plane"`
-	Visible      bool    `json:"visible"`
-	EntityCount  int     `json:"entityCount"`
-	DOF          int     `json:"dof"`
-	Editing      bool    `json:"editing"`
-	Healthy      bool    `json:"healthy"`
+	Index       int    `json:"index"`
+	Name        string `json:"name"`
+	Plane       string `json:"plane"`
+	Visible     bool   `json:"visible"`
+	EntityCount int    `json:"entityCount"`
+	DOF         int    `json:"dof"`
+	Editing     bool   `json:"editing"`
+	Healthy     bool   `json:"healthy"`
+	// Consumed reports whether a feature has consumed this sketch (drives browser nesting and
+	// the delete guard); OwnedBy names the consuming feature ("" when not consumed); Shared
+	// reports the Inventor "Share Sketch" flag (a shared sketch stays top-level and reusable by
+	// several features). Enumerate the full dependent set with [MethodSketchDependents].
+	Consumed     bool    `json:"consumed,omitempty"`
+	OwnedBy      string  `json:"ownedBy,omitempty"`
+	Shared       bool    `json:"shared,omitempty"`
 	Color        string  `json:"color,omitempty"`
 	LineType     string  `json:"lineType,omitempty"`
 	LineWeight   float64 `json:"lineWeight,omitempty"`
