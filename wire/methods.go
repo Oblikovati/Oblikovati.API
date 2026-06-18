@@ -339,6 +339,7 @@ const (
 	MethodDrawingSketchesList      = "drawingSketches.list"
 	MethodDrawingSketchesAdd       = "drawingSketches.add"
 	MethodDrawingSketchesAddEntity = "drawingSketches.addEntity"
+	MethodDrawingSketchesAddHatch  = "drawingSketches.addHatchRegion"
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
 	// snapped to projected model vertices so the measured value tracks the model.

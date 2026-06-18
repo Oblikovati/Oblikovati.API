@@ -39,3 +39,12 @@ func (d DrawingSketches) AddEntity(args wire.AddDrawingSketchEntityArgs) (wire.D
 	var r wire.DrawingSketchResult
 	return r, d.c.call(wire.MethodDrawingSketchesAddEntity, args, &r)
 }
+
+// AddHatchRegion fills a rectangular region with a hatch pattern, on a drawing sketch.
+//
+// mcp:tool drawing_add_hatch_region
+// mcp:summary Fill a rectangle (xmm/ymm/widthMm/heightMm, sheet mm) with a hatch pattern (general|cross|ansi31) on a drawing sketch; scaleMm overrides the line spacing. The region's fill lines render as sketch curves.
+func (d DrawingSketches) AddHatchRegion(args wire.AddHatchRegionArgs) (wire.DrawingSketchResult, error) {
+	var r wire.DrawingSketchResult
+	return r, d.c.call(wire.MethodDrawingSketchesAddHatch, args, &r)
+}
