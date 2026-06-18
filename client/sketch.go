@@ -96,6 +96,27 @@ func (s Sketch) Entities(index int) (wire.EnumerateEntitiesResult, error) {
 	return r, s.c.call(wire.MethodSketchEntities, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// ReferenceKey returns the sketch's persistent reference key (#153): a document-scoped UUID
+// stable across save/load and edits. Store it to refer to the sketch durably; rebind it
+// with [Sketch.ResolveReference].
+//
+// mcp:tool sketch_reference_key
+// mcp:summary Get a sketch's persistent reference key — a document-scoped UUID stable across save/load, for durable references.
+func (s Sketch) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error) {
+	var r wire.SketchReferenceKeyResult
+	return r, s.c.call(wire.MethodSketchReferenceKey, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
+// ResolveReference rebinds a previously stored persistent key (a sketch's or an entity's,
+// #153) to its current location. Found is false when the referent was deleted.
+//
+// mcp:tool resolve_sketch_reference
+// mcp:summary Rebind a stored persistent sketch/entity reference key to its current sketch index and entity id.
+func (s Sketch) ResolveReference(key string) (wire.ResolveSketchReferenceResult, error) {
+	var r wire.ResolveSketchReferenceResult
+	return r, s.c.call(wire.MethodSketchResolveReference, wire.ResolveSketchReferenceArgs{ReferenceKey: key}, &r)
+}
+
 // Constraints enumerates the sketch's geometric constraints.
 //
 // mcp:tool list_sketch_constraints
