@@ -47,13 +47,28 @@ type FeatureScalar struct {
 	Integer bool    `json:"integer,omitempty"`
 }
 
-// FeatureDetail is one placed feature with its history position and the editable
-// scalar inputs [MethodFeaturesEdit] accepts. Scalars is empty for features whose
-// definition exposes nothing editable (e.g. cosmetic features).
+// FeatureSlot describes one re-pickable geometric input of a placed feature — the edges
+// of a fillet, the removed faces of a shell, a hole's face, an extrude's profile, a
+// mirror's plane. Index addresses it in a [FeatureRepick]; Kind ("edges"|"faces"|"face"|
+// "profile"|"plane") says what reference it accepts; Multi marks a slot that accumulates
+// several references (edges/faces) and can be cleared; Count is how many it currently holds.
+type FeatureSlot struct {
+	Index int    `json:"index"`
+	Label string `json:"label"`
+	Kind  string `json:"kind"`
+	Multi bool   `json:"multi,omitempty"`
+	Count int    `json:"count"`
+}
+
+// FeatureDetail is one placed feature with its history position and the editable inputs
+// [MethodFeaturesEdit] accepts: scalar fields ([FeatureScalar]) and re-pickable geometry
+// slots ([FeatureSlot]). Both are empty for features whose definition exposes nothing of
+// that kind (e.g. a cosmetic feature has neither).
 type FeatureDetail struct {
 	FeatureInfo
 	Index   int             `json:"index"`
 	Scalars []FeatureScalar `json:"scalars,omitempty"`
+	Slots   []FeatureSlot   `json:"slots,omitempty"`
 }
 
 // FeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],
@@ -63,13 +78,31 @@ type FeatureDetailResult struct {
 	Feature FeatureDetail `json:"feature"`
 }
 
-// EditFeatureArgs is the request of [MethodFeaturesEdit]: set editable scalars of
-// the feature in place (an in-place edit-feature). Every edit is validated before
-// any is applied, then the part recomputes once. Scalar indices come from
-// [FeatureDetail.Scalars]; values are unit-bearing expressions ("5 mm", "30 deg").
+// EditFeatureArgs is the request of [MethodFeaturesEdit]: edit the feature in place — set
+// editable scalars AND/OR re-pick its geometric references. Every edit (scalar parse, slot
+// resolution) is validated before ANY is applied, so a failed batch (bad value, unbindable
+// key, wrong slot kind) leaves the definition untouched; then the part recomputes once.
+// Scalar indices come from [FeatureDetail.Scalars]; Repick slot indices from
+// [FeatureDetail.Slots].
 type EditFeatureArgs struct {
-	ID      uint64       `json:"id"`
-	Scalars []ScalarEdit `json:"scalars"`
+	ID      uint64          `json:"id"`
+	Scalars []ScalarEdit    `json:"scalars,omitempty"`
+	Repick  []FeatureRepick `json:"repick,omitempty"`
+}
+
+// FeatureRepick re-points one geometric Slot (a [FeatureSlot] index) of a placed feature.
+// The fields read by the slot's Kind:
+//   - edges/faces/face: Ref is a topology reference key from [MethodModelReferenceKeys].
+//   - profile: SketchIndex + ProfileIndex name a sketch region (from model.tree / sketch.profiles).
+//   - plane: Ref is a planar-face key, a work-plane ref ("plane/N"), or an origin plane ("origin/plane/xy").
+//
+// Clear empties a clearable multi-slot (edges/faces) and ignores the other fields.
+type FeatureRepick struct {
+	Slot         int    `json:"slot"`
+	Ref          string `json:"ref,omitempty"`
+	SketchIndex  int    `json:"sketchIndex,omitempty"`
+	ProfileIndex int    `json:"profileIndex,omitempty"`
+	Clear        bool   `json:"clear,omitempty"`
 }
 
 // DeleteFeatureResult is the response of [MethodFeaturesDelete].
