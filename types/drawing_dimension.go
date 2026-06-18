@@ -28,6 +28,9 @@ const (
 	// leader to the value with no dimension line (the running-coordinate callout). Which axis it
 	// measures is chosen when the dimension is created (the "axis" request field).
 	OrdinateDimension
+	// ArcLengthDimension measures the length along a circular edge — the arc's swept length, or a
+	// full circle's circumference — with the dimension line following the arc.
+	ArcLengthDimension
 )
 
 var drawingDimensionTypeNames = map[DrawingDimensionType]string{
@@ -38,6 +41,7 @@ var drawingDimensionTypeNames = map[DrawingDimensionType]string{
 	DiameterDimension:   "diameter",
 	AngularDimension:    "angular",
 	OrdinateDimension:   "ordinate",
+	ArcLengthDimension:  "arcLength",
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").
