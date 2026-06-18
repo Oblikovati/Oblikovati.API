@@ -329,6 +329,7 @@ const (
 	MethodDrawingDimensionsAddAngular  = "drawingDimensions.addAngular"
 	MethodDrawingDimensionsAddBaseline = "drawingDimensions.addBaseline"
 	MethodDrawingDimensionsAddChain    = "drawingDimensions.addChain"
+	MethodDrawingDimensionsAddOrdinate = "drawingDimensions.addOrdinate"
 	MethodDrawingDimensionsDelete      = "drawingDimensions.delete"
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):

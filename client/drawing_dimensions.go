@@ -68,6 +68,16 @@ func (d DrawingDimensions) AddChain(args wire.AddDimensionSetArgs) (wire.Dimensi
 	return r, d.c.call(wire.MethodDrawingDimensionsAddChain, args, &r)
 }
 
+// AddOrdinate adds an ordinate set: one leader-to-value dimension per point, each measuring that
+// point's offset from a common datum along one axis.
+//
+// mcp:tool drawing_add_ordinate_dimensions
+// mcp:summary Add an ordinate dimension set on a drawing view: one dimension per point measuring its offset from a common datum ([x,y] sheet mm, snapped to model vertices) along axis = horizontal (view-X, default) | vertical (view-Y). Each is drawn as a leader to its value with no dimension line; the values update with the model.
+func (d DrawingDimensions) AddOrdinate(args wire.AddOrdinateDimensionsArgs) (wire.DimensionSetResult, error) {
+	var r wire.DimensionSetResult
+	return r, d.c.call(wire.MethodDrawingDimensionsAddOrdinate, args, &r)
+}
+
 // Delete removes the named dimension.
 //
 // mcp:tool drawing_delete_dimension

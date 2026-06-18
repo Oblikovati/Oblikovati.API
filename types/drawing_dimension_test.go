@@ -13,6 +13,7 @@ func TestDrawingDimensionTypeRoundTrip(t *testing.T) {
 	want := map[DrawingDimensionType]string{
 		AlignedDimension: "aligned", HorizontalDimension: "horizontal", VerticalDimension: "vertical",
 		RadiusDimension: "radius", DiameterDimension: "diameter", AngularDimension: "angular",
+		OrdinateDimension: "ordinate",
 	}
 	for typ, spelling := range want {
 		if got := typ.String(); got != spelling {
