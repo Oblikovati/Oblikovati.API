@@ -21,6 +21,20 @@ type AddDrawingSketchEntityArgs struct {
 	Radius     float64      `json:"radiusMm,omitempty"`
 }
 
+// AddHatchRegionArgs is the request of [MethodDrawingSketchesAddHatch]: fill the rectangle at
+// (XMM, YMM) of size WidthMM×HeightMM (sheet millimetres) with a hatch pattern. Pattern is the
+// built-in pattern name ("general", "cross", "ansi31"); ScaleMm overrides the line spacing (0 ⇒ the
+// pattern default). The region is added to the named sketch (created if SketchName is blank).
+type AddHatchRegionArgs struct {
+	SketchName string  `json:"sketchName,omitempty"`
+	XMM        float64 `json:"xmm"`
+	YMM        float64 `json:"ymm"`
+	WidthMM    float64 `json:"widthMm"`
+	HeightMM   float64 `json:"heightMm"`
+	Pattern    string  `json:"pattern,omitempty"`
+	ScaleMM    float64 `json:"scaleMm,omitempty"`
+}
+
 // DrawingSketchInfo flattens a drawing sketch for the wire.
 type DrawingSketchInfo struct {
 	Name        string `json:"name"`
