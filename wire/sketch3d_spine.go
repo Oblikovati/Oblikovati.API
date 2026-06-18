@@ -36,8 +36,11 @@ type Sketch3DInfo struct {
 	DOF               int    `json:"dof"`
 	Editing           bool   `json:"editing"`
 	Healthy           bool   `json:"healthy"`
-	Color             string `json:"color,omitempty"`
-	DeferUpdates      bool   `json:"deferUpdates,omitempty"`
+	// Shared reports the Inventor "Share Sketch" flag. (A 3D sketch's consumed/ownedBy state
+	// awaits the 3D path→sketch dependency link; see the 2D [SketchInfo] for those notions.)
+	Shared       bool   `json:"shared,omitempty"`
+	Color        string `json:"color,omitempty"`
+	DeferUpdates bool   `json:"deferUpdates,omitempty"`
 }
 
 // SetSketch3DPropertyArgs is the request of [MethodSketch3DSetProperty]: which sketch,

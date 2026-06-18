@@ -145,6 +145,7 @@ const (
 
 	MethodSketchList        = "sketch.list"
 	MethodSketchGet         = "sketch.get"
+	MethodSketchDependents  = "sketch.dependents"
 	MethodSketchEdit        = "sketch.edit"
 	MethodSketchExitEdit    = "sketch.exitEdit"
 	MethodSketchSolve       = "sketch.solve"

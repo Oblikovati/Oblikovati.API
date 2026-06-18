@@ -50,6 +50,16 @@ func (s Sketch) Get(index int) (wire.SketchInfo, error) {
 	return r, s.c.call(wire.MethodSketchGet, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// Dependents lists the features that consume the sketch (#154) — the impact of deleting or
+// editing it. Empty when nothing uses the sketch (then it is safe to delete).
+//
+// mcp:tool sketch_dependents
+// mcp:summary List the features that consume a sketch — what a delete/edit would affect.
+func (s Sketch) Dependents(index int) (wire.SketchDependentsResult, error) {
+	var r wire.SketchDependentsResult
+	return r, s.c.call(wire.MethodSketchDependents, wire.SketchArgs{SketchIndex: index}, &r)
+}
+
 // Edit opens the sketch for geometry editing (enters edit mode).
 //
 // mcp:tool edit_sketch
