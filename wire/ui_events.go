@@ -83,6 +83,18 @@ type CommandStartedEvent struct {
 	Command string `json:"command"`
 }
 
+// PanelValueChangedEvent is the push event (type [EventPanelValueChanged]) fired when the
+// user edits an editable control of an add-in dockable window (M05-F03). It carries the
+// owning window's id, the control's id, and the control's new Value — the add-in updates its
+// model from it (and may re-Set the window to refresh derived labels). This is the editable-
+// panel counterpart of CommandStartedEvent (which still observes button clicks).
+type PanelValueChangedEvent struct {
+	Type      string `json:"type"` // always EventPanelValueChanged
+	WindowId  string `json:"windowId"`
+	ControlId string `json:"controlId"`
+	Value     string `json:"value"`
+}
+
 // SelectionChangedEvent is the push event (type [EventSelectionChanged]) fired
 // when the selection set changes — the app-level OnSelect/OnUnSelect observation.
 type SelectionChangedEvent struct {
