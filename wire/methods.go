@@ -139,6 +139,14 @@ const (
 	MethodModelDeselect       = "model.deselect"
 	MethodModelClearSelection = "model.clearSelection"
 
+	// Highlight sets (#157): named, colored emphasis groups the viewport outlines without
+	// selecting — an add-in guides the user. create/delete/addItems/setColor/list.
+	MethodModelHighlightSetCreate   = "model.highlightSets.create"
+	MethodModelHighlightSetDelete   = "model.highlightSets.delete"
+	MethodModelHighlightSetAddItems = "model.highlightSets.addItems"
+	MethodModelHighlightSetSetColor = "model.highlightSets.setColor"
+	MethodModelHighlightSetList     = "model.highlightSets.list"
+
 	MethodImportDWG = "import.dwg"
 	MethodImportDXF = "import.dxf"
 	MethodExportDXF = "export.dxf"
