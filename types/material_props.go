@@ -28,6 +28,67 @@ type Electrical struct {
 	RelativePermittivity float64 `json:"relativePermittivity" yaml:"relativePermittivity"` // dimensionless (εr)
 }
 
+// MagneticClass declares how a material responds to a magnetic field, telling a
+// magnetostatics (FEA) solver which constitutive law to apply. The zero value ("") means
+// the material is effectively non-magnetic (μr ≈ 1, no remanence), so the overwhelming
+// majority of materials — plastics, woods, non-ferrous metals — carry no [Magnetic] group
+// and need no migration. Only soft-magnetic cores and permanent magnets declare a class.
+type MagneticClass string
+
+const (
+	// NonMagnetic is the default: μr ≈ 1, treated as free space by the solver.
+	NonMagnetic MagneticClass = "non-magnetic"
+	// SoftMagnetic is a linear/saturating core material (electrical steel, soft iron,
+	// ferrite cores) — high permeability, negligible remanence. The solver reads
+	// [Magnetic.RelativePermeability] (and saturates at SaturationFluxDensity).
+	SoftMagnetic MagneticClass = "soft-magnetic"
+	// HardMagnetic is a permanent magnet (NdFeB, SmCo, ferrite, AlNiCo): the solver reads
+	// the linear-recoil model from [Magnetic.Remanence], [Magnetic.Coercivity] and the
+	// recoil [Magnetic.RelativePermeability].
+	HardMagnetic MagneticClass = "hard-magnetic"
+)
+
+// Magnetic groups a material's magnetic properties — the constitutive data a 2D/3D
+// magnetostatics solver (e.g. the FEMM bridge add-in) needs to assign a block material.
+// It serves both soft-magnetic cores and permanent magnets, distinguished by [Class]:
+//
+//   - Soft-magnetic: RelativePermeability is the (initial/amplitude) μr and
+//     SaturationFluxDensity caps the linear region; Remanence/Coercivity are zero.
+//   - Hard-magnetic (PM): Remanence (Br) and Coercivity (Hc) define the demagnetisation
+//     line, and RelativePermeability is the recoil μr ≈ Br/(μ0·Hc) (typically ~1.05).
+//
+// The zero value (Class == "", all fields 0) is a non-magnetic material; the solver
+// treats it as free space (μr = 1). Existing materials therefore need no migration.
+//
+// Example (NdFeB N42 permanent magnet):
+//
+//	Magnetic{Class: HardMagnetic, Remanence: 1.30, Coercivity: 915, RelativePermeability: 1.05}
+type Magnetic struct {
+	// Class selects the constitutive model (soft vs hard); "" == non-magnetic.
+	Class MagneticClass `json:"class,omitempty" yaml:"class,omitempty"`
+	// RelativePermeability is μr [-]: the amplitude permeability for a soft-magnetic core,
+	// or the recoil permeability for a permanent magnet (≈ 1.05 for sintered NdFeB).
+	RelativePermeability float64 `json:"relativePermeability,omitempty" yaml:"relativePermeability,omitempty"`
+	// Remanence is the residual flux density Br [T] of a permanent magnet (0 for soft iron).
+	Remanence float64 `json:"remanence,omitempty" yaml:"remanence,omitempty"`
+	// Coercivity is the (intrinsic) coercive field Hc [kA/m] of a permanent magnet, the
+	// field that drives B to zero — the demagnetisation margin a motor design checks.
+	Coercivity float64 `json:"coercivity,omitempty" yaml:"coercivity,omitempty"`
+	// SaturationFluxDensity is Bsat [T] where a soft-magnetic core leaves its linear region
+	// (~1.5–2.0 T for electrical steels, ~2.3 T for cobalt iron). 0 when not applicable.
+	SaturationFluxDensity float64 `json:"saturationFluxDensity,omitempty" yaml:"saturationFluxDensity,omitempty"`
+	// CoreLoss is the specific iron loss at 1.5 T, 50 Hz [W/kg] of a lamination grade
+	// (the W15/50 figure), for downstream loss estimation. 0 when unknown/not applicable.
+	CoreLoss float64 `json:"coreLoss,omitempty" yaml:"coreLoss,omitempty"`
+}
+
+// IsMagnetic reports whether the material carries a meaningful magnetic model — i.e. it is
+// soft- or hard-magnetic, not the non-magnetic default. A solver branches on this to decide
+// whether to read the group or treat the region as free space.
+func (m Magnetic) IsMagnetic() bool {
+	return m.Class == SoftMagnetic || m.Class == HardMagnetic
+}
+
 // IsotropyClass declares a material's elastic symmetry, telling a structural (FEA) solver
 // how to read its stiffness. An isotropic material is fully described by the scalar
 // [Mechanical] group (E, ν); orthotropic and transversely-isotropic materials additionally

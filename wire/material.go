@@ -28,6 +28,9 @@ type MaterialInfo struct {
 	Mechanical  types.Mechanical `json:"mechanical"`
 	Thermal     types.Thermal    `json:"thermal"`
 	Electrical  types.Electrical `json:"electrical"`
+	// Magnetic carries the magnetostatics constitutive data (μr, Br, Hc, Bsat) for
+	// soft-magnetic cores and permanent magnets; the zero value is a non-magnetic material.
+	Magnetic types.Magnetic `json:"magnetic"`
 	// IsotropyClass is "isotropic" (or empty), "orthotropic", or "transversely-isotropic".
 	IsotropyClass string `json:"isotropyClass,omitempty"`
 	// Anisotropic carries the direction-dependent elastic constants when IsotropyClass is

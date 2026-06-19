@@ -26,6 +26,9 @@ type Material interface {
 	Thermal() types.Thermal
 	// Electrical returns the electrical properties.
 	Electrical() types.Electrical
+	// Magnetic returns the magnetostatics properties (μr, Br, Hc, Bsat). The zero value is
+	// a non-magnetic material; soft-magnetic cores and permanent magnets carry a class.
+	Magnetic() types.Magnetic
 	// IsotropyClass declares the material's elastic symmetry. An isotropic material is
 	// fully described by Mechanical; orthotropic / transversely-isotropic materials also
 	// carry Anisotropic. Never returns the empty string — an unset class reports Isotropic.

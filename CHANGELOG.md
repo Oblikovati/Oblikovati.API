@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(materials): `types.Magnetic` group on `MaterialInfo` / `contract.Material` —
+  magnetostatics constitutive data (μr, remanence Br, coercivity Hc, saturation Bsat,
+  core loss) for soft-magnetic cores and permanent magnets; the zero value is a
+  non-magnetic material (no migration). Unblocks the FEMM bridge reading magnetic
+  block materials off host geometry (closes the bridge's documented GAP #3).
+
 ## [0.69.0] - 2026-06-19
 
 ### Added
