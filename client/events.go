@@ -27,6 +27,8 @@ type EventDispatcher struct {
 	onFileDialogHook  []func(wire.FileDialogHookPayload)
 	onOccurrence      []func(wire.OccurrenceEventPayload)
 	onAssemblyFeature []func(wire.AssemblyFeaturesChangedEvent)
+	onFeature         []func(wire.FeatureLifecycleEvent)
+	onSketchEdit      []func(wire.SketchEditEvent)
 }
 
 // NewEventDispatcher returns a dispatcher with no callbacks registered.
@@ -71,6 +73,18 @@ func (d *EventDispatcher) OnAssemblyFeatures(fn func(wire.AssemblyFeaturesChange
 	d.onAssemblyFeature = append(d.onAssemblyFeature, fn)
 }
 
+// OnFeature subscribes to the three feature-lifecycle events (feature.added/.edited/.deleted);
+// the payload's Type says which fired and carries the affected feature's identity (#148).
+func (d *EventDispatcher) OnFeature(fn func(wire.FeatureLifecycleEvent)) {
+	d.onFeature = append(d.onFeature, fn)
+}
+
+// OnSketchEdit subscribes to the sketch-edit-mode events (sketch.editEntered/.editExited); the
+// payload's Type says which fired and carries the sketch's identity (#148).
+func (d *EventDispatcher) OnSketchEdit(fn func(wire.SketchEditEvent)) {
+	d.onSketchEdit = append(d.onSketchEdit, fn)
+}
+
 // transactionEventTypes are the type tags decoded as [wire.TransactionEventPayload].
 var transactionEventTypes = map[string]bool{
 	wire.EventTransactionCommitted: true,
@@ -97,6 +111,19 @@ var occurrenceEventTypes = map[string]bool{
 	wire.EventOccurrenceReplaced:    true,
 	wire.EventOccurrenceTransformed: true,
 	wire.EventOccurrenceSuppressed:  true,
+}
+
+// featureEventTypes are the type tags decoded as [wire.FeatureLifecycleEvent].
+var featureEventTypes = map[string]bool{
+	wire.EventFeatureAdded:   true,
+	wire.EventFeatureEdited:  true,
+	wire.EventFeatureDeleted: true,
+}
+
+// sketchEditEventTypes are the type tags decoded as [wire.SketchEditEvent].
+var sketchEditEventTypes = map[string]bool{
+	wire.EventSketchEditEntered: true,
+	wire.EventSketchEditExited:  true,
 }
 
 // Dispatch decodes one Notify event and fires the matching callbacks, reporting
@@ -127,6 +154,10 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 		return fireDecoded(eventJSON, d.onOccurrence)
 	case eventType == wire.EventAssemblyFeaturesChanged:
 		return fireDecoded(eventJSON, d.onAssemblyFeature)
+	case featureEventTypes[eventType]:
+		return fireDecoded(eventJSON, d.onFeature)
+	case sketchEditEventTypes[eventType]:
+		return fireDecoded(eventJSON, d.onSketchEdit)
 	}
 	return false
 }
@@ -134,7 +165,8 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 // fireDecoded unmarshals the payload once and hands it to every callback.
 func fireDecoded[P wire.TransactionEventPayload | wire.FileResolutionEventPayload |
 	wire.FileDirtyEventPayload | wire.FileDialogHookPayload |
-	wire.OccurrenceEventPayload | wire.AssemblyFeaturesChangedEvent](eventJSON []byte, fns []func(P)) bool {
+	wire.OccurrenceEventPayload | wire.AssemblyFeaturesChangedEvent |
+	wire.FeatureLifecycleEvent | wire.SketchEditEvent](eventJSON []byte, fns []func(P)) bool {
 	var payload P
 	if err := json.Unmarshal(eventJSON, &payload); err != nil {
 		return false
