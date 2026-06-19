@@ -17,10 +17,19 @@ func (c *Client) Body() Body { return Body{c} }
 // List enumerates the active part's bodies.
 //
 // mcp:tool body_list
-// mcp:summary Enumerates the active part's bodies.
+// mcp:summary Enumerates the active part's bodies (name, solid flag, visibility, face/edge counts).
 func (b Body) List() (wire.BodyListResult, error) {
 	var r wire.BodyListResult
 	return r, b.c.call(wire.MethodBodyList, struct{}{}, &r)
+}
+
+// SetVisible shows or hides the body at index (from List), for multi-body workflows (#158).
+//
+// mcp:tool body_set_visible
+// mcp:summary Show or hide one body of the active part by index.
+func (b Body) SetVisible(index int, visible bool) (wire.BodyInfoResult, error) {
+	var r wire.BodyInfoResult
+	return r, b.c.call(wire.MethodBodySetVisible, wire.BodySetVisibleArgs{BodyIndex: index, Visible: visible}, &r)
 }
 
 // Shells lists one body's face shells (the outer skin and any cavity skins).

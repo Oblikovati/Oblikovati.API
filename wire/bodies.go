@@ -11,20 +11,37 @@ type BodyIndexArgs struct {
 	BodyIndex int `json:"bodyIndex"`
 }
 
-// BodyInfo is one body's summary in [MethodBodyList]'s result.
+// BodyInfo is one body's summary in [MethodBodyList]'s result. Name is the body's display
+// name (e.g. "Solid1"); Visible reports whether it is shown, toggled with
+// [MethodBodySetVisible] — the body-level API multi-body workflows (Combine, Split, Mold)
+// need to enumerate and show/hide their results.
 type BodyInfo struct {
-	Index    int  `json:"index"`
-	Solid    bool `json:"solid"`
-	Faces    int  `json:"faces"`
-	Edges    int  `json:"edges"`
-	Vertices int  `json:"vertices"`
-	Shells   int  `json:"shells"`
-	Wires    int  `json:"wires"`
+	Index    int    `json:"index"`
+	Name     string `json:"name"`
+	Solid    bool   `json:"solid"`
+	Visible  bool   `json:"visible"`
+	Faces    int    `json:"faces"`
+	Edges    int    `json:"edges"`
+	Vertices int    `json:"vertices"`
+	Shells   int    `json:"shells"`
+	Wires    int    `json:"wires"`
 }
 
 // BodyListResult is the response of [MethodBodyList].
 type BodyListResult struct {
 	Bodies []BodyInfo `json:"bodies,omitempty"`
+}
+
+// BodySetVisibleArgs is the request of [MethodBodySetVisible]: show or hide the body at
+// BodyIndex (from [MethodBodyList]). Visible is set, not toggled, so the call is idempotent.
+type BodySetVisibleArgs struct {
+	BodyIndex int  `json:"bodyIndex"`
+	Visible   bool `json:"visible"`
+}
+
+// BodyInfoResult is the response of [MethodBodySetVisible]: the body's refreshed summary.
+type BodyInfoResult struct {
+	Body BodyInfo `json:"body"`
 }
 
 // FaceShellInfo is one shell in [MethodBodyShells]'s result.
