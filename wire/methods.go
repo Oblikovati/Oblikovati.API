@@ -893,6 +893,9 @@ const (
 	EventWebDialogChanged = "webDialog.changed"
 	// EventCommandStarted reports a command beginning (M05-F12 #619).
 	EventCommandStarted = "command.started"
+	// EventPanelValueChanged reports the user editing an editable dockable-window control
+	// (M05-F03): the add-in receives the window id, control id, and new value.
+	EventPanelValueChanged = "panel.valueChanged"
 	// EventSelectionChanged reports the selection set changing (M05-F12 #619).
 	EventSelectionChanged = "selection.changed"
 	// EventParameterChanged reports a parameter's expression/value changing (#148) — the granular

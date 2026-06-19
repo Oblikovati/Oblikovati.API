@@ -7,12 +7,21 @@ import "oblikovati.org/api/types"
 // PanelControlSpec is one declarative control of a dockable window's content. A
 // PanelButton executes CommandID when clicked, so the add-in observes it through
 // the ordinary command-ended event — no separate click plumbing. Text is the
-// label/button caption; ID names the control for later content updates.
+// label/button caption (or the field label for editable controls); ID names the
+// control. Editable controls (textBox/valueEditor/checkBox/dropdown/comboBox/slider)
+// carry their current Value; dropdown/comboBox list their choices in Options; slider
+// and valueEditor bound the input with Min/Max/Step. When the user edits an editable
+// control the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.
 type PanelControlSpec struct {
 	Kind      types.PanelControlKind `json:"kind,omitempty"`
 	ID        string                 `json:"id,omitempty"`
 	Text      string                 `json:"text,omitempty"`
 	CommandID string                 `json:"commandId,omitempty"`
+	Value     string                 `json:"value,omitempty"`   // current value of an editable control
+	Options   []string               `json:"options,omitempty"` // choices for dropdown/comboBox
+	Min       float64                `json:"min,omitempty"`     // slider/valueEditor lower bound
+	Max       float64                `json:"max,omitempty"`     // slider/valueEditor upper bound
+	Step      float64                `json:"step,omitempty"`    // slider/valueEditor increment
 }
 
 // DockableWindowSpec is one add-in dockable window (M05-F03, #247): a titled panel

@@ -45,6 +45,33 @@ func TestGraphicsAddHeatmapMarshalsPerVertexRequest(t *testing.T) {
 	}
 }
 
+func TestGraphicsAddFloodPlotIsOnTopAndTranslucent(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"clientId":"fea","nodeCount":1,"primitiveCount":1}`)}
+	c := New(ft)
+
+	mapper := wire.GraphicsColorMapper{Values: []float64{0, 1}, Colors: []float32{0, 0, 1, 1, 1, 0, 0, 1}}
+	if _, err := c.Graphics().AddFloodPlot("fea",
+		[]float64{0, 0, 0, 1, 0, 0, 0, 1, 0}, []int{0, 1, 2}, []float64{0, 0.5, 1}, mapper, 0.6); err != nil {
+		t.Fatalf("AddFloodPlot: %v", err)
+	}
+	var sent wire.SetClientGraphicsArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	p := sent.Nodes[0].Primitives[0]
+	// A flood plot must draw over the model (OnTop) and translucent (so the part reads through),
+	// while still carrying the per-vertex scalar→color mapping.
+	if !p.OnTop {
+		t.Error("flood plot primitive must be OnTop so it projects over the geometry")
+	}
+	if p.Opacity != 0.6 {
+		t.Errorf("opacity = %v, want 0.6", p.Opacity)
+	}
+	if p.ColorMapper == nil || p.ColorBinding != string(types.GraphicsColorPerVertex) {
+		t.Errorf("primitive = %+v, want mapper + perVertex binding", p)
+	}
+}
+
 func TestGraphicsDeleteSendsClientId(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)

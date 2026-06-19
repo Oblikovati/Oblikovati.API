@@ -8,6 +8,18 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(ui): editable dockable-window panel controls — `types.PanelControlKind` gains
+  `TextBox`, `ValueEditor`, `CheckBox`, `Dropdown`, `ComboBox`, `Slider` (modeled on
+  Inventor's `MiniToolbarControlTypeEnum`); `wire.PanelControlSpec` gains `Value`,
+  `Options`, `Min`/`Max`/`Step`; `wire.PanelValueChangedEvent` (`panel.valueChanged`)
+  delivers a user's edit back to the add-in; `client` adds the `PanelTextBox`/
+  `PanelValueEditor`/`PanelCheckBox`/`PanelDropdown`/`PanelComboBox`/`PanelSlider`
+  constructors. Add-ins can now build editable forms in a dockable window.
+- feat(graphics): `client.Graphics().AddFloodPlot` — an on-top, translucent scalar
+  heatmap for drawing an FEA flood plot over the analyzed geometry.
+
 ## [0.70.0] - 2026-06-19
 
 ### Added

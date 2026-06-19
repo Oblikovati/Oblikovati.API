@@ -73,6 +73,23 @@ func (g Graphics) AddHeatmap(clientID string, coords []float64, indices []int, s
 	}))
 }
 
+// AddFloodPlot submits a scalar-mapped triangle mesh as an FEA-style flood plot drawn ON
+// TOP of the model (depth test disabled) at the given opacity, so the field projects over
+// the analyzed geometry instead of being occluded by it — the canonical way an FEA add-in
+// shows a result field over its part/assembly. opacity is 0..1 (e.g. 0.6 lets the part
+// edges read through the field); coords are xyz triples, scalars one per vertex.
+//
+// Unlike AddHeatmap (a persistent, depth-tested overlay for coloring a 3D surface that has
+// its own normals), a flood plot is a flat data layer with no surface normals, so it is
+// rendered unlit and over the geometry.
+func (g Graphics) AddFloodPlot(clientID string, coords []float64, indices []int, scalars []float64, mapper wire.GraphicsColorMapper, opacity float32) (wire.SetClientGraphicsResult, error) {
+	return g.Set(oneShot(clientID, wire.GraphicsPrimitive{
+		Kind: string(types.GraphicsTriangles), Coordinates: coords, Indices: indices,
+		Scalars: scalars, ColorMapper: &mapper, ColorBinding: string(types.GraphicsColorPerVertex),
+		OnTop: true, Opacity: opacity,
+	}))
+}
+
 // AddLines submits an indexed line list (coords xyz triples, indices segment-endpoint
 // pairs) in one color as a persistent group.
 func (g Graphics) AddLines(clientID string, coords []float64, indices []int, color []float32) (wire.SetClientGraphicsResult, error) {
