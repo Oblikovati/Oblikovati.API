@@ -845,6 +845,17 @@ const (
 // package (e.g. [EditCommittedEvent]).
 const (
 	EventEditCommitted = "edit.committed"
+
+	// Document lifecycle + modeling events (#148): the DocumentEvents/ApplicationEvents/
+	// ModelingEvents wave. Created/Opened/Saved/Closed/Activated fire as a document moves
+	// through its life; ModelChanged carries a committed batch of model changes (features,
+	// sketches, parameters) on a document — an add-in re-queries the affected document.
+	EventDocumentCreated   = "document.created"
+	EventDocumentOpened    = "document.opened"
+	EventDocumentSaved     = "document.saved"
+	EventDocumentClosed    = "document.closed"
+	EventDocumentActivated = "document.activated"
+	EventModelChanged      = "model.changed"
 	// EventBrowserNode notifies an add-in of interaction with one of its browser
 	// pane nodes (see [BrowserNodeEvent], M05-F03 #256).
 	EventBrowserNode = "browser.node"
