@@ -22,6 +22,36 @@ func (d Documents) List() (wire.ListDocumentsResult, error) {
 	return r, d.c.call(wire.MethodDocumentsList, nil, &r)
 }
 
+// Update recomputes the active document's out-of-date features (#139). With
+// acceptErrorsAndContinue it succeeds and reports sick features; otherwise a sick feature fails.
+//
+// mcp:tool update_document
+// mcp:summary Recompute the active document's out-of-date features; reports sick features.
+func (d Documents) Update(acceptErrorsAndContinue bool) (wire.UpdateDocumentResult, error) {
+	var r wire.UpdateDocumentResult
+	return r, d.c.call(wire.MethodDocumentsUpdate, wire.UpdateDocumentArgs{AcceptErrorsAndContinue: acceptErrorsAndContinue}, &r)
+}
+
+// Rebuild recomputes the active document's entire feature program as if all entities were
+// dirtied (#139) — the full parametric rebuild.
+//
+// mcp:tool rebuild_document
+// mcp:summary Recompute the active document's entire feature program (full rebuild).
+func (d Documents) Rebuild(acceptErrorsAndContinue bool) (wire.UpdateDocumentResult, error) {
+	var r wire.UpdateDocumentResult
+	return r, d.c.call(wire.MethodDocumentsRebuild, wire.UpdateDocumentArgs{AcceptErrorsAndContinue: acceptErrorsAndContinue}, &r)
+}
+
+// RequiresUpdate reports whether the active document has out-of-date features a recompute would
+// change (#139) — the read-only "needs update" flag.
+//
+// mcp:tool document_requires_update
+// mcp:summary Report whether the active document has out-of-date features needing a recompute.
+func (d Documents) RequiresUpdate() (wire.RequiresUpdateResult, error) {
+	var r wire.RequiresUpdateResult
+	return r, d.c.call(wire.MethodDocumentsRequiresUpdate, nil, &r)
+}
+
 // Create makes a new document of the given kind active and returns it.
 //
 // mcp:tool create_document

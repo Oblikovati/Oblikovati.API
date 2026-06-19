@@ -24,13 +24,16 @@ const (
 
 	MethodRibbonList = "ribbon.list"
 
-	MethodDocumentsList     = "documents.list"
-	MethodDocumentsCreate   = "documents.create"
-	MethodDocumentsActivate = "documents.activate"
-	MethodDocumentsClose    = "documents.close"
-	MethodDocumentsCloseAll = "documents.closeAll"
-	MethodDocumentsImport   = "documents.import"
-	MethodDocumentsExport   = "documents.export"
+	MethodDocumentsList           = "documents.list"
+	MethodDocumentsUpdate         = "documents.update"
+	MethodDocumentsRebuild        = "documents.rebuild"
+	MethodDocumentsRequiresUpdate = "documents.requiresUpdate"
+	MethodDocumentsCreate         = "documents.create"
+	MethodDocumentsActivate       = "documents.activate"
+	MethodDocumentsClose          = "documents.close"
+	MethodDocumentsCloseAll       = "documents.closeAll"
+	MethodDocumentsImport         = "documents.import"
+	MethodDocumentsExport         = "documents.export"
 	// Flavored document subtypes (M05-F15, Oblikovati#665).
 	MethodDocumentsRegisterSubType = "documents.registerSubType"
 	MethodDocumentsListSubTypes    = "documents.listSubTypes"
