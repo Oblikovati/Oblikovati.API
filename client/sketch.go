@@ -60,6 +60,16 @@ func (s Sketch) Dependents(index int) (wire.SketchDependentsResult, error) {
 	return r, s.c.call(wire.MethodSketchDependents, wire.SketchArgs{SketchIndex: index}, &r)
 }
 
+// CopyTo copies geometry from one sketch into another (#151) — reuse a profile across planes.
+// Empty EntityIDs copies the whole sketch; Position offsets the copies in the target plane.
+//
+// mcp:tool sketch_copy_to
+// mcp:summary Copy geometry from one 2D sketch into another (optionally a subset, optionally offset).
+func (s Sketch) CopyTo(args wire.CopySketchArgs) (wire.CopySketchResult, error) {
+	var r wire.CopySketchResult
+	return r, s.c.call(wire.MethodSketchCopyTo, args, &r)
+}
+
 // Edit opens the sketch for geometry editing (enters edit mode).
 //
 // mcp:tool edit_sketch
