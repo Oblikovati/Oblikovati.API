@@ -9,26 +9,31 @@ package types
 type SketchEntityKind string
 
 const (
-	SketchEntityLine           SketchEntityKind = "line"
-	SketchEntityPoint          SketchEntityKind = "point"
-	SketchEntityCircle         SketchEntityKind = "circle"
-	SketchEntityArc            SketchEntityKind = "arc"
-	SketchEntityEllipse        SketchEntityKind = "ellipse"
-	SketchEntityEllipticalArc  SketchEntityKind = "ellipticalArc"
-	SketchEntitySpline         SketchEntityKind = "spline"
-	SketchEntityRectangle      SketchEntityKind = "rectangle"
-	SketchEntityPolygon        SketchEntityKind = "polygon"
-	SketchEntitySlot           SketchEntityKind = "slot"
-	SketchEntityFillet         SketchEntityKind = "fillet"
-	SketchEntityChamfer        SketchEntityKind = "chamfer"
-	SketchEntityImage          SketchEntityKind = "image"
-	SketchEntityFillRegion     SketchEntityKind = "fillRegion"
-	SketchEntityText           SketchEntityKind = "text"
-	SketchEntityEquationCurve  SketchEntityKind = "equationCurve"
-	SketchEntityFixedSpline    SketchEntityKind = "fixedSpline"
-	SketchEntityOffsetSpline   SketchEntityKind = "offsetSpline"
-	SketchEntityProjectedPoint SketchEntityKind = "projectedPoint"
-	SketchEntityProjectedCurve SketchEntityKind = "projectedCurve"
+	SketchEntityLine          SketchEntityKind = "line"
+	SketchEntityPoint         SketchEntityKind = "point"
+	SketchEntityCircle        SketchEntityKind = "circle"
+	SketchEntityArc           SketchEntityKind = "arc"
+	SketchEntityEllipse       SketchEntityKind = "ellipse"
+	SketchEntityEllipticalArc SketchEntityKind = "ellipticalArc"
+	// SketchEntitySpline interpolates its points (a fit spline);
+	// SketchEntityControlPointSpline approximates them (a control-point spline, the 2D
+	// analog of Sketch3DEntityControlPointSpline). sketch.addEntity accepts either kind;
+	// enumeration reports which mode a spline is in (Oblikovati/Oblikovati#150).
+	SketchEntitySpline             SketchEntityKind = "spline"
+	SketchEntityControlPointSpline SketchEntityKind = "controlPointSpline"
+	SketchEntityRectangle          SketchEntityKind = "rectangle"
+	SketchEntityPolygon            SketchEntityKind = "polygon"
+	SketchEntitySlot               SketchEntityKind = "slot"
+	SketchEntityFillet             SketchEntityKind = "fillet"
+	SketchEntityChamfer            SketchEntityKind = "chamfer"
+	SketchEntityImage              SketchEntityKind = "image"
+	SketchEntityFillRegion         SketchEntityKind = "fillRegion"
+	SketchEntityText               SketchEntityKind = "text"
+	SketchEntityEquationCurve      SketchEntityKind = "equationCurve"
+	SketchEntityFixedSpline        SketchEntityKind = "fixedSpline"
+	SketchEntityOffsetSpline       SketchEntityKind = "offsetSpline"
+	SketchEntityProjectedPoint     SketchEntityKind = "projectedPoint"
+	SketchEntityProjectedCurve     SketchEntityKind = "projectedCurve"
 	// SketchEntitySplineHandle is the tangency handle attached to one fit
 	// point of an interpolation spline (M06-F11, Oblikovati/Oblikovati#626).
 	SketchEntitySplineHandle SketchEntityKind = "splineHandle"
@@ -119,5 +124,9 @@ const (
 	DimConstraintOffset          DimensionConstraintKind = "offsetDim"
 	DimConstraintThreePointAngle DimensionConstraintKind = "threePointAngle"
 	DimConstraintEllipseRadius   DimensionConstraintKind = "ellipseRadius"
+	// DimConstraintTangentDistance dimensions the distance from a line to a circle/arc
+	// measured to its tangent point — the near side by default, the far side with
+	// AddDimensionArgs.FarSide (Oblikovati/Oblikovati#152).
+	DimConstraintTangentDistance DimensionConstraintKind = "tangentDistance"
 	DimConstraintUnknown         DimensionConstraintKind = "unknown"
 )

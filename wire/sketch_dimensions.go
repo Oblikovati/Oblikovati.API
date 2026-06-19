@@ -17,6 +17,9 @@ type AddDimensionArgs struct {
 	Kind        string   `json:"kind"`
 	Entities    []uint64 `json:"entities"`
 	Expression  string   `json:"expression"`
+	// FarSide selects the far tangent point for a "tangentDistance" dimension (line→circle/arc);
+	// the default (false) dimensions to the near side. Ignored by other kinds (#152).
+	FarSide bool `json:"farSide,omitempty"`
 }
 
 // AddDimensionResult is the response of [MethodSketchAddDimension]: the new dimension's
