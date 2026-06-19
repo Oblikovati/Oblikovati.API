@@ -173,6 +173,7 @@ const (
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"
 	MethodSketchTransform        = "sketch.transform"
+	MethodSketchCopyTo           = "sketch.copyTo"
 	MethodSketchAddPattern       = "sketch.addPattern"
 	MethodSketchOffset           = "sketch.offset"
 	MethodSketchAddImage         = "sketch.addImage"
