@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.70.0] - 2026-06-19
+
+### Added
+
+- feat(materials): add Magnetic property group to the material contract
+
 ### Added
 
 - feat(materials): `types.Magnetic` group on `MaterialInfo` / `contract.Material` —
@@ -490,7 +496,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.69.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.70.0...HEAD
+[0.70.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.69.0...v0.70.0
 [0.69.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.68.0...v0.69.0
 [0.68.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.67.0...v0.68.0
 [0.67.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.66.0...v0.67.0
