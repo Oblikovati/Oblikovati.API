@@ -11,13 +11,20 @@ package wire
 // is a unit-bearing expression ("10 mm") for the center-radius circle. CCW orients a
 // center-start-end arc. Construction marks the entity as reference geometry.
 type AddSketchEntityArgs struct {
-	SketchIndex  int         `json:"sketchIndex"`
-	Kind         string      `json:"kind"`
-	Variant      string      `json:"variant,omitempty"`
-	Points       [][]float64 `json:"points,omitempty"`
-	Radius       string      `json:"radius,omitempty"`
-	CCW          bool        `json:"ccw,omitempty"`
-	Construction bool        `json:"construction,omitempty"`
+	SketchIndex int         `json:"sketchIndex"`
+	Kind        string      `json:"kind"`
+	Variant     string      `json:"variant,omitempty"`
+	Points      [][]float64 `json:"points,omitempty"`
+	// PointExprs is the parameter-expression form of Points (#189): each entry is the
+	// defining point as ["x-expr","y-expr"], evaluated through the document's parameter
+	// engine ("bore_r + 2 mm") and yielding a length in cm — so generated line/arc/point
+	// geometry is parametric at construction, consistent with Radius/Width. When set it
+	// supersedes Points; a unitless literal ("12.5") is read as cm. The two forms may be
+	// mixed across a kind's points only via PointExprs (set every point as expressions).
+	PointExprs   [][]string `json:"pointExprs,omitempty"`
+	Radius       string     `json:"radius,omitempty"`
+	CCW          bool       `json:"ccw,omitempty"`
+	Construction bool       `json:"construction,omitempty"`
 
 	// Conic fields (ellipse / ellipticalArc): Points[0] is the center, Axis is the
 	// major-axis direction [x,y], MajorRadius/MinorRadius are unit-bearing lengths, and

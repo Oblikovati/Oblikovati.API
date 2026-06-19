@@ -65,6 +65,35 @@ func (s Sketch) AddArcByThreePoints(index int, a, b, c []float64, construction b
 	})
 }
 
+// AddLineExpr adds a line whose endpoints are parameter expressions (#189): a and b are
+// each ["x-expr","y-expr"] evaluated through the document's parameter engine ("bore_r",
+// "slot_w/2 + 1 mm"), so the line is parametric at construction. Use this over [Sketch.AddLine]
+// when a generated profile's vertices must track parameters (a stator slot, a linkage).
+func (s Sketch) AddLineExpr(index int, a, b []string, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityLine),
+		PointExprs: [][]string{a, b}, Construction: construction,
+	})
+}
+
+// AddPointExpr adds a standalone sketch point whose coordinates are parameter expressions
+// (p is ["x-expr","y-expr"]); see [Sketch.AddLineExpr] (#189).
+func (s Sketch) AddPointExpr(index int, p []string) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityPoint), PointExprs: [][]string{p},
+	})
+}
+
+// AddArcByCenterStartEndExpr adds a center-start-end arc whose three points are parameter
+// expressions (each ["x-expr","y-expr"]); ccw orients it. The expression form lets a generated
+// arc's center and endpoints track parameters (a magnet arc on a rotor) (#189).
+func (s Sketch) AddArcByCenterStartEndExpr(index int, center, start, end []string, ccw, construction bool) (wire.AddSketchEntityResult, error) {
+	return s.AddEntity(wire.AddSketchEntityArgs{
+		SketchIndex: index, Kind: string(types.SketchEntityArc), Variant: "centerStartEnd",
+		PointExprs: [][]string{center, start, end}, CCW: ccw, Construction: construction,
+	})
+}
+
 // AddEllipse adds a full ellipse from a center [x,y] (cm), a major-axis direction [x,y],
 // and unit-bearing major/minor radii ("20 mm").
 func (s Sketch) AddEllipse(index int, center, axis []float64, majorR, minorR string, construction bool) (wire.AddSketchEntityResult, error) {

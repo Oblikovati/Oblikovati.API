@@ -977,6 +977,17 @@ const (
 	// camera moved (orbit/pan/zoom/fit/named-view restore) — collaboration and overlay add-ins
 	// re-sync to the new frame.
 	EventCameraChanged = "camera.changed"
+
+	// Modeling events (#148): the ModelingEvents/SketchEvents wave, granular beyond the batched
+	// model.changed. A feature was created, edited, or deleted (see [FeatureLifecycleEvent]); the
+	// document's sketch-edit mode was entered or exited (see [SketchEditEvent]). Like edit.committed
+	// (ADR-0004), the v1 scope is the host method router: feature events fire for features.add/edit/
+	// delete, and sketch-edit events fire whenever the host enters/exits a sketch (UI or add-in driven).
+	EventFeatureAdded      = "feature.added"
+	EventFeatureEdited     = "feature.edited"
+	EventFeatureDeleted    = "feature.deleted"
+	EventSketchEditEntered = "sketch.editEntered"
+	EventSketchEditExited  = "sketch.editExited"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
