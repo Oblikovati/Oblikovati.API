@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.68.0] - 2026-06-19
+
+### Added
+
+- feat(events): document lifecycle + model-changed push events (#148)
+
 ## [0.67.0] - 2026-06-19
 
 ### Added
@@ -470,7 +476,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.67.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.68.0...HEAD
+[0.68.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.67.0...v0.68.0
 [0.67.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.66.0...v0.67.0
 [0.66.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.65.0...v0.66.0
 [0.65.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.64.0...v0.65.0
