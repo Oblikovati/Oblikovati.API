@@ -141,3 +141,19 @@ type SetPointCloudCropActiveArgs struct {
 	Crop   string `json:"crop"`
 	Active bool   `json:"active"`
 }
+
+// FitPointCloudPlaneArgs is the request of [MethodPointCloudsFitPlane]: fit a work plane to the
+// named cloud's currently displayed points — those in model space passing the cloud's active crops
+// — so cropping to a planar region first selects what the plane is fitted to.
+type FitPointCloudPlaneArgs struct {
+	Cloud string `json:"cloud"`
+}
+
+// FitPointCloudPlaneResult is the response of [MethodPointCloudsFitPlane]: the created work plane's
+// browser name, and the fitted plane's Origin (the points' centroid) and unit Normal (the
+// least-variance direction). Normal is a direction, not a position.
+type FitPointCloudPlaneResult struct {
+	WorkPlane string      `json:"workPlane"`
+	Origin    types.Point `json:"origin"`
+	Normal    types.Point `json:"normal"`
+}
