@@ -9,9 +9,10 @@ package wire
 // need not diff model.tree). Kind is the feature's operation kind (e.g. "extrude", "circular-
 // pattern"); Name is its tree name. The Feature id is stable across rename/reorder.
 //
-// NOTE (v1 scope): like [EditCommittedEvent], only feature mutations that arrive through the host
-// method router (features.add / features.edit / features.delete) are emitted; the batched
-// [ModelChangedEvent] remains the coarse signal that also covers other paths.
+// Fires for both UI-driven and add-in-driven feature creation, editing, and deletion — the host
+// emits at its session-level feature seams, so an interactive extrude and a features.add call alike
+// reach the add-in (Oblikovati/Oblikovati#1085, lifting #148's router-only v1 scope). The batched
+// [ModelChangedEvent] remains the coarse signal that also covers other model paths.
 type FeatureLifecycleEvent struct {
 	Type     string `json:"type"` // EventFeatureAdded, EventFeatureEdited, or EventFeatureDeleted
 	Document uint64 `json:"document"`
