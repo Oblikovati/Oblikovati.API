@@ -48,6 +48,11 @@ const (
 	MethodDocumentGetSketchSettings = "document.getSketchSettings"
 	MethodDocumentSetSketchSettings = "document.setSketchSettings"
 
+	// Part end-of-part rollback marker (#141) — inspect / move how far down the feature program the
+	// active part evaluates (authoring features mid-history, design inspection).
+	MethodDocumentGetEndOfPart = "document.getEndOfPart"
+	MethodDocumentSetEndOfPart = "document.setEndOfPart"
+
 	// Add-in attribute sets (#155) — named, typed values an add-in attaches to a document and
 	// that persist with it: the sanctioned mechanism for add-ins to store their own data and tag
 	// the model. set/get/list address a named attribute in a named set on a document; listSets

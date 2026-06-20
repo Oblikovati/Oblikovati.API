@@ -239,3 +239,27 @@ func (d Documents) SetSketchSettings(id uint64, settings types.SketchSettings) (
 	var r wire.SketchSettingsResult
 	return r, d.c.call(wire.MethodDocumentSetSketchSettings, wire.SetSketchSettingsArgs{Document: id, Settings: settings}, &r)
 }
+
+// GetEndOfPart returns the active part's end-of-part rollback marker: its feature-index position
+// (-1 at the end) and whether the part is currently rolled back (#141).
+//
+//	eop, err := c.Documents().GetEndOfPart()
+//
+// mcp:tool documents_get_end_of_part
+// mcp:summary Returns the active part's end-of-part marker position (-1 at the end) and whether it is rolled back (#141).
+func (d Documents) GetEndOfPart() (wire.EndOfPartResult, error) {
+	var r wire.EndOfPartResult
+	return r, d.c.call(wire.MethodDocumentGetEndOfPart, struct{}{}, &r)
+}
+
+// SetEndOfPart moves the active part's end-of-part marker to the feature index position (a negative
+// index restores it to the end, re-including every feature), returning the marker's new state (#141).
+//
+//	c.Documents().SetEndOfPart(2) // roll back so features after index 2 are suppressed
+//
+// mcp:tool documents_set_end_of_part
+// mcp:summary Moves the active part's end-of-part marker to a feature index (negative restores it to the end), returning its new state (#141).
+func (d Documents) SetEndOfPart(position int) (wire.EndOfPartResult, error) {
+	var r wire.EndOfPartResult
+	return r, d.c.call(wire.MethodDocumentSetEndOfPart, wire.SetEndOfPartArgs{Position: position}, &r)
+}
