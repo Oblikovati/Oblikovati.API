@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.75.0] - 2026-06-20
+
+### Added
+
+- feat(documents): part end-of-part rollback marker — `document.getEndOfPart` /
+  `document.setEndOfPart` over `contract.EndOfPart` (#141)
+
 ## [0.74.0] - 2026-06-20
 
 ### Added
