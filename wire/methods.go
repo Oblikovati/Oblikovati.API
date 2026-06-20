@@ -884,6 +884,9 @@ const (
 	MethodPointCloudsListCrops     = "pointClouds.listCrops"
 	MethodPointCloudsDeleteCrop    = "pointClouds.deleteCrop"
 	MethodPointCloudsSetCropActive = "pointClouds.setCropActive"
+
+	// Derive model geometry from a cloud's scanned points (M17-F06, #645).
+	MethodPointCloudsFitPlane = "pointClouds.fitPlane"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify

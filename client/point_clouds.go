@@ -142,3 +142,14 @@ func (p PointClouds) SetCropActive(cloud, crop string, active bool) (wire.PointC
 	var r wire.PointCloudCropInfo
 	return r, p.c.call(wire.MethodPointCloudsSetCropActive, wire.SetPointCloudCropActiveArgs{Cloud: cloud, Crop: crop, Active: active}, &r)
 }
+
+// FitPlane fits a least-squares work plane to the named cloud's displayed points (those passing its
+// active crops) and returns the new work plane's name with the fitted origin (centroid) and unit
+// normal. Crop to a planar region first to control what the plane is fitted to.
+//
+// mcp:tool point_clouds_fit_plane
+// mcp:summary Fit a work plane to a point cloud's displayed points (least-squares).
+func (p PointClouds) FitPlane(cloud string) (wire.FitPointCloudPlaneResult, error) {
+	var r wire.FitPointCloudPlaneResult
+	return r, p.c.call(wire.MethodPointCloudsFitPlane, wire.FitPointCloudPlaneArgs{Cloud: cloud}, &r)
+}
