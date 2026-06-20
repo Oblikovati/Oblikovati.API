@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.83.0] - 2026-06-20
+
+### Added
+
+- feat(wire): add pointClouds.fitPlane to derive a work plane from a scan
+
 ## [0.82.0] - 2026-06-20
 
 ### Added
@@ -597,7 +603,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.82.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.83.0...HEAD
+[0.83.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.82.0...v0.83.0
 [0.82.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.81.0...v0.82.0
 [0.81.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.80.1...v0.81.0
 [0.80.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.80.0...v0.80.1
