@@ -20,6 +20,27 @@ func TestExchangeFormatIsMesh(t *testing.T) {
 	if FormatDXF.IsMesh() {
 		t.Errorf("FormatDXF.IsMesh() = true, want false (DXF is a sketch/drawing format)")
 	}
+	for _, f := range []ExchangeFormat{FormatPLY, FormatE57} {
+		if f.IsMesh() {
+			t.Errorf("%q.IsMesh() = true, want false (it is a point-cloud format)", f)
+		}
+	}
+}
+
+func TestExchangeFormatIsPointCloud(t *testing.T) {
+	for _, f := range []ExchangeFormat{FormatPLY, FormatE57} {
+		if !f.IsPointCloud() {
+			t.Errorf("%q.IsPointCloud() = false, want true", f)
+		}
+		if f.IsSketch() {
+			t.Errorf("%q.IsSketch() = true, want false (it is a point-cloud format)", f)
+		}
+	}
+	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatSTEP, FormatDWG, FormatDXF} {
+		if f.IsPointCloud() {
+			t.Errorf("%q.IsPointCloud() = true, want false", f)
+		}
+	}
 }
 
 func TestExchangeFormatIsSketch(t *testing.T) {
