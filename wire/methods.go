@@ -878,6 +878,12 @@ const (
 	MethodPointCloudsSetDensity     = "pointClouds.setDensity"
 	MethodPointCloudsToModelSpace   = "pointClouds.toModelSpace"
 	MethodPointCloudsFromModelSpace = "pointClouds.fromModelSpace"
+
+	// Crop volumes that limit a cloud's display to a working region (M17-F06, #645).
+	MethodPointCloudsAddCrop       = "pointClouds.addCrop"
+	MethodPointCloudsListCrops     = "pointClouds.listCrops"
+	MethodPointCloudsDeleteCrop    = "pointClouds.deleteCrop"
+	MethodPointCloudsSetCropActive = "pointClouds.setCropActive"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify

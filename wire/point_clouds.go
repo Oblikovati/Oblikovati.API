@@ -89,3 +89,55 @@ type PointCloudSpaceResult struct {
 	Point types.Point `json:"point"`
 	OK    bool        `json:"ok"`
 }
+
+// Crop volumes (M17-F06, #645): a model-space box on a cloud that, while active, limits the
+// cloud's display to points inside it. A cloud's active crops union; with no active crop every
+// point shows. Crops are addressed by the owning cloud's name plus the crop's name.
+
+// PointCloudCropInfo is one crop volume: the owning cloud, the crop name, whether it is active,
+// and its model-space box corners.
+type PointCloudCropInfo struct {
+	Cloud  string      `json:"cloud"`
+	Crop   string      `json:"crop"`
+	Active bool        `json:"active"`
+	Min    types.Point `json:"min"`
+	Max    types.Point `json:"max"`
+}
+
+// AddPointCloudCropArgs is the request of [MethodPointCloudsAddCrop]: add an active crop over the
+// model-space box [Min, Max] on the named cloud. The host mints the crop name.
+type AddPointCloudCropArgs struct {
+	Cloud string      `json:"cloud"`
+	Min   types.Point `json:"min"`
+	Max   types.Point `json:"max"`
+}
+
+// ListPointCloudCropsArgs is the request of [MethodPointCloudsListCrops]: the owning cloud's name.
+type ListPointCloudCropsArgs struct {
+	Cloud string `json:"cloud"`
+}
+
+// ListPointCloudCropsResult is the response of [MethodPointCloudsListCrops].
+type ListPointCloudCropsResult struct {
+	Crops []PointCloudCropInfo `json:"crops"`
+}
+
+// PointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].
+type PointCloudCropArgs struct {
+	Cloud string `json:"cloud"`
+	Crop  string `json:"crop"`
+}
+
+// DeletePointCloudCropResult is the response of [MethodPointCloudsDeleteCrop].
+type DeletePointCloudCropResult struct {
+	Crop    string `json:"crop"`
+	Deleted bool   `json:"deleted"`
+}
+
+// SetPointCloudCropActiveArgs is the request of [MethodPointCloudsSetCropActive]: toggle whether a
+// named crop limits the cloud's display.
+type SetPointCloudCropActiveArgs struct {
+	Cloud  string `json:"cloud"`
+	Crop   string `json:"crop"`
+	Active bool   `json:"active"`
+}
