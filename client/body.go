@@ -32,6 +32,39 @@ func (b Body) SetVisible(index int, visible bool) (wire.BodyInfoResult, error) {
 	return r, b.c.call(wire.MethodBodySetVisible, wire.BodySetVisibleArgs{BodyIndex: index, Visible: visible}, &r)
 }
 
+// Rename sets the display name of the body at index (from List); an empty name reverts to the
+// "Solid{N}" default. The name is stored per body, survives recompute, and round-trips in the
+// document (#1078).
+//
+// mcp:tool body_rename
+// mcp:summary Set the display name of one body of the active part by index (empty reverts to the default).
+func (b Body) Rename(index int, name string) (wire.BodyInfoResult, error) {
+	var r wire.BodyInfoResult
+	return r, b.c.call(wire.MethodBodyRename, wire.BodyRenameArgs{BodyIndex: index, Name: name}, &r)
+}
+
+// Delete removes the body at index (from List) from the active part, returning the refreshed
+// body list (#1078).
+//
+// mcp:tool body_delete
+// mcp:summary Delete one body of the active part by index, returning the refreshed body list.
+func (b Body) Delete(index int) (wire.BodyListResult, error) {
+	var r wire.BodyListResult
+	return r, b.c.call(wire.MethodBodyDelete, wire.BodyIndexArgs{BodyIndex: index}, &r)
+}
+
+// PhysicalProperties returns one body's geometry and mass properties — the per-body counterpart
+// of Model.PhysicalProperties, which sums all bodies (#1078). DensityGCm3 0 uses the part's
+// material density; accuracy is "low"/"medium"/"high" (empty ⇒ medium).
+//
+// mcp:tool body_physical_properties
+// mcp:summary Geometry and mass properties (volume, area, mass, centroid, inertia) of one body of the active part.
+func (b Body) PhysicalProperties(index int, densityGCm3 float64, accuracy string) (wire.MassPropertiesResult, error) {
+	var r wire.MassPropertiesResult
+	args := wire.BodyPhysicalPropertiesArgs{BodyIndex: index, DensityGCm3: densityGCm3, Accuracy: accuracy}
+	return r, b.c.call(wire.MethodBodyPhysicalProps, args, &r)
+}
+
 // Shells lists one body's face shells (the outer skin and any cavity skins).
 //
 // mcp:tool body_shells

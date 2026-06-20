@@ -12,9 +12,11 @@ type BodyIndexArgs struct {
 }
 
 // BodyInfo is one body's summary in [MethodBodyList]'s result. Name is the body's display
-// name (e.g. "Solid1"); Visible reports whether it is shown, toggled with
-// [MethodBodySetVisible] — the body-level API multi-body workflows (Combine, Split, Mold)
-// need to enumerate and show/hide their results.
+// name ("Solid1" by default, overridable with [MethodBodyRename]); Visible reports whether it
+// is shown, toggled with [MethodBodySetVisible] — the body-level API multi-body workflows
+// (Combine, Split, Mold) need to enumerate, rename and show/hide their results. Key is the
+// body's persistent reference key (stable across recompute), the handle used to assign a color
+// style; Style is the assigned color-style name, empty when the body wears its plain appearance.
 type BodyInfo struct {
 	Index    int    `json:"index"`
 	Name     string `json:"name"`
@@ -25,6 +27,27 @@ type BodyInfo struct {
 	Vertices int    `json:"vertices"`
 	Shells   int    `json:"shells"`
 	Wires    int    `json:"wires"`
+	Key      string `json:"key,omitempty"`
+	Style    string `json:"style,omitempty"`
+}
+
+// BodyRenameArgs is the request of [MethodBodyRename]: set the display name of the body at
+// BodyIndex (from [MethodBodyList]). The name is stored per body (keyed by its reference key),
+// survives recompute, and round-trips in the .obk; an empty name reverts to the index-derived
+// default ("Solid{N}").
+type BodyRenameArgs struct {
+	BodyIndex int    `json:"bodyIndex"`
+	Name      string `json:"name"`
+}
+
+// BodyPhysicalPropertiesArgs is the request of [MethodBodyPhysicalProperties]: the geometry and
+// mass properties of one body (the per-body counterpart of [MethodModelPhysicalProperties],
+// which sums all bodies). DensityGCm3 0 ⇒ the part's assigned material density (1.0 g/cm³ when
+// none); Accuracy is "low"/"medium"/"high" (empty ⇒ medium).
+type BodyPhysicalPropertiesArgs struct {
+	BodyIndex   int     `json:"bodyIndex"`
+	DensityGCm3 float64 `json:"densityGCm3,omitempty"`
+	Accuracy    string  `json:"accuracy,omitempty"`
 }
 
 // BodyListResult is the response of [MethodBodyList].

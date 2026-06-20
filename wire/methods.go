@@ -640,6 +640,9 @@ const (
 	// Body topology and queries (M07-F06/F07, Oblikovati/Oblikovati#629/#630).
 	MethodBodyList             = "body.list"
 	MethodBodySetVisible       = "body.setVisible"
+	MethodBodyRename           = "body.rename"
+	MethodBodyDelete           = "body.delete"
+	MethodBodyPhysicalProps    = "body.physicalProperties"
 	MethodBodyShells           = "body.shells"
 	MethodBodyWires            = "body.wires"
 	MethodWireOffsetPlanar     = "wire.offsetPlanar"
