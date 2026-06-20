@@ -19,7 +19,9 @@ const (
 	// Format3MF is the 3D Manufacturing Format (a ZIP container around a 3D-model XML part).
 	Format3MF ExchangeFormat = "3mf"
 	// FormatPLY is the Stanford PLY format (ASCII or binary), the common export of 3D scanners
-	// (structured-light / photogrammetry). It carries a vertex list and, for a mesh, faces.
+	// (structured-light / photogrammetry). It carries a vertex list (and, for a mesh, faces); the
+	// host imports it as a POINT CLOUD — as-built reference scan data — not as a solid/mesh body,
+	// so it is a point-cloud format (IsPointCloud), not a mesh format (#645).
 	FormatPLY ExchangeFormat = "ply"
 	// FormatSTEP reserves the ISO 10303 B-rep format (translator ships separately, M17-F02).
 	FormatSTEP ExchangeFormat = "step"
@@ -36,7 +38,14 @@ const (
 // IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
 // the mesh-exchange translator handles. STEP is a B-rep format (a different translator).
 func (f ExchangeFormat) IsMesh() bool {
-	return f == FormatSTL || f == FormatOBJ || f == Format3MF || f == FormatPLY
+	return f == FormatSTL || f == FormatOBJ || f == Format3MF
+}
+
+// IsPointCloud reports whether the format imports as point-cloud scan data (a referenced display
+// object the design is modeled against) rather than as a body or sketch — the 3D-scanner formats
+// (PLY now; E57/LAS later). Such an import attaches a point cloud, not a solid (#645).
+func (f ExchangeFormat) IsPointCloud() bool {
+	return f == FormatPLY
 }
 
 // IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF) rather
