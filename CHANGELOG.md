@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.78.0] - 2026-06-20
+
+### Added
+
+- feat(api): point cloud attach/query/place wire + client surface (#645)
+
 ## [0.77.0] - 2026-06-20
 
 ### Added
@@ -561,7 +567,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.77.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.78.0...HEAD
+[0.78.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.77.0...v0.78.0
 [0.77.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.1...v0.77.0
 [0.76.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.0...v0.76.1
 [0.76.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.75.0...v0.76.0
