@@ -19,8 +19,11 @@ type CopySketchArgs struct {
 }
 
 // CopySketchResult is the response of [MethodSketchCopyTo]: the session ids of the entities
-// created in the target sketch, and their count. Only geometry is copied; constraints and
-// dimensions are not carried over (an external-reference-free copy).
+// created in the target sketch, and their count. The geometric constraints and dimensions
+// whose operands lie entirely within the copied set are carried over too — remapped onto the
+// clones — while relations that reference geometry outside the set are dropped (Inventor
+// CopyEntitiesTo, Oblikovati/Oblikovati#1083). A copied driving dimension mints a fresh
+// parameter in the target.
 type CopySketchResult struct {
 	Created []uint64 `json:"created"`
 	Count   int      `json:"count"`
