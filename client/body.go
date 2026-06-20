@@ -245,3 +245,17 @@ func (b Body) FaceCalculateStrokes(args wire.FaceFacetsArgs) (wire.StrokeSetResu
 	var r wire.StrokeSetResult
 	return r, b.c.call(wire.MethodFaceCalculateStrokes, args, &r)
 }
+
+// FaceEvaluate batch-evaluates one face's surface (point/normal/tangents at given (u,v)
+// parameters, or the projection of given points onto the face), addressed by reference key.
+// The mode selects the query (see the wire.FaceEval* constants); inputs and the populated
+// result arrays are flat and parallel. Lengths are database units (cm); normals are unit
+// vectors. It is the out-of-process query a surface-following or point-projection toolpath
+// uses to sample a face densely in one call.
+//
+// mcp:tool body_face_evaluate
+// mcp:summary Batch-evaluates a face's surface (point/normal/tangents by param, or point projection).
+func (b Body) FaceEvaluate(args wire.FaceEvaluateArgs) (wire.FaceEvaluateResult, error) {
+	var r wire.FaceEvaluateResult
+	return r, b.c.call(wire.MethodBodyFaceEvaluate, args, &r)
+}
