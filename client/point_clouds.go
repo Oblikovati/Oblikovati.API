@@ -105,3 +105,40 @@ func (p PointClouds) FromModelSpace(name string, point types.Point) (wire.PointC
 	var r wire.PointCloudSpaceResult
 	return r, p.c.call(wire.MethodPointCloudsFromModelSpace, wire.PointCloudSpaceArgs{Name: name, Point: point}, &r)
 }
+
+// AddCrop adds an active crop over the model-space box [min, max] on the named cloud, limiting its
+// display to points inside (the host mints the crop name).
+//
+// mcp:tool point_clouds_add_crop
+// mcp:summary Add a crop volume that limits a point cloud's display to a model-space box.
+func (p PointClouds) AddCrop(cloud string, min, max types.Point) (wire.PointCloudCropInfo, error) {
+	var r wire.PointCloudCropInfo
+	return r, p.c.call(wire.MethodPointCloudsAddCrop, wire.AddPointCloudCropArgs{Cloud: cloud, Min: min, Max: max}, &r)
+}
+
+// ListCrops enumerates the named cloud's crop volumes.
+//
+// mcp:tool point_clouds_list_crops
+// mcp:summary Enumerate a point cloud's crop volumes (name, active, box).
+func (p PointClouds) ListCrops(cloud string) (wire.ListPointCloudCropsResult, error) {
+	var r wire.ListPointCloudCropsResult
+	return r, p.c.call(wire.MethodPointCloudsListCrops, wire.ListPointCloudCropsArgs{Cloud: cloud}, &r)
+}
+
+// DeleteCrop removes a named crop from a cloud.
+//
+// mcp:tool point_clouds_delete_crop
+// mcp:summary Remove a crop volume from a point cloud by name.
+func (p PointClouds) DeleteCrop(cloud, crop string) (wire.DeletePointCloudCropResult, error) {
+	var r wire.DeletePointCloudCropResult
+	return r, p.c.call(wire.MethodPointCloudsDeleteCrop, wire.PointCloudCropArgs{Cloud: cloud, Crop: crop}, &r)
+}
+
+// SetCropActive toggles whether a named crop limits the cloud's display.
+//
+// mcp:tool point_clouds_set_crop_active
+// mcp:summary Toggle whether a point cloud crop volume limits display.
+func (p PointClouds) SetCropActive(cloud, crop string, active bool) (wire.PointCloudCropInfo, error) {
+	var r wire.PointCloudCropInfo
+	return r, p.c.call(wire.MethodPointCloudsSetCropActive, wire.SetPointCloudCropActiveArgs{Cloud: cloud, Crop: crop, Active: active}, &r)
+}
