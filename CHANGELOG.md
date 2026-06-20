@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.77.0] - 2026-06-20
+
+### Added
+
+- feat(body): batched face surface evaluation over the wire
+
 ## [0.76.1] - 2026-06-20
 
 ### Fixed
@@ -555,7 +561,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.77.0...HEAD
+[0.77.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.1...v0.77.0
 [0.76.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.0...v0.76.1
 [0.76.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.75.0...v0.76.0
 [0.74.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.73.0...v0.74.0
