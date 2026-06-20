@@ -28,6 +28,11 @@ const (
 	// checksummed-page container). Like PLY the host imports it as a POINT CLOUD — as-built scan
 	// data — so it is a point-cloud format (IsPointCloud), not a mesh format (#645).
 	FormatE57 ExchangeFormat = "e57"
+	// FormatLAS is the ASPRS LAS format, the standard interchange for LiDAR point data (airborne
+	// and terrestrial surveys); each fixed-length record carries a scaled-integer XYZ. The host
+	// imports it as a POINT CLOUD — scan data — so it is a point-cloud format (IsPointCloud), not a
+	// mesh format. The compressed LAZ variant is not handled (#645).
+	FormatLAS ExchangeFormat = "las"
 	// FormatSTEP reserves the ISO 10303 B-rep format (translator ships separately, M17-F02).
 	FormatSTEP ExchangeFormat = "step"
 	// FormatDWG is the AutoCAD DWG drawing format. Unlike the mesh/B-rep formats it
@@ -47,10 +52,10 @@ func (f ExchangeFormat) IsMesh() bool {
 }
 
 // IsPointCloud reports whether the format imports as point-cloud scan data (a referenced display
-// object the design is modeled against) rather than as a body or sketch — the 3D-scanner formats
-// (PLY and E57 now; LAS later). Such an import attaches a point cloud, not a solid (#645).
+// object the design is modeled against) rather than as a body or sketch — the 3D-scanner / LiDAR
+// formats (PLY, E57, LAS). Such an import attaches a point cloud, not a solid (#645).
 func (f ExchangeFormat) IsPointCloud() bool {
-	return f == FormatPLY || f == FormatE57
+	return f == FormatPLY || f == FormatE57 || f == FormatLAS
 }
 
 // IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF) rather
