@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.73.0] - 2026-06-20
+
+### Added
+
+- feat(documents): per-document sketch settings — `document.getSketchSettings` /
+  `document.setSketchSettings` over `types.SketchSettings` (constraint-inference toggles + family
+  priority) (#147)
+
 ## [0.72.0] - 2026-06-19
 
 ### Added

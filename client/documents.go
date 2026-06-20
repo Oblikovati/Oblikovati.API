@@ -214,3 +214,28 @@ func (d Documents) SetProperty(id uint64, set, name string, value types.Variant)
 	args := wire.SetPropertyArgs{Document: id, Set: set, Name: name, Value: value}
 	return r, d.c.call(wire.MethodDocumentsSetProperty, args, &r)
 }
+
+// GetSketchSettings returns the document's persisted sketch-authoring defaults — the constraint-
+// inference toggles and family priority the sketch tools read (#147).
+//
+//	s, err := c.Documents().GetSketchSettings(doc.ID)
+//
+// mcp:tool documents_get_sketch_settings
+// mcp:summary Returns the document's persisted sketch settings (constraint inference toggles and priority) (#147).
+func (d Documents) GetSketchSettings(id uint64) (wire.SketchSettingsResult, error) {
+	var r wire.SketchSettingsResult
+	return r, d.c.call(wire.MethodDocumentGetSketchSettings, wire.GetSketchSettingsArgs{Document: id}, &r)
+}
+
+// SetSketchSettings replaces the document's sketch settings, returning their new state (#147).
+//
+//	c.Documents().SetSketchSettings(doc.ID, types.SketchSettings{
+//	    InferConstraints: true, AutoApplyConstraints: false,
+//	    ConstraintPriority: types.PriorityHorizontalVertical})
+//
+// mcp:tool documents_set_sketch_settings
+// mcp:summary Replaces the document's sketch settings (constraint inference toggles and priority), returning their new state (#147).
+func (d Documents) SetSketchSettings(id uint64, settings types.SketchSettings) (wire.SketchSettingsResult, error) {
+	var r wire.SketchSettingsResult
+	return r, d.c.call(wire.MethodDocumentSetSketchSettings, wire.SetSketchSettingsArgs{Document: id, Settings: settings}, &r)
+}
