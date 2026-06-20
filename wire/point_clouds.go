@@ -157,3 +157,19 @@ type FitPointCloudPlaneResult struct {
 	Origin    types.Point `json:"origin"`
 	Normal    types.Point `json:"normal"`
 }
+
+// NearestPointArgs is the request of [MethodPointCloudsNearestPoint]: snap the model-space query
+// Point onto the named cloud — find its scan point nearest the query. The whole cloud is searched
+// (placement-transformed but not crop-limited), so a snap finds a point even outside an active crop.
+type NearestPointArgs struct {
+	Cloud string      `json:"cloud"`
+	Point types.Point `json:"point"`
+}
+
+// NearestPointResult is the response of [MethodPointCloudsNearestPoint]: the nearest scan point in
+// model space and the distance to the query. Found is false only for an empty cloud.
+type NearestPointResult struct {
+	Point    types.Point `json:"point"`
+	Distance float64     `json:"distance"`
+	Found    bool        `json:"found"`
+}

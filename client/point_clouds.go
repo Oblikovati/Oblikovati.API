@@ -153,3 +153,14 @@ func (p PointClouds) FitPlane(cloud string) (wire.FitPointCloudPlaneResult, erro
 	var r wire.FitPointCloudPlaneResult
 	return r, p.c.call(wire.MethodPointCloudsFitPlane, wire.FitPointCloudPlaneArgs{Cloud: cloud}, &r)
 }
+
+// NearestPoint snaps the model-space point onto the named cloud, returning its scan point nearest
+// the query and the distance to it (Found is false only for an empty cloud). Compose with
+// WorkPoints.Create to anchor a datum on the as-built scan data.
+//
+// mcp:tool point_clouds_nearest_point
+// mcp:summary Find a point cloud's scan point nearest a model-space query (snap).
+func (p PointClouds) NearestPoint(cloud string, point types.Point) (wire.NearestPointResult, error) {
+	var r wire.NearestPointResult
+	return r, p.c.call(wire.MethodPointCloudsNearestPoint, wire.NearestPointArgs{Cloud: cloud, Point: point}, &r)
+}
