@@ -18,6 +18,9 @@ const (
 	FormatOBJ ExchangeFormat = "obj"
 	// Format3MF is the 3D Manufacturing Format (a ZIP container around a 3D-model XML part).
 	Format3MF ExchangeFormat = "3mf"
+	// FormatPLY is the Stanford PLY format (ASCII or binary), the common export of 3D scanners
+	// (structured-light / photogrammetry). It carries a vertex list and, for a mesh, faces.
+	FormatPLY ExchangeFormat = "ply"
 	// FormatSTEP reserves the ISO 10303 B-rep format (translator ships separately, M17-F02).
 	FormatSTEP ExchangeFormat = "step"
 	// FormatDWG is the AutoCAD DWG drawing format. Unlike the mesh/B-rep formats it
@@ -33,7 +36,7 @@ const (
 // IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
 // the mesh-exchange translator handles. STEP is a B-rep format (a different translator).
 func (f ExchangeFormat) IsMesh() bool {
-	return f == FormatSTL || f == FormatOBJ || f == Format3MF
+	return f == FormatSTL || f == FormatOBJ || f == Format3MF || f == FormatPLY
 }
 
 // IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF) rather
