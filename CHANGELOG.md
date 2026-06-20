@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.80.0] - 2026-06-20
+
+### Added
+
+- feat(api): add FormatPLY mesh exchange format (#645)
+
 ## [0.79.0] - 2026-06-20
 
 ### Added
@@ -573,7 +579,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.79.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.80.0...HEAD
+[0.80.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.79.0...v0.80.0
 [0.79.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.78.0...v0.79.0
 [0.78.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.77.0...v0.78.0
 [0.77.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.1...v0.77.0
