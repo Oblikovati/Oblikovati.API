@@ -666,6 +666,12 @@ const (
 	MethodFaceCalculateFacets  = "face.calculateFacets"
 	MethodFaceCalculateStrokes = "face.calculateStrokes"
 
+	// Batched surface evaluation of one document face by reference key (point,
+	// normal, tangents, and point projection) — the out-of-process projection of
+	// the in-proc surface-evaluator contract, for surface-following toolpaths and
+	// point-projection queries.
+	MethodBodyFaceEvaluate = "body.faceEvaluate"
+
 	// The transient B-rep factory (M07-F05, Oblikovati/Oblikovati#628):
 	// ownerless bodies addressed by session handles.
 	MethodBrepCreatePrimitive      = "brep.createPrimitive"
