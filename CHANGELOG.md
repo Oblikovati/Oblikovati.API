@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.82.0] - 2026-06-20
+
+### Added
+
+- feat(types): add FormatLAS as a point-cloud exchange format
+
 ## [0.81.0] - 2026-06-20
 
 ### Added
@@ -591,7 +597,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.81.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.82.0...HEAD
+[0.82.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.81.0...v0.82.0
 [0.81.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.80.1...v0.81.0
 [0.80.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.80.0...v0.80.1
 [0.80.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.79.0...v0.80.0
