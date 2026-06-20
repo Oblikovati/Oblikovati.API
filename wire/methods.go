@@ -43,6 +43,11 @@ const (
 	MethodDocumentsGetProperty    = "documents.getProperty"
 	MethodDocumentsSetProperty    = "documents.setProperty"
 
+	// Per-document settings (#147) — the Document Settings dialog's persisted defaults. Starts with
+	// the Sketch tab (the constraint-inference preferences the sketch tools read).
+	MethodDocumentGetSketchSettings = "document.getSketchSettings"
+	MethodDocumentSetSketchSettings = "document.setSketchSettings"
+
 	// Add-in attribute sets (#155) — named, typed values an add-in attaches to a document and
 	// that persist with it: the sanctioned mechanism for add-ins to store their own data and tag
 	// the model. set/get/list address a named attribute in a named set on a document; listSets
