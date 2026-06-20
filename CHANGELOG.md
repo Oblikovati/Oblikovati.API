@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.76.0] - 2026-06-20
+
+### Added
+
+- feat(documents): part end-of-part rollback marker (#141)
+
 ## [0.75.0] - 2026-06-20
 
 ### Added
@@ -543,7 +549,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.74.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.76.0...HEAD
+[0.76.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.75.0...v0.76.0
 [0.74.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.73.0...v0.74.0
 [0.72.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.71.0...v0.72.0
 [0.71.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.70.0...v0.71.0
