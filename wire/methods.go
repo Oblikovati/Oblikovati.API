@@ -864,6 +864,20 @@ const (
 	MethodStylesDelete        = "styles.delete"
 	MethodStylesListLibraries = "styles.listLibraries"
 	MethodStylesImportLibrary = "styles.importLibrary"
+
+	// Attached point clouds (M17-F06, Oblikovati/Oblikovati#645): laser-scan / photogrammetry
+	// references on the active part — attach, query, place, and budget their display. They
+	// operate on the active part's cloud collection, keyed by unique name.
+	MethodPointCloudsAttach         = "pointClouds.attach"
+	MethodPointCloudsList           = "pointClouds.list"
+	MethodPointCloudsGet            = "pointClouds.get"
+	MethodPointCloudsDelete         = "pointClouds.delete"
+	MethodPointCloudsSetVisible     = "pointClouds.setVisible"
+	MethodPointCloudsSetTransform   = "pointClouds.setTransform"
+	MethodPointCloudsSetScale       = "pointClouds.setScale"
+	MethodPointCloudsSetDensity     = "pointClouds.setDensity"
+	MethodPointCloudsToModelSpace   = "pointClouds.toModelSpace"
+	MethodPointCloudsFromModelSpace = "pointClouds.fromModelSpace"
 )
 
 // Push-event type tags. These name host→add-in events delivered to the add-in's Notify
