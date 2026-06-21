@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire): add body.minimumDistance — closest approach between a body and a
+  transient probe polyline (optional swept-tool radius), the out-of-process
+  projection of MeasureTools.GetMinimumDistance for a transient operand
+
 ## [0.84.0] - 2026-06-20
 
 ### Added

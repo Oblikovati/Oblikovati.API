@@ -44,6 +44,26 @@ func TestBodyIsPointInsideParsesContainment(t *testing.T) {
 	}
 }
 
+func TestBodyMinimumDistanceRoundTrip(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"distance":0.7}`)}
+	c := New(ft)
+	r, err := c.Body().MinimumDistance(wire.MinimumDistanceArgs{
+		BodyIndex: 0, Points: []float64{0, 0, 5, 4, 0, 5}, Radius: 0.3,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if ft.gotMethod != wire.MethodBodyMinimumDistance {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodBodyMinimumDistance)
+	}
+	if r.Distance != 0.7 {
+		t.Errorf("distance = %v, want 0.7", r.Distance)
+	}
+	if !strings.Contains(string(ft.gotReq), `"points":[0,0,5,4,0,5]`) || !strings.Contains(string(ft.gotReq), `"radius":0.3`) {
+		t.Errorf("request %s should carry the probe polyline and tool radius", ft.gotReq)
+	}
+}
+
 func TestBodyConvexityEdgesSpellsCollection(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"edges":[{"key":"e1"}]}`)}
 	c := New(ft)

@@ -143,6 +143,24 @@ func (b Body) ConvexityEdges(bodyIndex int, collection types.EdgeCollectionKind)
 	}, &r)
 }
 
+// MinimumDistance returns the closest approach between the body and a transient
+// probe polyline (e.g. a CAM travel path), optionally widened by Radius (the
+// tool cross-section). It is the out-of-process projection of Inventor's
+// MeasureTools.GetMinimumDistance for a transient operand; points, Radius and
+// the result are all in database units (cm). The result is 0 when the probe
+// (after Radius) touches or enters the body's material.
+//
+//	d, _ := c.Body().MinimumDistance(wire.MinimumDistanceArgs{
+//		BodyIndex: 0, Points: []float64{0, 0, 5, 4, 0, 5}, Radius: 0.3,
+//	})
+//
+// mcp:tool body_minimum_distance
+// mcp:summary Minimum distance between the body and a transient probe polyline (flat x,y,z list in cm); radius widens the probe into a swept-tool cylinder; returns the distance (cm), 0 when it touches or enters the body — the out-of-process projection of MeasureTools.GetMinimumDistance for a transient operand.
+func (b Body) MinimumDistance(args wire.MinimumDistanceArgs) (wire.MinimumDistanceResult, error) {
+	var r wire.MinimumDistanceResult
+	return r, b.c.call(wire.MethodBodyMinimumDistance, args, &r)
+}
+
 // Validate checks the body (checkLevel 1 = topology, 2 = + self-intersection)
 // and reports any offending entities.
 //
