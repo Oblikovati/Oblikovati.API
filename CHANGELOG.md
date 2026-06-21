@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- `brep.offsetFaces` (`wire.BrepOffsetFacesArgs` → `BrepHandleResult`,
+  `client.TransientBRep().OffsetFaces`): offset a body's named faces by a distance along
+  their surface normals, returning a transient body of the offset faces to sample. The
+  out-of-process surface-offset primitive CAM needs for 3D surfacing tool compensation;
+  parameters mirror Inventor's `FaceOffsetDefinition` (Distance / Reverse / Tolerance).
+
 ## [0.86.0] - 2026-06-21
 
 ### Added
