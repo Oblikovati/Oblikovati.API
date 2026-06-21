@@ -20,8 +20,11 @@ type CommandInfo struct {
 	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
 	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
 	Icon            string            `json:"icon,omitempty"`
-	ButtonStyle     types.ButtonStyle `json:"buttonStyle,omitempty"`
-	Enabled         bool              `json:"enabled"`
+	// IconSVG is inline SVG markup the add-in supplied for this button (see
+	// [CreateCommandArgs.IconSVG]); empty when the button uses a host-bundled Icon key.
+	IconSVG     string            `json:"iconSvg,omitempty"`
+	ButtonStyle types.ButtonStyle `json:"buttonStyle,omitempty"`
+	Enabled     bool              `json:"enabled"`
 }
 
 // ListCommandsResult is the response of [MethodCommandsList].
@@ -98,7 +101,14 @@ type CreateCommandArgs struct {
 	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
 	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
 	Icon            string            `json:"icon,omitempty"`
-	ButtonStyle     types.ButtonStyle `json:"buttonStyle,omitempty"`
-	Kind            types.ControlKind `json:"kind,omitempty"`
-	Items           []string          `json:"items,omitempty"`
+	// IconSVG lets an add-in ship its own button glyph as inline SVG markup instead of
+	// referencing a host-bundled Icon key — so an add-in is not limited to the icons the
+	// host happens to embed. When set it takes precedence over Icon. The markup should
+	// follow the host's glyph conventions: a square (24×24) viewBox and the theme's sentinel
+	// paints (the outline, a fill role, and an accent role), which the host recolours per
+	// theme. Oversized markup is rejected by the host. (Oblikovati#671)
+	IconSVG     string            `json:"iconSvg,omitempty"`
+	ButtonStyle types.ButtonStyle `json:"buttonStyle,omitempty"`
+	Kind        types.ControlKind `json:"kind,omitempty"`
+	Items       []string          `json:"items,omitempty"`
 }
