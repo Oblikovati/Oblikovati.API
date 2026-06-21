@@ -683,6 +683,7 @@ const (
 	MethodBrepDeleteFaces          = "brep.deleteFaces"
 	MethodBrepSilhouette           = "brep.silhouette"
 	MethodBrepRuledSurface         = "brep.ruledSurface"
+	MethodBrepOffsetFaces          = "brep.offsetFaces"
 	MethodBrepImprint              = "brep.imprint"
 	MethodBrepIdenticalBodies      = "brep.identicalBodies"
 	MethodBrepCreateFromDefinition = "brep.createFromDefinition"

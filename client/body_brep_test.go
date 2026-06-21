@@ -110,6 +110,24 @@ func TestBrepCreatePrimitiveAndBoolean(t *testing.T) {
 	}
 }
 
+func TestBrepOffsetFacesRoundTrip(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"handle":8,"stats":{"solid":false,"faces":1,"edges":4,"vertices":4,"shells":1,"volume":0}}`)}
+	c := New(ft)
+	idx := 0
+	r, err := c.TransientBRep().OffsetFaces(wire.BrepOffsetFacesArgs{
+		Source: wire.BrepBodyRef{BodyIndex: &idx}, FaceKeys: []string{"f1", "f2"}, Distance: 1.5, Reverse: true,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Handle != 8 || r.Stats.Faces != 1 {
+		t.Errorf("offset result = %+v", r)
+	}
+	if ft.gotMethod != wire.MethodBrepOffsetFaces || !strings.Contains(string(ft.gotReq), `"distance":1.5`) || !strings.Contains(string(ft.gotReq), `"reverse":true`) {
+		t.Errorf("offsetFaces call = %q %s", ft.gotMethod, ft.gotReq)
+	}
+}
+
 func TestBrepCreateFromDefinitionCarriesGraph(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"issues":[{"path":"edges[2]","problem":"vertex indices out of range"}]}`)}
 	c := New(ft)

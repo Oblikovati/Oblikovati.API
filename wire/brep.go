@@ -100,6 +100,24 @@ type BrepDeleteFacesArgs struct {
 	KeepInstead bool     `json:"keepInstead,omitempty"`
 }
 
+// BrepOffsetFacesArgs is the request of [MethodBrepOffsetFaces]: offset the faces of Source named by
+// reference key outward by Distance along their surface normals, returning a transient body of the
+// offset faces (addressable by the other brep.* methods — e.g. tessellate or [MethodBodyFaceEvaluate]
+// to sample it). CAM uses it for 3D surfacing tool compensation: offset the part surface by the tool
+// radius, then drop the tool onto the offset. The offset is exact for analytic surfaces (plane,
+// cylinder, sphere, cone, torus) and a tolerant parallel surface otherwise.
+//
+// The parameters mirror Inventor's FaceOffsetDefinition: Distance, Reverse (offset the opposite way,
+// into the solid), and Tolerance (the chordal tolerance for offsetting a freeform surface; 0 ⇒ a
+// kernel default).
+type BrepOffsetFacesArgs struct {
+	Source    BrepBodyRef `json:"source"`
+	FaceKeys  []string    `json:"faceKeys"`
+	Distance  float64     `json:"distance"`
+	Reverse   bool        `json:"reverse,omitempty"`
+	Tolerance float64     `json:"tolerance,omitempty"`
+}
+
 // BrepSilhouetteArgs is the request of [MethodBrepSilhouette]: the silhouette
 // curves of one face viewed along ViewDirection.
 type BrepSilhouetteArgs struct {
