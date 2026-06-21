@@ -5,6 +5,7 @@ package client
 import (
 	"encoding/json"
 	"errors"
+	"strings"
 	"testing"
 
 	"oblikovati.org/api/types"
@@ -87,6 +88,7 @@ func TestCommandsCreateMarshalsButtonMetadata(t *testing.T) {
 	res, err := c.Commands().Create(wire.CreateCommandArgs{
 		ID: "AddIn.Ping", DisplayName: "Ping", Tab: "AddInTab",
 		Category: "Demo", Icon: "extrude", ButtonStyle: types.LargeIconButton,
+		IconSVG: `<svg viewBox="0 0 24 24"><rect width="24" height="24"/></svg>`,
 	})
 	if err != nil {
 		t.Fatalf("Create: %v", err)
@@ -103,6 +105,10 @@ func TestCommandsCreateMarshalsButtonMetadata(t *testing.T) {
 	}
 	if sent.ID != "AddIn.Ping" || sent.DisplayName != "Ping" || sent.ButtonStyle != types.LargeIconButton {
 		t.Errorf("sent = %+v, want id=AddIn.Ping displayName=Ping style=large-icon", sent)
+	}
+	// An add-in's own glyph travels as inline SVG markup on the wire.
+	if !strings.Contains(sent.IconSVG, "<svg") {
+		t.Errorf("IconSVG not marshalled: %q", sent.IconSVG)
 	}
 }
 

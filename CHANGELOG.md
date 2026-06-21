@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- `wire.CreateCommandArgs.IconSVG` (and `wire.CommandInfo.IconSVG`): an add-in can
+  now ship its own ribbon-button glyph as inline SVG markup instead of referencing a
+  host-bundled icon key, so its buttons are not limited to the icons the host embeds.
+  When set it takes precedence over `Icon`. (Oblikovati#671)
+
 ## [0.85.0] - 2026-06-21
 
 ### Added
