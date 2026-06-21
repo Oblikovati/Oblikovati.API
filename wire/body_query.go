@@ -78,6 +78,28 @@ type ConvexityEdgesResult struct {
 	Edges []TopologyRef `json:"edges,omitempty"`
 }
 
+// MinimumDistanceArgs is the request of [MethodBodyMinimumDistance]: the closest
+// approach between the body and a transient probe polyline (e.g. a CAM travel
+// path) — the out-of-process projection of Inventor's
+// MeasureTools.GetMinimumDistance for a transient operand. Points is a flat
+// [x,y,z, x,y,z, ...] list in database units (cm); consecutive pairs are the
+// probe's segments, and a lone point measures that point to the body. Radius
+// (cm) widens the probe into a swept-cylinder cross-section (the tool),
+// subtracted from the raw distance and clamped at 0 — 0 leaves the probe a bare
+// polyline.
+type MinimumDistanceArgs struct {
+	BodyIndex int       `json:"bodyIndex"`
+	Points    []float64 `json:"points"`
+	Radius    float64   `json:"radius,omitempty"`
+}
+
+// MinimumDistanceResult is the response of [MethodBodyMinimumDistance]: the
+// minimum distance in database units (cm), 0 when the probe (after Radius)
+// touches or enters the body's material.
+type MinimumDistanceResult struct {
+	Distance float64 `json:"distance"`
+}
+
 // ValidateBodyArgs is the request of [MethodBodyValidate]. CheckLevel 1 runs
 // the topology checks (manifold/orientation/closure); 2 adds the face
 // self-intersection scan. 0 means 1.

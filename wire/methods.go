@@ -650,6 +650,7 @@ const (
 	MethodBodyFindUsingRay     = "body.findUsingRay"
 	MethodBodyIsPointInside    = "body.isPointInside"
 	MethodBodyConvexityEdges   = "body.convexityEdges"
+	MethodBodyMinimumDistance  = "body.minimumDistance"
 	MethodBodyValidate         = "body.validate"
 	MethodBodyRangeBox         = "body.rangeBox"
 	MethodBodyBindTransientKey = "body.bindTransientKey"
