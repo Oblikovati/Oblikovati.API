@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.87.0] - 2026-06-21
+
+### Added
+
+- feat(wire): add brep.offsetFaces for 3D surface offset
+
 ### Added
 
 - `brep.offsetFaces` (`wire.BrepOffsetFacesArgs` → `BrepHandleResult`,
@@ -642,7 +648,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.86.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.87.0...HEAD
+[0.87.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.86.0...v0.87.0
 [0.86.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.85.0...v0.86.0
 [0.85.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.84.0...v0.85.0
 [0.84.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.83.0...v0.84.0
