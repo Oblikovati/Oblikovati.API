@@ -20,6 +20,12 @@ type DocumentUnitsInfo struct {
 	LengthDisplayPrecision int    `json:"lengthDisplayPrecision"`
 	AngleDisplayPrecision  int    `json:"angleDisplayPrecision"`
 	LengthDisplayFormat    string `json:"lengthDisplayFormat,omitempty"`
+	// WorkingScaleCm is the centimetre size of one stored (working) length unit (ADR-0042
+	// Phase 2). The kernel stores and reports geometry in working units; 1.0 means they are
+	// centimetres (the default). A document centred on an extreme unit (µm/pm, km) reports a
+	// different value, so an add-in reading raw geometry quantities multiplies by the
+	// appropriate power of this to recover centimetres. Omitted (0) means the centimetre default.
+	WorkingScaleCm float64 `json:"workingScaleCm,omitempty"`
 }
 
 // SetDocumentUnitsArgs is the request of [MethodDocumentsSetUnits]: only the
