@@ -55,6 +55,8 @@ const (
 	LoftTangent LoftCondition = "tangent"
 	// LoftSmooth imposes curvature (G2) continuity with the adjacent faces.
 	LoftSmooth LoftCondition = "smooth"
+	// LoftG3 imposes curvature-rate (G3) continuity with the adjacent faces (a level beyond Smooth).
+	LoftG3 LoftCondition = "g3"
 	// LoftSharpPoint ends the loft in a sharp point (a point section).
 	LoftSharpPoint LoftCondition = "sharp"
 	// LoftTangentToPlane makes the surface tangent to a plane at a point section.
@@ -75,8 +77,25 @@ func (c LoftCondition) IsSharp() bool { return c == LoftSharpPoint }
 func (c LoftCondition) IsPointCondition() bool { return c.IsTangentToPlane() || c.IsSharp() }
 
 // IsFaceContinuity reports the conditions that continue an adjacent face's surface across the
-// section edge: Tangent (G1) and Smooth (G2). They require the section to be a body face.
-func (c LoftCondition) IsFaceContinuity() bool { return c == LoftTangent || c == LoftSmooth }
+// section edge: Tangent (G1), Smooth (G2) and G3. They require the section to be a body face.
+func (c LoftCondition) IsFaceContinuity() bool {
+	return c == LoftTangent || c == LoftSmooth || c == LoftG3
+}
+
+// ContinuityOrder is the geometric-continuity order a face-continuity condition imposes across the
+// section edge: Tangent = 1 (G1), Smooth = 2 (G2), G3 = 3. Non-face conditions return 0.
+func (c LoftCondition) ContinuityOrder() int {
+	switch c {
+	case LoftTangent:
+		return 1
+	case LoftSmooth:
+		return 2
+	case LoftG3:
+		return 3
+	default:
+		return 0
+	}
+}
 
 // IsFree reports whether the condition leaves the end natural (the zero value "" is treated
 // as Free, so an unset condition keeps the ruled/natural blend).

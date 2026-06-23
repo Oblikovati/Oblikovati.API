@@ -66,6 +66,46 @@ func ParseFilletCornerType(s string) (FilletCornerType, bool) {
 	return enumFromName(filletCornerTypeNames, s)
 }
 
+// FilletCrossSection selects the shape of an edge blend's cross-section profile (M36-F08): the
+// default circular arc (G1 — tangent to both walls), a curvature-continuous G2 profile (zero
+// curvature at the tangency lines, so a blend between flat walls has no curvature jump), or a conic
+// (rho-controlled) profile whose shoulder fullness is set by a separate rho parameter. It is a
+// string enum so the empty value reads as the arc default; the kernel maps it to its blend builder.
+type FilletCrossSection string
+
+const (
+	// FilletSectionArc is the circular rolling-ball cross-section (G1; the empty/default value).
+	FilletSectionArc FilletCrossSection = "arc"
+	// FilletSectionG2 is a curvature-continuous cross-section (no curvature jump at the tangency lines).
+	FilletSectionG2 FilletCrossSection = "g2"
+	// FilletSectionConic is a conic (rho-controlled) cross-section; pair it with a rho fullness value.
+	FilletSectionConic FilletCrossSection = "conic"
+)
+
+// IsArc reports whether the cross-section is the circular arc (the empty/default value or "arc").
+func (c FilletCrossSection) IsArc() bool { return c == "" || c == FilletSectionArc }
+
+// String returns the cross-section's wire spelling ("arc" for the empty default).
+func (c FilletCrossSection) String() string {
+	if c == "" {
+		return string(FilletSectionArc)
+	}
+	return string(c)
+}
+
+// ParseFilletCrossSection resolves a wire spelling to a cross-section; the empty string is the arc.
+func ParseFilletCrossSection(s string) (FilletCrossSection, bool) {
+	switch FilletCrossSection(s) {
+	case "", FilletSectionArc:
+		return FilletSectionArc, true
+	case FilletSectionG2:
+		return FilletSectionG2, true
+	case FilletSectionConic:
+		return FilletSectionConic, true
+	}
+	return "", false
+}
+
 // FeatureApproximationType is the approximation a thicken / face-offset
 // feature may accept when the exact offset is not computable (#331 parity).
 // An exact result satisfies every bound below, so a kernel computing the
