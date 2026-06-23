@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.90.0] - 2026-06-23
+
+### Added
+
+- feat(types): FilletCrossSection (G2/conic) and LoftG3 continuity
+
 ## [0.89.0] - 2026-06-23
 
 ### Added
@@ -660,7 +666,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.89.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.90.0...HEAD
+[0.90.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.89.0...v0.90.0
 [0.89.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.88.0...v0.89.0
 [0.88.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.87.0...v0.88.0
 [0.87.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.86.0...v0.87.0
