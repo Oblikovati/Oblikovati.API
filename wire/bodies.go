@@ -17,18 +17,23 @@ type BodyIndexArgs struct {
 // (Combine, Split, Mold) need to enumerate, rename and show/hide their results. Key is the
 // body's persistent reference key (stable across recompute), the handle used to assign a color
 // style; Style is the assigned color-style name, empty when the body wears its plain appearance.
+// MaterialID is the body's effective assigned material id — its own override if set, else the
+// part-default material — and is empty when no material is assigned; resolve it to properties
+// with [MethodMaterialsGet]. It is the read-back counterpart of [MethodModelAssignMaterial]
+// (write-only), letting an analysis add-in build a per-body material model.
 type BodyInfo struct {
-	Index    int    `json:"index"`
-	Name     string `json:"name"`
-	Solid    bool   `json:"solid"`
-	Visible  bool   `json:"visible"`
-	Faces    int    `json:"faces"`
-	Edges    int    `json:"edges"`
-	Vertices int    `json:"vertices"`
-	Shells   int    `json:"shells"`
-	Wires    int    `json:"wires"`
-	Key      string `json:"key,omitempty"`
-	Style    string `json:"style,omitempty"`
+	Index      int    `json:"index"`
+	Name       string `json:"name"`
+	Solid      bool   `json:"solid"`
+	Visible    bool   `json:"visible"`
+	Faces      int    `json:"faces"`
+	Edges      int    `json:"edges"`
+	Vertices   int    `json:"vertices"`
+	Shells     int    `json:"shells"`
+	Wires      int    `json:"wires"`
+	Key        string `json:"key,omitempty"`
+	Style      string `json:"style,omitempty"`
+	MaterialID string `json:"materialID,omitempty"`
 }
 
 // BodyRenameArgs is the request of [MethodBodyRename]: set the display name of the body at
