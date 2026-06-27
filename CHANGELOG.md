@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.92.0] - 2026-06-27
+
+### Added
+
+- feat: add MaterialID to BodyInfo for per-body material read-back
+
 ## [0.91.0] - 2026-06-23
 
 ### Added
@@ -672,7 +678,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.91.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.0...HEAD
+[0.92.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.91.0...v0.92.0
 [0.91.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.90.0...v0.91.0
 [0.90.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.89.0...v0.90.0
 [0.89.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.88.0...v0.89.0
