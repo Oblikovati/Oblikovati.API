@@ -7,33 +7,42 @@ import "oblikovati.org/api/types"
 // Add-in attribute sets (#155): named, typed values an add-in attaches to a document and that
 // persist with it — the sanctioned way for an add-in to store its own data and tag the model.
 // An attribute lives in a named SET (a namespace, conventionally the add-in's id) under a NAME,
-// and carries a [types.Variant] value (integer/double/string/bytes/boolean). This first surface
-// targets the document itself; finer targets (features, bodies, sketch entities) are a follow-up
-// that rides the same DTOs with an added target selector.
+// and carries a [types.Variant] value (integer/double/string/bytes/boolean).
+//
+// An attribute is anchored to a TARGET: the document itself (the default, an empty target) or a
+// specific entity addressed by its persistent reference key — a body, face, edge, or vertex key
+// as returned by body.list (BodyInfo.Key) or model.referenceKeys (TopologyRef.Key). Anchoring by
+// reference key (not by index) is what lets a tag survive recompute: after the B-rep is rebuilt
+// the same lineage re-mints an equal key, so the same attributes are found again. The target
+// rides every DTO; omit it for document-scoped attributes.
 
-// AttributeInfo is the JSON shape of one attribute: the set it lives in, its name, and its value.
+// AttributeInfo is the JSON shape of one attribute: the set it lives in, its name, its value, and
+// the target it is anchored to (empty for the document itself).
 type AttributeInfo struct {
-	Set   string        `json:"set"`
-	Name  string        `json:"name"`
-	Value types.Variant `json:"value"`
+	Set    string        `json:"set"`
+	Name   string        `json:"name"`
+	Value  types.Variant `json:"value"`
+	Target string        `json:"target,omitempty"`
 }
 
 // SetAttributeArgs is the request of [MethodAttributesSet]: create or replace the named attribute
-// in the named set on the document (by session id from documents.list) with the typed value. The
-// set is created on first use.
+// in the named set on the document (by session id from documents.list) with the typed value,
+// anchored to Target (empty = the document itself). The set is created on first use.
 type SetAttributeArgs struct {
 	Document uint64        `json:"document"`
 	Set      string        `json:"set"`
 	Name     string        `json:"name"`
 	Value    types.Variant `json:"value"`
+	Target   string        `json:"target,omitempty"`
 }
 
 // GetAttributeArgs is the request of [MethodAttributesGet]: address one attribute by its set and
-// name on the document.
+// name on the document, anchored to Target (empty = the document itself).
 type GetAttributeArgs struct {
 	Document uint64 `json:"document"`
 	Set      string `json:"set"`
 	Name     string `json:"name"`
+	Target   string `json:"target,omitempty"`
 }
 
 // AttributeResult is the response of [MethodAttributesGet] / [MethodAttributesSet]: the addressed
@@ -44,10 +53,14 @@ type AttributeResult struct {
 }
 
 // ListAttributesArgs is the request of [MethodAttributesList]: every attribute on the document, or
-// only those in Set when it is non-empty.
+// only those in Set when it is non-empty. By default it lists the document-scoped attributes;
+// set Target to list a specific entity's attributes, or set AllTargets to list every attribute on
+// every target (each carrying its Target in the result).
 type ListAttributesArgs struct {
-	Document uint64 `json:"document"`
-	Set      string `json:"set,omitempty"`
+	Document   uint64 `json:"document"`
+	Set        string `json:"set,omitempty"`
+	Target     string `json:"target,omitempty"`
+	AllTargets bool   `json:"allTargets,omitempty"`
 }
 
 // ListAttributesResult is the response of [MethodAttributesList]: the matching attributes in set
@@ -68,11 +81,12 @@ type ListAttributeSetsResult struct {
 }
 
 // DeleteAttributeArgs is the request of [MethodAttributesDelete]: remove the named attribute in the
-// set, or the whole set when Name is empty.
+// set, or the whole set when Name is empty, on the target (empty = the document itself).
 type DeleteAttributeArgs struct {
 	Document uint64 `json:"document"`
 	Set      string `json:"set"`
 	Name     string `json:"name,omitempty"`
+	Target   string `json:"target,omitempty"`
 }
 
 // DeleteAttributeResult is the response of [MethodAttributesDelete]: how many attributes were
