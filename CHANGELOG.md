@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.93.0] - 2026-06-28
+
+### Added
+
+- feat(wire): add EventCommandEnded constant
+
 ### Added
 
 - feat(wire): EventCommandEnded constant for the command-lifecycle event pair (de-hardcodes "command.ended")
@@ -688,7 +694,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.93.0...HEAD
+[0.93.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.1...v0.93.0
 [0.92.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.0...v0.92.1
 [0.92.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.91.0...v0.92.0
 [0.91.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.90.0...v0.91.0
