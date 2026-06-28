@@ -938,6 +938,9 @@ const (
 	EventWebDialogChanged = "webDialog.changed"
 	// EventCommandStarted reports a command beginning (M05-F12 #619).
 	EventCommandStarted = "command.started"
+	// EventCommandEnded reports a command finishing (M05-F12 #619); the payload carries the command id
+	// and whether it failed. The host emits it as the after-pair of EventCommandStarted.
+	EventCommandEnded = "command.ended"
 	// EventPanelValueChanged reports the user editing an editable dockable-window control
 	// (M05-F03): the add-in receives the window id, control id, and new value.
 	EventPanelValueChanged = "panel.valueChanged"

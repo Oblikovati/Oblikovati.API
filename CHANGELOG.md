@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire): EventCommandEnded constant for the command-lifecycle event pair (de-hardcodes "command.ended")
+
 ## [0.92.1] - 2026-06-27
 
 ### Fixed
