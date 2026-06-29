@@ -10,6 +10,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- feat(contract): `contract.Parameter` completeness — adds `NominalValue`, `UnitName`,
+  `Tolerance`, `IsHealthy`, and `HealthReason` so an add-in reads a parameter's value,
+  unit category, tolerance band, and evaluation health in-process, not just over the
+  wire. New canonical `types.Tolerance` value type (aliased by the host's model/param);
+  health is projected leanly (flag + reason) because the host's health enum is a
+  source-internal concept (#1501) (M39-F06, #1562).
 - feat(wire): derived-parameter-table fidelity — `DerivedParameterTableInfo` gains
   `References` (each derived parameter's link back to its source document + source
   parameter, the reference API's `DerivedParameter.ReferencedEntity`),
