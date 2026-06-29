@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire): derived-parameter-table fidelity — `DerivedParameterTableInfo` gains
+  `References` (each derived parameter's link back to its source document + source
+  parameter, the reference API's `DerivedParameter.ReferencedEntity`),
+  `HasReferenceComponent`, and `ReferenceComponent` provenance; new
+  `DerivedParameterReference` DTO (M39-F05, #1561).
+
 ## [0.94.0] - 2026-06-29
 
 ### Added

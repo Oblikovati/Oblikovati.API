@@ -11,15 +11,37 @@ package wire
 
 // DerivedParameterTableInfo is the JSON shape of one table: its stable id,
 // the source document (full document name), the linked source-parameter
-// names, the source parameters available to link (the candidates), and the
+// names, the source parameters available to link (the candidates), the
 // table's health — "" when every link resolves, otherwise a reason (e.g. the
-// source document is missing or a linked parameter was removed at the source).
+// source document is missing or a linked parameter was removed at the source) —
+// the per-derived-parameter references back to their source (the reference API's
+// DerivedParameter.ReferencedEntity), and the table's provenance.
 type DerivedParameterTableInfo struct {
 	ID             int      `json:"id"`
 	SourceDocument string   `json:"sourceDocument"`
 	Linked         []string `json:"linked,omitempty"`
 	Available      []string `json:"available,omitempty"`
 	Health         string   `json:"health,omitempty"`
+	// References pairs each produced derived parameter with the source parameter
+	// it tracks (#1561). One entry per linked-and-produced parameter.
+	References []DerivedParameterReference `json:"references,omitempty"`
+	// HasReferenceComponent reports whether this table was created by a derived
+	// component (the reference API's DerivedParameterTable.HasReferenceComponent).
+	// Such a table dies with its component and cannot be deleted directly.
+	HasReferenceComponent bool `json:"hasReferenceComponent,omitempty"`
+	// ReferenceComponent is the document the owning derived component sources from,
+	// when HasReferenceComponent; "" otherwise.
+	ReferenceComponent string `json:"referenceComponent,omitempty"`
+}
+
+// DerivedParameterReference is one derived parameter's link back to its source —
+// the JSON projection of the reference API's DerivedParameter.ReferencedEntity
+// (#1561): the local derived parameter's name, the document it derives from, and
+// the source parameter's name there.
+type DerivedParameterReference struct {
+	Parameter       string `json:"parameter"`
+	SourceDocument  string `json:"sourceDocument"`
+	SourceParameter string `json:"sourceParameter"`
 }
 
 // ListDerivedParameterTablesResult is the response of
