@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.95.0] - 2026-06-29
+
+### Added
+
+- feat(contract): complete the Parameter interface — value/unit/tolerance/health (#1562)
+- feat(wire): derived-parameter-table fidelity — references & provenance (#1561)
+
 ### Added
 
 - feat(contract): `contract.Parameter` completeness — adds `NominalValue`, `UnitName`,
@@ -728,7 +735,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.94.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.95.0...HEAD
+[0.95.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.94.0...v0.95.0
 [0.94.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.93.0...v0.94.0
 [0.93.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.1...v0.93.0
 [0.92.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.0...v0.92.1
