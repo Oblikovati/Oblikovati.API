@@ -7,11 +7,11 @@ import "oblikovati.org/api/wire"
 // Custom parameter groups (M02-F05, Oblikovati/Oblikovati#604), on the
 // Parameters operation group.
 
-// ListGroups returns the active part's custom parameter groups with their
+// ListGroups returns the active document's custom parameter groups (part or assembly) with their
 // members, in creation order.
 //
 // mcp:tool parameters_groups_list
-// mcp:summary Returns the active part's custom parameter groups with their members, in creation order.
+// mcp:summary Returns the active document's custom parameter groups (part or assembly) with their members, in creation order.
 func (p Parameters) ListGroups() (wire.ListParameterGroupsResult, error) {
 	var r wire.ListParameterGroupsResult
 	return r, p.c.call(wire.MethodParametersGroupsList, nil, &r)

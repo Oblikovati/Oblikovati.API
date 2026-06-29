@@ -7,11 +7,11 @@ import "oblikovati.org/api/wire"
 // Derived parameter tables (M02-F06, Oblikovati/Oblikovati#605), on the
 // Parameters operation group.
 
-// ListDerivedTables returns the active part's derived parameter tables with
+// ListDerivedTables returns the active document's derived parameter tables (part or assembly) with
 // their links, candidates, and health.
 //
 // mcp:tool parameters_derived_tables_list
-// mcp:summary Returns the active part's derived parameter tables with their links, candidates, and health.
+// mcp:summary Returns the active document's derived parameter tables (part or assembly) with their links, candidates, and health.
 func (p Parameters) ListDerivedTables() (wire.ListDerivedParameterTablesResult, error) {
 	var r wire.ListDerivedParameterTablesResult
 	return r, p.c.call(wire.MethodParametersDerivedTablesList, nil, &r)

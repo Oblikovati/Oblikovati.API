@@ -16,6 +16,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   `HasReferenceComponent`, and `ReferenceComponent` provenance; new
   `DerivedParameterReference` DTO (M39-F05, #1561).
 
+### Changed
+
+- docs(client): the Parameters, parameter-groups, and derived-parameter-table
+  operation groups document their scope as the active document — a part OR an
+  assembly — not just the active part (assemblies are first-class parameter
+  holders; M39-F03, #1559). The wire surface is unchanged; only the documented
+  scope broadened.
+
 ## [0.94.0] - 2026-06-29
 
 ### Added
