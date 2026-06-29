@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.94.0] - 2026-06-29
+
+### Added
+
+- feat(exchange): add PDF as a sketch-import format
+
 ### Added
 
 - feat(exchange): FormatPDF + IsSketch — import vector PDFs (CAD drawings plotted to PDF) into a sketch
@@ -700,7 +706,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.93.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.94.0...HEAD
+[0.94.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.93.0...v0.94.0
 [0.93.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.1...v0.93.0
 [0.92.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.0...v0.92.1
 [0.92.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.91.0...v0.92.0
