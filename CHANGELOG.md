@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(exchange): FormatPDF + IsSketch — import vector PDFs (CAD drawings plotted to PDF) into a sketch
+- feat(wire): MethodImportPDF constant and ImportPDFArgs/ImportPDFResult DTOs
+- feat(client): Client.ImportPDF typed method (mcp:tool import_pdf)
+
 ## [0.93.0] - 2026-06-28
 
 ### Added
