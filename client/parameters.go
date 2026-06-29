@@ -4,16 +4,17 @@ package client
 
 import "oblikovati.org/api/wire"
 
-// Parameters is the parameter operation group for the active part.
+// Parameters is the parameter operation group for the active document — a part OR an
+// assembly (both are parameter holders).
 type Parameters struct{ c *Client }
 
 // Parameters returns the parameter operation group.
 func (c *Client) Parameters() Parameters { return Parameters{c} }
 
-// List returns the active part's parameters.
+// List returns the active document's parameters (part or assembly).
 //
 // mcp:tool list_parameters
-// mcp:summary List the active part's parameters (expression + evaluated value).
+// mcp:summary List the active document's parameters (expression + evaluated value).
 func (p Parameters) List() (wire.ListParametersResult, error) {
 	var r wire.ListParametersResult
 	return r, p.c.call(wire.MethodParametersList, nil, &r)
@@ -22,7 +23,7 @@ func (p Parameters) List() (wire.ListParametersResult, error) {
 // Get returns one parameter by name.
 //
 // mcp:tool get_parameter
-// mcp:summary Get one parameter of the active part by name.
+// mcp:summary Get one parameter of the active document (part or assembly) by name.
 func (p Parameters) Get(name string) (wire.ParameterInfo, error) {
 	var r wire.ParameterInfo
 	return r, p.c.call(wire.MethodParametersGet, wire.ParameterNameArgs{Name: name}, &r)
