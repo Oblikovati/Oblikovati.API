@@ -43,6 +43,12 @@ const (
 	// DWG it carries curve geometry and imports into a sketch; on export the version is
 	// selectable (see DXFVersion).
 	FormatDXF ExchangeFormat = "dxf"
+	// FormatPDF is a vector PDF whose page content was generated from a CAD drawing
+	// (e.g. an AutoCAD plot-to-PDF). Like DWG/DXF it carries 2D curve geometry — page
+	// paths (lines and cubic Béziers) — so it imports into a sketch (one 2D Sketch per
+	// page on the chosen plane) rather than into surface bodies. Text and raster images
+	// in the page are skipped; only vector paths become sketch curves.
+	FormatPDF ExchangeFormat = "pdf"
 )
 
 // IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
@@ -58,11 +64,11 @@ func (f ExchangeFormat) IsPointCloud() bool {
 	return f == FormatPLY || f == FormatE57 || f == FormatLAS
 }
 
-// IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF) rather
-// than as surface bodies (mesh/STEP). Such an import targets a sketch and, when 2D,
-// a chosen work plane.
+// IsSketch reports whether the format imports as sketch curve geometry (DWG/DXF/PDF)
+// rather than as surface bodies (mesh/STEP). Such an import targets a sketch and, when
+// 2D, a chosen work plane.
 func (f ExchangeFormat) IsSketch() bool {
-	return f == FormatDWG || f == FormatDXF
+	return f == FormatDWG || f == FormatDXF || f == FormatPDF
 }
 
 // DXFVersion selects the generation an exported DXF targets. The geometry is identical

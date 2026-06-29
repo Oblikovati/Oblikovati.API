@@ -159,6 +159,7 @@ const (
 
 	MethodImportDWG = "import.dwg"
 	MethodImportDXF = "import.dxf"
+	MethodImportPDF = "import.pdf"
 	MethodExportDXF = "export.dxf"
 
 	MethodSketchCreate    = "sketch.create"
