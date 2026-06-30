@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.99.0] - 2026-06-30
+
+### Added
+
+- feat(client): make sketch Symmetry constraint creatable (#1574)
+
 ## [0.98.0] - 2026-06-30
 
 ### Added
@@ -754,7 +760,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.97.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.99.0...HEAD
+[0.99.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.98.0...v0.99.0
 [0.97.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.96.0...v0.97.0
 [0.96.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.95.0...v0.96.0
 [0.95.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.94.0...v0.95.0
