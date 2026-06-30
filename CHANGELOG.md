@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.96.0] - 2026-06-30
+
+### Added
+
+- feat(panel): CSS-grid-like nesting for dockable-window layouts
+
 ## [0.95.0] - 2026-06-29
 
 ### Added
@@ -735,7 +741,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.95.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.96.0...HEAD
+[0.96.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.95.0...v0.96.0
 [0.95.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.94.0...v0.95.0
 [0.94.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.93.0...v0.94.0
 [0.93.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.92.1...v0.93.0
