@@ -12,6 +12,13 @@ import "oblikovati.org/api/types"
 // carry their current Value; dropdown/comboBox list their choices in Options; slider
 // and valueEditor bound the input with Min/Max/Step. When the user edits an editable
 // control the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.
+//
+// Container kinds (grid/group/tabs, ADR-0019) nest: they own Children and are laid out
+// rather than drawn. A grid declares its column tracks in Columns with ColumnGap/RowGap
+// spacing, and each child may carry a Cell placement (nil = auto-flow). A group is a
+// titled vertical stack (Title is its caption). Tabs treats each child as one tab whose
+// Title is the caption. All these fields are omitempty, so a leaf control marshals exactly
+// as before — older hosts ignore the unknown fields and degrade an unknown kind to its Text.
 type PanelControlSpec struct {
 	Kind      types.PanelControlKind `json:"kind,omitempty"`
 	ID        string                 `json:"id,omitempty"`
@@ -22,6 +29,14 @@ type PanelControlSpec struct {
 	Min       float64                `json:"min,omitempty"`     // slider/valueEditor lower bound
 	Max       float64                `json:"max,omitempty"`     // slider/valueEditor upper bound
 	Step      float64                `json:"step,omitempty"`    // slider/valueEditor increment
+
+	// Container fields (grid/group/tabs only).
+	Title     string             `json:"title,omitempty"`     // group/tab caption
+	Children  []PanelControlSpec `json:"children,omitempty"`  // nested controls of a container
+	Columns   []types.GridTrack  `json:"columns,omitempty"`   // grid: column tracks (rows are auto-height)
+	ColumnGap float64            `json:"columnGap,omitempty"` // grid: px gap between columns
+	RowGap    float64            `json:"rowGap,omitempty"`    // grid: px gap between rows
+	Cell      *types.GridCell    `json:"cell,omitempty"`      // this control's placement in its parent grid
 }
 
 // DockableWindowSpec is one add-in dockable window (M05-F03, #247): a titled panel
