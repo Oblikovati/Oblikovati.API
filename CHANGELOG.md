@@ -8,6 +8,21 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.102.0] - 2026-06-30
+
+### Added
+
+- feat(client): TaskPanels group (Show/Close) for modal task panels
+- feat(wire): modal TaskPanelSpec DTOs + show/close methods + closed event
+- feat(client): PanelReferenceList builder + DockableWindows.SetReferences
+- feat(wire): referenceList DTOs + setReferences method + referencesChanged event
+- feat(types): add referenceList panel control kind (12)
+
+### Fixed
+
+- release: v0.101.0 — referenceList control + modal TaskPanelSpec
+- fix(wire): drop out-of-scope client SetReferences (A3 owns it); gofmt alignment
+
 ## [0.100.1] - 2026-06-30
 
 ### Fixed
@@ -766,7 +781,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...HEAD
+[0.102.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.101.0...v0.102.0
 [0.100.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.0...v0.100.1
 [0.99.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.98.0...v0.99.0
 [0.97.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.96.0...v0.97.0
