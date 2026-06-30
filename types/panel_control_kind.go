@@ -31,12 +31,23 @@ const (
 	PanelComboBox PanelControlKind = 7
 	// PanelSlider is a bounded numeric slider (Value = number, bounded by Min/Max, step Step).
 	PanelSlider PanelControlKind = 8
+	// PanelGrid is a container that lays its Children out in a CSS-grid-like grid: Columns
+	// declares the column tracks, each child may carry a Cell placement, otherwise children
+	// auto-flow left-to-right wrapping at the column count (ADR-0019). Rows are content-height.
+	PanelGrid PanelControlKind = 9
+	// PanelGroup is a titled box (Title is the caption) that stacks its Children vertically —
+	// the QGroupBox of this vocabulary.
+	PanelGroup PanelControlKind = 10
+	// PanelTabs is a tab strip: each direct child is one tab whose Title is the tab caption and
+	// whose own content (typically a grid or group) is the pane.
+	PanelTabs PanelControlKind = 11
 )
 
 var panelControlKindNames = map[PanelControlKind]string{
 	PanelLabel: "label", PanelButton: "button", PanelSeparator: "separator",
 	PanelTextBox: "textBox", PanelValueEditor: "valueEditor", PanelCheckBox: "checkBox",
 	PanelDropdown: "dropdown", PanelComboBox: "comboBox", PanelSlider: "slider",
+	PanelGrid: "grid", PanelGroup: "group", PanelTabs: "tabs",
 }
 
 // String returns the kind's stable name.
