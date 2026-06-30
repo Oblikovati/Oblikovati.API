@@ -816,6 +816,10 @@ const (
 	MethodDialogsCloseWebDialog = "dialogs.closeWebDialog"
 	MethodDialogsListWebViews   = "dialogs.listWebViews"
 
+	// Modal task panels built from declarative controls (FEM/parametric editing).
+	MethodTaskPanelShow  = "taskPanel.show"
+	MethodTaskPanelClose = "taskPanel.close"
+
 	// Document windows: frames & tabs (M05-F10, #617).
 	MethodWindowsListFrames  = "windows.listFrames"
 	MethodWindowsListTabs    = "windows.listTabs"
@@ -939,6 +943,9 @@ const (
 	// EventWebDialogChanged notifies a web view was shown or closed
 	// (see [WebDialogChangedEvent], M05-F08 #615).
 	EventWebDialogChanged = "webDialog.changed"
+	// EventTaskPanelClosed delivers a modal task panel's accept/cancel
+	// (see [TaskPanelClosedEvent]).
+	EventTaskPanelClosed = "taskPanel.closed"
 	// EventCommandStarted reports a command beginning (M05-F12 #619).
 	EventCommandStarted = "command.started"
 	// EventCommandEnded reports a command finishing (M05-F12 #619); the payload carries the command id

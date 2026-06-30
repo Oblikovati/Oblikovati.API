@@ -20,7 +20,10 @@ import (
 // trackedUncoveredWireMethods are method constants knowingly without a typed
 // client method, each requiring an open issue. Currently empty — keep it so the
 // next gap must be tracked, not silently shipped.
-var trackedUncoveredWireMethods = map[string]string{}
+var trackedUncoveredWireMethods = map[string]string{
+	"MethodTaskPanelShow":  "task A5: TaskPanels client group deferred",
+	"MethodTaskPanelClose": "task A5: TaskPanels client group deferred",
+}
 
 // TestEveryWireMethodHasTypedClientCoverage fails for each Method* constant in
 // wire/methods.go that no non-test client source references.
