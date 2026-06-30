@@ -88,6 +88,13 @@ func (g Constrain) PointOnCircle(point, curve uint64) (wire.AddConstraintResult,
 	return g.Add(types.GeoConstraintPointOnCircle, point, curve)
 }
 
+// Symmetric makes points a and b symmetric about a mirror line — their midpoint lies on
+// the line and the a→b segment is perpendicular to it. Pins the mirror DOF of a profile
+// built about a centerline (e.g. the free corner points of a symmetric tooth shoe).
+func (g Constrain) Symmetric(a, b, mirrorLine uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintSymmetry, a, b, mirrorLine)
+}
+
 // Fix grounds a point in place.
 func (g Constrain) Fix(point uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintFix, point)

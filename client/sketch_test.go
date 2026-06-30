@@ -153,6 +153,32 @@ func TestSketchConstrainParallelMarshalsKindAndRefs(t *testing.T) {
 	}
 }
 
+// Symmetric carries 3 refs (point A, point B, mirror line) in that order — the order the
+// router resolves and the enumerate path reports (#1574).
+func TestSketchConstrainSymmetricMarshalsKindAndRefs(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"symmetry","dof":0}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().Constrain(0).Symmetric(3, 7, 11)
+	if err != nil {
+		t.Fatalf("Symmetric: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchAddConstraint {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchAddConstraint)
+	}
+	var sent wire.AddConstraintArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "symmetry" || len(sent.Entities) != 3 ||
+		sent.Entities[0] != 3 || sent.Entities[1] != 7 || sent.Entities[2] != 11 {
+		t.Errorf("sent = %+v, want symmetry of [3,7,11]", sent)
+	}
+	if got.DOF != 0 {
+		t.Errorf("decoded DOF = %d, want 0", got.DOF)
+	}
+}
+
 func TestSketchDimensionRadiusMarshalsExpression(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"radius","parameter":"d0","value":2,"dof":0}`)}
 	c := New(ft)
