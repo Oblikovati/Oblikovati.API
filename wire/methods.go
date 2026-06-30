@@ -769,6 +769,7 @@ const (
 	MethodDockableWindowsSetValue   = "dockableWindows.setValue"
 	MethodDockableWindowsDelete     = "dockableWindows.delete"
 	MethodDockableWindowsList       = "dockableWindows.list"
+	MethodDockableWindowsSetReferences = "dockableWindows.setReferences"
 
 	// UI environments (M05-F03, #247; add-in environments: Oblikovati#667).
 	MethodUIListEnvironments = "ui.listEnvironments"
@@ -946,6 +947,10 @@ const (
 	// EventPanelValueChanged reports the user editing an editable dockable-window control
 	// (M05-F03): the add-in receives the window id, control id, and new value.
 	EventPanelValueChanged = "panel.valueChanged"
+	// EventPanelReferencesChanged reports a referenceList control's row set changing
+	// (see [PanelReferencesChangedEvent]): the add-in receives the window id, control id, and
+	// the full new ref set.
+	EventPanelReferencesChanged = "panel.referencesChanged"
 	// EventSelectionChanged reports the selection set changing (M05-F12 #619).
 	EventSelectionChanged = "selection.changed"
 	// EventParameterChanged reports a parameter's expression/value changing (#148) — the granular

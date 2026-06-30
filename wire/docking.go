@@ -37,6 +37,9 @@ type PanelControlSpec struct {
 	ColumnGap float64            `json:"columnGap,omitempty"` // grid: px gap between columns
 	RowGap    float64            `json:"rowGap,omitempty"`    // grid: px gap between rows
 	Cell      *types.GridCell    `json:"cell,omitempty"`      // this control's placement in its parent grid
+
+	Rows    []PanelReferenceRow `json:"rows,omitempty"`    // referenceList: current picked refs
+	Accepts []string            `json:"accepts,omitempty"` // referenceList: allowed kinds ("face"/"edge"/"vertex"); empty = any
 }
 
 // DockableWindowSpec is one add-in dockable window (M05-F03, #247): a titled panel
@@ -93,4 +96,32 @@ type DockableWindowChangedEvent struct {
 	Type    string `json:"type"` // always EventDockableWindowChanged
 	ID      string `json:"id"`
 	Visible bool   `json:"visible"`
+}
+
+// PanelReferenceRow is one row of a referenceList control: a host geometry selection
+// reference plus an optional display label (the host derives one, e.g. "Face3", when empty).
+type PanelReferenceRow struct {
+	Ref   string `json:"ref"`
+	Label string `json:"label,omitempty"`
+}
+
+// SetDockableWindowReferencesArgs is the request of [MethodDockableWindowsSetReferences]: it
+// replaces a referenceList control's rows exactly as an Add-from-selection would, and notifies
+// the owning add-in with a [PanelReferencesChangedEvent]. Refs is the full new set.
+type SetDockableWindowReferencesArgs struct {
+	WindowId  string   `json:"windowId"`
+	ControlId string   `json:"controlId"`
+	Refs      []string `json:"refs"`
+}
+
+// PanelReferencesChangedEvent is the push event (type [EventPanelReferencesChanged]) fired when a
+// referenceList control's rows change — by the user's Add-from-selection / per-row Remove or by
+// [MethodDockableWindowsSetReferences]. Refs is the FULL new set (bulk-state, matching the rest of
+// the panel model); Action is "add"/"remove" for diagnostics only.
+type PanelReferencesChangedEvent struct {
+	Type      string   `json:"type"` // always EventPanelReferencesChanged
+	WindowId  string   `json:"windowId"`
+	ControlId string   `json:"controlId"`
+	Refs      []string `json:"refs"`
+	Action    string   `json:"action,omitempty"`
 }
