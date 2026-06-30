@@ -63,6 +63,17 @@ type SetDockableWindowVisibleArgs struct {
 	Visible bool   `json:"visible"`
 }
 
+// SetDockableWindowValueArgs is the request of [MethodDockableWindowsSetValue]: it drives one
+// editable control of an add-in dockable window to a value, exactly as a user edit would — the host
+// updates the stored control and notifies the owning add-in (which may react, e.g. re-render the
+// window). Value is the control's string form: the option text for a dropdown/combo, "true"/"false"
+// for a checkbox, the number for a value editor/slider, the text for a text box.
+type SetDockableWindowValueArgs struct {
+	WindowId  string `json:"windowId"`
+	ControlId string `json:"controlId"`
+	Value     string `json:"value"`
+}
+
 // DeleteDockableWindowArgs is the request of [MethodDockableWindowsDelete].
 type DeleteDockableWindowArgs struct {
 	ID string `json:"id"`
