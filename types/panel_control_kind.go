@@ -41,6 +41,12 @@ const (
 	// PanelTabs is a tab strip: each direct child is one tab whose Title is the tab caption and
 	// whose own content (typically a grid or group) is the pane.
 	PanelTabs PanelControlKind = 11
+	// PanelReferenceList is a list of picked host geometry references (faces/edges/
+	// vertices) with host-driven Add-from-selection and per-row Remove. Rows holds the
+	// current refs; Accepts limits which selection kinds may be added (empty = any).
+	// Editing the rows pushes a [PanelReferencesChangedEvent] — NOT the scalar
+	// PanelValueChangedEvent — because the value is a set, not one string.
+	PanelReferenceList PanelControlKind = 12
 )
 
 var panelControlKindNames = map[PanelControlKind]string{
@@ -48,6 +54,7 @@ var panelControlKindNames = map[PanelControlKind]string{
 	PanelTextBox: "textBox", PanelValueEditor: "valueEditor", PanelCheckBox: "checkBox",
 	PanelDropdown: "dropdown", PanelComboBox: "comboBox", PanelSlider: "slider",
 	PanelGrid: "grid", PanelGroup: "group", PanelTabs: "tabs",
+	PanelReferenceList: "referenceList",
 }
 
 // String returns the kind's stable name.
