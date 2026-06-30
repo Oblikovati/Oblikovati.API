@@ -764,11 +764,12 @@ const (
 	MethodBrowserListPanes  = "browser.listPanes"
 
 	// Add-in dockable windows (M05-F03, #247).
-	MethodDockableWindowsSet        = "dockableWindows.set"
-	MethodDockableWindowsSetVisible = "dockableWindows.setVisible"
-	MethodDockableWindowsSetValue   = "dockableWindows.setValue"
-	MethodDockableWindowsDelete     = "dockableWindows.delete"
-	MethodDockableWindowsList       = "dockableWindows.list"
+	MethodDockableWindowsSet           = "dockableWindows.set"
+	MethodDockableWindowsSetVisible    = "dockableWindows.setVisible"
+	MethodDockableWindowsSetValue      = "dockableWindows.setValue"
+	MethodDockableWindowsDelete        = "dockableWindows.delete"
+	MethodDockableWindowsList          = "dockableWindows.list"
+	MethodDockableWindowsSetReferences = "dockableWindows.setReferences"
 
 	// UI environments (M05-F03, #247; add-in environments: Oblikovati#667).
 	MethodUIListEnvironments = "ui.listEnvironments"
@@ -814,6 +815,10 @@ const (
 	MethodDialogsShowWebDialog  = "dialogs.showWebDialog"
 	MethodDialogsCloseWebDialog = "dialogs.closeWebDialog"
 	MethodDialogsListWebViews   = "dialogs.listWebViews"
+
+	// Modal task panels built from declarative controls (FEM/parametric editing).
+	MethodTaskPanelShow  = "taskPanel.show"
+	MethodTaskPanelClose = "taskPanel.close"
 
 	// Document windows: frames & tabs (M05-F10, #617).
 	MethodWindowsListFrames  = "windows.listFrames"
@@ -938,6 +943,9 @@ const (
 	// EventWebDialogChanged notifies a web view was shown or closed
 	// (see [WebDialogChangedEvent], M05-F08 #615).
 	EventWebDialogChanged = "webDialog.changed"
+	// EventTaskPanelClosed delivers a modal task panel's accept/cancel
+	// (see [TaskPanelClosedEvent]).
+	EventTaskPanelClosed = "taskPanel.closed"
 	// EventCommandStarted reports a command beginning (M05-F12 #619).
 	EventCommandStarted = "command.started"
 	// EventCommandEnded reports a command finishing (M05-F12 #619); the payload carries the command id
@@ -946,6 +954,10 @@ const (
 	// EventPanelValueChanged reports the user editing an editable dockable-window control
 	// (M05-F03): the add-in receives the window id, control id, and new value.
 	EventPanelValueChanged = "panel.valueChanged"
+	// EventPanelReferencesChanged reports a referenceList control's row set changing
+	// (see [PanelReferencesChangedEvent]): the add-in receives the window id, control id, and
+	// the full new ref set.
+	EventPanelReferencesChanged = "panel.referencesChanged"
 	// EventSelectionChanged reports the selection set changing (M05-F12 #619).
 	EventSelectionChanged = "selection.changed"
 	// EventParameterChanged reports a parameter's expression/value changing (#148) — the granular
