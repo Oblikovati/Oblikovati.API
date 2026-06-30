@@ -54,6 +54,18 @@ func (d DockableWindows) SetValue(windowID, controlID, value string) (wire.OKRes
 	return r, d.c.call(wire.MethodDockableWindowsSetValue, args, &r)
 }
 
+// SetReferences replaces a referenceList control's rows exactly as an Add-from-selection would:
+// the host updates the stored rows and notifies the owning add-in with a
+// wire.PanelReferencesChangedEvent. Refs is the full new set.
+//
+// mcp:tool set_panel_references
+// mcp:summary Replace a reference-list control's rows (as Add-from-selection would), notifying the add-in.
+func (d DockableWindows) SetReferences(windowID, controlID string, refs []string) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.SetDockableWindowReferencesArgs{WindowId: windowID, ControlId: controlID, Refs: refs}
+	return r, d.c.call(wire.MethodDockableWindowsSetReferences, args, &r)
+}
+
 // Delete removes the window entirely.
 //
 // mcp:tool dockable_windows_delete

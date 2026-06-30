@@ -63,3 +63,10 @@ func PanelSlider(id, text string, value, min, max, step float64) wire.PanelContr
 		Value: strconv.FormatFloat(value, 'g', -1, 64), Min: min, Max: max, Step: step,
 	}
 }
+
+// PanelReferenceList builds a geometry reference-list control: rows are the current picked
+// refs; accepts limits which host selection kinds Add may append ("face"/"edge"/"vertex";
+// empty = any). Row edits arrive as a wire.PanelReferencesChangedEvent, not the scalar value event.
+func PanelReferenceList(id, text string, accepts []string, rows []wire.PanelReferenceRow) wire.PanelControlSpec {
+	return wire.PanelControlSpec{Kind: types.PanelReferenceList, ID: id, Text: text, Accepts: accepts, Rows: rows}
+}
