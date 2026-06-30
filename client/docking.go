@@ -41,6 +41,19 @@ func (d DockableWindows) SetVisible(id string, visible bool) (wire.OKResult, err
 	return r, d.c.call(wire.MethodDockableWindowsSetVisible, args, &r)
 }
 
+// SetValue drives one editable control of the window to a value, exactly as a user edit would: the
+// host updates the stored control and notifies the owning add-in, which may react (e.g. switch a
+// view and re-render). Value is the control's string form — the option text for a dropdown/combo,
+// "true"/"false" for a checkbox, the number for a value editor/slider, the text for a text box.
+//
+// mcp:tool set_panel_value
+// mcp:summary Set one editable control of an add-in dockable window to a value (as a user edit would), notifying the add-in.
+func (d DockableWindows) SetValue(windowID, controlID, value string) (wire.OKResult, error) {
+	var r wire.OKResult
+	args := wire.SetDockableWindowValueArgs{WindowId: windowID, ControlId: controlID, Value: value}
+	return r, d.c.call(wire.MethodDockableWindowsSetValue, args, &r)
+}
+
 // Delete removes the window entirely.
 //
 // mcp:tool dockable_windows_delete

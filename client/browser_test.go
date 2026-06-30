@@ -93,6 +93,18 @@ func TestDockableWindowsVisibilityDeleteList(t *testing.T) {
 		t.Errorf("SetVisible sent %s, want id=sim.panel visible=false", ft.gotReq)
 	}
 
+	if _, err := c.DockableWindows().SetValue("sim.panel", "sim_view", "Path"); err != nil {
+		t.Fatalf("SetValue: %v", err)
+	}
+	var val wire.SetDockableWindowValueArgs
+	if err := json.Unmarshal(ft.gotReq, &val); err != nil ||
+		val.WindowId != "sim.panel" || val.ControlId != "sim_view" || val.Value != "Path" {
+		t.Errorf("SetValue sent %s, want windowId=sim.panel controlId=sim_view value=Path", ft.gotReq)
+	}
+	if ft.gotMethod != wire.MethodDockableWindowsSetValue {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodDockableWindowsSetValue)
+	}
+
 	if _, err := c.DockableWindows().Delete("sim.panel"); err != nil {
 		t.Fatalf("Delete: %v", err)
 	}
