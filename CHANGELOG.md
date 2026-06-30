@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.98.0] - 2026-06-30
+
+### Added
+
+- feat(client): `Constrain.Symmetric(a, b, mirrorLine)` — make a 2D sketch
+  Symmetry constraint creatable over the API (was enumerable-only) (#1574)
+
 ## [0.97.0] - 2026-06-30
 
 ### Added
