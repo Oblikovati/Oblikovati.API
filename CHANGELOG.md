@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.100.1] - 2026-06-30
+
+### Fixed
+
+- Add dockableWindows.setValue (drive an add-in panel control)
+
 ## [0.99.0] - 2026-06-30
 
 ### Added
@@ -760,7 +766,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.99.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.1...HEAD
+[0.100.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.0...v0.100.1
 [0.99.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.98.0...v0.99.0
 [0.97.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.96.0...v0.97.0
 [0.96.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.95.0...v0.96.0
