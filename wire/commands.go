@@ -17,9 +17,9 @@ type CommandInfo struct {
 	Tooltip     string            `json:"tooltip,omitempty"`
 	// TooltipTitle / TooltipExpanded are the progressive tooltip (M05-F09): the
 	// title heads the hover tip; the expanded text appears after a longer hover.
-	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
-	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
-	Icon            string            `json:"icon,omitempty"`
+	TooltipTitle    string `json:"tooltipTitle,omitempty"`
+	TooltipExpanded string `json:"tooltipExpanded,omitempty"`
+	Icon            string `json:"icon,omitempty"`
 	// IconSVG is inline SVG markup the add-in supplied for this button (see
 	// [CreateCommandArgs.IconSVG]); empty when the button uses a host-bundled Icon key.
 	IconSVG     string            `json:"iconSvg,omitempty"`
@@ -98,9 +98,9 @@ type CreateCommandArgs struct {
 	Tooltip     string            `json:"tooltip,omitempty"`
 	// The progressive tooltip (M05-F09): title heads the hover tip; the expanded
 	// text appears after a longer hover.
-	TooltipTitle    string            `json:"tooltipTitle,omitempty"`
-	TooltipExpanded string            `json:"tooltipExpanded,omitempty"`
-	Icon            string            `json:"icon,omitempty"`
+	TooltipTitle    string `json:"tooltipTitle,omitempty"`
+	TooltipExpanded string `json:"tooltipExpanded,omitempty"`
+	Icon            string `json:"icon,omitempty"`
 	// IconSVG lets an add-in ship its own button glyph as inline SVG markup instead of
 	// referencing a host-bundled Icon key — so an add-in is not limited to the icons the
 	// host happens to embed. When set it takes precedence over Icon. The markup should

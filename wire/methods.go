@@ -764,11 +764,11 @@ const (
 	MethodBrowserListPanes  = "browser.listPanes"
 
 	// Add-in dockable windows (M05-F03, #247).
-	MethodDockableWindowsSet        = "dockableWindows.set"
-	MethodDockableWindowsSetVisible = "dockableWindows.setVisible"
-	MethodDockableWindowsSetValue   = "dockableWindows.setValue"
-	MethodDockableWindowsDelete     = "dockableWindows.delete"
-	MethodDockableWindowsList       = "dockableWindows.list"
+	MethodDockableWindowsSet           = "dockableWindows.set"
+	MethodDockableWindowsSetVisible    = "dockableWindows.setVisible"
+	MethodDockableWindowsSetValue      = "dockableWindows.setValue"
+	MethodDockableWindowsDelete        = "dockableWindows.delete"
+	MethodDockableWindowsList          = "dockableWindows.list"
 	MethodDockableWindowsSetReferences = "dockableWindows.setReferences"
 
 	// UI environments (M05-F03, #247; add-in environments: Oblikovati#667).
