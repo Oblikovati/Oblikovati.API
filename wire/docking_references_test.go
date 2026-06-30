@@ -37,7 +37,7 @@ func TestReferenceMethodAndEventConstants(t *testing.T) {
 	if EventPanelReferencesChanged != "panel.referencesChanged" {
 		t.Fatalf("event = %q", EventPanelReferencesChanged)
 	}
-	var a SetDockableWindowReferencesArgs = SetDockableWindowReferencesArgs{
+	a := SetDockableWindowReferencesArgs{
 		WindowId: "w", ControlId: "faces", Refs: []string{"face/abc"},
 	}
 	if a.Refs[0] != "face/abc" {
