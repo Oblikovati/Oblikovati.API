@@ -12,24 +12,15 @@ here: the Go contract and the C ABI header
 `oblikovati`. The dependency only flows the other way; CI
 fails the build if it is ever violated.
 
-## Packages
+## Packages & consumption paths
 
-| Package | What it holds | Notes |
-|---|---|---|
-| `types` | enums, stable ids, value/option structs — pure data | the **canonical** definitions; `/source` aliases them (`type X = types.X`) |
-| `contract` | in-proc Go interfaces (`Document`, `Parameter`, …) | `/source` types satisfy these via compile-time assertions |
-| `wire` | method-name constants + JSON request/response DTOs | the host↔add-in contract; the router serves it |
-| `client` | a `Transport` interface + a typed client over it | how out-of-runtime add-ins drive the host |
-
-## The two consumption paths
-
-A c-shared add-in runs its **own Go runtime** (ADR-0016), so a live Go interface
-value can't cross the boundary. The contract therefore serves two audiences:
-
-- **In-process / first-party** code uses `contract` interfaces + `types` directly.
-- **Out-of-runtime / add-ins** use `wire` + `client` over a `Transport` (the add-in
-  backs it with the host's C-ABI `ObkHostCall`; a gRPC transport behind the same
-  `wire` surface is a deferred future, ADR-0003/0016).
+Four packages: `types` (canonical enums/ids/values), `contract` (in-proc Go
+interfaces), `wire` (method constants + JSON DTOs), `client` (a `Transport` +
+typed client for add-ins). The full architecture story — why four, the two
+consumption paths (in-proc `contract`+`types` vs out-of-runtime `wire`+`client`
+over the C ABI), and worked examples — lives canonically in the
+[API architecture wiki page](docs/wiki/Oblikovati-API-Architecture.md); this
+README stays a pointer plus the quickstart below.
 
 ## Adding to the API (the pattern every change follows)
 

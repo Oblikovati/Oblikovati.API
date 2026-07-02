@@ -34,9 +34,13 @@ The kernel is the geometry engine. It has three cooperating parts:
   chamfer, shell, draft, plus *tessellation* (turning exact geometry into the triangle mesh the
   viewport draws) and *mass properties* (volume, area, centroid via the divergence theorem).
 
-Booleans run on an **exact planar B-rep** path for planar-faceted solids and fall back to a
-welded-mesh CSG path for curved cases. The kernel validates results (manifold, closed,
-orientation) so a bad operation is caught rather than silently shipped.
+Booleans run on **exact** paths: the planar B-rep arrangement for planar-faceted solids and
+the analytic surface–surface-intersection (SSI) pipeline for curved ones — crossing cylinders,
+cones, spheres, tori and their mixes keep their true analytic faces through the operation
+(ADR-0027/ADR-0045). A welded-mesh CSG path remains only as the last-resort fallback for the
+unsupported freeform tail, and taking it is recorded as a counted defect diagnostic, never
+silent. The kernel validates results (manifold, closed, orientation, Euler characteristic) so
+a bad operation is caught rather than silently shipped.
 
 ### Model layer (the recipe)
 
