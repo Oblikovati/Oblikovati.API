@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.102.1] - 2026-07-02
+
+### Fixed
+
+- fix(client): move attribute mcp annotations to the wire-calling On variants
+
 ## [0.102.0] - 2026-06-30
 
 ### Added
@@ -781,7 +787,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.1...HEAD
+[0.102.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...v0.102.1
 [0.102.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.101.0...v0.102.0
 [0.100.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.0...v0.100.1
 [0.99.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.98.0...v0.99.0
