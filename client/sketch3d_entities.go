@@ -13,8 +13,7 @@ import (
 // mcp:tool add_sketch3d_entity
 // mcp:summary Add a 3D curve to a sketch: {sketchIndex, kind, points:[[x,y,z],…]} with kind line|arc|circle|spline|point|helix and friends. Coordinates are cm.
 func (s Sketch3D) AddEntity(args wire.AddSketch3DEntityArgs) (wire.AddSketch3DEntityResult, error) {
-	var r wire.AddSketch3DEntityResult
-	return r, s.c.call(wire.MethodSketch3DAddEntity, args, &r)
+	return call[wire.AddSketch3DEntityResult](s.c, wire.MethodSketch3DAddEntity, args)
 }
 
 // AddPoint adds a standalone 3D sketch point at [x,y,z] (cm).

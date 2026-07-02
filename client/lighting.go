@@ -23,8 +23,7 @@ func (c *Client) Lighting() Lighting { return Lighting{c} }
 // mcp:tool get_lighting_style
 // mcp:summary Read the active lighting style (the named set of lights + exposure).
 func (l Lighting) Style() (wire.LightingStyleView, error) {
-	var r wire.LightingStyleView
-	return r, l.c.call(wire.MethodLightingGetStyle, nil, &r)
+	return call[wire.LightingStyleView](l.c, wire.MethodLightingGetStyle, nil)
 }
 
 // SetStyle activates the named lighting style, returning the resulting style.
@@ -34,8 +33,7 @@ func (l Lighting) Style() (wire.LightingStyleView, error) {
 // mcp:tool set_lighting_style
 // mcp:summary Switch to a lighting style by id; see list_lighting_styles.
 func (l Lighting) SetStyle(name string) (wire.LightingStyleView, error) {
-	var r wire.LightingStyleView
-	return r, l.c.call(wire.MethodLightingSetStyle, wire.SetLightingStyleArgs{Name: name}, &r)
+	return call[wire.LightingStyleView](l.c, wire.MethodLightingSetStyle, wire.SetLightingStyleArgs{Name: name})
 }
 
 // ListStyles returns every selectable lighting style, flagging the active one.
@@ -43,8 +41,7 @@ func (l Lighting) SetStyle(name string) (wire.LightingStyleView, error) {
 // mcp:tool list_lighting_styles
 // mcp:summary List the available lighting styles (the ids set_lighting_style accepts).
 func (l Lighting) ListStyles() (wire.LightingStyleListResult, error) {
-	var r wire.LightingStyleListResult
-	return r, l.c.call(wire.MethodLightingListStyles, nil, &r)
+	return call[wire.LightingStyleListResult](l.c, wire.MethodLightingListStyles, nil)
 }
 
 // Lights returns the active style's discrete lights.
@@ -52,8 +49,7 @@ func (l Lighting) ListStyles() (wire.LightingStyleListResult, error) {
 // mcp:tool list_lights
 // mcp:summary List the lights in the active lighting style (id, type, direction/position, intensity, color).
 func (l Lighting) Lights() (wire.LightListResult, error) {
-	var r wire.LightListResult
-	return r, l.c.call(wire.MethodLightingListLights, nil, &r)
+	return call[wire.LightListResult](l.c, wire.MethodLightingListLights, nil)
 }
 
 // AddLight adds a light of the given emission shape with neutral defaults, returning it.
@@ -61,8 +57,7 @@ func (l Lighting) Lights() (wire.LightListResult, error) {
 // mcp:tool add_light
 // mcp:summary Add a light to the active lighting style (type directional|point|spot, with direction/position, color, intensity).
 func (l Lighting) AddLight(def types.LightDefinitionTypeEnum) (wire.LightInfo, error) {
-	var r wire.LightInfo
-	return r, l.c.call(wire.MethodLightingAddLight, wire.AddLightArgs{DefinitionType: def}, &r)
+	return call[wire.LightInfo](l.c, wire.MethodLightingAddLight, wire.AddLightArgs{DefinitionType: def})
 }
 
 // SetLight replaces the state of the light at index, returning the resulting light.
@@ -70,8 +65,7 @@ func (l Lighting) AddLight(def types.LightDefinitionTypeEnum) (wire.LightInfo, e
 // mcp:tool set_light
 // mcp:summary Update a light's properties by id (direction/position, color, intensity, on/off).
 func (l Lighting) SetLight(index int, light wire.LightInfo) (wire.LightInfo, error) {
-	var r wire.LightInfo
-	return r, l.c.call(wire.MethodLightingSetLight, wire.SetLightArgs{Index: index, Light: light}, &r)
+	return call[wire.LightInfo](l.c, wire.MethodLightingSetLight, wire.SetLightArgs{Index: index, Light: light})
 }
 
 // Environment is the image-based-lighting operation group: it lets an add-in read, switch,
@@ -86,8 +80,7 @@ func (c *Client) Environment() Environment { return Environment{c} }
 // mcp:tool get_environment
 // mcp:summary Read the HDR/IBL environment (sky preset or loaded image, rotation, intensity, background).
 func (e Environment) Get() (wire.EnvironmentView, error) {
-	var r wire.EnvironmentView
-	return r, e.c.call(wire.MethodEnvironmentGet, nil, &r)
+	return call[wire.EnvironmentView](e.c, wire.MethodEnvironmentGet, nil)
 }
 
 // Set activates the named built-in preset with the given display parameters.
@@ -97,8 +90,7 @@ func (e Environment) Get() (wire.EnvironmentView, error) {
 // mcp:tool set_environment
 // mcp:summary Set the environment: choose a preset or tune rotation/intensity/background visibility.
 func (e Environment) Set(args wire.SetEnvironmentArgs) (wire.EnvironmentView, error) {
-	var r wire.EnvironmentView
-	return r, e.c.call(wire.MethodEnvironmentSet, args, &r)
+	return call[wire.EnvironmentView](e.c, wire.MethodEnvironmentSet, args)
 }
 
 // ListPresets returns every built-in environment, flagging the active one.
@@ -106,8 +98,7 @@ func (e Environment) Set(args wire.SetEnvironmentArgs) (wire.EnvironmentView, er
 // mcp:tool list_environment_presets
 // mcp:summary List the built-in environment (sky/IBL) presets.
 func (e Environment) ListPresets() (wire.EnvironmentPresetListResult, error) {
-	var r wire.EnvironmentPresetListResult
-	return r, e.c.call(wire.MethodEnvironmentListPresets, nil, &r)
+	return call[wire.EnvironmentPresetListResult](e.c, wire.MethodEnvironmentListPresets, nil)
 }
 
 // LoadImage loads an equirectangular HDR file (.hdr) as the environment.
@@ -115,8 +106,7 @@ func (e Environment) ListPresets() (wire.EnvironmentPresetListResult, error) {
 // mcp:tool load_environment_image
 // mcp:summary Load an HDR/EXR image as the lighting environment (image-based lighting) by reference.
 func (e Environment) LoadImage(filePath string) (wire.EnvironmentView, error) {
-	var r wire.EnvironmentView
-	return r, e.c.call(wire.MethodEnvironmentLoadImage, wire.LoadEnvironmentImageArgs{FilePath: filePath}, &r)
+	return call[wire.EnvironmentView](e.c, wire.MethodEnvironmentLoadImage, wire.LoadEnvironmentImageArgs{FilePath: filePath})
 }
 
 // Shadows returns the viewport's current shadow settings.
@@ -124,8 +114,7 @@ func (e Environment) LoadImage(filePath string) (wire.EnvironmentView, error) {
 // mcp:tool get_shadows
 // mcp:summary Read the viewport's shadow settings (ground/object shadows, direction, softness).
 func (v View) Shadows() (wire.ShadowSettings, error) {
-	var r wire.ShadowSettings
-	return r, v.c.call(wire.MethodViewGetShadows, nil, &r)
+	return call[wire.ShadowSettings](v.c, wire.MethodViewGetShadows, nil)
 }
 
 // SetShadows applies the viewport's shadow settings, returning the resulting settings.
@@ -133,6 +122,5 @@ func (v View) Shadows() (wire.ShadowSettings, error) {
 // mcp:tool set_shadows
 // mcp:summary Apply the viewport's shadow settings and return the resulting settings.
 func (v View) SetShadows(s wire.ShadowSettings) (wire.ShadowSettings, error) {
-	var r wire.ShadowSettings
-	return r, v.c.call(wire.MethodViewSetShadows, s, &r)
+	return call[wire.ShadowSettings](v.c, wire.MethodViewSetShadows, s)
 }

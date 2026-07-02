@@ -13,8 +13,7 @@ import (
 // mcp:tool add_sketch3d_constraint
 // mcp:summary Add a geometric constraint to a 3D sketch: {sketchIndex, kind, entities:[ids…]}.
 func (s Sketch3D) AddConstraint(args wire.AddSketch3DConstraintArgs) (wire.AddSketch3DConstraintResult, error) {
-	var r wire.AddSketch3DConstraintResult
-	return r, s.c.call(wire.MethodSketch3DAddConstraint, args, &r)
+	return call[wire.AddSketch3DConstraintResult](s.c, wire.MethodSketch3DAddConstraint, args)
 }
 
 // constrain is the shared helper for the kind-specific constraint constructors.
@@ -62,7 +61,6 @@ func (s Sketch3D) ParallelToAxis(index int, line uint64, kind types.Geometric3DC
 // mcp:tool delete_sketch3d_constraint
 // mcp:summary Delete a 3D-sketch geometric constraint by index.
 func (s Sketch3D) DeleteConstraint(index, constraintIndex int) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.DeleteSketch3DConstraintArgs{SketchIndex: index, ConstraintIndex: constraintIndex}
-	return r, s.c.call(wire.MethodSketch3DDeleteConstraint, args, &r)
+	return call[wire.OKResult](s.c, wire.MethodSketch3DDeleteConstraint, args)
 }

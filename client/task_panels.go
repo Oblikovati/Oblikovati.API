@@ -18,8 +18,7 @@ func (c *Client) TaskPanels() TaskPanels { return TaskPanels{c} }
 // mcp:tool task_panel_show
 // mcp:summary Show a modal task panel (OK/Cancel) built from declarative controls.
 func (t TaskPanels) Show(p wire.TaskPanelSpec) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, t.c.call(wire.MethodTaskPanelShow, wire.ShowTaskPanelArgs{Panel: p}, &r)
+	return call[wire.OKResult](t.c, wire.MethodTaskPanelShow, wire.ShowTaskPanelArgs{Panel: p})
 }
 
 // Close dismisses an open task panel programmatically.
@@ -27,6 +26,5 @@ func (t TaskPanels) Show(p wire.TaskPanelSpec) (wire.OKResult, error) {
 // mcp:tool task_panel_close
 // mcp:summary Dismiss an open task panel programmatically.
 func (t TaskPanels) Close(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, t.c.call(wire.MethodTaskPanelClose, wire.CloseTaskPanelArgs{ID: id}, &r)
+	return call[wire.OKResult](t.c, wire.MethodTaskPanelClose, wire.CloseTaskPanelArgs{ID: id})
 }

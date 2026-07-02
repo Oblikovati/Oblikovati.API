@@ -24,9 +24,8 @@ func (s Sketch) Constrain(index int) Constrain { return Constrain{s.c, index} }
 // mcp:tool add_sketch_constraint
 // mcp:summary Add a geometric constraint: {sketchIndex, kind, entities:[ids…]}. kind is coincident|horizontal|vertical|parallel|perpendicular|collinear|concentric|tangent|equalLength|equalRadius|pointOnLine|midpoint|pointOnCircle|fix|ground|symmetric|smooth. Entity arity depends on the kind.
 func (g Constrain) Add(kind types.GeometricConstraintKind, entities ...uint64) (wire.AddConstraintResult, error) {
-	var r wire.AddConstraintResult
 	args := wire.AddConstraintArgs{SketchIndex: g.index, Kind: string(kind), Entities: entities}
-	return r, g.c.call(wire.MethodSketchAddConstraint, args, &r)
+	return call[wire.AddConstraintResult](g.c, wire.MethodSketchAddConstraint, args)
 }
 
 // Coincident makes two points coincident.
@@ -120,7 +119,6 @@ func (g Constrain) PatternLink(seed, member uint64) (wire.AddConstraintResult, e
 // mcp:tool delete_sketch_constraint
 // mcp:summary Delete a geometric constraint by its index (see list_sketch_constraints).
 func (g Constrain) Delete(constraintIndex int) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.DeleteConstraintArgs{SketchIndex: g.index, ConstraintIndex: constraintIndex}
-	return r, g.c.call(wire.MethodSketchDeleteConstraint, args, &r)
+	return call[wire.OKResult](g.c, wire.MethodSketchDeleteConstraint, args)
 }

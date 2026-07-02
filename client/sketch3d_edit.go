@@ -10,8 +10,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool transform_sketch3d
 // mcp:summary Transform selected 3D-sketch entities (move/copy/rotate) by a vector/axis/angle.
 func (s Sketch3D) Transform(args wire.Transform3DArgs) (wire.Transform3DResult, error) {
-	var r wire.Transform3DResult
-	return r, s.c.call(wire.MethodSketch3DTransform, args, &r)
+	return call[wire.Transform3DResult](s.c, wire.MethodSketch3DTransform, args)
 }
 
 // Move translates the entities by vector [x,y,z] (cm); Copy duplicates them translated.

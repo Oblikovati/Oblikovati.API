@@ -12,8 +12,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool parameters_get_settings
 // mcp:summary Returns the document's parameter settings.
 func (p Parameters) GetSettings() (wire.ParameterSettingsInfo, error) {
-	var r wire.ParameterSettingsInfo
-	return r, p.c.call(wire.MethodParametersGetSettings, nil, &r)
+	return call[wire.ParameterSettingsInfo](p.c, wire.MethodParametersGetSettings, nil)
 }
 
 // SetSettings applies the non-nil settings mutations and returns the updated
@@ -22,8 +21,7 @@ func (p Parameters) GetSettings() (wire.ParameterSettingsInfo, error) {
 // mcp:tool parameters_set_settings
 // mcp:summary Applies the non-nil settings mutations and returns the updated settings.
 func (p Parameters) SetSettings(args wire.ParameterSettingsUpdateArgs) (wire.ParameterSettingsInfo, error) {
-	var r wire.ParameterSettingsInfo
-	return r, p.c.call(wire.MethodParametersSetSettings, args, &r)
+	return call[wire.ParameterSettingsInfo](p.c, wire.MethodParametersSetSettings, args)
 }
 
 // SetAllModelValueType drives every toleranced parameter's model-value
@@ -33,8 +31,7 @@ func (p Parameters) SetSettings(args wire.ParameterSettingsUpdateArgs) (wire.Par
 // mcp:tool parameters_set_all_model_value_type
 // mcp:summary Drives every toleranced parameter's model-value selection to one bound (nominal/lower/upper/median) in a single undo step, for limit-stack studies.
 func (p Parameters) SetAllModelValueType(modelValueType string) (wire.ParameterSweepResult, error) {
-	var r wire.ParameterSweepResult
-	return r, p.c.call(wire.MethodParametersSetAllModelValueType, wire.ParameterSweepArgs{ModelValueType: modelValueType}, &r)
+	return call[wire.ParameterSweepResult](p.c, wire.MethodParametersSetAllModelValueType, wire.ParameterSweepArgs{ModelValueType: modelValueType})
 }
 
 // Export returns the document's user parameters as the documented
@@ -43,8 +40,7 @@ func (p Parameters) SetAllModelValueType(modelValueType string) (wire.ParameterS
 // mcp:tool parameters_export
 // mcp:summary Returns the document's user parameters as the documented parameter-set XML for exchange with spreadsheet/PDM tooling.
 func (p Parameters) Export() (wire.ParameterExportResult, error) {
-	var r wire.ParameterExportResult
-	return r, p.c.call(wire.MethodParametersExport, nil, &r)
+	return call[wire.ParameterExportResult](p.c, wire.MethodParametersExport, nil)
 }
 
 // Import applies a parameter-set XML document: new names are created, known
@@ -54,6 +50,5 @@ func (p Parameters) Export() (wire.ParameterExportResult, error) {
 // mcp:tool parameters_import
 // mcp:summary Applies a parameter-set XML document: new names are created, known names updated.
 func (p Parameters) Import(xml string) (wire.ParameterImportResult, error) {
-	var r wire.ParameterImportResult
-	return r, p.c.call(wire.MethodParametersImport, wire.ParameterImportArgs{XML: xml}, &r)
+	return call[wire.ParameterImportResult](p.c, wire.MethodParametersImport, wire.ParameterImportArgs{XML: xml})
 }

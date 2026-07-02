@@ -13,8 +13,7 @@ import (
 // mcp:tool add_sketch3d_dimension
 // mcp:summary Add a dimensional constraint to a 3D sketch (kind + entities + unit expression).
 func (s Sketch3D) AddDimension(args wire.AddSketch3DDimensionArgs) (wire.AddSketch3DDimensionResult, error) {
-	var r wire.AddSketch3DDimensionResult
-	return r, s.c.call(wire.MethodSketch3DAddDimension, args, &r)
+	return call[wire.AddSketch3DDimensionResult](s.c, wire.MethodSketch3DAddDimension, args)
 }
 
 // Distance dimensions the distance between two 3D points to a unit-bearing value.
@@ -56,6 +55,5 @@ func (s Sketch3D) TwoLineAngle(index int, l1, l2 uint64, value string) (wire.Add
 // mcp:tool drive_sketch3d_dimension
 // mcp:summary Change a 3D-sketch dimension's expression and recompute.
 func (s Sketch3D) DriveDimension(args wire.DriveSketch3DDimensionArgs) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, s.c.call(wire.MethodSketch3DDriveDimension, args, &r)
+	return call[wire.OKResult](s.c, wire.MethodSketch3DDriveDimension, args)
 }

@@ -18,8 +18,7 @@ func (c *Client) Threads() Threads { return Threads{c} }
 // mcp:tool threads_table_query
 // mcp:summary Lists the thread tables progressively: thread types always; a type's nominal sizes, a size's designations, and a designation's classes as each filter is given, e.g.
 func (t Threads) TableQuery(args wire.ThreadTableQueryArgs) (wire.ThreadTableQueryResult, error) {
-	var r wire.ThreadTableQueryResult
-	return r, t.c.call(wire.MethodThreadsTableQuery, args, &r)
+	return call[wire.ThreadTableQueryResult](t.c, wire.MethodThreadsTableQuery, args)
 }
 
 // Resolve resolves a designation (with optional class / handedness / tapered
@@ -29,6 +28,5 @@ func (t Threads) TableQuery(args wire.ThreadTableQueryArgs) (wire.ThreadTableQue
 // mcp:tool threads_resolve
 // mcp:summary Resolves a designation (with optional class / handedness / tapered flag) to its thread data, e.g.
 func (t Threads) Resolve(args wire.ResolveThreadArgs) (wire.ThreadInfoResult, error) {
-	var r wire.ThreadInfoResult
-	return r, t.c.call(wire.MethodThreadsResolve, args, &r)
+	return call[wire.ThreadInfoResult](t.c, wire.MethodThreadsResolve, args)
 }

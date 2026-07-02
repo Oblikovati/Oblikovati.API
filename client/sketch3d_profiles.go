@@ -10,8 +10,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool list_sketch3d_profiles
 // mcp:summary Enumerate a 3D sketch's closed profiles.
 func (s Sketch3D) Profiles(index int) (wire.ListProfiles3DResult, error) {
-	var r wire.ListProfiles3DResult
-	return r, s.c.call(wire.MethodSketch3DProfiles, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.ListProfiles3DResult](s.c, wire.MethodSketch3DProfiles, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Paths enumerates the connected line/arc chains of the 3D sketch (the sweep/loft rails),
@@ -20,6 +19,5 @@ func (s Sketch3D) Profiles(index int) (wire.ListProfiles3DResult, error) {
 // mcp:tool list_sketch3d_paths
 // mcp:summary Enumerate a 3D sketch's open paths — the sweep/loft path candidates.
 func (s Sketch3D) Paths(index int) (wire.ListPaths3DResult, error) {
-	var r wire.ListPaths3DResult
-	return r, s.c.call(wire.MethodSketch3DPaths, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.ListPaths3DResult](s.c, wire.MethodSketch3DPaths, wire.Sketch3DArgs{SketchIndex: index})
 }

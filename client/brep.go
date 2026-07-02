@@ -20,8 +20,7 @@ func (c *Client) TransientBRep() TransientBRep { return TransientBRep{c} }
 // mcp:tool brep_create_primitive
 // mcp:summary Creates a solid block/cylinderCone/sphere/torus.
 func (t TransientBRep) CreatePrimitive(args wire.CreatePrimitiveArgs) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepCreatePrimitive, args, &r)
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepCreatePrimitive, args)
 }
 
 // DoBoolean combines the blank (modified in place) with the tool.
@@ -29,10 +28,9 @@ func (t TransientBRep) CreatePrimitive(args wire.CreatePrimitiveArgs) (wire.Brep
 // mcp:tool brep_boolean
 // mcp:summary Combines the blank (modified in place) with the tool.
 func (t TransientBRep) DoBoolean(blankHandle int, tool wire.BrepBodyRef, op types.BooleanType) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepBoolean, wire.BrepBooleanArgs{
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepBoolean, wire.BrepBooleanArgs{
 		BlankHandle: blankHandle, Tool: tool, Operation: op.String(),
-	}, &r)
+	})
 }
 
 // Transform maps the body by a 4×4 row-major rigid/similarity matrix.
@@ -40,8 +38,7 @@ func (t TransientBRep) DoBoolean(blankHandle int, tool wire.BrepBodyRef, op type
 // mcp:tool brep_transform
 // mcp:summary Maps the body by a 4×4 row-major rigid/similarity matrix.
 func (t TransientBRep) Transform(handle int, matrix []float64) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepTransform, wire.BrepTransformArgs{Handle: handle, Matrix: matrix}, &r)
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepTransform, wire.BrepTransformArgs{Handle: handle, Matrix: matrix})
 }
 
 // Copy clones a transient or document body into a new transient body.
@@ -49,8 +46,7 @@ func (t TransientBRep) Transform(handle int, matrix []float64) (wire.BrepHandleR
 // mcp:tool brep_copy
 // mcp:summary Clones a transient or document body into a new transient body.
 func (t TransientBRep) Copy(source wire.BrepBodyRef) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepCopy, wire.BrepCopyArgs{Source: source}, &r)
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepCopy, wire.BrepCopyArgs{Source: source})
 }
 
 // CreateIntersectionWithPlane sections a body with a plane; the section
@@ -59,10 +55,9 @@ func (t TransientBRep) Copy(source wire.BrepBodyRef) (wire.BrepHandleResult, err
 // mcp:tool brep_section_with_plane
 // mcp:summary Sections a body with a plane; the section curves come back as wires on a new transient body.
 func (t TransientBRep) CreateIntersectionWithPlane(source wire.BrepBodyRef, planeOrigin, planeNormal []float64) (wire.BrepWiresResult, error) {
-	var r wire.BrepWiresResult
-	return r, t.c.call(wire.MethodBrepSectionWithPlane, wire.BrepSectionArgs{
+	return call[wire.BrepWiresResult](t.c, wire.MethodBrepSectionWithPlane, wire.BrepSectionArgs{
 		Source: source, PlaneOrigin: planeOrigin, PlaneNormal: planeNormal,
-	}, &r)
+	})
 }
 
 // DeleteFaces removes the named faces (or with keepInstead all others)
@@ -71,10 +66,9 @@ func (t TransientBRep) CreateIntersectionWithPlane(source wire.BrepBodyRef, plan
 // mcp:tool brep_delete_faces
 // mcp:summary Removes the named faces (or with keepInstead all others) without healing.
 func (t TransientBRep) DeleteFaces(handle int, faceKeys []string, keepInstead bool) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepDeleteFaces, wire.BrepDeleteFacesArgs{
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepDeleteFaces, wire.BrepDeleteFacesArgs{
 		Handle: handle, FaceKeys: faceKeys, KeepInstead: keepInstead,
-	}, &r)
+	})
 }
 
 // CreateSilhouetteCurve traces one face's silhouette from a view direction.
@@ -82,8 +76,7 @@ func (t TransientBRep) DeleteFaces(handle int, faceKeys []string, keepInstead bo
 // mcp:tool brep_silhouette
 // mcp:summary Traces one face's silhouette from a view direction.
 func (t TransientBRep) CreateSilhouetteCurve(args wire.BrepSilhouetteArgs) (wire.BrepWiresResult, error) {
-	var r wire.BrepWiresResult
-	return r, t.c.call(wire.MethodBrepSilhouette, args, &r)
+	return call[wire.BrepWiresResult](t.c, wire.MethodBrepSilhouette, args)
 }
 
 // CreateRuledSurface builds the ruled surface between two wire sections.
@@ -91,10 +84,9 @@ func (t TransientBRep) CreateSilhouetteCurve(args wire.BrepSilhouetteArgs) (wire
 // mcp:tool brep_ruled_surface
 // mcp:summary Builds the ruled surface between two wire sections.
 func (t TransientBRep) CreateRuledSurface(sectionOne, sectionTwo wire.BrepWireRef) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepRuledSurface, wire.BrepRuledSurfaceArgs{
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepRuledSurface, wire.BrepRuledSurfaceArgs{
 		SectionOne: sectionOne, SectionTwo: sectionTwo,
-	}, &r)
+	})
 }
 
 // OffsetFaces offsets the named faces of source by distance along their surface normals, returning a
@@ -104,8 +96,7 @@ func (t TransientBRep) CreateRuledSurface(sectionOne, sectionTwo wire.BrepWireRe
 // mcp:tool brep_offset_faces
 // mcp:summary Offsets the named faces of a body by a distance along their normals; the offset faces come back on a new transient body.
 func (t TransientBRep) OffsetFaces(args wire.BrepOffsetFacesArgs) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepOffsetFaces, args, &r)
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepOffsetFaces, args)
 }
 
 // ImprintBodies face-splits two bodies along their intersections without
@@ -114,8 +105,7 @@ func (t TransientBRep) OffsetFaces(args wire.BrepOffsetFacesArgs) (wire.BrepHand
 // mcp:tool brep_imprint
 // mcp:summary Face-splits two bodies along their intersections without removing material.
 func (t TransientBRep) ImprintBodies(args wire.BrepImprintArgs) (wire.BrepImprintResult, error) {
-	var r wire.BrepImprintResult
-	return r, t.c.call(wire.MethodBrepImprint, args, &r)
+	return call[wire.BrepImprintResult](t.c, wire.MethodBrepImprint, args)
 }
 
 // GetIdenticalBodies groups congruent bodies.
@@ -123,8 +113,7 @@ func (t TransientBRep) ImprintBodies(args wire.BrepImprintArgs) (wire.BrepImprin
 // mcp:tool brep_identical_bodies
 // mcp:summary Groups congruent bodies.
 func (t TransientBRep) GetIdenticalBodies(args wire.BrepIdenticalBodiesArgs) (wire.BrepIdenticalBodiesResult, error) {
-	var r wire.BrepIdenticalBodiesResult
-	return r, t.c.call(wire.MethodBrepIdenticalBodies, args, &r)
+	return call[wire.BrepIdenticalBodiesResult](t.c, wire.MethodBrepIdenticalBodies, args)
 }
 
 // CreateFromDefinition compiles a bottom-up definition graph into a body,
@@ -133,8 +122,7 @@ func (t TransientBRep) GetIdenticalBodies(args wire.BrepIdenticalBodiesArgs) (wi
 // mcp:tool brep_create_from_definition
 // mcp:summary Compiles a bottom-up definition graph into a body, returning per-definition issues instead when the graph is unsound.
 func (t TransientBRep) CreateFromDefinition(def types.BrepBodyDefinition) (wire.BrepCreateFromDefinitionResult, error) {
-	var r wire.BrepCreateFromDefinitionResult
-	return r, t.c.call(wire.MethodBrepCreateFromDefinition, wire.BrepCreateFromDefinitionArgs{Definition: def}, &r)
+	return call[wire.BrepCreateFromDefinitionResult](t.c, wire.MethodBrepCreateFromDefinition, wire.BrepCreateFromDefinitionArgs{Definition: def})
 }
 
 // Describe returns a transient body's current stats.
@@ -142,8 +130,7 @@ func (t TransientBRep) CreateFromDefinition(def types.BrepBodyDefinition) (wire.
 // mcp:tool brep_describe
 // mcp:summary Returns a transient body's current stats.
 func (t TransientBRep) Describe(handle int) (wire.BrepHandleResult, error) {
-	var r wire.BrepHandleResult
-	return r, t.c.call(wire.MethodBrepDescribe, wire.BrepHandleArgs{Handle: handle}, &r)
+	return call[wire.BrepHandleResult](t.c, wire.MethodBrepDescribe, wire.BrepHandleArgs{Handle: handle})
 }
 
 // List enumerates the live transient handles.
@@ -151,8 +138,7 @@ func (t TransientBRep) Describe(handle int) (wire.BrepHandleResult, error) {
 // mcp:tool brep_list
 // mcp:summary Enumerates the live transient handles.
 func (t TransientBRep) List() (wire.BrepListResult, error) {
-	var r wire.BrepListResult
-	return r, t.c.call(wire.MethodBrepList, struct{}{}, &r)
+	return call[wire.BrepListResult](t.c, wire.MethodBrepList, struct{}{})
 }
 
 // Delete frees a transient body.
@@ -160,6 +146,6 @@ func (t TransientBRep) List() (wire.BrepListResult, error) {
 // mcp:tool brep_delete
 // mcp:summary Frees a transient body.
 func (t TransientBRep) Delete(handle int) error {
-	var r wire.OKResult
-	return t.c.call(wire.MethodBrepDelete, wire.BrepHandleArgs{Handle: handle}, &r)
+	_, err := call[wire.OKResult](t.c, wire.MethodBrepDelete, wire.BrepHandleArgs{Handle: handle})
+	return err
 }

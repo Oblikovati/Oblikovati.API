@@ -27,8 +27,7 @@ func (a Attributes) Set(document uint64, set, name string, value types.Variant) 
 // mcp:tool set_attribute
 // mcp:summary Store a typed value under a name in a named set on a document, optionally anchored to an entity by reference key.
 func (a Attributes) SetOn(document uint64, target, set, name string, value types.Variant) (wire.AttributeResult, error) {
-	var r wire.AttributeResult
-	return r, a.c.call(wire.MethodAttributesSet, wire.SetAttributeArgs{Document: document, Set: set, Name: name, Value: value, Target: target}, &r)
+	return call[wire.AttributeResult](a.c, wire.MethodAttributesSet, wire.SetAttributeArgs{Document: document, Set: set, Name: name, Value: value, Target: target})
 }
 
 // Get reads one document-scoped attribute by set and name; Found is false when it is absent.
@@ -42,8 +41,7 @@ func (a Attributes) Get(document uint64, set, name string) (wire.AttributeResult
 // mcp:tool get_attribute
 // mcp:summary Read a stored attribute by set and name on a document (optionally anchored to an entity by reference key).
 func (a Attributes) GetOn(document uint64, target, set, name string) (wire.AttributeResult, error) {
-	var r wire.AttributeResult
-	return r, a.c.call(wire.MethodAttributesGet, wire.GetAttributeArgs{Document: document, Set: set, Name: name, Target: target}, &r)
+	return call[wire.AttributeResult](a.c, wire.MethodAttributesGet, wire.GetAttributeArgs{Document: document, Set: set, Name: name, Target: target})
 }
 
 // List returns the document-scoped attributes, or only those in set when set is non-empty.
@@ -51,22 +49,19 @@ func (a Attributes) GetOn(document uint64, target, set, name string) (wire.Attri
 // mcp:tool list_attributes
 // mcp:summary List the document-scoped attributes on a document (optionally filtered to one set).
 func (a Attributes) List(document uint64, set string) (wire.ListAttributesResult, error) {
-	var r wire.ListAttributesResult
-	return r, a.c.call(wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set}, &r)
+	return call[wire.ListAttributesResult](a.c, wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set})
 }
 
 // ListOn returns the attributes anchored to the given target (empty = the document itself),
 // optionally filtered to one set.
 func (a Attributes) ListOn(document uint64, target, set string) (wire.ListAttributesResult, error) {
-	var r wire.ListAttributesResult
-	return r, a.c.call(wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set, Target: target}, &r)
+	return call[wire.ListAttributesResult](a.c, wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set, Target: target})
 }
 
 // ListAll returns every attribute on every target in the document (each result carries its own
 // Target), optionally filtered to one set. Use it to read back all of an add-in's per-entity tags.
 func (a Attributes) ListAll(document uint64, set string) (wire.ListAttributesResult, error) {
-	var r wire.ListAttributesResult
-	return r, a.c.call(wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set, AllTargets: true}, &r)
+	return call[wire.ListAttributesResult](a.c, wire.MethodAttributesList, wire.ListAttributesArgs{Document: document, Set: set, AllTargets: true})
 }
 
 // ListSets returns the document's attribute set names, sorted.
@@ -74,8 +69,7 @@ func (a Attributes) ListAll(document uint64, set string) (wire.ListAttributesRes
 // mcp:tool list_attribute_sets
 // mcp:summary List the attribute set names on a document.
 func (a Attributes) ListSets(document uint64) (wire.ListAttributeSetsResult, error) {
-	var r wire.ListAttributeSetsResult
-	return r, a.c.call(wire.MethodAttributesListSets, wire.ListAttributeSetsArgs{Document: document}, &r)
+	return call[wire.ListAttributeSetsResult](a.c, wire.MethodAttributesListSets, wire.ListAttributeSetsArgs{Document: document})
 }
 
 // Delete removes the named document-scoped attribute in the set, or the whole set when name is
@@ -91,8 +85,7 @@ func (a Attributes) Delete(document uint64, set, name string) (wire.DeleteAttrib
 // mcp:tool delete_attribute
 // mcp:summary Delete an attribute (or a whole set when name is empty) on a document, optionally anchored to an entity by reference key.
 func (a Attributes) DeleteOn(document uint64, target, set, name string) (wire.DeleteAttributeResult, error) {
-	var r wire.DeleteAttributeResult
-	return r, a.c.call(wire.MethodAttributesDelete, wire.DeleteAttributeArgs{Document: document, Set: set, Name: name, Target: target}, &r)
+	return call[wire.DeleteAttributeResult](a.c, wire.MethodAttributesDelete, wire.DeleteAttributeArgs{Document: document, Set: set, Name: name, Target: target})
 }
 
 // Find locates the open documents carrying an attribute in set; restrict to a name when non-empty.
@@ -100,6 +93,5 @@ func (a Attributes) DeleteOn(document uint64, target, set, name string) (wire.De
 // mcp:tool find_by_attribute
 // mcp:summary Find the open documents carrying an attribute in a given set (optionally by name).
 func (a Attributes) Find(set, name string) (wire.FindByAttributeResult, error) {
-	var r wire.FindByAttributeResult
-	return r, a.c.call(wire.MethodAttributesFind, wire.FindByAttributeArgs{Set: set, Name: name}, &r)
+	return call[wire.FindByAttributeResult](a.c, wire.MethodAttributesFind, wire.FindByAttributeArgs{Set: set, Name: name})
 }

@@ -13,8 +13,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool sketch_set_custom_line_type
 // mcp:summary Loads a named line-type definition from an industry-standard .lin file onto the sketch and switches its lineType override to "custom".
 func (s Sketch) SetCustomLineType(args wire.SetSketchCustomLineTypeArgs) (wire.SketchCustomLineTypeResult, error) {
-	var r wire.SketchCustomLineTypeResult
-	return r, s.c.call(wire.MethodSketchSetCustomLineType, args, &r)
+	return call[wire.SketchCustomLineTypeResult](s.c, wire.MethodSketchSetCustomLineType, args)
 }
 
 // GetCustomLineType returns the sketch's loaded custom line-type definition, if any.
@@ -24,6 +23,5 @@ func (s Sketch) SetCustomLineType(args wire.SetSketchCustomLineTypeArgs) (wire.S
 // mcp:tool sketch_get_custom_line_type
 // mcp:summary Returns the sketch's loaded custom line-type definition, if any.
 func (s Sketch) GetCustomLineType(index int) (wire.SketchCustomLineTypeResult, error) {
-	var r wire.SketchCustomLineTypeResult
-	return r, s.c.call(wire.MethodSketchGetCustomLineType, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.SketchCustomLineTypeResult](s.c, wire.MethodSketchGetCustomLineType, wire.SketchArgs{SketchIndex: index})
 }

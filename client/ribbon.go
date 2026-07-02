@@ -18,8 +18,7 @@ func (c *Client) Ribbon() Ribbon { return Ribbon{c} }
 // mcp:tool get_ribbon
 // mcp:summary Read the ribbon shown for the active document (ZeroDoc when none open): its tabs, panels, and controls — the names to place add-in buttons into.
 func (rb Ribbon) List() (wire.ListRibbonResult, error) {
-	var r wire.ListRibbonResult
-	return r, rb.c.call(wire.MethodRibbonList, nil, &r)
+	return call[wire.ListRibbonResult](rb.c, wire.MethodRibbonList, nil)
 }
 
 // Environments returns the UI environments the command framework scopes by (base,
@@ -29,6 +28,5 @@ func (rb Ribbon) List() (wire.ListRibbonResult, error) {
 // mcp:tool ui_list_environments
 // mcp:summary Returns the UI environments the command framework scopes by (base, sketch, …), flagging the active one — so an add-in placing contextual commands knows which contexts exist (add-in-created environments: Oblikovati#667).
 func (rb Ribbon) Environments() (wire.ListEnvironmentsResult, error) {
-	var r wire.ListEnvironmentsResult
-	return r, rb.c.call(wire.MethodUIListEnvironments, nil, &r)
+	return call[wire.ListEnvironmentsResult](rb.c, wire.MethodUIListEnvironments, nil)
 }

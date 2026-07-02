@@ -10,9 +10,8 @@ import "oblikovati.org/api/wire"
 // mcp:tool offset_sketch
 // mcp:summary Offset a sketch curve (entity id), a line chain (entities), or a whole closed region (profileIndex) by a distance expression — region offset is OpenSCAD offset(r): +grows/−shrinks with rounded convex corners.
 func (s Sketch) Offset(index int, entity uint64, distance string) (wire.OffsetSketchResult, error) {
-	var r wire.OffsetSketchResult
 	args := wire.OffsetSketchArgs{SketchIndex: index, Entity: entity, Distance: distance}
-	return r, s.c.call(wire.MethodSketchOffset, args, &r)
+	return call[wire.OffsetSketchResult](s.c, wire.MethodSketchOffset, args)
 }
 
 // OffsetChain offsets a connected chain of lines (ids in order) by a signed unit-bearing
@@ -21,9 +20,8 @@ func (s Sketch) Offset(index int, entity uint64, distance string) (wire.OffsetSk
 // mcp:tool offset_sketch
 // mcp:summary Offset a sketch curve (entity id), a line chain (entities), or a whole closed region (profileIndex) by a distance expression — region offset is OpenSCAD offset(r): +grows/−shrinks with rounded convex corners.
 func (s Sketch) OffsetChain(index int, lines []uint64, distance string) (wire.OffsetSketchResult, error) {
-	var r wire.OffsetSketchResult
 	args := wire.OffsetSketchArgs{SketchIndex: index, Entities: lines, Distance: distance}
-	return r, s.c.call(wire.MethodSketchOffset, args, &r)
+	return call[wire.OffsetSketchResult](s.c, wire.MethodSketchOffset, args)
 }
 
 // AutoDimension fully constrains the sketch (grounds free geometry to 0 DOF), returning
@@ -32,8 +30,7 @@ func (s Sketch) OffsetChain(index int, lines []uint64, distance string) (wire.Of
 // mcp:tool auto_dimension_sketch
 // mcp:summary Fully constrain a sketch automatically with dimensions and constraints; reports any remaining DOF.
 func (s Sketch) AutoDimension(index int) (wire.AutoDimensionResult, error) {
-	var r wire.AutoDimensionResult
-	return r, s.c.call(wire.MethodSketchAutoDimension, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.AutoDimensionResult](s.c, wire.MethodSketchAutoDimension, wire.SketchArgs{SketchIndex: index})
 }
 
 // Project projects part edges/vertices (by reference-key string) onto the sketch plane as
@@ -42,9 +39,8 @@ func (s Sketch) AutoDimension(index int) (wire.AutoDimensionResult, error) {
 // mcp:tool project_geometry
 // mcp:summary Project part edges/vertices/faces (by reference key) onto a sketch as reference geometry: {sketchIndex, refs:[…], mode}.
 func (s Sketch) Project(index int, refs []string, mode string) (wire.ProjectGeometryResult, error) {
-	var r wire.ProjectGeometryResult
 	args := wire.ProjectGeometryArgs{SketchIndex: index, Refs: refs, Mode: mode}
-	return r, s.c.call(wire.MethodSketchProject, args, &r)
+	return call[wire.ProjectGeometryResult](s.c, wire.MethodSketchProject, args)
 }
 
 // Include projects part topology as ordinary sketch geometry (a convenience for Project
@@ -59,12 +55,11 @@ func (s Sketch) Include(index int, refs []string) (wire.ProjectGeometryResult, e
 // mcp:tool add_sketch_image
 // mcp:summary Place a raster image into a sketch (reference, anchor, size, rotation, opacity).
 func (s Sketch) AddImage(index int, ref string, anchor []float64, width, height, rotation string, opacity float64) (wire.AddSketchImageResult, error) {
-	var r wire.AddSketchImageResult
 	args := wire.AddSketchImageArgs{
 		SketchIndex: index, Ref: ref, Anchor: anchor,
 		Width: width, Height: height, Rotation: rotation, Opacity: opacity,
 	}
-	return r, s.c.call(wire.MethodSketchAddImage, args, &r)
+	return call[wire.AddSketchImageResult](s.c, wire.MethodSketchAddImage, args)
 }
 
 // AddFillRegion fills the closed region containing seed ([x,y] cm) with the named style.
@@ -72,9 +67,8 @@ func (s Sketch) AddImage(index int, ref string, anchor []float64, width, height,
 // mcp:tool add_fill_region
 // mcp:summary Add a fill/hatch region to a sketch, seeded at a point [x,y] inside a closed loop.
 func (s Sketch) AddFillRegion(index int, seed []float64, style string) (wire.AddEntityIDResult, error) {
-	var r wire.AddEntityIDResult
 	args := wire.AddFillRegionArgs{SketchIndex: index, Seed: seed, Style: style}
-	return r, s.c.call(wire.MethodSketchAddFillRegion, args, &r)
+	return call[wire.AddEntityIDResult](s.c, wire.MethodSketchAddFillRegion, args)
 }
 
 // AddText places sketch text at anchor ([x,y] cm) with a unit-bearing height; rotation and
@@ -83,9 +77,8 @@ func (s Sketch) AddFillRegion(index int, seed []float64, style string) (wire.Add
 // mcp:tool add_sketch_text
 // mcp:summary Add a text box to a sketch at an anchor [x,y] with a string, height and optional rotation/justify.
 func (s Sketch) AddText(index int, anchor []float64, text, height, rotation, justify string) (wire.AddEntityIDResult, error) {
-	var r wire.AddEntityIDResult
 	args := wire.AddTextArgs{SketchIndex: index, Anchor: anchor, Text: text, Height: height, Rotation: rotation, Justify: justify}
-	return r, s.c.call(wire.MethodSketchAddText, args, &r)
+	return call[wire.AddEntityIDResult](s.c, wire.MethodSketchAddText, args)
 }
 
 // AddTextWith places sketch text with the full field set (font family/size + vertical
@@ -94,8 +87,7 @@ func (s Sketch) AddText(index int, anchor []float64, text, height, rotation, jus
 // mcp:tool add_sketch_text
 // mcp:summary Add a text box to a sketch at an anchor [x,y] with a string, height and optional rotation/justify.
 func (s Sketch) AddTextWith(args wire.AddTextArgs) (wire.AddEntityIDResult, error) {
-	var r wire.AddEntityIDResult
-	return r, s.c.call(wire.MethodSketchAddText, args, &r)
+	return call[wire.AddEntityIDResult](s.c, wire.MethodSketchAddText, args)
 }
 
 // SetTextFont sets the font of the sketch text entity entityID: pass a system font file path
@@ -105,8 +97,7 @@ func (s Sketch) AddTextWith(args wire.AddTextArgs) (wire.AddEntityIDResult, erro
 // mcp:tool sketch_set_text_font
 // mcp:summary Sets the font of the sketch text entity entityID: pass a system font file path (its bytes are embedded into the document) or a bundled face family.
 func (s Sketch) SetTextFont(args wire.SetTextFontArgs) (wire.SetTextFontResult, error) {
-	var r wire.SetTextFontResult
-	return r, s.c.call(wire.MethodSketchSetTextFont, args, &r)
+	return call[wire.SetTextFontResult](s.c, wire.MethodSketchSetTextFont, args)
 }
 
 // EditText applies a partial edit to an existing sketch text entity (only the set fields),
@@ -116,8 +107,7 @@ func (s Sketch) SetTextFont(args wire.SetTextFontArgs) (wire.SetTextFontResult, 
 // mcp:tool sketch_edit_text
 // mcp:summary Applies a partial edit to an existing sketch text entity (only the set fields), returning the entity's resolved style.
 func (s Sketch) EditText(args wire.EditTextArgs) (wire.SketchTextResult, error) {
-	var r wire.SketchTextResult
-	return r, s.c.call(wire.MethodSketchEditText, args, &r)
+	return call[wire.SketchTextResult](s.c, wire.MethodSketchEditText, args)
 }
 
 // GetText reads back a sketch text entity's style.
@@ -125,7 +115,6 @@ func (s Sketch) EditText(args wire.EditTextArgs) (wire.SketchTextResult, error) 
 // mcp:tool sketch_get_text
 // mcp:summary Reads back a sketch text entity's style.
 func (s Sketch) GetText(index int, entity uint64) (wire.SketchTextResult, error) {
-	var r wire.SketchTextResult
 	args := wire.GetTextArgs{SketchIndex: index, EntityID: entity}
-	return r, s.c.call(wire.MethodSketchGetText, args, &r)
+	return call[wire.SketchTextResult](s.c, wire.MethodSketchGetText, args)
 }
