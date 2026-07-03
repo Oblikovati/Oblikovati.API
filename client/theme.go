@@ -20,8 +20,7 @@ func (c *Client) Theme() Theme { return Theme{c} }
 // mcp:summary Read the active UI theme.
 // mcp:digest summarizeActiveTheme
 func (t Theme) Active() (wire.ThemeView, error) {
-	var r wire.ThemeView
-	return r, t.c.call(wire.MethodThemeActive, nil, &r)
+	return call[wire.ThemeView](t.c, wire.MethodThemeActive, nil)
 }
 
 // List returns a summary of every available theme (built-in and custom), flagging the
@@ -31,6 +30,5 @@ func (t Theme) Active() (wire.ThemeView, error) {
 // mcp:summary List the available UI themes.
 // mcp:digest summarizeThemes
 func (t Theme) List() (wire.ListThemesResult, error) {
-	var r wire.ListThemesResult
-	return r, t.c.call(wire.MethodThemeList, nil, &r)
+	return call[wire.ListThemesResult](t.c, wire.MethodThemeList, nil)
 }

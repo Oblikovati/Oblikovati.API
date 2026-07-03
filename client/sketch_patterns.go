@@ -22,12 +22,11 @@ func (s Sketch) Pattern(index int) Pattern { return Pattern{s.c, index} }
 // mcp:tool add_sketch_pattern
 // mcp:summary Pattern selected entities: {sketchIndex, kind:"rectangular"|"circular", entities, …} with counts and spacing/angle expressions.
 func (p Pattern) Rectangular(entities []uint64, count1, count2 int, spacing1, spacing2 string) (wire.AddSketchPatternResult, error) {
-	var r wire.AddSketchPatternResult
 	args := wire.AddSketchPatternArgs{
 		SketchIndex: p.index, Kind: string(types.SketchPatternRectangular), Entities: entities,
 		Count1: count1, Count2: count2, Spacing1: spacing1, Spacing2: spacing2,
 	}
-	return r, p.c.call(wire.MethodSketchAddPattern, args, &r)
+	return call[wire.AddSketchPatternResult](p.c, wire.MethodSketchAddPattern, args)
 }
 
 // Circular duplicates the seed entities into count instances spread over the unit-bearing
@@ -36,10 +35,9 @@ func (p Pattern) Rectangular(entities []uint64, count1, count2 int, spacing1, sp
 // mcp:tool add_sketch_pattern
 // mcp:summary Pattern selected entities: {sketchIndex, kind:"rectangular"|"circular", entities, …} with counts and spacing/angle expressions.
 func (p Pattern) Circular(entities []uint64, center []float64, count int, angle string) (wire.AddSketchPatternResult, error) {
-	var r wire.AddSketchPatternResult
 	args := wire.AddSketchPatternArgs{
 		SketchIndex: p.index, Kind: string(types.SketchPatternCircular), Entities: entities,
 		Count: count, Angle: angle, Center: center,
 	}
-	return r, p.c.call(wire.MethodSketchAddPattern, args, &r)
+	return call[wire.AddSketchPatternResult](p.c, wire.MethodSketchAddPattern, args)
 }

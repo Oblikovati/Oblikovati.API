@@ -25,8 +25,7 @@ func (c *Client) MiniToolbars() MiniToolbars { return MiniToolbars{c} }
 // mcp:tool mini_toolbar_set
 // mcp:summary Creates the toolbar or replaces it entirely.
 func (m MiniToolbars) Set(tb wire.MiniToolbarSpec) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, m.c.call(wire.MethodMiniToolbarSet, wire.SetMiniToolbarArgs{Toolbar: tb}, &r)
+	return call[wire.OKResult](m.c, wire.MethodMiniToolbarSet, wire.SetMiniToolbarArgs{Toolbar: tb})
 }
 
 // Update merges the given controls' values into the toolbar by control id.
@@ -34,9 +33,8 @@ func (m MiniToolbars) Set(tb wire.MiniToolbarSpec) (wire.OKResult, error) {
 // mcp:tool mini_toolbar_update
 // mcp:summary Merges the given controls' values into the toolbar by control id.
 func (m MiniToolbars) Update(id string, controls []wire.MiniToolbarControlSpec) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.UpdateMiniToolbarArgs{ID: id, Controls: controls}
-	return r, m.c.call(wire.MethodMiniToolbarUpdate, args, &r)
+	return call[wire.OKResult](m.c, wire.MethodMiniToolbarUpdate, args)
 }
 
 // Remove dismisses the toolbar.
@@ -44,8 +42,7 @@ func (m MiniToolbars) Update(id string, controls []wire.MiniToolbarControlSpec) 
 // mcp:tool mini_toolbar_remove
 // mcp:summary Dismisses the toolbar.
 func (m MiniToolbars) Remove(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, m.c.call(wire.MethodMiniToolbarRemove, wire.RemoveMiniToolbarArgs{ID: id}, &r)
+	return call[wire.OKResult](m.c, wire.MethodMiniToolbarRemove, wire.RemoveMiniToolbarArgs{ID: id})
 }
 
 // List returns the declared toolbars in creation order.
@@ -53,6 +50,5 @@ func (m MiniToolbars) Remove(id string) (wire.OKResult, error) {
 // mcp:tool mini_toolbar_list
 // mcp:summary Returns the declared toolbars in creation order.
 func (m MiniToolbars) List() (wire.ListMiniToolbarsResult, error) {
-	var r wire.ListMiniToolbarsResult
-	return r, m.c.call(wire.MethodMiniToolbarList, nil, &r)
+	return call[wire.ListMiniToolbarsResult](m.c, wire.MethodMiniToolbarList, nil)
 }

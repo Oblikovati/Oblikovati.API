@@ -17,8 +17,7 @@ import (
 // mcp:tool assembly_bom_view
 // mcp:summary Reads the given view of the active assembly's BOM, e.g.
 func (a Assembly) BOMView(view types.BOMViewKind) (wire.BOMViewResult, error) {
-	var r wire.BOMViewResult
-	return r, a.c.call(wire.MethodAssemblyBOMView, wire.BOMViewArgs{View: view}, &r)
+	return call[wire.BOMViewResult](a.c, wire.MethodAssemblyBOMView, wire.BOMViewArgs{View: view})
 }
 
 // BOMExport exports the given view to CSV, adding a column for each named component
@@ -28,6 +27,5 @@ func (a Assembly) BOMView(view types.BOMViewKind) (wire.BOMViewResult, error) {
 // mcp:tool assembly_bom_export
 // mcp:summary Exports the given view to CSV, adding a column for each named component property beyond the standard set, e.g.
 func (a Assembly) BOMExport(args wire.BOMExportArgs) (wire.BOMExportResult, error) {
-	var r wire.BOMExportResult
-	return r, a.c.call(wire.MethodAssemblyBOMExport, args, &r)
+	return call[wire.BOMExportResult](a.c, wire.MethodAssemblyBOMExport, args)
 }

@@ -20,9 +20,8 @@ func (c *Client) Help() Help { return Help{c} }
 // mcp:tool help_register_context
 // mcp:summary Declares a help source: a URL prefix or local directory topics resolve against.
 func (h Help) RegisterContext(source, base string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.RegisterHelpContextArgs{Source: source, Base: base}
-	return r, h.c.call(wire.MethodHelpRegisterContext, args, &r)
+	return call[wire.OKResult](h.c, wire.MethodHelpRegisterContext, args)
 }
 
 // Display opens a topic of a registered source ("" ⇒ the host's documentation).
@@ -30,8 +29,7 @@ func (h Help) RegisterContext(source, base string) (wire.OKResult, error) {
 // mcp:tool help_display
 // mcp:summary Opens a topic of a registered source ("" ⇒ the host's documentation).
 func (h Help) Display(source, topic string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, h.c.call(wire.MethodHelpDisplay, wire.DisplayHelpArgs{Source: source, Topic: topic}, &r)
+	return call[wire.OKResult](h.c, wire.MethodHelpDisplay, wire.DisplayHelpArgs{Source: source, Topic: topic})
 }
 
 // Path returns a source's registered base.
@@ -39,8 +37,7 @@ func (h Help) Display(source, topic string) (wire.OKResult, error) {
 // mcp:tool help_path
 // mcp:summary Returns a source's registered base.
 func (h Help) Path(source string) (wire.HelpPathResult, error) {
-	var r wire.HelpPathResult
-	return r, h.c.call(wire.MethodHelpPath, wire.DisplayHelpArgs{Source: source}, &r)
+	return call[wire.HelpPathResult](h.c, wire.MethodHelpPath, wire.DisplayHelpArgs{Source: source})
 }
 
 // LanguageInfo returns the host's locale as a BCP-47 tag.
@@ -48,6 +45,5 @@ func (h Help) Path(source string) (wire.HelpPathResult, error) {
 // mcp:tool language_info
 // mcp:summary Returns the host's locale as a BCP-47 tag.
 func (h Help) LanguageInfo() (wire.LanguageInfoResult, error) {
-	var r wire.LanguageInfoResult
-	return r, h.c.call(wire.MethodLanguageInfo, nil, &r)
+	return call[wire.LanguageInfoResult](h.c, wire.MethodLanguageInfo, nil)
 }

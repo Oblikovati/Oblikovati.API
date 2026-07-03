@@ -11,8 +11,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool include_sketch3d_geometry
 // mcp:summary Include part edges/vertices (by reference key) into a 3D sketch as reference geometry.
 func (s Sketch3D) Include(index int, refs []string) (wire.IncludeSketch3DResult, error) {
-	var r wire.IncludeSketch3DResult
-	return r, s.c.call(wire.MethodSketch3DInclude, wire.IncludeSketch3DArgs{SketchIndex: index, Refs: refs}, &r)
+	return call[wire.IncludeSketch3DResult](s.c, wire.MethodSketch3DInclude, wire.IncludeSketch3DArgs{SketchIndex: index, Refs: refs})
 }
 
 // IncludeSketch links geometry of an existing 2D sketch (its points/curves, by session id)
@@ -22,7 +21,6 @@ func (s Sketch3D) Include(index int, refs []string) (wire.IncludeSketch3DResult,
 // mcp:tool include_2d_sketch_in_3d
 // mcp:summary Include a 2D sketch's geometry into a 3D sketch.
 func (s Sketch3D) IncludeSketch(index, sourceIndex int, entityIDs []uint64) (wire.IncludeSketch3DResult, error) {
-	var r wire.IncludeSketch3DResult
 	args := wire.IncludeSketch2DArgs{SketchIndex: index, SourceSketchIndex: sourceIndex, EntityIDs: entityIDs}
-	return r, s.c.call(wire.MethodSketch3DIncludeSketch, args, &r)
+	return call[wire.IncludeSketch3DResult](s.c, wire.MethodSketch3DIncludeSketch, args)
 }

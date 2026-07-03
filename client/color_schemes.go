@@ -19,8 +19,7 @@ func (c *Client) ColorSchemes() ColorSchemes { return ColorSchemes{c} }
 // mcp:tool list_color_schemes
 // mcp:summary List the application color schemes (the names set_color_scheme accepts).
 func (s ColorSchemes) List() (wire.ColorSchemesResult, error) {
-	var r wire.ColorSchemesResult
-	return r, s.c.call(wire.MethodColorSchemesList, nil, &r)
+	return call[wire.ColorSchemesResult](s.c, wire.MethodColorSchemesList, nil)
 }
 
 // Active returns the currently active color scheme.
@@ -28,8 +27,7 @@ func (s ColorSchemes) List() (wire.ColorSchemesResult, error) {
 // mcp:tool get_active_color_scheme
 // mcp:summary Read the active color scheme (background, highlight, and selection colors).
 func (s ColorSchemes) Active() (wire.ColorSchemeView, error) {
-	var r wire.ColorSchemeView
-	return r, s.c.call(wire.MethodColorSchemesGetActive, nil, &r)
+	return call[wire.ColorSchemeView](s.c, wire.MethodColorSchemesGetActive, nil)
 }
 
 // SetActive activates the named color scheme, returning the now-active scheme.
@@ -39,6 +37,5 @@ func (s ColorSchemes) Active() (wire.ColorSchemeView, error) {
 // mcp:tool set_active_color_scheme
 // mcp:summary Switch the active color scheme by name; see list_color_schemes.
 func (s ColorSchemes) SetActive(name string) (wire.ColorSchemeView, error) {
-	var r wire.ColorSchemeView
-	return r, s.c.call(wire.MethodColorSchemesSetActive, wire.SetColorSchemeArgs{Name: name}, &r)
+	return call[wire.ColorSchemeView](s.c, wire.MethodColorSchemesSetActive, wire.SetColorSchemeArgs{Name: name})
 }

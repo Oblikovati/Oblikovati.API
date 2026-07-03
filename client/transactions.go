@@ -19,8 +19,7 @@ func (c *Client) Transactions() Transactions { return Transactions{c} }
 // mcp:tool undo
 // mcp:summary Undo the active document's last change (step the transaction cursor back).
 func (t Transactions) Undo() (wire.UndoState, error) {
-	var r wire.UndoState
-	return r, t.c.call(wire.MethodTransactionUndo, nil, &r)
+	return call[wire.UndoState](t.c, wire.MethodTransactionUndo, nil)
 }
 
 // Redo moves the cursor forward one transaction event and returns the resulting state.
@@ -28,8 +27,7 @@ func (t Transactions) Undo() (wire.UndoState, error) {
 // mcp:tool redo
 // mcp:summary Redo the next change (step the transaction cursor forward).
 func (t Transactions) Redo() (wire.UndoState, error) {
-	var r wire.UndoState
-	return r, t.c.call(wire.MethodTransactionRedo, nil, &r)
+	return call[wire.UndoState](t.c, wire.MethodTransactionRedo, nil)
 }
 
 // State reports what undo/redo can currently do, with the labels of the next steps.
@@ -37,8 +35,7 @@ func (t Transactions) Redo() (wire.UndoState, error) {
 // mcp:tool get_undo_state
 // mcp:summary Read the active document's undo/redo state (whether undo/redo are available and the cursor position).
 func (t Transactions) State() (wire.UndoState, error) {
-	var r wire.UndoState
-	return r, t.c.call(wire.MethodTransactionState, nil, &r)
+	return call[wire.UndoState](t.c, wire.MethodTransactionState, nil)
 }
 
 // History reads one open document's whole undo stream — every step since the document was
@@ -49,8 +46,7 @@ func (t Transactions) State() (wire.UndoState, error) {
 // mcp:tool get_history
 // mcp:summary Read a document's full undo history (every step since it was opened, the cursor position, and which steps are saved). document=0 means the active document.
 func (t Transactions) History(document uint64) (wire.TransactionHistory, error) {
-	var r wire.TransactionHistory
-	return r, t.c.call(wire.MethodTransactionHistory, wire.TransactionHistoryArgs{Document: document}, &r)
+	return call[wire.TransactionHistory](t.c, wire.MethodTransactionHistory, wire.TransactionHistoryArgs{Document: document})
 }
 
 // JumpTo moves one document's undo cursor to an absolute position (0 = open state,
@@ -61,8 +57,7 @@ func (t Transactions) History(document uint64) (wire.TransactionHistory, error) 
 // mcp:tool jump_to_history
 // mcp:summary Jump a document's undo cursor to an absolute position (0=open state), undoing/redoing as many steps as needed. document=0 means the active document.
 func (t Transactions) JumpTo(document uint64, position int) (wire.TransactionHistory, error) {
-	var r wire.TransactionHistory
-	return r, t.c.call(wire.MethodTransactionJumpTo, wire.TransactionJumpToArgs{Document: document, Position: position}, &r)
+	return call[wire.TransactionHistory](t.c, wire.MethodTransactionJumpTo, wire.TransactionJumpToArgs{Document: document, Position: position})
 }
 
 // Begin opens a bounded transaction: every edit recorded until the matching End is
@@ -76,8 +71,7 @@ func (t Transactions) JumpTo(document uint64, position int) (wire.TransactionHis
 // mcp:tool transaction_begin
 // mcp:summary Opens a bounded transaction: every edit recorded until the matching End is coalesced into a single undo step named label.
 func (t Transactions) Begin(label string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, t.c.call(wire.MethodTransactionBegin, wire.TransactionBeginArgs{Label: label}, &r)
+	return call[wire.OKResult](t.c, wire.MethodTransactionBegin, wire.TransactionBeginArgs{Label: label})
 }
 
 // End closes the innermost open transaction and returns the resulting undo/redo state.
@@ -85,8 +79,7 @@ func (t Transactions) Begin(label string) (wire.OKResult, error) {
 // mcp:tool transaction_end
 // mcp:summary Closes the innermost open transaction and returns the resulting undo/redo state.
 func (t Transactions) End() (wire.UndoState, error) {
-	var r wire.UndoState
-	return r, t.c.call(wire.MethodTransactionEnd, nil, &r)
+	return call[wire.UndoState](t.c, wire.MethodTransactionEnd, nil)
 }
 
 // Abort discards the innermost open transaction instead of committing it: the model
@@ -96,6 +89,5 @@ func (t Transactions) End() (wire.UndoState, error) {
 // mcp:tool transaction_abort
 // mcp:summary Discards the innermost open transaction instead of committing it: the model reverts to the group's pre-Begin state and no undo step is recorded.
 func (t Transactions) Abort() (wire.UndoState, error) {
-	var r wire.UndoState
-	return r, t.c.call(wire.MethodTransactionAbort, nil, &r)
+	return call[wire.UndoState](t.c, wire.MethodTransactionAbort, nil)
 }

@@ -11,8 +11,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool documents_list_attachments
 // mcp:summary Returns a document's attachment records.
 func (d Documents) Attachments(id uint64) (wire.ListAttachmentsResult, error) {
-	var r wire.ListAttachmentsResult
-	return r, d.c.call(wire.MethodDocumentsListAttachments, wire.ListAttachmentsArgs{Document: id}, &r)
+	return call[wire.ListAttachmentsResult](d.c, wire.MethodDocumentsListAttachments, wire.ListAttachmentsArgs{Document: id})
 }
 
 // AddAttachment attaches an external file to a document under a unique name,
@@ -25,8 +24,7 @@ func (d Documents) Attachments(id uint64) (wire.ListAttachmentsResult, error) {
 // mcp:tool documents_add_attachment
 // mcp:summary Attaches an external file to a document under a unique name, returning the resolved record.
 func (d Documents) AddAttachment(args wire.AddAttachmentArgs) (wire.AttachmentInfo, error) {
-	var r wire.AttachmentInfo
-	return r, d.c.call(wire.MethodDocumentsAddAttachment, args, &r)
+	return call[wire.AttachmentInfo](d.c, wire.MethodDocumentsAddAttachment, args)
 }
 
 // RemoveAttachment deletes a document's named attachment record (and an
@@ -35,7 +33,6 @@ func (d Documents) AddAttachment(args wire.AddAttachmentArgs) (wire.AttachmentIn
 // mcp:tool documents_remove_attachment
 // mcp:summary Deletes a document's named attachment record (and an embedded payload with it).
 func (d Documents) RemoveAttachment(id uint64, name string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.RemoveAttachmentArgs{Document: id, Name: name}
-	return r, d.c.call(wire.MethodDocumentsRemoveAttachment, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDocumentsRemoveAttachment, args)
 }

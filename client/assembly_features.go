@@ -18,8 +18,7 @@ func (c *Client) AssemblyFeatures() AssemblyFeatures { return AssemblyFeatures{c
 // mcp:tool assembly_features_list
 // mcp:summary Returns the active assembly's feature program and rollback-marker state.
 func (a AssemblyFeatures) List() (wire.AssemblyFeaturesResult, error) {
-	var r wire.AssemblyFeaturesResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesList, struct{}{}, &r)
+	return call[wire.AssemblyFeaturesResult](a.c, wire.MethodAssemblyFeaturesList, struct{}{})
 }
 
 // Add adds a box-tool cut feature to the active assembly, e.g.
@@ -28,8 +27,7 @@ func (a AssemblyFeatures) List() (wire.AssemblyFeaturesResult, error) {
 // mcp:tool assembly_features_add
 // mcp:summary Adds a box-tool cut feature to the active assembly, e.g.
 func (a AssemblyFeatures) Add(args wire.AddAssemblyFeatureArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAdd, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAdd, args)
 }
 
 // AddExtrude extrudes a closed sketch profile (authored on an assembly work plane) into
@@ -39,8 +37,7 @@ func (a AssemblyFeatures) Add(args wire.AddAssemblyFeatureArgs) (wire.AssemblyFe
 // mcp:tool assembly_features_add_extrude
 // mcp:summary Extrudes a closed sketch profile (authored on an assembly work plane) into every participant — a profiled pocket ("difference") or boss ("union").
 func (a AssemblyFeatures) AddExtrude(args wire.AddAssemblyExtrudeArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddExtrude, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddExtrude, args)
 }
 
 // AddRevolve revolves a closed sketch profile (authored on an assembly work plane) about
@@ -51,8 +48,7 @@ func (a AssemblyFeatures) AddExtrude(args wire.AddAssemblyExtrudeArgs) (wire.Ass
 // mcp:tool assembly_features_add_revolve
 // mcp:summary Revolves a closed sketch profile (authored on an assembly work plane) about the axis line (origin + direction) into every participant — a turned groove ("difference") or boss ("union").
 func (a AssemblyFeatures) AddRevolve(args wire.AddAssemblyRevolveArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddRevolve, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddRevolve, args)
 }
 
 // AddHole drills a hole of the given diameter and depth from center along axis through
@@ -62,8 +58,7 @@ func (a AssemblyFeatures) AddRevolve(args wire.AddAssemblyRevolveArgs) (wire.Ass
 // mcp:tool assembly_features_add_hole
 // mcp:summary Drills a hole of the given diameter and depth from center along axis through the active assembly's participants — a parametric kind needing no sketch.
 func (a AssemblyFeatures) AddHole(args wire.AddAssemblyHoleArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddHole, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddHole, args)
 }
 
 // AddProxyCut adds a feature whose tool is the geometry of the source occurrence,
@@ -73,9 +68,8 @@ func (a AssemblyFeatures) AddHole(args wire.AddAssemblyHoleArgs) (wire.AssemblyF
 // mcp:tool assembly_features_add_proxy_cut
 // mcp:summary Adds a feature whose tool is the geometry of the source occurrence, supplied as an occurrence-context proxy and re-resolved each rebuild (associative), so the machining follows the source.
 func (a AssemblyFeatures) AddProxyCut(source uint64, operation string) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
 	args := wire.AddProxyCutFeatureArgs{Source: source, Operation: operation}
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddProxyCut, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddProxyCut, args)
 }
 
 // SetParticipants replaces a feature's participation set with the occurrences named by
@@ -84,9 +78,8 @@ func (a AssemblyFeatures) AddProxyCut(source uint64, operation string) (wire.Ass
 // mcp:tool assembly_features_set_participants
 // mcp:summary Replaces a feature's participation set with the occurrences named by their session ids, e.g.
 func (a AssemblyFeatures) SetParticipants(id uint64, participants []uint64) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
 	args := wire.SetAssemblyParticipantsArgs{ID: id, Participants: participants}
-	return r, a.c.call(wire.MethodAssemblyFeaturesSetParticipants, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesSetParticipants, args)
 }
 
 // SetParticipantPaths restricts a feature to specific nested occurrence paths (each a
@@ -97,9 +90,8 @@ func (a AssemblyFeatures) SetParticipants(id uint64, participants []uint64) (wir
 // mcp:tool assembly_features_set_participant_paths
 // mcp:summary Restricts a feature to specific nested occurrence paths (each a sequence of instance names, root first), disambiguating a sub-assembly placed more than once; passing no paths clears the restriction.
 func (a AssemblyFeatures) SetParticipantPaths(id uint64, paths [][]string) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
 	args := wire.SetAssemblyParticipantPathsArgs{ID: id, Paths: paths}
-	return r, a.c.call(wire.MethodAssemblyFeaturesSetParticipantPaths, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesSetParticipantPaths, args)
 }
 
 // SetSuppressed suppresses or unsuppresses the named features in one batch and returns
@@ -108,9 +100,8 @@ func (a AssemblyFeatures) SetParticipantPaths(id uint64, paths [][]string) (wire
 // mcp:tool assembly_features_set_suppressed
 // mcp:summary Suppresses or unsuppresses the named features in one batch and returns the refreshed program, e.g.
 func (a AssemblyFeatures) SetSuppressed(ids []uint64, suppressed bool) (wire.AssemblyFeaturesResult, error) {
-	var r wire.AssemblyFeaturesResult
 	args := wire.SetAssemblyFeaturesSuppressedArgs{IDs: ids, Suppressed: suppressed}
-	return r, a.c.call(wire.MethodAssemblyFeaturesSetSuppressed, args, &r)
+	return call[wire.AssemblyFeaturesResult](a.c, wire.MethodAssemblyFeaturesSetSuppressed, args)
 }
 
 // AddChamfer chamfers the given component edges by distance on every participant, e.g.
@@ -119,8 +110,7 @@ func (a AssemblyFeatures) SetSuppressed(ids []uint64, suppressed bool) (wire.Ass
 // mcp:tool assembly_features_add_chamfer
 // mcp:summary Chamfers the given component edges by distance on every participant, e.g.
 func (a AssemblyFeatures) AddChamfer(args wire.AddAssemblyChamferArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddChamfer, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddChamfer, args)
 }
 
 // AddFillet rounds the given component edges to radius on every participant, e.g.
@@ -129,8 +119,7 @@ func (a AssemblyFeatures) AddChamfer(args wire.AddAssemblyChamferArgs) (wire.Ass
 // mcp:tool assembly_features_add_fillet
 // mcp:summary Rounds the given component edges to radius on every participant, e.g.
 func (a AssemblyFeatures) AddFillet(args wire.AddAssemblyFilletArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddFillet, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddFillet, args)
 }
 
 // AddSweep sweeps an assembly sketch profile along the given polyline path into every
@@ -139,8 +128,7 @@ func (a AssemblyFeatures) AddFillet(args wire.AddAssemblyFilletArgs) (wire.Assem
 // mcp:tool assembly_features_add_sweep
 // mcp:summary Sweeps an assembly sketch profile along the given polyline path into every participant, e.g.
 func (a AssemblyFeatures) AddSweep(args wire.AddAssemblySweepArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddSweep, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddSweep, args)
 }
 
 // AddMoveFace translates the given component faces by the vector on every participant, e.g.
@@ -149,8 +137,7 @@ func (a AssemblyFeatures) AddSweep(args wire.AddAssemblySweepArgs) (wire.Assembl
 // mcp:tool assembly_features_add_move_face
 // mcp:summary Translates the given component faces by the vector on every participant, e.g.
 func (a AssemblyFeatures) AddMoveFace(args wire.AddAssemblyMoveFaceArgs) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
-	return r, a.c.call(wire.MethodAssemblyFeaturesAddMoveFace, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesAddMoveFace, args)
 }
 
 // Edit sets editable scalars of assembly feature id in place and returns the refreshed
@@ -161,9 +148,8 @@ func (a AssemblyFeatures) AddMoveFace(args wire.AddAssemblyMoveFaceArgs) (wire.A
 // mcp:tool assembly_features_edit
 // mcp:summary Sets editable scalars of assembly feature id in place and returns the refreshed feature, e.g.
 func (a AssemblyFeatures) Edit(id uint64, scalars []wire.ScalarEdit) (wire.AssemblyFeatureResult, error) {
-	var r wire.AssemblyFeatureResult
 	args := wire.EditAssemblyFeatureArgs{ID: id, Scalars: scalars}
-	return r, a.c.call(wire.MethodAssemblyFeaturesEdit, args, &r)
+	return call[wire.AssemblyFeatureResult](a.c, wire.MethodAssemblyFeaturesEdit, args)
 }
 
 // GetEndOfFeatures returns the active assembly's end-of-features marker state.
@@ -171,8 +157,7 @@ func (a AssemblyFeatures) Edit(id uint64, scalars []wire.ScalarEdit) (wire.Assem
 // mcp:tool assembly_get_end_of_features
 // mcp:summary Returns the active assembly's end-of-features marker state.
 func (a AssemblyFeatures) GetEndOfFeatures() (wire.EndOfFeaturesResult, error) {
-	var r wire.EndOfFeaturesResult
-	return r, a.c.call(wire.MethodAssemblyGetEndOfFeatures, struct{}{}, &r)
+	return call[wire.EndOfFeaturesResult](a.c, wire.MethodAssemblyGetEndOfFeatures, struct{}{})
 }
 
 // SetEndOfFeatures moves the marker to position (negative restores it to the end) and
@@ -181,6 +166,5 @@ func (a AssemblyFeatures) GetEndOfFeatures() (wire.EndOfFeaturesResult, error) {
 // mcp:tool assembly_set_end_of_features
 // mcp:summary Moves the marker to position (negative restores it to the end) and returns the refreshed program, e.g.
 func (a AssemblyFeatures) SetEndOfFeatures(position int) (wire.AssemblyFeaturesResult, error) {
-	var r wire.AssemblyFeaturesResult
-	return r, a.c.call(wire.MethodAssemblySetEndOfFeatures, wire.SetEndOfFeaturesArgs{Position: position}, &r)
+	return call[wire.AssemblyFeaturesResult](a.c, wire.MethodAssemblySetEndOfFeatures, wire.SetEndOfFeaturesArgs{Position: position})
 }

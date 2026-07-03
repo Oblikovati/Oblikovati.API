@@ -13,8 +13,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool parameters_groups_list
 // mcp:summary Returns the active document's custom parameter groups (part or assembly) with their members, in creation order.
 func (p Parameters) ListGroups() (wire.ListParameterGroupsResult, error) {
-	var r wire.ListParameterGroupsResult
-	return r, p.c.call(wire.MethodParametersGroupsList, nil, &r)
+	return call[wire.ListParameterGroupsResult](p.c, wire.MethodParametersGroupsList, nil)
 }
 
 // AddGroup creates an empty custom group keyed by an immutable internal name;
@@ -23,8 +22,7 @@ func (p Parameters) ListGroups() (wire.ListParameterGroupsResult, error) {
 // mcp:tool parameters_groups_add
 // mcp:summary Creates an empty custom group keyed by an immutable internal name; an empty display name defaults to it.
 func (p Parameters) AddGroup(args wire.ParameterGroupAddArgs) (wire.ParameterGroupInfo, error) {
-	var r wire.ParameterGroupInfo
-	return r, p.c.call(wire.MethodParametersGroupsAdd, args, &r)
+	return call[wire.ParameterGroupInfo](p.c, wire.MethodParametersGroupsAdd, args)
 }
 
 // DeleteGroup removes a group; args.DeleteParameters opts into also deleting
@@ -42,8 +40,7 @@ func (p Parameters) DeleteGroup(args wire.ParameterGroupDeleteArgs) error {
 // mcp:tool parameters_groups_set_display_name
 // mcp:summary Edits a group's display name (the internal name can never change) and returns the updated group.
 func (p Parameters) SetGroupDisplayName(args wire.ParameterGroupDisplayNameArgs) (wire.ParameterGroupInfo, error) {
-	var r wire.ParameterGroupInfo
-	return r, p.c.call(wire.MethodParametersGroupsSetDisplayName, args, &r)
+	return call[wire.ParameterGroupInfo](p.c, wire.MethodParametersGroupsSetDisplayName, args)
 }
 
 // AddGroupMember adds a parameter to a group (membership in other groups is
@@ -52,8 +49,7 @@ func (p Parameters) SetGroupDisplayName(args wire.ParameterGroupDisplayNameArgs)
 // mcp:tool parameters_groups_add_member
 // mcp:summary Adds a parameter to a group (membership in other groups is untouched) and returns the updated group.
 func (p Parameters) AddGroupMember(args wire.ParameterGroupMemberArgs) (wire.ParameterGroupInfo, error) {
-	var r wire.ParameterGroupInfo
-	return r, p.c.call(wire.MethodParametersGroupsAddMember, args, &r)
+	return call[wire.ParameterGroupInfo](p.c, wire.MethodParametersGroupsAddMember, args)
 }
 
 // RemoveGroupMember detaches a parameter from a group — the parameter itself
@@ -62,6 +58,5 @@ func (p Parameters) AddGroupMember(args wire.ParameterGroupMemberArgs) (wire.Par
 // mcp:tool parameters_groups_remove_member
 // mcp:summary Detaches a parameter from a group — the parameter itself is kept — and returns the updated group.
 func (p Parameters) RemoveGroupMember(args wire.ParameterGroupMemberArgs) (wire.ParameterGroupInfo, error) {
-	var r wire.ParameterGroupInfo
-	return r, p.c.call(wire.MethodParametersGroupsRemoveMember, args, &r)
+	return call[wire.ParameterGroupInfo](p.c, wire.MethodParametersGroupsRemoveMember, args)
 }

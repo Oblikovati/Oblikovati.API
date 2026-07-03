@@ -19,8 +19,7 @@ func (c *Client) DrawingStyles() DrawingStyles { return DrawingStyles{c} }
 // mcp:tool drawing_list_standards
 // mcp:summary List the active drawing's available drafting standards (iso, ansi) and which is active.
 func (d DrawingStyles) ListStandards() (wire.ListStandardsResult, error) {
-	var r wire.ListStandardsResult
-	return r, d.c.call(wire.MethodDrawingStylesListStandards, struct{}{}, &r)
+	return call[wire.ListStandardsResult](d.c, wire.MethodDrawingStylesListStandards, struct{}{})
 }
 
 // GetActiveStyle returns the active standard's resolved dimension/text/line style preset.
@@ -28,8 +27,7 @@ func (d DrawingStyles) ListStandards() (wire.ListStandardsResult, error) {
 // mcp:tool drawing_get_active_style
 // mcp:summary Read the active drawing standard's style preset — dimension (text/arrow size, decimals, unit, line weight), text (font, height) and line (weight) styles.
 func (d DrawingStyles) GetActiveStyle() (wire.StandardStyleResult, error) {
-	var r wire.StandardStyleResult
-	return r, d.c.call(wire.MethodDrawingStylesGetActiveStyle, struct{}{}, &r)
+	return call[wire.StandardStyleResult](d.c, wire.MethodDrawingStylesGetActiveStyle, struct{}{})
 }
 
 // SetStandard makes the named drafting standard active and returns its style preset; every
@@ -38,6 +36,5 @@ func (d DrawingStyles) GetActiveStyle() (wire.StandardStyleResult, error) {
 // mcp:tool drawing_set_standard
 // mcp:summary Switch the active drawing's drafting standard (iso|ansi); returns the new active style preset (dimension/text/line), so the appearance change is visible in one call.
 func (d DrawingStyles) SetStandard(args wire.SetStandardArgs) (wire.StandardStyleResult, error) {
-	var r wire.StandardStyleResult
-	return r, d.c.call(wire.MethodDrawingStylesSetStandard, args, &r)
+	return call[wire.StandardStyleResult](d.c, wire.MethodDrawingStylesSetStandard, args)
 }

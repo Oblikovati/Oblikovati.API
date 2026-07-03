@@ -19,8 +19,7 @@ func (c *Client) Interaction() Interaction { return Interaction{c} }
 // mcp:tool interaction_state
 // mcp:summary Reports whether an interactive tool/command is active or a transaction is open.
 func (i Interaction) State() (wire.InteractionState, error) {
-	var r wire.InteractionState
-	return r, i.c.call(wire.MethodInteractionState, nil, &r)
+	return call[wire.InteractionState](i.c, wire.MethodInteractionState, nil)
 }
 
 // SetNotice shows a short, transient message in the host status bar (the host clears it on
@@ -32,6 +31,5 @@ func (i Interaction) State() (wire.InteractionState, error) {
 // mcp:tool interaction_set_notice
 // mcp:summary Shows a short, transient message in the host status bar (the host clears it on the next user input).
 func (i Interaction) SetNotice(message string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, i.c.call(wire.MethodInteractionSetNotice, wire.SetNoticeArgs{Message: message}, &r)
+	return call[wire.OKResult](i.c, wire.MethodInteractionSetNotice, wire.SetNoticeArgs{Message: message})
 }

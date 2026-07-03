@@ -14,8 +14,7 @@ import (
 // mcp:tool documents_list_interests
 // mcp:summary Returns a document's registered interest records.
 func (d Documents) Interests(id uint64) (wire.ListDocumentInterestsResult, error) {
-	var r wire.ListDocumentInterestsResult
-	return r, d.c.call(wire.MethodDocumentsListInterests, wire.ListDocumentInterestsArgs{Document: id}, &r)
+	return call[wire.ListDocumentInterestsResult](d.c, wire.MethodDocumentsListInterests, wire.ListDocumentInterestsArgs{Document: id})
 }
 
 // AddInterest registers (or updates) an interest record on a document.
@@ -28,9 +27,8 @@ func (d Documents) Interests(id uint64) (wire.ListDocumentInterestsResult, error
 // mcp:tool documents_add_interest
 // mcp:summary Registers (or updates) an interest record on a document.
 func (d Documents) AddInterest(id uint64, record types.DocumentInterestRecord) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.AddDocumentInterestArgs{Document: id, Interest: record}
-	return r, d.c.call(wire.MethodDocumentsAddInterest, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDocumentsAddInterest, args)
 }
 
 // RemoveInterest deletes the (clientID, name) interest record.
@@ -38,9 +36,8 @@ func (d Documents) AddInterest(id uint64, record types.DocumentInterestRecord) (
 // mcp:tool documents_remove_interest
 // mcp:summary Deletes the (clientID, name) interest record.
 func (d Documents) RemoveInterest(id uint64, clientID, name string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.RemoveDocumentInterestArgs{Document: id, ClientID: clientID, Name: name}
-	return r, d.c.call(wire.MethodDocumentsRemoveInterest, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDocumentsRemoveInterest, args)
 }
 
 // HasInterest reports whether any interest record's client id or name matches
@@ -49,7 +46,6 @@ func (d Documents) RemoveInterest(id uint64, clientID, name string) (wire.OKResu
 // mcp:tool documents_has_interest
 // mcp:summary Reports whether any interest record's client id or name matches client — discovery without enumerating.
 func (d Documents) HasInterest(id uint64, client string) (wire.HasDocumentInterestResult, error) {
-	var r wire.HasDocumentInterestResult
 	args := wire.HasDocumentInterestArgs{Document: id, Client: client}
-	return r, d.c.call(wire.MethodDocumentsHasInterest, args, &r)
+	return call[wire.HasDocumentInterestResult](d.c, wire.MethodDocumentsHasInterest, args)
 }

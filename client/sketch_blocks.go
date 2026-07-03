@@ -15,8 +15,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool sketch_block_definitions_create
 // mcp:summary Creates a named block definition.
 func (s Sketch) CreateBlockDefinition(args wire.CreateBlockDefinitionArgs) (wire.SketchBlockDefinitionInfo, error) {
-	var r wire.SketchBlockDefinitionInfo
-	return r, s.c.call(wire.MethodSketchBlockDefinitionCreate, args, &r)
+	return call[wire.SketchBlockDefinitionInfo](s.c, wire.MethodSketchBlockDefinitionCreate, args)
 }
 
 // BlockDefinitions enumerates the part's block definitions.
@@ -24,8 +23,7 @@ func (s Sketch) CreateBlockDefinition(args wire.CreateBlockDefinitionArgs) (wire
 // mcp:tool sketch_block_definitions_list
 // mcp:summary Enumerates the part's block definitions.
 func (s Sketch) BlockDefinitions() (wire.ListBlockDefinitionsResult, error) {
-	var r wire.ListBlockDefinitionsResult
-	return r, s.c.call(wire.MethodSketchBlockDefinitionList, nil, &r)
+	return call[wire.ListBlockDefinitionsResult](s.c, wire.MethodSketchBlockDefinitionList, nil)
 }
 
 // DeleteBlockDefinition removes a block definition by name. A definition that
@@ -34,9 +32,7 @@ func (s Sketch) BlockDefinitions() (wire.ListBlockDefinitionsResult, error) {
 // mcp:tool sketch_block_definitions_delete
 // mcp:summary Removes a block definition by name.
 func (s Sketch) DeleteBlockDefinition(name string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, s.c.call(wire.MethodSketchBlockDefinitionDelete,
-		wire.DeleteBlockDefinitionArgs{Name: name}, &r)
+	return call[wire.OKResult](s.c, wire.MethodSketchBlockDefinitionDelete, wire.DeleteBlockDefinitionArgs{Name: name})
 }
 
 // AddBlockInstance places an instance of a block definition in a sketch.
@@ -44,8 +40,7 @@ func (s Sketch) DeleteBlockDefinition(name string) (wire.OKResult, error) {
 // mcp:tool sketch_add_block_instance
 // mcp:summary Places an instance of a block definition in a sketch.
 func (s Sketch) AddBlockInstance(args wire.AddSketchBlockArgs) (wire.AddSketchBlockResult, error) {
-	var r wire.AddSketchBlockResult
-	return r, s.c.call(wire.MethodSketchAddBlockInstance, args, &r)
+	return call[wire.AddSketchBlockResult](s.c, wire.MethodSketchAddBlockInstance, args)
 }
 
 // BlockInstances enumerates a sketch's placed block instances.
@@ -53,7 +48,5 @@ func (s Sketch) AddBlockInstance(args wire.AddSketchBlockArgs) (wire.AddSketchBl
 // mcp:tool sketch_block_instances
 // mcp:summary Enumerates a sketch's placed block instances.
 func (s Sketch) BlockInstances(index int) (wire.ListBlockInstancesResult, error) {
-	var r wire.ListBlockInstancesResult
-	return r, s.c.call(wire.MethodSketchListBlockInstances,
-		wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.ListBlockInstancesResult](s.c, wire.MethodSketchListBlockInstances, wire.SketchArgs{SketchIndex: index})
 }
