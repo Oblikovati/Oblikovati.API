@@ -17,8 +17,22 @@ import "oblikovati.org/api/types"
 //
 //	circle, err := tg.CreateCircle(types.NewPoint(0, 0, 0), zAxis, 2.5)
 //	p := circle.Evaluate(0.25) // a quarter of the way around
+//
+// The vocabulary is segregated into three embedded capability families
+// ([TransientCurves3d], [TransientCurves2d], [TransientSurfaces]) so a consumer or
+// fake that needs only one axis depends only on that family (Interface Segregation,
+// audit I9). TransientGeometry stays their union, so every existing implementer and
+// caller is unaffected — new host code and add-in helpers should accept the narrowest
+// family they use, not the whole union.
 type TransientGeometry interface {
-	// 3D curves.
+	TransientCurves3d
+	TransientCurves2d
+	TransientSurfaces
+}
+
+// TransientCurves3d constructs the 3D transient curves. Constructors error on degenerate
+// input (zero directions, non-positive radii, malformed knot vectors).
+type TransientCurves3d interface {
 	CreateLine(root types.Point, direction types.UnitVector) (Line, error)
 	CreateLineSegment(start, end types.Point) (LineSegment, error)
 	CreateCircle(center types.Point, normal types.UnitVector, radius float64) (Circle, error)
@@ -31,8 +45,10 @@ type TransientGeometry interface {
 	CreateBSplineCurve(def types.BSplineCurveDef) (BSplineCurve, error)
 	CreateFittedBSplineCurve(through []types.Point) (BSplineCurve, error)
 	CreateHelix(base types.Point, axis, reference types.UnitVector, startRadius, pitch, taperPerTurn, turns float64, clockwise bool) (Helix, error)
+}
 
-	// 2D curves.
+// TransientCurves2d constructs the 2D (sketch-space) transient curves.
+type TransientCurves2d interface {
 	CreateLine2d(root types.Point2d, direction types.UnitVector2d) (Line2d, error)
 	CreateLineSegment2d(start, end types.Point2d) (LineSegment2d, error)
 	CreateCircle2d(center types.Point2d, radius float64) (Circle2d, error)
@@ -42,8 +58,10 @@ type TransientGeometry interface {
 	CreatePolyline2d(points []types.Point2d) (Polyline2d, error)
 	CreateBSplineCurve2d(def types.BSplineCurve2dDef) (BSplineCurve2d, error)
 	CreateFittedBSplineCurve2d(through []types.Point2d) (BSplineCurve2d, error)
+}
 
-	// Surfaces.
+// TransientSurfaces constructs the transient surfaces (analytic and NURBS).
+type TransientSurfaces interface {
 	CreatePlane(root types.Point, normal types.UnitVector) (Plane, error)
 	CreatePlaneByThreePoints(a, b, c types.Point) (Plane, error)
 	CreateCylinder(base types.Point, axis types.UnitVector, radius float64) (Cylinder, error)

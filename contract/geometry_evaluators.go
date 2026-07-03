@@ -77,8 +77,21 @@ type Curve2dEvaluator interface {
 	ParamAnomaly() types.ParamAnomaly
 }
 
-// SurfaceEvaluator is the member-level query surface of a transient surface.
+// SurfaceEvaluator is the member-level query surface of a transient surface. It is
+// segregated into four embedded capability families ([SurfaceExtents],
+// [SurfaceDifferential], [SurfaceProjection], [SurfaceIso]) so a consumer that only needs,
+// say, the projection queries does not depend on the differential-geometry width (audit
+// I9). SurfaceEvaluator stays their union — every existing implementer and caller is
+// unaffected.
 type SurfaceEvaluator interface {
+	SurfaceExtents
+	SurfaceDifferential
+	SurfaceProjection
+	SurfaceIso
+}
+
+// SurfaceExtents is a surface's bounding, parameter domain, area and continuity.
+type SurfaceExtents interface {
 	// RangeBox returns a box enclosing the surface (±Inf faces when unbounded;
 	// a NURBS box is the control-net box, enclosing but not minimal).
 	RangeBox() types.Box
@@ -89,6 +102,10 @@ type SurfaceEvaluator interface {
 	Area() float64
 	// Continuity returns the largest maintained continuity order.
 	Continuity() int
+}
+
+// SurfaceDifferential is a surface's differential geometry — tangents, partials, curvatures.
+type SurfaceDifferential interface {
 	// Tangents returns the unit tangents along u and v at (u, v) (zero at
 	// degeneracies such as a sphere pole).
 	Tangents(u, v float64) (uTangent, vTangent types.Vector)
@@ -101,12 +118,20 @@ type SurfaceEvaluator interface {
 	// Curvatures returns the principal curvatures at (u, v) and the unit
 	// direction of the maximum one.
 	Curvatures(u, v float64) (maxDirection types.Vector, maxCurvature, minCurvature float64)
+}
+
+// SurfaceProjection is a surface's closest-point queries — inversion and normal at a point.
+type SurfaceProjection interface {
 	// ParamAtPoint returns the (u, v) of the point on the surface closest to
 	// p, classifying how many equally close answers exist.
 	ParamAtPoint(p types.Point) (u, v float64, nature types.SolutionNature)
 	// NormalAtPoint returns the unit surface normal at the point on the
 	// surface closest to p.
 	NormalAtPoint(p types.Point) types.Vector
+}
+
+// SurfaceIso is a surface's iso-curve extraction and parameter-domain anomalies.
+type SurfaceIso interface {
 	// IsoCurve extracts the curve of constant parameter: u = param when
 	// uDirection (the curve runs along v), else v = param.
 	IsoCurve(uDirection bool, param float64) (Curve, error)
