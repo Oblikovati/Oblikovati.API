@@ -8,6 +8,17 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.103.0] - 2026-07-03
+
+### Added
+
+- feat(wire): featureargs package — typed per-kind feature-creation arg structs
+  (Extrude/Revolve/Rib/Emboss/Coil/Hole/Boss/Thread/Grill/Mesh/DirectEdit), each
+  carrying its own Kind(), so add-ins build features with compile-checked types
+  instead of raw JSON (ADR-0018; audit B5, #1616)
+- feat(client): generic AddFeature[A featureargs.Arg] constructor that tags the
+  wire envelope from the arg's Kind() — one typed constructor for every kind
+
 ## [0.102.1] - 2026-07-02
 
 ### Fixed
