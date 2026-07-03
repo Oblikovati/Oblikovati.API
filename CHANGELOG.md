@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire,client): metadata-mutation events so add-ins can observe rename and
+  property changes — `types.ObjectKind`, `wire.ObjectRenamedEvent` /
+  `PropertyChangedEvent` DTOs, their event-name constants, and
+  `EventDispatcher.OnObjectRenamed` / `OnPropertyChanged` (audit S10, #1644)
+
 ## [0.104.1] - 2026-07-03
 
 ### Fixed
@@ -40,6 +47,11 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   instead of raw JSON (ADR-0018; audit B5, #1616)
 - feat(client): generic AddFeature[A featureargs.Arg] constructor that tags the
   wire envelope from the arg's Kind() — one typed constructor for every kind
+- feat(wire,client): `object.renamed` / `property.changed` metadata-mutation events
+  so add-ins observe body/sketch/feature/occurrence renames and suppression /
+  sketch-setting changes without polling (#1644); adds `types.ObjectKind`,
+  `wire.ObjectRenamedEvent` / `wire.PropertyChangedEvent`, and
+  `EventDispatcher.OnObjectRenamed` / `OnPropertyChanged`
 
 ## [0.102.1] - 2026-07-02
 

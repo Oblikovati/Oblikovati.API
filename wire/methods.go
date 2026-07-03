@@ -1050,6 +1050,13 @@ const (
 	EventFeatureDeleted    = "feature.deleted"
 	EventSketchEditEntered = "sketch.editEntered"
 	EventSketchEditExited  = "sketch.editExited"
+
+	// Metadata-mutation events (see [ObjectRenamedEvent] / [PropertyChangedEvent], S10
+	// Oblikovati#1644): a document object was renamed, or a property (suppression, a sketch
+	// setting) changed — the mutation class add-ins previously could not observe. Fire for both
+	// UI- and add-in-driven edits (emitted at the host model/session seams).
+	EventObjectRenamed   = "object.renamed"
+	EventPropertyChanged = "property.changed"
 )
 
 // OKResult is the trivial success payload for mutating methods with no return value.
