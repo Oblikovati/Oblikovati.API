@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.106.0] - 2026-07-03
+
+### Added
+
+- feat(wire/featureargs): promote the remaining 63 feature-arg kinds (#1709)
+
 ### Added
 
 - feat(wire/featureargs): promote the remaining 63 feature-arg kinds to typed
@@ -855,7 +861,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...HEAD
+[0.106.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...v0.106.0
 [0.105.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.1...v0.105.0
 [0.104.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.0...v0.104.1
 [0.103.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.0...v0.103.1
