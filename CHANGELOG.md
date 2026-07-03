@@ -8,6 +8,16 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.105.0] - 2026-07-03
+
+### Added
+
+- feat(wire,client): object.renamed / property.changed metadata events (#1644)
+
+### Fixed
+
+- Restore S10 [Unreleased] changelog entry after develop merge
+
 ### Added
 
 - feat(wire,client): metadata-mutation events so add-ins can observe rename and
@@ -832,7 +842,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...HEAD
+[0.105.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.1...v0.105.0
 [0.104.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.0...v0.104.1
 [0.103.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.0...v0.103.1
 [0.102.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...v0.102.1
