@@ -8,6 +8,33 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(contract): split the fat `Document`, `DisplayOptions`, `FileDescriptor`,
+  `TransientGeometry`, and `SurfaceEvaluator` interfaces into embedded capability
+  families (e.g. `DocumentIdentity`/`DirtyState`/`DocumentLifecycle`). Each fat
+  interface is now the union of its families, so existing consumers are unaffected
+  while new host/add-in signatures can accept the narrowest capability they need —
+  semver-safe, additive only (audit I9, #1632)
+
+## [0.103.1] - 2026-07-03
+
+### Fixed
+
+- Correct the graphics object model's false "compile-time asserted" claim
+- Promote per-kind feature-arg DTOs into api/wire/featureargs (+typed client ctor)
+
+## [0.103.0] - 2026-07-03
+
+### Added
+
+- feat(wire): featureargs package — typed per-kind feature-creation arg structs
+  (Extrude/Revolve/Rib/Emboss/Coil/Hole/Boss/Thread/Grill/Mesh/DirectEdit), each
+  carrying its own Kind(), so add-ins build features with compile-checked types
+  instead of raw JSON (ADR-0018; audit B5, #1616)
+- feat(client): generic AddFeature[A featureargs.Arg] constructor that tags the
+  wire envelope from the arg's Kind() — one typed constructor for every kind
+
 ## [0.102.1] - 2026-07-02
 
 ### Fixed
@@ -787,7 +814,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.1...HEAD
+[0.103.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.0...v0.103.1
 [0.102.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...v0.102.1
 [0.102.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.101.0...v0.102.0
 [0.100.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.0...v0.100.1

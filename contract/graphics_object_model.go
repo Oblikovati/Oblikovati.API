@@ -8,7 +8,14 @@ import "oblikovati.org/api/types"
 // client-graphics group: a tree of [GraphicsNode]s, each owning typed primitives that index
 // into shared, anti-duplicated [GraphicsDataSets]. It composes onto the declarative bulk-group
 // wire transport (the geometry travels as wire DTOs); these interfaces are the scalar surface
-// in-process callers read. The GPL host satisfies them (compile-time asserted there).
+// in-process callers read.
+//
+// STATUS: forward-declared, NOT yet implemented. No host type satisfies these interfaces and
+// there is no compile-time assertion for them — they describe the intended object model ahead
+// of the host build (the retained-mode group travels and is read as wire DTOs today). The host
+// keeps them on an explicit pending-implementation allowlist (archguard's
+// pendingContractAssertions), guarded so this notice cannot silently go stale: an interface
+// gains a real assertion here only when a host type implements it (#1613, audit B2).
 
 // GraphicsCoordinateSet is a shared pool of vertex positions (cm). Primitives index into it so
 // shared vertices are stored once.
