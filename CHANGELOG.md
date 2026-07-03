@@ -8,6 +8,19 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire/featureargs): promote the remaining 63 feature-arg kinds to typed
+  structs (#1709) — the composite kinds (loft, sweep, the fillet/chamfer/draft/
+  shell/lip dress-up family, patterns, model tolerance, move-body), the multi-kind
+  freeform primitives, the args-less kinds (hull, sheet-metal unfold/refold as
+  zero-field types), and the mechanical remainder (booleans, surfacing, direct
+  edits, the sheet-metal family). Every registered feature kind now has a
+  compile-checked `featureargs` argument struct with a `Kind()` method, so add-ins
+  build feature arguments against a typed shape instead of hand-assembled JSON and
+  the host decodes into the same type (the wire<->host parity guard's exception
+  list is now empty).
+
 ## [0.105.0] - 2026-07-03
 
 ### Added

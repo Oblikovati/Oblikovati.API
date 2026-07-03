@@ -33,10 +33,24 @@ type Arg interface {
 // the single registry the parity guard and the marshal round-trip test enumerate, so a
 // new promoted kind is added in exactly one place.
 func All() []Arg {
-	return []Arg{
+	args := []Arg{
 		Extrude{}, Revolve{}, Rib{}, Emboss{}, Coil{},
 		Hole{}, Boss{}, Thread{}, Grill{}, Mesh{}, DirectEdit{},
 	}
+	// Each family file (#1709) contributes its promoted kinds through a package-level slice, so a
+	// new kind is registered in exactly one place next to its struct.
+	args = append(args, loftArgs...)
+	args = append(args, dressupArgs...)
+	args = append(args, modifyArgs...)
+	args = append(args, surfaceArgs...)
+	args = append(args, patternArgs...)
+	args = append(args, advancedArgs...)
+	args = append(args, freeformArgs...)
+	args = append(args, toleranceArgs...)
+	args = append(args, plasticArgs...)
+	args = append(args, hullArgs...)
+	args = append(args, sheetMetalArgs...)
+	return args
 }
 
 // Kinds returns the kind string of every promoted feature-arg type (see [All]).
