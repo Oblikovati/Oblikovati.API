@@ -19,9 +19,8 @@ func (c *Client) Triad() Triad { return Triad{c} }
 // mcp:tool triad_show
 // mcp:summary Places (and shows) the triad.
 func (t Triad) Show(spec wire.TriadSpec) (wire.OKResult, error) {
-	var r wire.OKResult
 	spec.Visible = true
-	return r, t.c.call(wire.MethodTriadShow, wire.ShowTriadArgs{Triad: spec}, &r)
+	return call[wire.OKResult](t.c, wire.MethodTriadShow, wire.ShowTriadArgs{Triad: spec})
 }
 
 // Update repositions/reorients the visible triad.
@@ -29,8 +28,7 @@ func (t Triad) Show(spec wire.TriadSpec) (wire.OKResult, error) {
 // mcp:tool triad_update
 // mcp:summary Repositions/reorients the visible triad.
 func (t Triad) Update(spec wire.TriadSpec) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, t.c.call(wire.MethodTriadUpdate, wire.ShowTriadArgs{Triad: spec}, &r)
+	return call[wire.OKResult](t.c, wire.MethodTriadUpdate, wire.ShowTriadArgs{Triad: spec})
 }
 
 // Hide dismisses the triad.
@@ -38,8 +36,7 @@ func (t Triad) Update(spec wire.TriadSpec) (wire.OKResult, error) {
 // mcp:tool triad_hide
 // mcp:summary Dismisses the triad.
 func (t Triad) Hide() (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, t.c.call(wire.MethodTriadHide, nil, &r)
+	return call[wire.OKResult](t.c, wire.MethodTriadHide, nil)
 }
 
 // Get returns the current triad spec (visible or not).
@@ -47,8 +44,7 @@ func (t Triad) Hide() (wire.OKResult, error) {
 // mcp:tool triad_get
 // mcp:summary Returns the current triad spec (visible or not).
 func (t Triad) Get() (wire.TriadSpec, error) {
-	var r wire.TriadSpec
-	return r, t.c.call(wire.MethodTriadGet, nil, &r)
+	return call[wire.TriadSpec](t.c, wire.MethodTriadGet, nil)
 }
 
 // Manipulators is the custom-gizmo operation group (M05-F13): declare drag
@@ -64,8 +60,7 @@ func (c *Client) Manipulators() Manipulators { return Manipulators{c} }
 // mcp:tool manipulators_set
 // mcp:summary Replaces one gizmo's handle set.
 func (m Manipulators) Set(id string, handles []wire.ManipulatorHandleSpec) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, m.c.call(wire.MethodManipulatorsSet, wire.SetManipulatorsArgs{ID: id, Handles: handles}, &r)
+	return call[wire.OKResult](m.c, wire.MethodManipulatorsSet, wire.SetManipulatorsArgs{ID: id, Handles: handles})
 }
 
 // Remove dismisses a gizmo's handles.
@@ -73,6 +68,5 @@ func (m Manipulators) Set(id string, handles []wire.ManipulatorHandleSpec) (wire
 // mcp:tool manipulators_remove
 // mcp:summary Dismisses a gizmo's handles.
 func (m Manipulators) Remove(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, m.c.call(wire.MethodManipulatorsRemove, wire.RemoveManipulatorsArgs{ID: id}, &r)
+	return call[wire.OKResult](m.c, wire.MethodManipulatorsRemove, wire.RemoveManipulatorsArgs{ID: id})
 }

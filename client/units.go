@@ -20,8 +20,7 @@ func (c *Client) Units() Units { return Units{c} }
 // mcp:tool get_document_units
 // mcp:summary Returns the active document's display-unit preferences and precision.
 func (d Documents) GetUnits() (wire.DocumentUnitsInfo, error) {
-	var r wire.DocumentUnitsInfo
-	return r, d.c.call(wire.MethodDocumentsGetUnits, nil, &r)
+	return call[wire.DocumentUnitsInfo](d.c, wire.MethodDocumentsGetUnits, nil)
 }
 
 // SetUnits applies the non-nil unit/precision preferences and returns the
@@ -30,8 +29,7 @@ func (d Documents) GetUnits() (wire.DocumentUnitsInfo, error) {
 // mcp:tool set_document_units
 // mcp:summary Applies the non-nil document unit/precision preferences and returns the updated units.
 func (d Documents) SetUnits(args wire.SetDocumentUnitsArgs) (wire.DocumentUnitsInfo, error) {
-	var r wire.DocumentUnitsInfo
-	return r, d.c.call(wire.MethodDocumentsSetUnits, args, &r)
+	return call[wire.DocumentUnitsInfo](d.c, wire.MethodDocumentsSetUnits, args)
 }
 
 // Convert converts a value From one unit name To another within the same
@@ -40,8 +38,7 @@ func (d Documents) SetUnits(args wire.SetDocumentUnitsArgs) (wire.DocumentUnitsI
 // mcp:tool units_convert
 // mcp:summary Converts a value from one unit name to another within the same category.
 func (u Units) Convert(args wire.ConvertUnitsArgs) (wire.ConvertUnitsResult, error) {
-	var r wire.ConvertUnitsResult
-	return r, u.c.call(wire.MethodUnitsConvert, args, &r)
+	return call[wire.ConvertUnitsResult](u.c, wire.MethodUnitsConvert, args)
 }
 
 // GetStringFromValue formats a database-unit value of the given category in the
@@ -50,8 +47,7 @@ func (u Units) Convert(args wire.ConvertUnitsArgs) (wire.ConvertUnitsResult, err
 // mcp:tool units_get_string_from_value
 // mcp:summary Formats a database-unit value in the document display unit, honoring display precision.
 func (u Units) GetStringFromValue(value float64, unitsType string) (wire.StringResult, error) {
-	var r wire.StringResult
-	return r, u.c.call(wire.MethodUnitsGetStringFromValue, wire.StringFromValueArgs{Value: value, UnitsType: unitsType}, &r)
+	return call[wire.StringResult](u.c, wire.MethodUnitsGetStringFromValue, wire.StringFromValueArgs{Value: value, UnitsType: unitsType})
 }
 
 // GetPreciseStringFromValue formats a database-unit value in the document's
@@ -60,8 +56,7 @@ func (u Units) GetStringFromValue(value float64, unitsType string) (wire.StringR
 // mcp:tool units_get_precise_string_from_value
 // mcp:summary Formats a database-unit value in the document display unit at full precision.
 func (u Units) GetPreciseStringFromValue(value float64, unitsType string) (wire.StringResult, error) {
-	var r wire.StringResult
-	return r, u.c.call(wire.MethodUnitsGetPreciseStringFromValue, wire.StringFromValueArgs{Value: value, UnitsType: unitsType}, &r)
+	return call[wire.StringResult](u.c, wire.MethodUnitsGetPreciseStringFromValue, wire.StringFromValueArgs{Value: value, UnitsType: unitsType})
 }
 
 // GetValueFromExpression evaluates a unit-bearing expression to a database-unit
@@ -70,8 +65,7 @@ func (u Units) GetPreciseStringFromValue(value float64, unitsType string) (wire.
 // mcp:tool units_get_value_from_expression
 // mcp:summary Evaluates a unit-bearing expression to a database-unit value of the given category.
 func (u Units) GetValueFromExpression(expression, unitsType string) (wire.ValueResult, error) {
-	var r wire.ValueResult
-	return r, u.c.call(wire.MethodUnitsGetValueFromExpression, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType}, &r)
+	return call[wire.ValueResult](u.c, wire.MethodUnitsGetValueFromExpression, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType})
 }
 
 // GetDatabaseUnitsFromExpression evaluates an expression to a database-unit
@@ -80,8 +74,7 @@ func (u Units) GetValueFromExpression(expression, unitsType string) (wire.ValueR
 // mcp:tool units_get_database_units_from_expression
 // mcp:summary Evaluates an expression to a database-unit value, auto-detecting its category.
 func (u Units) GetDatabaseUnitsFromExpression(expression string) (wire.DatabaseUnitsResult, error) {
-	var r wire.DatabaseUnitsResult
-	return r, u.c.call(wire.MethodUnitsGetDatabaseUnitsFromExpression, wire.ExpressionArgs{Expression: expression}, &r)
+	return call[wire.DatabaseUnitsResult](u.c, wire.MethodUnitsGetDatabaseUnitsFromExpression, wire.ExpressionArgs{Expression: expression})
 }
 
 // IsExpressionValid reports whether an expression parses and is dimensionally
@@ -90,8 +83,7 @@ func (u Units) GetDatabaseUnitsFromExpression(expression string) (wire.DatabaseU
 // mcp:tool units_is_expression_valid
 // mcp:summary Reports whether an expression parses and is dimensionally valid for the target category.
 func (u Units) IsExpressionValid(expression, unitsType string) (wire.ExpressionValidResult, error) {
-	var r wire.ExpressionValidResult
-	return r, u.c.call(wire.MethodUnitsIsExpressionValid, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType}, &r)
+	return call[wire.ExpressionValidResult](u.c, wire.MethodUnitsIsExpressionValid, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType})
 }
 
 // CompatibleUnits reports whether an expression's resolved unit is
@@ -100,8 +92,7 @@ func (u Units) IsExpressionValid(expression, unitsType string) (wire.ExpressionV
 // mcp:tool units_compatible_units
 // mcp:summary Reports whether an expression's resolved unit is compatible with the target category.
 func (u Units) CompatibleUnits(expression, unitsType string) (wire.CompatibleUnitsResult, error) {
-	var r wire.CompatibleUnitsResult
-	return r, u.c.call(wire.MethodUnitsCompatibleUnits, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType}, &r)
+	return call[wire.CompatibleUnitsResult](u.c, wire.MethodUnitsCompatibleUnits, wire.ExpressionWithTypeArgs{Expression: expression, UnitsType: unitsType})
 }
 
 // GetTypeFromString returns the category a unit name belongs to (e.g. "mm" →
@@ -110,8 +101,7 @@ func (u Units) CompatibleUnits(expression, unitsType string) (wire.CompatibleUni
 // mcp:tool units_get_type_from_string
 // mcp:summary Returns the category a unit name belongs to (e.g. "mm" → "length").
 func (u Units) GetTypeFromString(unitString string) (wire.UnitsTypeResult, error) {
-	var r wire.UnitsTypeResult
-	return r, u.c.call(wire.MethodUnitsGetTypeFromString, wire.UnitStringArgs{UnitString: unitString}, &r)
+	return call[wire.UnitsTypeResult](u.c, wire.MethodUnitsGetTypeFromString, wire.UnitStringArgs{UnitString: unitString})
 }
 
 // GetStringFromType returns the document-preferred unit name for a category
@@ -120,8 +110,7 @@ func (u Units) GetTypeFromString(unitString string) (wire.UnitsTypeResult, error
 // mcp:tool units_get_string_from_type
 // mcp:summary Returns the document-preferred unit name for a category (e.g. "length" → "mm").
 func (u Units) GetStringFromType(unitsType string) (wire.StringResult, error) {
-	var r wire.StringResult
-	return r, u.c.call(wire.MethodUnitsGetStringFromType, wire.UnitsTypeArgs{UnitsType: unitsType}, &r)
+	return call[wire.StringResult](u.c, wire.MethodUnitsGetStringFromType, wire.UnitsTypeArgs{UnitsType: unitsType})
 }
 
 // GetLocaleCorrectedExpression normalizes an expression's number formatting
@@ -130,8 +119,7 @@ func (u Units) GetStringFromType(unitsType string) (wire.StringResult, error) {
 // mcp:tool units_get_locale_corrected_expression
 // mcp:summary Normalizes an expression's number formatting to the canonical evaluator form.
 func (u Units) GetLocaleCorrectedExpression(expression string) (wire.StringResult, error) {
-	var r wire.StringResult
-	return r, u.c.call(wire.MethodUnitsGetLocaleCorrectedExpression, wire.ExpressionArgs{Expression: expression}, &r)
+	return call[wire.StringResult](u.c, wire.MethodUnitsGetLocaleCorrectedExpression, wire.ExpressionArgs{Expression: expression})
 }
 
 // GetDrivingParameters returns the parameter names an expression references.
@@ -139,6 +127,5 @@ func (u Units) GetLocaleCorrectedExpression(expression string) (wire.StringResul
 // mcp:tool units_get_driving_parameters
 // mcp:summary Returns the parameter names an expression references.
 func (u Units) GetDrivingParameters(expression string) (wire.DrivingParametersResult, error) {
-	var r wire.DrivingParametersResult
-	return r, u.c.call(wire.MethodUnitsGetDrivingParameters, wire.ExpressionArgs{Expression: expression}, &r)
+	return call[wire.DrivingParametersResult](u.c, wire.MethodUnitsGetDrivingParameters, wire.ExpressionArgs{Expression: expression})
 }

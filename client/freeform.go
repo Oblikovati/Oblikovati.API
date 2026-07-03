@@ -18,9 +18,8 @@ func (c *Client) Freeform() Freeform { return Freeform{c} }
 // mcp:tool freeform_set_level
 // mcp:summary Changes the subdivision level a placed freeform feature's cage is evaluated at, e.g.
 func (f Freeform) SetLevel(id uint64, level int) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
 	args := wire.SetFreeformLevelArgs{ID: id, Level: level}
-	return r, f.c.call(wire.MethodFreeformSetLevel, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFreeformSetLevel, args)
 }
 
 // MoveVertices translates the selected cage vertices (by cage index) by
@@ -30,8 +29,7 @@ func (f Freeform) SetLevel(id uint64, level int) (wire.FeatureDetailResult, erro
 // mcp:tool freeform_move_vertices
 // mcp:summary Translates the selected cage vertices (by cage index) by [dx,dy,dz] in document units, e.g.
 func (f Freeform) MoveVertices(args wire.MoveFreeformVerticesArgs) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
-	return r, f.c.call(wire.MethodFreeformMoveVertices, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFreeformMoveVertices, args)
 }
 
 // CreaseEdges sets the crease sharpness (0 smooth … 1 fully sharp) on the
@@ -41,6 +39,5 @@ func (f Freeform) MoveVertices(args wire.MoveFreeformVerticesArgs) (wire.Feature
 // mcp:tool freeform_crease_edges
 // mcp:summary Sets the crease sharpness (0 smooth … 1 fully sharp) on the selected cage edges, each addressed by its two cage vertex indices, e.g.
 func (f Freeform) CreaseEdges(args wire.CreaseFreeformEdgesArgs) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
-	return r, f.c.call(wire.MethodFreeformCreaseEdges, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFreeformCreaseEdges, args)
 }

@@ -19,8 +19,7 @@ func (c *Client) DrawingViews() DrawingViews { return DrawingViews{c} }
 // mcp:tool drawing_list_views
 // mcp:summary List the active sheet's drawing views (name, base/projected, orientation, scale, style, sheet centre, and visible/hidden curve counts).
 func (d DrawingViews) List() (wire.ListDrawingViewsResult, error) {
-	var r wire.ListDrawingViewsResult
-	return r, d.c.call(wire.MethodDrawingViewsList, struct{}{}, &r)
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsList, struct{}{})
 }
 
 // AddBase adds a base view of the referenced model at the given orientation/scale/style,
@@ -29,8 +28,7 @@ func (d DrawingViews) List() (wire.ListDrawingViewsResult, error) {
 // mcp:tool drawing_add_base_view
 // mcp:summary Add a base view of the drawing's referenced model (orientation = front|top|right|back|left|bottom|iso, style = hiddenLine|wireframe|shaded, scale e.g. 0.5 for 1:2) centred at centerXmm/centerYmm; computes visible/hidden edges.
 func (d DrawingViews) AddBase(args wire.AddBaseViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddBase, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddBase, args)
 }
 
 // AddProjected adds a view projected from a base view in the given direction.
@@ -38,8 +36,7 @@ func (d DrawingViews) AddBase(args wire.AddBaseViewArgs) (wire.ViewResult, error
 // mcp:tool drawing_add_projected_view
 // mcp:summary Add a projected view off a base view (direction = right|left|up|down), inheriting the base's scale/style; placed at centerXmm/centerYmm.
 func (d DrawingViews) AddProjected(args wire.AddProjectedViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddProjected, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddProjected, args)
 }
 
 // AddAuxiliary adds a view projected perpendicular to a fold line on a parent view.
@@ -47,8 +44,7 @@ func (d DrawingViews) AddProjected(args wire.AddProjectedViewArgs) (wire.ViewRes
 // mcp:tool drawing_add_auxiliary_view
 // mcp:summary Add an auxiliary view off a parent view: projected perpendicular to a fold line at foldAngleDeg (0 folds down like a top view, 90 folds to the side), inheriting the parent's scale/style; placed at centerXmm/centerYmm. Shows an inclined face true-size.
 func (d DrawingViews) AddAuxiliary(args wire.AddAuxiliaryViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddAuxiliary, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddAuxiliary, args)
 }
 
 // AddSection adds a section view cutting the parent's model along a section line.
@@ -56,8 +52,7 @@ func (d DrawingViews) AddAuxiliary(args wire.AddAuxiliaryViewArgs) (wire.ViewRes
 // mcp:tool drawing_add_section_view
 // mcp:summary Add a section view off a parent view: the model is cut by the plane through the section line (x1,y1)-(x2,y2) drawn on the parent (sheet mm), the near half removed, the cut outline drawn bold and the exposed faces hatched; placed at centerXmm/centerYmm.
 func (d DrawingViews) AddSection(args wire.AddSectionViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddSection, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddSection, args)
 }
 
 // AddDetail adds a magnified detail view of a circular region of a parent view.
@@ -65,8 +60,7 @@ func (d DrawingViews) AddSection(args wire.AddSectionViewArgs) (wire.ViewResult,
 // mcp:tool drawing_add_detail_view
 // mcp:summary Add a detail view: a magnified circular region (boundaryXmm/boundaryYmm/radiusMm on the parent, sheet mm) of a parent view, at the larger scale, placed at centerXmm/centerYmm.
 func (d DrawingViews) AddDetail(args wire.AddDetailViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddDetail, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddDetail, args)
 }
 
 // AddBreak adds a break view: the parent compressed by removing a band along an axis.
@@ -74,8 +68,7 @@ func (d DrawingViews) AddDetail(args wire.AddDetailViewArgs) (wire.ViewResult, e
 // mcp:tool drawing_add_break_view
 // mcp:summary Add a break view: the parent view compressed by removing a band (orientation = horizontal removes a vertical band, vertical removes a horizontal one) between gapStartMm and gapEndMm on the parent (sheet mm), with break lines at the cut; placed at centerXmm/centerYmm.
 func (d DrawingViews) AddBreak(args wire.AddBreakViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddBreak, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddBreak, args)
 }
 
 // AddSlice adds a slice view: only the zero-thickness cut outline at a section line on the parent.
@@ -83,8 +76,7 @@ func (d DrawingViews) AddBreak(args wire.AddBreakViewArgs) (wire.ViewResult, err
 // mcp:tool drawing_add_slice_view
 // mcp:summary Add a slice view off a parent: only the zero-thickness slice outline at the section line (x1,y1)-(x2,y2) on the parent (sheet mm), with nothing projected behind it; placed at centerXmm/centerYmm.
 func (d DrawingViews) AddSlice(args wire.AddSliceViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddSlice, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddSlice, args)
 }
 
 // AddBreakout adds a breakout view: a parent copy with the interior revealed in a bounded region.
@@ -92,8 +84,7 @@ func (d DrawingViews) AddSlice(args wire.AddSliceViewArgs) (wire.ViewResult, err
 // mcp:tool drawing_add_breakout_view
 // mcp:summary Add a breakout view off a parent: a local cut-away revealing the interior inside the circular region (boundaryXmm/boundaryYmm/radiusMm on the parent, sheet mm); placed at centerXmm/centerYmm.
 func (d DrawingViews) AddBreakout(args wire.AddBreakoutViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddBreakout, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddBreakout, args)
 }
 
 // AddDraft adds a model-less framed draft view for manual 2D geometry.
@@ -101,8 +92,7 @@ func (d DrawingViews) AddBreakout(args wire.AddBreakoutViewArgs) (wire.ViewResul
 // mcp:tool drawing_add_draft_view
 // mcp:summary Add a draft view: a model-less framed container (widthMm × heightMm, sheet mm) at centerXmm/centerYmm for manually-drawn 2D geometry.
 func (d DrawingViews) AddDraft(args wire.AddDraftViewArgs) (wire.ViewResult, error) {
-	var r wire.ViewResult
-	return r, d.c.call(wire.MethodDrawingViewsAddDraft, args, &r)
+	return call[wire.ViewResult](d.c, wire.MethodDrawingViewsAddDraft, args)
 }
 
 // Delete removes the named view (and any views projected from it).
@@ -110,8 +100,7 @@ func (d DrawingViews) AddDraft(args wire.AddDraftViewArgs) (wire.ViewResult, err
 // mcp:tool drawing_delete_view
 // mcp:summary Delete a drawing view by name (deleting a base view also removes views projected from it).
 func (d DrawingViews) Delete(args wire.DeleteViewArgs) (wire.ListDrawingViewsResult, error) {
-	var r wire.ListDrawingViewsResult
-	return r, d.c.call(wire.MethodDrawingViewsDelete, args, &r)
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsDelete, args)
 }
 
 // Curves returns a view's drawing curves — the projected edge segments classified visible
@@ -120,6 +109,5 @@ func (d DrawingViews) Delete(args wire.DeleteViewArgs) (wire.ListDrawingViewsRes
 // mcp:tool drawing_view_curves
 // mcp:summary Read a view's hidden-line drawing curves: 2D segments (sheet mm) flagged visible (solid) or hidden (dashed), each carrying the source model edge's reference key.
 func (d DrawingViews) Curves(args wire.ViewCurvesArgs) (wire.ViewCurvesResult, error) {
-	var r wire.ViewCurvesResult
-	return r, d.c.call(wire.MethodDrawingViewsCurves, args, &r)
+	return call[wire.ViewCurvesResult](d.c, wire.MethodDrawingViewsCurves, args)
 }

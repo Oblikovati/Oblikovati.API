@@ -25,8 +25,7 @@ func (c *Client) Graphics() Graphics { return Graphics{c} }
 // mcp:tool set_client_graphics
 // mcp:summary Create or replace a named client-graphics overlay (declarative nodes/primitives drawn in the viewport, e.g. sim results).
 func (g Graphics) Set(args wire.SetClientGraphicsArgs) (wire.SetClientGraphicsResult, error) {
-	var r wire.SetClientGraphicsResult
-	return r, g.c.call(wire.MethodClientGraphicsSet, args, &r)
+	return call[wire.SetClientGraphicsResult](g.c, wire.MethodClientGraphicsSet, args)
 }
 
 // List enumerates the live graphics groups across all lanes.
@@ -34,8 +33,7 @@ func (g Graphics) Set(args wire.SetClientGraphicsArgs) (wire.SetClientGraphicsRe
 // mcp:tool list_client_graphics
 // mcp:summary List the add-in's client-graphics overlays (id, visibility).
 func (g Graphics) List() (wire.ListClientGraphicsResult, error) {
-	var r wire.ListClientGraphicsResult
-	return r, g.c.call(wire.MethodClientGraphicsList, nil, &r)
+	return call[wire.ListClientGraphicsResult](g.c, wire.MethodClientGraphicsList, nil)
 }
 
 // Delete removes the named graphics group.
@@ -160,8 +158,7 @@ func (g Graphics) RegisterColorMapper(name string, mapper wire.GraphicsColorMapp
 // mcp:tool list_color_mappers
 // mcp:summary List the registered named color mappers.
 func (g Graphics) ColorMappers() (wire.ColorMappersResult, error) {
-	var r wire.ColorMappersResult
-	return r, g.c.call(wire.MethodClientGraphicsListMappers, nil, &r)
+	return call[wire.ColorMappersResult](g.c, wire.MethodClientGraphicsListMappers, nil)
 }
 
 // SetNodeTransform moves one node within a group without resubmitting its geometry (transform

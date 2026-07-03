@@ -13,8 +13,7 @@ import (
 // mcp:tool add_sketch3d_surface_curve
 // mcp:summary Add a curve that lies on a part face/surface to a 3D sketch (project/intersection/silhouette).
 func (s Sketch3D) AddSurfaceCurve(args wire.AddSketch3DSurfaceCurveArgs) (wire.AddSketch3DSurfaceCurveResult, error) {
-	var r wire.AddSketch3DSurfaceCurveResult
-	return r, s.c.call(wire.MethodSketch3DAddSurfaceCurve, args, &r)
+	return call[wire.AddSketch3DSurfaceCurveResult](s.c, wire.MethodSketch3DAddSurfaceCurve, args)
 }
 
 // AddIntersectionCurve adds the intersection curve of two part faces (by reference key).

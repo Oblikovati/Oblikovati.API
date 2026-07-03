@@ -20,8 +20,7 @@ func (c *Client) Views() Views { return Views{c} }
 // mcp:tool list_views
 // mcp:summary List a document's views (each with its camera), the active index, and the tiling layout; document 0 = active.
 func (v Views) List(document uint64) (wire.ListViewsResult, error) {
-	var r wire.ListViewsResult
-	return r, v.c.call(wire.MethodViewsList, wire.ListViewsArgs{Document: document}, &r)
+	return call[wire.ListViewsResult](v.c, wire.MethodViewsList, wire.ListViewsArgs{Document: document})
 }
 
 // Add creates a new view of a document and makes it active, returning the new view.
@@ -29,8 +28,7 @@ func (v Views) List(document uint64) (wire.ListViewsResult, error) {
 // mcp:tool add_view
 // mcp:summary Add a new view to a document and make it active (copyActiveCamera starts it at the current view's camera); document 0 = active.
 func (v Views) Add(args wire.AddViewArgs) (wire.ViewInfo, error) {
-	var r wire.ViewInfo
-	return r, v.c.call(wire.MethodViewsAdd, args, &r)
+	return call[wire.ViewInfo](v.c, wire.MethodViewsAdd, args)
 }
 
 // Activate makes the indexed view of a document the active view.
@@ -38,8 +36,7 @@ func (v Views) Add(args wire.AddViewArgs) (wire.ViewInfo, error) {
 // mcp:tool activate_view
 // mcp:summary Make the view at the given index the active view; document 0 = active.
 func (v Views) Activate(args wire.ActivateViewArgs) (wire.ListViewsResult, error) {
-	var r wire.ListViewsResult
-	return r, v.c.call(wire.MethodViewsActivate, args, &r)
+	return call[wire.ListViewsResult](v.c, wire.MethodViewsActivate, args)
 }
 
 // Close removes the indexed view; closing the last view of a document is refused.
@@ -47,8 +44,7 @@ func (v Views) Activate(args wire.ActivateViewArgs) (wire.ListViewsResult, error
 // mcp:tool close_view
 // mcp:summary Close the view at the given index (the last view cannot be closed); document 0 = active.
 func (v Views) Close(args wire.CloseViewArgs) (wire.ListViewsResult, error) {
-	var r wire.ListViewsResult
-	return r, v.c.call(wire.MethodViewsClose, args, &r)
+	return call[wire.ListViewsResult](v.c, wire.MethodViewsClose, args)
 }
 
 // Rename sets the indexed view's name.
@@ -56,8 +52,7 @@ func (v Views) Close(args wire.CloseViewArgs) (wire.ListViewsResult, error) {
 // mcp:tool views_rename
 // mcp:summary Sets the indexed view's name.
 func (v Views) Rename(args wire.RenameViewArgs) (wire.ViewInfo, error) {
-	var r wire.ViewInfo
-	return r, v.c.call(wire.MethodViewsRename, args, &r)
+	return call[wire.ViewInfo](v.c, wire.MethodViewsRename, args)
 }
 
 // Layout returns a document's current tiling layout.
@@ -65,8 +60,7 @@ func (v Views) Rename(args wire.RenameViewArgs) (wire.ViewInfo, error) {
 // mcp:tool views_get_layout
 // mcp:summary Returns a document's current tiling layout.
 func (v Views) Layout(document uint64) (wire.LayoutResult, error) {
-	var r wire.LayoutResult
-	return r, v.c.call(wire.MethodViewsGetLayout, wire.ListViewsArgs{Document: document}, &r)
+	return call[wire.LayoutResult](v.c, wire.MethodViewsGetLayout, wire.ListViewsArgs{Document: document})
 }
 
 // SetLayout chooses how a document's views are tiled.
@@ -74,8 +68,7 @@ func (v Views) Layout(document uint64) (wire.LayoutResult, error) {
 // mcp:tool set_view_layout
 // mcp:summary Set how a document's views tile the viewport (0 single, 1 two-H, 2 two-V, 3 three, 4 quad); document 0 = active.
 func (v Views) SetLayout(args wire.SetLayoutArgs) (wire.LayoutResult, error) {
-	var r wire.LayoutResult
-	return r, v.c.call(wire.MethodViewsSetLayout, args, &r)
+	return call[wire.LayoutResult](v.c, wire.MethodViewsSetLayout, args)
 }
 
 // CaptureNamed saves the active view's current camera under a name (replacing any existing
@@ -84,8 +77,7 @@ func (v Views) SetLayout(args wire.SetLayoutArgs) (wire.LayoutResult, error) {
 // mcp:tool capture_named_view
 // mcp:summary Save the active view's current camera under a name so restore_named_view can return to it exactly; document 0 = active.
 func (v Views) CaptureNamed(args wire.CaptureNamedViewArgs) (wire.NamedViewInfo, error) {
-	var r wire.NamedViewInfo
-	return r, v.c.call(wire.MethodViewsCaptureNamed, args, &r)
+	return call[wire.NamedViewInfo](v.c, wire.MethodViewsCaptureNamed, args)
 }
 
 // ListNamed enumerates a document's saved named views.
@@ -93,8 +85,7 @@ func (v Views) CaptureNamed(args wire.CaptureNamedViewArgs) (wire.NamedViewInfo,
 // mcp:tool list_named_views
 // mcp:summary List a document's saved named views (the names restore_named_view accepts); document 0 = active.
 func (v Views) ListNamed(document uint64) (wire.NamedViewsResult, error) {
-	var r wire.NamedViewsResult
-	return r, v.c.call(wire.MethodViewsListNamed, wire.ListViewsArgs{Document: document}, &r)
+	return call[wire.NamedViewsResult](v.c, wire.MethodViewsListNamed, wire.ListViewsArgs{Document: document})
 }
 
 // RestoreNamed restores a saved named view's camera to the active view (animated), returning
@@ -103,8 +94,7 @@ func (v Views) ListNamed(document uint64) (wire.NamedViewsResult, error) {
 // mcp:tool restore_named_view
 // mcp:summary Restore a saved named view's camera to the active view exactly; see list_named_views; document 0 = active.
 func (v Views) RestoreNamed(args wire.NamedViewRefArgs) (wire.CameraView, error) {
-	var r wire.CameraView
-	return r, v.c.call(wire.MethodViewsRestoreNamed, args, &r)
+	return call[wire.CameraView](v.c, wire.MethodViewsRestoreNamed, args)
 }
 
 // DeleteNamed removes a saved named view.
@@ -112,6 +102,5 @@ func (v Views) RestoreNamed(args wire.NamedViewRefArgs) (wire.CameraView, error)
 // mcp:tool delete_named_view
 // mcp:summary Delete a saved named view by name; document 0 = active.
 func (v Views) DeleteNamed(args wire.NamedViewRefArgs) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, v.c.call(wire.MethodViewsDeleteNamed, args, &r)
+	return call[wire.OKResult](v.c, wire.MethodViewsDeleteNamed, args)
 }

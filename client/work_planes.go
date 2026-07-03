@@ -22,8 +22,7 @@ func (c *Client) WorkPlanes() WorkPlanes { return WorkPlanes{c} }
 // mcp:tool list_work_planes
 // mcp:summary List the work planes of the active part or assembly (origin + user). Each user plane reports its kind plus the inputs redefine_work_plane accepts: its scalars (offset/angle: index, label, unit, value) and its reference slots (index, label, kind: plane|axis|point|face).
 func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
-	var r wire.ListWorkPlanesResult
-	return r, w.c.call(wire.MethodWorkPlanesList, nil, &r)
+	return call[wire.ListWorkPlanesResult](w.c, wire.MethodWorkPlanesList, nil)
 }
 
 // Create adds a datum plane from an explicit request — the escape hatch covering every
@@ -32,8 +31,7 @@ func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
 // mcp:tool create_work_plane
 // mcp:summary Create a user work plane (offset, three-point, two-plane, tangent, …); see the args schema. Pair with capture_viewport to SEE the datum plane (drawn as a translucent square).
 func (w WorkPlanes) Create(args wire.CreateWorkPlaneArgs) (wire.CreateWorkPlaneResult, error) {
-	var r wire.CreateWorkPlaneResult
-	return r, w.c.call(wire.MethodWorkPlanesCreate, args, &r)
+	return call[wire.CreateWorkPlaneResult](w.c, wire.MethodWorkPlanesCreate, args)
 }
 
 // Redefine edits a placed user work plane in place: set editable scalars and/or re-point
@@ -43,8 +41,7 @@ func (w WorkPlanes) Create(args wire.CreateWorkPlaneArgs) (wire.CreateWorkPlaneR
 // mcp:tool redefine_work_plane
 // mcp:summary Edit a placed user work plane in place by its index (from list_work_planes): set scalars (e.g. an offset distance or line-plane angle: scalars:[{index,value:"50 mm"}]) and/or re-point reference slots at new geometry (repick:[{slot,ref:"origin/plane/xz"}]). Returns the plane's refreshed geometry; capture_viewport shows it move.
 func (w WorkPlanes) Redefine(args wire.RedefineWorkPlaneArgs) (wire.RedefineWorkPlaneResult, error) {
-	var r wire.RedefineWorkPlaneResult
-	return r, w.c.call(wire.MethodWorkPlanesRedefine, args, &r)
+	return call[wire.RedefineWorkPlaneResult](w.c, wire.MethodWorkPlanesRedefine, args)
 }
 
 // SetScalar redefines plane index's scalar slot to a unit-bearing value ("30 mm", "60 deg") —

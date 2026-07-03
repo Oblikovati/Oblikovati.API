@@ -19,8 +19,7 @@ func (c *Client) Features() Features { return Features{c} }
 // mcp:tool list_feature_kinds
 // mcp:summary List the feature operations add_feature can create, each with its JSON args schema.
 func (f Features) List() (wire.ListFeatureKindsResult, error) {
-	var r wire.ListFeatureKindsResult
-	return r, f.c.call(wire.MethodFeaturesList, nil, &r)
+	return call[wire.ListFeatureKindsResult](f.c, wire.MethodFeaturesList, nil)
 }
 
 // Add applies a feature operation. The result shape is operation-specific (see the
@@ -30,8 +29,7 @@ func (f Features) List() (wire.ListFeatureKindsResult, error) {
 // mcp:summary Create a feature on the active part. Get the kind and its args schema from list_feature_kinds.
 // mcp:input addFeatureArg
 func (f Features) Add(args wire.AddFeatureArgs) (json.RawMessage, error) {
-	var r json.RawMessage
-	return r, f.c.call(wire.MethodFeaturesAdd, args, &r)
+	return call[json.RawMessage](f.c, wire.MethodFeaturesAdd, args)
 }
 
 // Get returns one placed feature's state and editable scalars by its stable id
@@ -40,8 +38,7 @@ func (f Features) Add(args wire.AddFeatureArgs) (json.RawMessage, error) {
 // mcp:tool features_get
 // mcp:summary Returns one placed feature's state and editable scalars by its stable id (from model.tree), e.g.
 func (f Features) Get(id uint64) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
-	return r, f.c.call(wire.MethodFeaturesGet, wire.FeatureRefArgs{ID: id}, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFeaturesGet, wire.FeatureRefArgs{ID: id})
 }
 
 // Edit edits a placed feature in place and recomputes: set editable scalars and/or re-pick
@@ -52,8 +49,7 @@ func (f Features) Get(id uint64) (wire.FeatureDetailResult, error) {
 // mcp:tool features_edit
 // mcp:summary Edit a placed feature in place — set scalars and/or re-pick its geometric references (edges/faces/profile/plane) — then recompute.
 func (f Features) Edit(args wire.EditFeatureArgs) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
-	return r, f.c.call(wire.MethodFeaturesEdit, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFeaturesEdit, args)
 }
 
 // Delete removes a placed feature from the history and recomputes, e.g. Delete(7).
@@ -61,8 +57,7 @@ func (f Features) Edit(args wire.EditFeatureArgs) (wire.FeatureDetailResult, err
 // mcp:tool features_delete
 // mcp:summary Removes a placed feature from the history and recomputes, e.g.
 func (f Features) Delete(id uint64) (wire.DeleteFeatureResult, error) {
-	var r wire.DeleteFeatureResult
-	return r, f.c.call(wire.MethodFeaturesDelete, wire.FeatureRefArgs{ID: id}, &r)
+	return call[wire.DeleteFeatureResult](f.c, wire.MethodFeaturesDelete, wire.FeatureRefArgs{ID: id})
 }
 
 // Rename sets a feature's display name (the id stays stable), e.g. Rename(7, "Boss").
@@ -70,8 +65,7 @@ func (f Features) Delete(id uint64) (wire.DeleteFeatureResult, error) {
 // mcp:tool features_rename
 // mcp:summary Sets a feature's display name (the id stays stable), e.g.
 func (f Features) Rename(id uint64, name string) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
-	return r, f.c.call(wire.MethodFeaturesRename, wire.RenameFeatureArgs{ID: id, Name: name}, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFeaturesRename, wire.RenameFeatureArgs{ID: id, Name: name})
 }
 
 // SetSuppressed sets explicit suppression and recomputes, e.g. SetSuppressed(7, true).
@@ -79,9 +73,8 @@ func (f Features) Rename(id uint64, name string) (wire.FeatureDetailResult, erro
 // mcp:tool features_set_suppressed
 // mcp:summary Sets explicit suppression and recomputes, e.g.
 func (f Features) SetSuppressed(id uint64, suppressed bool) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
 	args := wire.SetFeatureSuppressedArgs{ID: id, Suppressed: suppressed}
-	return r, f.c.call(wire.MethodFeaturesSetSuppressed, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFeaturesSetSuppressed, args)
 }
 
 // Reorder moves a feature to a new history index and recomputes, e.g. Reorder(7, 0).
@@ -89,7 +82,6 @@ func (f Features) SetSuppressed(id uint64, suppressed bool) (wire.FeatureDetailR
 // mcp:tool features_reorder
 // mcp:summary Moves a feature to a new history index and recomputes, e.g.
 func (f Features) Reorder(id uint64, newIndex int) (wire.FeatureDetailResult, error) {
-	var r wire.FeatureDetailResult
 	args := wire.ReorderFeatureArgs{ID: id, NewIndex: newIndex}
-	return r, f.c.call(wire.MethodFeaturesReorder, args, &r)
+	return call[wire.FeatureDetailResult](f.c, wire.MethodFeaturesReorder, args)
 }

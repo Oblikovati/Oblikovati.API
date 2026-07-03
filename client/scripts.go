@@ -22,6 +22,5 @@ func (c *Client) Scripts() Scripts { return Scripts{c} }
 // mcp:tool run_script
 // mcp:summary Run a whole sandboxed Lua program against the model in one call (instead of many tool calls). Drive the model with oblikovati.call("method", {args}) or the typed sugar oblikovati.<group>.<method>{args} (e.g. oblikovati.documents.create{type="part"}, oblikovati.parameters.add{name="h",expression="3 cm"}); print(...) for output. Returns {output, error, durationMs}. Optional wallMs bounds the run (default 10s, max 60s).
 func (s Scripts) Run(source string, wallMs int) (wire.ScriptRunResult, error) {
-	var r wire.ScriptRunResult
-	return r, s.c.call(wire.MethodScriptRun, wire.ScriptRunArgs{Source: source, WallMs: wallMs}, &r)
+	return call[wire.ScriptRunResult](s.c, wire.MethodScriptRun, wire.ScriptRunArgs{Source: source, WallMs: wallMs})
 }

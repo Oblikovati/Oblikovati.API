@@ -19,8 +19,7 @@ func (c *Client) AssemblyConstraints() AssemblyConstraints { return AssemblyCons
 // mcp:tool list_assembly_constraints
 // mcp:summary List the active assembly's constraints: each with id, kind, name, its two geometry inputs (occurrence id + entity reference key), driven value, solution type, limits, and health. The ids address the delete/setLimits tools.
 func (a AssemblyConstraints) List() (wire.ConstraintsResult, error) {
-	var r wire.ConstraintsResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsList, struct{}{}, &r)
+	return call[wire.ConstraintsResult](a.c, wire.MethodAssemblyConstraintsList, struct{}{})
 }
 
 // AddMate makes geometry A coincident with geometry B at an offset, e.g.
@@ -29,8 +28,7 @@ func (a AssemblyConstraints) List() (wire.ConstraintsResult, error) {
 // mcp:tool add_mate_constraint
 // mcp:summary Mate two component geometries (each: occurrence id + entity reference key) coincident at offset (cm). solution "opposed" (default) faces normals at each other, "aligned" matches a flush. Solves and returns the constraint.
 func (a AssemblyConstraints) AddMate(args wire.AddMateArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddMate, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddMate, args)
 }
 
 // AddFlush makes faces A and B co-planar at an offset, e.g.
@@ -39,8 +37,7 @@ func (a AssemblyConstraints) AddMate(args wire.AddMateArgs) (wire.ConstraintResu
 // mcp:tool add_flush_constraint
 // mcp:summary Make two component faces co-planar (normals aligned) at offset (cm). Solves and returns the constraint.
 func (a AssemblyConstraints) AddFlush(args wire.AddFlushArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddFlush, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddFlush, args)
 }
 
 // AddAngle holds an angle (radians) between directions A and B, e.g.
@@ -49,8 +46,7 @@ func (a AssemblyConstraints) AddFlush(args wire.AddFlushArgs) (wire.ConstraintRe
 // mcp:tool add_angle_constraint
 // mcp:summary Hold angle (radians) between two component directions. solution "undirected" (default), "directed", or "reference-vector". Solves and returns the constraint.
 func (a AssemblyConstraints) AddAngle(args wire.AddAngleArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddAngle, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddAngle, args)
 }
 
 // AddTangent keeps face A tangent to curved face B, e.g.
@@ -59,8 +55,7 @@ func (a AssemblyConstraints) AddAngle(args wire.AddAngleArgs) (wire.ConstraintRe
 // mcp:tool add_tangent_constraint
 // mcp:summary Keep a face tangent to a curved face. inside:true wraps B around A; false is outside tangency. Solves and returns the constraint.
 func (a AssemblyConstraints) AddTangent(args wire.AddTangentArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddTangent, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddTangent, args)
 }
 
 // AddInsert combines an axis mate and a plane mate at an offset (a bolt into a hole), e.g.
@@ -69,8 +64,7 @@ func (a AssemblyConstraints) AddTangent(args wire.AddTangentArgs) (wire.Constrai
 // mcp:tool add_insert_constraint
 // mcp:summary Insert: collinear axes plus a plane mate at offset (cm) — a bolt into a hole. aligned:true uses the aligned plane sense; default is opposed. Solves and returns the constraint.
 func (a AssemblyConstraints) AddInsert(args wire.AddInsertArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddInsert, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddInsert, args)
 }
 
 // Snap is "grip snap": it infers the assembly constraint that snaps geometry A (on the component to
@@ -79,8 +73,7 @@ func (a AssemblyConstraints) AddInsert(args wire.AddInsertArgs) (wire.Constraint
 // mcp:tool assembly_snap_constrain
 // mcp:summary Grip snap: pick a geometry A on the component to move and a target B on another component; the host infers the constraint that snaps A onto B (planar faces -> mate/flush, cylinder axes -> insert, axis pair -> mate, plane+cylinder -> tangent, point -> coincident), creates it, and re-solves so the part jumps into place. prefer ("mate"|"flush"|"insert"|"tangent") overrides the inference. Returns the created constraint (its type is what was inferred).
 func (a AssemblyConstraints) Snap(args wire.SnapConstraintArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsSnap, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsSnap, args)
 }
 
 // AddSymmetry positions A and B symmetrically about a plane, e.g.
@@ -89,8 +82,7 @@ func (a AssemblyConstraints) Snap(args wire.SnapConstraintArgs) (wire.Constraint
 // mcp:tool add_symmetry_constraint
 // mcp:summary Position two component geometries symmetrically about a plane (a planar face or work-plane reference). Solves and returns the constraint.
 func (a AssemblyConstraints) AddSymmetry(args wire.AddSymmetryArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddSymmetry, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddSymmetry, args)
 }
 
 // AddRotateRotate couples two rotations by a gear ratio, e.g.
@@ -99,8 +91,7 @@ func (a AssemblyConstraints) AddSymmetry(args wire.AddSymmetryArgs) (wire.Constr
 // mcp:tool add_rotate_rotate_constraint
 // mcp:summary Couple two rotation axes by gear ratio (revolutions of B per revolution of A). Solves and returns the constraint.
 func (a AssemblyConstraints) AddRotateRotate(args wire.AddRotateRotateArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddRotateRotate, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddRotateRotate, args)
 }
 
 // AddRotateTranslate couples a rotation to a translation (rack and pinion), e.g.
@@ -109,8 +100,7 @@ func (a AssemblyConstraints) AddRotateRotate(args wire.AddRotateRotateArgs) (wir
 // mcp:tool add_rotate_translate_constraint
 // mcp:summary Couple a rotation axis to a translation axis by distance moved per revolution (cm) — rack and pinion. Solves and returns the constraint.
 func (a AssemblyConstraints) AddRotateTranslate(args wire.AddRotateTranslateArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddRotateTranslate, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddRotateTranslate, args)
 }
 
 // AddTranslateTranslate couples two translations by a ratio, e.g.
@@ -119,8 +109,7 @@ func (a AssemblyConstraints) AddRotateTranslate(args wire.AddRotateTranslateArgs
 // mcp:tool add_translate_translate_constraint
 // mcp:summary Couple two translation axes by ratio (distance of B per unit distance of A). Solves and returns the constraint.
 func (a AssemblyConstraints) AddTranslateTranslate(args wire.AddTranslateTranslateArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddTranslateTranslate, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddTranslateTranslate, args)
 }
 
 // AddTransitional keeps face A in sliding contact with face B, e.g.
@@ -129,8 +118,7 @@ func (a AssemblyConstraints) AddTranslateTranslate(args wire.AddTranslateTransla
 // mcp:tool add_transitional_constraint
 // mcp:summary Keep a face in sliding contact with a transition face as the component moves (cam/slot). Solves and returns the constraint.
 func (a AssemblyConstraints) AddTransitional(args wire.AddTransitionalArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddTransitional, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddTransitional, args)
 }
 
 // AddCustom registers a relationship between A and B solved by the add-in named Kind, e.g.
@@ -139,8 +127,7 @@ func (a AssemblyConstraints) AddTransitional(args wire.AddTransitionalArgs) (wir
 // mcp:tool add_custom_constraint
 // mcp:summary Register a relationship solved by an add-in (kind names it, params drive it). The built-in solver leaves it free unless that add-in solver is installed. Returns the constraint.
 func (a AssemblyConstraints) AddCustom(args wire.AddCustomArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsAddCustom, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsAddCustom, args)
 }
 
 // Delete removes the constraint and returns the refreshed set, e.g. Delete(id).
@@ -148,8 +135,7 @@ func (a AssemblyConstraints) AddCustom(args wire.AddCustomArgs) (wire.Constraint
 // mcp:tool delete_assembly_constraint
 // mcp:summary Delete an assembly constraint (id) and re-solve. Returns the remaining constraint set.
 func (a AssemblyConstraints) Delete(id uint64) (wire.ConstraintsResult, error) {
-	var r wire.ConstraintsResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsDelete, wire.DeleteAssemblyConstraintArgs{ID: id}, &r)
+	return call[wire.ConstraintsResult](a.c, wire.MethodAssemblyConstraintsDelete, wire.DeleteAssemblyConstraintArgs{ID: id})
 }
 
 // SetLimits sets (or clears) the driven-value limits of a constraint, e.g.
@@ -158,8 +144,7 @@ func (a AssemblyConstraints) Delete(id uint64) (wire.ConstraintsResult, error) {
 // mcp:tool set_constraint_limits
 // mcp:summary Set or clear a constraint's driven-value limits (min/max/resting). Each bound is optional via its has* flag. Returns the updated constraint.
 func (a AssemblyConstraints) SetLimits(args wire.SetConstraintLimitsArgs) (wire.ConstraintResult, error) {
-	var r wire.ConstraintResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsSetLimits, args, &r)
+	return call[wire.ConstraintResult](a.c, wire.MethodAssemblyConstraintsSetLimits, args)
 }
 
 // Solve re-positions the active assembly's occurrences to satisfy its constraints and
@@ -168,8 +153,7 @@ func (a AssemblyConstraints) SetLimits(args wire.SetConstraintLimitsArgs) (wire.
 // mcp:tool solve_assembly_constraints
 // mcp:summary Solve the active assembly: reposition occurrences to satisfy the constraints, then report overall health, redundant-constraint count, total remaining degrees of freedom, and per-occurrence DOF.
 func (a AssemblyConstraints) Solve() (wire.AssemblyHealthResult, error) {
-	var r wire.AssemblyHealthResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsSolve, struct{}{}, &r)
+	return call[wire.AssemblyHealthResult](a.c, wire.MethodAssemblyConstraintsSolve, struct{}{})
 }
 
 // Health returns the active assembly's constraint health and DOF report without re-solving.
@@ -177,6 +161,5 @@ func (a AssemblyConstraints) Solve() (wire.AssemblyHealthResult, error) {
 // mcp:tool assembly_constraint_health
 // mcp:summary Report the active assembly's constraint health: overall status, redundant-constraint count, total remaining degrees of freedom, and the per-occurrence DOF breakdown — without re-solving.
 func (a AssemblyConstraints) Health() (wire.AssemblyHealthResult, error) {
-	var r wire.AssemblyHealthResult
-	return r, a.c.call(wire.MethodAssemblyConstraintsHealth, struct{}{}, &r)
+	return call[wire.AssemblyHealthResult](a.c, wire.MethodAssemblyConstraintsHealth, struct{}{})
 }

@@ -20,6 +20,5 @@ func (c *Client) AssemblyDrive() AssemblyDrive { return AssemblyDrive{c} }
 // mcp:tool drive_joint
 // mcp:summary Drive a joint's variable through a range (settings: start, end, step in radians for angular / cm for linear; optional variable angular|linear, repetitionCount, repetitionStartEndStart ping-pong, collisionDetection). Re-solves each step; returns the frames (driven value + occurrence transforms), halting at the first interfering frame when collision detection is on.
 func (a AssemblyDrive) Preview(args wire.DriveJointArgs) (wire.DriveResult, error) {
-	var r wire.DriveResult
-	return r, a.c.call(wire.MethodAssemblyDrivePreview, args, &r)
+	return call[wire.DriveResult](a.c, wire.MethodAssemblyDrivePreview, args)
 }

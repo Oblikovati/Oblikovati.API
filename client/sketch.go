@@ -18,8 +18,7 @@ func (c *Client) Sketch() Sketch { return Sketch{c} }
 // mcp:tool create_sketch
 // mcp:summary Create a sketch and return its sketchIndex. Default is an origin plane (plane: XY|XZ|YZ, default XY); set workPlaneIndex to sketch on a user work plane instead — the way to sketch on a plane built on a feature-created face (see create_work_plane + get_reference_keys) so later features reference earlier geometry.
 func (s Sketch) Create(args wire.CreateSketchArgs) (wire.CreateSketchResult, error) {
-	var r wire.CreateSketchResult
-	return r, s.c.call(wire.MethodSketchCreate, args, &r)
+	return call[wire.CreateSketchResult](s.c, wire.MethodSketchCreate, args)
 }
 
 // Rectangle adds a closed rectangle (one profile) to a sketch.
@@ -27,8 +26,7 @@ func (s Sketch) Create(args wire.CreateSketchArgs) (wire.CreateSketchResult, err
 // mcp:tool sketch_rectangle
 // mcp:summary Add a closed rectangle to a sketch (width, height as unit expressions, e.g. "40 mm"), forming a profile to extrude.
 func (s Sketch) Rectangle(args wire.SketchRectangleArgs) (wire.SketchRectangleResult, error) {
-	var r wire.SketchRectangleResult
-	return r, s.c.call(wire.MethodSketchRectangle, args, &r)
+	return call[wire.SketchRectangleResult](s.c, wire.MethodSketchRectangle, args)
 }
 
 // List enumerates the active part's sketches with their identity, DOF, and health.
@@ -37,8 +35,7 @@ func (s Sketch) Rectangle(args wire.SketchRectangleArgs) (wire.SketchRectangleRe
 // mcp:summary List the active part's 2D sketches (index, name, plane, entity count, remaining DOF).
 // mcp:digest summarizeSketches
 func (s Sketch) List() (wire.ListSketchesResult, error) {
-	var r wire.ListSketchesResult
-	return r, s.c.call(wire.MethodSketchList, nil, &r)
+	return call[wire.ListSketchesResult](s.c, wire.MethodSketchList, nil)
 }
 
 // Get returns a single sketch's info by index.
@@ -46,8 +43,7 @@ func (s Sketch) List() (wire.ListSketchesResult, error) {
 // mcp:tool get_sketch
 // mcp:summary Get one 2D sketch's properties by sketchIndex (name, plane, visibility, entity count, DOF).
 func (s Sketch) Get(index int) (wire.SketchInfo, error) {
-	var r wire.SketchInfo
-	return r, s.c.call(wire.MethodSketchGet, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.SketchInfo](s.c, wire.MethodSketchGet, wire.SketchArgs{SketchIndex: index})
 }
 
 // Dependents lists the features that consume the sketch (#154) — the impact of deleting or
@@ -56,8 +52,7 @@ func (s Sketch) Get(index int) (wire.SketchInfo, error) {
 // mcp:tool sketch_dependents
 // mcp:summary List the features that consume a sketch — what a delete/edit would affect.
 func (s Sketch) Dependents(index int) (wire.SketchDependentsResult, error) {
-	var r wire.SketchDependentsResult
-	return r, s.c.call(wire.MethodSketchDependents, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.SketchDependentsResult](s.c, wire.MethodSketchDependents, wire.SketchArgs{SketchIndex: index})
 }
 
 // CopyTo copies geometry from one sketch into another (#151) — reuse a profile across planes.
@@ -66,8 +61,7 @@ func (s Sketch) Dependents(index int) (wire.SketchDependentsResult, error) {
 // mcp:tool sketch_copy_to
 // mcp:summary Copy geometry from one 2D sketch into another (optionally a subset, optionally offset).
 func (s Sketch) CopyTo(args wire.CopySketchArgs) (wire.CopySketchResult, error) {
-	var r wire.CopySketchResult
-	return r, s.c.call(wire.MethodSketchCopyTo, args, &r)
+	return call[wire.CopySketchResult](s.c, wire.MethodSketchCopyTo, args)
 }
 
 // Edit opens the sketch for geometry editing (enters edit mode).
@@ -75,8 +69,7 @@ func (s Sketch) CopyTo(args wire.CopySketchArgs) (wire.CopySketchResult, error) 
 // mcp:tool edit_sketch
 // mcp:summary Open a sketch for editing (enter its sketch environment).
 func (s Sketch) Edit(index int) (wire.EditSketchResult, error) {
-	var r wire.EditSketchResult
-	return r, s.c.call(wire.MethodSketchEdit, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.EditSketchResult](s.c, wire.MethodSketchEdit, wire.SketchArgs{SketchIndex: index})
 }
 
 // ExitEdit leaves edit mode, returning to the previous environment.
@@ -84,8 +77,7 @@ func (s Sketch) Edit(index int) (wire.EditSketchResult, error) {
 // mcp:tool exit_sketch
 // mcp:summary Leave the sketch environment and update the part.
 func (s Sketch) ExitEdit(index int) (wire.EditSketchResult, error) {
-	var r wire.EditSketchResult
-	return r, s.c.call(wire.MethodSketchExitEdit, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.EditSketchResult](s.c, wire.MethodSketchExitEdit, wire.SketchArgs{SketchIndex: index})
 }
 
 // Solve resolves the sketch from its constraints and reports DOF/status/health.
@@ -93,8 +85,7 @@ func (s Sketch) ExitEdit(index int) (wire.EditSketchResult, error) {
 // mcp:tool solve_sketch
 // mcp:summary Re-solve a sketch's constraints and report its resulting degrees of freedom.
 func (s Sketch) Solve(index int) (wire.SolveSketchResult, error) {
-	var r wire.SolveSketchResult
-	return r, s.c.call(wire.MethodSketchSolve, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.SolveSketchResult](s.c, wire.MethodSketchSolve, wire.SketchArgs{SketchIndex: index})
 }
 
 // Delete removes the sketch (only valid when no feature consumes it).
@@ -102,8 +93,7 @@ func (s Sketch) Solve(index int) (wire.SolveSketchResult, error) {
 // mcp:tool delete_sketch
 // mcp:summary Delete a sketch by sketchIndex.
 func (s Sketch) Delete(index int) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, s.c.call(wire.MethodSketchDelete, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.OKResult](s.c, wire.MethodSketchDelete, wire.SketchArgs{SketchIndex: index})
 }
 
 // Entities enumerates the sketch's geometry (kind, construction flag, points, radius).
@@ -112,8 +102,7 @@ func (s Sketch) Delete(index int) (wire.OKResult, error) {
 // mcp:summary Enumerate a sketch's geometry (each entity's index, session id, kind, construction flag) — the ids constraints/dimensions/transform reference.
 // mcp:digest summarizeEntities
 func (s Sketch) Entities(index int) (wire.EnumerateEntitiesResult, error) {
-	var r wire.EnumerateEntitiesResult
-	return r, s.c.call(wire.MethodSketchEntities, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.EnumerateEntitiesResult](s.c, wire.MethodSketchEntities, wire.SketchArgs{SketchIndex: index})
 }
 
 // ReferenceKey returns the sketch's persistent reference key (#153): a document-scoped UUID
@@ -123,8 +112,7 @@ func (s Sketch) Entities(index int) (wire.EnumerateEntitiesResult, error) {
 // mcp:tool sketch_reference_key
 // mcp:summary Get a sketch's persistent reference key — a document-scoped UUID stable across save/load, for durable references.
 func (s Sketch) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error) {
-	var r wire.SketchReferenceKeyResult
-	return r, s.c.call(wire.MethodSketchReferenceKey, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.SketchReferenceKeyResult](s.c, wire.MethodSketchReferenceKey, wire.SketchArgs{SketchIndex: index})
 }
 
 // ResolveReference rebinds a previously stored persistent key (a sketch's or an entity's,
@@ -133,8 +121,7 @@ func (s Sketch) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error) {
 // mcp:tool resolve_sketch_reference
 // mcp:summary Rebind a stored persistent sketch/entity reference key to its current sketch index and entity id.
 func (s Sketch) ResolveReference(key string) (wire.ResolveSketchReferenceResult, error) {
-	var r wire.ResolveSketchReferenceResult
-	return r, s.c.call(wire.MethodSketchResolveReference, wire.ResolveSketchReferenceArgs{ReferenceKey: key}, &r)
+	return call[wire.ResolveSketchReferenceResult](s.c, wire.MethodSketchResolveReference, wire.ResolveSketchReferenceArgs{ReferenceKey: key})
 }
 
 // Constraints enumerates the sketch's geometric constraints.
@@ -143,8 +130,7 @@ func (s Sketch) ResolveReference(key string) (wire.ResolveSketchReferenceResult,
 // mcp:summary Enumerate a sketch's geometric constraints (index, kind, related entity ids).
 // mcp:digest summarizeConstraints
 func (s Sketch) Constraints(index int) (wire.ListConstraintsResult, error) {
-	var r wire.ListConstraintsResult
-	return r, s.c.call(wire.MethodSketchConstraints, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.ListConstraintsResult](s.c, wire.MethodSketchConstraints, wire.SketchArgs{SketchIndex: index})
 }
 
 // Dimensions enumerates the sketch's dimensional constraints.
@@ -153,8 +139,7 @@ func (s Sketch) Constraints(index int) (wire.ListConstraintsResult, error) {
 // mcp:summary Enumerate a sketch's dimensional constraints (index, kind, backing parameter, expression, value, driven flag).
 // mcp:digest summarizeDimensions
 func (s Sketch) Dimensions(index int) (wire.ListDimensionsResult, error) {
-	var r wire.ListDimensionsResult
-	return r, s.c.call(wire.MethodSketchDimensions, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.ListDimensionsResult](s.c, wire.MethodSketchDimensions, wire.SketchArgs{SketchIndex: index})
 }
 
 // ConstraintStatus reports the sketch's DOF/over-under-constraint state without solving.
@@ -162,8 +147,7 @@ func (s Sketch) Dimensions(index int) (wire.ListDimensionsResult, error) {
 // mcp:tool get_sketch_constraint_status
 // mcp:summary Report a sketch's constraint state and remaining degrees of freedom WITHOUT moving geometry (non-mutating DOF analysis).
 func (s Sketch) ConstraintStatus(index int) (wire.ConstraintStatusResult, error) {
-	var r wire.ConstraintStatusResult
-	return r, s.c.call(wire.MethodSketchConstraintStatus, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.ConstraintStatusResult](s.c, wire.MethodSketchConstraintStatus, wire.SketchArgs{SketchIndex: index})
 }
 
 // Profiles enumerates the closed regions the sketch yields (area + hole count); the
@@ -173,8 +157,7 @@ func (s Sketch) ConstraintStatus(index int) (wire.ConstraintStatusResult, error)
 // mcp:summary Enumerate a sketch's closed profiles (index, area, closed, hole count) — the profileIndex an extrude/revolve consumes.
 // mcp:digest summarizeProfiles
 func (s Sketch) Profiles(index int) (wire.ListProfilesResult, error) {
-	var r wire.ListProfilesResult
-	return r, s.c.call(wire.MethodSketchProfiles, wire.SketchArgs{SketchIndex: index}, &r)
+	return call[wire.ListProfilesResult](s.c, wire.MethodSketchProfiles, wire.SketchArgs{SketchIndex: index})
 }
 
 // SetProperty sets one of the sketch's scalar properties and returns the updated info.
@@ -183,9 +166,8 @@ func (s Sketch) Profiles(index int) (wire.ListProfilesResult, error) {
 // mcp:tool set_sketch_property
 // mcp:summary Set a sketch property by name (e.g. property="name"|"visible"|"color"|"lineType"|"lineWeight").
 func (s Sketch) SetProperty(index int, property, value string) (wire.SketchInfo, error) {
-	var r wire.SketchInfo
 	args := wire.SetSketchPropertyArgs{SketchIndex: index, Property: property, Value: value}
-	return r, s.c.call(wire.MethodSketchSetProperty, args, &r)
+	return call[wire.SketchInfo](s.c, wire.MethodSketchSetProperty, args)
 }
 
 // SetName renames the sketch.

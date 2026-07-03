@@ -13,8 +13,7 @@ import "oblikovati.org/api/wire"
 // mcp:tool parameters_derived_tables_list
 // mcp:summary Returns the active document's derived parameter tables (part or assembly) with their links, candidates, and health.
 func (p Parameters) ListDerivedTables() (wire.ListDerivedParameterTablesResult, error) {
-	var r wire.ListDerivedParameterTablesResult
-	return r, p.c.call(wire.MethodParametersDerivedTablesList, nil, &r)
+	return call[wire.ListDerivedParameterTablesResult](p.c, wire.MethodParametersDerivedTablesList, nil)
 }
 
 // AddDerivedTable links parameters from another document into this one,
@@ -23,8 +22,7 @@ func (p Parameters) ListDerivedTables() (wire.ListDerivedParameterTablesResult, 
 // mcp:tool parameters_derived_tables_add
 // mcp:summary Links parameters from another document into this one, returning the created table.
 func (p Parameters) AddDerivedTable(args wire.DerivedParameterTableAddArgs) (wire.DerivedParameterTableInfo, error) {
-	var r wire.DerivedParameterTableInfo
-	return r, p.c.call(wire.MethodParametersDerivedTablesAdd, args, &r)
+	return call[wire.DerivedParameterTableInfo](p.c, wire.MethodParametersDerivedTablesAdd, args)
 }
 
 // SetDerivedTableLinked replaces a table's linked subset — newly linked names
@@ -34,8 +32,7 @@ func (p Parameters) AddDerivedTable(args wire.DerivedParameterTableAddArgs) (wir
 // mcp:tool parameters_derived_tables_set_linked
 // mcp:summary Replaces a table's linked subset — newly linked names gain derived parameters, unlinked ones lose theirs — and returns the updated table.
 func (p Parameters) SetDerivedTableLinked(args wire.DerivedParameterTableSetLinkedArgs) (wire.DerivedParameterTableInfo, error) {
-	var r wire.DerivedParameterTableInfo
-	return r, p.c.call(wire.MethodParametersDerivedTablesSetLinked, args, &r)
+	return call[wire.DerivedParameterTableInfo](p.c, wire.MethodParametersDerivedTablesSetLinked, args)
 }
 
 // DeleteDerivedTable removes a table and its derived parameters. A table

@@ -24,8 +24,7 @@ func (c *Client) AddIns() AddIns { return AddIns{c} }
 // mcp:tool addins_list
 // mcp:summary Returns every registered add-in with its manifest identity and runtime state.
 func (a AddIns) List() (wire.ListAddInsResult, error) {
-	var r wire.ListAddInsResult
-	return r, a.c.call(wire.MethodAddInsList, nil, &r)
+	return call[wire.ListAddInsResult](a.c, wire.MethodAddInsList, nil)
 }
 
 // Get returns one registry entry by add-in id.
@@ -33,8 +32,7 @@ func (a AddIns) List() (wire.ListAddInsResult, error) {
 // mcp:tool addins_get
 // mcp:summary Returns one registry entry by add-in id.
 func (a AddIns) Get(id string) (wire.AddInInfo, error) {
-	var r wire.AddInInfo
-	return r, a.c.call(wire.MethodAddInsGet, wire.AddInRefArgs{ID: id}, &r)
+	return call[wire.AddInInfo](a.c, wire.MethodAddInsGet, wire.AddInRefArgs{ID: id})
 }
 
 // Activate runs the add-in's activation (a no-op if it is already active). It fails
@@ -43,8 +41,7 @@ func (a AddIns) Get(id string) (wire.AddInInfo, error) {
 // mcp:tool addins_activate
 // mcp:summary Runs the add-in's activation (a no-op if it is already active).
 func (a AddIns) Activate(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, a.c.call(wire.MethodAddInsActivate, wire.AddInRefArgs{ID: id}, &r)
+	return call[wire.OKResult](a.c, wire.MethodAddInsActivate, wire.AddInRefArgs{ID: id})
 }
 
 // Deactivate runs the add-in's shutdown (a no-op if it is not active).
@@ -52,8 +49,7 @@ func (a AddIns) Activate(id string) (wire.OKResult, error) {
 // mcp:tool addins_deactivate
 // mcp:summary Runs the add-in's shutdown (a no-op if it is not active).
 func (a AddIns) Deactivate(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, a.c.call(wire.MethodAddInsDeactivate, wire.AddInRefArgs{ID: id}, &r)
+	return call[wire.OKResult](a.c, wire.MethodAddInsDeactivate, wire.AddInRefArgs{ID: id})
 }
 
 // SetLoadBehavior persists when the host activates the add-in on future startups.
@@ -61,9 +57,8 @@ func (a AddIns) Deactivate(id string) (wire.OKResult, error) {
 // mcp:tool addins_set_load_behavior
 // mcp:summary Persists when the host activates the add-in on future startups.
 func (a AddIns) SetLoadBehavior(id string, b types.AddInLoadBehavior) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetAddInLoadBehaviorArgs{ID: id, LoadBehavior: b}
-	return r, a.c.call(wire.MethodAddInsSetLoadBehavior, args, &r)
+	return call[wire.OKResult](a.c, wire.MethodAddInsSetLoadBehavior, args)
 }
 
 // CallAutomation invokes a method on another add-in's automation surface

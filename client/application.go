@@ -22,6 +22,5 @@ func (c *Client) Application() Application { return Application{c} }
 // mcp:tool application_api_version
 // mcp:summary Returns the semantic version (version string + major) of the Oblikovati API contract the running host implements.
 func (g Application) ApiVersion() (wire.ApplicationApiVersionResult, error) {
-	var r wire.ApplicationApiVersionResult
-	return r, g.c.call(wire.MethodApplicationApiVersion, nil, &r)
+	return call[wire.ApplicationApiVersionResult](g.c, wire.MethodApplicationApiVersion, nil)
 }

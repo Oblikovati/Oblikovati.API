@@ -17,8 +17,7 @@ func (c *Client) Sketch3D() Sketch3D { return Sketch3D{c} }
 // mcp:tool create_sketch3d
 // mcp:summary Create a 3D sketch on the active part; returns its sketchIndex.
 func (s Sketch3D) Create(args wire.CreateSketch3DArgs) (wire.CreateSketch3DResult, error) {
-	var r wire.CreateSketch3DResult
-	return r, s.c.call(wire.MethodSketch3DCreate, args, &r)
+	return call[wire.CreateSketch3DResult](s.c, wire.MethodSketch3DCreate, args)
 }
 
 // List enumerates the active part's 3D sketches with their identity, DOF, and health.
@@ -26,8 +25,7 @@ func (s Sketch3D) Create(args wire.CreateSketch3DArgs) (wire.CreateSketch3DResul
 // mcp:tool list_sketches3d
 // mcp:summary List the active part's 3D sketches (index, name, entity count, DOF).
 func (s Sketch3D) List() (wire.ListSketches3DResult, error) {
-	var r wire.ListSketches3DResult
-	return r, s.c.call(wire.MethodSketch3DList, nil, &r)
+	return call[wire.ListSketches3DResult](s.c, wire.MethodSketch3DList, nil)
 }
 
 // Get returns a single 3D sketch's info by index.
@@ -35,8 +33,7 @@ func (s Sketch3D) List() (wire.ListSketches3DResult, error) {
 // mcp:tool get_sketch3d
 // mcp:summary Get one 3D sketch's properties by sketchIndex.
 func (s Sketch3D) Get(index int) (wire.Sketch3DInfo, error) {
-	var r wire.Sketch3DInfo
-	return r, s.c.call(wire.MethodSketch3DGet, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.Sketch3DInfo](s.c, wire.MethodSketch3DGet, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Edit opens the 3D sketch for geometry editing (enters edit mode).
@@ -44,8 +41,7 @@ func (s Sketch3D) Get(index int) (wire.Sketch3DInfo, error) {
 // mcp:tool edit_sketch3d
 // mcp:summary Open a 3D sketch for editing.
 func (s Sketch3D) Edit(index int) (wire.EditSketch3DResult, error) {
-	var r wire.EditSketch3DResult
-	return r, s.c.call(wire.MethodSketch3DEdit, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.EditSketch3DResult](s.c, wire.MethodSketch3DEdit, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // ExitEdit leaves edit mode, returning to the previous environment.
@@ -53,8 +49,7 @@ func (s Sketch3D) Edit(index int) (wire.EditSketch3DResult, error) {
 // mcp:tool exit_sketch3d
 // mcp:summary Leave the 3D sketch environment and update the part.
 func (s Sketch3D) ExitEdit(index int) (wire.EditSketch3DResult, error) {
-	var r wire.EditSketch3DResult
-	return r, s.c.call(wire.MethodSketch3DExitEdit, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.EditSketch3DResult](s.c, wire.MethodSketch3DExitEdit, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Solve resolves the 3D sketch from its constraints and reports DOF/status/health.
@@ -62,8 +57,7 @@ func (s Sketch3D) ExitEdit(index int) (wire.EditSketch3DResult, error) {
 // mcp:tool solve_sketch3d
 // mcp:summary Re-solve a 3D sketch's constraints and report remaining DOF.
 func (s Sketch3D) Solve(index int) (wire.SolveSketch3DResult, error) {
-	var r wire.SolveSketch3DResult
-	return r, s.c.call(wire.MethodSketch3DSolve, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.SolveSketch3DResult](s.c, wire.MethodSketch3DSolve, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Delete removes the 3D sketch (only valid when no feature consumes it).
@@ -71,8 +65,7 @@ func (s Sketch3D) Solve(index int) (wire.SolveSketch3DResult, error) {
 // mcp:tool delete_sketch3d
 // mcp:summary Delete a 3D sketch by sketchIndex.
 func (s Sketch3D) Delete(index int) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, s.c.call(wire.MethodSketch3DDelete, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.OKResult](s.c, wire.MethodSketch3DDelete, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Entities enumerates the 3D sketch's geometry (kind, construction flag, points, radius).
@@ -80,8 +73,7 @@ func (s Sketch3D) Delete(index int) (wire.OKResult, error) {
 // mcp:tool list_sketch3d_entities
 // mcp:summary Enumerate a 3D sketch's geometry (entity index, id, kind) — the ids constraints/dimensions reference.
 func (s Sketch3D) Entities(index int) (wire.EnumerateEntities3DResult, error) {
-	var r wire.EnumerateEntities3DResult
-	return r, s.c.call(wire.MethodSketch3DEntities, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.EnumerateEntities3DResult](s.c, wire.MethodSketch3DEntities, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // ReferenceKey returns the 3D sketch's persistent reference key (#153): a document-scoped
@@ -91,8 +83,7 @@ func (s Sketch3D) Entities(index int) (wire.EnumerateEntities3DResult, error) {
 // mcp:tool sketch3d_reference_key
 // mcp:summary Get a 3D sketch's persistent reference key — a document-scoped UUID stable across save/load, for durable references.
 func (s Sketch3D) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error) {
-	var r wire.SketchReferenceKeyResult
-	return r, s.c.call(wire.MethodSketch3DReferenceKey, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.SketchReferenceKeyResult](s.c, wire.MethodSketch3DReferenceKey, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Constraints enumerates the 3D sketch's geometric constraints.
@@ -100,8 +91,7 @@ func (s Sketch3D) ReferenceKey(index int) (wire.SketchReferenceKeyResult, error)
 // mcp:tool list_sketch3d_constraints
 // mcp:summary Enumerate a 3D sketch's geometric constraints.
 func (s Sketch3D) Constraints(index int) (wire.ListConstraints3DResult, error) {
-	var r wire.ListConstraints3DResult
-	return r, s.c.call(wire.MethodSketch3DConstraints, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.ListConstraints3DResult](s.c, wire.MethodSketch3DConstraints, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // Dimensions enumerates the 3D sketch's dimensional constraints.
@@ -109,8 +99,7 @@ func (s Sketch3D) Constraints(index int) (wire.ListConstraints3DResult, error) {
 // mcp:tool list_sketch3d_dimensions
 // mcp:summary Enumerate a 3D sketch's dimensional constraints.
 func (s Sketch3D) Dimensions(index int) (wire.ListDimensions3DResult, error) {
-	var r wire.ListDimensions3DResult
-	return r, s.c.call(wire.MethodSketch3DDimensions, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.ListDimensions3DResult](s.c, wire.MethodSketch3DDimensions, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // ConstraintStatus reports the 3D sketch's DOF/over-under-constraint state without solving.
@@ -118,8 +107,7 @@ func (s Sketch3D) Dimensions(index int) (wire.ListDimensions3DResult, error) {
 // mcp:tool get_sketch3d_constraint_status
 // mcp:summary Report a 3D sketch's constraint state and remaining DOF without moving geometry.
 func (s Sketch3D) ConstraintStatus(index int) (wire.ConstraintStatusResult, error) {
-	var r wire.ConstraintStatusResult
-	return r, s.c.call(wire.MethodSketch3DConstraintStatus, wire.Sketch3DArgs{SketchIndex: index}, &r)
+	return call[wire.ConstraintStatusResult](s.c, wire.MethodSketch3DConstraintStatus, wire.Sketch3DArgs{SketchIndex: index})
 }
 
 // SetProperty sets one of the 3D sketch's scalar properties and returns the updated info.
@@ -128,9 +116,8 @@ func (s Sketch3D) ConstraintStatus(index int) (wire.ConstraintStatusResult, erro
 // mcp:tool set_sketch3d_property
 // mcp:summary Set a 3D sketch property by name (e.g. name, visible).
 func (s Sketch3D) SetProperty(index int, property, value string) (wire.Sketch3DInfo, error) {
-	var r wire.Sketch3DInfo
 	args := wire.SetSketch3DPropertyArgs{SketchIndex: index, Property: property, Value: value}
-	return r, s.c.call(wire.MethodSketch3DSetProperty, args, &r)
+	return call[wire.Sketch3DInfo](s.c, wire.MethodSketch3DSetProperty, args)
 }
 
 // SetName renames the 3D sketch.

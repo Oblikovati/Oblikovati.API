@@ -22,9 +22,8 @@ func (c *Client) ClientApplications() ClientApplications { return ClientApplicat
 // mcp:tool client_apps_register
 // mcp:summary Announces an external client by display name and returns the session-unique id to pass to [ClientApplications.Unregister] on disconnect.
 func (g ClientApplications) Register(name string) (wire.RegisterClientApplicationResult, error) {
-	var r wire.RegisterClientApplicationResult
 	args := wire.RegisterClientApplicationArgs{Name: name}
-	return r, g.c.call(wire.MethodClientAppsRegister, args, &r)
+	return call[wire.RegisterClientApplicationResult](g.c, wire.MethodClientAppsRegister, args)
 }
 
 // Unregister removes a previously registered external client.
@@ -32,8 +31,7 @@ func (g ClientApplications) Register(name string) (wire.RegisterClientApplicatio
 // mcp:tool client_apps_unregister
 // mcp:summary Removes a previously registered external client.
 func (g ClientApplications) Unregister(id int) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, g.c.call(wire.MethodClientAppsUnregister, wire.UnregisterClientApplicationArgs{ID: id}, &r)
+	return call[wire.OKResult](g.c, wire.MethodClientAppsUnregister, wire.UnregisterClientApplicationArgs{ID: id})
 }
 
 // List returns the registered external clients in registration order.
@@ -41,6 +39,5 @@ func (g ClientApplications) Unregister(id int) (wire.OKResult, error) {
 // mcp:tool client_apps_list
 // mcp:summary Returns the registered external clients in registration order.
 func (g ClientApplications) List() (wire.ListClientApplicationsResult, error) {
-	var r wire.ListClientApplicationsResult
-	return r, g.c.call(wire.MethodClientAppsList, nil, &r)
+	return call[wire.ListClientApplicationsResult](g.c, wire.MethodClientAppsList, nil)
 }

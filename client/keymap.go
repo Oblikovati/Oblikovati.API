@@ -22,8 +22,7 @@ func (c *Client) Keymap() Keymap { return Keymap{c} }
 // mcp:tool keymap_list
 // mcp:summary Returns the full catalog of bindable commands with their shortcuts and aliases.
 func (k Keymap) List() (wire.ListBindingsResult, error) {
-	var r wire.ListBindingsResult
-	return r, k.c.call(wire.MethodKeymapList, nil, &r)
+	return call[wire.ListBindingsResult](k.c, wire.MethodKeymapList, nil)
 }
 
 // SetChord rebinds one action's keyboard shortcut. A zero chord clears the binding; the
@@ -34,9 +33,8 @@ func (k Keymap) List() (wire.ListBindingsResult, error) {
 // mcp:tool keymap_set_chord
 // mcp:summary Rebinds a command's keyboard shortcut.
 func (k Keymap) SetChord(actionID types.ActionID, chord types.KeyChord) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetChordArgs{ActionID: actionID, Chord: chord.String()}
-	return r, k.c.call(wire.MethodKeymapSetChord, args, &r)
+	return call[wire.OKResult](k.c, wire.MethodKeymapSetChord, args)
 }
 
 // SetAlias sets one action's typed command alias. An empty alias clears it; the host
@@ -45,9 +43,8 @@ func (k Keymap) SetChord(actionID types.ActionID, chord types.KeyChord) (wire.OK
 // mcp:tool keymap_set_alias
 // mcp:summary Sets a command's typed alias.
 func (k Keymap) SetAlias(actionID types.ActionID, alias string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetAliasArgs{ActionID: actionID, Alias: alias}
-	return r, k.c.call(wire.MethodKeymapSetAlias, args, &r)
+	return call[wire.OKResult](k.c, wire.MethodKeymapSetAlias, args)
 }
 
 // Reset restores one action's shortcut and alias to their defaults.
@@ -55,8 +52,7 @@ func (k Keymap) SetAlias(actionID types.ActionID, alias string) (wire.OKResult, 
 // mcp:tool keymap_reset
 // mcp:summary Restores one command's shortcut and alias to their defaults.
 func (k Keymap) Reset(actionID types.ActionID) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, k.c.call(wire.MethodKeymapReset, wire.ResetBindingArgs{ActionID: actionID}, &r)
+	return call[wire.OKResult](k.c, wire.MethodKeymapReset, wire.ResetBindingArgs{ActionID: actionID})
 }
 
 // ResetAll restores every binding to its default, discarding all customization.
@@ -64,8 +60,7 @@ func (k Keymap) Reset(actionID types.ActionID) (wire.OKResult, error) {
 // mcp:tool keymap_reset_all
 // mcp:summary Restores every keyboard shortcut and alias to its default.
 func (k Keymap) ResetAll() (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, k.c.call(wire.MethodKeymapResetAll, nil, &r)
+	return call[wire.OKResult](k.c, wire.MethodKeymapResetAll, nil)
 }
 
 // Export returns the user's full customization delta, portable across installs.
@@ -73,8 +68,7 @@ func (k Keymap) ResetAll() (wire.OKResult, error) {
 // mcp:tool keymap_export
 // mcp:summary Exports the user's keyboard customization as a portable delta.
 func (k Keymap) Export() (wire.KeymapExport, error) {
-	var r wire.KeymapExport
-	return r, k.c.call(wire.MethodKeymapExport, nil, &r)
+	return call[wire.KeymapExport](k.c, wire.MethodKeymapExport, nil)
 }
 
 // Import replaces the current customization with the given delta.
@@ -82,6 +76,5 @@ func (k Keymap) Export() (wire.KeymapExport, error) {
 // mcp:tool keymap_import
 // mcp:summary Replaces the keyboard customization with an imported delta.
 func (k Keymap) Import(exp wire.KeymapExport) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, k.c.call(wire.MethodKeymapImport, exp, &r)
+	return call[wire.OKResult](k.c, wire.MethodKeymapImport, exp)
 }

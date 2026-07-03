@@ -15,8 +15,7 @@ func (c *Client) Commands() Commands { return Commands{c} }
 // mcp:tool list_commands
 // mcp:summary List all Oblikovati commands and whether each is currently enabled.
 func (cm Commands) List() (wire.ListCommandsResult, error) {
-	var r wire.ListCommandsResult
-	return r, cm.c.call(wire.MethodCommandsList, nil, &r)
+	return call[wire.ListCommandsResult](cm.c, wire.MethodCommandsList, nil)
 }
 
 // Execute runs the command with the given id (the same path a ribbon click takes).
@@ -24,8 +23,7 @@ func (cm Commands) List() (wire.ListCommandsResult, error) {
 // mcp:tool execute_command
 // mcp:summary Run a command by id (the same effect as clicking it in the ribbon). See list_commands.
 func (cm Commands) Execute(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, cm.c.call(wire.MethodCommandsExecute, wire.ExecuteCommandArgs{ID: id}, &r)
+	return call[wire.OKResult](cm.c, wire.MethodCommandsExecute, wire.ExecuteCommandArgs{ID: id})
 }
 
 // SubmitLine feeds one line to the Command Window's REPL and returns what it produced: the
@@ -38,8 +36,7 @@ func (cm Commands) Execute(id string) (wire.OKResult, error) {
 // mcp:tool submit_command
 // mcp:summary Submit one line to the shell-style command window (a command/alias, or a coordinate/value/keyword for the active command's current step). Returns output, the next prompt, and whether more input is awaited.
 func (cm Commands) SubmitLine(line string) (wire.CommandLineResult, error) {
-	var r wire.CommandLineResult
-	return r, cm.c.call(wire.MethodCommandLineSubmit, wire.SubmitCommandLineArgs{Line: line}, &r)
+	return call[wire.CommandLineResult](cm.c, wire.MethodCommandLineSubmit, wire.SubmitCommandLineArgs{Line: line})
 }
 
 // Create registers a new ribbon button so an add-in can extend the UI. The button appears in the ribbon immediately; when the user clicks it
@@ -49,8 +46,7 @@ func (cm Commands) SubmitLine(line string) (wire.CommandLineResult, error) {
 // mcp:tool create_command
 // mcp:summary Register a ribbon button definition: id + displayName, with optional ribbon/tab/category/environment placement. Clicking it fires a command.ended event.
 func (cm Commands) Create(args wire.CreateCommandArgs) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, cm.c.call(wire.MethodCommandsCreate, args, &r)
+	return call[wire.OKResult](cm.c, wire.MethodCommandsCreate, args)
 }
 
 // SetState updates a command's live ribbon state: Active toggles its highlighted (accent)
@@ -61,6 +57,5 @@ func (cm Commands) Create(args wire.CreateCommandArgs) (wire.OKResult, error) {
 // mcp:tool commands_set_state
 // mcp:summary Updates a command's live ribbon state: Active toggles its highlighted (accent) look, and a non-empty DisplayName relabels it.
 func (cm Commands) SetState(args wire.SetCommandStateArgs) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, cm.c.call(wire.MethodCommandsSetState, args, &r)
+	return call[wire.OKResult](cm.c, wire.MethodCommandsSetState, args)
 }

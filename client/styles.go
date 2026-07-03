@@ -19,8 +19,7 @@ func (c *Client) Styles() Styles { return Styles{c} }
 // mcp:tool list_color_styles
 // mcp:summary List the document's color styles (name + diffuse/ambient/specular/emissive colors).
 func (s Styles) List() (wire.ColorStylesResult, error) {
-	var r wire.ColorStylesResult
-	return r, s.c.call(wire.MethodStylesList, nil, &r)
+	return call[wire.ColorStylesResult](s.c, wire.MethodStylesList, nil)
 }
 
 // Get returns the named color style.
@@ -28,8 +27,7 @@ func (s Styles) List() (wire.ColorStylesResult, error) {
 // mcp:tool get_color_style
 // mcp:summary Read one color style by name; see list_color_styles.
 func (s Styles) Get(name string) (wire.ColorStyleView, error) {
-	var r wire.ColorStyleView
-	return r, s.c.call(wire.MethodStylesGet, wire.GetStyleArgs{Name: name}, &r)
+	return call[wire.ColorStyleView](s.c, wire.MethodStylesGet, wire.GetStyleArgs{Name: name})
 }
 
 // Set creates or updates a color style, returning the stored style. A style edit propagates to
@@ -38,8 +36,7 @@ func (s Styles) Get(name string) (wire.ColorStyleView, error) {
 // mcp:tool set_color_style
 // mcp:summary Create or update a color style; see get_color_style for the shape.
 func (s Styles) Set(v wire.ColorStyleView) (wire.ColorStyleView, error) {
-	var r wire.ColorStyleView
-	return r, s.c.call(wire.MethodStylesSet, v, &r)
+	return call[wire.ColorStyleView](s.c, wire.MethodStylesSet, v)
 }
 
 // Delete removes the named color style.
@@ -47,8 +44,7 @@ func (s Styles) Set(v wire.ColorStyleView) (wire.ColorStyleView, error) {
 // mcp:tool delete_color_style
 // mcp:summary Delete a color style by name.
 func (s Styles) Delete(name string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, s.c.call(wire.MethodStylesDelete, wire.GetStyleArgs{Name: name}, &r)
+	return call[wire.OKResult](s.c, wire.MethodStylesDelete, wire.GetStyleArgs{Name: name})
 }
 
 // Libraries returns the loaded style libraries, in cascade order.
@@ -56,8 +52,7 @@ func (s Styles) Delete(name string) (wire.OKResult, error) {
 // mcp:tool list_style_libraries
 // mcp:summary List the loaded style libraries in cascade order.
 func (s Styles) Libraries() (wire.StyleLibrariesResult, error) {
-	var r wire.StyleLibrariesResult
-	return r, s.c.call(wire.MethodStylesListLibraries, nil, &r)
+	return call[wire.StyleLibrariesResult](s.c, wire.MethodStylesListLibraries, nil)
 }
 
 // ImportLibrary loads a style library file into the cascade, returning the updated library list.
@@ -65,6 +60,5 @@ func (s Styles) Libraries() (wire.StyleLibrariesResult, error) {
 // mcp:tool import_style_library
 // mcp:summary Load a style library file into the cascade.
 func (s Styles) ImportLibrary(path string) (wire.StyleLibrariesResult, error) {
-	var r wire.StyleLibrariesResult
-	return r, s.c.call(wire.MethodStylesImportLibrary, wire.ImportStyleLibraryArgs{Path: path}, &r)
+	return call[wire.StyleLibrariesResult](s.c, wire.MethodStylesImportLibrary, wire.ImportStyleLibraryArgs{Path: path})
 }

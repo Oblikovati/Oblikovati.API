@@ -20,8 +20,7 @@ func (c *Client) WorkSurfaces() WorkSurfaces { return WorkSurfaces{c} }
 // mcp:tool list_work_surfaces
 // mcp:summary List the work surfaces (construction surfaces) of the active part. Each reports its name, ref, visibility, translucency, the count of surface bodies it wraps, and the feature that produced it.
 func (w WorkSurfaces) List() (wire.ListWorkSurfacesResult, error) {
-	var r wire.ListWorkSurfacesResult
-	return r, w.c.call(wire.MethodWorkSurfacesList, nil, &r)
+	return call[wire.ListWorkSurfacesResult](w.c, wire.MethodWorkSurfacesList, nil)
 }
 
 // Get returns one work surface's state by its index (from List), e.g. Get(0).
@@ -29,8 +28,7 @@ func (w WorkSurfaces) List() (wire.ListWorkSurfacesResult, error) {
 // mcp:tool work_surface_get
 // mcp:summary Returns one work surface's state (name, ref, visibility, body count, source feature) by its index from list_work_surfaces.
 func (w WorkSurfaces) Get(index int) (wire.WorkSurfaceDetailResult, error) {
-	var r wire.WorkSurfaceDetailResult
-	return r, w.c.call(wire.MethodWorkSurfacesGet, wire.WorkSurfaceRefArgs{Index: index}, &r)
+	return call[wire.WorkSurfaceDetailResult](w.c, wire.MethodWorkSurfacesGet, wire.WorkSurfaceRefArgs{Index: index})
 }
 
 // SetVisible shows or hides the work surface at index and returns its refreshed state,
@@ -39,9 +37,8 @@ func (w WorkSurfaces) Get(index int) (wire.WorkSurfaceDetailResult, error) {
 // mcp:tool work_surface_set_visible
 // mcp:summary Show or hide a work surface by its index (from list_work_surfaces). Returns the surface's refreshed state.
 func (w WorkSurfaces) SetVisible(index int, visible bool) (wire.WorkSurfaceDetailResult, error) {
-	var r wire.WorkSurfaceDetailResult
 	args := wire.SetWorkSurfaceVisibleArgs{Index: index, Visible: visible}
-	return r, w.c.call(wire.MethodWorkSurfacesSetVisible, args, &r)
+	return call[wire.WorkSurfaceDetailResult](w.c, wire.MethodWorkSurfacesSetVisible, args)
 }
 
 // Rename sets the work surface's display name (must be non-empty and unique), e.g.
@@ -50,7 +47,6 @@ func (w WorkSurfaces) SetVisible(index int, visible bool) (wire.WorkSurfaceDetai
 // mcp:tool work_surface_rename
 // mcp:summary Sets a work surface's display name by its index (from list_work_surfaces); the name must be non-empty and unique within the part.
 func (w WorkSurfaces) Rename(index int, name string) (wire.WorkSurfaceDetailResult, error) {
-	var r wire.WorkSurfaceDetailResult
 	args := wire.RenameWorkSurfaceArgs{Index: index, Name: name}
-	return r, w.c.call(wire.MethodWorkSurfacesRename, args, &r)
+	return call[wire.WorkSurfaceDetailResult](w.c, wire.MethodWorkSurfacesRename, args)
 }

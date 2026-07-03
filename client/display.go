@@ -19,8 +19,7 @@ func (c *Client) Display() Display { return Display{c} }
 // mcp:tool get_display_options
 // mcp:summary Read the application display options (quality, transition time, edges, ray tracing).
 func (d Display) Options() (wire.DisplayModeOptionsView, error) {
-	var r wire.DisplayModeOptionsView
-	return r, d.c.call(wire.MethodDisplayGetOptions, nil, &r)
+	return call[wire.DisplayModeOptionsView](d.c, wire.MethodDisplayGetOptions, nil)
 }
 
 // SetOptions applies the application-level display options, returning the stored result.
@@ -28,8 +27,7 @@ func (d Display) Options() (wire.DisplayModeOptionsView, error) {
 // mcp:tool set_display_options
 // mcp:summary Set the application display options; see get_display_options for the shape.
 func (d Display) SetOptions(v wire.DisplayModeOptionsView) (wire.DisplayModeOptionsView, error) {
-	var r wire.DisplayModeOptionsView
-	return r, d.c.call(wire.MethodDisplaySetOptions, v, &r)
+	return call[wire.DisplayModeOptionsView](d.c, wire.MethodDisplaySetOptions, v)
 }
 
 // Settings returns the active document's per-document display settings.
@@ -39,8 +37,7 @@ func (d Display) SetOptions(v wire.DisplayModeOptionsView) (wire.DisplayModeOpti
 // mcp:tool get_display_settings
 // mcp:summary Read a document's display settings (background, edge color, ground plane, shadows).
 func (d Display) Settings() (wire.DisplaySettingsView, error) {
-	var r wire.DisplaySettingsView
-	return r, d.c.call(wire.MethodDocumentGetDisplaySettings, wire.GetDisplaySettingsArgs{}, &r)
+	return call[wire.DisplaySettingsView](d.c, wire.MethodDocumentGetDisplaySettings, wire.GetDisplaySettingsArgs{})
 }
 
 // SetSettings applies the active document's per-document display settings.
@@ -48,6 +45,5 @@ func (d Display) Settings() (wire.DisplaySettingsView, error) {
 // mcp:tool set_display_settings
 // mcp:summary Set a document's display settings; see get_display_settings for the shape.
 func (d Display) SetSettings(v wire.DisplaySettingsView) (wire.DisplaySettingsView, error) {
-	var r wire.DisplaySettingsView
-	return r, d.c.call(wire.MethodDocumentSetDisplaySettings, wire.SetDisplaySettingsArgs{Settings: v}, &r)
+	return call[wire.DisplaySettingsView](d.c, wire.MethodDocumentSetDisplaySettings, wire.SetDisplaySettingsArgs{Settings: v})
 }

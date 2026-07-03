@@ -18,8 +18,7 @@ func (c *Client) DrawingSketches() DrawingSketches { return DrawingSketches{c} }
 // mcp:tool drawing_list_sketches
 // mcp:summary List the active sheet's drawing sketches (name, entity count, curve count).
 func (d DrawingSketches) List() (wire.ListDrawingSketchesResult, error) {
-	var r wire.ListDrawingSketchesResult
-	return r, d.c.call(wire.MethodDrawingSketchesList, struct{}{}, &r)
+	return call[wire.ListDrawingSketchesResult](d.c, wire.MethodDrawingSketchesList, struct{}{})
 }
 
 // Add creates a new empty drawing sketch on the active sheet.
@@ -27,8 +26,7 @@ func (d DrawingSketches) List() (wire.ListDrawingSketchesResult, error) {
 // mcp:tool drawing_add_sketch
 // mcp:summary Add a new empty 2D sketch to the active sheet (sheet-millimetre space); add geometry to it with drawing_add_sketch_entity.
 func (d DrawingSketches) Add(args wire.AddDrawingSketchArgs) (wire.DrawingSketchResult, error) {
-	var r wire.DrawingSketchResult
-	return r, d.c.call(wire.MethodDrawingSketchesAdd, args, &r)
+	return call[wire.DrawingSketchResult](d.c, wire.MethodDrawingSketchesAdd, args)
 }
 
 // AddEntity adds one entity (line, circle or rectangle) to a drawing sketch.
@@ -36,8 +34,7 @@ func (d DrawingSketches) Add(args wire.AddDrawingSketchArgs) (wire.DrawingSketch
 // mcp:tool drawing_add_sketch_entity
 // mcp:summary Add an entity to a drawing sketch (sketchName): kind line|circle|rectangle, points = sheet-mm [x,y] pairs (2 for line endpoints / rectangle corners, 1 for a circle centre with radiusMm).
 func (d DrawingSketches) AddEntity(args wire.AddDrawingSketchEntityArgs) (wire.DrawingSketchResult, error) {
-	var r wire.DrawingSketchResult
-	return r, d.c.call(wire.MethodDrawingSketchesAddEntity, args, &r)
+	return call[wire.DrawingSketchResult](d.c, wire.MethodDrawingSketchesAddEntity, args)
 }
 
 // AddHatchRegion fills a rectangular region with a hatch pattern, on a drawing sketch.
@@ -45,6 +42,5 @@ func (d DrawingSketches) AddEntity(args wire.AddDrawingSketchEntityArgs) (wire.D
 // mcp:tool drawing_add_hatch_region
 // mcp:summary Fill a rectangle (xmm/ymm/widthMm/heightMm, sheet mm) with a hatch pattern (general|cross|ansi31) on a drawing sketch; scaleMm overrides the line spacing. The region's fill lines render as sketch curves.
 func (d DrawingSketches) AddHatchRegion(args wire.AddHatchRegionArgs) (wire.DrawingSketchResult, error) {
-	var r wire.DrawingSketchResult
-	return r, d.c.call(wire.MethodDrawingSketchesAddHatch, args, &r)
+	return call[wire.DrawingSketchResult](d.c, wire.MethodDrawingSketchesAddHatch, args)
 }

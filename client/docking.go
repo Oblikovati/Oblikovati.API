@@ -27,8 +27,7 @@ func (c *Client) DockableWindows() DockableWindows { return DockableWindows{c} }
 // mcp:tool dockable_windows_set
 // mcp:summary Creates the window or replaces its title/content if it exists.
 func (d DockableWindows) Set(w wire.DockableWindowSpec) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, d.c.call(wire.MethodDockableWindowsSet, wire.SetDockableWindowArgs{Window: w}, &r)
+	return call[wire.OKResult](d.c, wire.MethodDockableWindowsSet, wire.SetDockableWindowArgs{Window: w})
 }
 
 // SetVisible shows or hides the window without touching its content.
@@ -36,9 +35,8 @@ func (d DockableWindows) Set(w wire.DockableWindowSpec) (wire.OKResult, error) {
 // mcp:tool dockable_windows_set_visible
 // mcp:summary Shows or hides the window without touching its content.
 func (d DockableWindows) SetVisible(id string, visible bool) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetDockableWindowVisibleArgs{ID: id, Visible: visible}
-	return r, d.c.call(wire.MethodDockableWindowsSetVisible, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDockableWindowsSetVisible, args)
 }
 
 // SetValue drives one editable control of the window to a value, exactly as a user edit would: the
@@ -49,9 +47,8 @@ func (d DockableWindows) SetVisible(id string, visible bool) (wire.OKResult, err
 // mcp:tool set_panel_value
 // mcp:summary Set one editable control of an add-in dockable window to a value (as a user edit would), notifying the add-in.
 func (d DockableWindows) SetValue(windowID, controlID, value string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetDockableWindowValueArgs{WindowId: windowID, ControlId: controlID, Value: value}
-	return r, d.c.call(wire.MethodDockableWindowsSetValue, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDockableWindowsSetValue, args)
 }
 
 // SetReferences replaces a referenceList control's rows exactly as an Add-from-selection would:
@@ -61,9 +58,8 @@ func (d DockableWindows) SetValue(windowID, controlID, value string) (wire.OKRes
 // mcp:tool set_panel_references
 // mcp:summary Replace a reference-list control's rows (as Add-from-selection would), notifying the add-in.
 func (d DockableWindows) SetReferences(windowID, controlID string, refs []string) (wire.OKResult, error) {
-	var r wire.OKResult
 	args := wire.SetDockableWindowReferencesArgs{WindowId: windowID, ControlId: controlID, Refs: refs}
-	return r, d.c.call(wire.MethodDockableWindowsSetReferences, args, &r)
+	return call[wire.OKResult](d.c, wire.MethodDockableWindowsSetReferences, args)
 }
 
 // Delete removes the window entirely.
@@ -71,8 +67,7 @@ func (d DockableWindows) SetReferences(windowID, controlID string, refs []string
 // mcp:tool dockable_windows_delete
 // mcp:summary Removes the window entirely.
 func (d DockableWindows) Delete(id string) (wire.OKResult, error) {
-	var r wire.OKResult
-	return r, d.c.call(wire.MethodDockableWindowsDelete, wire.DeleteDockableWindowArgs{ID: id}, &r)
+	return call[wire.OKResult](d.c, wire.MethodDockableWindowsDelete, wire.DeleteDockableWindowArgs{ID: id})
 }
 
 // List returns every add-in dockable window in creation order.
@@ -80,6 +75,5 @@ func (d DockableWindows) Delete(id string) (wire.OKResult, error) {
 // mcp:tool dockable_windows_list
 // mcp:summary Returns every add-in dockable window in creation order.
 func (d DockableWindows) List() (wire.ListDockableWindowsResult, error) {
-	var r wire.ListDockableWindowsResult
-	return r, d.c.call(wire.MethodDockableWindowsList, nil, &r)
+	return call[wire.ListDockableWindowsResult](d.c, wire.MethodDockableWindowsList, nil)
 }
