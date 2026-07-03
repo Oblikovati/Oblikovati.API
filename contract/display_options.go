@@ -82,11 +82,29 @@ type DisplayOptions interface {
 }
 
 // DisplaySettings is the in-process contract for a document's per-document display settings —
-// the home for background, edge color, ground-plane, and shadow state. The GPL app satisfies
-// it (compile-time asserted there).
+// the home for background, edge color, ground-plane, and shadow state. It is segregated into
+// four embedded capability families ([BackgroundDisplaySettings], [EdgeDisplaySettings],
+// [WindowDisplaySettings], [GroundShadowSettings]) so a consumer that only reads, say, the
+// shadow state does not depend on the edge/window width (audit I9). DisplaySettings stays their
+// union (compile-time asserted in the GPL app) — every existing implementer and caller is
+// unaffected.
 type DisplaySettings interface {
+	BackgroundDisplaySettings
+	EdgeDisplaySettings
+	WindowDisplaySettings
+	GroundShadowSettings
+}
+
+// BackgroundDisplaySettings is how the viewport background and appearance textures are painted.
+type BackgroundDisplaySettings interface {
 	// BackgroundType is how the viewport background is painted (solid/gradient/image).
 	BackgroundType() types.BackgroundTypeEnum
+	// TexturesOn reports whether appearance textures are displayed.
+	TexturesOn() bool
+}
+
+// EdgeDisplaySettings is the document's edge, silhouette and hidden-line appearance.
+type EdgeDisplaySettings interface {
 	// EdgeColor is the document's model-edge color override.
 	EdgeColor() types.Color
 	// DepthDimming reports whether distant geometry is dimmed.
@@ -95,12 +113,20 @@ type DisplaySettings interface {
 	DisplaySilhouettes() bool
 	// HiddenLineDimmingPercent is the 0–100 dimming applied to hidden lines.
 	HiddenLineDimmingPercent() int
+}
+
+// WindowDisplaySettings is the display mode and projection new views of this document open in.
+type WindowDisplaySettings interface {
 	// NewWindowDisplayMode is the display mode new views of this document open in.
 	NewWindowDisplayMode() types.DisplayModeEnum
 	// DisplayModeSource is whether the display mode is the default or a per-view override.
 	DisplayModeSource() types.DisplayModeSourceTypeEnum
 	// NewWindowProjection is the projection new views of this document open in.
 	NewWindowProjection() types.ProjectionTypeEnum
+}
+
+// GroundShadowSettings is the document's ground-plane, shadow and reflection state.
+type GroundShadowSettings interface {
 	// GroundPlane returns the document's ground-plane settings.
 	GroundPlane() GroundPlaneSettings
 	// GroundShadow is the ground-shadow style (none/standard/x-ray).
@@ -113,6 +139,4 @@ type DisplaySettings interface {
 	ShowObjectShadows() bool
 	// ShowAmbientShadows reports whether ambient-occlusion shadows are drawn.
 	ShowAmbientShadows() bool
-	// TexturesOn reports whether appearance textures are displayed.
-	TexturesOn() bool
 }

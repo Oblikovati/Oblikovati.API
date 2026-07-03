@@ -37,7 +37,20 @@ type File interface {
 // FileDescriptor is the persisted "as-saved" record of one file-to-file
 // reference held by a file: the logical (relative + library) name, where it
 // resolved this session, and the flags explaining a broken reference.
+//
+// It is segregated into three embedded capability families
+// ([FileReferenceIdentity], [FileReferenceStatus], [FileReferenceRepair]) so a
+// read-only consumer of a reference's status does not depend on the repair
+// mutation (audit I9). FileDescriptor stays their union — every existing
+// implementer and caller is unaffected.
 type FileDescriptor interface {
+	FileReferenceIdentity
+	FileReferenceStatus
+	FileReferenceRepair
+}
+
+// FileReferenceIdentity is a file reference's as-saved logical and resolved names.
+type FileReferenceIdentity interface {
 	// FullFileName returns the reference's as-saved full file name.
 	FullFileName() string
 	// RelativeFileName returns the workspace-relative spelling, "" when the
@@ -55,6 +68,11 @@ type FileDescriptor interface {
 	// FileSaveCounter returns the target's save counter as saved, for
 	// out-of-date detection.
 	FileSaveCounter() int
+}
+
+// FileReferenceStatus is a file reference's resolution state — the derived status
+// and the flags that explain a broken reference.
+type FileReferenceStatus interface {
 	// Status derives the single status vocabulary from the flags below.
 	Status() types.ReferenceStatus
 	// ReferenceMissing reports that the target cannot be found anywhere.
@@ -68,6 +86,11 @@ type FileDescriptor interface {
 	// ReferenceInternalNameDifferent reports the found file carries a
 	// different identity GUID than the one saved against.
 	ReferenceInternalNameDifferent() bool
+}
+
+// FileReferenceRepair re-points a broken reference — the mutation a read-only
+// consumer of a reference's status never depends on.
+type FileReferenceRepair interface {
 	// ReplaceReference re-points this record at fullFileName (a repair),
 	// erroring when the replacement cannot be loaded.
 	ReplaceReference(fullFileName string) error

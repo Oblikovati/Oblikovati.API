@@ -14,7 +14,19 @@ import "oblikovati.org/api/types"
 // them as a contract requires generics or adapters — a deliberate later step.
 // Out-of-process add-ins reach that structure through
 // [oblikovati.org/api/wire] today.
+//
+// The surface is segregated into three embedded capability families
+// ([DocumentIdentity], [DocumentDirtyState], [DocumentLifecycle]) so a consumer that
+// only reads identity does not depend on the dirty/lifecycle verbs (audit I9). Document
+// stays their union — every existing implementer and caller is unaffected.
 type Document interface {
+	DocumentIdentity
+	DocumentDirtyState
+	DocumentLifecycle
+}
+
+// DocumentIdentity is a document's naming and kind — the read-mostly identity surface.
+type DocumentIdentity interface {
 	// DocumentType is the kind discriminator (part/assembly/drawing/presentation).
 	DocumentType() types.DocumentType
 
@@ -31,12 +43,18 @@ type Document interface {
 	// path form.
 	FullDocumentName() string
 	FullFileName() string
+}
 
+// DocumentDirtyState is a document's unsaved-changes flag.
+type DocumentDirtyState interface {
 	// Dirty reports unsaved changes; MarkDirty/ClearDirty toggle it.
 	Dirty() bool
 	MarkDirty()
 	ClearDirty()
+}
 
+// DocumentLifecycle is a document's load, visibility and packaging state.
+type DocumentLifecycle interface {
 	// Open reports whether the document's content is paged in (false for an
 	// unopened reference stub); IsReferenceStub is the inverse predicate.
 	Open() bool
