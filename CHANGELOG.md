@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.103.1] - 2026-07-03
+
+### Fixed
+
+- Correct the graphics object model's false "compile-time asserted" claim
+- Promote per-kind feature-arg DTOs into api/wire/featureargs (+typed client ctor)
+
 ## [0.103.0] - 2026-07-03
 
 ### Added
@@ -798,7 +805,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.1...HEAD
+[0.103.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.103.0...v0.103.1
 [0.102.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.102.0...v0.102.1
 [0.102.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.101.0...v0.102.0
 [0.100.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.100.0...v0.100.1
