@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire,client): metadata-mutation events so add-ins can observe rename and
+  property changes — `types.ObjectKind`, `wire.ObjectRenamedEvent` /
+  `PropertyChangedEvent` DTOs, their event-name constants, and
+  `EventDispatcher.OnObjectRenamed` / `OnPropertyChanged` (audit S10, #1644)
+
 ## [0.104.1] - 2026-07-03
 
 ### Fixed
