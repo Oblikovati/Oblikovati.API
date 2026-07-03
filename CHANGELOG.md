@@ -8,6 +8,15 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(contract): split the fat `Document`, `DisplayOptions`, `FileDescriptor`,
+  `TransientGeometry`, and `SurfaceEvaluator` interfaces into embedded capability
+  families (e.g. `DocumentIdentity`/`DirtyState`/`DocumentLifecycle`). Each fat
+  interface is now the union of its families, so existing consumers are unaffected
+  while new host/add-in signatures can accept the narrowest capability they need —
+  semver-safe, additive only (audit I9, #1632)
+
 ## [0.103.1] - 2026-07-03
 
 ### Fixed
