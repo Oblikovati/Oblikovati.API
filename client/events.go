@@ -29,6 +29,8 @@ type EventDispatcher struct {
 	onAssemblyFeature []func(wire.AssemblyFeaturesChangedEvent)
 	onFeature         []func(wire.FeatureLifecycleEvent)
 	onSketchEdit      []func(wire.SketchEditEvent)
+	onObjectRenamed   []func(wire.ObjectRenamedEvent)
+	onPropertyChanged []func(wire.PropertyChangedEvent)
 }
 
 // NewEventDispatcher returns a dispatcher with no callbacks registered.
@@ -83,6 +85,18 @@ func (d *EventDispatcher) OnFeature(fn func(wire.FeatureLifecycleEvent)) {
 // payload's Type says which fired and carries the sketch's identity (#148).
 func (d *EventDispatcher) OnSketchEdit(fn func(wire.SketchEditEvent)) {
 	d.onSketchEdit = append(d.onSketchEdit, fn)
+}
+
+// OnObjectRenamed subscribes to object.renamed: a body/sketch/feature/occurrence/document was
+// renamed; the payload carries the object kind, its reference key, and the old and new names (#1644).
+func (d *EventDispatcher) OnObjectRenamed(fn func(wire.ObjectRenamedEvent)) {
+	d.onObjectRenamed = append(d.onObjectRenamed, fn)
+}
+
+// OnPropertyChanged subscribes to property.changed: an object's property (suppression, a sketch
+// setting) changed; the payload carries the object identity, the property name, and old/new values (#1644).
+func (d *EventDispatcher) OnPropertyChanged(fn func(wire.PropertyChangedEvent)) {
+	d.onPropertyChanged = append(d.onPropertyChanged, fn)
 }
 
 // transactionEventTypes are the type tags decoded as [wire.TransactionEventPayload].
@@ -158,6 +172,10 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 		return fireDecoded(eventJSON, d.onFeature)
 	case sketchEditEventTypes[eventType]:
 		return fireDecoded(eventJSON, d.onSketchEdit)
+	case eventType == wire.EventObjectRenamed:
+		return fireDecoded(eventJSON, d.onObjectRenamed)
+	case eventType == wire.EventPropertyChanged:
+		return fireDecoded(eventJSON, d.onPropertyChanged)
 	}
 	return false
 }
@@ -166,7 +184,8 @@ func (d *EventDispatcher) dispatchByType(eventType string, eventJSON []byte) boo
 func fireDecoded[P wire.TransactionEventPayload | wire.FileResolutionEventPayload |
 	wire.FileDirtyEventPayload | wire.FileDialogHookPayload |
 	wire.OccurrenceEventPayload | wire.AssemblyFeaturesChangedEvent |
-	wire.FeatureLifecycleEvent | wire.SketchEditEvent](eventJSON []byte, fns []func(P)) bool {
+	wire.FeatureLifecycleEvent | wire.SketchEditEvent |
+	wire.ObjectRenamedEvent | wire.PropertyChangedEvent](eventJSON []byte, fns []func(P)) bool {
 	var payload P
 	if err := json.Unmarshal(eventJSON, &payload); err != nil {
 		return false
