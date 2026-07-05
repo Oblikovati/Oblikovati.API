@@ -8,6 +8,15 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- docs(wire/model): document the `body/<url-base64(key)>` selection-reference form
+  on `SelectionResult` and `SelectArgs` (#1492). A whole-body viewport pick now
+  reports a non-empty, recompute-stable reference (the same key as `BodyInfo.Key`)
+  in the `Refs` slot instead of an empty string, and it round-trips through
+  `model.select`, so an add-in (e.g. an FEA study picking which bodies to analyse)
+  can read a directly-selected body unambiguously.
+
 ## [0.106.0] - 2026-07-03
 
 ### Added

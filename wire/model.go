@@ -25,9 +25,15 @@ type ModelTreeResult struct {
 
 // SelectionResult is the response of [MethodModelSelection]: how many entities are
 // selected, their selection kinds, and — parallel to Kinds — each entity's work-feature
-// reference (a datum plane/axis/point key, or a face/vertex reference) for entities that
-// have one, empty otherwise. A client reads Refs to feed a selected face/point/plane into
-// [MethodWorkPlanesCreate].
+// reference for entities that have one, empty otherwise. A reference is one of:
+//   - a datum plane/axis/point key (a work-feature key);
+//   - "face/<url-base64(key)>"   — a picked B-rep face;
+//   - "vertex/<url-base64(key)>" — a picked B-rep vertex;
+//   - "body/<url-base64(key)>"   — a picked whole body, the same recompute-stable key as
+//     [BodyInfo.Key] (#1492), so an add-in can tell which body was selected.
+//
+// A client reads Refs to feed a selected face/point/plane into [MethodWorkPlanesCreate], or a
+// selected body into a body-scoped operation; all forms round-trip through [MethodModelSelect].
 type SelectionResult struct {
 	Count int      `json:"count"`
 	Kinds []int    `json:"kinds"`
@@ -35,8 +41,9 @@ type SelectionResult struct {
 }
 
 // SelectArgs is the request of [MethodModelSelect] (#157): select the entities named by Refs —
-// reference strings as returned in a [SelectionResult] (face/vertex). Mode "add" extends the
-// current selection; any other value (or empty) replaces it. The reply is the new selection.
+// reference strings as returned in a [SelectionResult] (face/vertex/body, #1492). Mode "add"
+// extends the current selection; any other value (or empty) replaces it. The reply is the new
+// selection.
 type SelectArgs struct {
 	Refs []string `json:"refs"`
 	Mode string   `json:"mode,omitempty"`
