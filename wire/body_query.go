@@ -80,8 +80,8 @@ type ConvexityEdgesResult struct {
 
 // MinimumDistanceArgs is the request of [MethodBodyMinimumDistance]: the closest
 // approach between the body and a transient probe polyline (e.g. a CAM travel
-// path) — the out-of-process projection of Inventor's
-// MeasureTools.GetMinimumDistance for a transient operand. Points is a flat
+// path) — the out-of-process minimum-distance measurement for a transient
+// operand. Points is a flat
 // [x,y,z, x,y,z, ...] list in database units (cm); consecutive pairs are the
 // probe's segments, and a lone point measures that point to the body. Radius
 // (cm) widens the probe into a swept-cylinder cross-section (the tool),

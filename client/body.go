@@ -134,8 +134,8 @@ func (b Body) ConvexityEdges(bodyIndex int, collection types.EdgeCollectionKind)
 
 // MinimumDistance returns the closest approach between the body and a transient
 // probe polyline (e.g. a CAM travel path), optionally widened by Radius (the
-// tool cross-section). It is the out-of-process projection of Inventor's
-// MeasureTools.GetMinimumDistance for a transient operand; points, Radius and
+// tool cross-section). It is the out-of-process minimum-distance measurement
+// for a transient operand; points, Radius and
 // the result are all in database units (cm). The result is 0 when the probe
 // (after Radius) touches or enters the body's material.
 //
