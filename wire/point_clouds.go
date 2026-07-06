@@ -12,16 +12,18 @@ import "oblikovati.org/api/types"
 
 // PointCloudInfo is one attached cloud's state. Transform is the cloud→model placement; Scale is
 // the uniform cloud→model factor. TotalPointCount is the scan's size; DisplayedPointCount is how
-// many render after MaximumPointCount is applied (0 = unbounded).
+// many render after MaximumPointCount is applied (0 = unbounded). DisplayMode is how the cloud is
+// coloured in the viewport (#645).
 type PointCloudInfo struct {
-	Name                string       `json:"name"`
-	Source              string       `json:"source,omitempty"`
-	Visible             bool         `json:"visible"`
-	Scale               float64      `json:"scale"`
-	Transform           types.Matrix `json:"transform"`
-	TotalPointCount     int          `json:"totalPointCount"`
-	DisplayedPointCount int          `json:"displayedPointCount"`
-	MaximumPointCount   int          `json:"maximumPointCount,omitempty"`
+	Name                string                      `json:"name"`
+	Source              string                      `json:"source,omitempty"`
+	Visible             bool                        `json:"visible"`
+	DisplayMode         types.PointCloudDisplayMode `json:"displayMode"`
+	Scale               float64                     `json:"scale"`
+	Transform           types.Matrix                `json:"transform"`
+	TotalPointCount     int                         `json:"totalPointCount"`
+	DisplayedPointCount int                         `json:"displayedPointCount"`
+	MaximumPointCount   int                         `json:"maximumPointCount,omitempty"`
 }
 
 // AttachPointCloudArgs is the request of [MethodPointCloudsAttach]: read the scan file at
@@ -74,6 +76,13 @@ type SetPointCloudScaleArgs struct {
 type SetPointCloudDensityArgs struct {
 	Name              string `json:"name"`
 	MaximumPointCount int    `json:"maximumPointCount"`
+}
+
+// SetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport
+// colouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.
+type SetPointCloudDisplayModeArgs struct {
+	Name        string                      `json:"name"`
+	DisplayMode types.PointCloudDisplayMode `json:"displayMode"`
 }
 
 // PointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /
