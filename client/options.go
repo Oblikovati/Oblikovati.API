@@ -29,9 +29,7 @@ func (o Options) Groups() (wire.ListOptionGroupsResult, error) {
 // mcp:tool options_get_group
 // mcp:summary Fetches one group and returns the union view.
 func (o Options) getGroup(group string) (wire.OptionGroupView, error) {
-	var r wire.OptionGroupView
-	err := o.c.call(wire.MethodOptionsGetGroup, wire.GetOptionGroupArgs{Group: group}, &r)
-	return r, err
+	return call[wire.OptionGroupView](o.c, wire.MethodOptionsGetGroup, wire.GetOptionGroupArgs{Group: group})
 }
 
 // General returns the general options (startup behavior).

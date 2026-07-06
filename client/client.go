@@ -28,6 +28,19 @@ type Client struct {
 // error rather than panicking, so a half-wired add-in is diagnosable.
 func New(t Caller) *Client { return &Client{t: t} }
 
+// call sends a wire request and decodes the typed response — the one body shared by
+// every typed client method, so each method spells its result DTO exactly once
+// (Oblikovati/Oblikovati#1650). Go has no generic methods, hence a package-level
+// function taking the *Client.
+//
+//	func (w WorkPoints) Create(args wire.CreateWorkPointArgs) (wire.CreateWorkPointResult, error) {
+//		return call[wire.CreateWorkPointResult](w.c, wire.MethodWorkPointsCreate, args)
+//	}
+func call[Resp any](c *Client, method string, req any) (Resp, error) {
+	var r Resp
+	return r, c.call(method, req, &r)
+}
+
 // call marshals req (nil → no body), invokes method, and unmarshals the reply into
 // out (nil → reply ignored). Errors name the offending method.
 func (c *Client) call(method string, req, out any) error {

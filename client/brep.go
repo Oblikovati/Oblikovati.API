@@ -146,6 +146,6 @@ func (t TransientBRep) List() (wire.BrepListResult, error) {
 // mcp:tool brep_delete
 // mcp:summary Frees a transient body.
 func (t TransientBRep) Delete(handle int) error {
-	var r wire.OKResult
-	return t.c.call(wire.MethodBrepDelete, wire.BrepHandleArgs{Handle: handle}, &r)
+	_, err := call[wire.OKResult](t.c, wire.MethodBrepDelete, wire.BrepHandleArgs{Handle: handle})
+	return err
 }

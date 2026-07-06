@@ -112,8 +112,8 @@ func (b Body) FindUsingRay(args wire.FindUsingRayArgs) (wire.FindUsingRayResult,
 // mcp:tool body_is_point_inside
 // mcp:summary Classifies a point against the body's material (or one shell's bounded region).
 func (b Body) IsPointInside(args wire.IsPointInsideArgs) (types.Containment, error) {
-	var r wire.IsPointInsideResult
-	if err := b.c.call(wire.MethodBodyIsPointInside, args, &r); err != nil {
+	r, err := call[wire.IsPointInsideResult](b.c, wire.MethodBodyIsPointInside, args)
+	if err != nil {
 		return types.UnknownContainment, err
 	}
 	if c, ok := types.ParseContainment(r.Containment); ok {
