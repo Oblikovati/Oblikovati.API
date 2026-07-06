@@ -25,7 +25,7 @@ type SketchInfo struct {
 	Healthy     bool   `json:"healthy"`
 	// Consumed reports whether a feature has consumed this sketch (drives browser nesting and
 	// the delete guard); OwnedBy names the consuming feature ("" when not consumed); Shared
-	// reports the Inventor "Share Sketch" flag (a shared sketch stays top-level and reusable by
+	// reports the "share sketch" flag (a shared sketch stays top-level and reusable by
 	// several features). Enumerate the full dependent set with [MethodSketchDependents].
 	Consumed     bool    `json:"consumed,omitempty"`
 	OwnedBy      string  `json:"ownedBy,omitempty"`

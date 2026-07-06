@@ -3,9 +3,9 @@
 package wire
 
 // Document update/rebuild (Oblikovati/Oblikovati#139). After batch edits a client needs to
-// force a recompute and learn the result. update recomputes only the out-of-date features
-// (Inventor PartDocument.Update); rebuild recomputes everything as if all driving entities were
-// dirtied (PartDocument.Rebuild); requiresUpdate is the read-only "has stale entities" flag.
+// force a recompute and learn the result. update recomputes only the out-of-date features;
+// rebuild recomputes everything as if all driving entities were dirtied; requiresUpdate is
+// the read-only "has stale entities" flag.
 
 // UpdateDocumentArgs is the request of [MethodDocumentsUpdate] and [MethodDocumentsRebuild].
 // AcceptErrorsAndContinue mirrors Update2/Rebuild2: when true the call succeeds and reports any

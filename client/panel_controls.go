@@ -9,8 +9,8 @@ import (
 	"oblikovati.org/api/wire"
 )
 
-// Panel-control constructors for building a dockable-window form declaratively. They mirror the
-// editable control vocabulary (Autodesk Inventor's MiniToolbarControlTypeEnum): label, button,
+// Panel-control constructors for building a dockable-window form declaratively. They cover the
+// editable control vocabulary: label, button,
 // separator, text box, unit-bearing value editor, check box, dropdown, combo box, slider. Each
 // editable control carries an ID the host echoes back in a [wire.PanelValueChangedEvent] when
 // the user edits it.

@@ -4,9 +4,9 @@ package types
 
 // PanelControlKind is the kind of one declarative control inside an add-in panel
 // surface (a dockable window; also mini-toolbars, M05-F07). A panel is declared data the
-// host renders, not a widget toolkit (M05-F03, #247). The editable kinds mirror Autodesk
-// Inventor's MiniToolbarControlTypeEnum (kCheckBox/kComboBox/kDropdown/kValueEditor/kSlider/
-// kTextBox) so add-ins get a familiar form vocabulary. Each editable control carries an ID;
+// host renders, not a widget toolkit (M05-F03, #247). The editable kinds mirror a
+// conventional mini-toolbar control set (check box / combo box / dropdown / value editor /
+// slider / text box) so add-ins get a familiar form vocabulary. Each editable control carries an ID;
 // when the user changes it the host pushes a [PanelValueChangedEvent] to the add-in.
 type PanelControlKind uint8
 

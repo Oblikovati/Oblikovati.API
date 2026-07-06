@@ -5,7 +5,7 @@ package wire
 // Highlight sets (Oblikovati/Oblikovati#157). A highlight set is a named group of model
 // references (the face/vertex key strings model.referenceKeys / model.selection report) that
 // the viewport outlines in a colour WITHOUT selecting them — an add-in uses it to guide the
-// user (Inventor HighlightSet.AddItem / Color). Colours are "#rrggbb" hex.
+// user. Colours are "#rrggbb" hex.
 
 // CreateHighlightSetArgs is the request of [MethodModelHighlightSetCreate]: a unique Name and a
 // "#rrggbb" Color. The set starts empty; add references with [MethodModelHighlightSetAddItems].

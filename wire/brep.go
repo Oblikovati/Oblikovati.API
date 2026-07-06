@@ -107,7 +107,7 @@ type BrepDeleteFacesArgs struct {
 // radius, then drop the tool onto the offset. The offset is exact for analytic surfaces (plane,
 // cylinder, sphere, cone, torus) and a tolerant parallel surface otherwise.
 //
-// The parameters mirror Inventor's FaceOffsetDefinition: Distance, Reverse (offset the opposite way,
+// The parameters are Distance, Reverse (offset the opposite way,
 // into the solid), and Tolerance (the chordal tolerance for offsetting a freeform surface; 0 ⇒ a
 // kernel default).
 type BrepOffsetFacesArgs struct {

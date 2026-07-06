@@ -90,8 +90,8 @@ func (t TransientBRep) CreateRuledSurface(sectionOne, sectionTwo wire.BrepWireRe
 }
 
 // OffsetFaces offsets the named faces of source by distance along their surface normals, returning a
-// transient body of the offset faces to sample (e.g. CAM surfacing tool compensation). Parameters
-// mirror Inventor's FaceOffsetDefinition (reverse to offset into the solid; tolerance for freeform).
+// transient body of the offset faces to sample (e.g. CAM surfacing tool compensation). Parameters:
+// reverse to offset into the solid; tolerance for freeform.
 //
 // mcp:tool brep_offset_faces
 // mcp:summary Offsets the named faces of a body by a distance along their normals; the offset faces come back on a new transient body.
