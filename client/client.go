@@ -66,11 +66,3 @@ func (c *Client) call(method string, req, out any) error {
 	}
 	return nil
 }
-
-// call is the generic typed wrapper over [Client.call]: it allocates the response, dispatches, and
-// returns it, collapsing the per-method `var r T; return r, c.call(...)` boilerplate (Oblikovati#1650, G2).
-func call[Resp any](c *Client, method string, req any) (Resp, error) {
-	var r Resp
-	err := c.call(method, req, &r)
-	return r, err
-}

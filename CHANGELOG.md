@@ -10,6 +10,15 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- feat(types/wire/client): point-cloud viewport display mode (#645). Adds
+  `types.PointCloudDisplayMode` (the lowercase tokens `default` / `rgb` /
+  `intensity`, with `IsValid`, `String`, and `AllPointCloudDisplayModes`), the
+  `DisplayMode` field on `wire.PointCloudInfo`, the `wire.SetPointCloudDisplayModeArgs`
+  DTO with `wire.MethodPointCloudsSetDisplayMode` (`pointClouds.setDisplayMode`),
+  and the typed `client.PointClouds.SetDisplayMode` method. This lets an add-in
+  read and switch how an attached scan is coloured (neutral marker, per-point scan
+  RGB, or intensity greyscale) — the contract the host's RGB/intensity render work
+  implements.
 - docs(wire/model): document the `body/<url-base64(key)>` selection-reference form
   on `SelectionResult` and `SelectArgs` (#1492). A whole-body viewport pick now
   reports a non-empty, recompute-stable reference (the same key as `BodyInfo.Key`)

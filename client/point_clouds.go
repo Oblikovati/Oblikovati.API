@@ -79,6 +79,14 @@ func (p PointClouds) SetDensity(name string, maximumPointCount int) (wire.PointC
 	return call[wire.PointCloudInfo](p.c, wire.MethodPointCloudsSetDensity, wire.SetPointCloudDensityArgs{Name: name, MaximumPointCount: maximumPointCount})
 }
 
+// SetDisplayMode sets how the named cloud is coloured in the viewport (default / rgb / intensity).
+//
+// mcp:tool point_clouds_set_display_mode
+// mcp:summary Set an attached point cloud's viewport colouring mode by name (default, rgb, or intensity).
+func (p PointClouds) SetDisplayMode(name string, mode types.PointCloudDisplayMode) (wire.PointCloudInfo, error) {
+	return call[wire.PointCloudInfo](p.c, wire.MethodPointCloudsSetDisplayMode, wire.SetPointCloudDisplayModeArgs{Name: name, DisplayMode: mode})
+}
+
 // ToModelSpace maps a point from the named cloud's local space into model space.
 //
 // mcp:tool point_clouds_to_model_space

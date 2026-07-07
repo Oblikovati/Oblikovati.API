@@ -885,6 +885,7 @@ const (
 	MethodPointCloudsSetTransform   = "pointClouds.setTransform"
 	MethodPointCloudsSetScale       = "pointClouds.setScale"
 	MethodPointCloudsSetDensity     = "pointClouds.setDensity"
+	MethodPointCloudsSetDisplayMode = "pointClouds.setDisplayMode"
 	MethodPointCloudsToModelSpace   = "pointClouds.toModelSpace"
 	MethodPointCloudsFromModelSpace = "pointClouds.fromModelSpace"
 
