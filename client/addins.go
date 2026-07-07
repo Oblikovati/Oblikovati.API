@@ -69,9 +69,9 @@ func (a AddIns) SetLoadBehavior(id string, b types.AddInLoadBehavior) (wire.OKRe
 // mcp:tool addins_call_automation
 // mcp:summary Invokes a method on another add-in's automation surface (ApplicationAddIn.Automation) and returns its opaque JSON reply.
 func (a AddIns) CallAutomation(id, method string, args json.RawMessage) (json.RawMessage, error) {
-	var r wire.CallAddInAutomationResult
 	req := wire.CallAddInAutomationArgs{ID: id, Method: method, Args: args}
-	if err := a.c.call(wire.MethodAddInsCallAutomation, req, &r); err != nil {
+	r, err := call[wire.CallAddInAutomationResult](a.c, wire.MethodAddInsCallAutomation, req)
+	if err != nil {
 		return nil, err
 	}
 	return r.Result, nil
