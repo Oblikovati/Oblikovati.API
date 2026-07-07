@@ -8,6 +8,16 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.107.0] - 2026-07-07
+
+### Added
+
+- feat(types/wire/client): point-cloud viewport display mode (#645)
+
+### Fixed
+
+- fix(client): remove duplicate generic call[Resp] left by the G2 merge
+
 ### Added
 
 - feat(types/wire/client): point-cloud viewport display mode (#645). Adds
@@ -879,7 +889,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.107.0...HEAD
+[0.107.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...v0.107.0
 [0.106.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...v0.106.0
 [0.105.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.1...v0.105.0
 [0.104.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.0...v0.104.1
