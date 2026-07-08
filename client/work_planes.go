@@ -61,6 +61,16 @@ func (w WorkPlanes) Offset(base, distance string) (wire.CreateWorkPlaneResult, e
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneOffset), Refs: []string{base}, Offset: distance})
 }
 
+// OffsetHidden adds a plane-offset datum like Offset but created hidden (not drawn in the
+// viewport) — for a construction plane an add-in sketches on but does not want cluttering the
+// placed part.
+func (w WorkPlanes) OffsetHidden(base, distance string) (wire.CreateWorkPlaneResult, error) {
+	hidden := false
+	return w.Create(wire.CreateWorkPlaneArgs{
+		Kind: string(types.WorkPlaneOffset), Refs: []string{base}, Offset: distance, Visible: &hidden,
+	})
+}
+
 // ThreePoints adds a plane through three point references.
 func (w WorkPlanes) ThreePoints(p1, p2, p3 string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneThreePoints), Refs: []string{p1, p2, p3}})

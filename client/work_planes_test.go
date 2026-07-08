@@ -34,6 +34,25 @@ func TestWorkPlanesOffsetMarshalsKindRefsAndOffset(t *testing.T) {
 	}
 }
 
+func TestWorkPlanesOffsetHiddenSetsVisibleFalse(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":5,"ref":"plane/5","name":"Work Plane3","healthy":true}`)}
+	c := New(ft)
+
+	if _, err := c.WorkPlanes().OffsetHidden(types.WorkRefXYPlane, "-8 mm"); err != nil {
+		t.Fatalf("OffsetHidden: %v", err)
+	}
+	var sent wire.CreateWorkPlaneArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != string(types.WorkPlaneOffset) || sent.Offset != "-8 mm" {
+		t.Errorf("sent = %+v, want an XY offset by -8 mm", sent)
+	}
+	if sent.Visible == nil || *sent.Visible {
+		t.Errorf("Visible = %v, want a pointer to false (a hidden construction datum)", sent.Visible)
+	}
+}
+
 func TestWorkPlanesTangentHelperSetsKindAndRefs(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"index":4,"ref":"plane/4","name":"Work Plane2","healthy":false}`)}
 	c := New(ft)
