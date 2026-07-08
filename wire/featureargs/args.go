@@ -101,6 +101,12 @@ type Hole struct {
 	SinkDiameter    string `json:"sinkDiameter,omitempty"`
 	IncludedAngle   string `json:"includedAngle,omitempty"`
 	Designation     string `json:"designation,omitempty"`
+	// Center is the drill point in model-space cm (matches Inventor's InventorHole.Center);
+	// nil ⇒ the picked face's centroid. Needed to place more than one hole on a face.
+	Center []float64 `json:"center,omitempty"`
+	// CenterExpr is the parameter-expression form of Center: each entry is the expression for
+	// one coordinate (x, y, z), overriding the literal Center when present.
+	CenterExpr []string `json:"centerExpr,omitempty"`
 }
 
 // Kind reports the feature kind Hole creates.
