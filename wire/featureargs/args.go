@@ -30,6 +30,12 @@ type Extrude struct {
 	SecondDistance string `json:"secondDistance,omitempty"` // asymmetric two-direction depth
 	Taper          string `json:"taper,omitempty"`          // draft angle, e.g. "3 deg"
 	ToFace         string `json:"toFace,omitempty"`         // to-face target: a planar face key, "plane/N", or "origin/plane/xy"
+	// ProfileSeeds selects the extruded region(s) by an interior seed point (sketch 2-D, cm),
+	// one point per region, instead of ProfileIndex. An external author (e.g. an exporter) cannot
+	// predict the host's DCEL region ordering, so it names regions by containment: the host resolves
+	// each seed to the region that contains it, ON THE SOLVED SKETCH, every recompute. When present
+	// it wins over ProfileIndex. This is the extrude counterpart of the geometric selectors.
+	ProfileSeeds [][]float64 `json:"profileSeeds,omitempty"`
 }
 
 // Kind reports the feature kind Extrude creates.
@@ -43,6 +49,10 @@ type Revolve struct {
 	Angle        string `json:"angle"`
 	Angle2       string `json:"angle2,omitempty"` // second-direction sweep (#313)
 	Operation    string `json:"operation,omitempty"`
+	// ProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead
+	// of ProfileIndex, resolved by containment on the solved sketch each recompute (see
+	// [Extrude.ProfileSeeds]). When present it wins over ProfileIndex.
+	ProfileSeed []float64 `json:"profileSeed,omitempty"`
 }
 
 // Kind reports the feature kind Revolve creates.
