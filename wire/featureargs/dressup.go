@@ -44,6 +44,10 @@ type Fillet struct {
 	CrossSection    string          `json:"crossSection,omitempty"`    // blend cross-section (default arc; #1284)
 	Rho             float64         `json:"rho,omitempty"`             // conic fullness (0<ρ<1, 0.5=parabola)
 	ConcaveStrategy string          `json:"concaveStrategy,omitempty"` // concave-edge handling (default outward)
+	// EdgesGeom selects the rounded edges by GEOMETRY (midpoint + direction) instead of EdgeRefs
+	// keys, so the binding survives recompute — the way an external author references edges it did
+	// not mint keys for. When set it supplies the edges; EdgeRefs becomes optional. See [GeomEdgeSel].
+	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
 }
 
 // Kind reports the feature kind Fillet creates.
@@ -57,6 +61,9 @@ type Chamfer struct {
 	Distance2       string   `json:"distance2,omitempty"`       // twoDistances second face
 	Angle           string   `json:"angle,omitempty"`           // distanceAndAngle
 	ConcaveStrategy string   `json:"concaveStrategy,omitempty"` // concave-edge handling (default outward)
+	// EdgesGeom selects the bevelled edges by GEOMETRY (midpoint + direction) instead of EdgeRefs
+	// keys, so the binding survives recompute (see [Fillet.EdgesGeom]). When set, EdgeRefs is optional.
+	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
 }
 
 // Kind reports the feature kind Chamfer creates.
@@ -89,6 +96,9 @@ type Draft struct {
 	// PullDirection is the explicit pull/parting direction as a unit vector (matches
 	// InventorDraft.Pull); nil ⇒ the host infers it from the neutral faces (current behavior).
 	PullDirection []float64 `json:"pullDirection,omitempty"`
+	// FacesGeom selects the drafted faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
+	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
+	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
 }
 
 // Kind reports the feature kind Draft creates.
@@ -98,6 +108,9 @@ func (Draft) Kind() string { return KindDraft }
 type Shell struct {
 	FaceRefs  []string `json:"faceRefs"`
 	Thickness string   `json:"thickness,omitempty"`
+	// FacesGeom selects the removed faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
+	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
+	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
 }
 
 // Kind reports the feature kind Shell creates.
