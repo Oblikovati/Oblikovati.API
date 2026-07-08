@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.110.0] - 2026-07-08
+
+### Added
+
+- feat(featureargs): select extrude/revolve regions by interior seed point (#236)
+
 ## [0.109.0] - 2026-07-08
 
 ### Added
@@ -901,7 +907,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.109.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.110.0...HEAD
+[0.110.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.109.0...v0.110.0
 [0.109.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.108.0...v0.109.0
 [0.108.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.107.0...v0.108.0
 [0.107.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...v0.107.0
