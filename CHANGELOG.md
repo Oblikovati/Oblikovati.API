@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.112.0] - 2026-07-08
+
+### Added
+
+- feat(featureargs): partial-length cosmetic thread — `Thread.Length` / `Thread.Offset` (Inventor's ThreadDepth/ThreadOffset), so a double-ended stud threads only its ends
+
 ## [0.111.0] - 2026-07-08
 
 ### Added

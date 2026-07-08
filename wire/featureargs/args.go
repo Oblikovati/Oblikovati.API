@@ -145,6 +145,14 @@ type Thread struct {
 	Class         string `json:"class,omitempty"`
 	Tapered       bool   `json:"tapered,omitempty"`
 	ModelDiameter string `json:"modelDiameter,omitempty"`
+	// Length is the threaded run along the cylinder axis (a distance expression), measured from
+	// the face's start edge plus Offset. Empty ⇒ the thread runs the full length of the face
+	// (Inventor's FullDepth). A double-ended stud threads only b1 at one end and b2 at the other,
+	// each a separate Thread with its own Offset+Length on the same face.
+	Length string `json:"length,omitempty"`
+	// Offset is the distance (expression) from the face's start edge to where the thread begins
+	// (Inventor's ThreadOffset). Empty ⇒ 0 (the thread starts at the face's start edge).
+	Offset string `json:"offset,omitempty"`
 }
 
 // Kind reports the feature kind Thread creates.
