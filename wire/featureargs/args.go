@@ -107,6 +107,11 @@ type Hole struct {
 	// CenterExpr is the parameter-expression form of Center: each entry is the expression for
 	// one coordinate (x, y, z), overriding the literal Center when present.
 	CenterExpr []string `json:"centerExpr,omitempty"`
+	// PlacementFaceGeom selects the placement face by GEOMETRY (centroid + normal) instead of a
+	// FaceRef key, so the binding survives the hole's own recompute — the way an external author
+	// (exporter) must reference a face it did not mint a key for. When set it supplies the face;
+	// FaceRef becomes optional. See [GeomFaceSel].
+	PlacementFaceGeom *GeomFaceSel `json:"placementFaceGeom,omitempty"`
 }
 
 // Kind reports the feature kind Hole creates.
