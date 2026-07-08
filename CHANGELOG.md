@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.113.0] - 2026-07-08
+
+### Added
+
+- feat(featureargs): partial-length cosmetic thread (Length/Offset)
+
 ## [0.112.0] - 2026-07-08
 
 ### Added
@@ -919,7 +925,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.111.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.113.0...HEAD
+[0.113.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.112.0...v0.113.0
 [0.111.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.110.0...v0.111.0
 [0.110.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.109.0...v0.110.0
 [0.109.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.108.0...v0.109.0
