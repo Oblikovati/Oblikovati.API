@@ -30,6 +30,12 @@ type Extrude struct {
 	SecondDistance string `json:"secondDistance,omitempty"` // asymmetric two-direction depth
 	Taper          string `json:"taper,omitempty"`          // draft angle, e.g. "3 deg"
 	ToFace         string `json:"toFace,omitempty"`         // to-face target: a planar face key, "plane/N", or "origin/plane/xy"
+	// ToFaceGeom names the to-face termination target by GEOMETRY (a planar face's centroid +
+	// normal) instead of a ToFace key/plane-ref, so an external author (e.g. an exporter) can
+	// terminate an extrude at a body face it did not mint a key for — the extent counterpart of
+	// [Hole.PlacementFaceGeom]. The host finds the matching planar face on the current body and
+	// freezes its plane as the extent's stop plane. When set it wins over ToFace. See [GeomFaceSel].
+	ToFaceGeom *GeomFaceSel `json:"toFaceGeom,omitempty"`
 	// ProfileSeeds selects the extruded region(s) by an interior seed point (sketch 2-D, cm),
 	// one point per region, instead of ProfileIndex. An external author (e.g. an exporter) cannot
 	// predict the host's DCEL region ordering, so it names regions by containment: the host resolves
