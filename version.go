@@ -19,7 +19,7 @@ import (
 // While the major version is 0 the API is in initial development: the public
 // surface MAY change in any minor release and there is no backward-compatibility
 // guarantee yet (semver §4). See RELEASING.md for how a release is cut.
-const Version = "0.111.0"
+const Version = "0.112.0"
 
 // Major is the major component of [Version], per Semantic Versioning: the breaking
 // -change boundary (semver §8). The host↔add-in load-time handshake refuses to load

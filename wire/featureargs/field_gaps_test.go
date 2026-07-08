@@ -65,6 +65,26 @@ func TestSweepPathPointsRoundTrip(t *testing.T) {
 	}
 }
 
+// TestThreadSpanRoundTrip checks the partial-length fields (Inventor's ThreadDepth/ThreadOffset)
+// survive a JSON round-trip and are omitted when empty, so a full-length cosmetic thread stays
+// the terse default while a double-ended stud can thread only its ends.
+func TestThreadSpanRoundTrip(t *testing.T) {
+	th := Thread{FaceRef: "face/0", Designation: "M12x1.75", Offset: "length - nut_thread_length", Length: "nut_thread_length"}
+	var back Thread
+	b, _ := json.Marshal(th)
+	if err := json.Unmarshal(b, &back); err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(th, back) {
+		t.Errorf("thread span did not round-trip: sent %#v, got %#v (json %s)", th, back, b)
+	}
+
+	bare, _ := json.Marshal(Thread{FaceRef: "face/0", Designation: "M12x1.75"})
+	if got := string(bare); contains(got, "length") || contains(got, "offset") {
+		t.Errorf("empty thread span leaked into json: %s", got)
+	}
+}
+
 // contains reports whether s holds sub — a tiny local helper so these tests avoid a
 // strings import, matching the package's terse test style.
 func contains(s, sub string) bool {
