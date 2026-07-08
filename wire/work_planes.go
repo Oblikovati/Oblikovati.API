@@ -13,14 +13,19 @@ package wire
 //     offset and line-plane-angle kinds.
 //   - Origin, XAxis, YAxis give the AddFixed frame: the origin point [x,y,z] (model
 //     units) and two in-plane axis direction components.
+//   - Visible, when non-nil, sets the new plane's viewport visibility (nil ⇒ the model
+//     default, visible). Pass a pointer to false to create a construction datum hidden —
+//     e.g. an add-in that offsets a plane only to sketch on it and does not want the datum
+//     cluttering the placed part.
 type CreateWorkPlaneArgs struct {
-	Kind   string    `json:"kind"`
-	Refs   []string  `json:"refs,omitempty"`
-	Offset string    `json:"offset,omitempty"`
-	Angle  string    `json:"angle,omitempty"`
-	Origin []float64 `json:"origin,omitempty"`
-	XAxis  []float64 `json:"xaxis,omitempty"`
-	YAxis  []float64 `json:"yaxis,omitempty"`
+	Kind    string    `json:"kind"`
+	Refs    []string  `json:"refs,omitempty"`
+	Offset  string    `json:"offset,omitempty"`
+	Angle   string    `json:"angle,omitempty"`
+	Origin  []float64 `json:"origin,omitempty"`
+	XAxis   []float64 `json:"xaxis,omitempty"`
+	YAxis   []float64 `json:"yaxis,omitempty"`
+	Visible *bool     `json:"visible,omitempty"`
 }
 
 // CreateWorkPlaneResult is the response of [MethodWorkPlanesCreate]: the new plane's
@@ -46,6 +51,7 @@ type WorkPlaneInfo struct {
 	Origin   []float64          `json:"origin"`
 	Normal   []float64          `json:"normal"`
 	IsOrigin bool               `json:"isOrigin"`
+	Visible  bool               `json:"visible"`
 	Healthy  bool               `json:"healthy"`
 	Reason   string             `json:"reason,omitempty"`  // why Healthy is false (empty when healthy)
 	Kind     string             `json:"kind,omitempty"`    // a types.WorkPlaneKind value
