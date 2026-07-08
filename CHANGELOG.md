@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.109.0] - 2026-07-08
+
+### Added
+
+- feat(featureargs): geometric selectors for hole placement and dress-up edges/faces (#235)
+
 ## [0.108.0] - 2026-07-08
 
 ### Added
@@ -895,7 +901,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.108.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.109.0...HEAD
+[0.109.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.108.0...v0.109.0
 [0.108.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.107.0...v0.108.0
 [0.107.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...v0.107.0
 [0.106.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...v0.106.0
