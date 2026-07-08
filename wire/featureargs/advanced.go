@@ -41,6 +41,9 @@ type Sweep struct {
 	Scaling         string              `json:"scaling,omitempty"`
 	GuideFaceKey    string              `json:"guideFaceKey,omitempty"`
 	ToolBodyIndex   *int                `json:"toolBodyIndex,omitempty"`
+	// PathPoints is an explicit 3D polyline path in cm (each entry an [x,y,z] point), mirroring
+	// how LoftRail.Points overrides its sketch path; nil ⇒ use the PathSketchIndex/PathIndex arg.
+	PathPoints [][]float64 `json:"pathPoints,omitempty"`
 }
 
 // Kind reports the feature kind Sweep creates.

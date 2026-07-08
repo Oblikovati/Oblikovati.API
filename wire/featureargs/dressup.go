@@ -86,6 +86,9 @@ func (FullRoundFillet) Kind() string { return KindFullRoundFillet }
 type Draft struct {
 	FaceRefs []string `json:"faceRefs"`
 	Angle    string   `json:"angle,omitempty"`
+	// PullDirection is the explicit pull/parting direction as a unit vector (matches
+	// InventorDraft.Pull); nil ⇒ the host infers it from the neutral faces (current behavior).
+	PullDirection []float64 `json:"pullDirection,omitempty"`
 }
 
 // Kind reports the feature kind Draft creates.
