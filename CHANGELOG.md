@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.108.0] - 2026-07-08
+
+### Added
+
+- feat: API gaps for the Inventor exporter (work axes, hole center, draft pull, sweep path) (#234)
+
 ## [0.107.0] - 2026-07-07
 
 ### Added
@@ -889,7 +895,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.107.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.108.0...HEAD
+[0.108.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.107.0...v0.108.0
 [0.107.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.106.0...v0.107.0
 [0.106.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.105.0...v0.106.0
 [0.105.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.104.1...v0.105.0
