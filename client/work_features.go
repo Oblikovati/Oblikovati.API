@@ -18,3 +18,16 @@ func (c *Client) WorkFeatures() WorkFeatures { return WorkFeatures{c} }
 func (w WorkFeatures) SetVisible(ref string, visible bool) (wire.OKResult, error) {
 	return call[wire.OKResult](w.c, wire.MethodWorkFeaturesSetVisible, wire.SetWorkFeatureVisibleArgs{Ref: ref, Visible: visible})
 }
+
+// Delete removes the user datum work plane, axis, or point named by ref (#1855). With
+// retainDependents=false (Inventor's default) every user work feature that references the datum,
+// directly or transitively, is deleted with it; with retainDependents=true those dependents are
+// left in place and go unhealthy. Deletion is a tombstone — surviving datums keep their stable
+// refs. Deleting an origin datum, an unknown ref, or an already-deleted datum is an error. Returns
+// the refs of every datum removed.
+//
+// mcp:tool delete_work_feature
+// mcp:summary Delete a user datum work plane, axis, or point by its ref (e.g. "plane/3", "axis/1", "point/2"). retainDependents=false (default) also deletes any work feature built on it; true leaves those dependents in place (they go unhealthy). Origin datums cannot be deleted. Returns the refs removed.
+func (w WorkFeatures) Delete(ref string, retainDependents bool) (wire.DeleteWorkFeatureResult, error) {
+	return call[wire.DeleteWorkFeatureResult](w.c, wire.MethodWorkFeaturesDelete, wire.DeleteWorkFeatureArgs{Ref: ref, RetainDependents: retainDependents})
+}
