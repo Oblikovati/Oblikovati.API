@@ -156,6 +156,10 @@ type DimensionInfo struct {
 	Expression string  `json:"expression"`
 	Value      float64 `json:"value"`
 	Driven     bool    `json:"driven"`
+	// Orientation is what a "distance" dimension measures — "horizontal" or "vertical" for an
+	// axis-aligned linear dim, absent for the default aligned (Euclidean) distance and every
+	// other kind. #1869.
+	Orientation string `json:"orientation,omitempty"`
 }
 
 // ListDimensionsResult is the response of [MethodSketchDimensions].
