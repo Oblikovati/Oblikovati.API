@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.115.0] - 2026-07-09
+
+### Added
+
+- feat(parameters): non-numeric + model-kind creation and rename (#1845, #1847) (#240)
+
 ## [0.114.0] - 2026-07-08
 
 ### Added
@@ -931,7 +937,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.114.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.115.0...HEAD
+[0.115.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.114.0...v0.115.0
 [0.114.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.113.0...v0.114.0
 [0.113.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.112.0...v0.113.0
 [0.111.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.110.0...v0.111.0
