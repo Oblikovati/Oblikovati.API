@@ -60,3 +60,9 @@ func (w WorkPoints) TwoLines(line1, line2 string) (wire.CreateWorkPointResult, e
 func (w WorkPoints) ThreePlanes(plane1, plane2, plane3 string) (wire.CreateWorkPointResult, error) {
 	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointThreePlanes), Refs: []string{plane1, plane2, plane3}})
 }
+
+// FaceCenter adds a datum point at the centre of a spherical or toroidal face reference. Reports
+// healthy=false for a face with no centre point (#1842).
+func (w WorkPoints) FaceCenter(face string) (wire.CreateWorkPointResult, error) {
+	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointFaceCenter), Refs: []string{face}})
+}
