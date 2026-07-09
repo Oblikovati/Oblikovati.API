@@ -16,6 +16,15 @@ type WorkPoints struct{ c *Client }
 // WorkPoints returns the work-point construction group.
 func (c *Client) WorkPoints() WorkPoints { return WorkPoints{c} }
 
+// List returns the active model's datum points (origin centre first, then user points) with their
+// position, kind, origin flag, visibility, and health (#1842).
+//
+// mcp:tool list_work_points
+// mcp:summary List the work points of the active part or assembly (origin + user). Each point reports its ref, position [x,y,z] (database units, cm), kind, whether it is the origin centre, its visibility, and health.
+func (w WorkPoints) List() (wire.ListWorkPointsResult, error) {
+	return call[wire.ListWorkPointsResult](w.c, wire.MethodWorkPointsList, nil)
+}
+
 // Create adds a datum point from an explicit request — the escape hatch covering every kind
 // (position, plane-axis-intersection); prefer the typed helpers below for the common
 // constructors. Returns the point's index, reference, name, and health.
@@ -35,4 +44,19 @@ func (w WorkPoints) At(x, y, z float64) (wire.CreateWorkPointResult, error) {
 // result reports healthy=false when the axis is parallel to the plane (no intersection).
 func (w WorkPoints) PlaneAxisIntersection(plane, axis string) (wire.CreateWorkPointResult, error) {
 	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointPlaneAxisIntersection), Refs: []string{plane, axis}})
+}
+
+// OnPoint adds a datum point coincident with a referenced point (#1842).
+func (w WorkPoints) OnPoint(point string) (wire.CreateWorkPointResult, error) {
+	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointOnPoint), Refs: []string{point}})
+}
+
+// TwoLines adds a datum point where two line references intersect (healthy=false if parallel/skew).
+func (w WorkPoints) TwoLines(line1, line2 string) (wire.CreateWorkPointResult, error) {
+	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointTwoLines), Refs: []string{line1, line2}})
+}
+
+// ThreePlanes adds a datum point at the intersection of three plane references.
+func (w WorkPoints) ThreePlanes(plane1, plane2, plane3 string) (wire.CreateWorkPointResult, error) {
+	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointThreePlanes), Refs: []string{plane1, plane2, plane3}})
 }

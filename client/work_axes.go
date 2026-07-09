@@ -50,3 +50,18 @@ func (w WorkAxes) TwoPoints(p1, p2 string) (wire.CreateWorkAxisResult, error) {
 func (w WorkAxes) PlaneIntersection(plane1, plane2 string) (wire.CreateWorkAxisResult, error) {
 	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisPlaneIntersection), Refs: []string{plane1, plane2}})
 }
+
+// PointAndPlane adds the axis through a point reference, normal to a plane reference (#1840).
+func (w WorkAxes) PointAndPlane(point, plane string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisPointAndPlane), Refs: []string{point, plane}})
+}
+
+// LineAndPoint adds the axis through a point reference, parallel to a line reference (#1840).
+func (w WorkAxes) LineAndPoint(line, point string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisLineAndPoint), Refs: []string{line, point}})
+}
+
+// LineAndPlane adds the axis of a line reference projected onto a plane reference (#1840).
+func (w WorkAxes) LineAndPlane(line, plane string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisLineAndPlane), Refs: []string{line, plane}})
+}
