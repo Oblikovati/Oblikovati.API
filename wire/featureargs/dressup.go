@@ -117,6 +117,10 @@ type Shell struct {
 	// FacesGeom selects the removed faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
 	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
 	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
+	// Direction is which side of the original faces the wall grows onto — Inventor's
+	// ShellDirectionEnum: "inside" (default; outer skin kept), "outside" (outer dimensions grow by
+	// thickness), or "both" (wall centred on the faces). Empty ⇒ inside. #1864.
+	Direction string `json:"direction,omitempty"`
 }
 
 // Kind reports the feature kind Shell creates.
