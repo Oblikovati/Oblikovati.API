@@ -28,4 +28,9 @@ const (
 	WorkPointOnPoint     WorkPointKind = "point"        // coincident with a referenced point; Refs = [point]
 	WorkPointTwoLines    WorkPointKind = "two-lines"    // where two lines intersect; Refs = [line, line]
 	WorkPointThreePlanes WorkPointKind = "three-planes" // intersection of three planes; Refs = [plane, plane, plane]
+
+	// WorkPointFaceCenter is the centre of a spherical or toroidal face — Inventor's
+	// WorkPoints.AddByCenterOfSphereFace / AddByCenterOfTorusFace. Refs = [face] (a B-rep face
+	// reference). It goes unhealthy for a face with no centre point (e.g. a plane or cylinder). #1842.
+	WorkPointFaceCenter WorkPointKind = "face-center"
 )

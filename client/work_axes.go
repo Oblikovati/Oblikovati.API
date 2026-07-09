@@ -65,3 +65,10 @@ func (w WorkAxes) LineAndPoint(line, point string) (wire.CreateWorkAxisResult, e
 func (w WorkAxes) LineAndPlane(line, plane string) (wire.CreateWorkAxisResult, error) {
 	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisLineAndPlane), Refs: []string{line, plane}})
 }
+
+// RevolvedFace adds the axis of revolution of a cylindrical, conical, or toroidal face reference —
+// the axis a round hole/boss or a revolve sits on. Reports healthy=false for a face with no axis of
+// revolution (#1840).
+func (w WorkAxes) RevolvedFace(face string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisRevolvedFace), Refs: []string{face}})
+}

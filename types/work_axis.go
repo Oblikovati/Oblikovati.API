@@ -23,6 +23,11 @@ const (
 	WorkAxisPointAndPlane     WorkAxisKind = "point-and-plane"    // through a point, normal to a plane (#1840)
 	WorkAxisLineAndPoint      WorkAxisKind = "line-and-point"     // through a point, parallel to a line (#1840)
 	WorkAxisLineAndPlane      WorkAxisKind = "line-and-plane"     // a line projected onto a plane (#1840)
+
+	// WorkAxisRevolvedFace is the axis of revolution of a cylindrical, conical, or toroidal face —
+	// Inventor's WorkAxes.AddByRevolvedFace. Refs = [face] (a B-rep face reference). It goes
+	// unhealthy for a face with no axis of revolution (e.g. a plane or sphere). #1840.
+	WorkAxisRevolvedFace WorkAxisKind = "revolved-face"
 )
 
 // The origin coordinate axes (WorkRefXAxis / WorkRefYAxis / WorkRefZAxis, defined
