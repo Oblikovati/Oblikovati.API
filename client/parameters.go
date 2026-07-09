@@ -27,12 +27,23 @@ func (p Parameters) Get(name string) (wire.ParameterInfo, error) {
 	return call[wire.ParameterInfo](p.c, wire.MethodParametersGet, wire.ParameterNameArgs{Name: name})
 }
 
-// Add creates a new user parameter from a name and a unit-bearing expression.
+// Add creates a new parameter. By default it is a numeric user parameter from a unit-bearing
+// expression (e.g. name="height" expression="3 cm"). Set args.ValueType to "text" or "boolean"
+// for a non-numeric value, and args.Kind to "model" for a model parameter (#1845).
 //
 // mcp:tool add_parameter
-// mcp:summary Add a user parameter, e.g. name="height" expression="3 cm".
+// mcp:summary Add a parameter: numeric (default), text, or boolean; user (default) or model kind.
 func (p Parameters) Add(args wire.ParameterSetArgs) (wire.ParameterInfo, error) {
 	return call[wire.ParameterInfo](p.c, wire.MethodParametersAdd, args)
+}
+
+// Rename changes a parameter's name, keeping its identity and rewriting every expression that
+// references it (#1847).
+//
+// mcp:tool rename_parameter
+// mcp:summary Rename a parameter, rewriting expressions that reference it.
+func (p Parameters) Rename(name, newName string) (wire.ParameterInfo, error) {
+	return call[wire.ParameterInfo](p.c, wire.MethodParametersRename, wire.ParameterRenameArgs{Name: name, NewName: newName})
 }
 
 // Set changes an existing parameter's expression and recomputes the model.

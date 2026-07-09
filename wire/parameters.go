@@ -25,9 +25,26 @@ type ParameterNameArgs struct {
 
 // ParameterSetArgs is the request of [MethodParametersAdd] / [MethodParametersSet]:
 // a parameter name and a unit-bearing expression (e.g. "4 cm").
+//
+// ValueType and Kind apply to Add only (Set edits an existing parameter's expression and
+// ignores them), covering Inventor's non-numeric and non-user parameter creation (#1845):
+//   - ValueType: "numeric" (default) — Expression is a unit-bearing expression; "text" —
+//     Expression is the literal string value; "boolean" — Expression is "true" or "false".
+//   - Kind: "user" (default) or "model" — the parameter table it is added to. Text and boolean
+//     parameters are always user parameters (Kind is ignored for them).
 type ParameterSetArgs struct {
 	Name       string `json:"name"`
 	Expression string `json:"expression"`
+	ValueType  string `json:"valueType,omitempty"`
+	Kind       string `json:"kind,omitempty"`
+}
+
+// ParameterRenameArgs is the request of [MethodParametersRename]: rename the parameter
+// currently called Name to NewName. The parameter keeps its identity and every expression
+// referencing it is rewritten to the new name. #1847.
+type ParameterRenameArgs struct {
+	Name    string `json:"name"`
+	NewName string `json:"newName"`
 }
 
 // ToleranceInfo is the JSON shape of a parameter's engineering tolerance: its

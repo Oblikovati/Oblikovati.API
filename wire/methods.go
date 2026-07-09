@@ -107,10 +107,11 @@ const (
 	MethodUnitsGetLocaleCorrectedExpression   = "units.getLocaleCorrectedExpression"
 	MethodUnitsGetDrivingParameters           = "units.getDrivingParameters"
 
-	MethodParametersList = "parameters.list"
-	MethodParametersGet  = "parameters.get"
-	MethodParametersAdd  = "parameters.add"
-	MethodParametersSet  = "parameters.set"
+	MethodParametersList   = "parameters.list"
+	MethodParametersGet    = "parameters.get"
+	MethodParametersAdd    = "parameters.add"
+	MethodParametersSet    = "parameters.set"
+	MethodParametersRename = "parameters.rename" // #1847
 	// Member-level parameter surface (M02-F08, Oblikovati#607).
 	MethodParametersGetDetail         = "parameters.getDetail"
 	MethodParametersUpdate            = "parameters.update"
