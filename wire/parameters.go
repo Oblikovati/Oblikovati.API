@@ -47,6 +47,16 @@ type ParameterRenameArgs struct {
 	NewName string `json:"newName"`
 }
 
+// ParameterConvertArgs is the request of [MethodParametersConvert]: change the category of the
+// parameter named Name to TargetKind — a [oblikovati.org/api/types.ParameterKind] spelling,
+// "user" | "model" | "reference". The parameter keeps its identity (name, expression, value,
+// tolerance, comment) and dependency edges; converting to "reference" makes it read-only. A
+// built-in/auto or derived parameter refuses conversion. #1850.
+type ParameterConvertArgs struct {
+	Name       string `json:"name"`
+	TargetKind string `json:"targetKind"`
+}
+
 // ToleranceInfo is the JSON shape of a parameter's engineering tolerance: its
 // type spelling (types.ToleranceType.String()) and the deviation band from the
 // nominal value, in database units.

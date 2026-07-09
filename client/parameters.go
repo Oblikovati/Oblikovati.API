@@ -46,6 +46,15 @@ func (p Parameters) Rename(name, newName string) (wire.ParameterInfo, error) {
 	return call[wire.ParameterInfo](p.c, wire.MethodParametersRename, wire.ParameterRenameArgs{Name: name, NewName: newName})
 }
 
+// Convert changes a parameter's category (user/model/reference) in place, keeping its identity and
+// dependency edges; converting to reference makes it read-only (#1850).
+//
+// mcp:tool convert_parameter
+// mcp:summary Convert a parameter's kind (user/model/reference), preserving its name, expression and dependents. Converting to "reference" makes it read-only. A built-in/auto or derived parameter cannot be converted.
+func (p Parameters) Convert(name, targetKind string) (wire.ParameterInfo, error) {
+	return call[wire.ParameterInfo](p.c, wire.MethodParametersConvert, wire.ParameterConvertArgs{Name: name, TargetKind: targetKind})
+}
+
 // Set changes an existing parameter's expression and recomputes the model.
 //
 // mcp:tool set_parameter
