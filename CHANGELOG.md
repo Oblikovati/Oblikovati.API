@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.124.0] - 2026-07-09
+
+### Added
+
+- feat(work-features): delete (tombstone + cascade/retain) and construction flag (#1855, #1849) (#249)
+
 ## [0.123.0] - 2026-07-09
 
 ### Added
@@ -985,7 +991,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.123.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.124.0...HEAD
+[0.124.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.123.0...v0.124.0
 [0.123.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.122.0...v0.123.0
 [0.122.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.121.0...v0.122.0
 [0.121.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.120.0...v0.121.0
