@@ -20,6 +20,11 @@ type AddDimensionArgs struct {
 	// FarSide selects the far tangent point for a "tangentDistance" dimension (line→circle/arc);
 	// the default (false) dimensions to the near side. Ignored by other kinds (#152).
 	FarSide bool `json:"farSide,omitempty"`
+	// Orientation selects what a "distance" dimension between two points measures — Inventor's
+	// DimensionOrientationEnum: "aligned" (default; Euclidean |P2−P1|), "horizontal" (the X
+	// separation only, leaving the pair free to slide vertically), or "vertical" (the Y
+	// separation only). Empty ⇒ aligned. Ignored by other kinds. #1869.
+	Orientation string `json:"orientation,omitempty"`
 }
 
 // AddDimensionResult is the response of [MethodSketchAddDimension]: the new dimension's
