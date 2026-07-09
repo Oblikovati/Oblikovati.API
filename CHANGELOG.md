@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.117.0] - 2026-07-09
+
+### Added
+
+- feat(work-points): plane-axis-intersection constructor (#1842) (#242)
+
 ## [0.116.0] - 2026-07-09
 
 ### Added
@@ -943,7 +949,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.116.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.117.0...HEAD
+[0.117.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.116.0...v0.117.0
 [0.116.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.115.0...v0.116.0
 [0.115.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.114.0...v0.115.0
 [0.114.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.113.0...v0.114.0
