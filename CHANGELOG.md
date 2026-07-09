@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.127.0] - 2026-07-09
+
+### Added
+
+- feat(work-features): ADR-0040 geometric edge ref + analytic-edge/line-by-entity axis + edge-midpoint point (#1840, #1842) (#252)
+
 ## [0.126.0] - 2026-07-09
 
 ### Added
@@ -1003,7 +1009,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.126.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.127.0...HEAD
+[0.127.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.126.0...v0.127.0
 [0.126.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.125.0...v0.126.0
 [0.125.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.124.0...v0.125.0
 [0.124.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.123.0...v0.124.0
