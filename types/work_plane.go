@@ -19,6 +19,7 @@ const (
 	WorkPlaneTwoPlanes      WorkPlaneKind = "two-planes"       // bisector of two planes
 	WorkPlaneLinePlaneAngle WorkPlaneKind = "line-plane-angle" // through a line, at an angle to a plane
 	WorkPlaneTwoLines       WorkPlaneKind = "two-lines"        // from two lines
+	WorkPlaneLineAndPoint   WorkPlaneKind = "line-point"       // contains a line and passes through a point (#1843)
 	WorkPlaneNormalToCurve  WorkPlaneKind = "normal-to-curve"  // through a point, normal to a curve
 
 	// Surface-tangent constructors (built on a B-rep face reference).

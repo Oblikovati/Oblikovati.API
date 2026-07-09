@@ -576,6 +576,8 @@ const (
 	MethodWorkAxesList   = "workAxes.list"
 	MethodWorkAxesCreate = "workAxes.create"
 
+	MethodWorkFeaturesSetVisible = "workFeatures.setVisible" // #1856
+
 	MethodWorkSurfacesList       = "workSurfaces.list"
 	MethodWorkSurfacesGet        = "workSurfaces.get"
 	MethodWorkSurfacesSetVisible = "workSurfaces.setVisible"
