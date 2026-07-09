@@ -14,18 +14,21 @@ package wire
 //   - Origin, XAxis, YAxis give the AddFixed frame: the origin point [x,y,z] (model
 //     units) and two in-plane axis direction components.
 //   - Visible, when non-nil, sets the new plane's viewport visibility (nil ⇒ the model
-//     default, visible). Pass a pointer to false to create a construction datum hidden —
-//     e.g. an add-in that offsets a plane only to sketch on it and does not want the datum
-//     cluttering the placed part.
+//     default, visible). This toggles only viewport display — it is orthogonal to Construction.
+//   - Construction, when true, creates the plane as a construction (hidden, consumer-tied) work
+//     feature: excluded from the browser and with a lifecycle tied to its consuming feature
+//     (Inventor's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept
+//     distinct from Visible; the two are independent (settable in any combination). #1849.
 type CreateWorkPlaneArgs struct {
-	Kind    string    `json:"kind"`
-	Refs    []string  `json:"refs,omitempty"`
-	Offset  string    `json:"offset,omitempty"`
-	Angle   string    `json:"angle,omitempty"`
-	Origin  []float64 `json:"origin,omitempty"`
-	XAxis   []float64 `json:"xaxis,omitempty"`
-	YAxis   []float64 `json:"yaxis,omitempty"`
-	Visible *bool     `json:"visible,omitempty"`
+	Kind         string    `json:"kind"`
+	Refs         []string  `json:"refs,omitempty"`
+	Offset       string    `json:"offset,omitempty"`
+	Angle        string    `json:"angle,omitempty"`
+	Origin       []float64 `json:"origin,omitempty"`
+	XAxis        []float64 `json:"xaxis,omitempty"`
+	YAxis        []float64 `json:"yaxis,omitempty"`
+	Visible      *bool     `json:"visible,omitempty"`
+	Construction bool      `json:"construction,omitempty"` // #1849
 }
 
 // CreateWorkPlaneResult is the response of [MethodWorkPlanesCreate]: the new plane's
@@ -45,18 +48,19 @@ type CreateWorkPlaneResult struct {
 // plane — the editable inputs [MethodWorkPlanesRedefine] accepts (its scalars and its
 // re-pickable reference slots). Origin planes report no scalars/slots (not redefinable).
 type WorkPlaneInfo struct {
-	Index    int                `json:"index"`
-	Name     string             `json:"name"`
-	Ref      string             `json:"ref"`
-	Origin   []float64          `json:"origin"`
-	Normal   []float64          `json:"normal"`
-	IsOrigin bool               `json:"isOrigin"`
-	Visible  bool               `json:"visible"`
-	Healthy  bool               `json:"healthy"`
-	Reason   string             `json:"reason,omitempty"`  // why Healthy is false (empty when healthy)
-	Kind     string             `json:"kind,omitempty"`    // a types.WorkPlaneKind value
-	Scalars  []WorkPlaneScalar  `json:"scalars,omitempty"` // editable distance/angle inputs
-	Slots    []WorkPlaneRefSlot `json:"slots,omitempty"`   // re-pickable reference inputs
+	Index        int                `json:"index"`
+	Name         string             `json:"name"`
+	Ref          string             `json:"ref"`
+	Origin       []float64          `json:"origin"`
+	Normal       []float64          `json:"normal"`
+	IsOrigin     bool               `json:"isOrigin"`
+	Visible      bool               `json:"visible"`
+	Construction bool               `json:"construction,omitempty"` // hidden, consumer-tied datum (#1849)
+	Healthy      bool               `json:"healthy"`
+	Reason       string             `json:"reason,omitempty"`  // why Healthy is false (empty when healthy)
+	Kind         string             `json:"kind,omitempty"`    // a types.WorkPlaneKind value
+	Scalars      []WorkPlaneScalar  `json:"scalars,omitempty"` // editable distance/angle inputs
+	Slots        []WorkPlaneRefSlot `json:"slots,omitempty"`   // re-pickable reference inputs
 }
 
 // WorkPlaneScalar describes one editable scalar of a work plane (offset distance, line-plane

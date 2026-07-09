@@ -13,11 +13,15 @@ package wire
 //     [MethodWorkPointsCreate] / [MethodWorkPlanesList] or origin constants
 //     (types.WorkRefCenter, types.WorkRefXYPlane …). Each kind expects a fixed count/order:
 //     "two-points" wants two point refs; "plane-intersection" wants two plane refs.
+//   - Construction, when true, creates the axis as a construction (hidden, consumer-tied) work
+//     feature — Inventor's WorkAxes.Add* Construction parameter; excluded from the browser and
+//     auto-deleted with its last consumer. #1849.
 type CreateWorkAxisArgs struct {
-	Kind      string    `json:"kind"`
-	Origin    []float64 `json:"origin,omitempty"`
-	Direction []float64 `json:"direction,omitempty"`
-	Refs      []string  `json:"refs,omitempty"`
+	Kind         string    `json:"kind"`
+	Origin       []float64 `json:"origin,omitempty"`
+	Direction    []float64 `json:"direction,omitempty"`
+	Refs         []string  `json:"refs,omitempty"`
+	Construction bool      `json:"construction,omitempty"` // #1849
 }
 
 // CreateWorkAxisResult is the response of [MethodWorkAxesCreate]: the new axis's index
@@ -38,15 +42,16 @@ type CreateWorkAxisResult struct {
 // origin coordinate-system axes, its health, and its constructor Kind. Origin axes report
 // IsOrigin=true.
 type WorkAxisInfo struct {
-	Index     int       `json:"index"`
-	Name      string    `json:"name"`
-	Ref       string    `json:"ref"`
-	Kind      string    `json:"kind,omitempty"` // a types.WorkAxisKind value
-	Origin    []float64 `json:"origin"`
-	Direction []float64 `json:"direction"`
-	IsOrigin  bool      `json:"isOrigin"`
-	Healthy   bool      `json:"healthy"`
-	Reason    string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
+	Index        int       `json:"index"`
+	Name         string    `json:"name"`
+	Ref          string    `json:"ref"`
+	Kind         string    `json:"kind,omitempty"` // a types.WorkAxisKind value
+	Origin       []float64 `json:"origin"`
+	Direction    []float64 `json:"direction"`
+	IsOrigin     bool      `json:"isOrigin"`
+	Construction bool      `json:"construction,omitempty"` // hidden, consumer-tied datum (#1849)
+	Healthy      bool      `json:"healthy"`
+	Reason       string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
 }
 
 // ListWorkAxesResult is the response of [MethodWorkAxesList].

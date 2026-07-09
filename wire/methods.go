@@ -578,6 +578,7 @@ const (
 	MethodWorkAxesCreate = "workAxes.create"
 
 	MethodWorkFeaturesSetVisible = "workFeatures.setVisible" // #1856
+	MethodWorkFeaturesDelete     = "workFeatures.delete"     // #1855
 
 	MethodWorkSurfacesList       = "workSurfaces.list"
 	MethodWorkSurfacesGet        = "workSurfaces.get"

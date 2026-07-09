@@ -13,6 +13,10 @@ type CreateWorkPointArgs struct {
 	At   []float64 `json:"at,omitempty"`   // position kind: [x, y, z] in model units
 	Kind string    `json:"kind,omitempty"` // a types.WorkPointKind value (empty = position)
 	Refs []string  `json:"refs,omitempty"` // reference-model kinds: plane-axis-intersection = [plane, axis]
+	// Construction, when true, creates the point as a construction (hidden, consumer-tied) work
+	// feature — Inventor's WorkPoints.Add* Construction parameter; excluded from the browser and
+	// auto-deleted with its last consumer. #1849.
+	Construction bool `json:"construction,omitempty"`
 }
 
 // CreateWorkPointResult is the response of [MethodWorkPointsCreate]: the new point's index in
@@ -33,15 +37,16 @@ type CreateWorkPointResult struct {
 // ([x, y, z] in model units), whether it is the origin centre point, its visibility, health, and
 // constructor kind. #1842.
 type WorkPointInfo struct {
-	Index    int       `json:"index"`
-	Name     string    `json:"name"`
-	Ref      string    `json:"ref"`
-	Position []float64 `json:"position"`
-	IsOrigin bool      `json:"isOrigin"`
-	Visible  bool      `json:"visible"`
-	Healthy  bool      `json:"healthy"`
-	Reason   string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
-	Kind     string    `json:"kind,omitempty"`   // the point's constructor kind
+	Index        int       `json:"index"`
+	Name         string    `json:"name"`
+	Ref          string    `json:"ref"`
+	Position     []float64 `json:"position"`
+	IsOrigin     bool      `json:"isOrigin"`
+	Visible      bool      `json:"visible"`
+	Construction bool      `json:"construction,omitempty"` // hidden, consumer-tied datum (#1849)
+	Healthy      bool      `json:"healthy"`
+	Reason       string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
+	Kind         string    `json:"kind,omitempty"`   // the point's constructor kind
 }
 
 // ListWorkPointsResult is the response of [MethodWorkPointsList].
