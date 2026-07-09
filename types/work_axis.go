@@ -17,9 +17,12 @@ const (
 	// e.g. an axis matching a sketch line.
 	WorkAxisLine WorkAxisKind = "line" // grounded origin + direction (fixedAxisDef)
 
-	// Reference-model constructors (built on points/planes).
+	// Reference-model constructors (built on points/planes/lines).
 	WorkAxisTwoPoints         WorkAxisKind = "two-points"         // through two points (AddByTwoPoints)
 	WorkAxisPlaneIntersection WorkAxisKind = "plane-intersection" // where two planes meet (AddByPlaneIntersection)
+	WorkAxisPointAndPlane     WorkAxisKind = "point-and-plane"    // through a point, normal to a plane (#1840)
+	WorkAxisLineAndPoint      WorkAxisKind = "line-and-point"     // through a point, parallel to a line (#1840)
+	WorkAxisLineAndPlane      WorkAxisKind = "line-and-plane"     // a line projected onto a plane (#1840)
 )
 
 // The origin coordinate axes (WorkRefXAxis / WorkRefYAxis / WorkRefZAxis, defined

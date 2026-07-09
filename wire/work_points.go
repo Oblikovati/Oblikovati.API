@@ -28,3 +28,23 @@ type CreateWorkPointResult struct {
 	Healthy bool   `json:"healthy"`
 	Reason  string `json:"reason,omitempty"` // empty when healthy
 }
+
+// WorkPointInfo is one row of [MethodWorkPointsList]: a datum point's identity, current position
+// ([x, y, z] in model units), whether it is the origin centre point, its visibility, health, and
+// constructor kind. #1842.
+type WorkPointInfo struct {
+	Index    int       `json:"index"`
+	Name     string    `json:"name"`
+	Ref      string    `json:"ref"`
+	Position []float64 `json:"position"`
+	IsOrigin bool      `json:"isOrigin"`
+	Visible  bool      `json:"visible"`
+	Healthy  bool      `json:"healthy"`
+	Reason   string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
+	Kind     string    `json:"kind,omitempty"`   // the point's constructor kind
+}
+
+// ListWorkPointsResult is the response of [MethodWorkPointsList].
+type ListWorkPointsResult struct {
+	Points []WorkPointInfo `json:"points"`
+}

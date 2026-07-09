@@ -23,4 +23,9 @@ const (
 	// when the axis is parallel to the plane (no intersection). This is Inventor's
 	// WorkPoint.AddByPlaneAndLine.
 	WorkPointPlaneAxisIntersection WorkPointKind = "plane-axis-intersection"
+
+	// Reference-model constructors on points/lines/planes (#1842). Each names its inputs in Refs.
+	WorkPointOnPoint     WorkPointKind = "point"        // coincident with a referenced point; Refs = [point]
+	WorkPointTwoLines    WorkPointKind = "two-lines"    // where two lines intersect; Refs = [line, line]
+	WorkPointThreePlanes WorkPointKind = "three-planes" // intersection of three planes; Refs = [plane, plane, plane]
 )

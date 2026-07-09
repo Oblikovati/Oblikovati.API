@@ -571,6 +571,7 @@ const (
 	MethodWorkPlanesCreate   = "workPlanes.create"
 	MethodWorkPlanesRedefine = "workPlanes.redefine"
 
+	MethodWorkPointsList   = "workPoints.list" // #1842
 	MethodWorkPointsCreate = "workPoints.create"
 
 	MethodWorkAxesList   = "workAxes.list"
