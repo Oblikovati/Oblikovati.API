@@ -28,6 +28,16 @@ const (
 	// Inventor's WorkAxes.AddByRevolvedFace. Refs = [face] (a B-rep face reference). It goes
 	// unhealthy for a face with no axis of revolution (e.g. a plane or sphere). #1840.
 	WorkAxisRevolvedFace WorkAxisKind = "revolved-face"
+
+	// WorkAxisAnalyticEdge is the axis coincident with a straight B-rep edge — Inventor's
+	// WorkAxes.AddByEdge. Refs = [edge] (a lineage-key "edge/…" reference or a geometric
+	// [GeometricEdgeRef] "edge-geom/…" reference). A non-linear edge goes unhealthy. #1840.
+	WorkAxisAnalyticEdge WorkAxisKind = "analytic-edge"
+
+	// WorkAxisLineByEntity is the axis along a linear entity — Inventor's WorkAxes.AddByLine on an
+	// edge. Refs = [edge]. Like analytic-edge it lies along a straight edge; the distinct kind name
+	// preserves the Inventor constructor the datum was authored with. #1840.
+	WorkAxisLineByEntity WorkAxisKind = "line-by-entity"
 )
 
 // The origin coordinate axes (WorkRefXAxis / WorkRefYAxis / WorkRefZAxis, defined

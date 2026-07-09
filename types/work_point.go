@@ -33,4 +33,9 @@ const (
 	// WorkPoints.AddByCenterOfSphereFace / AddByCenterOfTorusFace. Refs = [face] (a B-rep face
 	// reference). It goes unhealthy for a face with no centre point (e.g. a plane or cylinder). #1842.
 	WorkPointFaceCenter WorkPointKind = "face-center"
+
+	// WorkPointMidpointOfEdge is the midpoint of a B-rep edge — Inventor's WorkPoint.AddByMidpoint /
+	// a curve midpoint. Refs = [edge] (a lineage-key "edge/…" reference or a geometric
+	// [GeometricEdgeRef] "edge-geom/…" reference). #1842.
+	WorkPointMidpointOfEdge WorkPointKind = "edge-midpoint"
 )

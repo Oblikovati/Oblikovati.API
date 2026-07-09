@@ -72,3 +72,16 @@ func (w WorkAxes) LineAndPlane(line, plane string) (wire.CreateWorkAxisResult, e
 func (w WorkAxes) RevolvedFace(face string) (wire.CreateWorkAxisResult, error) {
 	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisRevolvedFace), Refs: []string{face}})
 }
+
+// AnalyticEdge adds the axis coincident with a straight edge reference — a lineage-key "edge/…" ref
+// from a pick, or a geometric ref from types.GeometricEdgeRef.Ref() when authoring from geometry
+// (ADR-0040). Reports healthy=false for a non-linear edge (#1840).
+func (w WorkAxes) AnalyticEdge(edge string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisAnalyticEdge), Refs: []string{edge}})
+}
+
+// LineByEntity adds the axis along a linear edge reference (Inventor's AddByLine on an edge); see
+// AnalyticEdge for the reference forms (#1840).
+func (w WorkAxes) LineByEntity(edge string) (wire.CreateWorkAxisResult, error) {
+	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisLineByEntity), Refs: []string{edge}})
+}
