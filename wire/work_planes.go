@@ -19,6 +19,12 @@ package wire
 //     feature: excluded from the browser and with a lifecycle tied to its consuming feature
 //     (Inventor's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept
 //     distinct from Visible; the two are independent (settable in any combination). #1849.
+//   - Proximity is the solution-selection point [x,y,z] (cm) for the tangent kinds
+//     ("plane-tangent", "line-tangent"): a surface has two tangent solutions and the plane lands on
+//     whichever side is nearer this point. Quadrant is the same for "two-planes" — it picks which of
+//     the two bisector solutions. Both are Inventor's ProximityPoint/QuadrantPoint; the choice is
+//     recorded on the definition so it survives recompute. Omitting them keeps a deterministic
+//     default. #1844.
 type CreateWorkPlaneArgs struct {
 	Kind         string    `json:"kind"`
 	Refs         []string  `json:"refs,omitempty"`
@@ -29,6 +35,8 @@ type CreateWorkPlaneArgs struct {
 	YAxis        []float64 `json:"yaxis,omitempty"`
 	Visible      *bool     `json:"visible,omitempty"`
 	Construction bool      `json:"construction,omitempty"` // #1849
+	Proximity    []float64 `json:"proximity,omitempty"`    // tangent-kind solution point [x,y,z] cm (#1844)
+	Quadrant     []float64 `json:"quadrant,omitempty"`     // two-planes bisector solution point [x,y,z] cm (#1844)
 }
 
 // CreateWorkPlaneResult is the response of [MethodWorkPlanesCreate]: the new plane's
@@ -56,6 +64,9 @@ type WorkPlaneInfo struct {
 	IsOrigin     bool               `json:"isOrigin"`
 	Visible      bool               `json:"visible"`
 	Construction bool               `json:"construction,omitempty"` // hidden, consumer-tied datum (#1849)
+	AutoResize   bool               `json:"autoResize,omitempty"`   // displayed size tracks the component box (#1851)
+	Grounded     bool               `json:"grounded,omitempty"`     // grounded flag (#1851)
+	Size         [][]float64        `json:"size,omitempty"`         // displayed rectangle extents: two corners [x,y,z] cm (#1851)
 	Healthy      bool               `json:"healthy"`
 	Reason       string             `json:"reason,omitempty"`  // why Healthy is false (empty when healthy)
 	Kind         string             `json:"kind,omitempty"`    // a types.WorkPlaneKind value
@@ -89,12 +100,17 @@ type ListWorkPlanesResult struct {
 
 // RedefineWorkPlaneArgs is the request of [MethodWorkPlanesRedefine]: edit a placed user work
 // plane in place. Index selects the plane (its position in List). Scalars sets editable
-// distances/angles; Repick re-points reference slots at new geometry. Both are optional and
-// applied together, then the part recomputes.
+// distances/angles; Repick re-points reference slots at new geometry. AutoResize and Grounded, when
+// non-nil, set those display/associativity flags; Size, when set, fixes the displayed rectangle
+// extents (two corners [x,y,z] cm). All are optional and applied together, then the part recomputes
+// (#1851).
 type RedefineWorkPlaneArgs struct {
-	Index   int          `json:"index"`
-	Scalars []ScalarEdit `json:"scalars,omitempty"`
-	Repick  []SlotRepick `json:"repick,omitempty"`
+	Index      int          `json:"index"`
+	Scalars    []ScalarEdit `json:"scalars,omitempty"`
+	Repick     []SlotRepick `json:"repick,omitempty"`
+	AutoResize *bool        `json:"autoResize,omitempty"` // #1851
+	Grounded   *bool        `json:"grounded,omitempty"`   // #1851
+	Size       [][]float64  `json:"size,omitempty"`       // two corners [x,y,z] cm (#1851)
 }
 
 // ScalarEdit sets the work plane's scalar at slot Index to a unit-bearing Value ("30 mm",
@@ -116,5 +132,20 @@ type SlotRepick struct {
 // info (new geometry/health and its still-editable scalars/slots). An unsatisfiable edit
 // reports healthy=false rather than failing the call.
 type RedefineWorkPlaneResult struct {
+	Plane WorkPlaneInfo `json:"plane"`
+}
+
+// FlipWorkPlaneArgs is the request of [MethodWorkPlanesFlipNormal]: reverse the normal of the user
+// work plane at Index (its position in [MethodWorkPlanesList]). The flip is recorded on the
+// definition and persists across recompute; the plane does not move, only its normal reverses (an
+// offset plane keeps its offset sign relative to the new normal). Inventor's WorkPlane.FlipNormal.
+// #1851.
+type FlipWorkPlaneArgs struct {
+	Index int `json:"index"`
+}
+
+// FlipWorkPlaneResult is the response of [MethodWorkPlanesFlipNormal]: the plane's refreshed info
+// with its reversed normal. #1851.
+type FlipWorkPlaneResult struct {
 	Plane WorkPlaneInfo `json:"plane"`
 }

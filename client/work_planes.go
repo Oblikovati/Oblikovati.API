@@ -56,6 +56,32 @@ func (w WorkPlanes) Repick(index, slot int, ref string) (wire.RedefineWorkPlaneR
 	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, Repick: []wire.SlotRepick{{Slot: slot, Ref: ref}}})
 }
 
+// FlipNormal reverses the normal of the user work plane at index (from List). The plane does not
+// move; only its normal flips, which reverses the direction an extrude or the orientation a sketch
+// built on it takes. The flip persists across recompute. Inventor's WorkPlane.FlipNormal (#1851).
+//
+// mcp:tool flip_work_plane_normal
+// mcp:summary Reverse a user work plane's normal by its index (from list_work_planes) — the standard fix for a datum whose normal points the wrong way (it flips the extrude direction / sketch orientation built on it). The plane stays put; only its normal reverses, and the flip persists.
+func (w WorkPlanes) FlipNormal(index int) (wire.FlipWorkPlaneResult, error) {
+	return call[wire.FlipWorkPlaneResult](w.c, wire.MethodWorkPlanesFlipNormal, wire.FlipWorkPlaneArgs{Index: index})
+}
+
+// SetGrounded sets (or clears) the grounded flag of the user work plane at index (#1851).
+func (w WorkPlanes) SetGrounded(index int, grounded bool) (wire.RedefineWorkPlaneResult, error) {
+	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, Grounded: &grounded})
+}
+
+// SetAutoResize sets (or clears) whether the datum's displayed size tracks the component box (#1851).
+func (w WorkPlanes) SetAutoResize(index int, autoResize bool) (wire.RedefineWorkPlaneResult, error) {
+	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, AutoResize: &autoResize})
+}
+
+// SetSize fixes the displayed rectangle extents of the user work plane at index to two corner
+// points [x,y,z] (cm) — turns off auto-resize (#1851).
+func (w WorkPlanes) SetSize(index int, corner1, corner2 []float64) (wire.RedefineWorkPlaneResult, error) {
+	return w.Redefine(wire.RedefineWorkPlaneArgs{Index: index, Size: [][]float64{corner1, corner2}})
+}
+
 // Offset adds a plane parallel to base, offset by a unit-bearing distance ("10 mm").
 func (w WorkPlanes) Offset(base, distance string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneOffset), Refs: []string{base}, Offset: distance})
@@ -86,9 +112,16 @@ func (w WorkPlanes) PlaneAndPoint(base, point string) (wire.CreateWorkPlaneResul
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlanePlaneAndPoint), Refs: []string{base, point}})
 }
 
-// TwoPlanes adds the bisecting plane of plane1 and plane2.
+// TwoPlanes adds the bisecting plane of plane1 and plane2. When the planes intersect there are two
+// bisector solutions; this takes the deterministic default — use TwoPlanesAt to pick a quadrant.
 func (w WorkPlanes) TwoPlanes(plane1, plane2 string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneTwoPlanes), Refs: []string{plane1, plane2}})
+}
+
+// TwoPlanesAt adds the bisecting plane of plane1 and plane2, choosing the bisector quadrant nearest
+// the quadrant point [x,y,z] (cm); the choice persists across recompute (#1844).
+func (w WorkPlanes) TwoPlanesAt(plane1, plane2 string, quadrant []float64) (wire.CreateWorkPlaneResult, error) {
+	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneTwoPlanes), Refs: []string{plane1, plane2}, Quadrant: quadrant})
 }
 
 // LinePlaneAndAngle adds a plane through line at a unit-bearing angle ("45 deg") to plane.
@@ -116,12 +149,27 @@ func (w WorkPlanes) PointAndTangent(point, face string) (wire.CreateWorkPlaneRes
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlanePointAndTangent), Refs: []string{point, face}})
 }
 
-// PlaneAndTangent adds a plane parallel to base and tangent to a surface (face).
+// PlaneAndTangent adds a plane parallel to base and tangent to a surface (face). A cylinder/sphere
+// has two tangent solutions; this takes the deterministic default — use PlaneAndTangentAt to pick a
+// side.
 func (w WorkPlanes) PlaneAndTangent(base, face string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlanePlaneAndTangent), Refs: []string{base, face}})
 }
 
-// LineAndTangent adds a plane through line and tangent to a surface (face).
+// PlaneAndTangentAt adds the plane-parallel tangent on whichever side is nearer the proximity point
+// [x,y,z] (cm); the choice persists across recompute (#1844).
+func (w WorkPlanes) PlaneAndTangentAt(base, face string, proximity []float64) (wire.CreateWorkPlaneResult, error) {
+	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlanePlaneAndTangent), Refs: []string{base, face}, Proximity: proximity})
+}
+
+// LineAndTangent adds a plane through line and tangent to a surface (face). A cylinder has two
+// tangent solutions; this takes the deterministic default — use LineAndTangentAt to pick a side.
 func (w WorkPlanes) LineAndTangent(line, face string) (wire.CreateWorkPlaneResult, error) {
 	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneLineAndTangent), Refs: []string{line, face}})
+}
+
+// LineAndTangentAt adds the through-line tangent on whichever side is nearer the proximity point
+// [x,y,z] (cm); the choice persists across recompute (#1844).
+func (w WorkPlanes) LineAndTangentAt(line, face string, proximity []float64) (wire.CreateWorkPlaneResult, error) {
+	return w.Create(wire.CreateWorkPlaneArgs{Kind: string(types.WorkPlaneLineAndTangent), Refs: []string{line, face}, Proximity: proximity})
 }

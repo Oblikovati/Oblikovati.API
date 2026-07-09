@@ -567,9 +567,10 @@ const (
 	MethodContactSolverStatus     = "contactSolver.status"
 	MethodInterferenceAnalyze     = "interference.analyze"
 
-	MethodWorkPlanesList     = "workPlanes.list"
-	MethodWorkPlanesCreate   = "workPlanes.create"
-	MethodWorkPlanesRedefine = "workPlanes.redefine"
+	MethodWorkPlanesList       = "workPlanes.list"
+	MethodWorkPlanesCreate     = "workPlanes.create"
+	MethodWorkPlanesRedefine   = "workPlanes.redefine"
+	MethodWorkPlanesFlipNormal = "workPlanes.flipNormal" // #1851
 
 	MethodWorkPointsList   = "workPoints.list" // #1842
 	MethodWorkPointsCreate = "workPoints.create"
