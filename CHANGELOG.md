@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.126.0] - 2026-07-09
+
+### Added
+
+- feat(work-features): surface-derived datums — revolved-face axis, sphere/torus centre point (#1840, #1842) (#251)
+
 ## [0.125.0] - 2026-07-09
 
 ### Added
@@ -997,7 +1003,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.125.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.126.0...HEAD
+[0.126.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.125.0...v0.126.0
 [0.125.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.124.0...v0.125.0
 [0.124.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.123.0...v0.124.0
 [0.123.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.122.0...v0.123.0
