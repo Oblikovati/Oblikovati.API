@@ -99,6 +99,12 @@ type Draft struct {
 	// FacesGeom selects the drafted faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
 	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
 	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
+	// NeutralPlane names the fixed (neutral) plane for a fixed-plane face draft — Inventor's
+	// kFixedPlaneFaceDraftDefinitionType. Each drafted face pivots on the line where it meets this
+	// plane, so dimensions in the plane are preserved. Value is a planar face reference key, a work
+	// plane ("plane/N"), or an origin plane ("origin/plane/xy"). When set and PullDirection is
+	// empty, the pull defaults to the neutral plane's normal. #1866.
+	NeutralPlane string `json:"neutralPlane,omitempty"`
 }
 
 // Kind reports the feature kind Draft creates.

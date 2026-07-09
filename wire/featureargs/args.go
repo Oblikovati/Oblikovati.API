@@ -101,6 +101,14 @@ type Coil struct {
 	Height       string `json:"height,omitempty"`
 	Taper        string `json:"taper,omitempty"`
 	Operation    string `json:"operation,omitempty"`
+	// Spring end treatment (Inventor CoilFeature.Start/EndTransitionAngle / Start/EndFlatAngle).
+	// TransitionAngle winds the pitch down to zero over that sweep; FlatAngle then sweeps flat
+	// (constant height) — together they ground/flatten a spring end. Angles are unit-bearing
+	// expressions (e.g. "90 deg"); omit for a plain helical end. #1883.
+	StartTransitionAngle string `json:"startTransitionAngle,omitempty"`
+	StartFlatAngle       string `json:"startFlatAngle,omitempty"`
+	EndTransitionAngle   string `json:"endTransitionAngle,omitempty"`
+	EndFlatAngle         string `json:"endFlatAngle,omitempty"`
 }
 
 // Kind reports the feature kind Coil creates.
@@ -128,6 +136,14 @@ type Hole struct {
 	// (exporter) must reference a face it did not mint a key for. When set it supplies the face;
 	// FaceRef becomes optional. See [GeomFaceSel].
 	PlacementFaceGeom *GeomFaceSel `json:"placementFaceGeom,omitempty"`
+	// DrillPoint sets a blind drilled/tapped hole's bottom (Inventor HoleDrillPointTypeEnum):
+	// "flat" (default) bottoms in a flat disc; "angled" bottoms in a cone of included angle
+	// TipAngle. Ignored for a through-all hole. #1863.
+	DrillPoint string `json:"drillPoint,omitempty"`
+	// TipAngle is the included angle of an "angled" drill point (unit-bearing, e.g. "118 deg");
+	// defaults to 118 deg (the standard twist-drill point) when DrillPoint is "angled" and it is
+	// omitted. #1863.
+	TipAngle string `json:"tipAngle,omitempty"`
 }
 
 // Kind reports the feature kind Hole creates.
