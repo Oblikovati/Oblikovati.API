@@ -66,3 +66,9 @@ func (w WorkPoints) ThreePlanes(plane1, plane2, plane3 string) (wire.CreateWorkP
 func (w WorkPoints) FaceCenter(face string) (wire.CreateWorkPointResult, error) {
 	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointFaceCenter), Refs: []string{face}})
 }
+
+// MidpointOfEdge adds a datum point at the midpoint of an edge reference — a lineage-key "edge/…"
+// ref from a pick, or a geometric ref from types.GeometricEdgeRef.Ref() (ADR-0040) (#1842).
+func (w WorkPoints) MidpointOfEdge(edge string) (wire.CreateWorkPointResult, error) {
+	return w.Create(wire.CreateWorkPointArgs{Kind: string(types.WorkPointMidpointOfEdge), Refs: []string{edge}})
+}
