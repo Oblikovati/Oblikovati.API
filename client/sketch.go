@@ -21,6 +21,15 @@ func (s Sketch) Create(args wire.CreateSketchArgs) (wire.CreateSketchResult, err
 	return call[wire.CreateSketchResult](s.c, wire.MethodSketchCreate, args)
 }
 
+// CreateOnWorkPlaneOriented sketches on the work plane at wpIndex with its in-plane frame
+// pinned to a reference axis (Inventor's AddWithOrientation) — the reliable way to place
+// parametric geometry on a non-origin plane whose host-chosen frame is otherwise unknown.
+// Example: on a plane through the Z axis at an angle, pin Y to +Z so the sketch's (X, Y) is
+// (radial, axial) and an ordinary meridian profile drops in unchanged.
+func (s Sketch) CreateOnWorkPlaneOriented(wpIndex int, o wire.SketchOrientation) (wire.CreateSketchResult, error) {
+	return s.Create(wire.CreateSketchArgs{WorkPlaneIndex: &wpIndex, Orientation: &o})
+}
+
 // Rectangle adds a closed rectangle (one profile) to a sketch.
 //
 // mcp:tool sketch_rectangle
