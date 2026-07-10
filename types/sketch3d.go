@@ -64,7 +64,11 @@ const (
 	Geo3DSplineFitPoints   Geometric3DConstraintKind = "splineFitPoints"
 	Geo3DBend              Geometric3DConstraintKind = "bend"
 	Geo3DHelical           Geometric3DConstraintKind = "helical"
-	Geo3DUnknown           Geometric3DConstraintKind = "unknown"
+	// Geo3DOnFace holds a 3D sketch point on a referenced part face — the point is kept on the
+	// surface as the sketch solves (Inventor OnFaceConstraint3D, #1839). Unlike the other kinds it
+	// carries a face reference key ([AddSketch3DConstraintArgs.FaceRef]) rather than only entity ids.
+	Geo3DOnFace  Geometric3DConstraintKind = "onFace"
+	Geo3DUnknown Geometric3DConstraintKind = "unknown"
 )
 
 // Dimension3DConstraintKind discriminates a 3D dimensional (driving/driven) constraint —

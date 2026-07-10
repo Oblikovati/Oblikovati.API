@@ -121,6 +121,22 @@ func TestSketch3DParallelSendsKindAndEntities(t *testing.T) {
 	}
 }
 
+func TestSketch3DOnFaceSendsPointAndFaceRef(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"onFace","dof":2}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().OnFace(0, 7, "face-key"); err != nil {
+		t.Fatalf("OnFace: %v", err)
+	}
+	var sent wire.AddSketch3DConstraintArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "onFace" || len(sent.Entities) != 1 || sent.Entities[0] != 7 || sent.FaceRef != "face-key" {
+		t.Errorf("sent = %+v, want onFace of point 7 on face-key", sent)
+	}
+}
+
 func TestSketch3DDeleteConstraintSendsIndices(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)
