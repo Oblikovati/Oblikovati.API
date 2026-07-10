@@ -18,6 +18,9 @@ type AddSketch3DConstraintArgs struct {
 	SketchIndex int      `json:"sketchIndex"`
 	Kind        string   `json:"kind"`
 	Entities    []uint64 `json:"entities,omitempty"`
+	// FaceRef is the part-face reference key an "onFace" constraint holds its point on (#1839);
+	// unused by the entity-id-only kinds.
+	FaceRef string `json:"faceRef,omitempty"`
 }
 
 // AddSketch3DConstraintResult is the response of [MethodSketch3DAddConstraint]: the new
