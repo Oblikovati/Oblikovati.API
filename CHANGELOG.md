@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.134.0] - 2026-07-10
+
+### Added
+
+- feat(sketch): project cut edges + silhouette methods (#1873) (#259)
+
 ## [0.133.0] - 2026-07-10
 
 ### Added
@@ -1047,7 +1053,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.133.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.134.0...HEAD
+[0.134.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.133.0...v0.134.0
 [0.133.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.132.0...v0.133.0
 [0.132.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.131.0...v0.132.0
 [0.131.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...v0.131.0
