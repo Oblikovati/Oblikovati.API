@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.130.0] - 2026-07-10
+
+### Added
+
+- feat(sketch): pin a new sketch's in-plane frame to a reference axis
+
 ## [0.129.0] - 2026-07-10
 
 ### Added
@@ -1021,7 +1027,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...HEAD
+[0.130.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...v0.130.0
 [0.129.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.128.0...v0.129.0
 [0.128.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.127.0...v0.128.0
 [0.127.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.126.0...v0.127.0
