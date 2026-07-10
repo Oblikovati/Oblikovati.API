@@ -9,10 +9,18 @@ package wire
 //   - position (default): At is the point [x, y, z] in model units.
 //   - plane-axis-intersection: Refs = [plane, axis] — the point where the axis pierces the
 //     plane. At is ignored.
+//   - curve-and-entity: Refs = [curve, entity]; Proximity [x,y,z] cm picks the nearest
+//     intersection when the curve crosses the entity more than once.
+//   - centroid: Refs = [edge, edge, …] — the length-weighted centroid of the edges.
+//   - cloud-point: Refs = [cloudID]; At is the frozen [x,y,z] captured from that cloud.
 type CreateWorkPointArgs struct {
 	At   []float64 `json:"at,omitempty"`   // position kind: [x, y, z] in model units
 	Kind string    `json:"kind,omitempty"` // a types.WorkPointKind value (empty = position)
 	Refs []string  `json:"refs,omitempty"` // reference-model kinds: plane-axis-intersection = [plane, axis]
+	// Proximity is the solution-selection point [x, y, z] (cm) for the curve-and-entity kind: when
+	// the curve pierces the entity at more than one point, the intersection nearest Proximity is
+	// chosen (Inventor's AddByCurveAndEntity ProximityPoint). Omitting it takes the first solution. #1842.
+	Proximity []float64 `json:"proximity,omitempty"`
 	// Construction, when true, creates the point as a construction (hidden, consumer-tied) work
 	// feature — Inventor's WorkPoints.Add* Construction parameter; excluded from the browser and
 	// auto-deleted with its last consumer. #1849.
@@ -47,6 +55,17 @@ type WorkPointInfo struct {
 	Healthy      bool      `json:"healthy"`
 	Reason       string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
 	Kind         string    `json:"kind,omitempty"`   // the point's constructor kind
+}
+
+// ListWorkPointsArgs is the (optional) request of [MethodWorkPointsList]. An empty request lists
+// the active part/assembly's own datum points, hiding construction points. Occurrence, when set,
+// is an assembly occurrence path (instance names, top-down) whose component's datum points are
+// listed instead, each returned as an occurrence-qualified ref ("occ/<path>/point/N") resolved
+// through that occurrence's context transform (#1857). IncludeConstruction, when true, also lists
+// construction (hidden, consumer-tied) points (#1849).
+type ListWorkPointsArgs struct {
+	Occurrence          []string `json:"occurrence,omitempty"`
+	IncludeConstruction bool     `json:"includeConstruction,omitempty"`
 }
 
 // ListWorkPointsResult is the response of [MethodWorkPointsList].
