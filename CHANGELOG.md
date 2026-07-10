@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.132.0] - 2026-07-10
+
+### Added
+
+- feat(sketch): Batch B dimension surface — offsetSplineDim + driven/textPoint/linearDiameter (#257)
+
 ## [0.131.0] - 2026-07-10
 
 ### Added
@@ -1033,7 +1039,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.131.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.132.0...HEAD
+[0.132.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.131.0...v0.132.0
 [0.131.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...v0.131.0
 [0.130.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...v0.130.0
 [0.129.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.128.0...v0.129.0
