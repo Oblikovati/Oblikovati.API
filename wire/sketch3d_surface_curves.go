@@ -16,9 +16,13 @@ package wire
 // curve (offset direction = normal × tangent). For projectToSurface, FaceRefs[0] is the
 // target surface.
 type AddSketch3DSurfaceCurveArgs struct {
-	SketchIndex    int       `json:"sketchIndex"`
-	Kind           string    `json:"kind"`
-	FaceRefs       []string  `json:"faceRefs"`
+	SketchIndex int      `json:"sketchIndex"`
+	Kind        string   `json:"kind"`
+	FaceRefs    []string `json:"faceRefs"`
+	// WorkRefs are work-plane reference keys usable as intersection operands alongside FaceRefs
+	// (Inventor IntersectionCurves.Add accepts any two entities; #1854). An intersection takes two
+	// operands total across FaceRefs+WorkRefs; a work plane contributes its infinite plane surface.
+	WorkRefs       []string  `json:"workRefs,omitempty"`
 	ViewDir        []float64 `json:"viewDir,omitempty"`
 	UV             []float64 `json:"uv,omitempty"`
 	SourceEntityID uint64    `json:"sourceEntityId,omitempty"`
