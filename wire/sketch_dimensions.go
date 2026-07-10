@@ -25,6 +25,19 @@ type AddDimensionArgs struct {
 	// separation only, leaving the pair free to slide vertically), or "vertical" (the Y
 	// separation only). Empty ⇒ aligned. Ignored by other kinds. #1869.
 	Orientation string `json:"orientation,omitempty"`
+	// Driven creates the dimension as driven (reference) — it measures but does not constrain —
+	// in one call, matching Inventor's Add*(…, bool? Driven=false). The default (false) creates a
+	// driving dimension. Setting it here avoids the transient over-constraint of the two-step
+	// create-then-SetDriven path (#1875).
+	Driven bool `json:"driven,omitempty"`
+	// TextPoint is the [x,y] sketch-plane placement (cm) of the dimension's annotation text —
+	// Inventor's Point2d TextPoint. Stored on the dimension and reported on enumeration; omitted
+	// leaves it unset. #1875.
+	TextPoint []float64 `json:"textPoint,omitempty"`
+	// LinearDiameter makes an "offsetDim" or "tangentDistance" dimension read as a diameter: its
+	// value is twice the measured linear distance (Inventor's bool LinearDiameter). Ignored by
+	// other kinds. #1875.
+	LinearDiameter bool `json:"linearDiameter,omitempty"`
 }
 
 // AddDimensionResult is the response of [MethodSketchAddDimension]: the new dimension's

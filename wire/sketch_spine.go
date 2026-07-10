@@ -160,6 +160,12 @@ type DimensionInfo struct {
 	// axis-aligned linear dim, absent for the default aligned (Euclidean) distance and every
 	// other kind. #1869.
 	Orientation string `json:"orientation,omitempty"`
+	// TextPoint is the [x,y] sketch-plane placement (cm) of the dimension's annotation text,
+	// absent when the dimension has no stored text placement. #1875.
+	TextPoint []float64 `json:"textPoint,omitempty"`
+	// LinearDiameter reports whether an offset/tangent-distance dimension reads as a diameter
+	// (value = 2× the linear distance); absent for every other kind. #1875.
+	LinearDiameter bool `json:"linearDiameter,omitempty"`
 }
 
 // ListDimensionsResult is the response of [MethodSketchDimensions].

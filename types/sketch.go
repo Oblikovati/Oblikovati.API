@@ -135,5 +135,9 @@ const (
 	// measured to its tangent point — the near side by default, the far side with
 	// AddDimensionArgs.FarSide (Oblikovati/Oblikovati#152).
 	DimConstraintTangentDistance DimensionConstraintKind = "tangentDistance"
-	DimConstraintUnknown         DimensionConstraintKind = "unknown"
+	// DimConstraintOffsetSpline drives the offset distance of a SketchOffsetSpline from its
+	// parent spline (Inventor OffsetSplineDimConstraint / AddOffsetSpline, #1874). Its single
+	// operand is the offset-spline entity id.
+	DimConstraintOffsetSpline DimensionConstraintKind = "offsetSplineDim"
+	DimConstraintUnknown      DimensionConstraintKind = "unknown"
 )
