@@ -94,6 +94,9 @@ type Sketch3DEntityInfo struct {
 	// it to refer to this entity durably; rebind it with [MethodSketchResolveReference].
 	ReferenceKey   string `json:"referenceKey,omitempty"`
 	MoveableStatus string `json:"moveableStatus,omitempty"`
+	// CoordinateSystem reports an equation curve's coordinate system (cylindrical/spherical),
+	// absent for a Cartesian curve and every other kind, so a round-trip preserves it (#1846).
+	CoordinateSystem string `json:"coordinateSystem,omitempty"`
 }
 
 // EnumerateEntities3DResult is the response of [MethodSketch3DEntities].

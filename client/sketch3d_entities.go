@@ -102,12 +102,23 @@ func (s Sketch3D) AddFixedSpline(index int, points [][]float64, closed bool) (wi
 	})
 }
 
-// AddEquationCurve adds a parametric curve from x(t)/y(t)/z(t) expressions over [t0,t1].
+// AddEquationCurve adds a Cartesian parametric curve from x(t)/y(t)/z(t) expressions over [t0,t1].
 func (s Sketch3D) AddEquationCurve(index int, xExpr, yExpr, zExpr string, t0, t1 float64) (wire.AddSketch3DEntityResult, error) {
-	return s.AddEntity(wire.AddSketch3DEntityArgs{
+	return s.AddEquationCurveIn(index, types.CoordinateSystemCartesian, xExpr, yExpr, zExpr, t0, t1)
+}
+
+// AddEquationCurveIn adds a parametric curve whose three expressions are interpreted in the given
+// coordinate system: cartesian x/y/z, cylindrical radius/theta/z, or spherical radius/theta/phi
+// (#1846). The angle expressions (theta/phi) are radian-valued.
+func (s Sketch3D) AddEquationCurveIn(index int, coord types.CoordinateSystemType, xExpr, yExpr, zExpr string, t0, t1 float64) (wire.AddSketch3DEntityResult, error) {
+	args := wire.AddSketch3DEntityArgs{
 		SketchIndex: index, Kind: string(types.Sketch3DEntityEquationCurve),
 		XExpr: xExpr, YExpr: yExpr, ZExpr: zExpr, T0: t0, T1: t1,
-	})
+	}
+	if coord != types.CoordinateSystemCartesian { // omit the selector for the default, keeping the Cartesian wire unchanged
+		args.CoordinateSystem = coord.String()
+	}
+	return s.AddEntity(args)
 }
 
 // AddHelix adds a helical curve. origin [x,y,z] (cm) is the axis base, axis [x,y,z] the

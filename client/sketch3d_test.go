@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"testing"
 
+	"oblikovati.org/api/types"
 	"oblikovati.org/api/wire"
 )
 
@@ -235,6 +236,25 @@ func TestSketch3DAddEquationCurveSendsExprs(t *testing.T) {
 	}
 	if sent.XExpr != "cos(t)" || sent.ZExpr != "t" || sent.T1 != 6.28 {
 		t.Errorf("sent = %+v, want the x/y/z exprs over [0,6.28]", sent)
+	}
+	if sent.CoordinateSystem != "" {
+		t.Errorf("Cartesian AddEquationCurve set coordinateSystem = %q, want it omitted", sent.CoordinateSystem)
+	}
+}
+
+func TestSketch3DAddEquationCurveInSendsCoordinateSystem(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":8,"kind":"equationCurve"}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().AddEquationCurveIn(0, types.CoordinateSystemCylindrical, "2", "t", "t", 0, 6.28); err != nil {
+		t.Fatalf("AddEquationCurveIn: %v", err)
+	}
+	var sent wire.AddSketch3DEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.CoordinateSystem != "cylindrical" {
+		t.Errorf("sent coordinateSystem = %q, want cylindrical", sent.CoordinateSystem)
 	}
 }
 
