@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.137.0] - 2026-07-10
+
+### Added
+
+- feat(sketch3d): intersection-curve work-plane operand (#1854) (#262)
+
 ## [0.136.0] - 2026-07-10
 
 ### Added
@@ -1065,7 +1071,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.136.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.137.0...HEAD
+[0.137.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.136.0...v0.137.0
 [0.136.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.135.0...v0.136.0
 [0.135.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.134.0...v0.135.0
 [0.134.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.133.0...v0.134.0
