@@ -28,18 +28,50 @@ func (g Constrain) Add(kind types.GeometricConstraintKind, entities ...uint64) (
 	return call[wire.AddConstraintResult](g.c, wire.MethodSketchAddConstraint, args)
 }
 
+// AddWith submits a fully-formed request — the escape hatch for the options the
+// positional Add cannot carry, such as the ellipse major/minor-axis selectors
+// (#1879). SketchIndex is filled from the group; any value set on args is
+// overwritten.
+func (g Constrain) AddWith(args wire.AddConstraintArgs) (wire.AddConstraintResult, error) {
+	args.SketchIndex = g.index
+	return call[wire.AddConstraintResult](g.c, wire.MethodSketchAddConstraint, args)
+}
+
 // Coincident makes two points coincident.
 func (g Constrain) Coincident(p1, p2 uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintCoincident, p1, p2)
 }
 
 // Horizontal aligns two points horizontally; Vertical aligns them vertically.
+// (Two points are the align form — see HorizontalAlign; a single line is made
+// horizontal by HorizontalLine, #1871.)
 func (g Constrain) Horizontal(p1, p2 uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintHorizontal, p1, p2)
 }
 
 func (g Constrain) Vertical(p1, p2 uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintVertical, p1, p2)
+}
+
+// HorizontalLine / VerticalLine make a single line horizontal / vertical
+// (Inventor's single-entity AddHorizontal/AddVertical, #1871).
+func (g Constrain) HorizontalLine(line uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintHorizontal, line)
+}
+
+func (g Constrain) VerticalLine(line uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintVertical, line)
+}
+
+// HorizontalAlign / VerticalAlign level two points (Inventor's
+// HorizontalAlign/VerticalAlign), reported as an align constraint distinct from
+// the single-line horizontal/vertical (#1871).
+func (g Constrain) HorizontalAlign(p1, p2 uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintHorizontalAlign, p1, p2)
+}
+
+func (g Constrain) VerticalAlign(p1, p2 uint64) (wire.AddConstraintResult, error) {
+	return g.Add(types.GeoConstraintVerticalAlign, p1, p2)
 }
 
 // Parallel / Perpendicular / Collinear / EqualLength relate two lines.
