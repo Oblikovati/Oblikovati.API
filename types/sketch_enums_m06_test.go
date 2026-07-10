@@ -49,6 +49,16 @@ func TestConstraintInferencePriorityFrozenBlock(t *testing.T) {
 		ParseConstraintInferencePriority)
 }
 
+// TestOverConstrainedDimensionBehaviorFrozenBlock pins the Oblikovati-owned ids and wire spellings
+// (#1877).
+func TestOverConstrainedDimensionBehaviorFrozenBlock(t *testing.T) {
+	want := map[OverConstrainedDimensionBehavior]string{
+		0: "applyDriven", 1: "applyDriving", 2: "prompt",
+	}
+	assertFrozenBlock(t, "OverConstrainedDimensionBehavior", want, overConstrainedBehaviorNames,
+		ParseOverConstrainedDimensionBehavior)
+}
+
 // TestHelicalShapeDefinitionFrozenBlock pins the reference ids and wire
 // spellings — which must also stay equal to the helix Mode strings accepted
 // by sketch3d.addEntity since M22-F04.

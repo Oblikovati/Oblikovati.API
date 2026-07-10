@@ -41,7 +41,11 @@ func TestDocumentsSetSketchSettingsSendsValues(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"settings":{"inferConstraints":false,"autoApplyConstraints":true,"constraintPriority":50433}}`)}
 	c := New(ft)
 
-	in := types.SketchSettings{InferConstraints: false, AutoApplyConstraints: true, ConstraintPriority: types.PriorityParallelPerpendicular}
+	in := types.SketchSettings{
+		InferConstraints: false, AutoApplyConstraints: true, ConstraintPriority: types.PriorityParallelPerpendicular,
+		XSnapSpacing: 0.2, SnapsPerMinorGrid: 4, PersistInferredConstraints: true,
+		OverConstrainedBehavior: types.OverConstrainedApplyDriving, EnableRelaxMode: true,
+	}
 	got, err := c.Documents().SetSketchSettings(9, in)
 	if err != nil {
 		t.Fatalf("SetSketchSettings: %v", err)
