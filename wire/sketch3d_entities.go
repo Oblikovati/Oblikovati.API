@@ -52,14 +52,18 @@ type AddSketch3DEntityArgs struct {
 	// points (each [x,y,z] in cm); Closed marks a closed loop; FitMethod is the
 	// interpolation parameterization ([oblikovati.org/api/types.SplineFitMethod] wire
 	// spelling, empty ⇒ "smooth" — M06-F11, Oblikovati/Oblikovati#626). For
-	// equationCurve, XExpr/YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1].
-	Closed    bool    `json:"closed,omitempty"`
-	FitMethod string  `json:"fitMethod,omitempty"`
-	XExpr     string  `json:"xExpr,omitempty"`
-	YExpr     string  `json:"yExpr,omitempty"`
-	ZExpr     string  `json:"zExpr,omitempty"`
-	T0        float64 `json:"t0,omitempty"`
-	T1        float64 `json:"t1,omitempty"`
+	// equationCurve, XExpr/YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1]. CoordinateSystem
+	// ([oblikovati.org/api/types.CoordinateSystemType] spelling: cartesian | cylindrical |
+	// spherical; empty ⇒ cartesian) reinterprets the three expressions as radius/theta/z or
+	// radius/theta/phi (#1846).
+	Closed           bool    `json:"closed,omitempty"`
+	FitMethod        string  `json:"fitMethod,omitempty"`
+	XExpr            string  `json:"xExpr,omitempty"`
+	YExpr            string  `json:"yExpr,omitempty"`
+	ZExpr            string  `json:"zExpr,omitempty"`
+	T0               float64 `json:"t0,omitempty"`
+	T1               float64 `json:"t1,omitempty"`
+	CoordinateSystem string  `json:"coordinateSystem,omitempty"`
 
 	// Variable-shape helix fields (kind "helical" — M06-F09, #624): a row
 	// table varying pitch/diameter per station replaces the constant shape;
