@@ -55,3 +55,12 @@ func TestPanelControlKindNamesAreStable(t *testing.T) {
 		}
 	}
 }
+
+func TestPanelTreeTableKinds(t *testing.T) {
+	if PanelTree != 13 || PanelTable != 14 {
+		t.Fatalf("ordinals: PanelTree=%d PanelTable=%d, want 13,14 (appended, stable)", PanelTree, PanelTable)
+	}
+	if PanelTree.String() != "tree" || PanelTable.String() != "table" {
+		t.Fatalf("names: %q, %q, want \"tree\", \"table\"", PanelTree.String(), PanelTable.String())
+	}
+}

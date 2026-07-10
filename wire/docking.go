@@ -40,6 +40,14 @@ type PanelControlSpec struct {
 
 	Rows    []PanelReferenceRow `json:"rows,omitempty"`    // referenceList: current picked refs
 	Accepts []string            `json:"accepts,omitempty"` // referenceList: allowed kinds ("face"/"edge"/"vertex"); empty = any
+
+	// PanelTree fields.
+	Nodes []TreeNode `json:"nodes,omitempty"` // tree: the root nodes
+
+	// PanelTable fields (Columns is already []GridTrack and Rows []PanelReferenceRow, so the
+	// data-grid header/body use distinct names).
+	TableColumns []string   `json:"tableColumns,omitempty"` // table: header column names
+	TableRows    []TableRow `json:"tableRows,omitempty"`    // table: data rows
 }
 
 // DockableWindowSpec is one add-in dockable window (M05-F03, #247): a titled panel

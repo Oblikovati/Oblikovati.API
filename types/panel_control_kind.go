@@ -47,6 +47,13 @@ const (
 	// Editing the rows pushes a [PanelReferencesChangedEvent] — NOT the scalar
 	// PanelValueChangedEvent — because the value is a set, not one string.
 	PanelReferenceList PanelControlKind = 12
+	// PanelTree is a hierarchical, selectable, expandable set of nodes (a category browser).
+	// The disclosure arrow toggles a node open (handled host-side, no round-trip); a click on a
+	// node's label selects it and pushes a [PanelValueChangedEvent] with Value = the node's ID.
+	PanelTree PanelControlKind = 13
+	// PanelTable is a data grid: a header of column names over selectable rows. Clicking a row
+	// pushes a [PanelValueChangedEvent] with Value = the row's Key. Scrolls in both axes.
+	PanelTable PanelControlKind = 14
 )
 
 var panelControlKindNames = map[PanelControlKind]string{
@@ -54,7 +61,7 @@ var panelControlKindNames = map[PanelControlKind]string{
 	PanelTextBox: "textBox", PanelValueEditor: "valueEditor", PanelCheckBox: "checkBox",
 	PanelDropdown: "dropdown", PanelComboBox: "comboBox", PanelSlider: "slider",
 	PanelGrid: "grid", PanelGroup: "group", PanelTabs: "tabs",
-	PanelReferenceList: "referenceList",
+	PanelReferenceList: "referenceList", PanelTree: "tree", PanelTable: "table",
 }
 
 // String returns the kind's stable name.
