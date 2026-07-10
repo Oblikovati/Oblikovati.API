@@ -54,6 +54,17 @@ type WorkAxisInfo struct {
 	Reason       string    `json:"reason,omitempty"` // why Healthy is false (empty when healthy)
 }
 
+// ListWorkAxesArgs is the (optional) request of [MethodWorkAxesList]. An empty request lists the
+// active part/assembly's own datum axes, hiding construction axes. Occurrence, when set, is an
+// assembly occurrence path (instance names, top-down) whose component's datum axes are listed
+// instead, each returned as an occurrence-qualified ref ("occ/<path>/axis/N") resolved through
+// that occurrence's context transform (#1857). IncludeConstruction, when true, also lists
+// construction (hidden, consumer-tied) axes (#1849).
+type ListWorkAxesArgs struct {
+	Occurrence          []string `json:"occurrence,omitempty"`
+	IncludeConstruction bool     `json:"includeConstruction,omitempty"`
+}
+
 // ListWorkAxesResult is the response of [MethodWorkAxesList].
 type ListWorkAxesResult struct {
 	Axes []WorkAxisInfo `json:"axes"`

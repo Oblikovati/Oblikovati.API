@@ -93,6 +93,17 @@ type WorkPlaneRefSlot struct {
 	Kind  string `json:"kind"`
 }
 
+// ListWorkPlanesArgs is the (optional) request of [MethodWorkPlanesList]. An empty request lists
+// the active part/assembly's own datum planes, hiding construction planes. Occurrence, when set,
+// is an assembly occurrence path (instance names, top-down) whose component's datum planes are
+// listed instead, each returned as an occurrence-qualified ref ("occ/<path>/plane/N") resolved
+// through that occurrence's context transform (#1857). IncludeConstruction, when true, also lists
+// construction (hidden, consumer-tied) planes (#1849).
+type ListWorkPlanesArgs struct {
+	Occurrence          []string `json:"occurrence,omitempty"`
+	IncludeConstruction bool     `json:"includeConstruction,omitempty"`
+}
+
 // ListWorkPlanesResult is the response of [MethodWorkPlanesList].
 type ListWorkPlanesResult struct {
 	Planes []WorkPlaneInfo `json:"planes"`

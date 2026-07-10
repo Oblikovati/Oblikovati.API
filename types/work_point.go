@@ -38,4 +38,24 @@ const (
 	// a curve midpoint. Refs = [edge] (a lineage-key "edge/…" reference or a geometric
 	// [GeometricEdgeRef] "edge-geom/…" reference). #1842.
 	WorkPointMidpointOfEdge WorkPointKind = "edge-midpoint"
+
+	// WorkPointCurveAndEntity is where a curve meets a surface entity — Inventor's
+	// WorkPoints.AddByCurveAndEntity(Curve, Entity, ProximityPoint). Refs = [curve, entity]:
+	// the curve (a linear/circular edge or work axis) and the entity it pierces (a face or work
+	// plane). When the curve crosses the entity more than once, the create request's Proximity
+	// point [x,y,z] (cm) selects the nearest intersection; omitting it takes the first solution.
+	// It goes unhealthy when the curve does not meet the entity. #1842.
+	WorkPointCurveAndEntity WorkPointKind = "curve-and-entity"
+
+	// WorkPointCentroid is the centroid of a set of connected edges — Inventor's
+	// WorkPoints.AddAtCentroid(Entities). Refs = [edge, edge, …] (one or more edge references,
+	// each a lineage-key "edge/…" or geometric "edge-geom/…" ref). The point is the length-weighted
+	// mean of the referenced edges' midpoints; it goes unhealthy when no edge resolves. #1842.
+	WorkPointCentroid WorkPointKind = "centroid"
+
+	// WorkPointCloud is a datum point fixed at a captured point-cloud position — Inventor's
+	// WorkPoints.AddByCloudPoint. Refs = [cloudID] where the single ref is the source cloud's id;
+	// the create request's At [x,y,z] (cm) gives the frozen position picked from that cloud. This
+	// makes the model's AddByCloudPoint constructor reachable over the wire. #1842.
+	WorkPointCloud WorkPointKind = "cloud-point"
 )
