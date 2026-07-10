@@ -202,6 +202,43 @@ func TestSketchDimensionRadiusMarshalsExpression(t *testing.T) {
 	}
 }
 
+func TestSketchDimensionAddWithCarriesDrivenTextPointLinearDiameter(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"offsetDim","parameter":"d0","value":6,"dof":1}`)}
+	c := New(ft)
+
+	_, err := c.Sketch().Dimension(2).AddWith(wire.AddDimensionArgs{
+		Kind: "offsetDim", Entities: []uint64{3, 9}, Expression: "3 mm",
+		Driven: true, TextPoint: []float64{1.5, 2}, LinearDiameter: true,
+	})
+	if err != nil {
+		t.Fatalf("AddWith: %v", err)
+	}
+	var sent wire.AddDimensionArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.SketchIndex != 2 || !sent.Driven || !sent.LinearDiameter ||
+		len(sent.TextPoint) != 2 || sent.TextPoint[0] != 1.5 {
+		t.Errorf("sent = %+v, want sketch 2 / driven / linearDiameter / textPoint [1.5,2]", sent)
+	}
+}
+
+func TestSketchDimensionOffsetSplineNamesKind(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"index":0,"kind":"offsetSplineDim","parameter":"d0","value":5,"dof":0}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch().Dimension(0).OffsetSpline(12, "5 mm"); err != nil {
+		t.Fatalf("OffsetSpline: %v", err)
+	}
+	var sent wire.AddDimensionArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "offsetSplineDim" || len(sent.Entities) != 1 || sent.Entities[0] != 12 {
+		t.Errorf("sent = %+v, want offsetSplineDim of entity 12", sent)
+	}
+}
+
 func TestSketchProfilesDecodesArea(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"profiles":[{"index":0,"area":64,"closed":true,"holes":1}]}`)}
 	c := New(ft)

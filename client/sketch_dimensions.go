@@ -27,6 +27,14 @@ func (g Dimension) Add(kind types.DimensionConstraintKind, expression string, en
 	return call[wire.AddDimensionResult](g.c, wire.MethodSketchAddDimension, args)
 }
 
+// AddWith is the full-control constructor — it passes the whole [wire.AddDimensionArgs]
+// through, so callers can set Driven, TextPoint or LinearDiameter at create (#1875); the
+// group's SketchIndex is filled in. Prefer the named helpers for the common cases.
+func (g Dimension) AddWith(args wire.AddDimensionArgs) (wire.AddDimensionResult, error) {
+	args.SketchIndex = g.index
+	return call[wire.AddDimensionResult](g.c, wire.MethodSketchAddDimension, args)
+}
+
 // Distance dimensions the distance between two points.
 func (g Dimension) Distance(p1, p2 uint64, expression string) (wire.AddDimensionResult, error) {
 	return g.Add(types.DimConstraintDistance, expression, p1, p2)
@@ -64,6 +72,11 @@ func (g Dimension) ThreePointAngle(vertex, a, b uint64, expression string) (wire
 // EllipseRadius dimensions an ellipse's major radius.
 func (g Dimension) EllipseRadius(ellipse uint64, expression string) (wire.AddDimensionResult, error) {
 	return g.Add(types.DimConstraintEllipseRadius, expression, ellipse)
+}
+
+// OffsetSpline drives the offset distance of an offset-spline entity from its parent (#1874).
+func (g Dimension) OffsetSpline(offsetSpline uint64, expression string) (wire.AddDimensionResult, error) {
+	return g.Add(types.DimConstraintOffsetSpline, expression, offsetSpline)
 }
 
 // Drive edits a dimension's value (a unit-bearing expression; empty leaves it unchanged).
