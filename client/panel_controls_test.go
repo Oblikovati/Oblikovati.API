@@ -60,3 +60,19 @@ func TestPanelValueChangedEventRoundTrips(t *testing.T) {
 		t.Errorf("event type = %q", out.Type)
 	}
 }
+
+func TestPanelTreeBuilder(t *testing.T) {
+	c := PanelTree("catalog", []wire.TreeNode{{ID: "b", Label: "Bearings"}}, "b")
+	if c.Kind != types.PanelTree || c.ID != "catalog" || c.Value != "b" || c.Nodes[0].ID != "b" {
+		t.Fatalf("PanelTree built wrong control: %+v", c)
+	}
+}
+
+func TestPanelTableBuilder(t *testing.T) {
+	rows := []wire.TableRow{{Key: "k", Cells: []string{"10"}}}
+	c := PanelTable("members", []string{"d"}, rows, "k")
+	if c.Kind != types.PanelTable || c.ID != "members" || c.Value != "k" ||
+		c.TableColumns[0] != "d" || c.TableRows[0].Key != "k" {
+		t.Fatalf("PanelTable built wrong control: %+v", c)
+	}
+}

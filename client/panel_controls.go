@@ -70,3 +70,17 @@ func PanelSlider(id, text string, value, min, max, step float64) wire.PanelContr
 func PanelReferenceList(id, text string, accepts []string, rows []wire.PanelReferenceRow) wire.PanelControlSpec {
 	return wire.PanelControlSpec{Kind: types.PanelReferenceList, ID: id, Text: text, Accepts: accepts, Rows: rows}
 }
+
+// PanelTree builds a hierarchical browser control: nodes are the root TreeNodes, selected is the
+// ID of the currently-highlighted node. A label click pushes a wire.PanelValueChangedEvent whose
+// Value is the clicked node's ID; expand/collapse is handled host-side (no event).
+func PanelTree(id string, nodes []wire.TreeNode, selected string) wire.PanelControlSpec {
+	return wire.PanelControlSpec{Kind: types.PanelTree, ID: id, Nodes: nodes, Value: selected}
+}
+
+// PanelTable builds a data-grid control: columns are the header names, rows the data rows,
+// selected the Key of the currently-highlighted row. A row click pushes a
+// wire.PanelValueChangedEvent whose Value is the row's Key.
+func PanelTable(id string, columns []string, rows []wire.TableRow, selected string) wire.PanelControlSpec {
+	return wire.PanelControlSpec{Kind: types.PanelTable, ID: id, TableColumns: columns, TableRows: rows, Value: selected}
+}
