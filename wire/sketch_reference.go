@@ -65,10 +65,30 @@ type ProjectGeometryArgs struct {
 }
 
 // ProjectGeometryResult is the response of [MethodSketchProject]: the ids of the created
-// projected entities and whether every reference resolved.
+// projected entities and whether every reference resolved. Shared by the cut-edge and
+// silhouette projection methods (#1873).
 type ProjectGeometryResult struct {
 	Created []uint64 `json:"created"`
 	Healthy bool     `json:"healthy"`
+}
+
+// ProjectCutEdgesArgs is the request of [MethodSketchProjectCutEdges]: project the section
+// curves where the sketch plane cuts the part solid, as associative reference geometry — one
+// projected curve per section loop (Inventor PlanarSketch.ProjectedCuts, #1873).
+type ProjectCutEdgesArgs struct {
+	SketchIndex int `json:"sketchIndex"`
+}
+
+// ProjectSilhouetteArgs is the request of [MethodSketchProjectSilhouette]: project the
+// silhouette of the face with reference key FaceRef onto the sketch plane, viewed along the
+// plane normal (Inventor PlanarSketch.AddBySilhouette, #1873). ProximityPoint ([x,y,z] model
+// cm) selects which silhouette loop when a face has several — the one nearest the point.
+// IncludeBoundary keeps silhouette runs that coincide with the face's own edges.
+type ProjectSilhouetteArgs struct {
+	SketchIndex     int       `json:"sketchIndex"`
+	FaceRef         string    `json:"faceRef"`
+	ProximityPoint  []float64 `json:"proximityPoint"`
+	IncludeBoundary bool      `json:"includeBoundary,omitempty"`
 }
 
 // AddFillRegionArgs is the request of [MethodSketchAddFillRegion]: fill the closed region

@@ -49,6 +49,29 @@ func (s Sketch) Include(index int, refs []string) (wire.ProjectGeometryResult, e
 	return s.Project(index, refs, "include")
 }
 
+// ProjectCutEdges projects the section curves where the sketch plane cuts the part solid as
+// associative reference geometry — one projected curve per section loop (#1873).
+//
+// mcp:tool project_cut_edges
+// mcp:summary Project the section curves where the sketch plane cuts the solid onto the sketch as associative reference geometry: {sketchIndex}.
+func (s Sketch) ProjectCutEdges(index int) (wire.ProjectGeometryResult, error) {
+	args := wire.ProjectCutEdgesArgs{SketchIndex: index}
+	return call[wire.ProjectGeometryResult](s.c, wire.MethodSketchProjectCutEdges, args)
+}
+
+// ProjectSilhouette projects the silhouette of the face with reference key faceRef onto the
+// sketch plane (viewed along the plane normal); proximity ([x,y,z] cm) selects the nearest
+// silhouette loop and includeBoundary keeps runs coincident with the face's edges (#1873).
+//
+// mcp:tool project_silhouette
+// mcp:summary Project a face's silhouette (by reference key) onto the sketch plane as associative reference geometry: {sketchIndex, faceRef, proximityPoint:[x,y,z], includeBoundary}.
+func (s Sketch) ProjectSilhouette(index int, faceRef string, proximity []float64, includeBoundary bool) (wire.ProjectGeometryResult, error) {
+	args := wire.ProjectSilhouetteArgs{
+		SketchIndex: index, FaceRef: faceRef, ProximityPoint: proximity, IncludeBoundary: includeBoundary,
+	}
+	return call[wire.ProjectGeometryResult](s.c, wire.MethodSketchProjectSilhouette, args)
+}
+
 // AddImage places a raster image (ref is a package-store reference) anchored at [x,y] cm
 // with unit-bearing width/height; rotation and opacity are optional ("" / 0).
 //
