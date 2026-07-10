@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.133.0] - 2026-07-10
+
+### Added
+
+- feat(client): add PanelTree/PanelTable builders (Part of #48)
+- feat(wire): add TreeNode/TableRow DTOs + PanelTree/PanelTable spec fields (Part of #48)
+- feat(types): add PanelTree/PanelTable control kinds (Part of #48)
+
 ## [0.132.0] - 2026-07-10
 
 ### Added
@@ -1039,7 +1047,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.132.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.133.0...HEAD
+[0.133.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.132.0...v0.133.0
 [0.132.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.131.0...v0.132.0
 [0.131.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...v0.131.0
 [0.130.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...v0.130.0
