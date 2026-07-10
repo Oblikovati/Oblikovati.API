@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.129.0] - 2026-07-10
+
+### Added
+
+- feat(sketch): revolve about the sketch centerline
+
 ## [0.128.0] - 2026-07-10
 
 ### Added
@@ -1015,7 +1021,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.128.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...HEAD
+[0.129.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.128.0...v0.129.0
 [0.128.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.127.0...v0.128.0
 [0.127.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.126.0...v0.127.0
 [0.126.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.125.0...v0.126.0
