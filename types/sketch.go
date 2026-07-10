@@ -86,19 +86,26 @@ const (
 	GeoConstraintPointOnCircle GeometricConstraintKind = "pointOnCircle"
 	GeoConstraintHorizontal    GeometricConstraintKind = "horizontal"
 	GeoConstraintVertical      GeometricConstraintKind = "vertical"
-	GeoConstraintParallel      GeometricConstraintKind = "parallel"
-	GeoConstraintPerpendicular GeometricConstraintKind = "perpendicular"
-	GeoConstraintCollinear     GeometricConstraintKind = "collinear"
-	GeoConstraintConcentric    GeometricConstraintKind = "concentric"
-	GeoConstraintEqualLength   GeometricConstraintKind = "equalLength"
-	GeoConstraintEqualRadius   GeometricConstraintKind = "equalRadius"
-	GeoConstraintTangent       GeometricConstraintKind = "tangent"
-	GeoConstraintSymmetry      GeometricConstraintKind = "symmetry"
-	GeoConstraintFix           GeometricConstraintKind = "fix"
-	GeoConstraintSmooth        GeometricConstraintKind = "smooth"
-	GeoConstraintGround        GeometricConstraintKind = "ground"
-	GeoConstraintOffset        GeometricConstraintKind = "offset"
-	GeoConstraintPattern       GeometricConstraintKind = "patternLink"
+	// GeoConstraintHorizontalAlign / VerticalAlign level TWO points (Inventor's
+	// HorizontalAlign/VerticalAlign), distinct from the single-entity horizontal/
+	// vertical that makes one line (or an ellipse axis) horizontal/vertical
+	// (#1871): a single line ref under horizontal/vertical is the single-entity
+	// form; two point refs are the align form.
+	GeoConstraintHorizontalAlign GeometricConstraintKind = "horizontalAlign"
+	GeoConstraintVerticalAlign   GeometricConstraintKind = "verticalAlign"
+	GeoConstraintParallel        GeometricConstraintKind = "parallel"
+	GeoConstraintPerpendicular   GeometricConstraintKind = "perpendicular"
+	GeoConstraintCollinear       GeometricConstraintKind = "collinear"
+	GeoConstraintConcentric      GeometricConstraintKind = "concentric"
+	GeoConstraintEqualLength     GeometricConstraintKind = "equalLength"
+	GeoConstraintEqualRadius     GeometricConstraintKind = "equalRadius"
+	GeoConstraintTangent         GeometricConstraintKind = "tangent"
+	GeoConstraintSymmetry        GeometricConstraintKind = "symmetry"
+	GeoConstraintFix             GeometricConstraintKind = "fix"
+	GeoConstraintSmooth          GeometricConstraintKind = "smooth"
+	GeoConstraintGround          GeometricConstraintKind = "ground"
+	GeoConstraintOffset          GeometricConstraintKind = "offset"
+	GeoConstraintPattern         GeometricConstraintKind = "patternLink"
 	// GeoConstraintTextBox is the auto-created anchor tying a text box to its
 	// anchor geometry; it is never deletable on its own (M06-F11,
 	// Oblikovati/Oblikovati#626).

@@ -7,23 +7,41 @@ package wire
 // [oblikovati.org/api/types.GeometricConstraintKind]; Entities are the session ids
 // of the geometry it relates (points/lines/curves), in the kind's expected order:
 //
-//   - coincident/horizontal/vertical: two point ids (or one line id)
-//   - parallel/perpendicular/collinear/equalLength: two line ids
+//   - horizontal/vertical: ONE line id (or one ellipse id) makes it horizontal/
+//     vertical; TWO point ids level the points (the align form, also reachable
+//     as horizontalAlign/verticalAlign) (#1871)
+//   - horizontalAlign/verticalAlign: two point ids
+//   - coincident: two point ids
+//   - parallel/perpendicular/collinear/equalLength: two line ids; parallel/
+//     perpendicular/collinear also accept an ellipse id per operand, its
+//     constrained direction selected by the UseEllipse*MajorAxis flags (#1879)
 //   - concentric/equalRadius: two circular-curve ids
 //   - tangent: a line id + a circular-curve id, or two circular-curve ids
-//   - pointOnLine/midpoint: a point id + a line id
+//   - pointOnLine: a point id + a line id
+//   - midpoint: a point id + a line id, or a point id + an arc id (#1872)
 //   - pointOnCircle: a point id + a circular-curve id
-//   - symmetry: two point ids + a line id (the mirror line)
+//   - symmetry: two entity ids (both points, both lines, or both circular
+//     curves) + a line id (the mirror line) (#1870)
 //   - fix: one point id
 //   - custom: any entity ids to tag; ClientID is the owning add-in id
 //     (required) and Name the record's name — an attribute-carrying marker,
 //     not a solver constraint (M06-F11, Oblikovati/Oblikovati#626)
+//
+// The UseEllipse*MajorAxis flags select which axis of an ellipse operand is the
+// constrained direction (major when nil/true, minor when false) — Inventor's
+// UseEllipseMajorAxis / UseEllipseOneMajorAxis / UseEllipseTwoMajorAxis (#1879).
+// UseEllipseMajorAxis applies to the single-operand horizontal/vertical form;
+// UseEllipseOneMajorAxis / UseEllipseTwoMajorAxis to the first / second operand
+// of parallel/perpendicular/collinear. They are ignored for non-ellipse operands.
 type AddConstraintArgs struct {
-	SketchIndex int      `json:"sketchIndex"`
-	Kind        string   `json:"kind"`
-	Entities    []uint64 `json:"entities"`
-	ClientID    string   `json:"clientId,omitempty"`
-	Name        string   `json:"name,omitempty"`
+	SketchIndex            int      `json:"sketchIndex"`
+	Kind                   string   `json:"kind"`
+	Entities               []uint64 `json:"entities"`
+	ClientID               string   `json:"clientId,omitempty"`
+	Name                   string   `json:"name,omitempty"`
+	UseEllipseMajorAxis    *bool    `json:"useEllipseMajorAxis,omitempty"`
+	UseEllipseOneMajorAxis *bool    `json:"useEllipseOneMajorAxis,omitempty"`
+	UseEllipseTwoMajorAxis *bool    `json:"useEllipseTwoMajorAxis,omitempty"`
 }
 
 // AddConstraintResult is the response of [MethodSketchAddConstraint]: the new
