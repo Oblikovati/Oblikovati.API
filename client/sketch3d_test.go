@@ -340,6 +340,22 @@ func TestSketch3DAddIntersectionCurveSendsFaces(t *testing.T) {
 	}
 }
 
+func TestSketch3DAddIntersectionCurveWithWorkPlaneSendsBothRefs(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":13,"kind":"intersection","healthy":true}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch3D().AddIntersectionCurveWithWorkPlane(0, "faceA", "origin/plane/xy", wire.AddSketch3DSurfaceCurveArgs{}); err != nil {
+		t.Fatalf("AddIntersectionCurveWithWorkPlane: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != "intersection" || len(sent.FaceRefs) != 1 || len(sent.WorkRefs) != 1 || sent.WorkRefs[0] != "origin/plane/xy" {
+		t.Errorf("sent = %+v, want intersection of faceA and work plane origin/plane/xy", sent)
+	}
+}
+
 func TestSketch3DAddSilhouetteCurveSendsViewDir(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"entityId":13,"kind":"silhouette","healthy":true}`)}
 	c := New(ft)

@@ -25,6 +25,17 @@ func (s Sketch3D) AddIntersectionCurve(index int, faceA, faceB string, grid wire
 	return s.AddSurfaceCurve(grid)
 }
 
+// AddIntersectionCurveWithWorkPlane adds the intersection curve of a part face and a work plane
+// (each by reference key) — the section line where the plane cuts the face (#1854). The face is
+// the bounded base; the work plane contributes its infinite plane surface.
+func (s Sketch3D) AddIntersectionCurveWithWorkPlane(index int, faceRef, workRef string, grid wire.AddSketch3DSurfaceCurveArgs) (wire.AddSketch3DSurfaceCurveResult, error) {
+	grid.SketchIndex = index
+	grid.Kind = string(types.Sketch3DEntityIntersection)
+	grid.FaceRefs = []string{faceRef}
+	grid.WorkRefs = []string{workRef}
+	return s.AddSurfaceCurve(grid)
+}
+
 // AddSilhouetteCurve adds the silhouette of a part face (by reference key) for a view
 // direction [x,y,z].
 func (s Sketch3D) AddSilhouetteCurve(index int, face string, viewDir []float64, grid wire.AddSketch3DSurfaceCurveArgs) (wire.AddSketch3DSurfaceCurveResult, error) {
