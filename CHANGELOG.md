@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.131.0] - 2026-07-10
+
+### Added
+
+- feat(sketch): align constraint kinds + ellipse-axis operand flags (#1871, #1879) (#256)
+
 ## [0.130.0] - 2026-07-10
 
 ### Added
@@ -1027,7 +1033,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.131.0...HEAD
+[0.131.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.130.0...v0.131.0
 [0.130.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.129.0...v0.130.0
 [0.129.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.128.0...v0.129.0
 [0.128.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.127.0...v0.128.0
