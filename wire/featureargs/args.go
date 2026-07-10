@@ -60,9 +60,14 @@ type Revolve struct {
 	SketchIndex  int    `json:"sketchIndex"`
 	ProfileIndex int    `json:"profileIndex"`
 	AxisRef      string `json:"axisRef,omitempty"`
-	Angle        string `json:"angle"`
-	Angle2       string `json:"angle2,omitempty"` // second-direction sweep (#313)
-	Operation    string `json:"operation,omitempty"`
+	// AboutCenterline revolves about the sketch's single centerline (Inventor's "revolve about
+	// the sketch centerline") instead of an explicit AxisRef — the way to spin a profile about
+	// an internal, tilted axis authored with [AddSketchEntityArgs.Centerline]. When set, AxisRef
+	// is ignored; the sketch must have exactly one centerline. See PartDesigner #54.
+	AboutCenterline bool   `json:"aboutCenterline,omitempty"`
+	Angle           string `json:"angle"`
+	Angle2          string `json:"angle2,omitempty"` // second-direction sweep (#313)
+	Operation       string `json:"operation,omitempty"`
 	// ProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead
 	// of ProfileIndex, resolved by containment on the solved sketch each recompute (see
 	// [Extrude.ProfileSeeds]). When present it wins over ProfileIndex.

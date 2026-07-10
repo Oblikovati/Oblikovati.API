@@ -84,3 +84,28 @@ func TestEventDispatcherRoutesFeatureAndSketchEvents(t *testing.T) {
 		t.Errorf("sketch callbacks = %+v, want entered then exited on sketch 4", sketches)
 	}
 }
+
+// TestAddCenterlineMarksCenterlineAndConstruction checks the centerline constructor sends a line
+// with both centerline and construction set — so a procedural add-in can revolve about the
+// sketch's internal axis (the tapered-roller domed body, PartDesigner #54).
+func TestAddCenterlineMarksCenterlineAndConstruction(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":5,"kind":"line","pointIds":[3,4]}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch().AddCenterline(0, []float64{0, 0}, []float64{0, 1}); err != nil {
+		t.Fatalf("AddCenterline: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchAddEntity {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchAddEntity)
+	}
+	var sent wire.AddSketchEntityArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.Kind != string(types.SketchEntityLine) {
+		t.Errorf("kind = %q, want line", sent.Kind)
+	}
+	if !sent.Centerline || !sent.Construction {
+		t.Errorf("sent = %+v, want centerline=true construction=true", sent)
+	}
+}
