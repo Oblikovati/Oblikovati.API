@@ -10,6 +10,45 @@ import (
 	"oblikovati.org/api/wire"
 )
 
+func TestSketchProjectCutEdgesSendsSketchIndex(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"created":[3,4],"healthy":true}`)}
+	c := New(ft)
+
+	got, err := c.Sketch().ProjectCutEdges(2)
+	if err != nil {
+		t.Fatalf("ProjectCutEdges: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchProjectCutEdges {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchProjectCutEdges)
+	}
+	var sent wire.ProjectCutEdgesArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.SketchIndex != 2 || len(got.Created) != 2 {
+		t.Errorf("sent=%+v got=%+v, want sketch 2 / 2 created", sent, got)
+	}
+}
+
+func TestSketchProjectSilhouetteSendsFaceRefAndProximity(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"created":[7],"healthy":true}`)}
+	c := New(ft)
+
+	if _, err := c.Sketch().ProjectSilhouette(0, "face-key", []float64{1, 2, 3}, true); err != nil {
+		t.Fatalf("ProjectSilhouette: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchProjectSilhouette {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchProjectSilhouette)
+	}
+	var sent wire.ProjectSilhouetteArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.FaceRef != "face-key" || len(sent.ProximityPoint) != 3 || sent.ProximityPoint[2] != 3 || !sent.IncludeBoundary {
+		t.Errorf("sent = %+v, want face-key / proximity [1,2,3] / includeBoundary", sent)
+	}
+}
+
 func TestSketchSetLineTypeSendsPropertyAndValue(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"index":0,"name":"Sketch1","plane":"XY","lineType":"center"}`)}
 	c := New(ft)
