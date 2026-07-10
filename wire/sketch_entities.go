@@ -25,6 +25,13 @@ type AddSketchEntityArgs struct {
 	Radius       string     `json:"radius,omitempty"`
 	CCW          bool       `json:"ccw,omitempty"`
 	Construction bool       `json:"construction,omitempty"`
+	// Centerline marks a line as the sketch's axis of revolution — Inventor's "revolve about
+	// the sketch centerline". It implies Construction (a centerline is reference geometry that
+	// is never part of a profile). A revolve with no explicit axis spins about the sketch's
+	// single centerline; two centerlines in one sketch are ambiguous. Only meaningful for the
+	// line kind. Added so procedural add-ins can revolve a profile about an internal, tilted
+	// axis (e.g. a tapered-roller domed body) without an external work axis.
+	Centerline bool `json:"centerline,omitempty"`
 
 	// Conic fields (ellipse / ellipticalArc): Points[0] is the center, Axis is the
 	// major-axis direction [x,y], MajorRadius/MinorRadius are unit-bearing lengths, and
