@@ -88,10 +88,15 @@ type BendPart struct {
 // Kind reports the feature kind BendPart creates.
 func (BendPart) Kind() string { return KindBendPart }
 
-// ReplaceFace replaces picked faces with another face's surface (KindReplaceFace).
+// ReplaceFace replaces picked faces with new face geometry (KindReplaceFace). NewFaceRefs is the
+// #1886 replacement set — each entry is a planar face key, a work plane ("plane/N",
+// "origin/plane/xy"), and the faces may come from different bodies; each picked face is retrimmed
+// onto its nearest new face. TargetRef is the legacy single same-body target (kept associative);
+// NewFaceRefs takes precedence when present.
 type ReplaceFace struct {
-	FaceRefs  []string `json:"faceRefs"`
-	TargetRef string   `json:"targetRef"`
+	FaceRefs    []string `json:"faceRefs"`
+	TargetRef   string   `json:"targetRef,omitempty"`
+	NewFaceRefs []string `json:"newFaceRefs,omitempty"`
 }
 
 // Kind reports the feature kind ReplaceFace creates.
