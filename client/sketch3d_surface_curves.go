@@ -81,6 +81,21 @@ func (s Sketch3D) AddProjectToSurfaceCurveAlongVector(index int, sourceEntityID 
 	})
 }
 
+// AddProjectToSurfaceCurveWrap wraps the source curve onto the face preserving arc length, using
+// the work plane (by reference key) as the flattening frame: the plane's origin and in-plane axes
+// flatten the source, and its planar displacement becomes an equal on-surface arc length along the
+// face's parameters (Inventor kWrapToSurfaceType / MapPointCurve; #1841).
+func (s Sketch3D) AddProjectToSurfaceCurveWrap(index int, sourceEntityID uint64, face, wrapPlaneRef string) (wire.AddSketch3DSurfaceCurveResult, error) {
+	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
+		SketchIndex:    index,
+		Kind:           string(types.Sketch3DEntityProjectToSurface),
+		FaceRefs:       []string{face},
+		SourceEntityID: sourceEntityID,
+		ProjectionType: types.ProjectWrapToSurface.String(),
+		WrapPlaneRef:   wrapPlaneRef,
+	})
+}
+
 // AddOffsetCurve offsets an in-sketch source curve (by entity id) by distance in the plane
 // with the given normal [x,y,z] (offset direction = normal × tangent).
 func (s Sketch3D) AddOffsetCurve(index int, sourceEntityID uint64, distance float64, normal []float64) (wire.AddSketch3DSurfaceCurveResult, error) {

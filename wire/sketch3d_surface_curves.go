@@ -27,10 +27,13 @@ type AddSketch3DSurfaceCurveArgs struct {
 	UV       []float64 `json:"uv,omitempty"`
 	// ProjectionType selects how a projectToSurface curve maps onto the face
 	// ([oblikovati.org/api/types.ProjectCurveToSurfaceType] spelling: closestPoint | alongVector |
-	// wrap; empty ⇒ closestPoint). ProjectDirection ([x,y,z]) is the ray direction for alongVector
-	// (#1841).
+	// wrap; empty ⇒ closestPoint). ProjectDirection ([x,y,z]) is the ray direction for alongVector.
+	// WrapPlaneRef is the work-plane reference key supplying the flattening frame for the wrap
+	// projection — its origin and in-plane X/Y axes flatten the source curve, which is then wrapped
+	// onto the face preserving arc length (kWrapToSurfaceType / MapPointCurve; #1841).
 	ProjectionType   string    `json:"projectionType,omitempty"`
 	ProjectDirection []float64 `json:"projectDirection,omitempty"`
+	WrapPlaneRef     string    `json:"wrapPlaneRef,omitempty"`
 	SourceEntityID   uint64    `json:"sourceEntityId,omitempty"`
 	OffsetDistance   float64   `json:"offsetDistance,omitempty"`
 	Normal           []float64 `json:"normal,omitempty"`
