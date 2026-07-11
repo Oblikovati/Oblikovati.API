@@ -22,11 +22,19 @@ const (
 	KindFitSurface     = "fitSurface"
 )
 
-// BoundaryPatch fills a closed sketch loop with a surface patch (KindBoundaryPatch).
+// BoundaryPatch fills a closed loop with a surface patch (KindBoundaryPatch). The loop is either a
+// planar sketch profile (SketchIndex/ProfileIndex) or a non-planar 3D edge loop taken from existing
+// surface-body edges (EdgeLoopRefs — reference keys of the boundary edges, #1867). Condition is the
+// continuity the patch holds to the faces adjacent to the loop: free (G0), tangent (G1), or
+// curvature (G2, alias "continuous"); tangent/curvature blend the patch into those faces. GuideRailRefs
+// are optional interior curves the patch must interpolate; TangentWeight scales the tangent pull.
 type BoundaryPatch struct {
-	SketchIndex  int    `json:"sketchIndex"`
-	ProfileIndex int    `json:"profileIndex"`
-	Condition    string `json:"condition,omitempty"`
+	SketchIndex   int      `json:"sketchIndex"`
+	ProfileIndex  int      `json:"profileIndex"`
+	Condition     string   `json:"condition,omitempty"`
+	EdgeLoopRefs  []string `json:"edgeLoopRefs,omitempty"`
+	GuideRailRefs []string `json:"guideRailRefs,omitempty"`
+	TangentWeight float64  `json:"tangentWeight,omitempty"`
 }
 
 // Kind reports the feature kind BoundaryPatch creates.
