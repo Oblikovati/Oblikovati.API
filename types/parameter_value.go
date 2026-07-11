@@ -18,10 +18,17 @@ package types
 // `t != Tolerance{}` has-explicit-tolerance check keeps working. Which value within the band
 // the model consumes is the parameter's [ModelValueType] (the reference API splits
 // Tolerance.ToleranceType from Parameter.ModelValueType).
+//
+// HoleTolerance and ShaftTolerance are the ISO limits-and-fits class strings (e.g. "H7",
+// "g6") for a fits tolerance (parity: Tolerance.HoleTolerance/ShaftTolerance, #1848); they
+// are empty for the non-fits flavors. Both are plain comparable strings, so Tolerance stays
+// comparable (the `t != Tolerance{}` guard is preserved).
 type Tolerance struct {
-	Type  ToleranceType
-	Upper float64
-	Lower float64
+	Type           ToleranceType
+	Upper          float64
+	Lower          float64
+	HoleTolerance  string
+	ShaftTolerance string
 }
 
 // Kind returns the tolerance flavor, mapping the zero value to ToleranceDefault.

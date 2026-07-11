@@ -19,3 +19,16 @@ func TestToleranceKind(t *testing.T) {
 		t.Error("an explicit tolerance must not equal the zero value")
 	}
 }
+
+// TestToleranceFitsStaysComparable: a fits tolerance carries its ISO class strings and
+// still compares by value against the zero guard (#1848 — the struct must stay comparable
+// so `t != Tolerance{}` keeps distinguishing an explicit tolerance).
+func TestToleranceFitsStaysComparable(t *testing.T) {
+	fit := Tolerance{Type: ToleranceLimitsFitsStacked, Upper: 0.0025, HoleTolerance: "H7", ShaftTolerance: "g6"}
+	if fit == (Tolerance{}) {
+		t.Error("a fits tolerance must not equal the zero value")
+	}
+	if fit != (Tolerance{Type: ToleranceLimitsFitsStacked, Upper: 0.0025, HoleTolerance: "H7", ShaftTolerance: "g6"}) {
+		t.Error("identical fits tolerances must compare equal (struct stays comparable)")
+	}
+}
