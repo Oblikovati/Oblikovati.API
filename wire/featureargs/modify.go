@@ -49,11 +49,19 @@ type Thicken struct {
 // Kind reports the feature kind Thicken creates.
 func (Thicken) Kind() string { return KindThicken }
 
-// Trim trims the body with a cutting plane, keeping one half (KindTrim).
+// Trim trims a surface body with a cutting tool, keeping one side (KindTrim). The tool is one of:
+// an explicit plane (Origin+Normal), a work plane / planar face (ToolRef), a planar surface body
+// (ToolBodyIndex), or a straight sketch line (ToolSketchIndex+ToolLineIndex — the line swept along
+// its sketch normal). KeepPositive selects the kept side. Curved tool surfaces / curved sketch
+// curves and multi-region selection are phase C (#1880).
 type Trim struct {
-	Origin       []float64 `json:"origin"`
-	Normal       []float64 `json:"normal"`
-	KeepPositive bool      `json:"keepPositive,omitempty"`
+	Origin          []float64 `json:"origin,omitempty"`
+	Normal          []float64 `json:"normal,omitempty"`
+	KeepPositive    bool      `json:"keepPositive,omitempty"`
+	ToolRef         string    `json:"toolRef,omitempty"`
+	ToolBodyIndex   *int      `json:"toolBodyIndex,omitempty"`
+	ToolSketchIndex *int      `json:"toolSketchIndex,omitempty"`
+	ToolLineIndex   int       `json:"toolLineIndex,omitempty"`
 }
 
 // Kind reports the feature kind Trim creates.
