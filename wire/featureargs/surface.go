@@ -98,9 +98,22 @@ type Stitch struct {
 func (Stitch) Kind() string { return KindStitch }
 
 // Sculpt combines surfaces and solids into a sculpted body (KindSculpt).
+// SculptSurface is one bounding surface of a sculpt: the surface body (by index) and the direction
+// (positive|negative) naming which side of it faces the enclosed volume (#1881).
+type SculptSurface struct {
+	BodyIndex int    `json:"bodyIndex"`
+	Direction string `json:"direction,omitempty"`
+}
+
+// Sculpt fills the volume bounded by surface bodies into a solid (KindSculpt). Without Surfaces it
+// welds all running bounding surfaces (a closed quilt); with Surfaces it uses the listed bounding
+// surfaces and their per-surface directions to close open surfaces (#1881). AffectedBodyIndex is the
+// join/cut target (default the last solid).
 type Sculpt struct {
-	Operation string `json:"operation,omitempty"`
-	Tolerance string `json:"tolerance,omitempty"`
+	Operation         string          `json:"operation,omitempty"`
+	Tolerance         string          `json:"tolerance,omitempty"`
+	Surfaces          []SculptSurface `json:"surfaces,omitempty"`
+	AffectedBodyIndex *int            `json:"affectedBodyIndex,omitempty"`
 }
 
 // Kind reports the feature kind Sculpt creates.
