@@ -51,10 +51,18 @@ type SurfaceOffset struct {
 // Kind reports the feature kind SurfaceOffset creates.
 func (SurfaceOffset) Kind() string { return KindSurfaceOffset }
 
-// Extend extends a surface body past a picked edge (KindExtend).
+// Extend extends a surface body past its boundary edges (KindExtend). EdgeRefs is the #1878
+// multi-edge set (EdgeRef is the legacy single edge, read when EdgeRefs is empty). ExtentType
+// distance grows by Distance; toPlane/toObject grows each edge until it reaches TargetRef (a work
+// plane or planar face). ExtensionType natural|stretched selects the continuity mode (they coincide
+// for the planar faces supported today; natural bites on the curved-surface extend).
 type Extend struct {
-	EdgeRef  string `json:"edgeRef"`
-	Distance string `json:"distance"`
+	EdgeRef       string   `json:"edgeRef,omitempty"`
+	EdgeRefs      []string `json:"edgeRefs,omitempty"`
+	Distance      string   `json:"distance,omitempty"`
+	ExtentType    string   `json:"extentType,omitempty"`
+	TargetRef     string   `json:"targetRef,omitempty"`
+	ExtensionType string   `json:"extensionType,omitempty"`
 }
 
 // Kind reports the feature kind Extend creates.
