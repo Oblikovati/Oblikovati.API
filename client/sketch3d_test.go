@@ -409,6 +409,22 @@ func TestSketch3DAddProjectToSurfaceCurveSendsSource(t *testing.T) {
 	if sent.Kind != "projectToSurface" || sent.SourceEntityID != 7 || len(sent.FaceRefs) != 1 {
 		t.Errorf("sent = %+v, want projectToSurface of source 7 onto one face", sent)
 	}
+	if sent.ProjectionType != "" {
+		t.Errorf("closest-point AddProjectToSurfaceCurve set projectionType = %q, want it omitted", sent.ProjectionType)
+	}
+}
+
+func TestSketch3DAddProjectToSurfaceCurveAlongVectorSendsDirection(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":15,"kind":"projectToSurface","healthy":true}`)}
+	c := New(ft)
+	if _, err := c.Sketch3D().AddProjectToSurfaceCurveAlongVector(0, 7, "faceA", []float64{0, 0, -1}); err != nil {
+		t.Fatalf("AddProjectToSurfaceCurveAlongVector: %v", err)
+	}
+	var sent wire.AddSketch3DSurfaceCurveArgs
+	_ = json.Unmarshal(ft.gotReq, &sent)
+	if sent.ProjectionType != "alongVector" || len(sent.ProjectDirection) != 3 || sent.ProjectDirection[2] != -1 {
+		t.Errorf("sent = %+v, want alongVector with direction [0,0,-1]", sent)
+	}
 }
 
 func TestSketch3DAddOffsetCurveSendsDistance(t *testing.T) {

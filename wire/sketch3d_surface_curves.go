@@ -22,18 +22,24 @@ type AddSketch3DSurfaceCurveArgs struct {
 	// WorkRefs are work-plane reference keys usable as intersection operands alongside FaceRefs
 	// (Inventor IntersectionCurves.Add accepts any two entities; #1854). An intersection takes two
 	// operands total across FaceRefs+WorkRefs; a work plane contributes its infinite plane surface.
-	WorkRefs       []string  `json:"workRefs,omitempty"`
-	ViewDir        []float64 `json:"viewDir,omitempty"`
-	UV             []float64 `json:"uv,omitempty"`
-	SourceEntityID uint64    `json:"sourceEntityId,omitempty"`
-	OffsetDistance float64   `json:"offsetDistance,omitempty"`
-	Normal         []float64 `json:"normal,omitempty"`
-	GridUMin       float64   `json:"gridUMin,omitempty"`
-	GridUMax       float64   `json:"gridUMax,omitempty"`
-	GridVMin       float64   `json:"gridVMin,omitempty"`
-	GridVMax       float64   `json:"gridVMax,omitempty"`
-	GridUSteps     int       `json:"gridUSteps,omitempty"`
-	GridVSteps     int       `json:"gridVSteps,omitempty"`
+	WorkRefs []string  `json:"workRefs,omitempty"`
+	ViewDir  []float64 `json:"viewDir,omitempty"`
+	UV       []float64 `json:"uv,omitempty"`
+	// ProjectionType selects how a projectToSurface curve maps onto the face
+	// ([oblikovati.org/api/types.ProjectCurveToSurfaceType] spelling: closestPoint | alongVector |
+	// wrap; empty ⇒ closestPoint). ProjectDirection ([x,y,z]) is the ray direction for alongVector
+	// (#1841).
+	ProjectionType   string    `json:"projectionType,omitempty"`
+	ProjectDirection []float64 `json:"projectDirection,omitempty"`
+	SourceEntityID   uint64    `json:"sourceEntityId,omitempty"`
+	OffsetDistance   float64   `json:"offsetDistance,omitempty"`
+	Normal           []float64 `json:"normal,omitempty"`
+	GridUMin         float64   `json:"gridUMin,omitempty"`
+	GridUMax         float64   `json:"gridUMax,omitempty"`
+	GridVMin         float64   `json:"gridVMin,omitempty"`
+	GridVMax         float64   `json:"gridVMax,omitempty"`
+	GridUSteps       int       `json:"gridUSteps,omitempty"`
+	GridVSteps       int       `json:"gridVSteps,omitempty"`
 }
 
 // AddSketch3DSurfaceCurveResult is the response of [MethodSketch3DAddSurfaceCurve]: the
