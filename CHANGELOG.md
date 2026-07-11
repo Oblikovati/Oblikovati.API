@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.144.0] - 2026-07-11
+
+### Added
+
+- feat(surface): boundary-patch 3D edge loop, curvature, guide rails (#1867) (#274)
+
 ## [0.143.0] - 2026-07-11
 
 ### Added
@@ -1137,7 +1143,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.143.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...HEAD
+[0.144.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.143.0...v0.144.0
 [0.143.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.5...v0.143.0
 [0.142.5]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.4...v0.142.5
 [0.142.4]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.3...v0.142.4
