@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.139.0] - 2026-07-11
+
+### Added
+
+- feat(sketch3d): project-to-surface projection type + direction (#1841 part 1) (#264)
+
 ## [0.138.0] - 2026-07-10
 
 ### Added
@@ -1077,7 +1083,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.138.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.139.0...HEAD
+[0.139.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.138.0...v0.139.0
 [0.138.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.137.0...v0.138.0
 [0.137.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.136.0...v0.137.0
 [0.136.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.135.0...v0.136.0
