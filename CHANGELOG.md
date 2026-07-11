@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.142.2] - 2026-07-11
+
+### Fixed
+
+- featureargs: Extend multi-edge / to-plane / extension type (#1878) (#269)
+
 ## [0.142.1] - 2026-07-11
 
 ### Fixed
@@ -1107,7 +1113,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.2...HEAD
+[0.142.2]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.1...v0.142.2
 [0.142.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.0...v0.142.1
 [0.142.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.141.0...v0.142.0
 [0.141.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.140.0...v0.141.0
