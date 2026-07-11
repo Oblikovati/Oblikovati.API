@@ -32,12 +32,18 @@ type BoundaryPatch struct {
 // Kind reports the feature kind BoundaryPatch creates.
 func (BoundaryPatch) Kind() string { return KindBoundaryPatch }
 
-// RuledSurface sweeps straight rulings off a profile into a surface (KindRuledSurface).
+// RuledSurface sweeps straight rulings off a profile into a surface (KindRuledSurface). Type selects
+// the ruling convention: normal (along the profile-plane normal, the default), sweep (along the
+// explicit Direction vector), or tangent (tangent to the adjacent face — phase C, not yet built).
+// DraftAngle flares each ruling radially outward; Flip reverses the ruling side (#1868).
 type RuledSurface struct {
-	SketchIndex  int    `json:"sketchIndex"`
-	ProfileIndex int    `json:"profileIndex"`
-	Type         string `json:"type,omitempty"`
-	Distance     string `json:"distance"`
+	SketchIndex  int       `json:"sketchIndex"`
+	ProfileIndex int       `json:"profileIndex"`
+	Type         string    `json:"type,omitempty"`
+	Distance     string    `json:"distance"`
+	Direction    []float64 `json:"direction,omitempty"`
+	DraftAngle   string    `json:"draftAngle,omitempty"`
+	Flip         bool      `json:"flip,omitempty"`
 }
 
 // Kind reports the feature kind RuledSurface creates.
