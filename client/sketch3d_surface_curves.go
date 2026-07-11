@@ -58,13 +58,26 @@ func (s Sketch3D) AddOnFaceCurve(index int, face string, uv []float64) (wire.Add
 }
 
 // AddProjectToSurfaceCurve projects an in-sketch source curve (by entity id) onto a part
-// face (by reference key).
+// face (by reference key) to the closest point on the surface (the default projection).
 func (s Sketch3D) AddProjectToSurfaceCurve(index int, sourceEntityID uint64, face string) (wire.AddSketch3DSurfaceCurveResult, error) {
 	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
 		SketchIndex:    index,
 		Kind:           string(types.Sketch3DEntityProjectToSurface),
 		FaceRefs:       []string{face},
 		SourceEntityID: sourceEntityID,
+	})
+}
+
+// AddProjectToSurfaceCurveAlongVector projects the source curve onto the face along the ray
+// direction [x,y,z] instead of to the closest point (#1841).
+func (s Sketch3D) AddProjectToSurfaceCurveAlongVector(index int, sourceEntityID uint64, face string, direction []float64) (wire.AddSketch3DSurfaceCurveResult, error) {
+	return s.AddSurfaceCurve(wire.AddSketch3DSurfaceCurveArgs{
+		SketchIndex:      index,
+		Kind:             string(types.Sketch3DEntityProjectToSurface),
+		FaceRefs:         []string{face},
+		SourceEntityID:   sourceEntityID,
+		ProjectionType:   types.ProjectAlongVector.String(),
+		ProjectDirection: direction,
 	})
 }
 
