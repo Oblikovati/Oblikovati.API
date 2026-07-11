@@ -94,6 +94,13 @@ type CustomPropertyFormatInfo struct {
 // database units; DisplayFormat and ModelValueType carry the wire spellings of
 // types.ParameterDisplayFormat and types.ModelValueType. Tolerance is nil for
 // text and true/false parameters.
+//
+// BuiltIn, Renamed and DisabledActionTypes are the read-only introspection
+// members (#1853): BuiltIn is true for an auto-generated feature-dimension
+// parameter (d0, d1, …) versus an API/user-created one — what a converter reads
+// to decide whether a model parameter is worth exporting; Renamed is true when a
+// model parameter was renamed from its generated name; DisabledActionTypes lists
+// the edit actions restricted on the parameter (types.ActionType.Names()).
 type ParameterDetail struct {
 	ParameterInfo
 	Units                string                    `json:"units,omitempty"`
@@ -104,6 +111,9 @@ type ParameterDetail struct {
 	Precision            int                       `json:"precision"`
 	DisplayFormat        string                    `json:"displayFormat"`
 	ExposedAsProperty    bool                      `json:"exposedAsProperty,omitempty"`
+	BuiltIn              bool                      `json:"builtIn,omitempty"`
+	Renamed              bool                      `json:"renamed,omitempty"`
+	DisabledActionTypes  []string                  `json:"disabledActionTypes,omitempty"`
 	ModelValue           float64                   `json:"modelValue"`
 	ModelValueType       string                    `json:"modelValueType"`
 	Tolerance            *ToleranceInfo            `json:"tolerance,omitempty"`
@@ -116,7 +126,9 @@ type ParameterDetail struct {
 // ParameterUpdateArgs is the request of [MethodParametersUpdate]: presentation
 // and exposure mutations for one parameter. Nil fields are left unchanged.
 // DisplayFormat and ModelValueType take wire spellings; CustomPropertyFormat
-// replaces the whole format when present.
+// replaces the whole format when present. DisabledActionTypes, when present,
+// replaces the whole disabled-action mask with the given list of action
+// spellings (types.ActionType.Names(); an empty list clears it) — #1853.
 type ParameterUpdateArgs struct {
 	Name                 string                    `json:"name"`
 	Comment              *string                   `json:"comment,omitempty"`
@@ -126,6 +138,7 @@ type ParameterUpdateArgs struct {
 	DisplayFormat        *string                   `json:"displayFormat,omitempty"`
 	ExposedAsProperty    *bool                     `json:"exposedAsProperty,omitempty"`
 	ModelValueType       *string                   `json:"modelValueType,omitempty"`
+	DisabledActionTypes  *[]string                 `json:"disabledActionTypes,omitempty"`
 	CustomPropertyFormat *CustomPropertyFormatInfo `json:"customPropertyFormat,omitempty"`
 }
 
