@@ -68,9 +68,21 @@ type Extend struct {
 // Kind reports the feature kind Extend creates.
 func (Extend) Kind() string { return KindExtend }
 
-// MidSurface builds the mid-surface between thin-wall face pairs up to MaxThickness (KindMidSurface).
+// FacePair is one manual mid-surface face pairing by reference key (#1885).
+type FacePair struct {
+	A string `json:"a"`
+	B string `json:"b"`
+}
+
+// MidSurface builds mid-surfaces between thin-wall face pairs (KindMidSurface). Auto-pairing takes
+// pairs whose separation is within [MinThickness, MaxThickness] on the selected BodyIndices
+// (default the last body); FacePairs instead pairs the named faces explicitly (ribs/bosses where
+// auto-pairing fails). Each pair's min/max thickness range is reported on the result (#1885).
 type MidSurface struct {
-	MaxThickness string `json:"maxThickness"`
+	MaxThickness string     `json:"maxThickness,omitempty"`
+	MinThickness string     `json:"minThickness,omitempty"`
+	BodyIndices  []int      `json:"bodyIndices,omitempty"`
+	FacePairs    []FacePair `json:"facePairs,omitempty"`
 }
 
 // Kind reports the feature kind MidSurface creates.
