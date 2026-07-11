@@ -28,11 +28,22 @@ type Combine struct {
 // Kind reports the feature kind Combine creates.
 func (Combine) Kind() string { return KindCombine }
 
-// Thicken thickens a surface body into a solid (KindThicken). Approximation is accepted for #331
-// parity; the kernel computes the exact offset.
+// Thicken thickens a surface body into a solid — or, with Operation surface, offsets it as a
+// surface (KindThicken). Direction (positive|negative|symmetric, default positive per Inventor)
+// picks the offset side(s); Operation (join|cut|intersect|surface) picks the output; FaceRefs
+// thickens a subset (empty = whole body); CreateVerticalSurfaces (default true) closes subset
+// boundaries with side walls. AutomaticFaceChain / AutomaticBlending are accepted for parity but,
+// since selection is explicit, are not geometrically applied. Approximation is accepted for #331
+// parity; the kernel computes the exact offset (#1876).
 type Thicken struct {
-	Thickness     string `json:"thickness"`
-	Approximation string `json:"approximation,omitempty"`
+	Thickness              string   `json:"thickness"`
+	Approximation          string   `json:"approximation,omitempty"`
+	Direction              string   `json:"direction,omitempty"`
+	Operation              string   `json:"operation,omitempty"`
+	FaceRefs               []string `json:"faceRefs,omitempty"`
+	CreateVerticalSurfaces *bool    `json:"createVerticalSurfaces,omitempty"`
+	AutomaticFaceChain     bool     `json:"automaticFaceChain,omitempty"`
+	AutomaticBlending      bool     `json:"automaticBlending,omitempty"`
 }
 
 // Kind reports the feature kind Thicken creates.
@@ -71,9 +82,13 @@ type FaceOffset struct {
 // Kind reports the feature kind FaceOffset creates.
 func (FaceOffset) Kind() string { return KindFaceOffset }
 
-// DeleteFace deletes picked faces, healing the body (KindDeleteFace).
+// DeleteFace deletes picked faces (KindDeleteFace). Heal (default false, matching Inventor's
+// DeleteFaceFeatures.Add) extends the neighbouring faces to close the opening; when false the
+// faces are removed leaving an open surface body. Selecting the faces of an internal void shell
+// instead removes that void and restores mass (the FaceShell arm) (#1884).
 type DeleteFace struct {
 	FaceRefs []string `json:"faceRefs"`
+	Heal     bool     `json:"heal,omitempty"`
 }
 
 // Kind reports the feature kind DeleteFace creates.
