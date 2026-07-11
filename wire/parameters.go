@@ -59,11 +59,15 @@ type ParameterConvertArgs struct {
 
 // ToleranceInfo is the JSON shape of a parameter's engineering tolerance: its
 // type spelling (types.ToleranceType.String()) and the deviation band from the
-// nominal value, in database units.
+// nominal value, in database units. HoleTolerance/ShaftTolerance carry the ISO
+// limits-and-fits class strings (e.g. "H7"/"g6") for a fits tolerance, empty
+// otherwise (#1848).
 type ToleranceInfo struct {
-	Type  string  `json:"type"`
-	Upper float64 `json:"upper,omitempty"`
-	Lower float64 `json:"lower,omitempty"`
+	Type           string  `json:"type"`
+	Upper          float64 `json:"upper,omitempty"`
+	Lower          float64 `json:"lower,omitempty"`
+	HoleTolerance  string  `json:"holeTolerance,omitempty"`
+	ShaftTolerance string  `json:"shaftTolerance,omitempty"`
 }
 
 // ExpressionListInfo is the JSON shape of a parameter's multi-value choices.
@@ -143,16 +147,24 @@ type ParameterUpdateArgs struct {
 }
 
 // ParameterToleranceArgs is the request of [MethodParametersSetTolerance].
-// Mode is one of "default", "deviation", "symmetric", "limits", "min", "max".
-// Upper/Lower are unit-bearing expressions in the parameter's unit (e.g.
-// "0.1 mm"): deviation takes both as deviations from nominal, symmetric takes
-// Upper as the ± band, limits takes both as absolute limit values, and the
-// remaining modes take none.
+// Mode is one of "default", "deviation", "symmetric", "limits", "min", "max",
+// "fits", "basic", "reference". Upper/Lower are unit-bearing expressions in the
+// parameter's unit (e.g. "0.1 mm"): deviation takes both as deviations from
+// nominal, symmetric takes Upper as the ± band, limits takes both as absolute
+// limit values, and the remaining modes take none.
+//
+// Hole/Shaft are ISO limits-and-fits class strings (e.g. "H7"/"g6") for the
+// "fits" mode (#1848): at least one is required. The class matching the
+// dimensioned feature drives the band — the Hole class when present, else the
+// Shaft class (hole-basis convention) — and both strings are recorded for the
+// fit annotation. "basic" and "reference" take no operands (zero band).
 type ParameterToleranceArgs struct {
 	Name  string `json:"name"`
 	Mode  string `json:"mode"`
 	Upper string `json:"upper,omitempty"`
 	Lower string `json:"lower,omitempty"`
+	Hole  string `json:"hole,omitempty"`
+	Shaft string `json:"shaft,omitempty"`
 }
 
 // ParameterExpressionListArgs is the request of [MethodParametersSetExpressionList].
