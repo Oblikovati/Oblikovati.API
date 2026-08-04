@@ -73,6 +73,12 @@ func NewColor(r, g, b uint8) Color {
 	return Color{R: r, G: g, B: b, Opacity: 1, Source: OverrideColorSource}
 }
 
+// IsOverride reports whether the colour is an explicit per-object override rather than an
+// inherited one (automatic, layer or sheet). Callers storing optional colour overrides use it as
+// the "is this set?" test, so the meaning of automatic lives in one place — and so the zero Color,
+// whose Source is 0 and therefore not a member of the enum, never reads as set.
+func (c Color) IsOverride() bool { return c.Source == OverrideColorSource }
+
 // Rgba converts to the renderer's [Rgba] (float32 channels in [0,1], Opacity → alpha), so a
 // Color crosses to the draw path without a bespoke conversion at every call site.
 func (c Color) Rgba() Rgba {
