@@ -769,6 +769,12 @@ const (
 	// boundary can still adapt to minor/patch differences.
 	MethodApplicationApiVersion = "application.apiVersion"
 
+	// In-canvas sketch input configuration (Oblikovati/Oblikovati#2014): the pointer-input
+	// and dimension-input boxes shown while geometry is placed, and whether a typed value
+	// becomes a persistent driving dimension.
+	MethodApplicationGetHUDOptions = "application.getHudOptions"
+	MethodApplicationSetHUDOptions = "application.setHudOptions"
+
 	// External client applications driving the session (M05-F01, #245).
 	MethodClientAppsRegister   = "clientApps.register"
 	MethodClientAppsUnregister = "clientApps.unregister"
