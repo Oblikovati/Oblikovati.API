@@ -188,8 +188,10 @@ const (
 	MethodSketchAddConstraint    = "sketch.addConstraint"
 	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
 
-	MethodSketchAddDimension   = "sketch.addDimension"
-	MethodSketchDriveDimension = "sketch.driveDimension"
+	MethodSketchAddDimension    = "sketch.addDimension"
+	MethodSketchDriveDimension  = "sketch.driveDimension"
+	MethodSketchDeleteDimension = "sketch.deleteDimension"
+	MethodSketchMoveDimension   = "sketch.moveDimension"
 
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"

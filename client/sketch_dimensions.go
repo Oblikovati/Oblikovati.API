@@ -94,6 +94,31 @@ func (g Dimension) SetLimits(dimensionIndex int, min, max float64) (wire.OKResul
 	return g.edit(wire.DriveDimensionArgs{SketchIndex: g.index, DimensionIndex: dimensionIndex, SetLimits: true, Min: min, Max: max})
 }
 
+// Delete removes the dimension at dimensionIndex, freeing the degree of freedom it held and
+// dropping its backing parameter with it. Returns the sketch's resulting DOF.
+//
+// Example: sk.Dimensions().Delete(0) drops a sketch's first dimension, after which the geometry
+// it constrained is free to move again.
+//
+// mcp:tool delete_sketch_dimension
+// mcp:summary Remove a sketch dimension, freeing the degree of freedom it held.
+func (g Dimension) Delete(dimensionIndex int) (wire.DeleteSketchDimensionResult, error) {
+	args := wire.DeleteSketchDimensionArgs{SketchIndex: g.index, DimensionIndex: dimensionIndex}
+	return call[wire.DeleteSketchDimensionResult](g.c, wire.MethodSketchDeleteDimension, args)
+}
+
+// Move places a dimension's annotation text at (x, y), a sketch-plane point in centimetres. It
+// moves the annotation only — the geometry being measured and the sketch's DOF are untouched.
+//
+// Example: sk.Dimensions().Move(0, 2, 5) lifts the first dimension's text clear of the geometry.
+//
+// mcp:tool move_sketch_dimension
+// mcp:summary Move a sketch dimension's annotation text to a sketch-plane point, without moving geometry.
+func (g Dimension) Move(dimensionIndex int, x, y float64) (wire.OKResult, error) {
+	args := wire.MoveSketchDimensionArgs{SketchIndex: g.index, DimensionIndex: dimensionIndex, TextPoint: []float64{x, y}}
+	return call[wire.OKResult](g.c, wire.MethodSketchMoveDimension, args)
+}
+
 // mcp:tool drive_sketch_dimension
 // mcp:summary Change a dimension's expression (and optionally its driven flag / animation limits) and recompute.
 func (g Dimension) edit(args wire.DriveDimensionArgs) (wire.OKResult, error) {
