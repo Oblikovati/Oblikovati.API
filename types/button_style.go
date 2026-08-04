@@ -21,11 +21,16 @@ const (
 	// CompactIconButton shows a small (16px) icon only, no label — dense tool grids
 	// like the sketch constraint palette, where the glyph is the whole affordance.
 	CompactIconButton ButtonStyle = 3
+	// SelectionListButton renders as a dropdown showing the current value with a preview — a
+	// dash pattern, a colour swatch, a stroke sample — rather than a menu of commands. It is
+	// the sketch Format panel's line type, colour and thickness lists, where a value is picked
+	// by seeing it (Oblikovati/Oblikovati#2015).
+	SelectionListButton ButtonStyle = 4
 )
 
 var buttonStyleNames = map[ButtonStyle]string{
 	TextOnlyButton: "text", SmallIconButton: "small-icon", LargeIconButton: "large-icon",
-	CompactIconButton: "compact-icon",
+	CompactIconButton: "compact-icon", SelectionListButton: "selection-list",
 }
 
 // String returns the style's stable name.
