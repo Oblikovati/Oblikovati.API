@@ -8,6 +8,19 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.145.0] - 2026-08-04
+
+### Added
+
+- feat(wire): a view's projection on the camera frame (#2019 follow-up)
+- feat(wire): revolve sweep direction (#2019)
+- feat(wire): delete and move a sketch dimension (#2017)
+- feat(wire): auto-project origin option in the sketch option group (#2016)
+- feat(types): sketch entity format and Format-panel modes (#2015)
+- feat(types): SelectionListButton ribbon style (#2015)
+- feat(types): Color.IsOverride for optional colour overrides (#2015)
+- feat(types): heads-up display options for in-canvas sketch input (#2014)
+
 ## [0.144.0] - 2026-07-11
 
 ### Added
@@ -1143,7 +1156,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.0...HEAD
+[0.145.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...v0.145.0
 [0.144.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.143.0...v0.144.0
 [0.143.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.5...v0.143.0
 [0.142.5]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.4...v0.142.5
