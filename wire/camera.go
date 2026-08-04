@@ -21,6 +21,11 @@ type CameraView struct {
 	Target types.Point  `json:"target"`
 	Up     types.Vector `json:"up"`
 	FOV    float64      `json:"fov"`
+	// Projection is how the view projects: orthographic (parallel), perspective, or perspective
+	// with orthographic view-cube faces. It is a property of the VIEW, not of the look-at frame,
+	// and was previously reachable only as the global new-window default — so a client could not
+	// tell whether what it captured was foreshortened.
+	Projection types.ProjectionTypeEnum `json:"projection,omitempty"`
 }
 
 // SetCameraArgs is the request of [MethodViewSetCamera]: the camera frame to apply, plus
@@ -37,6 +42,9 @@ type SetCameraArgs struct {
 	Target types.Point  `json:"target"`
 	Up     types.Vector `json:"up"`
 	FOV    float64      `json:"fov"`
+	// Projection changes how the view projects. Omit (0) to leave it as it is — a caller moving
+	// the camera should not have to restate the projection to keep it.
+	Projection types.ProjectionTypeEnum `json:"projection,omitempty"`
 }
 
 // GetCameraArgs is the request of [MethodViewGetCamera]: which document's active-view

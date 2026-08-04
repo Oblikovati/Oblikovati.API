@@ -51,6 +51,32 @@ type AddDimensionResult struct {
 	DOF       int     `json:"dof"`
 }
 
+// DeleteSketchDimensionArgs is the request of [MethodSketchDeleteDimension]: which dimension, by its
+// index in the sketch's dimensional-constraint collection, to remove. Deleting a dimension frees
+// the degree of freedom it held and drops its backing parameter with it, so any expression
+// referring to that parameter must be rewritten first. #2017.
+type DeleteSketchDimensionArgs struct {
+	SketchIndex    int `json:"sketchIndex"`
+	DimensionIndex int `json:"dimensionIndex"`
+}
+
+// DeleteSketchDimensionResult is the response of [MethodSketchDeleteDimension]: the sketch's degrees of
+// freedom after the removal, so a caller can confirm the constraint it dropped was the one holding
+// the DOF it meant to free.
+type DeleteSketchDimensionResult struct {
+	DOF int `json:"dof"`
+}
+
+// MoveSketchDimensionArgs is the request of [MethodSketchMoveDimension]: where to place a dimension's
+// annotation text, as an [x,y] sketch-plane point in centimetres. This is the same placement
+// [AddDimensionArgs.TextPoint] sets at create time and that dragging the label in the sketch
+// editor writes; it moves only the annotation, never the geometry being measured. #2017.
+type MoveSketchDimensionArgs struct {
+	SketchIndex    int       `json:"sketchIndex"`
+	DimensionIndex int       `json:"dimensionIndex"`
+	TextPoint      []float64 `json:"textPoint"`
+}
+
 // DriveDimensionArgs is the request of [MethodSketchDriveDimension]: which dimension (by
 // collection index) to edit, an optional new value (a unit-bearing expression; empty
 // leaves it), whether to set its driven flag (SetDriven + Driven), and optional limits.

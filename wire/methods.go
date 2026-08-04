@@ -188,8 +188,10 @@ const (
 	MethodSketchAddConstraint    = "sketch.addConstraint"
 	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
 
-	MethodSketchAddDimension   = "sketch.addDimension"
-	MethodSketchDriveDimension = "sketch.driveDimension"
+	MethodSketchAddDimension    = "sketch.addDimension"
+	MethodSketchDriveDimension  = "sketch.driveDimension"
+	MethodSketchDeleteDimension = "sketch.deleteDimension"
+	MethodSketchMoveDimension   = "sketch.moveDimension"
 
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"
@@ -227,6 +229,13 @@ const (
 	// (M06-F10, #625).
 	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
 	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
+
+	// The sketch Format panel (Oblikovati/Oblikovati#2015): per-entity line type, colour and
+	// stroke width, and the panel's armed creation modes.
+	MethodSketchGetEntityFormat = "sketch.getEntityFormat"
+	MethodSketchSetEntityFormat = "sketch.setEntityFormat"
+	MethodSketchGetFormatModes  = "sketch.getFormatModes"
+	MethodSketchSetFormatModes  = "sketch.setFormatModes"
 
 	// Spline tangency handles (M06-F11, #626).
 	MethodSketchSetSplineHandle = "sketch.setSplineHandle"
@@ -768,6 +777,12 @@ const (
 	// full api.Version the host implements, so an add-in compatible at the major
 	// boundary can still adapt to minor/patch differences.
 	MethodApplicationApiVersion = "application.apiVersion"
+
+	// In-canvas sketch input configuration (Oblikovati/Oblikovati#2014): the pointer-input
+	// and dimension-input boxes shown while geometry is placed, and whether a typed value
+	// becomes a persistent driving dimension.
+	MethodApplicationGetHUDOptions = "application.getHudOptions"
+	MethodApplicationSetHUDOptions = "application.setHudOptions"
 
 	// External client applications driving the session (M05-F01, #245).
 	MethodClientAppsRegister   = "clientApps.register"

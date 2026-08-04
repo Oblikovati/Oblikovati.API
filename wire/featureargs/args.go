@@ -67,7 +67,12 @@ type Revolve struct {
 	AboutCenterline bool   `json:"aboutCenterline,omitempty"`
 	Angle           string `json:"angle"`
 	Angle2          string `json:"angle2,omitempty"` // second-direction sweep (#313)
-	Operation       string `json:"operation,omitempty"`
+	// Direction is the side Angle sweeps to: "positive" (default, forward from the profile),
+	// "negative" (the same sweep the other way) or "symmetric" (half the angle each way) — the
+	// revolve counterpart of [Extrude.Direction] (#2019). Ignored when Angle2 is set, which is the
+	// asymmetric mode and names both sides itself. Unobservable on a full revolution.
+	Direction string `json:"direction,omitempty"`
+	Operation string `json:"operation,omitempty"`
 	// ProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead
 	// of ProfileIndex, resolved by containment on the solved sketch each recompute (see
 	// [Extrude.ProfileSeeds]). When present it wins over ProfileIndex.

@@ -18,8 +18,10 @@ func TestDefaultSketchSettings(t *testing.T) {
 	if s.XSnapSpacing != 0.1 || s.YSnapSpacing != 0.1 || s.SnapsPerMinorGrid != 1 || s.MinorLinesPerMajorGridLine != 10 {
 		t.Errorf("grid defaults = %+v, want a 1 mm snap grid with 10 minor lines per major", s)
 	}
-	if !s.PersistInferredConstraints || !s.EditDimensionsWhenCreated || s.DisplayConstraintsOnCreation {
-		t.Errorf("constraint-display defaults = %+v, want persist on / edit-dims on / display-on-create off", s)
+	// Constraint glyphs default ON: they are what tells the user which relations a click is
+	// about to apply, and the tools now draw them while geometry is placed (#2014).
+	if !s.PersistInferredConstraints || !s.EditDimensionsWhenCreated || !s.DisplayConstraintsOnCreation {
+		t.Errorf("constraint-display defaults = %+v, want persist / edit-dims / display-on-create all on", s)
 	}
 	if s.OverConstrainedBehavior != OverConstrainedApplyDriven {
 		t.Errorf("default over-constrained behaviour = %v, want applyDriven", s.OverConstrainedBehavior)

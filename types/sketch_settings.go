@@ -49,8 +49,9 @@ type SketchSettings struct {
 
 // DefaultSketchSettings is the out-of-the-box configuration: inference and auto-apply on with
 // horizontal/vertical preferred (the pre-#1877 behaviour), plus the Inventor-aligned grid/snap and
-// constraint-display defaults — a 1 mm snap grid, persisted inferred constraints, the dimension
-// editor on create, and redundant dimensions added as driven.
+// constraint-display defaults — a 1 mm snap grid, persisted inferred constraints, constraint
+// glyphs shown while geometry is placed, the dimension editor on create, and redundant
+// dimensions added as driven.
 func DefaultSketchSettings() SketchSettings {
 	return SketchSettings{
 		InferConstraints:     true,
@@ -63,7 +64,7 @@ func DefaultSketchSettings() SketchSettings {
 		MinorLinesPerMajorGridLine: 10,
 
 		PersistInferredConstraints:   true,
-		DisplayConstraintsOnCreation: false,
+		DisplayConstraintsOnCreation: true,
 		EditDimensionsWhenCreated:    true,
 		OverConstrainedBehavior:      OverConstrainedApplyDriven,
 
