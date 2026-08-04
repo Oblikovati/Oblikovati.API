@@ -40,12 +40,20 @@ type DisplayOptionsView struct {
 
 // SketchOptionsView is the "sketch" group: the grid and click snapping. Spacing is
 // in model/database units (cm) — unit-independent, like the stored preference.
+//
+// A setGroup write replaces only the fields carried here; the sketch options the host
+// keeps but does not expose (the heads-up display flags) survive it unchanged.
 type SketchOptionsView struct {
 	GridSpacingCm  float64 `json:"gridSpacingCm"`
 	GridVisible    bool    `json:"gridVisible"`
 	GridMajorEvery int     `json:"gridMajorEvery"`
 	SnapToPoints   bool    `json:"snapToPoints"`
 	SnapToGrid     bool    `json:"snapToGrid"`
+	// AutoProjectOrigin projects the part's origin centre point into every newly created
+	// sketch, giving it an anchor to constrain against at (0,0). On by default, so a client
+	// that means to leave it alone must round-trip the value it read from getGroup rather
+	// than send a zero SketchOptionsView (#2016).
+	AutoProjectOrigin bool `json:"autoProjectOrigin"`
 }
 
 // PartOptionsView is the "part" group: part-modeling defaults.
