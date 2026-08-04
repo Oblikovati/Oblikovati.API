@@ -228,6 +228,13 @@ const (
 	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
 	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
 
+	// The sketch Format panel (Oblikovati/Oblikovati#2015): per-entity line type, colour and
+	// stroke width, and the panel's armed creation modes.
+	MethodSketchGetEntityFormat = "sketch.getEntityFormat"
+	MethodSketchSetEntityFormat = "sketch.setEntityFormat"
+	MethodSketchGetFormatModes  = "sketch.getFormatModes"
+	MethodSketchSetFormatModes  = "sketch.setFormatModes"
+
 	// Spline tangency handles (M06-F11, #626).
 	MethodSketchSetSplineHandle = "sketch.setSplineHandle"
 
