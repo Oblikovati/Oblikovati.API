@@ -58,7 +58,11 @@ func run(apply bool, dir, date, notesOut string, in io.Reader, out io.Writer) er
 			return err
 		}
 	}
-	fmt.Fprintf(out, "next=%s\nbump=%s\n", next, scope)
+	// The release workflow parses this line to decide the tag it pushes, so a failed write has to
+	// fail the step. Swallowing it would let the job carry on and read an empty version.
+	if _, err := fmt.Fprintf(out, "next=%s\nbump=%s\n", next, scope); err != nil {
+		return fmt.Errorf("nextver: writing the version output failed: %w", err)
+	}
 	return nil
 }
 
