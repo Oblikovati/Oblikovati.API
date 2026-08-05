@@ -38,17 +38,29 @@ const (
 
 // Viewport 2D — the sketch/grid/dimension overlays drawn into the 3D view.
 const (
-	TokenViewportBg       ThemeToken = "viewport.bg"
-	TokenGridMinor        ThemeToken = "viewport.grid_minor"
-	TokenGridMajor        ThemeToken = "viewport.grid_major"
-	TokenGridAxis         ThemeToken = "viewport.grid_axis"
-	TokenSketchGeometry   ThemeToken = "viewport.sketch_geometry"
-	TokenSketchSelected   ThemeToken = "viewport.sketch_selected"
-	TokenSketchCandidate  ThemeToken = "viewport.sketch_candidate"
-	TokenSketchPreview    ThemeToken = "viewport.sketch_preview"
+	TokenViewportBg      ThemeToken = "viewport.bg"
+	TokenGridMinor       ThemeToken = "viewport.grid_minor"
+	TokenGridMajor       ThemeToken = "viewport.grid_major"
+	TokenGridAxis        ThemeToken = "viewport.grid_axis"
+	TokenSketchGeometry  ThemeToken = "viewport.sketch_geometry"
+	TokenSketchSelected  ThemeToken = "viewport.sketch_selected"
+	TokenSketchCandidate ThemeToken = "viewport.sketch_candidate"
+	TokenSketchPreview   ThemeToken = "viewport.sketch_preview"
+	// TokenDimensionDriving is still stored, editable and resolved for every theme, but the
+	// VIEWPORT paints sketch dimensions with TokenDimensionSketch — one colour for the
+	// annotation in preview and once committed. Drawing consumers may still read it.
 	TokenDimensionDriving ThemeToken = "viewport.dimension_driving"
 	TokenDimensionDriven  ThemeToken = "viewport.dimension_driven"
-	TokenSnapGlyph        ThemeToken = "viewport.snap_glyph"
+	// TokenDimensionSketch is the sketch dimension annotation — extension lines, dimension
+	// line, arrowheads and value — both in-place while a shape is being placed AND once it
+	// has committed. One token, because it is one annotation: its appearance must not change
+	// at the moment of commit.
+	//
+	// It supersedes TokenDimensionDriving for the viewport. A token that did not exist when a
+	// theme was saved cannot be pinned by that theme's snapshot, which is what lets a shipped
+	// default reach themes already in the field.
+	TokenDimensionSketch ThemeToken = "viewport.dimension_sketch"
+	TokenSnapGlyph       ThemeToken = "viewport.snap_glyph"
 	// TokenViewportActiveBorder is the outline drawn around the focused view tile in a
 	// split (multi-view) layout, so the user can tell which view is active.
 	TokenViewportActiveBorder ThemeToken = "viewport.active_border"
@@ -89,7 +101,7 @@ func AllThemeTokens() []ThemeToken {
 		TokenChromeAccent, TokenChromeScrollbar, TokenChromeDanger,
 		TokenViewportBg, TokenGridMinor, TokenGridMajor, TokenGridAxis,
 		TokenSketchGeometry, TokenSketchSelected, TokenSketchCandidate, TokenSketchPreview,
-		TokenDimensionDriving, TokenDimensionDriven, TokenSnapGlyph,
+		TokenDimensionDriving, TokenDimensionDriven, TokenDimensionSketch, TokenSnapGlyph,
 		TokenViewportActiveBorder,
 		TokenPlaneFaint, TokenPlaneHover, TokenPlaneSelected, TokenPlaneFill,
 		TokenSelectionHighlight,
