@@ -621,6 +621,13 @@ const (
 	MethodViewportSetNormalDebug = "viewport.setNormalDebug"
 	MethodViewportSetMeshColors  = "viewport.setMeshColors"
 
+	// Synthesised user input: drive an interactive command the way a person does
+	// (see [ClickViewportArgs], [PressKeyArgs]). Everything else in this API edits
+	// the model directly, which cannot reach behaviour that only exists in the
+	// click path — point inference, tool previews, multi-click chains.
+	MethodViewportClick = "viewport.click"
+	MethodViewportKey   = "viewport.key"
+
 	MethodViewsList      = "views.list"
 	MethodViewsAdd       = "views.add"
 	MethodViewsActivate  = "views.activate"
