@@ -3,6 +3,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -62,5 +63,30 @@ func assertFileContains(t *testing.T, path, want string) {
 	}
 	if !strings.Contains(string(b), want) {
 		t.Errorf("%s missing %q:\n%s", path, want, b)
+	}
+}
+
+// failingWriter is a named fake stdout that always errors, standing in for a closed pipe or a
+// full disk when the release workflow reads the tool's output.
+type failingWriter struct{}
+
+func (failingWriter) Write([]byte) (int, error) { return 0, errors.New("pipe closed") }
+
+// TestRunReportsAFailedWrite: the release workflow parses "next=" off stdout to decide the tag it
+// pushes. A swallowed write error would let the job carry on and read an empty version, tagging
+// nothing or the wrong thing — so the failure has to surface.
+func TestRunReportsAFailedWrite(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, dir, "version.go", sampleVersionGo)
+	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
+
+	in := strings.NewReader("feat(assembly): batch placement")
+	err := run(true, dir, "2026-06-15", "", in, failingWriter{})
+
+	if err == nil {
+		t.Fatal("a failed write of the version output must be reported")
+	}
+	if !strings.Contains(err.Error(), "pipe closed") {
+		t.Errorf("error %q should carry the underlying write failure", err)
 	}
 }

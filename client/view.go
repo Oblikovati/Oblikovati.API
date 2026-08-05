@@ -105,6 +105,36 @@ func (v View) CaptureWindow(a wire.CaptureWindowArgs) (wire.CaptureWindowResult,
 	return call[wire.CaptureWindowResult](v.c, wire.MethodViewportCaptureWindow, a)
 }
 
+// Click clicks in the viewport, exactly as a user's mouse does: the running command consumes it,
+// or it becomes a selection pick. Give the position as viewport pixels, or as a model-space Point
+// the host projects for you — the latter needs no knowledge of the camera.
+//
+// This is the only way to reach behaviour that lives in the INPUT path rather than the model:
+// which constraints a tool infers from where you clicked, what it previews between clicks, how a
+// multi-click chain builds. Creating the same geometry with sketch.addEntity bypasses all of it.
+//
+//	// Draw a rectangle from an existing corner, so it picks up the coincidence.
+//	client.View().Click(wire.ClickViewportArgs{Point: &types.Point{X: 6}})
+//	client.View().Click(wire.ClickViewportArgs{Point: &types.Point{X: 11, Y: 4}})
+//
+// mcp:tool viewport_click
+// mcp:input clickViewportArg
+// mcp:summary Click in the 3D viewport like a user, driving the ACTIVE command (start it first with execute_command) or making a selection. Give point [x,y,z] in model space (easiest — the host projects it) or x/y in viewport pixels. Returns the pixel clicked and the command still running ("" once it finished). Use this to exercise interactive behaviour — constraint inference, previews, multi-click chains — that creating geometry directly cannot reach.
+func (v View) Click(a wire.ClickViewportArgs) (wire.ClickViewportResult, error) {
+	return call[wire.ClickViewportResult](v.c, wire.MethodViewportClick, a)
+}
+
+// PressKey delivers a key to the running command — "Escape" and "Enter" being the two that end a
+// variable-length one (a continuous line chain, a spline) and keep what it has drawn.
+//
+//	client.View().PressKey(wire.PressKeyArgs{Key: "Escape"}) // finish the chain
+//
+// mcp:tool viewport_key
+// mcp:summary Press a key in the viewport, delivered to the ACTIVE command. "Escape" or "Enter" finishes a variable-length command (a continuous line chain, a spline), keeping what it drew; "Delete" removes the selection. Returns the command still running ("" once the key ended it).
+func (v View) PressKey(a wire.PressKeyArgs) (wire.PressKeyResult, error) {
+	return call[wire.PressKeyResult](v.c, wire.MethodViewportKey, a)
+}
+
 // SetNormalDebug turns the viewport's normal-debug render on/off (front-facing green, back-facing red)
 // so a capture reveals winding/flipped-normal defects.
 //
