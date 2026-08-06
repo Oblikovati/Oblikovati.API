@@ -73,6 +73,26 @@ type Revolve struct {
 	// asymmetric mode and names both sides itself. Unobservable on a full revolution.
 	Direction string `json:"direction,omitempty"`
 	Operation string `json:"operation,omitempty"`
+	// Extent is how the revolve TERMINATES, the revolve half of PartFeatureExtentEnum: "angle"
+	// (default — sweep Angle/Angle2, Inventor's kAngleExtent, with a full turn spelled "360 deg"),
+	// "to-face" (sweep until the profile reaches ToFace), "from-to" (bounded by FromFace and
+	// ToFace) or "to-next" (stop at the next material the sweep meets). The geometric extents
+	// terminate a turned part on its own geometry — a groove that stops on a rib wall keeps its
+	// parametric link instead of freezing a hand-computed angle. Angle is unused by them.
+	Extent string `json:"extent,omitempty"`
+	// ToFace is the stop target of the "to-face" extent and the END of "from-to": a planar face
+	// reference key, "plane/N", or "origin/plane/xy". A revolve terminator must CONTAIN the revolve
+	// axis (a radial face) — only then does the swept solid meet it at one constant sweep angle.
+	ToFace string `json:"toFace,omitempty"`
+	// ToFaceGeom names the ToFace target by GEOMETRY (a planar face's centroid + normal) instead of
+	// a key, for an author that cannot mint one — see [Extrude.ToFaceGeom]. Wins over ToFace.
+	ToFaceGeom *GeomFaceSel `json:"toFaceGeom,omitempty"`
+	// FromFace is the START target of a "from-to" revolve, named like ToFace. The swept wedge runs
+	// backwards from the profile to FromFace and forwards to ToFace, so it always contains the
+	// profile; a span that closes on itself is a full revolution.
+	FromFace string `json:"fromFace,omitempty"`
+	// FromFaceGeom names the "from-to" START target by GEOMETRY instead of a key. Wins over FromFace.
+	FromFaceGeom *GeomFaceSel `json:"fromFaceGeom,omitempty"`
 	// ProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead
 	// of ProfileIndex, resolved by containment on the solved sketch each recompute (see
 	// [Extrude.ProfileSeeds]). When present it wins over ProfileIndex.
