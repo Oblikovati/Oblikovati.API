@@ -48,6 +48,11 @@ type Fillet struct {
 	// keys, so the binding survives recompute — the way an external author references edges it did
 	// not mint keys for. When set it supplies the edges; EdgeRefs becomes optional. See [GeomEdgeSel].
 	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
+	// Width drives a FACE fillet by the chord it spans instead of by the rolling ball's radius —
+	// Inventor's chordal alternative on FaceFilletDefinition, and what gets measured on the part
+	// (#1887). Unit-bearing, e.g. "4 mm". When set it wins over Radius; the host resolves it against
+	// the angle the two face sets meet at, so they must share an edge and be planar.
+	Width string `json:"width,omitempty"`
 }
 
 // Kind reports the feature kind Fillet creates.
