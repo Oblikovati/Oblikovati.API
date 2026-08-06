@@ -182,6 +182,60 @@ type Hole struct {
 	// defaults to 118 deg (the standard twist-drill point) when DrillPoint is "angled" and it is
 	// omitted. #1863.
 	TipAngle string `json:"tipAngle,omitempty"`
+	// Tap is the hole's thread FUNCTION, orthogonal to Type (its seat) — Inventor keeps the two on
+	// separate axes, so a counterbored tapped hole is an ordinary thing (#1862). "none" (default),
+	// "tapped", or "taperTapped" for an NPT-style taper thread. Type "tapped" remains accepted as
+	// the older spelling of a drilled hole with Tap "tapped".
+	Tap string `json:"tap,omitempty"`
+	// ThreadClass is the fit class the tap is cut to, e.g. "6H" (metric) or "2B" (unified).
+	ThreadClass string `json:"threadClass,omitempty"`
+	// LeftHanded reverses the tap's thread sense; the default is the ordinary right-hand thread.
+	LeftHanded bool `json:"leftHanded,omitempty"`
+	// Clearance sizes the bore from a fastener table instead of Diameter (#1862), so the FASTENER
+	// stays the authored thing and the hole follows when it changes.
+	Clearance *HoleClearance `json:"clearance,omitempty"`
+	// Placement is the rule LOCATING the bores, Inventor's HolePlacementTypeEnum (#1861): "sketch"
+	// (one bore per centre point of PlacementSketchIndex), "linear" (offsets from two edges),
+	// "concentric" (on a circular edge's axis) or "point" (a work point along a work axis). Absent
+	// ⇒ the single bore on FaceRef at Center, which is the face placement.
+	Placement            string `json:"placement,omitempty"`
+	PlacementSketchIndex int    `json:"placementSketchIndex,omitempty"`
+	// PlacementFlipped drills along the sketch normal / work axis instead of into it.
+	PlacementFlipped bool `json:"placementFlipped,omitempty"`
+	// ConcentricRef is the circular edge whose axis a "concentric" placement centres on.
+	ConcentricRef string `json:"concentricRef,omitempty"`
+	// Edge1Ref/Edge2Ref and Offset1/Offset2 locate a "linear" placement: two reference edges of the
+	// placement face and the unit-bearing distances measured from each, INTO the face.
+	Edge1Ref string `json:"edge1Ref,omitempty"`
+	Edge2Ref string `json:"edge2Ref,omitempty"`
+	Offset1  string `json:"offset1,omitempty"`
+	Offset2  string `json:"offset2,omitempty"`
+	// PointRef and AxisRef locate a "point" placement: the work point to drill at and the work axis
+	// to drill along (e.g. "point/0", "origin/axis/z").
+	PointRef string `json:"pointRef,omitempty"`
+	AxisRef  string `json:"axisRef,omitempty"`
+	// Termination is where the bore STOPS (#1863): "distance" (default — Depth from the placement
+	// face), "through-all", "to-face" (down to ToFace) or "from-to" (between FromFace and ToFace).
+	// A named terminator must be square to the drill axis, since a bore bottoms at one depth.
+	Termination string `json:"termination,omitempty"`
+	// ToFace/FromFace and their geometric selectors name the terminators, exactly as an extrude's
+	// extent does. See [Extrude.ToFace].
+	ToFace       string       `json:"toFace,omitempty"`
+	ToFaceGeom   *GeomFaceSel `json:"toFaceGeom,omitempty"`
+	FromFace     string       `json:"fromFace,omitempty"`
+	FromFaceGeom *GeomFaceSel `json:"fromFaceGeom,omitempty"`
+}
+
+// HoleClearance names the fastener a clearance hole is drilled for — Inventor's HoleClearanceInfo.
+// The host sizes the bore from the published table every recompute, so changing the fastener
+// resizes the hole; recording the resolved diameter instead would break that link.
+type HoleClearance struct {
+	// Standard is the table the fastener is drawn from; "ISO 273" is the one carried today.
+	Standard string `json:"standard,omitempty"`
+	// Fastener is the thread designation the hole must pass, e.g. "M6".
+	Fastener string `json:"fastener"`
+	// Fit is "close", "medium" (default) or "free".
+	Fit string `json:"fit,omitempty"`
 }
 
 // Kind reports the feature kind Hole creates.
