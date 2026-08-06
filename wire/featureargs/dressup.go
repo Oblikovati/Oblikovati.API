@@ -69,6 +69,15 @@ type Chamfer struct {
 	// EdgesGeom selects the bevelled edges by GEOMETRY (midpoint + direction) instead of EdgeRefs
 	// keys, so the binding survives recompute (see [Fillet.EdgesGeom]). When set, EdgeRefs is optional.
 	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
+	// ReferenceFace is the face Distance is measured on for the asymmetric modes (#1888). Without
+	// it the assignment falls to the edge's own face order, which is a topology artefact — on
+	// mirrored geometry that can land the larger setback on the wrong face and change the part.
+	ReferenceFace string `json:"referenceFace,omitempty"`
+	// PartialStart and PartialLength bevel only a SPAN of each edge, measured from its start
+	// vertex (Inventor's partial chamfer). Unit-bearing, e.g. "5 mm"; omit PartialLength for the
+	// whole edge.
+	PartialStart  string `json:"partialStart,omitempty"`
+	PartialLength string `json:"partialLength,omitempty"`
 }
 
 // Kind reports the feature kind Chamfer creates.
