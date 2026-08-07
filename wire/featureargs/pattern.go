@@ -32,6 +32,12 @@ type PatternPlacement struct {
 	Orientation       string           `json:"orientation,omitempty"`
 	PositioningMethod string           `json:"positioningMethod,omitempty"`
 	Boundary          *PatternBoundary `json:"boundary,omitempty"`
+	// SuppressedElements drops individual occurrences from the pattern by element index
+	// (#1889). Element 0 is the seed — the source features' own material, which the recipe
+	// already applied before the pattern ran — so it cannot be suppressed here; suppress the
+	// source feature instead. Indices survive a count change, so an occurrence stays dropped
+	// while the pattern is resized.
+	SuppressedElements []int `json:"suppressedElements,omitempty"`
 }
 
 // PatternRectangular replicates features on a rectangular grid (KindPatternRectangular).
@@ -43,6 +49,12 @@ type PatternRectangular struct {
 	CountYExpr     string    `json:"countYExpr,omitempty"`
 	StepX          []float64 `json:"stepX,omitempty"`
 	StepY          []float64 `json:"stepY,omitempty"`
+	// MidPlaneX/MidPlaneY spread that direction's occurrences to BOTH sides of the seed
+	// instead of running one way from it (#1889). The seed does not move. With an even
+	// count the two sides cannot match, and the extra occurrence goes on the step's own
+	// side — reverse the step to put it on the other.
+	MidPlaneX bool `json:"midPlaneX,omitempty"`
+	MidPlaneY bool `json:"midPlaneY,omitempty"`
 	PatternPlacement
 }
 
@@ -57,6 +69,9 @@ type PatternCircular struct {
 	Angle          string    `json:"angle,omitempty"`
 	AxisPoint      []float64 `json:"axisPoint,omitempty"`
 	AxisDir        []float64 `json:"axisDir,omitempty"`
+	// MidPlane sweeps the occurrences to both sides of the seed rather than all one way
+	// round the axis (#1889); see [PatternRectangular.MidPlaneX] for the even-count rule.
+	MidPlane bool `json:"midPlane,omitempty"`
 	PatternPlacement
 }
 
