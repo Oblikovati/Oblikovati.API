@@ -110,6 +110,25 @@ type Rib struct {
 	Depth        string `json:"depth,omitempty"`
 	ToNext       bool   `json:"toNext,omitempty"` // extend to the existing material (#316)
 	Operation    string `json:"operation,omitempty"`
+	// ThickenSide is which side of the profile the wall grows on: "symmetric" (default, half the
+	// thickness each side), "side1" (the path's left side, walking it as drawn) or "side2" (its
+	// right side) — Inventor's RibDefinition.ThicknessDirection. The sides are named side1/side2
+	// rather than positive/negative (as on Extrude.Direction) because they are the two sides of a
+	// curve IN the sketch plane, which has no signed direction the caller can picture. #1882.
+	ThickenSide string `json:"thickenSide,omitempty"`
+	// Draft tapers the wall across its extent, opening toward the root — the end that lands on the
+	// part (a unit-bearing angle, e.g. "3 deg"). Inventor's RibDefinition.DraftAngle. #1882.
+	Draft string `json:"draft,omitempty"`
+	// ThicknessPlane picks which end honours the nominal Thickness once Draft tapers the wall:
+	// "sketch" (default) holds it at the profile's own plane, "root" at the end that lands on the
+	// part — Inventor's RibThicknessPlaneEnum. With no draft the wall is prismatic and the two are
+	// the same, so this option is observable only together with Draft. #1882.
+	ThicknessPlane string `json:"thicknessPlane,omitempty"`
+	// ExtendProfile lengthens the open profile's two ends along their end tangents until they
+	// reach the existing material, so a wall sketched short of the part still lands on it
+	// (Inventor's RibDefinition.ExtendProfile). An end with no material ahead of it stays put.
+	// #1882.
+	ExtendProfile bool `json:"extendProfile,omitempty"`
 }
 
 // Kind reports the feature kind Rib creates.
@@ -129,7 +148,7 @@ type Emboss struct {
 func (Emboss) Kind() string { return KindEmboss }
 
 // Coil sweeps a profile along a helix about an axis (KindCoil). Two of pitch/revolutions/
-// height fix the helix (#316).
+// height fix the helix (#316); Type "spiral" sweeps a flat spiral instead (#1883).
 type Coil struct {
 	SketchIndex  int    `json:"sketchIndex"`
 	ProfileIndex int    `json:"profileIndex"`
@@ -147,6 +166,16 @@ type Coil struct {
 	StartFlatAngle       string `json:"startFlatAngle,omitempty"`
 	EndTransitionAngle   string `json:"endTransitionAngle,omitempty"`
 	EndFlatAngle         string `json:"endFlatAngle,omitempty"`
+	// Handedness is the sense in which the coil winds: "right" (default) or "left". Right-handed
+	// means the rotation follows the right-hand rule about the axis while the coil rises along it —
+	// the ordinary thread/spring sense. Handedness is independent of which way the axis points,
+	// because flipping the axis flips the rotation sense and the rise together. #1883.
+	Handedness string `json:"handedness,omitempty"`
+	// Type is the coil flavour: "helical" (default) or "spiral" — a FLAT spiral with no axial
+	// rise (Inventor's kSpiralCoilExtent), where Pitch is the RADIAL step per turn. A spiral
+	// takes Pitch + Revolutions; Height has nothing to describe and Taper (which scales the
+	// radius with the rise) nothing to act on, so both are refused rather than ignored. #1883.
+	Type string `json:"type,omitempty"`
 }
 
 // Kind reports the feature kind Coil creates.
