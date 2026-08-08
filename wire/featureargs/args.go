@@ -142,6 +142,21 @@ type Emboss struct {
 	TextEntity     uint64 `json:"textEntity,omitempty"`
 	Depth          string `json:"depth"`
 	Engrave        bool   `json:"engrave,omitempty"`
+	// Type is the emboss flavour (Inventor's EmbossTypeEnum): "fromFace" (default) raises the
+	// profile off the part, "engraveFromFace" cuts it in, and "fromPlane" does BOTH — it takes the
+	// profile region to the sketch plane offset by Depth, adding material where the part falls
+	// short of that surface and removing whatever stands above it, which is how a raised panel is
+	// levelled on an uneven or curved wall. Engrave is the older two-valued spelling and still
+	// works; setting both is refused when they disagree. #1893.
+	Type string `json:"type,omitempty"`
+	// WrapToFace wraps the profile ONTO a curved face (a face reference key) instead of projecting
+	// it flat, so text follows a shaft rather than cutting a chord through it. Inventor limits the
+	// wrap to a single planar or conical face — never a spline, never a seamed face — and does not
+	// offer it for the fromPlane type, which has no face to wrap to. #1893.
+	WrapToFace string `json:"wrapToFace,omitempty"`
+	// Taper draft-angles the emboss walls (a unit-bearing angle, e.g. "10 deg") so a moulded raise
+	// releases from the tool. #1893.
+	Taper string `json:"taper,omitempty"`
 }
 
 // Kind reports the feature kind Emboss creates.
