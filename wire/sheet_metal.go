@@ -24,6 +24,15 @@ type SheetMetalStyleInfo struct {
 	UnfoldMethod  string  `json:"unfoldMethod"`
 	KFactor       float64 `json:"kFactor"`
 	BendAllowance float64 `json:"bendAllowance,omitempty"` // reported convenience; not an input
+	// The CORNER relief is a separate property from the bend relief above: it is the cut made
+	// where two flanges meet, with its own shape, size and placement, plus a distinct shape and
+	// size for the three-bend corner (#1960). Inventor's Default style trims the corner to the
+	// bend at four times the thickness, and rounds a three-bend corner at the bend radius.
+	CornerReliefShape     string `json:"cornerReliefShape,omitempty"`
+	CornerReliefSize      string `json:"cornerReliefSize,omitempty"`
+	CornerReliefPlacement string `json:"cornerReliefPlacement,omitempty"`
+	ThreeBendReliefShape  string `json:"threeBendReliefShape,omitempty"`
+	ThreeBendReliefSize   string `json:"threeBendReliefSize,omitempty"`
 }
 
 // SheetMetalStyleResult is the reply of getStyle/setStyle: the active rule after the call.
@@ -43,6 +52,12 @@ type SetSheetMetalStyleArgs struct {
 	MinimumGap   string  `json:"minimumGap,omitempty"`
 	UnfoldMethod string  `json:"unfoldMethod,omitempty"`
 	KFactor      float64 `json:"kFactor,omitempty"`
+	// The corner-relief properties (#1960); empty leaves each unchanged, like the rest.
+	CornerReliefShape     string `json:"cornerReliefShape,omitempty"`
+	CornerReliefSize      string `json:"cornerReliefSize,omitempty"`
+	CornerReliefPlacement string `json:"cornerReliefPlacement,omitempty"`
+	ThreeBendReliefShape  string `json:"threeBendReliefShape,omitempty"`
+	ThreeBendReliefSize   string `json:"threeBendReliefSize,omitempty"`
 }
 
 // BendAllowanceArgs requests the developed flat length of one bend under the active rule's
