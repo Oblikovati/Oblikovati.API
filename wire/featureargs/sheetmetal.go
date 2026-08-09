@@ -187,6 +187,12 @@ type SheetMetalContourFlange struct {
 	Flip          bool   `json:"flip,omitempty"`
 	// Width bounds the swept wall to part of the edge (#1958); absent ⇒ the whole edge.
 	Width *FlangeWidthExtent `json:"width,omitempty"`
+	// Operation is how the wall joins the model (#1961): "join" (default) unions it onto the
+	// running sheet, "new" starts a body of its own.
+	Operation string `json:"operation,omitempty"`
+	// Radius rounds the profile's corners into bends; absent ⇒ the rule's BendRadius. A contour
+	// flange's corners ARE bends, so a sharp one is geometry no press brake can make.
+	Radius string `json:"radius,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalContourFlange creates.
