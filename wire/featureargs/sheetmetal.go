@@ -65,6 +65,12 @@ type SheetMetalFlange struct {
 	Width *FlangeWidthExtent `json:"width,omitempty"`
 	// Options overrides the style's bend properties for THIS bend only (#1959). Absent ⇒ the style.
 	Options *BendOptions `json:"options,omitempty"`
+	// ApplyAutoMiter extends this wall and the one it corners with until they meet, then cuts
+	// MiterGap between them (#1961). Two walls each stop at their own bend line, so the corner
+	// between them is otherwise OPEN. Off by default, so an existing part's corners are unchanged.
+	ApplyAutoMiter bool `json:"applyAutoMiter,omitempty"`
+	// MiterGap is the gap left on the miter line; absent ⇒ the style's GapSize.
+	MiterGap string `json:"miterGap,omitempty"`
 }
 
 // BendOptions overrides the sheet-metal style's bend properties for one feature — Inventor's
