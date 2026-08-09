@@ -51,12 +51,28 @@ type SheetMetalFlange struct {
 // Kind reports the feature kind SheetMetalFlange creates.
 func (SheetMetalFlange) Kind() string { return KindSheetMetalFlange }
 
-// SheetMetalHem folds a hem (closed or open) along an edge (KindSheetMetalHem).
+// SheetMetalHem folds a hem along an edge (KindSheetMetalHem) — Inventor's four HemTypeEnum
+// shapes. Two of them are driven by a curl rather than a leg, so which dimensions apply depends
+// on Type (#1956):
+//
+//   - "single" (default) and "double" take Length + Gap;
+//   - "rolled" and "teardrop" take Radius + Angle, and a teardrop derives its closing tail from
+//     them, which is why it takes no length.
 type SheetMetalHem struct {
-	Edge   string `json:"edge"`
-	Length string `json:"length"`
-	Type   string `json:"type,omitempty"`
-	Gap    string `json:"gap,omitempty"`
+	Edge string `json:"edge"`
+	// Length is how far the folded-back leg runs; single and double hems only.
+	Length string `json:"length,omitempty"`
+	// Type is the hem shape: "single", "double", "rolled" or "teardrop". "closed" and "open" are
+	// the spellings this feature shipped with and both mean a single hem — what set them apart was
+	// the gap, which is still what says it.
+	Type string `json:"type,omitempty"`
+	// Gap is the clear distance between the folded-back leg and the parent (the fold's inside
+	// radius is half of it). Absent ⇒ the hem folds tight at half the material thickness.
+	Gap string `json:"gap,omitempty"`
+	// Radius and Angle drive the curled types: the roll's inside radius and how far it sweeps. A
+	// teardrop must sweep more than a half-turn and less than a full one for its tail to close.
+	Radius string `json:"radius,omitempty"`
+	Angle  string `json:"angle,omitempty"`
 	Flip   bool   `json:"flip,omitempty"`
 }
 
