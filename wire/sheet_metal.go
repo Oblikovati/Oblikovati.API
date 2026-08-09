@@ -114,6 +114,9 @@ type FlatPatternInfo struct {
 	Thickness float64            `json:"thickness"`
 	Area      float64            `json:"area"`
 	Bends     []FlatBendLineInfo `json:"bends"`
+	// Punches are the punch instances developed into this flat (#1963), the same list
+	// flatPattern.listPunches reports.
+	Punches []FlatPunchInfo `json:"punches,omitempty"`
 }
 
 // UnfoldResult is the reply of unfold: the developed flat pattern of the active part.

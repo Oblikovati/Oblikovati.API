@@ -333,7 +333,11 @@ const (
 	// Flat-pattern plates + settings (M13-F05, Oblikovati#635): the disjoint developed regions
 	// (one plate per connected flat region) and the per-document settings (deferred flat-pattern
 	// update so a heavy flat only recomputes on demand).
-	MethodFlatPatternListPlates  = "flatPattern.listPlates"
+	MethodFlatPatternListPlates = "flatPattern.listPlates"
+	// listPunches reports every punch instance developed into the flat with its position, angle,
+	// side and depth (#1963) — the punch geometry was already computed for the flat and had no way
+	// out of the host.
+	MethodFlatPatternListPunches = "flatPattern.listPunches"
 	MethodFlatPatternGetSettings = "flatPattern.getSettings"
 	MethodFlatPatternSetSettings = "flatPattern.setSettings"
 	// Bend-order annotation (M13-F06, Oblikovati#809): number/sequence the part's bends for
