@@ -46,6 +46,21 @@ type SheetMetalFlange struct {
 	Angle  string `json:"angle,omitempty"`
 	Radius string `json:"radius,omitempty"`
 	Flip   bool   `json:"flip,omitempty"`
+	// BendPosition is how far back from the picked edge the bend sits — Inventor's
+	// BendPositionEnum (#1957). Two flanges of the same height and angle in different positions
+	// are different parts, because the position decides whether the wall overhangs the edge or
+	// finishes flush with it. "adjacentFace" (default) starts the bend AT the edge;
+	// "outsideBaseFace" and "insideBendFace" set it back until the wall's outer or inner face
+	// reaches the edge; "outerEdgeOffset" and "innerEdgeOffset" are those two plus PositionOffset.
+	BendPosition string `json:"bendPosition,omitempty"`
+	// PositionOffset is the explicit distance for the two edge-offset positions.
+	PositionOffset string `json:"positionOffset,omitempty"`
+	// HeightDatum is what Height is measured FROM — Inventor's HeightDatumTypeEnum: "tangent"
+	// (default; where the bend ends), "outer" or "inner" (the sharp corner the outer/inner faces
+	// would make, which is how a drawing dimensions it), or "outerOrtho"/"innerOrtho" (the same
+	// corners measured perpendicular to the base face, a different number on any bend that is not
+	// a right angle).
+	HeightDatum string `json:"heightDatum,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalFlange creates.
