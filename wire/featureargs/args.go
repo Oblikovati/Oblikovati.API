@@ -311,6 +311,12 @@ type Thread struct {
 	// Offset is the distance (expression) from the face's start edge to where the thread begins
 	// (Inventor's ThreadOffset). Empty ⇒ 0 (the thread starts at the face's start edge).
 	Offset string `json:"offset,omitempty"`
+	// LeftHanded reverses the thread's sense — a turnbuckle end, a left pedal, a gas fitting
+	// (#1892). Inventor spells this RightHanded (default true); a JSON bool cannot default to
+	// true, so the field is named for the LEFT hand and the ordinary right-hand thread is the
+	// zero value, matching [Hole.LeftHanded]. Designations may also carry it as an "-LH" suffix;
+	// either says left-handed, and the two never contradict.
+	LeftHanded bool `json:"leftHanded,omitempty"`
 }
 
 // Kind reports the feature kind Thread creates.

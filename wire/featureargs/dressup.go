@@ -135,6 +135,17 @@ type Shell struct {
 	// ShellDirectionEnum: "inside" (default; outer skin kept), "outside" (outer dimensions grow by
 	// thickness), or "both" (wall centred on the faces). Empty ⇒ inside. #1864.
 	Direction string `json:"direction,omitempty"`
+	// FaceThicknesses give named RETAINED faces their own wall thickness on top of Thickness —
+	// Inventor's SetFaceThickness (#1864). A thickened boss wall or a thin window in an otherwise
+	// uniform shell; a face that is being REMOVED is an opening and cannot carry one.
+	FaceThicknesses []ShellFaceThickness `json:"faceThicknesses,omitempty"`
+}
+
+// ShellFaceThickness overrides the wall thickness on one retained face of a shell (#1864).
+type ShellFaceThickness struct {
+	FaceRef string `json:"faceRef"`
+	// Thickness is that face's wall, a distance expression like "3 mm".
+	Thickness string `json:"thickness"`
 }
 
 // Kind reports the feature kind Shell creates.

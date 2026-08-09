@@ -118,6 +118,14 @@ type SplitSolid struct {
 	WorkPlaneIndex int    `json:"workPlaneIndex"`
 	Keep           string `json:"keep,omitempty"`
 	Type           string `json:"type,omitempty"`
+	// Tool is the GEOMETRY the split cuts with — Inventor's SplitToolTypeEnum (#1891):
+	// "workPlane" (default, uses WorkPlaneIndex), "workSurface" or "surfaceBody" (both use
+	// ToolIndex), or "path" (a 2D sketch path projected onto a face). Type says what the split
+	// DOES; Tool says what it cuts with, and the two are independent.
+	Tool string `json:"tool,omitempty"`
+	// ToolIndex addresses the surface tool: a position in the part's work surfaces for
+	// "workSurface", or a body index for "surfaceBody". Ignored for "workPlane".
+	ToolIndex int `json:"toolIndex,omitempty"`
 }
 
 // Kind reports the feature kind SplitSolid creates.
