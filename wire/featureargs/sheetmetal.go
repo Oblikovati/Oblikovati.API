@@ -63,6 +63,29 @@ type SheetMetalFlange struct {
 	HeightDatum string `json:"heightDatum,omitempty"`
 	// Width is how much of the picked edge the wall covers (#1958). Absent ⇒ the whole edge.
 	Width *FlangeWidthExtent `json:"width,omitempty"`
+	// Options overrides the style's bend properties for THIS bend only (#1959). Absent ⇒ the style.
+	Options *BendOptions `json:"options,omitempty"`
+}
+
+// BendOptions overrides the sheet-metal style's bend properties for one feature — Inventor's
+// BendOptions (#1959). Every field is optional and an omitted one defers to the style, which is
+// what makes this an override rather than a restatement of the whole style.
+type BendOptions struct {
+	// ReliefShape, ReliefWidth and ReliefDepth reshape the notch cut at THIS bend's ends: "round",
+	// "straight" or "tear" (no cut), with the notch's width along the bend and depth into the
+	// parent.
+	ReliefShape string `json:"reliefShape,omitempty"`
+	ReliefWidth string `json:"reliefWidth,omitempty"`
+	ReliefDepth string `json:"reliefDepth,omitempty"`
+	// MinimumRemnant is the thinnest strip of parent material a relief may leave standing. A notch
+	// that would leave less takes the sliver with it, since a strip that thin tears off in
+	// handling and is not what anyone drew.
+	MinimumRemnant string `json:"minimumRemnant,omitempty"`
+	// Transition is how the material is shaped where this bend runs into the face beside it —
+	// "none", "intersection", "straightLine", "arc" or "trimToBend"; "default" defers to the style.
+	Transition string `json:"transition,omitempty"`
+	// TransitionArcRadius sizes the arc transition.
+	TransitionArcRadius string `json:"transitionArcRadius,omitempty"`
 }
 
 // FlangeWidthExtent bounds a flange's wall to part of its edge — a bracket tab on a long edge, or

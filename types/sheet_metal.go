@@ -138,3 +138,48 @@ func (c CornerReliefPlacement) String() string { return enumName(cornerReliefPla
 func ParseCornerReliefPlacement(s string) (CornerReliefPlacement, bool) {
 	return enumFromName(cornerReliefPlacementNames, s)
 }
+
+// BendTransition is how the material is shaped where a bend zone runs into the face beside it —
+// Inventor's BendTransitionEnum (#1959).
+//
+// Read the shapes carefully before assuming they are all the same kind of thing: three of them
+// describe the FLAT PATTERN's outline through the transition region (a straight line across the
+// bend zone, a straight line to the bent feature's edge, or an arc tangent to both), one is a CUT
+// in the folded model, and the default is neither — the geometry simply runs on as it does.
+type BendTransition int32
+
+const (
+	// NoBendTransition leaves the material as the geometry makes it, which is Inventor's shipped
+	// default and the zero value here for the same reason.
+	NoBendTransition BendTransition = iota
+	// IntersectionBendTransition runs a straight line from the bend zone's edge to where it meets
+	// the bent feature's edge.
+	IntersectionBendTransition
+	// StraightLineBendTransition runs a straight line from one edge of the bend zone to the other.
+	StraightLineBendTransition
+	// ArcBendTransition replaces that straight line with an arc of BendTransitionArcRadius,
+	// tangent to the bent feature's edge and to the straight transition.
+	ArcBendTransition
+	// TrimToBendBendTransition cuts the bend zone back perpendicular to the bent feature — the one
+	// transition that shows in the FOLDED model rather than only in the flat.
+	TrimToBendBendTransition
+	// DefaultBendTransition defers to the style, for a per-feature override that does not override.
+	DefaultBendTransition
+)
+
+var bendTransitionNames = map[BendTransition]string{
+	NoBendTransition:           "none",
+	IntersectionBendTransition: "intersection",
+	StraightLineBendTransition: "straightLine",
+	ArcBendTransition:          "arc",
+	TrimToBendBendTransition:   "trimToBend",
+	DefaultBendTransition:      "default",
+}
+
+// String returns the transition's wire spelling.
+func (b BendTransition) String() string { return enumName(bendTransitionNames, b) }
+
+// ParseBendTransition resolves a wire spelling back to its transition.
+func ParseBendTransition(s string) (BendTransition, bool) {
+	return enumFromName(bendTransitionNames, s)
+}

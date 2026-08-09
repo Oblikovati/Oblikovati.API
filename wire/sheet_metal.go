@@ -33,6 +33,11 @@ type SheetMetalStyleInfo struct {
 	CornerReliefPlacement string `json:"cornerReliefPlacement,omitempty"`
 	ThreeBendReliefShape  string `json:"threeBendReliefShape,omitempty"`
 	ThreeBendReliefSize   string `json:"threeBendReliefSize,omitempty"`
+	// BendTransition is how the material is shaped where a bend zone runs into the face beside it
+	// (#1959): "none" (default), "intersection", "straightLine", "arc" or "trimToBend".
+	// BendTransitionArcRadius sizes the arc form.
+	BendTransition          string `json:"bendTransition,omitempty"`
+	BendTransitionArcRadius string `json:"bendTransitionArcRadius,omitempty"`
 }
 
 // SheetMetalStyleResult is the reply of getStyle/setStyle: the active rule after the call.
@@ -58,6 +63,9 @@ type SetSheetMetalStyleArgs struct {
 	CornerReliefPlacement string `json:"cornerReliefPlacement,omitempty"`
 	ThreeBendReliefShape  string `json:"threeBendReliefShape,omitempty"`
 	ThreeBendReliefSize   string `json:"threeBendReliefSize,omitempty"`
+	// The bend transition (#1959); empty leaves each unchanged, like the rest.
+	BendTransition          string `json:"bendTransition,omitempty"`
+	BendTransitionArcRadius string `json:"bendTransitionArcRadius,omitempty"`
 }
 
 // BendAllowanceArgs requests the developed flat length of one bend under the active rule's
