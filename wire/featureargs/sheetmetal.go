@@ -61,6 +61,26 @@ type SheetMetalFlange struct {
 	// corners measured perpendicular to the base face, a different number on any bend that is not
 	// a right angle).
 	HeightDatum string `json:"heightDatum,omitempty"`
+	// Width is how much of the picked edge the wall covers (#1958). Absent ⇒ the whole edge.
+	Width *FlangeWidthExtent `json:"width,omitempty"`
+}
+
+// FlangeWidthExtent bounds a flange's wall to part of its edge — a bracket tab on a long edge, or
+// a wall that stops short of the corners so the neighbouring flanges have somewhere to go (#1958).
+// Type picks which distances apply:
+//
+//   - "edge" (default) spans the whole edge and takes none;
+//   - "centered" takes Width;
+//   - "offsets" takes Offset (from the edge's start) and Offset2 (from its end);
+//   - "offsetWidth" takes Offset and Width.
+//
+// Inventor's fifth extent, bounded by two referenced entities rather than by distances, is not
+// offered: it needs vertex/plane reference binding the host does not have yet.
+type FlangeWidthExtent struct {
+	Type    string `json:"type,omitempty"`
+	Width   string `json:"width,omitempty"`
+	Offset  string `json:"offset,omitempty"`
+	Offset2 string `json:"offset2,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalFlange creates.
@@ -136,6 +156,8 @@ type SheetMetalContourFlange struct {
 	Edge          string `json:"edge"`
 	ProfileSketch int    `json:"profileSketch"`
 	Flip          bool   `json:"flip,omitempty"`
+	// Width bounds the swept wall to part of the edge (#1958); absent ⇒ the whole edge.
+	Width *FlangeWidthExtent `json:"width,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalContourFlange creates.
