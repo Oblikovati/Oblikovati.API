@@ -256,11 +256,33 @@ type SheetMetalCut struct {
 // Kind reports the feature kind SheetMetalCut creates.
 func (SheetMetalCut) Kind() string { return KindSheetMetalCut }
 
-// SheetMetalRip rips the wall open along a sketch line by a gap (KindSheetMetalRip).
+// SheetMetalRip rips a wall open by a gap (KindSheetMetalRip, #1965). A rip has three forms —
+// Inventor's RipTypeEnum — and they take different inputs:
+//
+//   - "pointToPoint" (default) rips between two points. Given a SketchIndex/LineIndex it rips
+//     along that sketch line (the long-standing form); given FaceKey + Point + PointTwo it rips
+//     between two vertices of that face.
+//   - "singlePoint" rips the full extent of FaceKey through the one vertex Point.
+//   - "faceExtents" rips the full extent of FaceKey and needs no point.
+//
+// GapSide places the removed material: "symmetric" (default) straddles the rip line, "positive"
+// / "negative" take it wholly to one side (Inventor's PartFeatureExtentDirectionEnum).
 type SheetMetalRip struct {
-	SketchIndex int    `json:"sketchIndex"`
-	LineIndex   int    `json:"lineIndex"`
+	SketchIndex int    `json:"sketchIndex,omitempty"`
+	LineIndex   int    `json:"lineIndex,omitempty"`
 	Gap         string `json:"gap,omitempty"`
+	// Type is the rip form: "pointToPoint" (default), "singlePoint" or "faceExtents" (RipType).
+	Type string `json:"type,omitempty"`
+	// FaceKey is the reference key of the face being ripped (the RipFace); required for the
+	// singlePoint and faceExtents forms, and for a point-to-point rip defined by two face vertices.
+	FaceKey string `json:"faceKey,omitempty"`
+	// Point / PointTwo are reference keys of the face vertices the rip runs through — Point for
+	// singlePoint, both for a vertex-defined point-to-point rip.
+	Point    string `json:"point,omitempty"`
+	PointTwo string `json:"pointTwo,omitempty"`
+	// GapSide is which side of the rip line the gap sits: "positive", "negative" or "symmetric"
+	// (default).
+	GapSide string `json:"gapSide,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalRip creates.

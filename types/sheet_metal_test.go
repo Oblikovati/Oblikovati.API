@@ -140,3 +140,28 @@ func TestCornerSeamDefinitionTypeRoundTrip(t *testing.T) {
 		t.Error("an unknown corner-seam definition type should not resolve")
 	}
 }
+
+// TestRipTypeRoundTrip pins each rip type's wire spelling, that the zero value and the empty
+// string both mean point-to-point (so an older line rip reads back unchanged), and that an
+// unknown type is rejected (#1965).
+func TestRipTypeRoundTrip(t *testing.T) {
+	if RipType(0) != PointToPointRip {
+		t.Errorf("zero RipType = %v, want PointToPointRip", RipType(0))
+	}
+	for rip, want := range map[RipType]string{
+		PointToPointRip: "pointToPoint", SinglePointRip: "singlePoint", FaceExtentsRip: "faceExtents",
+	} {
+		if got := rip.String(); got != want {
+			t.Errorf("RipType(%d).String() = %q, want %q", rip, got, want)
+		}
+		if got, ok := ParseRipType(want); !ok || got != rip {
+			t.Errorf("ParseRipType(%q) = (%d, %v), want (%d, true)", want, got, ok, rip)
+		}
+	}
+	if got, ok := ParseRipType(""); !ok || got != PointToPointRip {
+		t.Errorf(`ParseRipType("") = (%d, %v), want (pointToPoint, true)`, got, ok)
+	}
+	if _, ok := ParseRipType("zigzag"); ok {
+		t.Error("an unknown rip type should not resolve")
+	}
+}

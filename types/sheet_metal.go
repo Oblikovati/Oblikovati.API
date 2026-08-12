@@ -253,3 +253,38 @@ func ParseCornerSeamDefinitionType(s string) (CornerSeamDefinitionType, bool) {
 	}
 	return enumFromName(cornerSeamDefinitionTypeNames, s)
 }
+
+// RipType names how a rip's cut is defined on its face — Inventor's RipTypeEnum (#1965). Every rip
+// acts on a RipFace; the type says what draws the cut across it: two points, one point, or the
+// whole face. The three are not degrees of the same cut — a single-point rip runs the face's full
+// ruling through the picked point, while a point-to-point rip is bounded by the two points.
+type RipType int32
+
+const (
+	// PointToPointRip cuts between two points on the face — the default and the zero value, so the
+	// long-standing two-point (sketch-line) rip keeps its meaning when no type is given.
+	PointToPointRip RipType = iota
+	// SinglePointRip cuts the face's full extent through one point — Inventor's kSinglePointRipType,
+	// the usual way to split a rolled tube open along a generator.
+	SinglePointRip
+	// FaceExtentsRip cuts the face's whole extent with no picked point — kFaceExtentsRipType.
+	FaceExtentsRip
+)
+
+var ripTypeNames = map[RipType]string{
+	PointToPointRip: "pointToPoint",
+	SinglePointRip:  "singlePoint",
+	FaceExtentsRip:  "faceExtents",
+}
+
+// String returns the rip type's wire spelling.
+func (r RipType) String() string { return enumName(ripTypeNames, r) }
+
+// ParseRipType resolves a wire spelling back to its rip type. The empty string resolves to the
+// point-to-point default so an omitted type keeps the existing line rip.
+func ParseRipType(s string) (RipType, bool) {
+	if s == "" {
+		return PointToPointRip, true
+	}
+	return enumFromName(ripTypeNames, s)
+}
