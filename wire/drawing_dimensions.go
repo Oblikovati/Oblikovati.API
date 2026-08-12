@@ -13,8 +13,27 @@ type DrawingDimensionInfo struct {
 	ViewName   string  `json:"viewName"`
 	ValueMM    float64 `json:"valueMm"`            // measured model distance (mm), scale-independent; 0 for angular
 	ValueDeg   float64 `json:"valueDeg,omitempty"` // measured angle (degrees) for an angular dimension
-	Text       string  `json:"text"`               // displayed dimension text
+	Text       string  `json:"text"`               // displayed dimension text (with the overrides applied)
 	CurveCount int     `json:"curveCount"`
+	// Text overrides (#1992/#1993). Prefix/Suffix wrap the value; OverrideText replaces the whole
+	// label; HideValue drops the value; DualUnit appends the inch value in brackets.
+	Prefix       string `json:"prefix,omitempty"`
+	Suffix       string `json:"suffix,omitempty"`
+	OverrideText string `json:"overrideText,omitempty"`
+	HideValue    bool   `json:"hideValue,omitempty"`
+	DualUnit     bool   `json:"dualUnit,omitempty"`
+}
+
+// SetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any
+// subset of the named dimension's text overrides (#1992/#1993). Each pointer field is applied only
+// when present, so one call can set a prefix without clearing an override.
+type SetDimensionTextStyleArgs struct {
+	Name         string  `json:"name"`
+	Prefix       *string `json:"prefix,omitempty"`
+	Suffix       *string `json:"suffix,omitempty"`
+	OverrideText *string `json:"overrideText,omitempty"`
+	HideValue    *bool   `json:"hideValue,omitempty"`
+	DualUnit     *bool   `json:"dualUnit,omitempty"`
 }
 
 // ListDrawingDimensionsResult is the response of [MethodDrawingDimensionsList].

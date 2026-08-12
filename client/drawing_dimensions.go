@@ -83,6 +83,16 @@ func (d DrawingDimensions) AddArcLength(args wire.AddArcLengthDimensionArgs) (wi
 //
 // mcp:tool drawing_delete_dimension
 // mcp:summary Delete a drawing dimension by name.
+// SetTextStyle changes any subset of a dimension's text overrides — prefix, suffix, free-text
+// override, hide-value, dual-unit — leaving the unset ones alone (#1992/#1993).
+//
+// mcp:tool set_dimension_text_style
+// mcp:summary Change a drawing dimension's text overrides (prefix/suffix/overrideText/hideValue/dualUnit); unset fields unchanged.
+func (d DrawingDimensions) SetTextStyle(args wire.SetDimensionTextStyleArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTextStyle, args)
+}
+
+// Delete removes a dimension by name.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)
 }
