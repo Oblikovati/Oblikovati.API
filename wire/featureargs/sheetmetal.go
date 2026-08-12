@@ -198,11 +198,23 @@ type SheetMetalContourFlange struct {
 // Kind reports the feature kind SheetMetalContourFlange creates.
 func (SheetMetalContourFlange) Kind() string { return KindSheetMetalContourFlange }
 
-// SheetMetalLoftedFlange lofts a flange between two profile sketches (KindSheetMetalLoftedFlange).
+// SheetMetalLoftedFlange lofts a flange between two profile sketches (KindSheetMetalLoftedFlange,
+// #1966).
 type SheetMetalLoftedFlange struct {
 	ProfileA  int    `json:"profileA"`
 	ProfileB  int    `json:"profileB"`
 	Operation string `json:"operation"`
+	// OutputType is how the transition is calculated (LoftedFlangeOutputType): "dieFormed"
+	// (default, smooth) or one of the "pressBrake…" faceted modes. The press-brake modes read
+	// FacetTolerance, each measuring it differently (chord deviation / facet angle / facet width).
+	OutputType string `json:"outputType,omitempty"`
+	// FacetTolerance bounds the facets for a press-brake output — a length for the chord/distance
+	// modes ("0.5 mm") or an angle for the facet-angle mode ("5 deg"). Ignored for die-formed.
+	FacetTolerance string `json:"facetTolerance,omitempty"`
+	// Converge merges the wall's corners to a point rather than carrying them straight through.
+	Converge bool `json:"converge,omitempty"`
+	// Radius rounds the transition's end bends; absent ⇒ the rule's BendRadius.
+	Radius string `json:"radius,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalLoftedFlange creates.

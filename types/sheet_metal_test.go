@@ -165,3 +165,34 @@ func TestRipTypeRoundTrip(t *testing.T) {
 		t.Error("an unknown rip type should not resolve")
 	}
 }
+
+// TestLoftedFlangeOutputTypeRoundTrip pins each output type's wire spelling, the die-formed default
+// (zero value and empty string), the press-brake predicate, and rejection of an unknown (#1966).
+func TestLoftedFlangeOutputTypeRoundTrip(t *testing.T) {
+	if LoftedFlangeOutputType(0) != DieFormedLoftedFlange {
+		t.Errorf("zero LoftedFlangeOutputType = %v, want DieFormedLoftedFlange", LoftedFlangeOutputType(0))
+	}
+	for out, want := range map[LoftedFlangeOutputType]string{
+		DieFormedLoftedFlange: "dieFormed", PressBrakeChordToleranceLoftedFlange: "pressBrakeChordTolerance",
+		PressBrakeFacetAngleLoftedFlange: "pressBrakeFacetAngle", PressBrakeFacetDistanceLoftedFlange: "pressBrakeFacetDistance",
+	} {
+		if got := out.String(); got != want {
+			t.Errorf("LoftedFlangeOutputType(%d).String() = %q, want %q", out, got, want)
+		}
+		if got, ok := ParseLoftedFlangeOutputType(want); !ok || got != out {
+			t.Errorf("ParseLoftedFlangeOutputType(%q) = (%d, %v), want (%d, true)", want, got, ok, out)
+		}
+		if want != "dieFormed" && !out.IsPressBrake() {
+			t.Errorf("%s should report IsPressBrake", want)
+		}
+	}
+	if DieFormedLoftedFlange.IsPressBrake() {
+		t.Error("dieFormed must not report IsPressBrake")
+	}
+	if got, ok := ParseLoftedFlangeOutputType(""); !ok || got != DieFormedLoftedFlange {
+		t.Errorf(`ParseLoftedFlangeOutputType("") = (%d, %v), want (dieFormed, true)`, got, ok)
+	}
+	if _, ok := ParseLoftedFlangeOutputType("handHammered"); ok {
+		t.Error("an unknown lofted-flange output type should not resolve")
+	}
+}

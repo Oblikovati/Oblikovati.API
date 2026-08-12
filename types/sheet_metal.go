@@ -288,3 +288,42 @@ func ParseRipType(s string) (RipType, bool) {
 	}
 	return enumFromName(ripTypeNames, s)
 }
+
+// LoftedFlangeOutputType names how a lofted flange's transition wall is CALCULATED — Inventor's
+// LoftedFlangeOutputTypeEnum (#1966). Die-formed is the smooth stamped surface; the three
+// press-brake modes facet that surface into flat plates joined by bends so it can be folded on a
+// brake, each mode measuring the facet tolerance a different way.
+type LoftedFlangeOutputType int32
+
+const (
+	// DieFormedLoftedFlange is the smooth die-formed wall — the default and the zero value.
+	DieFormedLoftedFlange LoftedFlangeOutputType = iota
+	// PressBrakeChordToleranceLoftedFlange facets to a maximum chord deviation from the smooth wall.
+	PressBrakeChordToleranceLoftedFlange
+	// PressBrakeFacetAngleLoftedFlange facets to a maximum turning angle between adjacent facets.
+	PressBrakeFacetAngleLoftedFlange
+	// PressBrakeFacetDistanceLoftedFlange facets to a maximum facet width.
+	PressBrakeFacetDistanceLoftedFlange
+)
+
+var loftedFlangeOutputTypeNames = map[LoftedFlangeOutputType]string{
+	DieFormedLoftedFlange:                "dieFormed",
+	PressBrakeChordToleranceLoftedFlange: "pressBrakeChordTolerance",
+	PressBrakeFacetAngleLoftedFlange:     "pressBrakeFacetAngle",
+	PressBrakeFacetDistanceLoftedFlange:  "pressBrakeFacetDistance",
+}
+
+// String returns the output type's wire spelling.
+func (l LoftedFlangeOutputType) String() string { return enumName(loftedFlangeOutputTypeNames, l) }
+
+// ParseLoftedFlangeOutputType resolves a wire spelling back to its output type. The empty string
+// resolves to the die-formed default.
+func ParseLoftedFlangeOutputType(s string) (LoftedFlangeOutputType, bool) {
+	if s == "" {
+		return DieFormedLoftedFlange, true
+	}
+	return enumFromName(loftedFlangeOutputTypeNames, s)
+}
+
+// IsPressBrake reports whether the output type is one of the faceted press-brake modes.
+func (l LoftedFlangeOutputType) IsPressBrake() bool { return l != DieFormedLoftedFlange }
