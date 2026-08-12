@@ -36,6 +36,8 @@ type DrawingViewInfo struct {
 	SectionDepthMM float64 `json:"sectionDepthMm,omitempty"`
 	SectionReverse bool    `json:"sectionReverse,omitempty"`
 	SectionType    string  `json:"sectionType,omitempty"`
+	// CropCount is the number of crop fences clipping the view (#1987); 0 ⇒ uncropped.
+	CropCount int `json:"cropCount,omitempty"`
 }
 
 // SetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named
@@ -177,6 +179,29 @@ type AddDraftViewArgs struct {
 	HeightMM  float64 `json:"heightMm"`
 	CenterXMM float64 `json:"centerXmm,omitempty"`
 	CenterYMM float64 `json:"centerYmm,omitempty"`
+}
+
+// AddViewCropArgs is the request of [MethodDrawingViewsAddCrop]: clip the named view to a fence
+// (#1987). Shape is "rectangle" or "circle". A rectangle uses (X0,Y0)-(X1,Y1); a circle uses
+// (CircleXMM, CircleYMM, RadiusMM). All coordinates are sheet millimetres. BreakMark
+// (none/continuous/zigzag; "" ⇒ none) selects the drawn boundary. A crop keeps the view's scale.
+type AddViewCropArgs struct {
+	View      string  `json:"view"`
+	Shape     string  `json:"shape,omitempty"` // "rectangle" (default) | "circle"
+	X0        float64 `json:"x0,omitempty"`
+	Y0        float64 `json:"y0,omitempty"`
+	X1        float64 `json:"x1,omitempty"`
+	Y1        float64 `json:"y1,omitempty"`
+	CircleXMM float64 `json:"circleXmm,omitempty"`
+	CircleYMM float64 `json:"circleYmm,omitempty"`
+	RadiusMM  float64 `json:"radiusMm,omitempty"`
+	BreakMark string  `json:"breakMark,omitempty"`
+}
+
+// RemoveViewCropArgs is the request of [MethodDrawingViewsRemoveCrop]: drop every crop on the
+// named view, restoring its full curve set (#1987).
+type RemoveViewCropArgs struct {
+	View string `json:"view"`
 }
 
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:

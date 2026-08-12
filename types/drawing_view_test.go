@@ -89,6 +89,30 @@ func TestSectionViewTypeRoundTrip(t *testing.T) {
 	}
 }
 
+// TestCropBreakMarkLineTypeRoundTrip pins the crop break-mark types, the empty/zero default and
+// rejection of an unknown spelling (#1987).
+func TestCropBreakMarkLineTypeRoundTrip(t *testing.T) {
+	if CropBreakMarkLineType(0) != NoCropBreakMark {
+		t.Errorf("zero CropBreakMarkLineType = %v, want NoCropBreakMark", CropBreakMarkLineType(0))
+	}
+	for typ, want := range map[CropBreakMarkLineType]string{
+		NoCropBreakMark: "none", ContinuousCropBreakMark: "continuous", ZigzagCropBreakMark: "zigzag",
+	} {
+		if got := typ.String(); got != want {
+			t.Errorf("%v.String() = %q, want %q", typ, got, want)
+		}
+		if got, ok := ParseCropBreakMarkLineType(want); !ok || got != typ {
+			t.Errorf("ParseCropBreakMarkLineType(%q) = (%v,%v), want (%v,true)", want, got, ok, typ)
+		}
+	}
+	if got, ok := ParseCropBreakMarkLineType(""); !ok || got != NoCropBreakMark {
+		t.Errorf(`ParseCropBreakMarkLineType("") = (%v,%v), want (NoCropBreakMark,true)`, got, ok)
+	}
+	if _, ok := ParseCropBreakMarkLineType("dotted"); ok {
+		t.Error("unknown crop break-mark type should not resolve")
+	}
+}
+
 // TestDrawingViewOverlayRoundTrip the overlay view type round-trips (#1986).
 func TestDrawingViewOverlayRoundTrip(t *testing.T) {
 	if got := DrawingViewOverlay.String(); got != "overlay" {

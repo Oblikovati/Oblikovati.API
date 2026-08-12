@@ -112,6 +112,23 @@ func (d DrawingViews) SetLabel(args wire.SetViewLabelArgs) (wire.ListDrawingView
 	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetLabel, args)
 }
 
+// AddCrop clips a view to a rectangular or circular fence (sheet mm), keeping the view's scale,
+// with an optional continuous/zigzag break-mark boundary (#1987).
+//
+// mcp:tool drawing_add_view_crop
+// mcp:summary Crop a drawing view to a fence (shape=rectangle x0,y0,x1,y1 | circle circleXmm,circleYmm,radiusMm; sheet mm), dropping curves outside it. breakMark=none|continuous|zigzag draws the boundary. The view keeps its scale (unlike a detail view).
+func (d DrawingViews) AddCrop(args wire.AddViewCropArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsAddCrop, args)
+}
+
+// RemoveCrop drops every crop on a view, restoring its full curve set (#1987).
+//
+// mcp:tool drawing_remove_view_crop
+// mcp:summary Remove all crops from a drawing view, restoring its full (uncropped) curve set.
+func (d DrawingViews) RemoveCrop(args wire.RemoveViewCropArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsRemoveCrop, args)
+}
+
 // Curves returns a view's drawing curves — the projected edge segments classified visible
 // (solid) or hidden (dashed), in sheet millimetres.
 //

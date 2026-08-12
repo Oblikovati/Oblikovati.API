@@ -207,6 +207,38 @@ func ParseBreakOrientation(s string) (BreakOrientation, bool) {
 	return enumFromName(breakOrientationNames, s)
 }
 
+// CropBreakMarkLineType selects the boundary a cropped view draws around its fence, matching
+// Inventor's CropViewBreakMarkLineTypeEnum. The zero value is NoCropBreakMark — the crop clips the
+// view with no drawn boundary. A crop keeps the view's scale (unlike a detail view) and can apply
+// to any view type (#1987).
+type CropBreakMarkLineType int32
+
+const (
+	// NoCropBreakMark clips the view without drawing a boundary (the default).
+	NoCropBreakMark CropBreakMarkLineType = iota
+	// ContinuousCropBreakMark draws the fence outline as a continuous line.
+	ContinuousCropBreakMark
+	// ZigzagCropBreakMark draws the fence boundary as a zigzag break line.
+	ZigzagCropBreakMark
+)
+
+var cropBreakMarkLineTypeNames = map[CropBreakMarkLineType]string{
+	NoCropBreakMark:         "none",
+	ContinuousCropBreakMark: "continuous",
+	ZigzagCropBreakMark:     "zigzag",
+}
+
+// String returns the break-mark type's wire spelling ("none", "continuous", "zigzag").
+func (t CropBreakMarkLineType) String() string { return enumName(cropBreakMarkLineTypeNames, t) }
+
+// ParseCropBreakMarkLineType resolves a wire spelling back to its break-mark type; "" ⇒ none.
+func ParseCropBreakMarkLineType(s string) (CropBreakMarkLineType, bool) {
+	if s == "" {
+		return NoCropBreakMark, true
+	}
+	return enumFromName(cropBreakMarkLineTypeNames, s)
+}
+
 // DrawingCurveKind classifies a drawing curve so the head can style it: an edge of the model
 // (visible/hidden), a section-cut outline, a hatch line, or a break-line glyph. The zero value
 // is DrawingEdgeCurve, so the existing visible/hidden edge curves keep their meaning.
