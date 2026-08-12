@@ -61,3 +61,13 @@ func TestProjectionDirectionRoundTrip(t *testing.T) {
 		}
 	}
 }
+
+// TestDrawingViewOverlayRoundTrip the overlay view type round-trips (#1986).
+func TestDrawingViewOverlayRoundTrip(t *testing.T) {
+	if got := DrawingViewOverlay.String(); got != "overlay" {
+		t.Errorf("DrawingViewOverlay.String() = %q, want overlay", got)
+	}
+	if got, ok := ParseDrawingViewType("overlay"); !ok || got != DrawingViewOverlay {
+		t.Errorf("ParseDrawingViewType(overlay) = (%v,%v), want (overlay,true)", got, ok)
+	}
+}

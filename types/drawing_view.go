@@ -119,6 +119,10 @@ const (
 	DrawingViewBreakout
 	// DrawingViewDraft is a model-less view: a framed container for manually-drawn 2D geometry.
 	DrawingViewDraft
+	// DrawingViewOverlay superimposes an alternate positional or design-view representation of the
+	// model onto a base view (Inventor's overlay view, #1986) — e.g. a mechanism shown in a second
+	// position, or a simplified rep, drawn over the primary view.
+	DrawingViewOverlay
 )
 
 var drawingViewTypeNames = map[DrawingViewType]string{
@@ -131,6 +135,7 @@ var drawingViewTypeNames = map[DrawingViewType]string{
 	DrawingViewSlice:     "slice",
 	DrawingViewBreakout:  "breakout",
 	DrawingViewDraft:     "draft",
+	DrawingViewOverlay:   "overlay",
 }
 
 // String returns the view type's wire spelling ("base", "auxiliary").

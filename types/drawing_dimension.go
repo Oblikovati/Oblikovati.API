@@ -31,17 +31,28 @@ const (
 	// ArcLengthDimension measures the length along a circular edge — the arc's swept length, or a
 	// full circle's circumference — with the dimension line following the arc.
 	ArcLengthDimension
+	// ForeshortenedDimension is a radius dimension whose centre is off-sheet, drawn with a jogged
+	// (broken) dimension line so the value still reads (Inventor's foreshortened radius, #1994).
+	ForeshortenedDimension
+	// SymmetricDimension dimensions one side of a feature symmetric about a centre line, labelling
+	// the full size from the half measurement (#1994).
+	SymmetricDimension
+	// SumDimension shows the running sum of a chain of dimensions from a common origin (#1994).
+	SumDimension
 )
 
 var drawingDimensionTypeNames = map[DrawingDimensionType]string{
-	AlignedDimension:    "aligned",
-	HorizontalDimension: "horizontal",
-	VerticalDimension:   "vertical",
-	RadiusDimension:     "radius",
-	DiameterDimension:   "diameter",
-	AngularDimension:    "angular",
-	OrdinateDimension:   "ordinate",
-	ArcLengthDimension:  "arcLength",
+	AlignedDimension:       "aligned",
+	HorizontalDimension:    "horizontal",
+	VerticalDimension:      "vertical",
+	RadiusDimension:        "radius",
+	DiameterDimension:      "diameter",
+	AngularDimension:       "angular",
+	OrdinateDimension:      "ordinate",
+	ArcLengthDimension:     "arcLength",
+	ForeshortenedDimension: "foreshortened",
+	SymmetricDimension:     "symmetric",
+	SumDimension:           "sum",
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").
