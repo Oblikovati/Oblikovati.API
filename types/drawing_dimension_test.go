@@ -51,3 +51,27 @@ func TestDimensionToleranceTypeRoundTrip(t *testing.T) {
 		t.Error("unknown tolerance type should not resolve")
 	}
 }
+
+// TestInspectionShapeRoundTrip pins the inspection border shapes, the empty-string/zero default,
+// and rejection of an unknown spelling (#1996).
+func TestInspectionShapeRoundTrip(t *testing.T) {
+	if InspectionShape(0) != NoInspectionBorder {
+		t.Errorf("zero InspectionShape = %v, want NoInspectionBorder", InspectionShape(0))
+	}
+	for shape, want := range map[InspectionShape]string{
+		NoInspectionBorder: "none", AngularEndsInspectionBorder: "angular", RoundedEndsInspectionBorder: "rounded",
+	} {
+		if got := shape.String(); got != want {
+			t.Errorf("%v.String() = %q, want %q", shape, got, want)
+		}
+		if got, ok := ParseInspectionShape(want); !ok || got != shape {
+			t.Errorf("ParseInspectionShape(%q) = (%v,%v), want (%v,true)", want, got, ok, shape)
+		}
+	}
+	if got, ok := ParseInspectionShape(""); !ok || got != NoInspectionBorder {
+		t.Errorf(`ParseInspectionShape("") = (%v,%v), want (NoInspectionBorder,true)`, got, ok)
+	}
+	if _, ok := ParseInspectionShape("dashed"); ok {
+		t.Error("unknown inspection shape should not resolve")
+	}
+}

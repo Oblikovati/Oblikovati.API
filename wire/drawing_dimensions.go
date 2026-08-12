@@ -26,6 +26,8 @@ type DrawingDimensionInfo struct {
 	DualUnit     bool   `json:"dualUnit,omitempty"`
 	// Tolerance is the dimension's engineering tolerance (#1990); nil ⇒ none.
 	Tolerance *types.DimensionTolerance `json:"tolerance,omitempty"`
+	// Inspection is the dimension's inspection annotation (#1996); nil ⇒ not an inspection dimension.
+	Inspection *types.InspectionDimension `json:"inspection,omitempty"`
 }
 
 // SetDimensionToleranceArgs is the request of [MethodDrawingDimensionsSetTolerance]: set the named
@@ -33,6 +35,14 @@ type DrawingDimensionInfo struct {
 type SetDimensionToleranceArgs struct {
 	Name      string                   `json:"name"`
 	Tolerance types.DimensionTolerance `json:"tolerance"`
+}
+
+// SetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the
+// named dimension as an inspection dimension with a border shape, label and sampling rate (#1996).
+// A NoInspectionBorder shape clears the inspection annotation.
+type SetDimensionInspectionArgs struct {
+	Name       string                    `json:"name"`
+	Inspection types.InspectionDimension `json:"inspection"`
 }
 
 // SetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any

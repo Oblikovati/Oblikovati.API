@@ -101,6 +101,15 @@ func (d DrawingDimensions) SetTolerance(args wire.SetDimensionToleranceArgs) (wi
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTolerance, args)
 }
 
+// SetInspection flags a dimension as an inspection dimension with a border shape (angular or
+// rounded ends), an inspection label and a sampling rate (#1996). A none shape clears it.
+//
+// mcp:tool set_dimension_inspection
+// mcp:summary Flag a drawing dimension as an inspection dimension (border shape none/angular/rounded, plus label and rate); none clears it.
+func (d DrawingDimensions) SetInspection(args wire.SetDimensionInspectionArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetInspection, args)
+}
+
 // Delete removes a dimension by name.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)

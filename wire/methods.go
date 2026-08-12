@@ -419,17 +419,18 @@ const (
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
 	// snapped to projected model vertices so the measured value tracks the model.
-	MethodDrawingDimensionsList         = "drawingDimensions.list"
-	MethodDrawingDimensionsAddLinear    = "drawingDimensions.addLinear"
-	MethodDrawingDimensionsAddRadial    = "drawingDimensions.addRadial"
-	MethodDrawingDimensionsAddAngular   = "drawingDimensions.addAngular"
-	MethodDrawingDimensionsAddBaseline  = "drawingDimensions.addBaseline"
-	MethodDrawingDimensionsAddChain     = "drawingDimensions.addChain"
-	MethodDrawingDimensionsAddOrdinate  = "drawingDimensions.addOrdinate"
-	MethodDrawingDimensionsAddArcLength = "drawingDimensions.addArcLength"
-	MethodDrawingDimensionsDelete       = "drawingDimensions.delete"
-	MethodDrawingDimensionsSetTextStyle = "drawingDimensions.setTextStyle" // #1992/#1993
-	MethodDrawingDimensionsSetTolerance = "drawingDimensions.setTolerance" // #1990
+	MethodDrawingDimensionsList          = "drawingDimensions.list"
+	MethodDrawingDimensionsAddLinear     = "drawingDimensions.addLinear"
+	MethodDrawingDimensionsAddRadial     = "drawingDimensions.addRadial"
+	MethodDrawingDimensionsAddAngular    = "drawingDimensions.addAngular"
+	MethodDrawingDimensionsAddBaseline   = "drawingDimensions.addBaseline"
+	MethodDrawingDimensionsAddChain      = "drawingDimensions.addChain"
+	MethodDrawingDimensionsAddOrdinate   = "drawingDimensions.addOrdinate"
+	MethodDrawingDimensionsAddArcLength  = "drawingDimensions.addArcLength"
+	MethodDrawingDimensionsDelete        = "drawingDimensions.delete"
+	MethodDrawingDimensionsSetTextStyle  = "drawingDimensions.setTextStyle"  // #1992/#1993
+	MethodDrawingDimensionsSetTolerance  = "drawingDimensions.setTolerance"  // #1990
+	MethodDrawingDimensionsSetInspection = "drawingDimensions.setInspection" // #1996
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

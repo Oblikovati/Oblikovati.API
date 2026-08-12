@@ -112,3 +112,44 @@ type DimensionTolerance struct {
 	Fit       string                 `json:"fit,omitempty"`
 	Precision int                    `json:"precision,omitempty"`
 }
+
+// InspectionShape selects the border an inspection dimension wraps its text in, matching
+// Inventor's InspectionDimensionShapeEnum. The zero value is NoInspectionBorder — the dimension
+// is not an inspection dimension. An inspection dimension additionally carries a label and a
+// sampling rate for QA / first-article drawings (#1996).
+type InspectionShape int32
+
+const (
+	// NoInspectionBorder is a plain dimension (not an inspection dimension) — the default.
+	NoInspectionBorder InspectionShape = iota
+	// AngularEndsInspectionBorder wraps the text in a border with angular (chevron) ends.
+	AngularEndsInspectionBorder
+	// RoundedEndsInspectionBorder wraps the text in a border with rounded (stadium) ends.
+	RoundedEndsInspectionBorder
+)
+
+var inspectionShapeNames = map[InspectionShape]string{
+	NoInspectionBorder:          "none",
+	AngularEndsInspectionBorder: "angular",
+	RoundedEndsInspectionBorder: "rounded",
+}
+
+// String returns the inspection shape's wire spelling ("none", "angular", "rounded").
+func (s InspectionShape) String() string { return enumName(inspectionShapeNames, s) }
+
+// ParseInspectionShape resolves a wire spelling back to its inspection shape; "" ⇒ none.
+func ParseInspectionShape(s string) (InspectionShape, bool) {
+	if s == "" {
+		return NoInspectionBorder, true
+	}
+	return enumFromName(inspectionShapeNames, s)
+}
+
+// InspectionDimension is a dimension's inspection annotation (#1996): the border shape, and the
+// QA label and sampling rate shown with it. A NoInspectionBorder shape means the dimension is not
+// an inspection dimension (Label and Rate are then ignored).
+type InspectionDimension struct {
+	Shape InspectionShape `json:"shape"`
+	Label string          `json:"label,omitempty"`
+	Rate  string          `json:"rate,omitempty"`
+}
