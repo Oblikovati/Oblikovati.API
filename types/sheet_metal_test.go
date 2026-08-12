@@ -196,3 +196,29 @@ func TestLoftedFlangeOutputTypeRoundTrip(t *testing.T) {
 		t.Error("an unknown lofted-flange output type should not resolve")
 	}
 }
+
+// TestPunchRepresentationTypeRoundTrip pins each punch representation's wire spelling, the default
+// (zero value and empty string), and rejection of an unknown (#1968).
+func TestPunchRepresentationTypeRoundTrip(t *testing.T) {
+	if PunchRepresentationType(0) != DefaultPunchRepresentation {
+		t.Errorf("zero PunchRepresentationType = %v, want DefaultPunchRepresentation", PunchRepresentationType(0))
+	}
+	for rep, want := range map[PunchRepresentationType]string{
+		DefaultPunchRepresentation: "default", FormedFeaturePunchRepresentation: "formedFeature",
+		Sketch2DPunchRepresentation: "sketch2D", CentermarkPunchRepresentation: "centermark",
+		Sketch2DAndCentermarkPunchRepresentation: "sketch2DAndCentermark",
+	} {
+		if got := rep.String(); got != want {
+			t.Errorf("PunchRepresentationType(%d).String() = %q, want %q", rep, got, want)
+		}
+		if got, ok := ParsePunchRepresentationType(want); !ok || got != rep {
+			t.Errorf("ParsePunchRepresentationType(%q) = (%d, %v), want (%d, true)", want, got, ok, rep)
+		}
+	}
+	if got, ok := ParsePunchRepresentationType(""); !ok || got != DefaultPunchRepresentation {
+		t.Errorf(`ParsePunchRepresentationType("") = (%d, %v), want (default, true)`, got, ok)
+	}
+	if _, ok := ParsePunchRepresentationType("hologram"); ok {
+		t.Error("an unknown punch representation type should not resolve")
+	}
+}

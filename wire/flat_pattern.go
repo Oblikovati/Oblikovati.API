@@ -137,6 +137,9 @@ type FlatPunchInfo struct {
 	HasDepth    bool            `json:"hasDepth,omitempty"`
 	Depth       float64         `json:"depth,omitempty"`
 	Outline     []types.Point2d `json:"outline,omitempty"`
+	// RepresentationType is the punch's flat/drawing representation (PunchRepresentationType, #1968) —
+	// what a punch note or DXF layer draws for it. Empty ⇒ the document default.
+	RepresentationType string `json:"representationType,omitempty"`
 }
 
 // PunchesResult is the reply of listPunches: every punch instance developed into the flat.

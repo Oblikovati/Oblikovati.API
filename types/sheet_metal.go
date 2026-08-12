@@ -327,3 +327,41 @@ func ParseLoftedFlangeOutputType(s string) (LoftedFlangeOutputType, bool) {
 
 // IsPressBrake reports whether the output type is one of the faceted press-brake modes.
 func (l LoftedFlangeOutputType) IsPressBrake() bool { return l != DieFormedLoftedFlange }
+
+// PunchRepresentationType names how a punch shows in the flat pattern and on a drawing — Inventor's
+// PunchRepresentationTypeEnum (#1968). It carries no solid geometry; it drives whether the flat and
+// drawing draw the punch as its formed feature, a 2D sketch outline, a centre mark, or both.
+type PunchRepresentationType int32
+
+const (
+	// DefaultPunchRepresentation defers to the document's punch-representation setting — the default.
+	DefaultPunchRepresentation PunchRepresentationType = iota
+	// FormedFeaturePunchRepresentation draws the punch as its formed 3D feature.
+	FormedFeaturePunchRepresentation
+	// Sketch2DPunchRepresentation draws it as the flat 2D sketch outline.
+	Sketch2DPunchRepresentation
+	// CentermarkPunchRepresentation draws only a centre mark.
+	CentermarkPunchRepresentation
+	// Sketch2DAndCentermarkPunchRepresentation draws the 2D outline and a centre mark.
+	Sketch2DAndCentermarkPunchRepresentation
+)
+
+var punchRepresentationTypeNames = map[PunchRepresentationType]string{
+	DefaultPunchRepresentation:               "default",
+	FormedFeaturePunchRepresentation:         "formedFeature",
+	Sketch2DPunchRepresentation:              "sketch2D",
+	CentermarkPunchRepresentation:            "centermark",
+	Sketch2DAndCentermarkPunchRepresentation: "sketch2DAndCentermark",
+}
+
+// String returns the punch representation's wire spelling.
+func (p PunchRepresentationType) String() string { return enumName(punchRepresentationTypeNames, p) }
+
+// ParsePunchRepresentationType resolves a wire spelling back to its representation type. The empty
+// string resolves to the default.
+func ParsePunchRepresentationType(s string) (PunchRepresentationType, bool) {
+	if s == "" {
+		return DefaultPunchRepresentation, true
+	}
+	return enumFromName(punchRepresentationTypeNames, s)
+}

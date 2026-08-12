@@ -319,10 +319,19 @@ type SheetMetalRip struct {
 // Kind reports the feature kind SheetMetalRip creates.
 func (SheetMetalRip) Kind() string { return KindSheetMetalRip }
 
-// SheetMetalPunch punches a sketch-driven tool into the wall to a depth (KindSheetMetalPunch).
+// SheetMetalPunch punches a sketch-driven tool into the wall to a depth (KindSheetMetalPunch,
+// #1968).
 type SheetMetalPunch struct {
 	SketchIndex int    `json:"sketchIndex"`
 	Depth       string `json:"depth,omitempty"`
+	// Angle rotates the punched profiles about their centroid (e.g. "30 deg") — the die's rotation.
+	Angle string `json:"angle,omitempty"`
+	// AcrossBends lets the punch span a bent region; UnfoldInFlat controls whether it develops into
+	// the flat pattern. RepresentationType and ToolID are die metadata carried into the flat/drawing.
+	AcrossBends        bool   `json:"acrossBends,omitempty"`
+	UnfoldInFlat       bool   `json:"unfoldInFlat,omitempty"`
+	RepresentationType string `json:"representationType,omitempty"`
+	ToolID             string `json:"toolId,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalPunch creates.
