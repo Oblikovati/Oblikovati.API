@@ -54,16 +54,27 @@ type DrawingViewStyle int32
 const (
 	// HiddenLineViewStyle shows visible edges solid and hidden edges dashed (the default).
 	HiddenLineViewStyle DrawingViewStyle = iota
-	// WireframeViewStyle shows every edge as visible (no hidden-line removal).
+	// WireframeViewStyle shows every edge as visible (no hidden-line removal). An Oblikovati-only
+	// style with no Inventor equivalent (#1985), kept for the wireframe preview.
 	WireframeViewStyle
 	// ShadedViewStyle shades the view (reserved; renders as hidden-line until shading lands).
 	ShadedViewStyle
+	// HiddenLineRemovedViewStyle shows visible edges only — the canonical drafting style with no
+	// dashed hidden lines (Inventor's kHiddenLineRemovedDrawingViewStyle, #1985).
+	HiddenLineRemovedViewStyle
+	// FromBaseViewStyle inherits the parent view's style associatively (Inventor's kFromBaseDrawingViewStyle).
+	FromBaseViewStyle
+	// ShadedHiddenLineViewStyle overlays shading with hidden edges (reserved until shading lands).
+	ShadedHiddenLineViewStyle
 )
 
 var drawingViewStyleNames = map[DrawingViewStyle]string{
-	HiddenLineViewStyle: "hiddenLine",
-	WireframeViewStyle:  "wireframe",
-	ShadedViewStyle:     "shaded",
+	HiddenLineViewStyle:        "hiddenLine",
+	WireframeViewStyle:         "wireframe",
+	ShadedViewStyle:            "shaded",
+	HiddenLineRemovedViewStyle: "hiddenLineRemoved",
+	FromBaseViewStyle:          "fromBase",
+	ShadedHiddenLineViewStyle:  "shadedHiddenLine",
 }
 
 // String returns the style's wire spelling.
@@ -72,6 +83,13 @@ func (s DrawingViewStyle) String() string { return enumName(drawingViewStyleName
 // ParseDrawingViewStyle resolves a wire spelling back to its style.
 func ParseDrawingViewStyle(s string) (DrawingViewStyle, bool) {
 	return enumFromName(drawingViewStyleNames, s)
+}
+
+// RemovesHiddenEdges reports whether the style drops hidden edges entirely (visible edges only) —
+// true only for the hidden-line-removed style, so a view recompute can filter them out (#1985).
+// Wireframe keeps hidden edges but draws them as visible, so it does not remove them.
+func (s DrawingViewStyle) RemovesHiddenEdges() bool {
+	return s == HiddenLineRemovedViewStyle
 }
 
 // DrawingViewType discriminates the kind of a drawing view. The reference contracts model

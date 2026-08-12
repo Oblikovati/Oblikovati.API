@@ -31,6 +31,8 @@ func TestDrawingViewStyleRoundTrip(t *testing.T) {
 	}
 	cases := map[DrawingViewStyle]string{
 		HiddenLineViewStyle: "hiddenLine", WireframeViewStyle: "wireframe", ShadedViewStyle: "shaded",
+		HiddenLineRemovedViewStyle: "hiddenLineRemoved", FromBaseViewStyle: "fromBase",
+		ShadedHiddenLineViewStyle: "shadedHiddenLine",
 	}
 	for s, want := range cases {
 		if got := s.String(); got != want {
@@ -39,6 +41,10 @@ func TestDrawingViewStyleRoundTrip(t *testing.T) {
 		if parsed, ok := ParseDrawingViewStyle(want); !ok || parsed != s {
 			t.Errorf("ParseDrawingViewStyle(%q) = (%d, %v), want (%d, true)", want, parsed, ok, s)
 		}
+	}
+	// Only the removed style drops hidden edges; the rest keep them (dashed or, for wireframe, visible).
+	if !HiddenLineRemovedViewStyle.RemovesHiddenEdges() || HiddenLineViewStyle.RemovesHiddenEdges() || WireframeViewStyle.RemovesHiddenEdges() {
+		t.Error("RemovesHiddenEdges should be true only for HiddenLineRemoved")
 	}
 }
 
