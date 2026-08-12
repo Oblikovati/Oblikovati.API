@@ -100,12 +100,16 @@ type AddFlushArgs struct {
 
 // AddAngleArgs is the request of [MethodAssemblyConstraintsAddAngle]: hold Angle (radians)
 // between directions A and B. Solution selects undirected (default), directed, or
-// reference-vector measurement; "" ⇒ undirected.
+// reference-vector measurement; "" ⇒ undirected. The directed and reference-vector solutions
+// measure a SIGNED angle, so a negative or past-180° angle can be held (#1972). ReferenceVector
+// is the explicit axis the reference-vector solution measures about — required for that solution,
+// ignored otherwise.
 type AddAngleArgs struct {
-	A        ConstraintGeomRef `json:"a"`
-	B        ConstraintGeomRef `json:"b"`
-	Angle    float64           `json:"angle"`
-	Solution string            `json:"solution,omitempty"`
+	A               ConstraintGeomRef `json:"a"`
+	B               ConstraintGeomRef `json:"b"`
+	Angle           float64           `json:"angle"`
+	Solution        string            `json:"solution,omitempty"`
+	ReferenceVector ConstraintGeomRef `json:"referenceVector,omitempty"`
 }
 
 // AddTangentArgs is the request of [MethodAssemblyConstraintsAddTangent]: keep face A
