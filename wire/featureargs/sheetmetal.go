@@ -169,11 +169,30 @@ type SheetMetalFold struct {
 func (SheetMetalFold) Kind() string { return KindSheetMetalFold }
 
 // SheetMetalCorner applies a corner treatment (of the given Size) to picked edges
-// (KindSheetMetalCorner).
+// (KindSheetMetalCorner, #1967). A chamfer is a single Size by default, or — with ChamferType —
+// a distance-and-angle or two-distance bevel; a round carries one Size, or several EdgeSets each
+// with its own radius in one feature.
 type SheetMetalCorner struct {
 	Edges     []string `json:"edges"`
 	Treatment string   `json:"treatment"`
-	Size      string   `json:"size"`
+	Size      string   `json:"size,omitempty"`
+	// ChamferType picks the chamfer's setback shape (ChamferType): "distance" (default, equal both
+	// faces), "distanceAndAngle" (Size on one face, Angle to it) or "twoDistances" (Size + DistanceTwo).
+	ChamferType string `json:"chamferType,omitempty"`
+	// DistanceTwo is the second setback for the two-distance chamfer; Angle is the bevel angle for
+	// the distance-and-angle chamfer; FaceKey names the face Size is measured on (both variants).
+	DistanceTwo string `json:"distanceTwo,omitempty"`
+	Angle       string `json:"angle,omitempty"`
+	FaceKey     string `json:"faceKey,omitempty"`
+	// EdgeSets rounds several corner-edge groups, each with its own Radius, in one feature (a corner
+	// round with multiple radii). When present it supersedes Edges/Size for the round treatment.
+	EdgeSets []CornerRoundEdgeSet `json:"edgeSets,omitempty"`
+}
+
+// CornerRoundEdgeSet is one radius group of a multi-set corner round (#1967).
+type CornerRoundEdgeSet struct {
+	Edges  []string `json:"edges"`
+	Radius string   `json:"radius"`
 }
 
 // Kind reports the feature kind SheetMetalCorner creates.
