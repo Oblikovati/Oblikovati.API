@@ -62,6 +62,33 @@ func TestProjectionDirectionRoundTrip(t *testing.T) {
 	}
 }
 
+// TestSectionViewTypeRoundTrip checks the section partial-cut kinds spell and parse back, the
+// zero value and empty string both resolve to NoSectionView, and an unknown spelling is rejected
+// (#1982).
+func TestSectionViewTypeRoundTrip(t *testing.T) {
+	if SectionViewType(0) != NoSectionView {
+		t.Errorf("zero SectionViewType = %v, want NoSectionView", SectionViewType(0))
+	}
+	cases := map[SectionViewType]string{
+		NoSectionView: "none", QuarterSectionView: "quarter",
+		HalfSectionView: "half", ThreeQuarterSectionView: "threeQuarter",
+	}
+	for typ, want := range cases {
+		if got := typ.String(); got != want {
+			t.Errorf("SectionViewType(%d).String() = %q, want %q", typ, got, want)
+		}
+		if parsed, ok := ParseSectionViewType(want); !ok || parsed != typ {
+			t.Errorf("ParseSectionViewType(%q) = (%d, %v), want (%d, true)", want, parsed, ok, typ)
+		}
+	}
+	if parsed, ok := ParseSectionViewType(""); !ok || parsed != NoSectionView {
+		t.Errorf(`ParseSectionViewType("") = (%d, %v), want (NoSectionView, true)`, parsed, ok)
+	}
+	if _, ok := ParseSectionViewType("octant"); ok {
+		t.Error("ParseSectionViewType(octant) = ok, want rejected")
+	}
+}
+
 // TestDrawingViewOverlayRoundTrip the overlay view type round-trips (#1986).
 func TestDrawingViewOverlayRoundTrip(t *testing.T) {
 	if got := DrawingViewOverlay.String(); got != "overlay" {

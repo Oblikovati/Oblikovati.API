@@ -146,6 +146,42 @@ func ParseDrawingViewType(s string) (DrawingViewType, bool) {
 	return enumFromName(drawingViewTypeNames, s)
 }
 
+// SectionViewType selects how much of the model a section removes, matching Inventor's
+// SectionViewTypeEnum. The zero value is NoSectionView (a plain full cut). Quarter/half/
+// three-quarter carve away only part of the near material so the interior shows without hiding
+// the whole front. The through-depth and reverse-direction options are carried separately on the
+// request (#1982).
+type SectionViewType int32
+
+const (
+	// NoSectionView is a plain section: the whole near half is removed (kNoSectionViewType).
+	NoSectionView SectionViewType = iota
+	// QuarterSectionView removes one quarter of the model (kQuarterSectionViewType).
+	QuarterSectionView
+	// HalfSectionView removes one half, the classic half section (kHalfSectionViewType).
+	HalfSectionView
+	// ThreeQuarterSectionView removes three quarters (kThreeQuarterSectionViewType).
+	ThreeQuarterSectionView
+)
+
+var sectionViewTypeNames = map[SectionViewType]string{
+	NoSectionView:           "none",
+	QuarterSectionView:      "quarter",
+	HalfSectionView:         "half",
+	ThreeQuarterSectionView: "threeQuarter",
+}
+
+// String returns the section type's wire spelling ("none", "quarter").
+func (t SectionViewType) String() string { return enumName(sectionViewTypeNames, t) }
+
+// ParseSectionViewType resolves a wire spelling back to its section type ("" ⇒ NoSectionView).
+func ParseSectionViewType(s string) (SectionViewType, bool) {
+	if s == "" {
+		return NoSectionView, true
+	}
+	return enumFromName(sectionViewTypeNames, s)
+}
+
 // BreakOrientation is the axis along which a break view compresses: a horizontal break removes
 // a vertical band (shortening a wide part), a vertical break removes a horizontal band. The zero
 // value is BreakHorizontal.

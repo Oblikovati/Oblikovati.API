@@ -31,6 +31,11 @@ type DrawingViewInfo struct {
 	ShowScale bool    `json:"showScale"`
 	LabelXMM  float64 `json:"labelXmm,omitempty"`
 	LabelYMM  float64 `json:"labelYmm,omitempty"`
+	// Section options (#1982), reported for section views. SectionDepthMM is 0 for a full
+	// through-cut; SectionReverse keeps the far half; SectionType is the partial-cut kind.
+	SectionDepthMM float64 `json:"sectionDepthMm,omitempty"`
+	SectionReverse bool    `json:"sectionReverse,omitempty"`
+	SectionType    string  `json:"sectionType,omitempty"`
 }
 
 // SetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named
@@ -90,15 +95,24 @@ type AddAuxiliaryViewArgs struct {
 // parent's model, cut by the plane through the section line (X1,Y1)-(X2,Y2) on the parent (sheet
 // millimetres), perpendicular to the parent. The near half is removed, the cut outline drawn
 // bold and the exposed faces hatched; the view is placed at (CenterXMM, CenterYMM).
+//
+// The retained material is tunable (#1982): FullDepth (the default) keeps everything behind the
+// plane, or FullDepth=false limits it to a slab SectionDepthMM deep so only geometry within that
+// distance of the plane participates. Reverse keeps the opposite half. SectionType selects a
+// partial cut (none/quarter/half/threeQuarter; "" ⇒ none, a plain full cut).
 type AddSectionViewArgs struct {
-	Name       string  `json:"name,omitempty"`
-	ParentView string  `json:"parentView"`
-	X1         float64 `json:"x1"`
-	Y1         float64 `json:"y1"`
-	X2         float64 `json:"x2"`
-	Y2         float64 `json:"y2"`
-	CenterXMM  float64 `json:"centerXmm,omitempty"`
-	CenterYMM  float64 `json:"centerYmm,omitempty"`
+	Name           string  `json:"name,omitempty"`
+	ParentView     string  `json:"parentView"`
+	X1             float64 `json:"x1"`
+	Y1             float64 `json:"y1"`
+	X2             float64 `json:"x2"`
+	Y2             float64 `json:"y2"`
+	CenterXMM      float64 `json:"centerXmm,omitempty"`
+	CenterYMM      float64 `json:"centerYmm,omitempty"`
+	FullDepth      bool    `json:"fullDepth,omitempty"`
+	SectionDepthMM float64 `json:"sectionDepthMm,omitempty"`
+	Reverse        bool    `json:"reverse,omitempty"`
+	SectionType    string  `json:"sectionType,omitempty"`
 }
 
 // AddDetailViewArgs is the request of [MethodDrawingViewsAddDetail]: a magnified view of the

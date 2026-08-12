@@ -44,6 +44,13 @@ type SectionDrawingView interface {
 	DrawingView
 	// SectionLineMM is the cut line on the parent view, in sheet millimetres.
 	SectionLineMM() (x1, y1, x2, y2 float64)
+	// SectionDepthMM is the retained-slab depth in model millimetres, or 0 for a full through-cut
+	// (#1982).
+	SectionDepthMM() float64
+	// SectionReverse reports whether the far half is kept instead of the near half (#1982).
+	SectionReverse() bool
+	// SectionType is the partial-cut kind (none/quarter/half/threeQuarter, #1982).
+	SectionType() types.SectionViewType
 }
 
 // DetailDrawingView is a magnified view of a circular region of a parent view: the parent's
