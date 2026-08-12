@@ -219,11 +219,26 @@ type SheetMetalContourRoll struct {
 // Kind reports the feature kind SheetMetalContourRoll creates.
 func (SheetMetalContourRoll) Kind() string { return KindSheetMetalContourRoll }
 
-// SheetMetalCornerSeam relieves the seam at picked corner edges by a gap (KindSheetMetalCornerSeam).
+// SheetMetalCornerSeam finishes the seam at picked corner edges where two flange walls meet
+// (KindSheetMetalCornerSeam, #1964).
 type SheetMetalCornerSeam struct {
 	Edges []string `json:"edges"`
-	Gap   string   `json:"gap"`
-	Type  string   `json:"type,omitempty"`
+	// Gap is the relief left between the two walls (the gap seam) or the seam clearance for the
+	// other types — Inventor's GapWidth.
+	Gap string `json:"gap"`
+	// Type is the seam finish: "gap" (default), "overlap", "reverseOverlap" or "noOverlap"
+	// (CornerSeamType). The last three lap or butt the walls rather than gapping them.
+	Type string `json:"type,omitempty"`
+	// Overlap is how far one wall laps over the other, as a percentage 0–100 — Inventor's
+	// PercentOverlap. It applies to the overlap and reverseOverlap types; ignored for gap/noOverlap.
+	Overlap float64 `json:"overlap,omitempty"`
+	// ReliefShape and ReliefSize cut a relief at the seam root — the CornerReliefShape spelling
+	// ("round", "square", "tear", …) and its size as a length. Absent ⇒ no seam-root relief.
+	ReliefShape string `json:"reliefShape,omitempty"`
+	ReliefSize  string `json:"reliefSize,omitempty"`
+	// DefinitionType is how the gap is measured — "maxDistance" (default) or "faceEdgeDistance"
+	// (CornerSeamDefinitionType). They agree on a square miter and differ on an oblique corner.
+	DefinitionType string `json:"definitionType,omitempty"`
 }
 
 // Kind reports the feature kind SheetMetalCornerSeam creates.

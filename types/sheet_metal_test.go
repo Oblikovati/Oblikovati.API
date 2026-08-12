@@ -90,3 +90,53 @@ func TestCornerReliefEnums(t *testing.T) {
 		t.Error("a weld corner-relief shape should not resolve — those are not implemented")
 	}
 }
+
+// TestCornerSeamTypeRoundTrip pins each seam type's wire spelling, that the zero value and the
+// empty string both mean gap (so an older seam record reads back unchanged), and that an unknown
+// type is rejected (#1964).
+func TestCornerSeamTypeRoundTrip(t *testing.T) {
+	if CornerSeamType(0) != CornerSeamGap {
+		t.Errorf("zero CornerSeamType = %v, want CornerSeamGap", CornerSeamType(0))
+	}
+	for seam, want := range map[CornerSeamType]string{
+		CornerSeamGap: "gap", CornerSeamOverlap: "overlap",
+		CornerSeamReverseOverlap: "reverseOverlap", CornerSeamNoOverlap: "noOverlap",
+	} {
+		if got := seam.String(); got != want {
+			t.Errorf("CornerSeamType(%d).String() = %q, want %q", seam, got, want)
+		}
+		if got, ok := ParseCornerSeamType(want); !ok || got != seam {
+			t.Errorf("ParseCornerSeamType(%q) = (%d, %v), want (%d, true)", want, got, ok, seam)
+		}
+	}
+	if got, ok := ParseCornerSeamType(""); !ok || got != CornerSeamGap {
+		t.Errorf(`ParseCornerSeamType("") = (%d, %v), want (gap, true)`, got, ok)
+	}
+	if _, ok := ParseCornerSeamType("weldedCorner"); ok {
+		t.Error("an unknown corner-seam type should not resolve")
+	}
+}
+
+// TestCornerSeamDefinitionTypeRoundTrip pins the gap-measurement vocabulary and its max-distance
+// default (#1964).
+func TestCornerSeamDefinitionTypeRoundTrip(t *testing.T) {
+	if CornerSeamDefinitionType(0) != CornerSeamMaxDistance {
+		t.Errorf("zero CornerSeamDefinitionType = %v, want CornerSeamMaxDistance", CornerSeamDefinitionType(0))
+	}
+	for def, want := range map[CornerSeamDefinitionType]string{
+		CornerSeamMaxDistance: "maxDistance", CornerSeamFaceEdgeDistance: "faceEdgeDistance",
+	} {
+		if got := def.String(); got != want {
+			t.Errorf("CornerSeamDefinitionType(%d).String() = %q, want %q", def, got, want)
+		}
+		if got, ok := ParseCornerSeamDefinitionType(want); !ok || got != def {
+			t.Errorf("ParseCornerSeamDefinitionType(%q) = (%d, %v), want (%d, true)", want, got, ok, def)
+		}
+	}
+	if got, ok := ParseCornerSeamDefinitionType(""); !ok || got != CornerSeamMaxDistance {
+		t.Errorf(`ParseCornerSeamDefinitionType("") = (%d, %v), want (maxDistance, true)`, got, ok)
+	}
+	if _, ok := ParseCornerSeamDefinitionType("byArea"); ok {
+		t.Error("an unknown corner-seam definition type should not resolve")
+	}
+}

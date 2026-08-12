@@ -183,3 +183,73 @@ func (b BendTransition) String() string { return enumName(bendTransitionNames, b
 func ParseBendTransition(s string) (BendTransition, bool) {
 	return enumFromName(bendTransitionNames, s)
 }
+
+// CornerSeamType names how the seam is finished where two flange walls meet at a corner —
+// Inventor's CornerTypeEnum plus the ripped (gap) corner it models with IsRippedCorner (#1964).
+// The four are not interchangeable relief styles: gap LEAVES a controlled gap, no-overlap butts
+// the two walls at a miter, and the two overlaps lap one wall over the other (differing only in
+// WHICH wall is on top), so the choice changes the manufactured corner, not merely its size.
+type CornerSeamType int32
+
+const (
+	// CornerSeamGap leaves a gap between the two walls (Inventor's ripped corner) — the default,
+	// and the zero value so an existing seam record (which stored only a gap) reads back unchanged.
+	CornerSeamGap CornerSeamType = iota
+	// CornerSeamOverlap laps one wall OVER the other by PercentOverlap — Inventor's kCornerOverlap.
+	CornerSeamOverlap
+	// CornerSeamReverseOverlap is the same lap with the walls' roles swapped (the other wall on
+	// top) — Inventor's kCornerReverseOverlap.
+	CornerSeamReverseOverlap
+	// CornerSeamNoOverlap butts the two walls with neither gap nor lap — Inventor's kCornerNoOverlap.
+	CornerSeamNoOverlap
+)
+
+var cornerSeamTypeNames = map[CornerSeamType]string{
+	CornerSeamGap:            "gap",
+	CornerSeamOverlap:        "overlap",
+	CornerSeamReverseOverlap: "reverseOverlap",
+	CornerSeamNoOverlap:      "noOverlap",
+}
+
+// String returns the corner-seam type's wire spelling.
+func (c CornerSeamType) String() string { return enumName(cornerSeamTypeNames, c) }
+
+// ParseCornerSeamType resolves a wire spelling back to its corner-seam type. The empty string
+// resolves to the gap default so an omitted type keeps its long-standing meaning.
+func ParseCornerSeamType(s string) (CornerSeamType, bool) {
+	if s == "" {
+		return CornerSeamGap, true
+	}
+	return enumFromName(cornerSeamTypeNames, s)
+}
+
+// CornerSeamDefinitionType says how the seam gap is MEASURED — Inventor's CornerDefinitionTypeEnum
+// (#1964). The two give the same corner only on a square miter: max-distance measures the widest
+// clear span across the corner, while face-edge measures perpendicular from one wall's face to the
+// other's edge, so on an oblique corner they place the relief differently.
+type CornerSeamDefinitionType int32
+
+const (
+	// CornerSeamMaxDistance measures the gap as the maximum clear distance across the corner —
+	// Inventor's kCornerMaxDistance, the default and the zero value.
+	CornerSeamMaxDistance CornerSeamDefinitionType = iota
+	// CornerSeamFaceEdgeDistance measures it from a wall's face to the neighbour's edge — kCornerFaceEdgeDistance.
+	CornerSeamFaceEdgeDistance
+)
+
+var cornerSeamDefinitionTypeNames = map[CornerSeamDefinitionType]string{
+	CornerSeamMaxDistance:      "maxDistance",
+	CornerSeamFaceEdgeDistance: "faceEdgeDistance",
+}
+
+// String returns the definition type's wire spelling.
+func (c CornerSeamDefinitionType) String() string { return enumName(cornerSeamDefinitionTypeNames, c) }
+
+// ParseCornerSeamDefinitionType resolves a wire spelling back to its definition type. The empty
+// string resolves to the max-distance default.
+func ParseCornerSeamDefinitionType(s string) (CornerSeamDefinitionType, bool) {
+	if s == "" {
+		return CornerSeamMaxDistance, true
+	}
+	return enumFromName(cornerSeamDefinitionTypeNames, s)
+}
