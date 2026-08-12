@@ -23,6 +23,27 @@ type DrawingViewInfo struct {
 	CenterYMM    float64 `json:"centerYmm"`
 	VisibleCount int     `json:"visibleCount"`
 	HiddenCount  int     `json:"hiddenCount"`
+	// Label (#1983). Label is the composed caption drawn under the view (empty ⇒ none); the Show*
+	// flags report whether the label, its name, and its scale note are shown; LabelXMM/YMM place it.
+	Label     string  `json:"label,omitempty"`
+	ShowLabel bool    `json:"showLabel"`
+	ShowName  bool    `json:"showName"`
+	ShowScale bool    `json:"showScale"`
+	LabelXMM  float64 `json:"labelXmm,omitempty"`
+	LabelYMM  float64 `json:"labelYmm,omitempty"`
+}
+
+// SetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named
+// view's label (#1983). Each pointer field is applied only when present; Text="" restores the
+// default caption. LabelXMM and LabelYMM must both be set to reposition the caption.
+type SetViewLabelArgs struct {
+	Name      string   `json:"name"`
+	Text      *string  `json:"text,omitempty"`
+	ShowLabel *bool    `json:"showLabel,omitempty"`
+	ShowName  *bool    `json:"showName,omitempty"`
+	ShowScale *bool    `json:"showScale,omitempty"`
+	LabelXMM  *float64 `json:"labelXmm,omitempty"`
+	LabelYMM  *float64 `json:"labelYmm,omitempty"`
 }
 
 // ListDrawingViewsResult is the response of [MethodDrawingViewsList]: the active sheet's views.

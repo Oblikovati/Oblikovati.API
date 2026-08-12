@@ -103,6 +103,15 @@ func (d DrawingViews) Delete(args wire.DeleteViewArgs) (wire.ListDrawingViewsRes
 	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsDelete, args)
 }
 
+// SetLabel changes any subset of a view's label — free text, the show-label/name/scale flags, and
+// the caption position — leaving the unset ones alone (#1983).
+//
+// mcp:tool set_view_label
+// mcp:summary Change a drawing view's label (text / showLabel / showName / showScale / position); unset fields unchanged.
+func (d DrawingViews) SetLabel(args wire.SetViewLabelArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetLabel, args)
+}
+
 // Curves returns a view's drawing curves — the projected edge segments classified visible
 // (solid) or hidden (dashed), in sheet millimetres.
 //

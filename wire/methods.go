@@ -387,6 +387,7 @@ const (
 	MethodDrawingViewsAddBreakout  = "drawingViews.addBreakout"
 	MethodDrawingViewsAddDraft     = "drawingViews.addDraft"
 	MethodDrawingViewsDelete       = "drawingViews.delete"
+	MethodDrawingViewsSetLabel     = "drawingViews.setLabel" // #1983
 	MethodDrawingViewsCurves       = "drawingViews.curves"
 
 	// Drawing annotations (M14-F02 #813): the centre-of-gravity marker (driven by the
