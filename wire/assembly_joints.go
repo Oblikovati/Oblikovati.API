@@ -38,6 +38,14 @@ type JointInfo struct {
 	Limits           *JointLimits      `json:"limits,omitempty"`
 	Health           string            `json:"health,omitempty"`
 	Suppressed       bool              `json:"suppressed,omitempty"`
+	// Seating and state (#1970/#1974). Gap is the axial seating between the two origins;
+	// LinearPosition/AngularPosition are where the joint rests along its free DOF; Locked freezes
+	// that DOF (so DegreesOfFreedom reads 0); Protected shields it from other relationships.
+	Gap             float64 `json:"gap,omitempty"`
+	LinearPosition  float64 `json:"linearPosition,omitempty"`
+	AngularPosition float64 `json:"angularPosition,omitempty"`
+	Locked          bool    `json:"locked,omitempty"`
+	Protected       bool    `json:"protected,omitempty"`
 }
 
 // AssemblyJointsResult is the reply of [MethodAssemblyJointsList]: the active assembly's
@@ -59,6 +67,19 @@ type AddJointArgs struct {
 	A    ConstraintGeomRef `json:"a"`
 	B    ConstraintGeomRef `json:"b"`
 	Flip bool              `json:"flip,omitempty"`
+	// Gap seats the two origins this far apart along the joint Z-axis (#1970); omitted ⇒ 0.
+	Gap float64 `json:"gap,omitempty"`
+}
+
+// SetJointStateArgs is the request of [MethodAssemblyJointsSetState]: change any subset of the
+// joint's seating and state (#1970/#1974). Each pointer field is applied only when present.
+type SetJointStateArgs struct {
+	ID              uint64   `json:"id"`
+	Gap             *float64 `json:"gap,omitempty"`
+	LinearPosition  *float64 `json:"linearPosition,omitempty"`
+	AngularPosition *float64 `json:"angularPosition,omitempty"`
+	Locked          *bool    `json:"locked,omitempty"`
+	Protected       *bool    `json:"protected,omitempty"`
 }
 
 // DeleteJointArgs is the request of [MethodAssemblyJointsDelete]: remove the joint with id ID.

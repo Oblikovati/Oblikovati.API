@@ -41,6 +41,17 @@ type AssemblyJoint interface {
 	Suppressed() bool
 	// Limits returns the joint's driven-value bounds, or nil when unbounded.
 	Limits() JointLimits
+	// Gap is the axial seating between the two joint origins along the joint Z-axis (#1970).
+	Gap() float64
+	// LinearPosition / AngularPosition are where the joint currently rests along its free DOF (#1970).
+	LinearPosition() float64
+	AngularPosition() float64
+	// Locked reports whether the joint's remaining free DOF is frozen (removed from the DOF
+	// report without suppressing the joint) (#1974).
+	Locked() bool
+	// Protected reports whether the joint's DOF is protected from being consumed by other
+	// relationships (#1974).
+	Protected() bool
 }
 
 // AssemblyJointDefinition is the read surface of a joint's definition — the kind and the

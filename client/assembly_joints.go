@@ -95,6 +95,15 @@ func (a AssemblyJoints) SetFlip(id uint64, flip bool) (wire.AssemblyJointResult,
 	return call[wire.AssemblyJointResult](a.c, wire.MethodAssemblyJointsSetFlip, wire.SetJointFlipArgs{ID: id, Flip: flip})
 }
 
+// SetState changes any subset of a joint's seating and state — gap, linear/angular rest position,
+// locked, protected — leaving the unset fields alone (#1970/#1974).
+//
+// mcp:tool set_joint_state
+// mcp:summary Change a joint's gap / rest position / locked / protected (unset fields unchanged). Returns the updated joint.
+func (a AssemblyJoints) SetState(args wire.SetJointStateArgs) (wire.AssemblyJointResult, error) {
+	return call[wire.AssemblyJointResult](a.c, wire.MethodAssemblyJointsSetState, args)
+}
+
 // DSJoints is the DS-joint (degrees-of-freedom / imposed-motion) operation group — the
 // kinematic view of joints motion and simulation consumers read.
 type DSJoints struct{ c *Client }

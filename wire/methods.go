@@ -536,6 +536,7 @@ const (
 	MethodAssemblyJointsDelete         = "assemblyJoints.delete"
 	MethodAssemblyJointsSetLimits      = "assemblyJoints.setLimits"
 	MethodAssemblyJointsSetFlip        = "assemblyJoints.setFlip"
+	MethodAssemblyJointsSetState       = "assemblyJoints.setState" // #1970/#1974 gap/position/locked/protected
 
 	MethodDSJointsList             = "dsJoints.list"
 	MethodDSJointsAdd              = "dsJoints.add"
