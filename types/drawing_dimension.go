@@ -64,3 +64,51 @@ func (t DrawingDimensionType) String() string { return enumName(drawingDimension
 func ParseDrawingDimensionType(s string) (DrawingDimensionType, bool) {
 	return enumFromName(drawingDimensionTypeNames, s)
 }
+
+// DimensionToleranceType selects how a dimension's engineering tolerance is shown — none, a
+// symmetric ±, an asymmetric deviation (+plus/−minus), stacked max/min limits, or an ISO
+// limits-and-fits class such as H7 (Inventor's tolerance methods, #1990).
+type DimensionToleranceType int32
+
+const (
+	// NoTolerance shows the nominal value alone (the default).
+	NoTolerance DimensionToleranceType = iota
+	// SymmetricTolerance shows a single ± deviation.
+	SymmetricTolerance
+	// DeviationTolerance shows an upper (+) and lower (−) deviation.
+	DeviationTolerance
+	// LimitsTolerance shows the max and min sizes stacked (nominal + deviations resolved).
+	LimitsTolerance
+	// FitsTolerance shows an ISO limits-and-fits class (e.g. "H7") after the value.
+	FitsTolerance
+)
+
+var dimensionToleranceTypeNames = map[DimensionToleranceType]string{
+	NoTolerance:        "none",
+	SymmetricTolerance: "symmetric",
+	DeviationTolerance: "deviation",
+	LimitsTolerance:    "limits",
+	FitsTolerance:      "fits",
+}
+
+// String returns the tolerance type's wire spelling.
+func (t DimensionToleranceType) String() string { return enumName(dimensionToleranceTypeNames, t) }
+
+// ParseDimensionToleranceType resolves a wire spelling back to its tolerance type; "" ⇒ none.
+func ParseDimensionToleranceType(s string) (DimensionToleranceType, bool) {
+	if s == "" {
+		return NoTolerance, true
+	}
+	return enumFromName(dimensionToleranceTypeNames, s)
+}
+
+// DimensionTolerance is one dimension's engineering tolerance (#1990): its method, the upper (Plus) and
+// lower (Minus) deviations in millimetres, the ISO fit class for the fits method, and the decimal
+// precision the tolerance values render at.
+type DimensionTolerance struct {
+	Type      DimensionToleranceType `json:"type"`
+	Plus      float64                `json:"plus,omitempty"`
+	Minus     float64                `json:"minus,omitempty"`
+	Fit       string                 `json:"fit,omitempty"`
+	Precision int                    `json:"precision,omitempty"`
+}

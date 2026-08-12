@@ -429,6 +429,7 @@ const (
 	MethodDrawingDimensionsAddArcLength = "drawingDimensions.addArcLength"
 	MethodDrawingDimensionsDelete       = "drawingDimensions.delete"
 	MethodDrawingDimensionsSetTextStyle = "drawingDimensions.setTextStyle" // #1992/#1993
+	MethodDrawingDimensionsSetTolerance = "drawingDimensions.setTolerance" // #1990
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.

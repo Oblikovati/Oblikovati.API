@@ -30,3 +30,24 @@ func TestDrawingDimensionTypeRoundTrip(t *testing.T) {
 		t.Error("ParseDrawingDimensionType should reject an unknown spelling")
 	}
 }
+
+// TestDimensionToleranceTypeRoundTrip pins the tolerance methods (#1990).
+func TestDimensionToleranceTypeRoundTrip(t *testing.T) {
+	if DimensionToleranceType(0) != NoTolerance {
+		t.Errorf("zero DimensionToleranceType = %v, want NoTolerance", DimensionToleranceType(0))
+	}
+	for typ, want := range map[DimensionToleranceType]string{
+		NoTolerance: "none", SymmetricTolerance: "symmetric", DeviationTolerance: "deviation",
+		LimitsTolerance: "limits", FitsTolerance: "fits",
+	} {
+		if got := typ.String(); got != want {
+			t.Errorf("%v.String() = %q, want %q", typ, got, want)
+		}
+		if got, ok := ParseDimensionToleranceType(want); !ok || got != typ {
+			t.Errorf("ParseDimensionToleranceType(%q) = (%v,%v), want (%v,true)", want, got, ok, typ)
+		}
+	}
+	if _, ok := ParseDimensionToleranceType("gd&t"); ok {
+		t.Error("unknown tolerance type should not resolve")
+	}
+}

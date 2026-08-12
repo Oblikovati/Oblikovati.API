@@ -92,6 +92,15 @@ func (d DrawingDimensions) SetTextStyle(args wire.SetDimensionTextStyleArgs) (wi
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTextStyle, args)
 }
 
+// SetTolerance sets a dimension's engineering tolerance — symmetric, deviation, limits or a fit
+// class (#1990). A none tolerance clears it.
+//
+// mcp:tool set_dimension_tolerance
+// mcp:summary Set a drawing dimension's engineering tolerance (symmetric/deviation/limits/fits).
+func (d DrawingDimensions) SetTolerance(args wire.SetDimensionToleranceArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTolerance, args)
+}
+
 // Delete removes a dimension by name.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)

@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // Drawing dimensions (M14-F03 PBI-141, #388): standalone linear dimensions placed on a view by
 // two pick points (each snapped to the nearest projected model vertex), measuring the true model
 // distance and updating with the model.
@@ -22,6 +24,15 @@ type DrawingDimensionInfo struct {
 	OverrideText string `json:"overrideText,omitempty"`
 	HideValue    bool   `json:"hideValue,omitempty"`
 	DualUnit     bool   `json:"dualUnit,omitempty"`
+	// Tolerance is the dimension's engineering tolerance (#1990); nil ⇒ none.
+	Tolerance *types.DimensionTolerance `json:"tolerance,omitempty"`
+}
+
+// SetDimensionToleranceArgs is the request of [MethodDrawingDimensionsSetTolerance]: set the named
+// dimension's engineering tolerance (#1990). A zero-value (none) Tolerance clears it.
+type SetDimensionToleranceArgs struct {
+	Name      string                   `json:"name"`
+	Tolerance types.DimensionTolerance `json:"tolerance"`
 }
 
 // SetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any
