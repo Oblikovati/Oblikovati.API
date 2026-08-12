@@ -14,15 +14,25 @@ import "oblikovati.org/api/types"
 // per-instance state, and any nested sub-assembly occurrences. Default-false state flags
 // and an empty child list are omitted.
 type OccurrenceInfo struct {
-	ID         uint64           `json:"id"`
-	Name       string           `json:"name"`
-	Transform  types.Matrix     `json:"transform"`
-	Suppressed bool             `json:"suppressed,omitempty"`
-	Grounded   bool             `json:"grounded,omitempty"`
-	Adaptive   bool             `json:"adaptive,omitempty"`
-	Flexible   bool             `json:"flexible,omitempty"` // subassembly solves independently per placement (M12-F06)
-	Substitute bool             `json:"substitute,omitempty"`
-	Children   []OccurrenceInfo `json:"children,omitempty"`
+	ID         uint64       `json:"id"`
+	Name       string       `json:"name"`
+	Transform  types.Matrix `json:"transform"`
+	Suppressed bool         `json:"suppressed,omitempty"`
+	Grounded   bool         `json:"grounded,omitempty"`
+	Adaptive   bool         `json:"adaptive,omitempty"`
+	Flexible   bool         `json:"flexible,omitempty"` // subassembly solves independently per placement (M12-F06)
+	Substitute bool         `json:"substitute,omitempty"`
+	// Display and state (#1975/#1977). Visible and Enabled report both senses (no omitempty) since
+	// their default is true; the rest default false. Opacity is a per-occurrence override (0 ⇒ the
+	// lane/node default). Excluded and Reference drop the occurrence from BOM and mass properties.
+	Visible     bool             `json:"visible"`
+	Transparent bool             `json:"transparent,omitempty"`
+	Opacity     float64          `json:"opacity,omitempty"`
+	Enabled     bool             `json:"enabled"`
+	Excluded    bool             `json:"excluded,omitempty"`
+	Reference   bool             `json:"reference,omitempty"`
+	ContactSet  bool             `json:"contactSet,omitempty"`
+	Children    []OccurrenceInfo `json:"children,omitempty"`
 }
 
 // OccurrencesResult is the reply of [MethodAssemblyOccurrences] and of [MethodAssemblyRemove]:
@@ -98,6 +108,27 @@ type GroundOccurrenceArgs struct {
 type SuppressOccurrenceArgs struct {
 	ID         uint64 `json:"id"`
 	Suppressed bool   `json:"suppressed"`
+}
+
+// SetVisibleOccurrenceArgs is the request of [MethodAssemblySetVisible]: show (Visible=true) or
+// hide the occurrence with id ID — a display override independent of any representation (#1975).
+type SetVisibleOccurrenceArgs struct {
+	ID      uint64 `json:"id"`
+	Visible bool   `json:"visible"`
+}
+
+// SetOccurrenceStateArgs is the request of [MethodAssemblySetOccurrenceState]: change any subset of
+// the occurrence's display/state overrides (#1975/#1977). Each pointer field is applied only when
+// present, so one call can toggle a single flag without restating the others. Opacity is in [0,1]
+// (0 ⇒ the lane/node default).
+type SetOccurrenceStateArgs struct {
+	ID          uint64   `json:"id"`
+	Transparent *bool    `json:"transparent,omitempty"`
+	Opacity     *float64 `json:"opacity,omitempty"`
+	Enabled     *bool    `json:"enabled,omitempty"`
+	Excluded    *bool    `json:"excluded,omitempty"`
+	Reference   *bool    `json:"reference,omitempty"`
+	ContactSet  *bool    `json:"contactSet,omitempty"`
 }
 
 // SetFlexibleOccurrenceArgs is the request of [MethodAssemblySetFlexible] (M12-F06): mark the

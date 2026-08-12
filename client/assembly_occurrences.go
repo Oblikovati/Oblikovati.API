@@ -75,6 +75,24 @@ func (a Assembly) Suppress(id uint64, suppressed bool) (wire.OccurrenceResult, e
 	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySuppress, wire.SuppressOccurrenceArgs{ID: id, Suppressed: suppressed})
 }
 
+// SetVisible shows or hides one occurrence — a display override independent of any representation,
+// e.g. SetVisible(id, false) (#1975).
+//
+// mcp:tool set_occurrence_visible
+// mcp:summary Show (visible:true) or hide an occurrence (id) — a display override.
+func (a Assembly) SetVisible(id uint64, visible bool) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySetVisible, wire.SetVisibleOccurrenceArgs{ID: id, Visible: visible})
+}
+
+// SetOccurrenceState changes any subset of an occurrence's display/state overrides — transparency,
+// opacity, enabled, excluded, reference, contact-set — leaving the unset ones alone (#1975/#1977).
+//
+// mcp:tool set_occurrence_state
+// mcp:summary Change an occurrence's state overrides (transparent/opacity/enabled/excluded/reference/contactSet); unset fields are unchanged.
+func (a Assembly) SetOccurrenceState(args wire.SetOccurrenceStateArgs) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySetOccurrenceState, args)
+}
+
 // SetFlexible marks a subassembly occurrence flexible (it solves independently per placement)
 // or rigid, e.g. SetFlexible(id, true).
 //
