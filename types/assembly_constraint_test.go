@@ -41,11 +41,25 @@ func TestAssemblyConstraintTypeIsValid(t *testing.T) {
 }
 
 func TestMateConstraintSolutionTypeString(t *testing.T) {
-	if got := MateSolutionOpposed.String(); got != "opposed" {
-		t.Errorf("MateSolutionOpposed.String() = %q, want %q", got, "opposed")
+	cases := map[MateConstraintSolutionType]string{
+		MateSolutionOpposed:    "opposed",
+		MateSolutionAligned:    "aligned",
+		MateSolutionUndirected: "undirected",
+		MateSolutionNoSolution: "noSolution",
 	}
-	if got := MateSolutionAligned.String(); got != "aligned" {
-		t.Errorf("MateSolutionAligned.String() = %q, want %q", got, "aligned")
+	for sol, want := range cases {
+		if got := sol.String(); got != want {
+			t.Errorf("MateConstraintSolutionType(%d).String() = %q, want %q", sol, got, want)
+		}
+		if got, ok := ParseMateConstraintSolutionType(want); !ok || got != sol {
+			t.Errorf("ParseMateConstraintSolutionType(%q) = (%d, %v), want (%d, true)", want, got, ok, sol)
+		}
+	}
+	if got, ok := ParseMateConstraintSolutionType(""); !ok || got != MateSolutionOpposed {
+		t.Errorf(`ParseMateConstraintSolutionType("") = (%d, %v), want (opposed, true)`, got, ok)
+	}
+	if _, ok := ParseMateConstraintSolutionType("sideways"); ok {
+		t.Error("an unknown mate solution should not resolve")
 	}
 }
 
