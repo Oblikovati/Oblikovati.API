@@ -99,6 +99,39 @@ func (t AssemblyJointOriginDefinitionType) String() string {
 	}
 }
 
+// AssemblyJointOriginMode is HOW a joint origin's frame is positioned on its component (Inventor's
+// AssemblyJointOriginDefinitionTypeEnum) — inferred from the picked geometry, offset from it by X/Y
+// parameters, or projected to the midplane between two faces. This is a positioning mode, distinct
+// from [AssemblyJointOriginDefinitionType] (which geometry kind was picked). The zero value is
+// JointOriginInfer.
+type AssemblyJointOriginMode int32
+
+const (
+	// JointOriginInfer positions the origin frame directly on the picked geometry (the default).
+	JointOriginInfer AssemblyJointOriginMode = iota
+	// JointOriginOffset shifts the inferred frame by X and Y offsets in its own plane.
+	JointOriginOffset
+	// JointOriginBetweenTwoFaces projects the origin to the midplane between two referenced faces.
+	JointOriginBetweenTwoFaces
+)
+
+var assemblyJointOriginModeNames = map[AssemblyJointOriginMode]string{
+	JointOriginInfer:           "infer",
+	JointOriginOffset:          "offset",
+	JointOriginBetweenTwoFaces: "betweenTwoFaces",
+}
+
+// String returns the origin mode's wire spelling.
+func (m AssemblyJointOriginMode) String() string { return enumName(assemblyJointOriginModeNames, m) }
+
+// ParseAssemblyJointOriginMode resolves a wire spelling back to its mode; "" ⇒ JointOriginInfer.
+func ParseAssemblyJointOriginMode(s string) (AssemblyJointOriginMode, bool) {
+	if s == "" {
+		return JointOriginInfer, true
+	}
+	return enumFromName(assemblyJointOriginModeNames, s)
+}
+
 // DSJointType discriminates the DS-joint kinds — the degrees-of-freedom view of a joint,
 // named in the mechanism vocabulary (prismatic = slider, spherical = ball).
 type DSJointType uint32

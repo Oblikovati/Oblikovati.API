@@ -104,6 +104,15 @@ func (a AssemblyJoints) SetState(args wire.SetJointStateArgs) (wire.AssemblyJoin
 	return call[wire.AssemblyJointResult](a.c, wire.MethodAssemblyJointsSetState, args)
 }
 
+// SetOrigin defines one of a joint's two origins — inferred, offset by X/Y, or the midplane between
+// two faces — and re-solves (#1973).
+//
+// mcp:tool set_joint_origin
+// mcp:summary Define a joint origin (which=1|2): mode "infer"/"offset" (xOffset/yOffset)/"betweenTwoFaces" (faceA/faceB). Re-solves the assembly.
+func (a AssemblyJoints) SetOrigin(args wire.SetJointOriginArgs) (wire.AssemblyJointResult, error) {
+	return call[wire.AssemblyJointResult](a.c, wire.MethodAssemblyJointsSetOrigin, args)
+}
+
 // DSJoints is the DS-joint (degrees-of-freedom / imposed-motion) operation group — the
 // kinematic view of joints motion and simulation consumers read.
 type DSJoints struct{ c *Client }

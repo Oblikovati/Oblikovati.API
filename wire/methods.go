@@ -553,7 +553,8 @@ const (
 	MethodAssemblyJointsDelete         = "assemblyJoints.delete"
 	MethodAssemblyJointsSetLimits      = "assemblyJoints.setLimits"
 	MethodAssemblyJointsSetFlip        = "assemblyJoints.setFlip"
-	MethodAssemblyJointsSetState       = "assemblyJoints.setState" // #1970/#1974 gap/position/locked/protected
+	MethodAssemblyJointsSetState       = "assemblyJoints.setState"  // #1970/#1974 gap/position/locked/protected
+	MethodAssemblyJointsSetOrigin      = "assemblyJoints.setOrigin" // #1973 origin infer/offset/betweenTwoFaces
 
 	MethodDSJointsList             = "dsJoints.list"
 	MethodDSJointsAdd              = "dsJoints.add"

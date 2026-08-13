@@ -46,6 +46,15 @@ type JointInfo struct {
 	AngularPosition float64 `json:"angularPosition,omitempty"`
 	Locked          bool    `json:"locked,omitempty"`
 	Protected       bool    `json:"protected,omitempty"`
+	// Origin definition (#1973): how each of the two joint origins is positioned
+	// (types.AssemblyJointOriginMode: "infer"/"offset"/"betweenTwoFaces") and, for an offset origin,
+	// its X/Y offset in the frame's plane.
+	OriginOneMode    string  `json:"originOneMode,omitempty"`
+	OriginTwoMode    string  `json:"originTwoMode,omitempty"`
+	OriginOneXOffset float64 `json:"originOneXOffset,omitempty"`
+	OriginOneYOffset float64 `json:"originOneYOffset,omitempty"`
+	OriginTwoXOffset float64 `json:"originTwoXOffset,omitempty"`
+	OriginTwoYOffset float64 `json:"originTwoYOffset,omitempty"`
 }
 
 // AssemblyJointsResult is the reply of [MethodAssemblyJointsList]: the active assembly's
@@ -80,6 +89,20 @@ type SetJointStateArgs struct {
 	AngularPosition *float64 `json:"angularPosition,omitempty"`
 	Locked          *bool    `json:"locked,omitempty"`
 	Protected       *bool    `json:"protected,omitempty"`
+}
+
+// SetJointOriginArgs is the request of [MethodAssemblyJointsSetOrigin]: define one of a joint's two
+// origins (#1973). Which is 1 or 2 (origin one or two). Mode is the types.AssemblyJointOriginMode
+// spelling: "infer" (on the picked geometry), "offset" (shift by XOffset/YOffset in the frame's
+// plane), or "betweenTwoFaces" (project to the midplane between FaceA and FaceB).
+type SetJointOriginArgs struct {
+	ID      uint64            `json:"id"`
+	Which   int               `json:"which"`
+	Mode    string            `json:"mode"`
+	XOffset float64           `json:"xOffset,omitempty"`
+	YOffset float64           `json:"yOffset,omitempty"`
+	FaceA   ConstraintGeomRef `json:"faceA,omitempty"`
+	FaceB   ConstraintGeomRef `json:"faceB,omitempty"`
 }
 
 // DeleteJointArgs is the request of [MethodAssemblyJointsDelete]: remove the joint with id ID.

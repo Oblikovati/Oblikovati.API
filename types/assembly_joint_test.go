@@ -68,3 +68,25 @@ func TestJointOriginAndDSStrings(t *testing.T) {
 		}
 	}
 }
+
+// TestAssemblyJointOriginModeRoundTrip pins the origin-mode spellings, the empty/zero default (infer)
+// and rejection of an unknown spelling (#1973).
+func TestAssemblyJointOriginModeRoundTrip(t *testing.T) {
+	cases := map[AssemblyJointOriginMode]string{
+		JointOriginInfer: "infer", JointOriginOffset: "offset", JointOriginBetweenTwoFaces: "betweenTwoFaces",
+	}
+	for m, want := range cases {
+		if got := m.String(); got != want {
+			t.Errorf("AssemblyJointOriginMode(%d).String() = %q, want %q", m, got, want)
+		}
+		if parsed, ok := ParseAssemblyJointOriginMode(want); !ok || parsed != m {
+			t.Errorf("ParseAssemblyJointOriginMode(%q) = (%d, %v), want (%d, true)", want, parsed, ok, m)
+		}
+	}
+	if parsed, ok := ParseAssemblyJointOriginMode(""); !ok || parsed != JointOriginInfer {
+		t.Errorf(`ParseAssemblyJointOriginMode("") = (%d, %v), want (JointOriginInfer, true)`, parsed, ok)
+	}
+	if _, ok := ParseAssemblyJointOriginMode("midpoint"); ok {
+		t.Error("ParseAssemblyJointOriginMode(midpoint) = ok, want rejected")
+	}
+}
