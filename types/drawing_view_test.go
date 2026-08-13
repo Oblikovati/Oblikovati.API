@@ -89,6 +89,30 @@ func TestSectionViewTypeRoundTrip(t *testing.T) {
 	}
 }
 
+// TestDrawingEdgeTypeRoundTrip pins every edge-type spelling, the empty/zero default and rejection of
+// an unknown spelling (#1984).
+func TestDrawingEdgeTypeRoundTrip(t *testing.T) {
+	cases := map[DrawingEdgeType]string{
+		UnknownDrawingEdge: "unknown", TangentDrawingEdge: "tangent", ThreadDrawingEdge: "thread",
+		BendUpDrawingEdge: "bendUp", BendDownDrawingEdge: "bendDown", BendExtentDrawingEdge: "bendExtent",
+		PunchDrawingEdge: "punch", ContourRollDrawingEdge: "contourRoll",
+	}
+	for typ, want := range cases {
+		if got := typ.String(); got != want {
+			t.Errorf("DrawingEdgeType(%d).String() = %q, want %q", typ, got, want)
+		}
+		if parsed, ok := ParseDrawingEdgeType(want); !ok || parsed != typ {
+			t.Errorf("ParseDrawingEdgeType(%q) = (%d, %v), want (%d, true)", want, parsed, ok, typ)
+		}
+	}
+	if parsed, ok := ParseDrawingEdgeType(""); !ok || parsed != UnknownDrawingEdge {
+		t.Errorf(`ParseDrawingEdgeType("") = (%d, %v), want (UnknownDrawingEdge, true)`, parsed, ok)
+	}
+	if _, ok := ParseDrawingEdgeType("interference"); ok {
+		t.Error("ParseDrawingEdgeType(interference) = ok, want rejected")
+	}
+}
+
 // TestChamferBendNoteKindsRoundTrip pins the model-derived note kinds' wire spellings and their
 // round-trip, and rejection of an unknown spelling (#1995).
 func TestChamferBendNoteKindsRoundTrip(t *testing.T) {

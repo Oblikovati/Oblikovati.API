@@ -38,6 +38,17 @@ type DrawingViewInfo struct {
 	SectionType    string  `json:"sectionType,omitempty"`
 	// CropCount is the number of crop fences clipping the view (#1987); 0 ⇒ uncropped.
 	CropCount int `json:"cropCount,omitempty"`
+	// DisplayTangentEdges reports whether smooth tangent edges are drawn in this view (#1984); when
+	// false, tangent curves are omitted from the projection.
+	DisplayTangentEdges bool `json:"displayTangentEdges"`
+}
+
+// SetViewDisplayArgs is the request of [MethodDrawingViewsSetDisplay]: change a view's edge-display
+// toggles (#1984). Each pointer field is applied only when present. DisplayTangentEdges=false drops
+// the smooth tangent edges (fillet/blend transitions) from the projection.
+type SetViewDisplayArgs struct {
+	Name                string `json:"name"`
+	DisplayTangentEdges *bool  `json:"displayTangentEdges,omitempty"`
 }
 
 // SetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named
@@ -232,6 +243,9 @@ type DrawingCurveSegment struct {
 	Visible bool    `json:"visible"`
 	Kind    string  `json:"kind,omitempty"` // types.DrawingCurveKind ("edge" default; section/hatch/break)
 	EdgeKey string  `json:"edgeKey,omitempty"`
+	// EdgeType is the model-edge role (types.DrawingEdgeType: "tangent" for a smooth fillet/blend
+	// transition, "" ⇒ unknown/ordinary sharp edge), so the curve can be styled or filtered (#1984).
+	EdgeType string `json:"edgeType,omitempty"`
 }
 
 // ViewCurvesResult is the response of [MethodDrawingViewsCurves]: the view's drawing curves.

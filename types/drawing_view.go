@@ -300,6 +300,53 @@ func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
 	return enumFromName(projectionDirectionNames, s)
 }
 
+// DrawingEdgeType classifies the model-edge role a drawing curve came from, so a view can style or
+// filter it (Inventor's DrawingEdgeTypeEnum). The zero value is UnknownDrawingEdge — an ordinary
+// sharp model edge with no special role.
+type DrawingEdgeType int32
+
+const (
+	// UnknownDrawingEdge is an ordinary sharp model edge (a crease between two non-tangent faces).
+	UnknownDrawingEdge DrawingEdgeType = iota
+	// TangentDrawingEdge is a smooth-transition edge: its two faces meet tangentially (a fillet or
+	// blend runout), drawn thin and suppressible.
+	TangentDrawingEdge
+	// ThreadDrawingEdge is a cosmetic thread line.
+	ThreadDrawingEdge
+	// BendUpDrawingEdge is a sheet-metal bend line folding up.
+	BendUpDrawingEdge
+	// BendDownDrawingEdge is a sheet-metal bend line folding down.
+	BendDownDrawingEdge
+	// BendExtentDrawingEdge is the extent (tangent) line bounding a sheet-metal bend.
+	BendExtentDrawingEdge
+	// PunchDrawingEdge is a sheet-metal punch-feature edge.
+	PunchDrawingEdge
+	// ContourRollDrawingEdge is a contour-roll (lofted-flange) edge.
+	ContourRollDrawingEdge
+)
+
+var drawingEdgeTypeNames = map[DrawingEdgeType]string{
+	UnknownDrawingEdge:     "unknown",
+	TangentDrawingEdge:     "tangent",
+	ThreadDrawingEdge:      "thread",
+	BendUpDrawingEdge:      "bendUp",
+	BendDownDrawingEdge:    "bendDown",
+	BendExtentDrawingEdge:  "bendExtent",
+	PunchDrawingEdge:       "punch",
+	ContourRollDrawingEdge: "contourRoll",
+}
+
+// String returns the edge type's wire spelling ("unknown" for the zero value).
+func (t DrawingEdgeType) String() string { return enumName(drawingEdgeTypeNames, t) }
+
+// ParseDrawingEdgeType resolves a wire spelling back to its edge type; "" ⇒ UnknownDrawingEdge.
+func ParseDrawingEdgeType(s string) (DrawingEdgeType, bool) {
+	if s == "" {
+		return UnknownDrawingEdge, true
+	}
+	return enumFromName(drawingEdgeTypeNames, s)
+}
+
 // DrawingAnnotationKind classifies a drawing annotation. The zero value is CoGMarkerAnnotation.
 type DrawingAnnotationKind int32
 

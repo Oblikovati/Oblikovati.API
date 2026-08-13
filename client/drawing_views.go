@@ -112,6 +112,15 @@ func (d DrawingViews) SetLabel(args wire.SetViewLabelArgs) (wire.ListDrawingView
 	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetLabel, args)
 }
 
+// SetDisplay changes a view's edge-display toggles — currently the tangent-edge (fillet/blend
+// transition) display — leaving the unset ones alone (#1984).
+//
+// mcp:tool set_view_display
+// mcp:summary Change a drawing view's edge display: displayTangentEdges=false drops smooth tangent (fillet/blend) edges. Unset fields unchanged.
+func (d DrawingViews) SetDisplay(args wire.SetViewDisplayArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetDisplay, args)
+}
+
 // AddCrop clips a view to a rectangular or circular fence (sheet mm), keeping the view's scale,
 // with an optional continuous/zigzag break-mark boundary (#1987).
 //
