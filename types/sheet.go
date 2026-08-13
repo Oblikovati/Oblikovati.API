@@ -117,3 +117,66 @@ func (o SheetOrientation) String() string { return enumName(sheetOrientationName
 func ParseSheetOrientation(s string) (SheetOrientation, bool) {
 	return enumFromName(sheetOrientationNames, s)
 }
+
+// BorderLabelMode is how a zoned border labels one axis of zones (Inventor's BorderLabelModeEnum).
+// The zero value is AlphabeticalBorderLabel (A, B, C …), the common default for the vertical axis.
+type BorderLabelMode int32
+
+const (
+	// AlphabeticalBorderLabel labels zones A, B, C, … (the default).
+	AlphabeticalBorderLabel BorderLabelMode = iota
+	// NumericBorderLabel labels zones 1, 2, 3, ….
+	NumericBorderLabel
+	// NoBorderLabel draws the zone divisions without labels.
+	NoBorderLabel
+)
+
+var borderLabelModeNames = map[BorderLabelMode]string{
+	AlphabeticalBorderLabel: "alphabetical",
+	NumericBorderLabel:      "numeric",
+	NoBorderLabel:           "none",
+}
+
+// String returns the label mode's wire spelling.
+func (m BorderLabelMode) String() string { return enumName(borderLabelModeNames, m) }
+
+// ParseBorderLabelMode resolves a wire spelling back to its label mode; "" ⇒ AlphabeticalBorderLabel.
+func ParseBorderLabelMode(s string) (BorderLabelMode, bool) {
+	if s == "" {
+		return AlphabeticalBorderLabel, true
+	}
+	return enumFromName(borderLabelModeNames, s)
+}
+
+// TitleBlockLocation is the sheet corner a title block sits in (Inventor's TitleBlockLocationEnum).
+// The zero value is BottomRightTitleBlock, the drafting default.
+type TitleBlockLocation int32
+
+const (
+	// BottomRightTitleBlock places the title block in the lower-right corner (the default).
+	BottomRightTitleBlock TitleBlockLocation = iota
+	// BottomLeftTitleBlock places it in the lower-left corner.
+	BottomLeftTitleBlock
+	// TopLeftTitleBlock places it in the upper-left corner.
+	TopLeftTitleBlock
+	// TopRightTitleBlock places it in the upper-right corner.
+	TopRightTitleBlock
+)
+
+var titleBlockLocationNames = map[TitleBlockLocation]string{
+	BottomRightTitleBlock: "bottomRight",
+	BottomLeftTitleBlock:  "bottomLeft",
+	TopLeftTitleBlock:     "topLeft",
+	TopRightTitleBlock:    "topRight",
+}
+
+// String returns the location's wire spelling.
+func (l TitleBlockLocation) String() string { return enumName(titleBlockLocationNames, l) }
+
+// ParseTitleBlockLocation resolves a wire spelling back to its location; "" ⇒ BottomRightTitleBlock.
+func ParseTitleBlockLocation(s string) (TitleBlockLocation, bool) {
+	if s == "" {
+		return BottomRightTitleBlock, true
+	}
+	return enumFromName(titleBlockLocationNames, s)
+}

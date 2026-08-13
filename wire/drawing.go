@@ -19,6 +19,62 @@ type SheetInfo struct {
 	Active        bool    `json:"active"`
 	HasBorder     bool    `json:"hasBorder"`
 	HasTitleBlock bool    `json:"hasTitleBlock"`
+	// Sheet authoring (#1989). Revision is the sheet's revision string; BorderHZones/VZones report a
+	// zoned border's grid (0 ⇒ plain); TitleBlockLocation is the title block's corner.
+	Revision           string `json:"revision,omitempty"`
+	BorderHZones       int    `json:"borderHZones,omitempty"`
+	BorderVZones       int    `json:"borderVZones,omitempty"`
+	TitleBlockLocation string `json:"titleBlockLocation,omitempty"`
+}
+
+// AddDefaultBorderArgs is the request of [MethodDrawingAddDefaultBorder]: replace the active sheet's
+// border with a zoned one — HZones columns × VZones rows, labelled per HLabelMode / VLabelMode
+// (types.BorderLabelMode: "alphabetical"/"numeric"/"none"; "" ⇒ alphabetical). Sheet names the target
+// sheet ("" ⇒ active) (#1989).
+type AddDefaultBorderArgs struct {
+	Sheet      string `json:"sheet,omitempty"`
+	HZones     int    `json:"hZones"`
+	VZones     int    `json:"vZones"`
+	HLabelMode string `json:"hLabelMode,omitempty"`
+	VLabelMode string `json:"vLabelMode,omitempty"`
+}
+
+// SetTitleBlockArgs is the request of [MethodDrawingSetTitleBlock]: move a sheet's title block to a
+// corner (types.TitleBlockLocation: "bottomRight"/"bottomLeft"/"topLeft"/"topRight"; "" ⇒ bottomRight),
+// seeding the default block when the sheet has none. Sheet names the target ("" ⇒ active) (#1989).
+type SetTitleBlockArgs struct {
+	Sheet    string `json:"sheet,omitempty"`
+	Location string `json:"location,omitempty"`
+}
+
+// SetSheetRevisionArgs is the request of [MethodDrawingSetSheetRevision]: set a sheet's revision
+// string. Sheet names the target ("" ⇒ active) (#1989).
+type SetSheetRevisionArgs struct {
+	Sheet    string `json:"sheet,omitempty"`
+	Revision string `json:"revision"`
+}
+
+// DefineSheetFormatArgs is the request of [MethodDrawingDefineSheetFormat]: register a reusable sheet
+// format under Name — a size/orientation, an optional zoned border (HZones×VZones, 0 ⇒ plain) and a
+// title-block corner — that [MethodDrawingAddSheetUsingFormat] stamps new sheets from (#1989).
+type DefineSheetFormatArgs struct {
+	Name               string  `json:"name"`
+	Size               string  `json:"size,omitempty"`
+	Orientation        string  `json:"orientation,omitempty"`
+	WidthMM            float64 `json:"widthMm,omitempty"`
+	HeightMM           float64 `json:"heightMm,omitempty"`
+	HZones             int     `json:"hZones,omitempty"`
+	VZones             int     `json:"vZones,omitempty"`
+	HLabelMode         string  `json:"hLabelMode,omitempty"`
+	VLabelMode         string  `json:"vLabelMode,omitempty"`
+	TitleBlockLocation string  `json:"titleBlockLocation,omitempty"`
+}
+
+// AddSheetUsingFormatArgs is the request of [MethodDrawingAddSheetUsingFormat]: add a sheet named Name
+// stamped from the registered format Format (#1989).
+type AddSheetUsingFormatArgs struct {
+	Name   string `json:"name,omitempty"`
+	Format string `json:"format"`
 }
 
 // ListSheetsResult is the response of [MethodDrawingListSheets]: every sheet (the
