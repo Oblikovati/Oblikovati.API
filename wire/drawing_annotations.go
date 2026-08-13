@@ -9,12 +9,13 @@ package wire
 
 // DrawingAnnotationInfo is the JSON shape of one drawing annotation.
 type DrawingAnnotationInfo struct {
-	Name       string `json:"name"`
-	Kind       string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList"/"balloon"/"holeTable")
-	ViewName   string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
-	Tag        string `json:"tag,omitempty"`      // a revision cloud's label
-	CurveCount int    `json:"curveCount"`
-	RowCount   int    `json:"rowCount,omitempty"` // a parts list's data-row count (BOM items)
+	Name        string `json:"name"`
+	Kind        string `json:"kind"`               // types.DrawingAnnotationKind ("cog"/"revisionCloud"/"centerMark"/"centerline"/"featureControlFrame"/"datumFeature"/"surfaceTexture"/"partsList"/"balloon"/"holeTable")
+	ViewName    string `json:"viewName,omitempty"` // the view a CoG marker / centre mark is on
+	Tag         string `json:"tag,omitempty"`      // a revision cloud's label
+	CurveCount  int    `json:"curveCount"`
+	RowCount    int    `json:"rowCount,omitempty"`    // a parts list's data-row count (BOM items)
+	ThreadCount int    `json:"threadCount,omitempty"` // a hole note's tapped-hole count (0 = all plain), #1995
 }
 
 // ListDrawingAnnotationsResult is the response of [MethodDrawingAnnotationsList].
@@ -190,9 +191,11 @@ type AddHoleNotesArgs struct {
 	// Quantity is the grouping mode ("perHole" = one callout per hole, the default; "combined" =
 	// one "<n>x Ø<d>" callout per distinct diameter). Empty means perHole.
 	Quantity string `json:"quantity,omitempty"`
-	// Format is an optional callout template with {d} (diameter) and {n} (hole count) placeholders —
-	// e.g. "Ø{d} THRU" or "TAP M8 x{n}". Empty uses the default ("Ø{d}", or "{n}x Ø{d}" combined).
-	// The {d} value is computed from the hole, so the callout stays associative to the model.
+	// Format is an optional callout template with {d} (diameter), {n} (hole count) and {thread}
+	// (thread designation, empty for a plain hole) placeholders — e.g. "Ø{d} THRU" or "{thread} x{n}".
+	// Empty uses the default: a tapped hole reads as its thread designation ("M6x1"), a plain hole as
+	// "Ø{d}" (or "{n}x …" combined). The values are computed from the hole, so the callout stays
+	// associative to the model.
 	Format string `json:"format,omitempty"`
 }
 
