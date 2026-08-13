@@ -89,6 +89,50 @@ func TestSectionViewTypeRoundTrip(t *testing.T) {
 	}
 }
 
+// TestDrawingViewAlignmentRoundTrip pins the alignment spellings, the empty/zero default (free) and
+// rejection of an unknown spelling (#1988).
+func TestDrawingViewAlignmentRoundTrip(t *testing.T) {
+	cases := map[DrawingViewAlignment]string{
+		InPositionViewAlignment: "inPosition", HorizontalViewAlignment: "horizontal", VerticalViewAlignment: "vertical",
+	}
+	for a, want := range cases {
+		if got := a.String(); got != want {
+			t.Errorf("DrawingViewAlignment(%d).String() = %q, want %q", a, got, want)
+		}
+		if parsed, ok := ParseDrawingViewAlignment(want); !ok || parsed != a {
+			t.Errorf("ParseDrawingViewAlignment(%q) = (%d, %v), want (%d, true)", want, parsed, ok, a)
+		}
+	}
+	if parsed, ok := ParseDrawingViewAlignment(""); !ok || parsed != InPositionViewAlignment {
+		t.Errorf(`ParseDrawingViewAlignment("") = (%d, %v), want (InPositionViewAlignment, true)`, parsed, ok)
+	}
+	if _, ok := ParseDrawingViewAlignment("diagonal"); ok {
+		t.Error("ParseDrawingViewAlignment(diagonal) = ok, want rejected")
+	}
+}
+
+// TestViewJustificationRoundTrip pins the justification spellings, the empty/zero default (centered)
+// and rejection of an unknown spelling (#1988).
+func TestViewJustificationRoundTrip(t *testing.T) {
+	cases := map[ViewJustification]string{
+		CenteredViewJustification: "centered", FixedViewJustification: "fixed",
+	}
+	for j, want := range cases {
+		if got := j.String(); got != want {
+			t.Errorf("ViewJustification(%d).String() = %q, want %q", j, got, want)
+		}
+		if parsed, ok := ParseViewJustification(want); !ok || parsed != j {
+			t.Errorf("ParseViewJustification(%q) = (%d, %v), want (%d, true)", want, parsed, ok, j)
+		}
+	}
+	if parsed, ok := ParseViewJustification(""); !ok || parsed != CenteredViewJustification {
+		t.Errorf(`ParseViewJustification("") = (%d, %v), want (CenteredViewJustification, true)`, parsed, ok)
+	}
+	if _, ok := ParseViewJustification("left"); ok {
+		t.Error("ParseViewJustification(left) = ok, want rejected")
+	}
+}
+
 // TestDrawingEdgeTypeRoundTrip pins every edge-type spelling, the empty/zero default and rejection of
 // an unknown spelling (#1984).
 func TestDrawingEdgeTypeRoundTrip(t *testing.T) {

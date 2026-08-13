@@ -121,6 +121,23 @@ func (d DrawingViews) SetDisplay(args wire.SetViewDisplayArgs) (wire.ListDrawing
 	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetDisplay, args)
 }
 
+// Rotate sets a view's rotation about its centre (degrees, CCW positive), rotating its curves (#1988).
+//
+// mcp:tool rotate_view
+// mcp:summary Rotate a drawing view about its centre to angleDeg degrees (CCW positive).
+func (d DrawingViews) Rotate(args wire.RotateViewArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsRotate, args)
+}
+
+// Align locks a view to an anchor view on a shared axis (horizontal shares Y, vertical shares X) so
+// moving the anchor drags it, or frees it with inPosition (#1988).
+//
+// mcp:tool align_view
+// mcp:summary Align a drawing view to an anchor: "horizontal" (shared Y), "vertical" (shared X), or "inPosition" (free). Optional justification (centered/fixed).
+func (d DrawingViews) Align(args wire.AlignViewArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsAlign, args)
+}
+
 // AddCrop clips a view to a rectangular or circular fence (sheet mm), keeping the view's scale,
 // with an optional continuous/zigzag break-mark boundary (#1987).
 //

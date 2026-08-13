@@ -300,6 +300,65 @@ func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
 	return enumFromName(projectionDirectionNames, s)
 }
 
+// DrawingViewAlignment locks a view's position relative to another view (Inventor's
+// DrawingViewAlignmentEnum). Horizontal/vertical hold the two views on a shared axis so moving one
+// drags the other; InPosition frees the view (breaks the lock). The zero value is InPositionView.
+type DrawingViewAlignment int32
+
+const (
+	// InPositionViewAlignment leaves the view free — no alignment lock to another view.
+	InPositionViewAlignment DrawingViewAlignment = iota
+	// HorizontalViewAlignment holds the view on the same horizontal line (shared Y) as its anchor.
+	HorizontalViewAlignment
+	// VerticalViewAlignment holds the view on the same vertical line (shared X) as its anchor.
+	VerticalViewAlignment
+)
+
+var drawingViewAlignmentNames = map[DrawingViewAlignment]string{
+	InPositionViewAlignment: "inPosition",
+	HorizontalViewAlignment: "horizontal",
+	VerticalViewAlignment:   "vertical",
+}
+
+// String returns the alignment's wire spelling.
+func (a DrawingViewAlignment) String() string { return enumName(drawingViewAlignmentNames, a) }
+
+// ParseDrawingViewAlignment resolves a wire spelling back to its alignment; "" ⇒ InPositionViewAlignment.
+func ParseDrawingViewAlignment(s string) (DrawingViewAlignment, bool) {
+	if s == "" {
+		return InPositionViewAlignment, true
+	}
+	return enumFromName(drawingViewAlignmentNames, s)
+}
+
+// ViewJustification is how a view centres itself on recompute (Inventor's ViewJustificationEnum). The
+// zero value is CenteredViewJustification.
+type ViewJustification int32
+
+const (
+	// CenteredViewJustification keeps the view centred on its geometry (the default).
+	CenteredViewJustification ViewJustification = iota
+	// FixedViewJustification pins the view by a fixed reference point, so its position does not drift
+	// as the model (and its projected extent) changes.
+	FixedViewJustification
+)
+
+var viewJustificationNames = map[ViewJustification]string{
+	CenteredViewJustification: "centered",
+	FixedViewJustification:    "fixed",
+}
+
+// String returns the justification's wire spelling.
+func (j ViewJustification) String() string { return enumName(viewJustificationNames, j) }
+
+// ParseViewJustification resolves a wire spelling back to its justification; "" ⇒ CenteredViewJustification.
+func ParseViewJustification(s string) (ViewJustification, bool) {
+	if s == "" {
+		return CenteredViewJustification, true
+	}
+	return enumFromName(viewJustificationNames, s)
+}
+
 // DrawingEdgeType classifies the model-edge role a drawing curve came from, so a view can style or
 // filter it (Inventor's DrawingEdgeTypeEnum). The zero value is UnknownDrawingEdge — an ordinary
 // sharp model edge with no special role.

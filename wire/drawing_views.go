@@ -41,6 +41,32 @@ type DrawingViewInfo struct {
 	// DisplayTangentEdges reports whether smooth tangent edges are drawn in this view (#1984); when
 	// false, tangent curves are omitted from the projection.
 	DisplayTangentEdges bool `json:"displayTangentEdges"`
+	// Placement (#1988). RotationDeg is the view's rotation about its centre (degrees, CCW positive).
+	// Aligned reports whether the view is locked to another; AlignedTo/Alignment name that anchor and
+	// the shared axis (types.DrawingViewAlignment); Justification is the centring mode.
+	RotationDeg   float64 `json:"rotationDeg,omitempty"`
+	Aligned       bool    `json:"aligned,omitempty"`
+	AlignedTo     string  `json:"alignedTo,omitempty"`
+	Alignment     string  `json:"alignment,omitempty"`
+	Justification string  `json:"justification,omitempty"`
+}
+
+// RotateViewArgs is the request of [MethodDrawingViewsRotate]: set the named view's rotation about its
+// centre to AngleDeg degrees (CCW positive), rotating its curves (#1988).
+type RotateViewArgs struct {
+	Name     string  `json:"name"`
+	AngleDeg float64 `json:"angleDeg"`
+}
+
+// AlignViewArgs is the request of [MethodDrawingViewsAlign]: lock the named view to AnchorView on a
+// shared axis, or free it (#1988). Alignment is the types.DrawingViewAlignment spelling
+// ("horizontal" shares Y, "vertical" shares X, "inPosition" breaks the lock and ignores AnchorView).
+// Justification optionally sets the view's centring mode (types.ViewJustification; "" leaves it).
+type AlignViewArgs struct {
+	Name          string `json:"name"`
+	AnchorView    string `json:"anchorView,omitempty"`
+	Alignment     string `json:"alignment"`
+	Justification string `json:"justification,omitempty"`
 }
 
 // SetViewDisplayArgs is the request of [MethodDrawingViewsSetDisplay]: change a view's edge-display
