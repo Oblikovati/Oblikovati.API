@@ -142,6 +142,24 @@ func (d DrawingAnnotations) AddHoleNotes(args wire.AddHoleNotesArgs) (wire.Annot
 	return call[wire.AnnotationResult](d.c, wire.MethodDrawingAnnotationsAddHoleNotes, args)
 }
 
+// AddChamferNote adds a feature note on a chamfer: a leadered "d × angle" callout derived from the
+// chamfer face and its reference edge.
+//
+// mcp:tool drawing_add_chamfer_note
+// mcp:summary Add a chamfer note to a base view (viewName) from the chamfer's two edge reference keys (edgeA, edgeB). The callout "<d> × <angle>°" is derived from the chamfer face and the reference face on edgeA, and re-resolves when the model changes.
+func (d DrawingAnnotations) AddChamferNote(args wire.AddChamferNoteArgs) (wire.AnnotationResult, error) {
+	return call[wire.AnnotationResult](d.c, wire.MethodDrawingAnnotationsAddChamferNote, args)
+}
+
+// AddBendNote adds a feature note on a sheet-metal bend: a leadered angle/radius/direction callout
+// derived from the cylindrical bend face.
+//
+// mcp:tool drawing_add_bend_note
+// mcp:summary Add a bend note to a base view (viewName) from an edge of the bend's cylindrical face (bendEdge). The callout (bend angle, radius, up/down direction) is derived from the model and re-resolves when it changes.
+func (d DrawingAnnotations) AddBendNote(args wire.AddBendNoteArgs) (wire.AnnotationResult, error) {
+	return call[wire.AnnotationResult](d.c, wire.MethodDrawingAnnotationsAddBendNote, args)
+}
+
 // Delete removes the named annotation.
 //
 // mcp:tool drawing_delete_annotation

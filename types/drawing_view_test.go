@@ -89,6 +89,27 @@ func TestSectionViewTypeRoundTrip(t *testing.T) {
 	}
 }
 
+// TestChamferBendNoteKindsRoundTrip pins the model-derived note kinds' wire spellings and their
+// round-trip, and rejection of an unknown spelling (#1995).
+func TestChamferBendNoteKindsRoundTrip(t *testing.T) {
+	cases := map[DrawingAnnotationKind]string{
+		ChamferNoteAnnotation: "chamferNote",
+		BendNoteAnnotation:    "bendNote",
+		HoleNoteAnnotation:    "holeNote",
+	}
+	for kind, want := range cases {
+		if got := kind.String(); got != want {
+			t.Errorf("DrawingAnnotationKind(%d).String() = %q, want %q", kind, got, want)
+		}
+		if parsed, ok := ParseDrawingAnnotationKind(want); !ok || parsed != kind {
+			t.Errorf("ParseDrawingAnnotationKind(%q) = (%d, %v), want (%d, true)", want, parsed, ok, kind)
+		}
+	}
+	if _, ok := ParseDrawingAnnotationKind("filletNote"); ok {
+		t.Error("ParseDrawingAnnotationKind(filletNote) = ok, want rejected")
+	}
+}
+
 // TestCropBreakMarkLineTypeRoundTrip pins the crop break-mark types, the empty/zero default and
 // rejection of an unknown spelling (#1987).
 func TestCropBreakMarkLineTypeRoundTrip(t *testing.T) {

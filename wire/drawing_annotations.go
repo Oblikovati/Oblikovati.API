@@ -199,6 +199,28 @@ type AddHoleNotesArgs struct {
 	Format string `json:"format,omitempty"`
 }
 
+// AddChamferNoteArgs is the request of [MethodDrawingAnnotationsAddChamferNote]: a feature note on a
+// chamfer in the base view ViewName. EdgeA and EdgeB are the reference keys of the chamfer's two
+// edges (where the chamfer face meets each adjacent face); EdgeA's non-chamfer face is the reference
+// the angle is measured from. The callout ("<d> × <angle>°") is derived from the model geometry, so
+// it re-resolves when the model changes.
+type AddChamferNoteArgs struct {
+	Name     string `json:"name,omitempty"`
+	ViewName string `json:"viewName"`
+	EdgeA    string `json:"edgeA"`
+	EdgeB    string `json:"edgeB"`
+}
+
+// AddBendNoteArgs is the request of [MethodDrawingAnnotationsAddBendNote]: a feature note on a
+// sheet-metal bend in the base view ViewName. BendEdge is the reference key of an edge of the
+// cylindrical bend face. The callout (bend angle, radius and up/down direction) is derived from the
+// model geometry, so it re-resolves when the model changes.
+type AddBendNoteArgs struct {
+	Name     string `json:"name,omitempty"`
+	ViewName string `json:"viewName"`
+	BendEdge string `json:"bendEdge"`
+}
+
 // DeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].
 type DeleteAnnotationArgs struct {
 	Name string `json:"name"`

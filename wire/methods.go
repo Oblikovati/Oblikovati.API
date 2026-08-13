@@ -410,6 +410,8 @@ const (
 	MethodDrawingAnnotationsAddNote          = "drawingAnnotations.addNote"
 	MethodDrawingAnnotationsAddCustomTable   = "drawingAnnotations.addCustomTable"
 	MethodDrawingAnnotationsAddHoleNotes     = "drawingAnnotations.addHoleNotes"
+	MethodDrawingAnnotationsAddChamferNote   = "drawingAnnotations.addChamferNote"
+	MethodDrawingAnnotationsAddBendNote      = "drawingAnnotations.addBendNote"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing sketches (M14-F08 #638): 2D geometry drawn directly in sheet space (millimetres) on a

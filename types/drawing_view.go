@@ -345,6 +345,14 @@ const (
 	// HoleNoteAnnotation is a feature note on a base view's holes: a leadered diameter callout per
 	// hole, computed from the hole's circular edge and re-resolved when the model changes.
 	HoleNoteAnnotation
+	// ChamferNoteAnnotation is a feature note on a chamfer: a leadered "d × angle" callout derived
+	// from the chamfer face and its reference edge (the setback distance × the chamfer angle),
+	// re-resolved when the model changes.
+	ChamferNoteAnnotation
+	// BendNoteAnnotation is a feature note on a sheet-metal bend: a leadered callout of the bend
+	// angle, radius and direction (up/down), derived from the cylindrical bend face and re-resolved
+	// when the model changes.
+	BendNoteAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -363,6 +371,8 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	DrawingNoteAnnotation:         "drawingNote",
 	CustomTableAnnotation:         "customTable",
 	HoleNoteAnnotation:            "holeNote",
+	ChamferNoteAnnotation:         "chamferNote",
+	BendNoteAnnotation:            "bendNote",
 }
 
 // String returns the annotation kind's wire spelling.
