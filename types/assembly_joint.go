@@ -197,3 +197,34 @@ func (t DSDOFImposedMotionType) String() string {
 		return "free"
 	}
 }
+
+// OccurrenceDOFState classifies a single degree of freedom for "show DOF" purposes (Inventor's
+// OccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state
+// value. The zero value is NoDegreeOfFreedomState.
+type OccurrenceDOFState int32
+
+const (
+	// NoDegreeOfFreedomState is the zero value: no DOF-state classification.
+	NoDegreeOfFreedomState OccurrenceDOFState = iota
+	// CanRetainDegreeOfFreedom marks a DOF that can be retained (kept free).
+	CanRetainDegreeOfFreedom
+	// CanIgnoreDegreeOfFreedom marks a DOF that can be ignored (consumed).
+	CanIgnoreDegreeOfFreedom
+)
+
+var occurrenceDOFStateNames = map[OccurrenceDOFState]string{
+	NoDegreeOfFreedomState:   "none",
+	CanRetainDegreeOfFreedom: "canRetain",
+	CanIgnoreDegreeOfFreedom: "canIgnore",
+}
+
+// String returns the DOF state's wire spelling.
+func (s OccurrenceDOFState) String() string { return enumName(occurrenceDOFStateNames, s) }
+
+// ParseOccurrenceDOFState resolves a wire spelling back to its DOF state; "" ⇒ NoDegreeOfFreedomState.
+func ParseOccurrenceDOFState(s string) (OccurrenceDOFState, bool) {
+	if s == "" {
+		return NoDegreeOfFreedomState, true
+	}
+	return enumFromName(occurrenceDOFStateNames, s)
+}

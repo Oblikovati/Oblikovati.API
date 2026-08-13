@@ -2,6 +2,8 @@
 
 package wire
 
+import "oblikovati.org/api/types"
+
 // The assembly constraint surface (M12-F01, Oblikovati/Oblikovati#358/#363): add the
 // relationships that position one occurrence relative to another, solve them, and read
 // the assembly's health and per-occurrence degrees of freedom. Geometry inputs are
@@ -53,6 +55,14 @@ type AssemblyConstraintInfo struct {
 type OccurrenceDOFInfo struct {
 	Occurrence       uint64 `json:"occurrence"`
 	DegreesOfFreedom int    `json:"degreesOfFreedom"`
+	// DOF split (#1980): the free DOF broken into translational and rotational counts (summing to
+	// DegreesOfFreedom), the DOF centre point, and the free translation/rotation axis directions —
+	// the geometry a "show degrees of freedom" glyph draws.
+	TranslationCount int            `json:"translationCount,omitempty"`
+	RotationCount    int            `json:"rotationCount,omitempty"`
+	Center           types.Point    `json:"center,omitempty"`
+	TranslationAxes  []types.Vector `json:"translationAxes,omitempty"`
+	RotationAxes     []types.Vector `json:"rotationAxes,omitempty"`
 }
 
 // AssemblyHealthResult is the reply of [MethodAssemblyConstraintsSolve] and

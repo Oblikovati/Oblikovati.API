@@ -90,3 +90,25 @@ func TestAssemblyJointOriginModeRoundTrip(t *testing.T) {
 		t.Error("ParseAssemblyJointOriginMode(midpoint) = ok, want rejected")
 	}
 }
+
+// TestOccurrenceDOFStateRoundTrip pins the DOF-state spellings, the empty/zero default and rejection
+// of an unknown spelling (#1980).
+func TestOccurrenceDOFStateRoundTrip(t *testing.T) {
+	cases := map[OccurrenceDOFState]string{
+		NoDegreeOfFreedomState: "none", CanRetainDegreeOfFreedom: "canRetain", CanIgnoreDegreeOfFreedom: "canIgnore",
+	}
+	for st, want := range cases {
+		if got := st.String(); got != want {
+			t.Errorf("OccurrenceDOFState(%d).String() = %q, want %q", st, got, want)
+		}
+		if parsed, ok := ParseOccurrenceDOFState(want); !ok || parsed != st {
+			t.Errorf("ParseOccurrenceDOFState(%q) = (%d, %v), want (%d, true)", want, parsed, ok, st)
+		}
+	}
+	if parsed, ok := ParseOccurrenceDOFState(""); !ok || parsed != NoDegreeOfFreedomState {
+		t.Errorf(`ParseOccurrenceDOFState("") = (%d, %v), want (NoDegreeOfFreedomState, true)`, parsed, ok)
+	}
+	if _, ok := ParseOccurrenceDOFState("maybe"); ok {
+		t.Error("ParseOccurrenceDOFState(maybe) = ok, want rejected")
+	}
+}
