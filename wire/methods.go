@@ -494,6 +494,10 @@ const (
 	MethodAssemblyCopy           = "assembly.copy"
 	MethodAssemblySubstitute     = "assembly.substitute"
 
+	// Assembly editing options (#1981): read/write the assembly-modeling option set.
+	MethodAssemblyOptionsGet = "assembly.optionsGet"
+	MethodAssemblyOptionsSet = "assembly.optionsSet"
+
 	// Assembly bill of materials (M11-F05, Oblikovati#730): read a structured or
 	// parts-only BOM view of the active assembly, and export a view to CSV with optional
 	// custom property columns.

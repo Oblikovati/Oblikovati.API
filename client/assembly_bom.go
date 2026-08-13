@@ -38,3 +38,21 @@ func (a Assembly) BOMExport(args wire.BOMExportArgs) (wire.BOMExportResult, erro
 func (a Assembly) SetBOMStructure(args wire.SetBOMStructureArgs) (wire.SetBOMStructureResult, error) {
 	return call[wire.SetBOMStructureResult](a.c, wire.MethodAssemblySetBOMStructure, args)
 }
+
+// Options returns the assembly's editing options (placement, adaptivity, update deferral, section/
+// opacity defaults) (#1981).
+//
+// mcp:tool assembly_options_get
+// mcp:summary Read the active assembly's editing options.
+func (a Assembly) Options() (wire.AssemblyOptionsResult, error) {
+	return call[wire.AssemblyOptionsResult](a.c, wire.MethodAssemblyOptionsGet, struct{}{})
+}
+
+// SetOptions replaces the assembly's editing options; clearing DeferUpdate flushes any deferred
+// recompute (#1981).
+//
+// mcp:tool assembly_options_set
+// mcp:summary Set the active assembly's editing options (placeAndGroundFirstComponentAtOrigin, deferUpdate, sectionAllParts, onlyActiveComponentIsOpaque, default LOD/design view, …).
+func (a Assembly) SetOptions(args wire.SetAssemblyOptionsArgs) (wire.AssemblyOptionsResult, error) {
+	return call[wire.AssemblyOptionsResult](a.c, wire.MethodAssemblyOptionsSet, args)
+}
