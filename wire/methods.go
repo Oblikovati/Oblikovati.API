@@ -496,8 +496,9 @@ const (
 	// Assembly bill of materials (M11-F05, Oblikovati#730): read a structured or
 	// parts-only BOM view of the active assembly, and export a view to CSV with optional
 	// custom property columns.
-	MethodAssemblyBOMView   = "assembly.bomView"
-	MethodAssemblyBOMExport = "assembly.bomExport"
+	MethodAssemblyBOMView         = "assembly.bomView"
+	MethodAssemblyBOMExport       = "assembly.bomExport"
+	MethodAssemblySetBOMStructure = "assembly.setBOMStructure" // #1978 per-occurrence structure override
 
 	// Assembly feature program (M11-F08, Oblikovati#633/#725): the machining features
 	// authored in the assembly, their per-occurrence participation and suppression, and

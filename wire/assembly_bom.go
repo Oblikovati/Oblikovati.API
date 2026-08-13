@@ -48,3 +48,19 @@ type BOMExportArgs struct {
 type BOMExportResult struct {
 	CSV string `json:"csv"`
 }
+
+// SetBOMStructureArgs is the request of [MethodAssemblySetBOMStructure]: set a placed component's BOM
+// structure (#1978). Occurrence is the target occurrence's session id, and Structure is the
+// [types.BOMStructure] spelling to set as a per-occurrence override ("default" clears the override so
+// it inherits the definition; "phantom"/"purchased"/… set a concrete structure).
+type SetBOMStructureArgs struct {
+	Occurrence uint64             `json:"occurrence"`
+	Structure  types.BOMStructure `json:"structure"`
+}
+
+// SetBOMStructureResult is the reply of [MethodAssemblySetBOMStructure]: the occurrence and the
+// structure it now carries (its override, or "default" when it inherits the definition).
+type SetBOMStructureResult struct {
+	Occurrence uint64             `json:"occurrence"`
+	Structure  types.BOMStructure `json:"structure"`
+}

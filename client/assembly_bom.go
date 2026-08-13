@@ -29,3 +29,12 @@ func (a Assembly) BOMView(view types.BOMViewKind) (wire.BOMViewResult, error) {
 func (a Assembly) BOMExport(args wire.BOMExportArgs) (wire.BOMExportResult, error) {
 	return call[wire.BOMExportResult](a.c, wire.MethodAssemblyBOMExport, args)
 }
+
+// SetBOMStructure sets a placed component's BOM structure as a per-occurrence override — "phantom"
+// promotes its children, "default" clears the override so it inherits the definition (#1978).
+//
+// mcp:tool assembly_set_bom_structure
+// mcp:summary Set an occurrence's BOM structure (normal/phantom/reference/purchased/inseparable, or "default" to inherit the definition). Reflected in both BOM views.
+func (a Assembly) SetBOMStructure(args wire.SetBOMStructureArgs) (wire.SetBOMStructureResult, error) {
+	return call[wire.SetBOMStructureResult](a.c, wire.MethodAssemblySetBOMStructure, args)
+}

@@ -7,6 +7,9 @@ package types
 type BOMStructure string
 
 const (
+	// BOMDefault inherits the structure from the component definition (a per-occurrence override
+	// that defers to the shared definition). The zero/empty value.
+	BOMDefault BOMStructure = "default"
 	// BOMNormal is a counted row whose sub-assembly children are expanded.
 	BOMNormal BOMStructure = "normal"
 	// BOMPhantom is not a row of its own: its children are promoted into its parent.
@@ -17,6 +20,9 @@ const (
 	BOMPurchased BOMStructure = "purchased"
 	// BOMInseparable is a welded/glued sub-assembly counted as one line; not broken out.
 	BOMInseparable BOMStructure = "inseparable"
+	// BOMVaries marks an iAssembly row whose members carry differing structures — a computed
+	// value the structured view reports, not one you set on a single component.
+	BOMVaries BOMStructure = "varies"
 )
 
 // BOMViewKind selects a bill-of-materials view.
