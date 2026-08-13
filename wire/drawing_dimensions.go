@@ -28,6 +28,46 @@ type DrawingDimensionInfo struct {
 	Tolerance *types.DimensionTolerance `json:"tolerance,omitempty"`
 	// Inspection is the dimension's inspection annotation (#1996); nil ⇒ not an inspection dimension.
 	Inspection *types.InspectionDimension `json:"inspection,omitempty"`
+	// Retrieved reports whether the dimension was retrieved from a model (parametric) dimension, and
+	// RetrievedFrom names that source parameter — the model↔drawing association (#1991).
+	Retrieved     bool   `json:"retrieved,omitempty"`
+	RetrievedFrom string `json:"retrievedFrom,omitempty"`
+}
+
+// RetrievableDimensionInfo is one candidate model dimension a view can retrieve: its source parameter
+// name, current value (mm) and the sheet position of its midpoint (#1991).
+type RetrievableDimensionInfo struct {
+	Name    string  `json:"name"`
+	ValueMM float64 `json:"valueMm"`
+	SheetX  float64 `json:"sheetX"`
+	SheetY  float64 `json:"sheetY"`
+}
+
+// ListRetrievableDimensionsArgs is the request of [MethodDrawingDimensionsListRetrievable]: the base
+// view whose referenced model's parametric dimensions to list (#1991).
+type ListRetrievableDimensionsArgs struct {
+	ViewName string `json:"viewName"`
+}
+
+// RetrievableDimensionsResult is the reply of [MethodDrawingDimensionsListRetrievable]: the model's
+// retrievable dimensions projected onto the view.
+type RetrievableDimensionsResult struct {
+	Dimensions []RetrievableDimensionInfo `json:"dimensions"`
+}
+
+// RetrieveDimensionsArgs is the request of [MethodDrawingDimensionsRetrieve]: materialise the named
+// model dimensions on the base view ViewName as retrieved drawing dimensions; an empty Names retrieves
+// every model dimension. OffsetMM stands the dimension lines off the geometry (#1991).
+type RetrieveDimensionsArgs struct {
+	ViewName string   `json:"viewName"`
+	Names    []string `json:"names,omitempty"`
+	OffsetMM float64  `json:"offsetMm,omitempty"`
+}
+
+// RetrievedDimensionsResult is the reply of [MethodDrawingDimensionsRetrieve]: the drawing dimensions
+// created, each flagged Retrieved with its RetrievedFrom back-reference.
+type RetrievedDimensionsResult struct {
+	Dimensions []DrawingDimensionInfo `json:"dimensions"`
 }
 
 // SetDimensionToleranceArgs is the request of [MethodDrawingDimensionsSetTolerance]: set the named

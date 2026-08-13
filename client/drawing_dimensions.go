@@ -110,6 +110,24 @@ func (d DrawingDimensions) SetInspection(args wire.SetDimensionInspectionArgs) (
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetInspection, args)
 }
 
+// ListRetrievable lists the referenced model's parametric dimensions projectable onto a base view —
+// the candidates a retrieve materialises (#1991).
+//
+// mcp:tool drawing_list_retrievable_dimensions
+// mcp:summary List the referenced model's parametric (feature) dimensions for a base view (viewName): name, value, sheet position — the candidates for retrieve.
+func (d DrawingDimensions) ListRetrievable(args wire.ListRetrievableDimensionsArgs) (wire.RetrievableDimensionsResult, error) {
+	return call[wire.RetrievableDimensionsResult](d.c, wire.MethodDrawingDimensionsListRetrievable, args)
+}
+
+// Retrieve materialises the model's parametric dimensions on a base view as retrieved drawing
+// dimensions (associative to the parameters), instead of re-picking them (#1991).
+//
+// mcp:tool drawing_retrieve_dimensions
+// mcp:summary Retrieve the named model dimensions (empty = all) onto a base view (viewName) as associative drawing dimensions, flagged retrieved with their source parameter.
+func (d DrawingDimensions) Retrieve(args wire.RetrieveDimensionsArgs) (wire.RetrievedDimensionsResult, error) {
+	return call[wire.RetrievedDimensionsResult](d.c, wire.MethodDrawingDimensionsRetrieve, args)
+}
+
 // Delete removes a dimension by name.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)
