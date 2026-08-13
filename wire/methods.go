@@ -472,6 +472,7 @@ const (
 	// Occurrences are addressed by session id (the ids the occurrence push events carry).
 	MethodAssemblyOccurrences            = "assembly.occurrences"
 	MethodAssemblyPlace                  = "assembly.place"
+	MethodAssemblyAddVirtual             = "assembly.addVirtual" // #1979 geometry-free BOM component
 	MethodAssemblyPlaceByDefinition      = "assembly.placeByDefinition"
 	MethodAssemblyPlaceByDefinitionBatch = "assembly.placeByDefinitionBatch"
 	MethodAssemblyTransform              = "assembly.transform"

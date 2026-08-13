@@ -25,14 +25,18 @@ type OccurrenceInfo struct {
 	// Display and state (#1975/#1977). Visible and Enabled report both senses (no omitempty) since
 	// their default is true; the rest default false. Opacity is a per-occurrence override (0 ⇒ the
 	// lane/node default). Excluded and Reference drop the occurrence from BOM and mass properties.
-	Visible     bool             `json:"visible"`
-	Transparent bool             `json:"transparent,omitempty"`
-	Opacity     float64          `json:"opacity,omitempty"`
-	Enabled     bool             `json:"enabled"`
-	Excluded    bool             `json:"excluded,omitempty"`
-	Reference   bool             `json:"reference,omitempty"`
-	ContactSet  bool             `json:"contactSet,omitempty"`
-	Children    []OccurrenceInfo `json:"children,omitempty"`
+	Visible     bool    `json:"visible"`
+	Transparent bool    `json:"transparent,omitempty"`
+	Opacity     float64 `json:"opacity,omitempty"`
+	Enabled     bool    `json:"enabled"`
+	Excluded    bool    `json:"excluded,omitempty"`
+	Reference   bool    `json:"reference,omitempty"`
+	ContactSet  bool    `json:"contactSet,omitempty"`
+	// Virtual marks a geometry-free, document-free BOM-only component; PartNumber is its part number
+	// (#1979). Both are empty/false for a normal placement.
+	Virtual    bool             `json:"virtual,omitempty"`
+	PartNumber string           `json:"partNumber,omitempty"`
+	Children   []OccurrenceInfo `json:"children,omitempty"`
 }
 
 // OccurrencesResult is the reply of [MethodAssemblyOccurrences] and of [MethodAssemblyRemove]:
@@ -45,6 +49,17 @@ type OccurrencesResult struct {
 // ground, suppress, replace): the affected occurrence's refreshed info.
 type OccurrenceResult struct {
 	Occurrence OccurrenceInfo `json:"occurrence"`
+}
+
+// AddVirtualArgs is the request of [MethodAssemblyAddVirtual]: add a geometry-free, document-free
+// virtual component to the active assembly (#1979) — paint, grease, labor, fasteners-by-weight. Name
+// is the tree label; PartNumber is its BOM part number; Structure is the [types.BOMStructure] spelling
+// ("" ⇒ normal); Transform is its position ("" ⇒ identity, since it has no geometry to place).
+type AddVirtualArgs struct {
+	Name       string       `json:"name"`
+	PartNumber string       `json:"partNumber,omitempty"`
+	Structure  string       `json:"structure,omitempty"`
+	Transform  types.Matrix `json:"transform,omitempty"`
 }
 
 // PlaceOccurrenceArgs is the request of [MethodAssemblyPlace]: place the component held by

@@ -27,6 +27,15 @@ func (a Assembly) Place(args wire.PlaceOccurrenceArgs) (wire.OccurrenceResult, e
 	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblyPlace, args)
 }
 
+// AddVirtual adds a geometry-free, document-free virtual component (paint, grease, labor, fasteners
+// by weight) that appears in the assembly tree and BOM (#1979).
+//
+// mcp:tool assembly_add_virtual
+// mcp:summary Add a virtual component (no geometry, no file) to the active assembly: name, optional partNumber and BOM structure. It appears in the tree and BOM but contributes no bounds or mass.
+func (a Assembly) AddVirtual(args wire.AddVirtualArgs) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblyAddVirtual, args)
+}
+
 // PlaceByDefinition places another instance of the component that the source occurrence
 // already instances, e.g. PlaceByDefinition(wire.PlaceByDefinitionArgs{Source: occID, Name: "pin:2", Transform: t}).
 //
