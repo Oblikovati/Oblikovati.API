@@ -8,6 +8,14 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.145.1] - 2026-08-05
+
+### Fixed
+
+- Fail the release when the version output cannot be written
+- Add a theme token for the sketch dimension annotation
+- Add synthesised viewport input to the API (click and key)
+
 ## [0.145.0] - 2026-08-04
 
 ### Added
@@ -1156,7 +1164,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.1...HEAD
+[0.145.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.0...v0.145.1
 [0.145.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...v0.145.0
 [0.144.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.143.0...v0.144.0
 [0.143.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.142.5...v0.143.0
