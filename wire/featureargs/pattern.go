@@ -32,6 +32,12 @@ type PatternPlacement struct {
 	Orientation       string           `json:"orientation,omitempty"`
 	PositioningMethod string           `json:"positioningMethod,omitempty"`
 	Boundary          *PatternBoundary `json:"boundary,omitempty"`
+	// SuppressedElements drops individual occurrences from the pattern by element index
+	// (#1889). Element 0 is the seed — the source features' own material, which the recipe
+	// already applied before the pattern ran — so it cannot be suppressed here; suppress the
+	// source feature instead. Indices survive a count change, so an occurrence stays dropped
+	// while the pattern is resized.
+	SuppressedElements []int `json:"suppressedElements,omitempty"`
 }
 
 // PatternRectangular replicates features on a rectangular grid (KindPatternRectangular).
@@ -43,6 +49,12 @@ type PatternRectangular struct {
 	CountYExpr     string    `json:"countYExpr,omitempty"`
 	StepX          []float64 `json:"stepX,omitempty"`
 	StepY          []float64 `json:"stepY,omitempty"`
+	// MidPlaneX/MidPlaneY spread that direction's occurrences to BOTH sides of the seed
+	// instead of running one way from it (#1889). The seed does not move. With an even
+	// count the two sides cannot match, and the extra occurrence goes on the step's own
+	// side — reverse the step to put it on the other.
+	MidPlaneX bool `json:"midPlaneX,omitempty"`
+	MidPlaneY bool `json:"midPlaneY,omitempty"`
 	PatternPlacement
 }
 
@@ -57,17 +69,33 @@ type PatternCircular struct {
 	Angle          string    `json:"angle,omitempty"`
 	AxisPoint      []float64 `json:"axisPoint,omitempty"`
 	AxisDir        []float64 `json:"axisDir,omitempty"`
+	// MidPlane sweeps the occurrences to both sides of the seed rather than all one way
+	// round the axis (#1889); see [PatternRectangular.MidPlaneX] for the even-count rule.
+	MidPlane bool `json:"midPlane,omitempty"`
 	PatternPlacement
 }
 
 // Kind reports the feature kind PatternCircular creates.
 func (PatternCircular) Kind() string { return KindPatternCircular }
 
-// Mirror mirrors features across a plane (KindMirror).
+// Mirror mirrors features or whole solid bodies across a plane (KindMirror).
 type Mirror struct {
 	SourceFeatures []string  `json:"sourceFeatures"`
 	Origin         []float64 `json:"origin,omitempty"`
 	Normal         []float64 `json:"normal,omitempty"`
+	// Mode picks what is reflected: "features" (default) re-applies the source features'
+	// own tools on the far side of the plane; "body" reflects the whole running solid,
+	// which is how a symmetric part is usually built (#1890). Inventor spells the same
+	// choice MirrorFeature.MirrorOfBody.
+	Mode string `json:"mode,omitempty"`
+	// RemoveOriginal keeps only the reflected half, discarding the source — how a handed
+	// variant is made. Body mode only, matching Inventor, where RemoveOriginal "only
+	// applies if MirrorOfBody is True".
+	RemoveOriginal bool `json:"removeOriginal,omitempty"`
+	// Operation is how the reflection joins the model: "newBody" (default) leaves it a
+	// separate solid, "join" unions it with the original into one. Body mode only, again
+	// matching Inventor's restriction to kNewBodyOperation / kJoinOperation.
+	Operation string `json:"operation,omitempty"`
 }
 
 // Kind reports the feature kind Mirror creates.

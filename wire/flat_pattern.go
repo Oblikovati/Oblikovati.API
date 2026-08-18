@@ -123,6 +123,30 @@ type PlatesResult struct {
 	Plates []PlateInfo `json:"plates"`
 }
 
+// FlatPunchInfo is one punch instance in the developed flat — the data a nest, a DXF punch layer
+// or a punch note needs (#1963): which punch it came from, where its outline sits and how it is
+// turned in the flat, whether it was punched from the front or the back, and how deep it goes.
+//
+// Depth is only meaningful when HasDepth is set: a through punch has no depth, and reporting one
+// as 0 would read as a zero-deep punch rather than a cut clean through.
+type FlatPunchInfo struct {
+	ID          string          `json:"id"`
+	Position    types.Point2d   `json:"position"`
+	Angle       float64         `json:"angle"`
+	DirectionUp bool            `json:"directionUp"`
+	HasDepth    bool            `json:"hasDepth,omitempty"`
+	Depth       float64         `json:"depth,omitempty"`
+	Outline     []types.Point2d `json:"outline,omitempty"`
+	// RepresentationType is the punch's flat/drawing representation (PunchRepresentationType, #1968) —
+	// what a punch note or DXF layer draws for it. Empty ⇒ the document default.
+	RepresentationType string `json:"representationType,omitempty"`
+}
+
+// PunchesResult is the reply of listPunches: every punch instance developed into the flat.
+type PunchesResult struct {
+	Punches []FlatPunchInfo `json:"punches"`
+}
+
 // FlatPatternSettings is the per-document flat-pattern settings. DeferUpdate suppresses the
 // automatic flat-pattern recompute, so a heavy flat is only developed on demand.
 type FlatPatternSettings struct {

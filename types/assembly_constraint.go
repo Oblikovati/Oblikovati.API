@@ -90,14 +90,41 @@ const (
 	MateSolutionOpposed MateConstraintSolutionType = 0
 	// MateSolutionAligned is the flush sense: the two face normals point the same way.
 	MateSolutionAligned MateConstraintSolutionType = 1
+	// MateSolutionUndirected resolves to whichever normal sense the parts already hold, so a drag
+	// or drive never forces a flip — Inventor's kUndirectedSolutionType (#1971).
+	MateSolutionUndirected MateConstraintSolutionType = 2
+	// MateSolutionNoSolution leaves the directional sense unconstrained, holding only the offset —
+	// Inventor's kNoSolutionType (#1971).
+	MateSolutionNoSolution MateConstraintSolutionType = 3
 )
 
 // String returns a stable lowercase name.
 func (s MateConstraintSolutionType) String() string {
-	if s == MateSolutionAligned {
+	switch s {
+	case MateSolutionAligned:
 		return "aligned"
+	case MateSolutionUndirected:
+		return "undirected"
+	case MateSolutionNoSolution:
+		return "noSolution"
+	default:
+		return "opposed"
 	}
-	return "opposed"
+}
+
+// ParseMateConstraintSolutionType resolves a wire spelling to a mate solution; "" ⇒ opposed.
+func ParseMateConstraintSolutionType(s string) (MateConstraintSolutionType, bool) {
+	switch s {
+	case "", "opposed":
+		return MateSolutionOpposed, true
+	case "aligned":
+		return MateSolutionAligned, true
+	case "undirected":
+		return MateSolutionUndirected, true
+	case "noSolution":
+		return MateSolutionNoSolution, true
+	}
+	return MateSolutionOpposed, false
 }
 
 // AngleConstraintSolutionType discriminates how an angle constraint measures its

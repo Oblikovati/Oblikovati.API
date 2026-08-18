@@ -103,6 +103,58 @@ func (d DrawingViews) Delete(args wire.DeleteViewArgs) (wire.ListDrawingViewsRes
 	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsDelete, args)
 }
 
+// SetLabel changes any subset of a view's label — free text, the show-label/name/scale flags, and
+// the caption position — leaving the unset ones alone (#1983).
+//
+// mcp:tool set_view_label
+// mcp:summary Change a drawing view's label (text / showLabel / showName / showScale / position); unset fields unchanged.
+func (d DrawingViews) SetLabel(args wire.SetViewLabelArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetLabel, args)
+}
+
+// SetDisplay changes a view's edge-display toggles — currently the tangent-edge (fillet/blend
+// transition) display — leaving the unset ones alone (#1984).
+//
+// mcp:tool set_view_display
+// mcp:summary Change a drawing view's edge display: displayTangentEdges=false drops smooth tangent (fillet/blend) edges. Unset fields unchanged.
+func (d DrawingViews) SetDisplay(args wire.SetViewDisplayArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsSetDisplay, args)
+}
+
+// Rotate sets a view's rotation about its centre (degrees, CCW positive), rotating its curves (#1988).
+//
+// mcp:tool rotate_view
+// mcp:summary Rotate a drawing view about its centre to angleDeg degrees (CCW positive).
+func (d DrawingViews) Rotate(args wire.RotateViewArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsRotate, args)
+}
+
+// Align locks a view to an anchor view on a shared axis (horizontal shares Y, vertical shares X) so
+// moving the anchor drags it, or frees it with inPosition (#1988).
+//
+// mcp:tool align_view
+// mcp:summary Align a drawing view to an anchor: "horizontal" (shared Y), "vertical" (shared X), or "inPosition" (free). Optional justification (centered/fixed).
+func (d DrawingViews) Align(args wire.AlignViewArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsAlign, args)
+}
+
+// AddCrop clips a view to a rectangular or circular fence (sheet mm), keeping the view's scale,
+// with an optional continuous/zigzag break-mark boundary (#1987).
+//
+// mcp:tool drawing_add_view_crop
+// mcp:summary Crop a drawing view to a fence (shape=rectangle x0,y0,x1,y1 | circle circleXmm,circleYmm,radiusMm; sheet mm), dropping curves outside it. breakMark=none|continuous|zigzag draws the boundary. The view keeps its scale (unlike a detail view).
+func (d DrawingViews) AddCrop(args wire.AddViewCropArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsAddCrop, args)
+}
+
+// RemoveCrop drops every crop on a view, restoring its full curve set (#1987).
+//
+// mcp:tool drawing_remove_view_crop
+// mcp:summary Remove all crops from a drawing view, restoring its full (uncropped) curve set.
+func (d DrawingViews) RemoveCrop(args wire.RemoveViewCropArgs) (wire.ListDrawingViewsResult, error) {
+	return call[wire.ListDrawingViewsResult](d.c, wire.MethodDrawingViewsRemoveCrop, args)
+}
+
 // Curves returns a view's drawing curves — the projected edge segments classified visible
 // (solid) or hidden (dashed), in sheet millimetres.
 //

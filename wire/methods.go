@@ -333,7 +333,11 @@ const (
 	// Flat-pattern plates + settings (M13-F05, Oblikovati#635): the disjoint developed regions
 	// (one plate per connected flat region) and the per-document settings (deferred flat-pattern
 	// update so a heavy flat only recomputes on demand).
-	MethodFlatPatternListPlates  = "flatPattern.listPlates"
+	MethodFlatPatternListPlates = "flatPattern.listPlates"
+	// listPunches reports every punch instance developed into the flat with its position, angle,
+	// side and depth (#1963) — the punch geometry was already computed for the flat and had no way
+	// out of the host.
+	MethodFlatPatternListPunches = "flatPattern.listPunches"
 	MethodFlatPatternGetSettings = "flatPattern.getSettings"
 	MethodFlatPatternSetSettings = "flatPattern.setSettings"
 	// Bend-order annotation (M13-F06, Oblikovati#809): number/sequence the part's bends for
@@ -358,6 +362,12 @@ const (
 	MethodDrawingSetActiveSheet    = "drawing.setActiveSheet"
 	MethodDrawingSetModelReference = "drawing.setModelReference"
 	MethodDrawingTitleBlockFields  = "drawing.titleBlockFields"
+	// Sheet authoring (#1989): zoned borders, title-block corner, sheet revision, reusable formats.
+	MethodDrawingAddDefaultBorder    = "drawing.addDefaultBorder"
+	MethodDrawingSetTitleBlock       = "drawing.setTitleBlock"
+	MethodDrawingSetSheetRevision    = "drawing.setSheetRevision"
+	MethodDrawingDefineSheetFormat   = "drawing.defineSheetFormat"
+	MethodDrawingAddSheetUsingFormat = "drawing.addSheetUsingFormat"
 	// Drawing sheet DXF export (M14-F05 PBI-145, Oblikovati#392): write the active sheet —
 	// its views' visible/hidden edges, border and title block — to a DXF file, on named layers.
 	MethodDrawingExportDXF = "drawing.exportDXF"
@@ -383,6 +393,12 @@ const (
 	MethodDrawingViewsAddBreakout  = "drawingViews.addBreakout"
 	MethodDrawingViewsAddDraft     = "drawingViews.addDraft"
 	MethodDrawingViewsDelete       = "drawingViews.delete"
+	MethodDrawingViewsSetLabel     = "drawingViews.setLabel"   // #1983
+	MethodDrawingViewsAddCrop      = "drawingViews.addCrop"    // #1987
+	MethodDrawingViewsRemoveCrop   = "drawingViews.removeCrop" // #1987
+	MethodDrawingViewsSetDisplay   = "drawingViews.setDisplay" // #1984
+	MethodDrawingViewsRotate       = "drawingViews.rotate"     // #1988
+	MethodDrawingViewsAlign        = "drawingViews.align"      // #1988
 	MethodDrawingViewsCurves       = "drawingViews.curves"
 
 	// Drawing annotations (M14-F02 #813): the centre-of-gravity marker (driven by the
@@ -403,6 +419,8 @@ const (
 	MethodDrawingAnnotationsAddNote          = "drawingAnnotations.addNote"
 	MethodDrawingAnnotationsAddCustomTable   = "drawingAnnotations.addCustomTable"
 	MethodDrawingAnnotationsAddHoleNotes     = "drawingAnnotations.addHoleNotes"
+	MethodDrawingAnnotationsAddChamferNote   = "drawingAnnotations.addChamferNote"
+	MethodDrawingAnnotationsAddBendNote      = "drawingAnnotations.addBendNote"
 	MethodDrawingAnnotationsDelete           = "drawingAnnotations.delete"
 
 	// Drawing sketches (M14-F08 #638): 2D geometry drawn directly in sheet space (millimetres) on a
@@ -414,15 +432,20 @@ const (
 
 	// Drawing dimensions (M14-F03 PBI-141 #388): associative linear dimensions on a view,
 	// snapped to projected model vertices so the measured value tracks the model.
-	MethodDrawingDimensionsList         = "drawingDimensions.list"
-	MethodDrawingDimensionsAddLinear    = "drawingDimensions.addLinear"
-	MethodDrawingDimensionsAddRadial    = "drawingDimensions.addRadial"
-	MethodDrawingDimensionsAddAngular   = "drawingDimensions.addAngular"
-	MethodDrawingDimensionsAddBaseline  = "drawingDimensions.addBaseline"
-	MethodDrawingDimensionsAddChain     = "drawingDimensions.addChain"
-	MethodDrawingDimensionsAddOrdinate  = "drawingDimensions.addOrdinate"
-	MethodDrawingDimensionsAddArcLength = "drawingDimensions.addArcLength"
-	MethodDrawingDimensionsDelete       = "drawingDimensions.delete"
+	MethodDrawingDimensionsList            = "drawingDimensions.list"
+	MethodDrawingDimensionsAddLinear       = "drawingDimensions.addLinear"
+	MethodDrawingDimensionsAddRadial       = "drawingDimensions.addRadial"
+	MethodDrawingDimensionsAddAngular      = "drawingDimensions.addAngular"
+	MethodDrawingDimensionsAddBaseline     = "drawingDimensions.addBaseline"
+	MethodDrawingDimensionsAddChain        = "drawingDimensions.addChain"
+	MethodDrawingDimensionsAddOrdinate     = "drawingDimensions.addOrdinate"
+	MethodDrawingDimensionsAddArcLength    = "drawingDimensions.addArcLength"
+	MethodDrawingDimensionsDelete          = "drawingDimensions.delete"
+	MethodDrawingDimensionsSetTextStyle    = "drawingDimensions.setTextStyle"    // #1992/#1993
+	MethodDrawingDimensionsSetTolerance    = "drawingDimensions.setTolerance"    // #1990
+	MethodDrawingDimensionsSetInspection   = "drawingDimensions.setInspection"   // #1996
+	MethodDrawingDimensionsListRetrievable = "drawingDimensions.listRetrievable" // #1991
+	MethodDrawingDimensionsRetrieve        = "drawingDimensions.retrieve"        // #1991
 
 	// Thread table query + designation resolution (M09-F01 PBI-101, #325):
 	// one source of truth for thread data across tapping and drawings.
@@ -451,13 +474,16 @@ const (
 	// Occurrences are addressed by session id (the ids the occurrence push events carry).
 	MethodAssemblyOccurrences            = "assembly.occurrences"
 	MethodAssemblyPlace                  = "assembly.place"
+	MethodAssemblyAddVirtual             = "assembly.addVirtual" // #1979 geometry-free BOM component
 	MethodAssemblyPlaceByDefinition      = "assembly.placeByDefinition"
 	MethodAssemblyPlaceByDefinitionBatch = "assembly.placeByDefinitionBatch"
 	MethodAssemblyTransform              = "assembly.transform"
 	MethodAssemblyGround                 = "assembly.ground"
 	MethodAssemblySuppress               = "assembly.suppress"
-	MethodAssemblySetFlexible            = "assembly.setFlexible"      // M12-F06
-	MethodAssemblySetFlexibleChild       = "assembly.setFlexibleChild" // M12-F06 independent solve
+	MethodAssemblySetVisible             = "assembly.setVisible"         // #1975
+	MethodAssemblySetOccurrenceState     = "assembly.setOccurrenceState" // #1975/#1977
+	MethodAssemblySetFlexible            = "assembly.setFlexible"        // M12-F06
+	MethodAssemblySetFlexibleChild       = "assembly.setFlexibleChild"   // M12-F06 independent solve
 	MethodAssemblyReplace                = "assembly.replace"
 	MethodAssemblyRemove                 = "assembly.remove"
 
@@ -470,11 +496,16 @@ const (
 	MethodAssemblyCopy           = "assembly.copy"
 	MethodAssemblySubstitute     = "assembly.substitute"
 
+	// Assembly editing options (#1981): read/write the assembly-modeling option set.
+	MethodAssemblyOptionsGet = "assembly.optionsGet"
+	MethodAssemblyOptionsSet = "assembly.optionsSet"
+
 	// Assembly bill of materials (M11-F05, Oblikovati#730): read a structured or
 	// parts-only BOM view of the active assembly, and export a view to CSV with optional
 	// custom property columns.
-	MethodAssemblyBOMView   = "assembly.bomView"
-	MethodAssemblyBOMExport = "assembly.bomExport"
+	MethodAssemblyBOMView         = "assembly.bomView"
+	MethodAssemblyBOMExport       = "assembly.bomExport"
+	MethodAssemblySetBOMStructure = "assembly.setBOMStructure" // #1978 per-occurrence structure override
 
 	// Assembly feature program (M11-F08, Oblikovati#633/#725): the machining features
 	// authored in the assembly, their per-occurrence participation and suppression, and
@@ -530,6 +561,8 @@ const (
 	MethodAssemblyJointsDelete         = "assemblyJoints.delete"
 	MethodAssemblyJointsSetLimits      = "assemblyJoints.setLimits"
 	MethodAssemblyJointsSetFlip        = "assemblyJoints.setFlip"
+	MethodAssemblyJointsSetState       = "assemblyJoints.setState"  // #1970/#1974 gap/position/locked/protected
+	MethodAssemblyJointsSetOrigin      = "assemblyJoints.setOrigin" // #1973 origin infer/offset/betweenTwoFaces
 
 	MethodDSJointsList             = "dsJoints.list"
 	MethodDSJointsAdd              = "dsJoints.add"

@@ -83,6 +83,15 @@ func (f FlatPattern) ListPlates() (wire.PlatesResult, error) {
 	return call[wire.PlatesResult](f.c, wire.MethodFlatPatternListPlates, struct{}{})
 }
 
+// ListPunches returns every punch instance developed into the flat: where the tool goes, how it is
+// turned in the flat, which side it comes from, and how deep it goes (#1963).
+//
+// mcp:tool flat_pattern_list_punches
+// mcp:summary List the punch instances in the developed flat pattern with each one's position, rotation angle, punch side and depth — what a nest, a DXF punch layer or a punch note is placed from.
+func (f FlatPattern) ListPunches() (wire.PunchesResult, error) {
+	return call[wire.PunchesResult](f.c, wire.MethodFlatPatternListPunches, struct{}{})
+}
+
 // GetSettings returns the part's flat-pattern settings.
 //
 // mcp:tool flat_pattern_get_settings

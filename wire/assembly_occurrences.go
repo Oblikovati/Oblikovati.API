@@ -14,14 +14,28 @@ import "oblikovati.org/api/types"
 // per-instance state, and any nested sub-assembly occurrences. Default-false state flags
 // and an empty child list are omitted.
 type OccurrenceInfo struct {
-	ID         uint64           `json:"id"`
-	Name       string           `json:"name"`
-	Transform  types.Matrix     `json:"transform"`
-	Suppressed bool             `json:"suppressed,omitempty"`
-	Grounded   bool             `json:"grounded,omitempty"`
-	Adaptive   bool             `json:"adaptive,omitempty"`
-	Flexible   bool             `json:"flexible,omitempty"` // subassembly solves independently per placement (M12-F06)
-	Substitute bool             `json:"substitute,omitempty"`
+	ID         uint64       `json:"id"`
+	Name       string       `json:"name"`
+	Transform  types.Matrix `json:"transform"`
+	Suppressed bool         `json:"suppressed,omitempty"`
+	Grounded   bool         `json:"grounded,omitempty"`
+	Adaptive   bool         `json:"adaptive,omitempty"`
+	Flexible   bool         `json:"flexible,omitempty"` // subassembly solves independently per placement (M12-F06)
+	Substitute bool         `json:"substitute,omitempty"`
+	// Display and state (#1975/#1977). Visible and Enabled report both senses (no omitempty) since
+	// their default is true; the rest default false. Opacity is a per-occurrence override (0 ⇒ the
+	// lane/node default). Excluded and Reference drop the occurrence from BOM and mass properties.
+	Visible     bool    `json:"visible"`
+	Transparent bool    `json:"transparent,omitempty"`
+	Opacity     float64 `json:"opacity,omitempty"`
+	Enabled     bool    `json:"enabled"`
+	Excluded    bool    `json:"excluded,omitempty"`
+	Reference   bool    `json:"reference,omitempty"`
+	ContactSet  bool    `json:"contactSet,omitempty"`
+	// Virtual marks a geometry-free, document-free BOM-only component; PartNumber is its part number
+	// (#1979). Both are empty/false for a normal placement.
+	Virtual    bool             `json:"virtual,omitempty"`
+	PartNumber string           `json:"partNumber,omitempty"`
 	Children   []OccurrenceInfo `json:"children,omitempty"`
 }
 
@@ -35,6 +49,17 @@ type OccurrencesResult struct {
 // ground, suppress, replace): the affected occurrence's refreshed info.
 type OccurrenceResult struct {
 	Occurrence OccurrenceInfo `json:"occurrence"`
+}
+
+// AddVirtualArgs is the request of [MethodAssemblyAddVirtual]: add a geometry-free, document-free
+// virtual component to the active assembly (#1979) — paint, grease, labor, fasteners-by-weight. Name
+// is the tree label; PartNumber is its BOM part number; Structure is the [types.BOMStructure] spelling
+// ("" ⇒ normal); Transform is its position ("" ⇒ identity, since it has no geometry to place).
+type AddVirtualArgs struct {
+	Name       string       `json:"name"`
+	PartNumber string       `json:"partNumber,omitempty"`
+	Structure  string       `json:"structure,omitempty"`
+	Transform  types.Matrix `json:"transform,omitempty"`
 }
 
 // PlaceOccurrenceArgs is the request of [MethodAssemblyPlace]: place the component held by
@@ -98,6 +123,27 @@ type GroundOccurrenceArgs struct {
 type SuppressOccurrenceArgs struct {
 	ID         uint64 `json:"id"`
 	Suppressed bool   `json:"suppressed"`
+}
+
+// SetVisibleOccurrenceArgs is the request of [MethodAssemblySetVisible]: show (Visible=true) or
+// hide the occurrence with id ID — a display override independent of any representation (#1975).
+type SetVisibleOccurrenceArgs struct {
+	ID      uint64 `json:"id"`
+	Visible bool   `json:"visible"`
+}
+
+// SetOccurrenceStateArgs is the request of [MethodAssemblySetOccurrenceState]: change any subset of
+// the occurrence's display/state overrides (#1975/#1977). Each pointer field is applied only when
+// present, so one call can toggle a single flag without restating the others. Opacity is in [0,1]
+// (0 ⇒ the lane/node default).
+type SetOccurrenceStateArgs struct {
+	ID          uint64   `json:"id"`
+	Transparent *bool    `json:"transparent,omitempty"`
+	Opacity     *float64 `json:"opacity,omitempty"`
+	Enabled     *bool    `json:"enabled,omitempty"`
+	Excluded    *bool    `json:"excluded,omitempty"`
+	Reference   *bool    `json:"reference,omitempty"`
+	ContactSet  *bool    `json:"contactSet,omitempty"`
 }
 
 // SetFlexibleOccurrenceArgs is the request of [MethodAssemblySetFlexible] (M12-F06): mark the

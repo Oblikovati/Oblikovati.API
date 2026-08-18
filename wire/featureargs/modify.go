@@ -18,11 +18,20 @@ const (
 	KindUnwrap     = "unwrap"
 )
 
-// Combine booleans two solid bodies (KindCombine).
+// Combine booleans a base solid body against one or more tool bodies (KindCombine).
 type Combine struct {
-	TargetIndex int    `json:"targetIndex"`
-	ToolIndex   int    `json:"toolIndex"`
+	TargetIndex int `json:"targetIndex"`
+	ToolIndex   int `json:"toolIndex"`
+	// ToolIndices booleans the base against SEVERAL tool bodies in one feature (#1894), the way
+	// Inventor's CombineDefinition takes a collection. Splitting them into N features instead
+	// changes both the tree and the boolean order, which a cut against overlapping tools can see.
+	// Takes precedence over ToolIndex; give one or the other.
+	ToolIndices []int  `json:"toolIndices,omitempty"`
 	Operation   string `json:"operation"`
+	// KeepToolBodies leaves the tool bodies in the part after the boolean instead of consuming
+	// them (Inventor's KeepToolBodies), so one tool can go on to cut something else. Default
+	// false, which is the ordinary consuming combine.
+	KeepToolBodies bool `json:"keepToolBodies,omitempty"`
 }
 
 // Kind reports the feature kind Combine creates.

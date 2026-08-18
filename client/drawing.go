@@ -67,6 +67,47 @@ func (d Drawing) TitleBlockFields(args wire.TitleBlockFieldsArgs) (wire.TitleBlo
 	return call[wire.TitleBlockFieldsResult](d.c, wire.MethodDrawingTitleBlockFields, args)
 }
 
+// AddDefaultBorder replaces a sheet's border with a zoned one (h×v zones, labelled per the two
+// modes) (#1989).
+//
+// mcp:tool drawing_add_default_border
+// mcp:summary Give a sheet (blank ⇒ active) a zoned border: hZones columns × vZones rows, labelled alphabetical/numeric/none per axis.
+func (d Drawing) AddDefaultBorder(args wire.AddDefaultBorderArgs) (wire.SheetResult, error) {
+	return call[wire.SheetResult](d.c, wire.MethodDrawingAddDefaultBorder, args)
+}
+
+// SetTitleBlock moves a sheet's title block to a corner, seeding the default block when it has none (#1989).
+//
+// mcp:tool drawing_set_title_block
+// mcp:summary Move a sheet's title block to a corner: bottomRight/bottomLeft/topLeft/topRight.
+func (d Drawing) SetTitleBlock(args wire.SetTitleBlockArgs) (wire.SheetResult, error) {
+	return call[wire.SheetResult](d.c, wire.MethodDrawingSetTitleBlock, args)
+}
+
+// SetSheetRevision sets a sheet's revision string (#1989).
+//
+// mcp:tool drawing_set_sheet_revision
+// mcp:summary Set a sheet's revision string (blank sheet ⇒ active).
+func (d Drawing) SetSheetRevision(args wire.SetSheetRevisionArgs) (wire.SheetResult, error) {
+	return call[wire.SheetResult](d.c, wire.MethodDrawingSetSheetRevision, args)
+}
+
+// DefineSheetFormat registers a reusable sheet format (size + zoned border + title-block corner) (#1989).
+//
+// mcp:tool drawing_define_sheet_format
+// mcp:summary Register a reusable sheet format (name, size, orientation, zoned border, title-block corner) for addSheetUsingFormat.
+func (d Drawing) DefineSheetFormat(args wire.DefineSheetFormatArgs) (wire.ListSheetsResult, error) {
+	return call[wire.ListSheetsResult](d.c, wire.MethodDrawingDefineSheetFormat, args)
+}
+
+// AddSheetUsingFormat adds a sheet stamped from a registered format (#1989).
+//
+// mcp:tool drawing_add_sheet_using_format
+// mcp:summary Add a sheet stamped from a registered sheet format (its size, zoned border and title-block corner).
+func (d Drawing) AddSheetUsingFormat(args wire.AddSheetUsingFormatArgs) (wire.SheetResult, error) {
+	return call[wire.SheetResult](d.c, wire.MethodDrawingAddSheetUsingFormat, args)
+}
+
 // ExportDXF writes the active sheet to a DXF file — its views' visible/hidden edges, border and
 // title block on named layers.
 //

@@ -83,6 +83,55 @@ func (d DrawingDimensions) AddArcLength(args wire.AddArcLengthDimensionArgs) (wi
 //
 // mcp:tool drawing_delete_dimension
 // mcp:summary Delete a drawing dimension by name.
+// SetTextStyle changes any subset of a dimension's text overrides — prefix, suffix, free-text
+// override, hide-value, dual-unit — leaving the unset ones alone (#1992/#1993).
+//
+// mcp:tool set_dimension_text_style
+// mcp:summary Change a drawing dimension's text overrides (prefix/suffix/overrideText/hideValue/dualUnit); unset fields unchanged.
+func (d DrawingDimensions) SetTextStyle(args wire.SetDimensionTextStyleArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTextStyle, args)
+}
+
+// SetTolerance sets a dimension's engineering tolerance — symmetric, deviation, limits or a fit
+// class (#1990). A none tolerance clears it.
+//
+// mcp:tool set_dimension_tolerance
+// mcp:summary Set a drawing dimension's engineering tolerance (symmetric/deviation/limits/fits).
+func (d DrawingDimensions) SetTolerance(args wire.SetDimensionToleranceArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetTolerance, args)
+}
+
+// SetInspection flags a dimension as an inspection dimension with a border shape (angular or
+// rounded ends), an inspection label and a sampling rate (#1996). A none shape clears it.
+//
+// mcp:tool set_dimension_inspection
+// mcp:summary Flag a drawing dimension as an inspection dimension (border shape none/angular/rounded, plus label and rate); none clears it.
+func (d DrawingDimensions) SetInspection(args wire.SetDimensionInspectionArgs) (wire.ListDrawingDimensionsResult, error) {
+	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsSetInspection, args)
+}
+
+// ListRetrievable lists the referenced model's parametric dimensions projectable onto a base view —
+// the candidates a retrieve materialises (#1991).
+//
+// mcp:tool drawing_list_retrievable_dimensions
+// mcp:summary List the referenced model's parametric (feature) dimensions for a base view (viewName): name, value, sheet position — the candidates for retrieve.
+func (d DrawingDimensions) ListRetrievable(args wire.ListRetrievableDimensionsArgs) (wire.RetrievableDimensionsResult, error) {
+	return call[wire.RetrievableDimensionsResult](d.c, wire.MethodDrawingDimensionsListRetrievable, args)
+}
+
+// Retrieve materialises the model's parametric dimensions on a base view as retrieved drawing
+// dimensions (associative to the parameters), instead of re-picking them (#1991).
+//
+// mcp:tool drawing_retrieve_dimensions
+// mcp:summary Retrieve the named model dimensions (empty = all) onto a base view (viewName) as associative drawing dimensions, flagged retrieved with their source parameter.
+func (d DrawingDimensions) Retrieve(args wire.RetrieveDimensionsArgs) (wire.RetrievedDimensionsResult, error) {
+	return call[wire.RetrievedDimensionsResult](d.c, wire.MethodDrawingDimensionsRetrieve, args)
+}
+
+// Delete removes a dimension by name.
+//
+// mcp:tool drawing_delete_dimension
+// mcp:summary Delete a drawing dimension by name (name). Returns the sheet's remaining dimensions.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)
 }

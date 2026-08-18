@@ -79,3 +79,48 @@ func TestSheetOrientationRoundTrip(t *testing.T) {
 		}
 	}
 }
+
+// TestBorderLabelModeRoundTrip pins the border label-mode spellings, the empty/zero default
+// (alphabetical) and rejection of an unknown spelling (#1989).
+func TestBorderLabelModeRoundTrip(t *testing.T) {
+	cases := map[BorderLabelMode]string{
+		AlphabeticalBorderLabel: "alphabetical", NumericBorderLabel: "numeric", NoBorderLabel: "none",
+	}
+	for m, want := range cases {
+		if got := m.String(); got != want {
+			t.Errorf("BorderLabelMode(%d).String() = %q, want %q", m, got, want)
+		}
+		if parsed, ok := ParseBorderLabelMode(want); !ok || parsed != m {
+			t.Errorf("ParseBorderLabelMode(%q) = (%d, %v), want (%d, true)", want, parsed, ok, m)
+		}
+	}
+	if parsed, ok := ParseBorderLabelMode(""); !ok || parsed != AlphabeticalBorderLabel {
+		t.Errorf(`ParseBorderLabelMode("") = (%d, %v), want (AlphabeticalBorderLabel, true)`, parsed, ok)
+	}
+	if _, ok := ParseBorderLabelMode("roman"); ok {
+		t.Error("ParseBorderLabelMode(roman) = ok, want rejected")
+	}
+}
+
+// TestTitleBlockLocationRoundTrip pins the title-block location spellings, the empty/zero default
+// (bottomRight) and rejection of an unknown spelling (#1989).
+func TestTitleBlockLocationRoundTrip(t *testing.T) {
+	cases := map[TitleBlockLocation]string{
+		BottomRightTitleBlock: "bottomRight", BottomLeftTitleBlock: "bottomLeft",
+		TopLeftTitleBlock: "topLeft", TopRightTitleBlock: "topRight",
+	}
+	for l, want := range cases {
+		if got := l.String(); got != want {
+			t.Errorf("TitleBlockLocation(%d).String() = %q, want %q", l, got, want)
+		}
+		if parsed, ok := ParseTitleBlockLocation(want); !ok || parsed != l {
+			t.Errorf("ParseTitleBlockLocation(%q) = (%d, %v), want (%d, true)", want, parsed, ok, l)
+		}
+	}
+	if parsed, ok := ParseTitleBlockLocation(""); !ok || parsed != BottomRightTitleBlock {
+		t.Errorf(`ParseTitleBlockLocation("") = (%d, %v), want (BottomRightTitleBlock, true)`, parsed, ok)
+	}
+	if _, ok := ParseTitleBlockLocation("center"); ok {
+		t.Error("ParseTitleBlockLocation(center) = ok, want rejected")
+	}
+}

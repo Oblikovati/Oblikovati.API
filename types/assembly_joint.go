@@ -99,6 +99,39 @@ func (t AssemblyJointOriginDefinitionType) String() string {
 	}
 }
 
+// AssemblyJointOriginMode is HOW a joint origin's frame is positioned on its component (Inventor's
+// AssemblyJointOriginDefinitionTypeEnum) — inferred from the picked geometry, offset from it by X/Y
+// parameters, or projected to the midplane between two faces. This is a positioning mode, distinct
+// from [AssemblyJointOriginDefinitionType] (which geometry kind was picked). The zero value is
+// JointOriginInfer.
+type AssemblyJointOriginMode int32
+
+const (
+	// JointOriginInfer positions the origin frame directly on the picked geometry (the default).
+	JointOriginInfer AssemblyJointOriginMode = iota
+	// JointOriginOffset shifts the inferred frame by X and Y offsets in its own plane.
+	JointOriginOffset
+	// JointOriginBetweenTwoFaces projects the origin to the midplane between two referenced faces.
+	JointOriginBetweenTwoFaces
+)
+
+var assemblyJointOriginModeNames = map[AssemblyJointOriginMode]string{
+	JointOriginInfer:           "infer",
+	JointOriginOffset:          "offset",
+	JointOriginBetweenTwoFaces: "betweenTwoFaces",
+}
+
+// String returns the origin mode's wire spelling.
+func (m AssemblyJointOriginMode) String() string { return enumName(assemblyJointOriginModeNames, m) }
+
+// ParseAssemblyJointOriginMode resolves a wire spelling back to its mode; "" ⇒ JointOriginInfer.
+func ParseAssemblyJointOriginMode(s string) (AssemblyJointOriginMode, bool) {
+	if s == "" {
+		return JointOriginInfer, true
+	}
+	return enumFromName(assemblyJointOriginModeNames, s)
+}
+
 // DSJointType discriminates the DS-joint kinds — the degrees-of-freedom view of a joint,
 // named in the mechanism vocabulary (prismatic = slider, spherical = ball).
 type DSJointType uint32
@@ -163,4 +196,35 @@ func (t DSDOFImposedMotionType) String() string {
 	default:
 		return "free"
 	}
+}
+
+// OccurrenceDOFState classifies a single degree of freedom for "show DOF" purposes (Inventor's
+// OccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state
+// value. The zero value is NoDegreeOfFreedomState.
+type OccurrenceDOFState int32
+
+const (
+	// NoDegreeOfFreedomState is the zero value: no DOF-state classification.
+	NoDegreeOfFreedomState OccurrenceDOFState = iota
+	// CanRetainDegreeOfFreedom marks a DOF that can be retained (kept free).
+	CanRetainDegreeOfFreedom
+	// CanIgnoreDegreeOfFreedom marks a DOF that can be ignored (consumed).
+	CanIgnoreDegreeOfFreedom
+)
+
+var occurrenceDOFStateNames = map[OccurrenceDOFState]string{
+	NoDegreeOfFreedomState:   "none",
+	CanRetainDegreeOfFreedom: "canRetain",
+	CanIgnoreDegreeOfFreedom: "canIgnore",
+}
+
+// String returns the DOF state's wire spelling.
+func (s OccurrenceDOFState) String() string { return enumName(occurrenceDOFStateNames, s) }
+
+// ParseOccurrenceDOFState resolves a wire spelling back to its DOF state; "" ⇒ NoDegreeOfFreedomState.
+func ParseOccurrenceDOFState(s string) (OccurrenceDOFState, bool) {
+	if s == "" {
+		return NoDegreeOfFreedomState, true
+	}
+	return enumFromName(occurrenceDOFStateNames, s)
 }

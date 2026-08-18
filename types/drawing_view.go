@@ -54,16 +54,27 @@ type DrawingViewStyle int32
 const (
 	// HiddenLineViewStyle shows visible edges solid and hidden edges dashed (the default).
 	HiddenLineViewStyle DrawingViewStyle = iota
-	// WireframeViewStyle shows every edge as visible (no hidden-line removal).
+	// WireframeViewStyle shows every edge as visible (no hidden-line removal). An Oblikovati-only
+	// style with no Inventor equivalent (#1985), kept for the wireframe preview.
 	WireframeViewStyle
 	// ShadedViewStyle shades the view (reserved; renders as hidden-line until shading lands).
 	ShadedViewStyle
+	// HiddenLineRemovedViewStyle shows visible edges only — the canonical drafting style with no
+	// dashed hidden lines (Inventor's kHiddenLineRemovedDrawingViewStyle, #1985).
+	HiddenLineRemovedViewStyle
+	// FromBaseViewStyle inherits the parent view's style associatively (Inventor's kFromBaseDrawingViewStyle).
+	FromBaseViewStyle
+	// ShadedHiddenLineViewStyle overlays shading with hidden edges (reserved until shading lands).
+	ShadedHiddenLineViewStyle
 )
 
 var drawingViewStyleNames = map[DrawingViewStyle]string{
-	HiddenLineViewStyle: "hiddenLine",
-	WireframeViewStyle:  "wireframe",
-	ShadedViewStyle:     "shaded",
+	HiddenLineViewStyle:        "hiddenLine",
+	WireframeViewStyle:         "wireframe",
+	ShadedViewStyle:            "shaded",
+	HiddenLineRemovedViewStyle: "hiddenLineRemoved",
+	FromBaseViewStyle:          "fromBase",
+	ShadedHiddenLineViewStyle:  "shadedHiddenLine",
 }
 
 // String returns the style's wire spelling.
@@ -72,6 +83,13 @@ func (s DrawingViewStyle) String() string { return enumName(drawingViewStyleName
 // ParseDrawingViewStyle resolves a wire spelling back to its style.
 func ParseDrawingViewStyle(s string) (DrawingViewStyle, bool) {
 	return enumFromName(drawingViewStyleNames, s)
+}
+
+// RemovesHiddenEdges reports whether the style drops hidden edges entirely (visible edges only) —
+// true only for the hidden-line-removed style, so a view recompute can filter them out (#1985).
+// Wireframe keeps hidden edges but draws them as visible, so it does not remove them.
+func (s DrawingViewStyle) RemovesHiddenEdges() bool {
+	return s == HiddenLineRemovedViewStyle
 }
 
 // DrawingViewType discriminates the kind of a drawing view. The reference contracts model
@@ -101,6 +119,10 @@ const (
 	DrawingViewBreakout
 	// DrawingViewDraft is a model-less view: a framed container for manually-drawn 2D geometry.
 	DrawingViewDraft
+	// DrawingViewOverlay superimposes an alternate positional or design-view representation of the
+	// model onto a base view (Inventor's overlay view, #1986) — e.g. a mechanism shown in a second
+	// position, or a simplified rep, drawn over the primary view.
+	DrawingViewOverlay
 )
 
 var drawingViewTypeNames = map[DrawingViewType]string{
@@ -113,6 +135,7 @@ var drawingViewTypeNames = map[DrawingViewType]string{
 	DrawingViewSlice:     "slice",
 	DrawingViewBreakout:  "breakout",
 	DrawingViewDraft:     "draft",
+	DrawingViewOverlay:   "overlay",
 }
 
 // String returns the view type's wire spelling ("base", "auxiliary").
@@ -121,6 +144,42 @@ func (t DrawingViewType) String() string { return enumName(drawingViewTypeNames,
 // ParseDrawingViewType resolves a wire spelling back to its view type.
 func ParseDrawingViewType(s string) (DrawingViewType, bool) {
 	return enumFromName(drawingViewTypeNames, s)
+}
+
+// SectionViewType selects how much of the model a section removes, matching Inventor's
+// SectionViewTypeEnum. The zero value is NoSectionView (a plain full cut). Quarter/half/
+// three-quarter carve away only part of the near material so the interior shows without hiding
+// the whole front. The through-depth and reverse-direction options are carried separately on the
+// request (#1982).
+type SectionViewType int32
+
+const (
+	// NoSectionView is a plain section: the whole near half is removed (kNoSectionViewType).
+	NoSectionView SectionViewType = iota
+	// QuarterSectionView removes one quarter of the model (kQuarterSectionViewType).
+	QuarterSectionView
+	// HalfSectionView removes one half, the classic half section (kHalfSectionViewType).
+	HalfSectionView
+	// ThreeQuarterSectionView removes three quarters (kThreeQuarterSectionViewType).
+	ThreeQuarterSectionView
+)
+
+var sectionViewTypeNames = map[SectionViewType]string{
+	NoSectionView:           "none",
+	QuarterSectionView:      "quarter",
+	HalfSectionView:         "half",
+	ThreeQuarterSectionView: "threeQuarter",
+}
+
+// String returns the section type's wire spelling ("none", "quarter").
+func (t SectionViewType) String() string { return enumName(sectionViewTypeNames, t) }
+
+// ParseSectionViewType resolves a wire spelling back to its section type ("" ⇒ NoSectionView).
+func ParseSectionViewType(s string) (SectionViewType, bool) {
+	if s == "" {
+		return NoSectionView, true
+	}
+	return enumFromName(sectionViewTypeNames, s)
 }
 
 // BreakOrientation is the axis along which a break view compresses: a horizontal break removes
@@ -146,6 +205,38 @@ func (o BreakOrientation) String() string { return enumName(breakOrientationName
 // ParseBreakOrientation resolves a wire spelling back to its break orientation.
 func ParseBreakOrientation(s string) (BreakOrientation, bool) {
 	return enumFromName(breakOrientationNames, s)
+}
+
+// CropBreakMarkLineType selects the boundary a cropped view draws around its fence, matching
+// Inventor's CropViewBreakMarkLineTypeEnum. The zero value is NoCropBreakMark — the crop clips the
+// view with no drawn boundary. A crop keeps the view's scale (unlike a detail view) and can apply
+// to any view type (#1987).
+type CropBreakMarkLineType int32
+
+const (
+	// NoCropBreakMark clips the view without drawing a boundary (the default).
+	NoCropBreakMark CropBreakMarkLineType = iota
+	// ContinuousCropBreakMark draws the fence outline as a continuous line.
+	ContinuousCropBreakMark
+	// ZigzagCropBreakMark draws the fence boundary as a zigzag break line.
+	ZigzagCropBreakMark
+)
+
+var cropBreakMarkLineTypeNames = map[CropBreakMarkLineType]string{
+	NoCropBreakMark:         "none",
+	ContinuousCropBreakMark: "continuous",
+	ZigzagCropBreakMark:     "zigzag",
+}
+
+// String returns the break-mark type's wire spelling ("none", "continuous", "zigzag").
+func (t CropBreakMarkLineType) String() string { return enumName(cropBreakMarkLineTypeNames, t) }
+
+// ParseCropBreakMarkLineType resolves a wire spelling back to its break-mark type; "" ⇒ none.
+func ParseCropBreakMarkLineType(s string) (CropBreakMarkLineType, bool) {
+	if s == "" {
+		return NoCropBreakMark, true
+	}
+	return enumFromName(cropBreakMarkLineTypeNames, s)
 }
 
 // DrawingCurveKind classifies a drawing curve so the head can style it: an edge of the model
@@ -209,6 +300,112 @@ func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
 	return enumFromName(projectionDirectionNames, s)
 }
 
+// DrawingViewAlignment locks a view's position relative to another view (Inventor's
+// DrawingViewAlignmentEnum). Horizontal/vertical hold the two views on a shared axis so moving one
+// drags the other; InPosition frees the view (breaks the lock). The zero value is InPositionView.
+type DrawingViewAlignment int32
+
+const (
+	// InPositionViewAlignment leaves the view free — no alignment lock to another view.
+	InPositionViewAlignment DrawingViewAlignment = iota
+	// HorizontalViewAlignment holds the view on the same horizontal line (shared Y) as its anchor.
+	HorizontalViewAlignment
+	// VerticalViewAlignment holds the view on the same vertical line (shared X) as its anchor.
+	VerticalViewAlignment
+)
+
+var drawingViewAlignmentNames = map[DrawingViewAlignment]string{
+	InPositionViewAlignment: "inPosition",
+	HorizontalViewAlignment: "horizontal",
+	VerticalViewAlignment:   "vertical",
+}
+
+// String returns the alignment's wire spelling.
+func (a DrawingViewAlignment) String() string { return enumName(drawingViewAlignmentNames, a) }
+
+// ParseDrawingViewAlignment resolves a wire spelling back to its alignment; "" ⇒ InPositionViewAlignment.
+func ParseDrawingViewAlignment(s string) (DrawingViewAlignment, bool) {
+	if s == "" {
+		return InPositionViewAlignment, true
+	}
+	return enumFromName(drawingViewAlignmentNames, s)
+}
+
+// ViewJustification is how a view centres itself on recompute (Inventor's ViewJustificationEnum). The
+// zero value is CenteredViewJustification.
+type ViewJustification int32
+
+const (
+	// CenteredViewJustification keeps the view centred on its geometry (the default).
+	CenteredViewJustification ViewJustification = iota
+	// FixedViewJustification pins the view by a fixed reference point, so its position does not drift
+	// as the model (and its projected extent) changes.
+	FixedViewJustification
+)
+
+var viewJustificationNames = map[ViewJustification]string{
+	CenteredViewJustification: "centered",
+	FixedViewJustification:    "fixed",
+}
+
+// String returns the justification's wire spelling.
+func (j ViewJustification) String() string { return enumName(viewJustificationNames, j) }
+
+// ParseViewJustification resolves a wire spelling back to its justification; "" ⇒ CenteredViewJustification.
+func ParseViewJustification(s string) (ViewJustification, bool) {
+	if s == "" {
+		return CenteredViewJustification, true
+	}
+	return enumFromName(viewJustificationNames, s)
+}
+
+// DrawingEdgeType classifies the model-edge role a drawing curve came from, so a view can style or
+// filter it (Inventor's DrawingEdgeTypeEnum). The zero value is UnknownDrawingEdge — an ordinary
+// sharp model edge with no special role.
+type DrawingEdgeType int32
+
+const (
+	// UnknownDrawingEdge is an ordinary sharp model edge (a crease between two non-tangent faces).
+	UnknownDrawingEdge DrawingEdgeType = iota
+	// TangentDrawingEdge is a smooth-transition edge: its two faces meet tangentially (a fillet or
+	// blend runout), drawn thin and suppressible.
+	TangentDrawingEdge
+	// ThreadDrawingEdge is a cosmetic thread line.
+	ThreadDrawingEdge
+	// BendUpDrawingEdge is a sheet-metal bend line folding up.
+	BendUpDrawingEdge
+	// BendDownDrawingEdge is a sheet-metal bend line folding down.
+	BendDownDrawingEdge
+	// BendExtentDrawingEdge is the extent (tangent) line bounding a sheet-metal bend.
+	BendExtentDrawingEdge
+	// PunchDrawingEdge is a sheet-metal punch-feature edge.
+	PunchDrawingEdge
+	// ContourRollDrawingEdge is a contour-roll (lofted-flange) edge.
+	ContourRollDrawingEdge
+)
+
+var drawingEdgeTypeNames = map[DrawingEdgeType]string{
+	UnknownDrawingEdge:     "unknown",
+	TangentDrawingEdge:     "tangent",
+	ThreadDrawingEdge:      "thread",
+	BendUpDrawingEdge:      "bendUp",
+	BendDownDrawingEdge:    "bendDown",
+	BendExtentDrawingEdge:  "bendExtent",
+	PunchDrawingEdge:       "punch",
+	ContourRollDrawingEdge: "contourRoll",
+}
+
+// String returns the edge type's wire spelling ("unknown" for the zero value).
+func (t DrawingEdgeType) String() string { return enumName(drawingEdgeTypeNames, t) }
+
+// ParseDrawingEdgeType resolves a wire spelling back to its edge type; "" ⇒ UnknownDrawingEdge.
+func ParseDrawingEdgeType(s string) (DrawingEdgeType, bool) {
+	if s == "" {
+		return UnknownDrawingEdge, true
+	}
+	return enumFromName(drawingEdgeTypeNames, s)
+}
+
 // DrawingAnnotationKind classifies a drawing annotation. The zero value is CoGMarkerAnnotation.
 type DrawingAnnotationKind int32
 
@@ -254,6 +451,14 @@ const (
 	// HoleNoteAnnotation is a feature note on a base view's holes: a leadered diameter callout per
 	// hole, computed from the hole's circular edge and re-resolved when the model changes.
 	HoleNoteAnnotation
+	// ChamferNoteAnnotation is a feature note on a chamfer: a leadered "d × angle" callout derived
+	// from the chamfer face and its reference edge (the setback distance × the chamfer angle),
+	// re-resolved when the model changes.
+	ChamferNoteAnnotation
+	// BendNoteAnnotation is a feature note on a sheet-metal bend: a leadered callout of the bend
+	// angle, radius and direction (up/down), derived from the cylindrical bend face and re-resolved
+	// when the model changes.
+	BendNoteAnnotation
 )
 
 var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
@@ -272,6 +477,8 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 	DrawingNoteAnnotation:         "drawingNote",
 	CustomTableAnnotation:         "customTable",
 	HoleNoteAnnotation:            "holeNote",
+	ChamferNoteAnnotation:         "chamferNote",
+	BendNoteAnnotation:            "bendNote",
 }
 
 // String returns the annotation kind's wire spelling.

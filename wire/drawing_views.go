@@ -23,6 +23,71 @@ type DrawingViewInfo struct {
 	CenterYMM    float64 `json:"centerYmm"`
 	VisibleCount int     `json:"visibleCount"`
 	HiddenCount  int     `json:"hiddenCount"`
+	// Label (#1983). Label is the composed caption drawn under the view (empty ⇒ none); the Show*
+	// flags report whether the label, its name, and its scale note are shown; LabelXMM/YMM place it.
+	Label     string  `json:"label,omitempty"`
+	ShowLabel bool    `json:"showLabel"`
+	ShowName  bool    `json:"showName"`
+	ShowScale bool    `json:"showScale"`
+	LabelXMM  float64 `json:"labelXmm,omitempty"`
+	LabelYMM  float64 `json:"labelYmm,omitempty"`
+	// Section options (#1982), reported for section views. SectionDepthMM is 0 for a full
+	// through-cut; SectionReverse keeps the far half; SectionType is the partial-cut kind.
+	SectionDepthMM float64 `json:"sectionDepthMm,omitempty"`
+	SectionReverse bool    `json:"sectionReverse,omitempty"`
+	SectionType    string  `json:"sectionType,omitempty"`
+	// CropCount is the number of crop fences clipping the view (#1987); 0 ⇒ uncropped.
+	CropCount int `json:"cropCount,omitempty"`
+	// DisplayTangentEdges reports whether smooth tangent edges are drawn in this view (#1984); when
+	// false, tangent curves are omitted from the projection.
+	DisplayTangentEdges bool `json:"displayTangentEdges"`
+	// Placement (#1988). RotationDeg is the view's rotation about its centre (degrees, CCW positive).
+	// Aligned reports whether the view is locked to another; AlignedTo/Alignment name that anchor and
+	// the shared axis (types.DrawingViewAlignment); Justification is the centring mode.
+	RotationDeg   float64 `json:"rotationDeg,omitempty"`
+	Aligned       bool    `json:"aligned,omitempty"`
+	AlignedTo     string  `json:"alignedTo,omitempty"`
+	Alignment     string  `json:"alignment,omitempty"`
+	Justification string  `json:"justification,omitempty"`
+}
+
+// RotateViewArgs is the request of [MethodDrawingViewsRotate]: set the named view's rotation about its
+// centre to AngleDeg degrees (CCW positive), rotating its curves (#1988).
+type RotateViewArgs struct {
+	Name     string  `json:"name"`
+	AngleDeg float64 `json:"angleDeg"`
+}
+
+// AlignViewArgs is the request of [MethodDrawingViewsAlign]: lock the named view to AnchorView on a
+// shared axis, or free it (#1988). Alignment is the types.DrawingViewAlignment spelling
+// ("horizontal" shares Y, "vertical" shares X, "inPosition" breaks the lock and ignores AnchorView).
+// Justification optionally sets the view's centring mode (types.ViewJustification; "" leaves it).
+type AlignViewArgs struct {
+	Name          string `json:"name"`
+	AnchorView    string `json:"anchorView,omitempty"`
+	Alignment     string `json:"alignment"`
+	Justification string `json:"justification,omitempty"`
+}
+
+// SetViewDisplayArgs is the request of [MethodDrawingViewsSetDisplay]: change a view's edge-display
+// toggles (#1984). Each pointer field is applied only when present. DisplayTangentEdges=false drops
+// the smooth tangent edges (fillet/blend transitions) from the projection.
+type SetViewDisplayArgs struct {
+	Name                string `json:"name"`
+	DisplayTangentEdges *bool  `json:"displayTangentEdges,omitempty"`
+}
+
+// SetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named
+// view's label (#1983). Each pointer field is applied only when present; Text="" restores the
+// default caption. LabelXMM and LabelYMM must both be set to reposition the caption.
+type SetViewLabelArgs struct {
+	Name      string   `json:"name"`
+	Text      *string  `json:"text,omitempty"`
+	ShowLabel *bool    `json:"showLabel,omitempty"`
+	ShowName  *bool    `json:"showName,omitempty"`
+	ShowScale *bool    `json:"showScale,omitempty"`
+	LabelXMM  *float64 `json:"labelXmm,omitempty"`
+	LabelYMM  *float64 `json:"labelYmm,omitempty"`
 }
 
 // ListDrawingViewsResult is the response of [MethodDrawingViewsList]: the active sheet's views.
@@ -69,15 +134,24 @@ type AddAuxiliaryViewArgs struct {
 // parent's model, cut by the plane through the section line (X1,Y1)-(X2,Y2) on the parent (sheet
 // millimetres), perpendicular to the parent. The near half is removed, the cut outline drawn
 // bold and the exposed faces hatched; the view is placed at (CenterXMM, CenterYMM).
+//
+// The retained material is tunable (#1982): FullDepth (the default) keeps everything behind the
+// plane, or FullDepth=false limits it to a slab SectionDepthMM deep so only geometry within that
+// distance of the plane participates. Reverse keeps the opposite half. SectionType selects a
+// partial cut (none/quarter/half/threeQuarter; "" ⇒ none, a plain full cut).
 type AddSectionViewArgs struct {
-	Name       string  `json:"name,omitempty"`
-	ParentView string  `json:"parentView"`
-	X1         float64 `json:"x1"`
-	Y1         float64 `json:"y1"`
-	X2         float64 `json:"x2"`
-	Y2         float64 `json:"y2"`
-	CenterXMM  float64 `json:"centerXmm,omitempty"`
-	CenterYMM  float64 `json:"centerYmm,omitempty"`
+	Name           string  `json:"name,omitempty"`
+	ParentView     string  `json:"parentView"`
+	X1             float64 `json:"x1"`
+	Y1             float64 `json:"y1"`
+	X2             float64 `json:"x2"`
+	Y2             float64 `json:"y2"`
+	CenterXMM      float64 `json:"centerXmm,omitempty"`
+	CenterYMM      float64 `json:"centerYmm,omitempty"`
+	FullDepth      bool    `json:"fullDepth,omitempty"`
+	SectionDepthMM float64 `json:"sectionDepthMm,omitempty"`
+	Reverse        bool    `json:"reverse,omitempty"`
+	SectionType    string  `json:"sectionType,omitempty"`
 }
 
 // AddDetailViewArgs is the request of [MethodDrawingViewsAddDetail]: a magnified view of the
@@ -144,6 +218,29 @@ type AddDraftViewArgs struct {
 	CenterYMM float64 `json:"centerYmm,omitempty"`
 }
 
+// AddViewCropArgs is the request of [MethodDrawingViewsAddCrop]: clip the named view to a fence
+// (#1987). Shape is "rectangle" or "circle". A rectangle uses (X0,Y0)-(X1,Y1); a circle uses
+// (CircleXMM, CircleYMM, RadiusMM). All coordinates are sheet millimetres. BreakMark
+// (none/continuous/zigzag; "" ⇒ none) selects the drawn boundary. A crop keeps the view's scale.
+type AddViewCropArgs struct {
+	View      string  `json:"view"`
+	Shape     string  `json:"shape,omitempty"` // "rectangle" (default) | "circle"
+	X0        float64 `json:"x0,omitempty"`
+	Y0        float64 `json:"y0,omitempty"`
+	X1        float64 `json:"x1,omitempty"`
+	Y1        float64 `json:"y1,omitempty"`
+	CircleXMM float64 `json:"circleXmm,omitempty"`
+	CircleYMM float64 `json:"circleYmm,omitempty"`
+	RadiusMM  float64 `json:"radiusMm,omitempty"`
+	BreakMark string  `json:"breakMark,omitempty"`
+}
+
+// RemoveViewCropArgs is the request of [MethodDrawingViewsRemoveCrop]: drop every crop on the
+// named view, restoring its full curve set (#1987).
+type RemoveViewCropArgs struct {
+	View string `json:"view"`
+}
+
 // ViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:
 // the created view.
 type ViewResult struct {
@@ -172,6 +269,9 @@ type DrawingCurveSegment struct {
 	Visible bool    `json:"visible"`
 	Kind    string  `json:"kind,omitempty"` // types.DrawingCurveKind ("edge" default; section/hatch/break)
 	EdgeKey string  `json:"edgeKey,omitempty"`
+	// EdgeType is the model-edge role (types.DrawingEdgeType: "tangent" for a smooth fillet/blend
+	// transition, "" ⇒ unknown/ordinary sharp edge), so the curve can be styled or filtered (#1984).
+	EdgeType string `json:"edgeType,omitempty"`
 }
 
 // ViewCurvesResult is the response of [MethodDrawingViewsCurves]: the view's drawing curves.

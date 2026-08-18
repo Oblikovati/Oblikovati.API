@@ -27,6 +27,15 @@ func (a Assembly) Place(args wire.PlaceOccurrenceArgs) (wire.OccurrenceResult, e
 	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblyPlace, args)
 }
 
+// AddVirtual adds a geometry-free, document-free virtual component (paint, grease, labor, fasteners
+// by weight) that appears in the assembly tree and BOM (#1979).
+//
+// mcp:tool assembly_add_virtual
+// mcp:summary Add a virtual component (no geometry, no file) to the active assembly: name, optional partNumber and BOM structure. It appears in the tree and BOM but contributes no bounds or mass.
+func (a Assembly) AddVirtual(args wire.AddVirtualArgs) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblyAddVirtual, args)
+}
+
 // PlaceByDefinition places another instance of the component that the source occurrence
 // already instances, e.g. PlaceByDefinition(wire.PlaceByDefinitionArgs{Source: occID, Name: "pin:2", Transform: t}).
 //
@@ -73,6 +82,24 @@ func (a Assembly) Ground(id uint64, grounded bool) (wire.OccurrenceResult, error
 // mcp:summary Exclude (suppressed:true) or restore (suppressed:false) an occurrence (id) from/to the model.
 func (a Assembly) Suppress(id uint64, suppressed bool) (wire.OccurrenceResult, error) {
 	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySuppress, wire.SuppressOccurrenceArgs{ID: id, Suppressed: suppressed})
+}
+
+// SetVisible shows or hides one occurrence — a display override independent of any representation,
+// e.g. SetVisible(id, false) (#1975).
+//
+// mcp:tool set_occurrence_visible
+// mcp:summary Show (visible:true) or hide an occurrence (id) — a display override.
+func (a Assembly) SetVisible(id uint64, visible bool) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySetVisible, wire.SetVisibleOccurrenceArgs{ID: id, Visible: visible})
+}
+
+// SetOccurrenceState changes any subset of an occurrence's display/state overrides — transparency,
+// opacity, enabled, excluded, reference, contact-set — leaving the unset ones alone (#1975/#1977).
+//
+// mcp:tool set_occurrence_state
+// mcp:summary Change an occurrence's state overrides (transparent/opacity/enabled/excluded/reference/contactSet); unset fields are unchanged.
+func (a Assembly) SetOccurrenceState(args wire.SetOccurrenceStateArgs) (wire.OccurrenceResult, error) {
+	return call[wire.OccurrenceResult](a.c, wire.MethodAssemblySetOccurrenceState, args)
 }
 
 // SetFlexible marks a subassembly occurrence flexible (it solves independently per placement)

@@ -48,6 +48,11 @@ type Fillet struct {
 	// keys, so the binding survives recompute — the way an external author references edges it did
 	// not mint keys for. When set it supplies the edges; EdgeRefs becomes optional. See [GeomEdgeSel].
 	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
+	// Width drives a FACE fillet by the chord it spans instead of by the rolling ball's radius —
+	// Inventor's chordal alternative on FaceFilletDefinition, and what gets measured on the part
+	// (#1887). Unit-bearing, e.g. "4 mm". When set it wins over Radius; the host resolves it against
+	// the angle the two face sets meet at, so they must share an edge and be planar.
+	Width string `json:"width,omitempty"`
 }
 
 // Kind reports the feature kind Fillet creates.
@@ -64,6 +69,15 @@ type Chamfer struct {
 	// EdgesGeom selects the bevelled edges by GEOMETRY (midpoint + direction) instead of EdgeRefs
 	// keys, so the binding survives recompute (see [Fillet.EdgesGeom]). When set, EdgeRefs is optional.
 	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
+	// ReferenceFace is the face Distance is measured on for the asymmetric modes (#1888). Without
+	// it the assignment falls to the edge's own face order, which is a topology artefact — on
+	// mirrored geometry that can land the larger setback on the wrong face and change the part.
+	ReferenceFace string `json:"referenceFace,omitempty"`
+	// PartialStart and PartialLength bevel only a SPAN of each edge, measured from its start
+	// vertex (Inventor's partial chamfer). Unit-bearing, e.g. "5 mm"; omit PartialLength for the
+	// whole edge.
+	PartialStart  string `json:"partialStart,omitempty"`
+	PartialLength string `json:"partialLength,omitempty"`
 }
 
 // Kind reports the feature kind Chamfer creates.
@@ -121,6 +135,17 @@ type Shell struct {
 	// ShellDirectionEnum: "inside" (default; outer skin kept), "outside" (outer dimensions grow by
 	// thickness), or "both" (wall centred on the faces). Empty ⇒ inside. #1864.
 	Direction string `json:"direction,omitempty"`
+	// FaceThicknesses give named RETAINED faces their own wall thickness on top of Thickness —
+	// Inventor's SetFaceThickness (#1864). A thickened boss wall or a thin window in an otherwise
+	// uniform shell; a face that is being REMOVED is an opening and cannot carry one.
+	FaceThicknesses []ShellFaceThickness `json:"faceThicknesses,omitempty"`
+}
+
+// ShellFaceThickness overrides the wall thickness on one retained face of a shell (#1864).
+type ShellFaceThickness struct {
+	FaceRef string `json:"faceRef"`
+	// Thickness is that face's wall, a distance expression like "3 mm".
+	Thickness string `json:"thickness"`
 }
 
 // Kind reports the feature kind Shell creates.

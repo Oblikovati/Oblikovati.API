@@ -73,6 +73,26 @@ type Revolve struct {
 	// asymmetric mode and names both sides itself. Unobservable on a full revolution.
 	Direction string `json:"direction,omitempty"`
 	Operation string `json:"operation,omitempty"`
+	// Extent is how the revolve TERMINATES, the revolve half of PartFeatureExtentEnum: "angle"
+	// (default — sweep Angle/Angle2, Inventor's kAngleExtent, with a full turn spelled "360 deg"),
+	// "to-face" (sweep until the profile reaches ToFace), "from-to" (bounded by FromFace and
+	// ToFace) or "to-next" (stop at the next material the sweep meets). The geometric extents
+	// terminate a turned part on its own geometry — a groove that stops on a rib wall keeps its
+	// parametric link instead of freezing a hand-computed angle. Angle is unused by them.
+	Extent string `json:"extent,omitempty"`
+	// ToFace is the stop target of the "to-face" extent and the END of "from-to": a planar face
+	// reference key, "plane/N", or "origin/plane/xy". A revolve terminator must CONTAIN the revolve
+	// axis (a radial face) — only then does the swept solid meet it at one constant sweep angle.
+	ToFace string `json:"toFace,omitempty"`
+	// ToFaceGeom names the ToFace target by GEOMETRY (a planar face's centroid + normal) instead of
+	// a key, for an author that cannot mint one — see [Extrude.ToFaceGeom]. Wins over ToFace.
+	ToFaceGeom *GeomFaceSel `json:"toFaceGeom,omitempty"`
+	// FromFace is the START target of a "from-to" revolve, named like ToFace. The swept wedge runs
+	// backwards from the profile to FromFace and forwards to ToFace, so it always contains the
+	// profile; a span that closes on itself is a full revolution.
+	FromFace string `json:"fromFace,omitempty"`
+	// FromFaceGeom names the "from-to" START target by GEOMETRY instead of a key. Wins over FromFace.
+	FromFaceGeom *GeomFaceSel `json:"fromFaceGeom,omitempty"`
 	// ProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead
 	// of ProfileIndex, resolved by containment on the solved sketch each recompute (see
 	// [Extrude.ProfileSeeds]). When present it wins over ProfileIndex.
@@ -90,6 +110,25 @@ type Rib struct {
 	Depth        string `json:"depth,omitempty"`
 	ToNext       bool   `json:"toNext,omitempty"` // extend to the existing material (#316)
 	Operation    string `json:"operation,omitempty"`
+	// ThickenSide is which side of the profile the wall grows on: "symmetric" (default, half the
+	// thickness each side), "side1" (the path's left side, walking it as drawn) or "side2" (its
+	// right side) — Inventor's RibDefinition.ThicknessDirection. The sides are named side1/side2
+	// rather than positive/negative (as on Extrude.Direction) because they are the two sides of a
+	// curve IN the sketch plane, which has no signed direction the caller can picture. #1882.
+	ThickenSide string `json:"thickenSide,omitempty"`
+	// Draft tapers the wall across its extent, opening toward the root — the end that lands on the
+	// part (a unit-bearing angle, e.g. "3 deg"). Inventor's RibDefinition.DraftAngle. #1882.
+	Draft string `json:"draft,omitempty"`
+	// ThicknessPlane picks which end honours the nominal Thickness once Draft tapers the wall:
+	// "sketch" (default) holds it at the profile's own plane, "root" at the end that lands on the
+	// part — Inventor's RibThicknessPlaneEnum. With no draft the wall is prismatic and the two are
+	// the same, so this option is observable only together with Draft. #1882.
+	ThicknessPlane string `json:"thicknessPlane,omitempty"`
+	// ExtendProfile lengthens the open profile's two ends along their end tangents until they
+	// reach the existing material, so a wall sketched short of the part still lands on it
+	// (Inventor's RibDefinition.ExtendProfile). An end with no material ahead of it stays put.
+	// #1882.
+	ExtendProfile bool `json:"extendProfile,omitempty"`
 }
 
 // Kind reports the feature kind Rib creates.
@@ -103,13 +142,28 @@ type Emboss struct {
 	TextEntity     uint64 `json:"textEntity,omitempty"`
 	Depth          string `json:"depth"`
 	Engrave        bool   `json:"engrave,omitempty"`
+	// Type is the emboss flavour (Inventor's EmbossTypeEnum): "fromFace" (default) raises the
+	// profile off the part, "engraveFromFace" cuts it in, and "fromPlane" does BOTH — it takes the
+	// profile region to the sketch plane offset by Depth, adding material where the part falls
+	// short of that surface and removing whatever stands above it, which is how a raised panel is
+	// levelled on an uneven or curved wall. Engrave is the older two-valued spelling and still
+	// works; setting both is refused when they disagree. #1893.
+	Type string `json:"type,omitempty"`
+	// WrapToFace wraps the profile ONTO a curved face (a face reference key) instead of projecting
+	// it flat, so text follows a shaft rather than cutting a chord through it. Inventor limits the
+	// wrap to a single planar or conical face — never a spline, never a seamed face — and does not
+	// offer it for the fromPlane type, which has no face to wrap to. #1893.
+	WrapToFace string `json:"wrapToFace,omitempty"`
+	// Taper draft-angles the emboss walls (a unit-bearing angle, e.g. "10 deg") so a moulded raise
+	// releases from the tool. #1893.
+	Taper string `json:"taper,omitempty"`
 }
 
 // Kind reports the feature kind Emboss creates.
 func (Emboss) Kind() string { return KindEmboss }
 
 // Coil sweeps a profile along a helix about an axis (KindCoil). Two of pitch/revolutions/
-// height fix the helix (#316).
+// height fix the helix (#316); Type "spiral" sweeps a flat spiral instead (#1883).
 type Coil struct {
 	SketchIndex  int    `json:"sketchIndex"`
 	ProfileIndex int    `json:"profileIndex"`
@@ -127,6 +181,16 @@ type Coil struct {
 	StartFlatAngle       string `json:"startFlatAngle,omitempty"`
 	EndTransitionAngle   string `json:"endTransitionAngle,omitempty"`
 	EndFlatAngle         string `json:"endFlatAngle,omitempty"`
+	// Handedness is the sense in which the coil winds: "right" (default) or "left". Right-handed
+	// means the rotation follows the right-hand rule about the axis while the coil rises along it —
+	// the ordinary thread/spring sense. Handedness is independent of which way the axis points,
+	// because flipping the axis flips the rotation sense and the rise together. #1883.
+	Handedness string `json:"handedness,omitempty"`
+	// Type is the coil flavour: "helical" (default) or "spiral" — a FLAT spiral with no axial
+	// rise (Inventor's kSpiralCoilExtent), where Pitch is the RADIAL step per turn. A spiral
+	// takes Pitch + Revolutions; Height has nothing to describe and Taper (which scales the
+	// radius with the rise) nothing to act on, so both are refused rather than ignored. #1883.
+	Type string `json:"type,omitempty"`
 }
 
 // Kind reports the feature kind Coil creates.
@@ -162,6 +226,60 @@ type Hole struct {
 	// defaults to 118 deg (the standard twist-drill point) when DrillPoint is "angled" and it is
 	// omitted. #1863.
 	TipAngle string `json:"tipAngle,omitempty"`
+	// Tap is the hole's thread FUNCTION, orthogonal to Type (its seat) — Inventor keeps the two on
+	// separate axes, so a counterbored tapped hole is an ordinary thing (#1862). "none" (default),
+	// "tapped", or "taperTapped" for an NPT-style taper thread. Type "tapped" remains accepted as
+	// the older spelling of a drilled hole with Tap "tapped".
+	Tap string `json:"tap,omitempty"`
+	// ThreadClass is the fit class the tap is cut to, e.g. "6H" (metric) or "2B" (unified).
+	ThreadClass string `json:"threadClass,omitempty"`
+	// LeftHanded reverses the tap's thread sense; the default is the ordinary right-hand thread.
+	LeftHanded bool `json:"leftHanded,omitempty"`
+	// Clearance sizes the bore from a fastener table instead of Diameter (#1862), so the FASTENER
+	// stays the authored thing and the hole follows when it changes.
+	Clearance *HoleClearance `json:"clearance,omitempty"`
+	// Placement is the rule LOCATING the bores, Inventor's HolePlacementTypeEnum (#1861): "sketch"
+	// (one bore per centre point of PlacementSketchIndex), "linear" (offsets from two edges),
+	// "concentric" (on a circular edge's axis) or "point" (a work point along a work axis). Absent
+	// ⇒ the single bore on FaceRef at Center, which is the face placement.
+	Placement            string `json:"placement,omitempty"`
+	PlacementSketchIndex int    `json:"placementSketchIndex,omitempty"`
+	// PlacementFlipped drills along the sketch normal / work axis instead of into it.
+	PlacementFlipped bool `json:"placementFlipped,omitempty"`
+	// ConcentricRef is the circular edge whose axis a "concentric" placement centres on.
+	ConcentricRef string `json:"concentricRef,omitempty"`
+	// Edge1Ref/Edge2Ref and Offset1/Offset2 locate a "linear" placement: two reference edges of the
+	// placement face and the unit-bearing distances measured from each, INTO the face.
+	Edge1Ref string `json:"edge1Ref,omitempty"`
+	Edge2Ref string `json:"edge2Ref,omitempty"`
+	Offset1  string `json:"offset1,omitempty"`
+	Offset2  string `json:"offset2,omitempty"`
+	// PointRef and AxisRef locate a "point" placement: the work point to drill at and the work axis
+	// to drill along (e.g. "point/0", "origin/axis/z").
+	PointRef string `json:"pointRef,omitempty"`
+	AxisRef  string `json:"axisRef,omitempty"`
+	// Termination is where the bore STOPS (#1863): "distance" (default — Depth from the placement
+	// face), "through-all", "to-face" (down to ToFace) or "from-to" (between FromFace and ToFace).
+	// A named terminator must be square to the drill axis, since a bore bottoms at one depth.
+	Termination string `json:"termination,omitempty"`
+	// ToFace/FromFace and their geometric selectors name the terminators, exactly as an extrude's
+	// extent does. See [Extrude.ToFace].
+	ToFace       string       `json:"toFace,omitempty"`
+	ToFaceGeom   *GeomFaceSel `json:"toFaceGeom,omitempty"`
+	FromFace     string       `json:"fromFace,omitempty"`
+	FromFaceGeom *GeomFaceSel `json:"fromFaceGeom,omitempty"`
+}
+
+// HoleClearance names the fastener a clearance hole is drilled for — Inventor's HoleClearanceInfo.
+// The host sizes the bore from the published table every recompute, so changing the fastener
+// resizes the hole; recording the resolved diameter instead would break that link.
+type HoleClearance struct {
+	// Standard is the table the fastener is drawn from; "ISO 273" is the one carried today.
+	Standard string `json:"standard,omitempty"`
+	// Fastener is the thread designation the hole must pass, e.g. "M6".
+	Fastener string `json:"fastener"`
+	// Fit is "close", "medium" (default) or "free".
+	Fit string `json:"fit,omitempty"`
 }
 
 // Kind reports the feature kind Hole creates.
@@ -193,6 +311,12 @@ type Thread struct {
 	// Offset is the distance (expression) from the face's start edge to where the thread begins
 	// (Inventor's ThreadOffset). Empty ⇒ 0 (the thread starts at the face's start edge).
 	Offset string `json:"offset,omitempty"`
+	// LeftHanded reverses the thread's sense — a turnbuckle end, a left pedal, a gas fitting
+	// (#1892). Inventor spells this RightHanded (default true); a JSON bool cannot default to
+	// true, so the field is named for the LEFT hand and the ordinary right-hand thread is the
+	// zero value, matching [Hole.LeftHanded]. Designations may also carry it as an "-LH" suffix;
+	// either says left-handed, and the two never contradict.
+	LeftHanded bool `json:"leftHanded,omitempty"`
 }
 
 // Kind reports the feature kind Thread creates.
