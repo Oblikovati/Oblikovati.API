@@ -8,6 +8,57 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.146.0] - 2026-08-18
+
+### Added
+
+- feat(client): expose drawing_delete_dimension as an MCP tool
+- feat(drawing): retrieve model dimensions onto a view (#1991)
+- feat(assembly): AssemblyOptions surface — get/set editing defaults (#1981)
+- feat(assembly): occurrence DOF split — translation/rotation + axes (#1980)
+- feat(assembly): virtual component API — geometry-free BOM lines (#1979)
+- feat(assembly): BOM structure — Default/Varies values + per-occurrence set (#1978)
+- feat(assembly): joint origin definition modes — infer/offset/betweenTwoFaces (#1973)
+- feat(drawing): sheet authoring API — zoned borders, title-block corner, revision, formats (#1989)
+- feat(drawing): view rotation + alignment API (#1988)
+- feat(drawing): DrawingEdgeType + per-view tangent-edge display (#1984)
+- feat(drawing): chamfer-note and bend-note annotation kinds (#1995)
+- feat(drawing): report a hole note's tapped-hole count (#1995)
+- feat(assembly): reference-vector axis on the angle constraint (#1972)
+- feat(drawing): view crop — rectangular/circular fence + break-mark (#1987)
+- feat(drawing): inspection dimensions — border shape, label, rate (#1996)
+- feat(drawing): section view cut depth / reverse / partial-cut type (#1982)
+- feat(types): dimension engineering tolerance surface (#1990)
+- feat(drawing): view label surface — show-label/scale/name + position (#1983)
+- feat(drawing): dimension text overrides + dual-unit (#1992, #1993)
+- feat(types): drawing overlay view + foreshortened/symmetric/sum dimensions (#1986, #1994)
+- feat(types): drawing view styles — hidden-line-removed, from-base, shaded-hidden (#1985)
+- feat(assembly): joint gap/position + locked/protected surface (#1970, #1974)
+- feat(assembly): occurrence visibility, opacity and state overrides (#1975, #1977)
+- feat(types): mate solution undirected + no-solution (#1971)
+- feat(types,wire): punch representation type and die-tool settings (#1968)
+- feat(featureargs): corner chamfer variants and multi-radius round sets (#1967)
+- feat(types,featureargs): lofted-flange output type and facet tolerance (#1966)
+- feat(types,featureargs): the three rip types and the gap side (#1965)
+- feat(types,featureargs): corner-seam finish styles and their measures (#1964)
+- feat(featureargs): contour flange operation and bend radius (#1961)
+- feat(featureargs): auto-miter the corner between two walls (#1961)
+- feat(types,wire): bend transitions and per-feature bend options (#1959)
+- feat(wire): flat-pattern punch results (#1963)
+- feat(types,wire): corner relief, and the bend relief Inventor actually defaults to (#1960)
+- feat(featureargs): partial-width flanges (#1958)
+- feat(featureargs): where a flange's wall lands (#1957)
+- feat(featureargs): the four hem shapes (#1956)
+- feat(featureargs): the modify ops' missing options (#1864, #1891, #1892, #1894)
+- feat(featureargs): emboss flavour, wrap-to-face and the wall taper (#1893)
+- feat(featureargs): rib wall options, coil handedness and the flat spiral (#1882, #1883)
+- feat(featureargs): mirror a whole body, and keep only the reflection (#1890)
+- feat(featureargs): mid-plane patterns and per-element suppression (#1889)
+- feat(featureargs): chamfer reference face and partial span (#1888)
+- feat(featureargs): chordal width on the face fillet (#1887)
+- feat(featureargs): hole placements, the seat/tap split, clearance and terminations
+- feat(featureargs): revolve extents — to-face, from-to and to-next (#1860)
+
 ## [0.145.1] - 2026-08-05
 
 ### Fixed
@@ -1164,7 +1215,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.146.0...HEAD
+[0.146.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.1...v0.146.0
 [0.145.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.0...v0.145.1
 [0.145.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...v0.145.0
 [0.144.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.143.0...v0.144.0
