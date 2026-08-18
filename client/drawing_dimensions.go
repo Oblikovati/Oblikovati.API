@@ -129,6 +129,9 @@ func (d DrawingDimensions) Retrieve(args wire.RetrieveDimensionsArgs) (wire.Retr
 }
 
 // Delete removes a dimension by name.
+//
+// mcp:tool drawing_delete_dimension
+// mcp:summary Delete a drawing dimension by name (name). Returns the sheet's remaining dimensions.
 func (d DrawingDimensions) Delete(args wire.DeleteDimensionArgs) (wire.ListDrawingDimensionsResult, error) {
 	return call[wire.ListDrawingDimensionsResult](d.c, wire.MethodDrawingDimensionsDelete, args)
 }
