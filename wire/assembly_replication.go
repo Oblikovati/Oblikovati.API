@@ -41,6 +41,73 @@ type CreatePatternArgs struct {
 	Count2     int        `json:"count2,omitempty"`
 }
 
+// PatternElementInfo is one element of a persistent occurrence pattern (#1976): its position
+// in arrangement order, whether it is suppressed, and whether its placement was individually
+// repositioned off the regular grid. Element 0 is the seed.
+type PatternElementInfo struct {
+	Index        int  `json:"index"`
+	Suppressed   bool `json:"suppressed"`
+	Repositioned bool `json:"repositioned"`
+}
+
+// PatternInfo is a persistent occurrence pattern (#1976): its session id, name, arrangement
+// kind ("circular"/"rectangular"), the whole-pattern suppression state ("all"/"none"/"some"),
+// and its elements. It is returned by patternCreate and the edit ops, and listed by patternList.
+type PatternInfo struct {
+	ID          uint64               `json:"id"`
+	Name        string               `json:"name"`
+	Kind        string               `json:"kind"`
+	Suppression string               `json:"suppression"`
+	Elements    []PatternElementInfo `json:"elements"`
+}
+
+// CreatePatternResult is the reply of [MethodAssemblyPatternCreate]: the persistent pattern
+// (by id, so it can be re-read and edited) and the occurrences it added, in element order.
+type CreatePatternResult struct {
+	Pattern PatternInfo      `json:"pattern"`
+	Created []OccurrenceInfo `json:"created"`
+}
+
+// PatternListResult is the reply of [MethodAssemblyPatternList]: every persistent pattern in
+// the active assembly.
+type PatternListResult struct {
+	Patterns []PatternInfo `json:"patterns"`
+}
+
+// SetPatternSuppressedArgs is the request of [MethodAssemblyPatternSetSuppressed]: suppress or
+// unsuppress the whole pattern (by id), moving every element together.
+type SetPatternSuppressedArgs struct {
+	Pattern    uint64 `json:"pattern"`
+	Suppressed bool   `json:"suppressed"`
+}
+
+// SetPatternElementSuppressedArgs is the request of [MethodAssemblyPatternElementSetSuppressed]:
+// suppress or unsuppress one element (by index) of the pattern (by id).
+type SetPatternElementSuppressedArgs struct {
+	Pattern    uint64 `json:"pattern"`
+	Element    int    `json:"element"`
+	Suppressed bool   `json:"suppressed"`
+}
+
+// RepositionPatternElementArgs is the request of [MethodAssemblyPatternElementReposition]: move
+// one element (by index) of the pattern (by id) to an explicit placement, off the regular grid.
+type RepositionPatternElementArgs struct {
+	Pattern   uint64       `json:"pattern"`
+	Element   int          `json:"element"`
+	Transform types.Matrix `json:"transform"`
+}
+
+// DeletePatternArgs is the request of [MethodAssemblyPatternDelete]: delete the whole pattern
+// (by id) and remove the occurrences it generated (the seed component stays).
+type DeletePatternArgs struct {
+	Pattern uint64 `json:"pattern"`
+}
+
+// DeletePatternResult is the reply of [MethodAssemblyPatternDelete]: the id of the deleted pattern.
+type DeletePatternResult struct {
+	Deleted uint64 `json:"deleted"`
+}
+
 // MirrorComponentsArgs is the request of [MethodAssemblyMirror]: add a mirror of each
 // Source occurrence (by session id), reflected across the plane through Origin with unit
 // Normal. Each mirror shares its source's component, handed by the reflection transform.

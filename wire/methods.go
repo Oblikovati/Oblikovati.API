@@ -496,6 +496,15 @@ const (
 	MethodAssemblyCopy           = "assembly.copy"
 	MethodAssemblySubstitute     = "assembly.substitute"
 
+	// Persistent occurrence-pattern editing (#1976): a pattern created by patternCreate is
+	// re-read, suppressed/unsuppressed as a whole or per element, its elements repositioned,
+	// and the whole array deleted.
+	MethodAssemblyPatternList              = "assembly.patternList"
+	MethodAssemblyPatternSetSuppressed     = "assembly.patternSetSuppressed"
+	MethodAssemblyPatternElementSuppress   = "assembly.patternElementSetSuppressed"
+	MethodAssemblyPatternElementReposition = "assembly.patternElementReposition"
+	MethodAssemblyPatternDelete            = "assembly.patternDelete"
+
 	// Assembly editing options (#1981): read/write the assembly-modeling option set.
 	MethodAssemblyOptionsGet = "assembly.optionsGet"
 	MethodAssemblyOptionsSet = "assembly.optionsSet"
