@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.147.0] - 2026-08-19
+
+### Added
+
+- feat(api): persistent occurrence-pattern editing surface (#1976)
+
 ## [0.146.0] - 2026-08-18
 
 ### Added
@@ -1215,7 +1221,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.146.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.147.0...HEAD
+[0.147.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.146.0...v0.147.0
 [0.146.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.1...v0.146.0
 [0.145.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.145.0...v0.145.1
 [0.145.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.144.0...v0.145.0
