@@ -71,6 +71,19 @@ type SheetMetalFlange struct {
 	ApplyAutoMiter bool `json:"applyAutoMiter,omitempty"`
 	// MiterGap is the gap left on the miter line; absent ⇒ the style's GapSize.
 	MiterGap string `json:"miterGap,omitempty"`
+	// EdgeSets flanges SEVERAL edges in one feature, each set with its own edges and width extent —
+	// Inventor's FlangeDefinition edge-set collection (EdgeSetCount/AddFlangeEdgeSet/EdgeSetItem,
+	// #2071). When present it supersedes Edge/Width; the shared height, angle, radius, flip, bend
+	// position, height datum, options and miter apply to every set. Modelling each edge as its own
+	// flange feature makes the same solid — edge sets keep them one feature with one edit.
+	EdgeSets []FlangeEdgeSet `json:"edgeSets,omitempty"`
+}
+
+// FlangeEdgeSet is one edge group of a multi-edge flange (#2071): the edges to flange, and the width
+// extent that bounds their walls (absent ⇒ each wall spans its whole edge).
+type FlangeEdgeSet struct {
+	Edges []string           `json:"edges"`
+	Width *FlangeWidthExtent `json:"width,omitempty"`
 }
 
 // BendOptions overrides the sheet-metal style's bend properties for one feature — Inventor's
