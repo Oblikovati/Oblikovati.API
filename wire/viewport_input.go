@@ -25,7 +25,9 @@ type ClickViewportArgs struct {
 	// precedence over X/Y.
 	Point *types.Point `json:"point,omitempty"`
 
-	// Button is "left" (the default), "right" or "middle".
+	// Button is "left" (the default), "right", "middle", or one of the extended buttons a mouse may
+	// carry: "back", "forward", "button5", "button6", "button7" (#1822). The extended buttons deliver
+	// but carry no default binding, so a host tool or add-in reads them without any built-in effect.
 	Button string `json:"button,omitempty"`
 
 	// Held modifiers, as the selection and snapping paths read them.
@@ -41,6 +43,29 @@ type ClickViewportResult struct {
 	X          float64 `json:"x"`
 	Y          float64 `json:"y"`
 	ActiveTool string  `json:"activeTool"`
+}
+
+// ScrollViewportArgs is the request of [MethodViewportScroll]: a mouse-wheel tick at a viewport
+// pixel, in notches (a wheel detent is one notch; fractional for high-resolution wheels). DY is the
+// vertical axis (positive scrolls up — the zoom-in direction the host has always used). DX is the
+// horizontal axis a two-axis wheel or thumbwheel reports (#1822); it is delivered but carries no
+// default binding, so it changes nothing until a tool or add-in reads it. X/Y locate the cursor so
+// the host can zoom toward it, defaulting to the viewport centre when omitted.
+type ScrollViewportArgs struct {
+	DX float64 `json:"dx,omitempty"`
+	DY float64 `json:"dy,omitempty"`
+	X  float64 `json:"x,omitempty"`
+	Y  float64 `json:"y,omitempty"`
+
+	Shift bool `json:"shift,omitempty"`
+	Ctrl  bool `json:"ctrl,omitempty"`
+	Alt   bool `json:"alt,omitempty"`
+}
+
+// ScrollViewportResult is the response of [MethodViewportScroll]: the command still running after
+// the scroll (empty once none is), mirroring the click/key results.
+type ScrollViewportResult struct {
+	ActiveTool string `json:"activeTool"`
 }
 
 // PressKeyArgs is the request of [MethodViewportKey]: a key to deliver to the running command.
