@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.150.0] - 2026-08-22
+
+### Added
+
+- feat(wire): viewport.scroll + extended mouse buttons (#1822)
+
 ### Added
 
 - feat(wire): viewport.scroll method + extended mouse-button spellings (back/forward/button5-7) for the full GLFW button set and a horizontal wheel axis (#1822)
@@ -1237,7 +1243,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.149.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.150.0...HEAD
+[0.150.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.149.0...v0.150.0
 [0.149.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.148.0...v0.149.0
 [0.148.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.147.0...v0.148.0
 [0.147.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.146.0...v0.147.0
