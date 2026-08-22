@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- feat(wire): viewport.scroll method + extended mouse-button spellings (back/forward/button5-7) for the full GLFW button set and a horizontal wheel axis (#1822)
+
 ## [0.148.0] - 2026-08-21
 
 ### Added

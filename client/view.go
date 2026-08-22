@@ -124,6 +124,18 @@ func (v View) Click(a wire.ClickViewportArgs) (wire.ClickViewportResult, error) 
 	return call[wire.ClickViewportResult](v.c, wire.MethodViewportClick, a)
 }
 
+// Scroll delivers a mouse-wheel tick to the viewport (#1822): DY zooms toward the cursor as the
+// vertical wheel always has; DX is the horizontal axis a two-axis wheel reports, carried but unbound.
+//
+//	client.View().Scroll(wire.ScrollViewportArgs{DY: 1}) // one notch toward the cursor
+//
+// mcp:tool viewport_scroll
+// mcp:input scrollViewportArg
+// mcp:summary Scroll the mouse wheel in the 3D viewport. dy zooms toward the cursor (positive = in), dx is the horizontal wheel axis (delivered but unbound). x/y locate the cursor (viewport centre if omitted). Returns the command still running ("" if none).
+func (v View) Scroll(a wire.ScrollViewportArgs) (wire.ScrollViewportResult, error) {
+	return call[wire.ScrollViewportResult](v.c, wire.MethodViewportScroll, a)
+}
+
 // PressKey delivers a key to the running command — "Escape" and "Enter" being the two that end a
 // variable-length one (a continuous line chain, a spline) and keep what it has drawn.
 //

@@ -667,8 +667,9 @@ const (
 	// (see [ClickViewportArgs], [PressKeyArgs]). Everything else in this API edits
 	// the model directly, which cannot reach behaviour that only exists in the
 	// click path — point inference, tool previews, multi-click chains.
-	MethodViewportClick = "viewport.click"
-	MethodViewportKey   = "viewport.key"
+	MethodViewportClick  = "viewport.click"
+	MethodViewportKey    = "viewport.key"
+	MethodViewportScroll = "viewport.scroll"
 
 	MethodViewsList      = "views.list"
 	MethodViewsAdd       = "views.add"
