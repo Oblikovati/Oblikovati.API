@@ -126,6 +126,11 @@ type SplitSolid struct {
 	// ToolIndex addresses the surface tool: a position in the part's work surfaces for
 	// "workSurface", or a body index for "surfaceBody". Ignored for "workPlane".
 	ToolIndex int `json:"toolIndex,omitempty"`
+	// SketchIndex and ProfileIndex address the sketch profile the "path" tool projects onto the
+	// faces and scores them with (#2068). Ignored by every other tool. They follow the same
+	// sketch/profile addressing every profile-based feature uses (e.g. Extrude).
+	SketchIndex  int `json:"sketchIndex,omitempty"`
+	ProfileIndex int `json:"profileIndex,omitempty"`
 }
 
 // Kind reports the feature kind SplitSolid creates.
