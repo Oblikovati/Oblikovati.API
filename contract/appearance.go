@@ -4,12 +4,11 @@ package contract
 
 import "oblikovati.org/api/types"
 
-// OpenPBRAppearance is the in-process contract for one appearance described by the full
+// Appearance is the in-process contract for one appearance described by the full
 // OpenPBR Surface v1.1.1 specification (github.com/AcademySoftwareFoundation/OpenPBR) —
 // every lobe (Base, Specular, Transmission, Subsurface, Coat, Fuzz, Thin-film, Emission,
-// Geometry), not the cut-down metallic-roughness subset [Appearance] carries. It is
-// additive alongside [Appearance] (see [Appearance]'s deprecation note); the GPL
-// model/material.OpenPBRAppearance satisfies it (compile-time asserted there).
+// Geometry). The GPL model/material.Appearance satisfies it (compile-time asserted
+// there).
 //
 // Colors are [types.Color3] in the ACEScg working space (OpenPBR's default).
 //
@@ -17,7 +16,7 @@ import "oblikovati.org/api/types"
 //
 //	base := appearance.Base()
 //	albedo := base.Color // types.Color3, ACEScg
-type OpenPBRAppearance interface {
+type Appearance interface {
 	// ID is the stable identity used by assignments and library lookups.
 	ID() string
 	// DisplayName is the label shown in the appearance browser.
