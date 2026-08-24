@@ -9,35 +9,34 @@ import (
 	"oblikovati.org/api/wire"
 )
 
-// TestOpenPBRAppearancesList asserts List hits openpbrAppearances.list and decodes the
-// reply.
-func TestOpenPBRAppearancesList(t *testing.T) {
+// TestAppearancesList asserts List hits appearances.list and decodes the reply.
+func TestAppearancesList(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"appearances":[{"id":"brushed-steel","displayName":"Brushed Steel","source":"builtin"}]}`)}
 	c := New(ft)
 
-	got, err := c.OpenPBRAppearances().List()
+	got, err := c.Appearances().List()
 	if err != nil {
 		t.Fatalf("List: %v", err)
 	}
-	if ft.gotMethod != wire.MethodOpenPBRAppearancesList {
-		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodOpenPBRAppearancesList)
+	if ft.gotMethod != wire.MethodAppearancesList {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodAppearancesList)
 	}
 	if len(got.Appearances) != 1 || got.Appearances[0].ID != "brushed-steel" {
 		t.Errorf("decoded = %+v, want one brushed-steel entry", got)
 	}
 }
 
-// TestOpenPBRAppearancesGet asserts Get addresses the id and hits openpbrAppearances.get.
-func TestOpenPBRAppearancesGet(t *testing.T) {
+// TestAppearancesGet asserts Get addresses the id and hits appearances.get.
+func TestAppearancesGet(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"id":"brushed-steel","displayName":"Brushed Steel","source":"builtin"}`)}
 	c := New(ft)
 
-	got, err := c.OpenPBRAppearances().Get("brushed-steel")
+	got, err := c.Appearances().Get("brushed-steel")
 	if err != nil {
 		t.Fatalf("Get: %v", err)
 	}
-	if ft.gotMethod != wire.MethodOpenPBRAppearancesGet {
-		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodOpenPBRAppearancesGet)
+	if ft.gotMethod != wire.MethodAppearancesGet {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodAppearancesGet)
 	}
 	var sent wire.AssetRefArgs
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
@@ -51,20 +50,19 @@ func TestOpenPBRAppearancesGet(t *testing.T) {
 	}
 }
 
-// TestOpenPBRAppearancesCreate asserts Create sends BaseID/Name and hits
-// openpbrAppearances.create.
-func TestOpenPBRAppearancesCreate(t *testing.T) {
+// TestAppearancesCreate asserts Create sends BaseID/Name and hits appearances.create.
+func TestAppearancesCreate(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"id":"my-steel","displayName":"My Steel","source":"project"}`)}
 	c := New(ft)
 
-	got, err := c.OpenPBRAppearances().Create(wire.CreateOpenPBRAppearanceArgs{BaseID: "brushed-steel", Name: "My Steel"})
+	got, err := c.Appearances().Create(wire.CreateAppearanceArgs{BaseID: "brushed-steel", Name: "My Steel"})
 	if err != nil {
 		t.Fatalf("Create: %v", err)
 	}
-	if ft.gotMethod != wire.MethodOpenPBRAppearancesCreate {
-		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodOpenPBRAppearancesCreate)
+	if ft.gotMethod != wire.MethodAppearancesCreate {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodAppearancesCreate)
 	}
-	var sent wire.CreateOpenPBRAppearanceArgs
+	var sent wire.CreateAppearanceArgs
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
@@ -76,21 +74,20 @@ func TestOpenPBRAppearancesCreate(t *testing.T) {
 	}
 }
 
-// TestOpenPBRAppearancesUpdate asserts Update sends the full args and hits
-// openpbrAppearances.update.
-func TestOpenPBRAppearancesUpdate(t *testing.T) {
+// TestAppearancesUpdate asserts Update sends the full args and hits appearances.update.
+func TestAppearancesUpdate(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"id":"my-steel","displayName":"My Steel","source":"project"}`)}
 	c := New(ft)
 
-	args := wire.UpdateOpenPBRAppearanceArgs{ID: "my-steel"}
-	got, err := c.OpenPBRAppearances().Update(args)
+	args := wire.UpdateAppearanceArgs{ID: "my-steel"}
+	got, err := c.Appearances().Update(args)
 	if err != nil {
 		t.Fatalf("Update: %v", err)
 	}
-	if ft.gotMethod != wire.MethodOpenPBRAppearancesUpdate {
-		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodOpenPBRAppearancesUpdate)
+	if ft.gotMethod != wire.MethodAppearancesUpdate {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodAppearancesUpdate)
 	}
-	var sent wire.UpdateOpenPBRAppearanceArgs
+	var sent wire.UpdateAppearanceArgs
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
@@ -102,20 +99,20 @@ func TestOpenPBRAppearancesUpdate(t *testing.T) {
 	}
 }
 
-// TestOpenPBRAppearancesAssign asserts Assign sends the scope/key/id and hits
-// model.assignOpenPBRAppearance.
-func TestOpenPBRAppearancesAssign(t *testing.T) {
+// TestAppearancesAssign asserts Assign sends the scope/key/id and hits
+// model.assignAppearance.
+func TestAppearancesAssign(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"ok":true}`)}
 	c := New(ft)
 
-	args := wire.AssignOpenPBRAppearanceArgs{Scope: "body", Key: "body/0", AppearanceID: "my-steel"}
-	if _, err := c.OpenPBRAppearances().Assign(args); err != nil {
+	args := wire.AssignAppearanceArgs{Scope: "body", Key: "body/0", AppearanceID: "my-steel"}
+	if _, err := c.Appearances().Assign(args); err != nil {
 		t.Fatalf("Assign: %v", err)
 	}
-	if ft.gotMethod != wire.MethodModelAssignOpenPBRAppearance {
-		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodModelAssignOpenPBRAppearance)
+	if ft.gotMethod != wire.MethodModelAssignAppearance {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodModelAssignAppearance)
 	}
-	var sent wire.AssignOpenPBRAppearanceArgs
+	var sent wire.AssignAppearanceArgs
 	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
 		t.Fatalf("request not valid JSON: %v", err)
 	}
