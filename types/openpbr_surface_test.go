@@ -8,7 +8,22 @@ import "testing"
 // (parametrization.md.html) has a typed field carrying the spec's default value —
 // one row per Identifier in the spec's table, in the spec's own order.
 func TestDefaultOpenPBRSurfaceParams(t *testing.T) {
-	p := DefaultOpenPBRSurfaceParams()
+	p := struct {
+		Base         OpenPBRBase
+		Specular     OpenPBRSpecular
+		Transmission OpenPBRTransmission
+		Subsurface   OpenPBRSubsurface
+		Coat         OpenPBRCoat
+		Fuzz         OpenPBRFuzz
+		ThinFilm     OpenPBRThinFilm
+		Emission     OpenPBREmission
+		Geometry     OpenPBRGeometry
+	}{
+		Base: DefaultOpenPBRBase(), Specular: DefaultOpenPBRSpecular(),
+		Transmission: DefaultOpenPBRTransmission(), Subsurface: DefaultOpenPBRSubsurface(),
+		Coat: DefaultOpenPBRCoat(), Fuzz: DefaultOpenPBRFuzz(), ThinFilm: DefaultOpenPBRThinFilm(),
+		Emission: DefaultOpenPBREmission(), Geometry: DefaultOpenPBRGeometry(),
+	}
 
 	cases := []struct {
 		identifier string

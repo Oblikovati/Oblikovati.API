@@ -699,11 +699,6 @@ const (
 	MethodEnvironmentListPresets = "environment.listPresets"
 	MethodEnvironmentLoadImage   = "environment.loadImage"
 
-	MethodAppearancesList   = "appearances.list"
-	MethodAppearancesGet    = "appearances.get"
-	MethodAppearancesCreate = "appearances.create"
-	MethodAppearancesUpdate = "appearances.update"
-
 	MethodMaterialsList   = "materials.list"
 	MethodMaterialsGet    = "materials.get"
 	MethodMaterialsCreate = "materials.create"
@@ -717,7 +712,6 @@ const (
 	MethodOpenPBRAppearancesUpdate = "openpbrAppearances.update"
 
 	MethodModelAssignMaterial          = "model.assignMaterial"
-	MethodModelAssignAppearance        = "model.assignAppearance"
 	MethodModelAssignOpenPBRAppearance = "model.assignOpenPBRAppearance"
 	MethodModelPhysicalProperties      = "model.physicalProperties"
 

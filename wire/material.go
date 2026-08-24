@@ -4,20 +4,6 @@ package wire
 
 import "oblikovati.org/api/types"
 
-// AppearanceInfo is the JSON shape of a PBR appearance. Albedo and Emissive are
-// "#RRGGBBAA" hex (compact, readable, matching the on-disk and theme conventions); the
-// scalar PBR terms are in [0,1].
-type AppearanceInfo struct {
-	ID          string  `json:"id"`
-	DisplayName string  `json:"displayName"`
-	Source      string  `json:"source"`
-	Albedo      string  `json:"albedo"`
-	Metallic    float32 `json:"metallic"`
-	Roughness   float32 `json:"roughness"`
-	Emissive    string  `json:"emissive"`
-	Opacity     float32 `json:"opacity"`
-}
-
 // MaterialInfo is the JSON shape of a material: identity, density, the property groups,
 // and the id of the appearance it renders with.
 type MaterialInfo struct {
@@ -39,11 +25,7 @@ type MaterialInfo struct {
 	AppearanceID string                   `json:"appearanceId"`
 }
 
-// ListAppearancesResult / ListMaterialsResult are the list responses.
-type ListAppearancesResult struct {
-	Appearances []AppearanceInfo `json:"appearances"`
-}
-
+// ListMaterialsResult is the list response.
 type ListMaterialsResult struct {
 	Materials []MaterialInfo `json:"materials"`
 }
@@ -65,12 +47,4 @@ type DuplicateAssetArgs struct {
 type AssignMaterialArgs struct {
 	BodyKey    string `json:"bodyKey,omitempty"`
 	MaterialID string `json:"materialId"`
-}
-
-// AssignAppearanceArgs overrides the appearance at a scope ("part", "body", or "face").
-// Key is the hex reference key of the body/face (empty for the part default).
-type AssignAppearanceArgs struct {
-	Scope        string `json:"scope"`
-	Key          string `json:"key,omitempty"`
-	AppearanceID string `json:"appearanceId"`
 }

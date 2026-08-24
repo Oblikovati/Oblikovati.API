@@ -9,9 +9,30 @@ import (
 	"oblikovati.org/api/types"
 )
 
-func fullOpenPBRSurfaceParams() types.OpenPBRSurfaceParams {
+// openPBRSurfaceParams bundles one instance of every OpenPBR parameter group at its
+// spec default (plus a non-nil Geometry.Normal, to exercise the pointer field), for
+// building a fully-populated test fixture DTO.
+type openPBRSurfaceParams struct {
+	Base         types.OpenPBRBase
+	Specular     types.OpenPBRSpecular
+	Transmission types.OpenPBRTransmission
+	Subsurface   types.OpenPBRSubsurface
+	Coat         types.OpenPBRCoat
+	Fuzz         types.OpenPBRFuzz
+	ThinFilm     types.OpenPBRThinFilm
+	Emission     types.OpenPBREmission
+	Geometry     types.OpenPBRGeometry
+}
+
+func fullOpenPBRSurfaceParams() openPBRSurfaceParams {
 	n := types.NewVector(0, 0, 1)
-	p := types.DefaultOpenPBRSurfaceParams()
+	p := openPBRSurfaceParams{
+		Base: types.DefaultOpenPBRBase(), Specular: types.DefaultOpenPBRSpecular(),
+		Transmission: types.DefaultOpenPBRTransmission(), Subsurface: types.DefaultOpenPBRSubsurface(),
+		Coat: types.DefaultOpenPBRCoat(), Fuzz: types.DefaultOpenPBRFuzz(),
+		ThinFilm: types.DefaultOpenPBRThinFilm(), Emission: types.DefaultOpenPBREmission(),
+		Geometry: types.DefaultOpenPBRGeometry(),
+	}
 	p.Geometry.Normal = &n
 	return p
 }
