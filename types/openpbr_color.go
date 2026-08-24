@@ -10,7 +10,9 @@ package types
 // This is the canonical, Apache-2.0 definition; the GPL model aliases it
 // (model/material.Color3 = types.Color3).
 type Color3 struct {
-	R, G, B float32
+	R float32 `json:"r" yaml:"r"`
+	G float32 `json:"g" yaml:"g"`
+	B float32 `json:"b" yaml:"b"`
 }
 
 // NewColor3 builds a Color3 from its ACEScg channels.
