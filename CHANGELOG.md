@@ -8,6 +8,13 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.151.1] - 2026-08-24
+
+### Fixed
+
+- Rename OpenPBRAppearance to Appearance (M46-F01)
+- Delete legacy Appearance contract/wire/client (M46-F01)
+
 ## [0.151.0] - 2026-08-24
 
 ### Added
@@ -1256,7 +1263,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...HEAD
+[0.151.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.0...v0.151.1
 [0.151.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.150.0...v0.151.0
 [0.150.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.149.0...v0.150.0
 [0.149.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.148.0...v0.149.0
