@@ -84,16 +84,17 @@ func TestOpenPBRAppearanceArgsRoundTrip(t *testing.T) {
 
 	p := fullOpenPBRSurfaceParams()
 	update := UpdateOpenPBRAppearanceArgs{
-		ID: "my-steel", Base: p.Base, Specular: p.Specular, Transmission: p.Transmission,
-		Subsurface: p.Subsurface, Coat: p.Coat, Fuzz: p.Fuzz, ThinFilm: p.ThinFilm,
-		Emission: p.Emission, Geometry: p.Geometry,
+		ID: "my-steel", DisplayName: "My Steel", Base: p.Base, Specular: p.Specular,
+		Transmission: p.Transmission, Subsurface: p.Subsurface, Coat: p.Coat, Fuzz: p.Fuzz,
+		ThinFilm: p.ThinFilm, Emission: p.Emission, Geometry: p.Geometry,
 	}
 	var gotUpdate UpdateOpenPBRAppearanceArgs
 	b, _ = json.Marshal(update)
 	if err := json.Unmarshal(b, &gotUpdate); err != nil {
 		t.Fatal(err)
 	}
-	if gotUpdate.ID != update.ID || gotUpdate.Base != update.Base || gotUpdate.Coat != update.Coat {
+	if gotUpdate.ID != update.ID || gotUpdate.DisplayName != update.DisplayName ||
+		gotUpdate.Base != update.Base || gotUpdate.Coat != update.Coat {
 		t.Errorf("UpdateOpenPBRAppearanceArgs round-trip = %+v, want %+v", gotUpdate, update)
 	}
 

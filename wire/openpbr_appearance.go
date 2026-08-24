@@ -36,10 +36,11 @@ type CreateOpenPBRAppearanceArgs struct {
 	Name   string `json:"name"`
 }
 
-// UpdateOpenPBRAppearanceArgs replaces every group of an existing, editable OpenPBR
-// appearance ([MethodOpenPBRAppearancesUpdate]).
+// UpdateOpenPBRAppearanceArgs replaces the display name and every group of an existing,
+// editable OpenPBR appearance ([MethodOpenPBRAppearancesUpdate]).
 type UpdateOpenPBRAppearanceArgs struct {
 	ID           string                    `json:"id"`
+	DisplayName  string                    `json:"displayName"`
 	Base         types.OpenPBRBase         `json:"base"`
 	Specular     types.OpenPBRSpecular     `json:"specular"`
 	Transmission types.OpenPBRTransmission `json:"transmission"`
