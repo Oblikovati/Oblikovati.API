@@ -9,6 +9,11 @@ package wire
 // CaptureViewportArgs is the request of [MethodViewportCapture]: write the active document's viewport
 // framebuffer to a PNG at Path (empty ⇒ a default temp location). The capture reflects the NEXT
 // rendered frame, so the host writes the file asynchronously and the caller reads it once written.
+//
+// Realistic display mode (types.RealisticRendering, #2149) is NOT reflected: that mode's path-traced
+// result composites directly onto the application window's swapchain, bypassing the offscreen
+// framebuffer this method reads back, so the file keeps showing the last raster-mode frame. Use
+// [CaptureWindowArgs] instead when the active display mode is Realistic.
 type CaptureViewportArgs struct {
 	Path string `json:"path,omitempty"`
 }
