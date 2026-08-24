@@ -709,9 +709,17 @@ const (
 	MethodMaterialsCreate = "materials.create"
 	MethodMaterialsUpdate = "materials.update"
 
-	MethodModelAssignMaterial     = "model.assignMaterial"
-	MethodModelAssignAppearance   = "model.assignAppearance"
-	MethodModelPhysicalProperties = "model.physicalProperties"
+	// OpenPBR Surface appearances (M45-F02, Oblikovati#2124): additive alongside
+	// appearances.* — the full OpenPBR lobe set instead of metallic-roughness.
+	MethodOpenPBRAppearancesList   = "openpbrAppearances.list"
+	MethodOpenPBRAppearancesGet    = "openpbrAppearances.get"
+	MethodOpenPBRAppearancesCreate = "openpbrAppearances.create"
+	MethodOpenPBRAppearancesUpdate = "openpbrAppearances.update"
+
+	MethodModelAssignMaterial          = "model.assignMaterial"
+	MethodModelAssignAppearance        = "model.assignAppearance"
+	MethodModelAssignOpenPBRAppearance = "model.assignOpenPBRAppearance"
+	MethodModelPhysicalProperties      = "model.physicalProperties"
 
 	// Body topology and queries (M07-F06/F07, Oblikovati/Oblikovati#629/#630).
 	MethodBodyList             = "body.list"

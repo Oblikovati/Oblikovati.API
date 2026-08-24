@@ -10,6 +10,11 @@ import "oblikovati.org/api/types"
 //
 // Albedo and Emissive are [types.Rgba] (shared with theming); Metallic, Roughness and
 // Opacity are in [0,1].
+//
+// Deprecated: use [OpenPBRAppearance] for new work — it covers the full OpenPBR Surface
+// v1.1.1 lobe set (M45, ADR-0053) that this metallic-roughness subset cannot express
+// (coat, fuzz, subsurface, thin-film, dispersion). Appearance keeps working: it is not
+// removed by this deprecation, and removal is a separate future MAJOR-version decision.
 type Appearance interface {
 	// ID is the stable identity used by assignments and library lookups.
 	ID() string
