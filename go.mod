@@ -7,4 +7,4 @@
 // See architecture/decisions/ADR-0018.
 module oblikovati.org/api
 
-go 1.22
+go 1.27.0
