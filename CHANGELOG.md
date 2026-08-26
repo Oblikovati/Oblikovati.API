@@ -8,6 +8,16 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.152.0] - 2026-08-26
+
+### Added
+
+- feat: raise the module go directive to 1.27.0
+
+### Fixed
+
+- Ignore local .worktrees/ directory
+
 ## [0.151.1] - 2026-08-24
 
 ### Fixed
@@ -1263,7 +1273,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...HEAD
+[0.152.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...v0.152.0
 [0.151.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.0...v0.151.1
 [0.151.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.150.0...v0.151.0
 [0.150.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.149.0...v0.150.0
