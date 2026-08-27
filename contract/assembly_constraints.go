@@ -111,18 +111,8 @@ type ConstraintLimits interface {
 
 // AssemblyConstraints is the assembly's constraint collection — the relationships
 // authored directly in it, in creation order (host: assembly.ConstraintSet).
-type AssemblyConstraints interface {
-	// Count returns the number of constraints in the set.
-	Count() int
-	// Item returns the constraint at index i (0-based), or nil when out of range.
-	Item(i int) AssemblyConstraint
-}
+type AssemblyConstraints = Enumerable[AssemblyConstraint]
 
 // AssemblyConstraintsEnumerator is the per-occurrence view of the constraints that
 // reference one occurrence (the reference API's per-component Constraints collection).
-type AssemblyConstraintsEnumerator interface {
-	// Count returns the number of constraints referencing the occurrence.
-	Count() int
-	// Item returns the i-th constraint referencing the occurrence, or nil when out of range.
-	Item(i int) AssemblyConstraint
-}
+type AssemblyConstraintsEnumerator = Enumerable[AssemblyConstraint]

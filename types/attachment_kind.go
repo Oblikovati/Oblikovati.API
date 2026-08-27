@@ -30,7 +30,7 @@ var attachmentKindNames = map[AttachmentKind]string{
 }
 
 // String returns the attachment kind's wire spelling.
-func (k AttachmentKind) String() string { return enumName(attachmentKindNames, k) }
+func (k AttachmentKind) String() string { return enumName(attachmentKindNames, k, "enum(?)") }
 
 // ParseAttachmentKind resolves a wire spelling back to its AttachmentKind.
 func ParseAttachmentKind(s string) (AttachmentKind, bool) {

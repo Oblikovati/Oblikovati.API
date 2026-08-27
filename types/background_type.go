@@ -28,16 +28,12 @@ var backgroundTypeNames = map[BackgroundTypeEnum]string{
 
 // String returns the background type's user-facing name.
 func (b BackgroundTypeEnum) String() string {
-	if name, ok := backgroundTypeNames[b]; ok {
-		return name
-	}
-	return "backgroundType(?)"
+	return enumName(backgroundTypeNames, b, "backgroundType(?)")
 }
 
 // IsValid reports whether b is a defined background type.
 func (b BackgroundTypeEnum) IsValid() bool {
-	_, ok := backgroundTypeNames[b]
-	return ok
+	return enumValid(backgroundTypeNames, b)
 }
 
 // AllBackgroundTypes returns every defined background type, in picker order.

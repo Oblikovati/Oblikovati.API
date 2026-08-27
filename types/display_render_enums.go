@@ -21,16 +21,12 @@ var displayModeSourceNames = map[DisplayModeSourceTypeEnum]string{
 
 // String returns the display-mode-source's user-facing name.
 func (d DisplayModeSourceTypeEnum) String() string {
-	if name, ok := displayModeSourceNames[d]; ok {
-		return name
-	}
-	return "displayModeSource(?)"
+	return enumName(displayModeSourceNames, d, "displayModeSource(?)")
 }
 
 // IsValid reports whether d is a defined display-mode source.
 func (d DisplayModeSourceTypeEnum) IsValid() bool {
-	_, ok := displayModeSourceNames[d]
-	return ok
+	return enumValid(displayModeSourceNames, d)
 }
 
 // AllDisplayModeSources returns every defined display-mode source.
@@ -66,16 +62,12 @@ var displaySeparateColorsNames = map[DisplaySeparateColorsTypeEnum]string{
 
 // String returns the display-separate-colors mode's user-facing name.
 func (d DisplaySeparateColorsTypeEnum) String() string {
-	if name, ok := displaySeparateColorsNames[d]; ok {
-		return name
-	}
-	return "displaySeparateColors(?)"
+	return enumName(displaySeparateColorsNames, d, "displaySeparateColors(?)")
 }
 
 // IsValid reports whether d is a defined display-separate-colors mode.
 func (d DisplaySeparateColorsTypeEnum) IsValid() bool {
-	_, ok := displaySeparateColorsNames[d]
-	return ok
+	return enumValid(displaySeparateColorsNames, d)
 }
 
 // AllDisplaySeparateColors returns every defined display-separate-colors mode.
@@ -107,16 +99,12 @@ var backFaceCullingNames = map[BackFaceCullingEnum]string{
 
 // String returns the back-face-culling mode's user-facing name.
 func (b BackFaceCullingEnum) String() string {
-	if name, ok := backFaceCullingNames[b]; ok {
-		return name
-	}
-	return "backFaceCulling(?)"
+	return enumName(backFaceCullingNames, b, "backFaceCulling(?)")
 }
 
 // IsValid reports whether b is a defined back-face-culling mode.
 func (b BackFaceCullingEnum) IsValid() bool {
-	_, ok := backFaceCullingNames[b]
-	return ok
+	return enumValid(backFaceCullingNames, b)
 }
 
 // AllBackFaceCullings returns every defined back-face-culling mode.
@@ -142,16 +130,12 @@ var transparencyTypeNames = map[TransparencyTypeEnum]string{
 
 // String returns the transparency mode's user-facing name.
 func (t TransparencyTypeEnum) String() string {
-	if name, ok := transparencyTypeNames[t]; ok {
-		return name
-	}
-	return "transparencyType(?)"
+	return enumName(transparencyTypeNames, t, "transparencyType(?)")
 }
 
 // IsValid reports whether t is a defined transparency mode.
 func (t TransparencyTypeEnum) IsValid() bool {
-	_, ok := transparencyTypeNames[t]
-	return ok
+	return enumValid(transparencyTypeNames, t)
 }
 
 // AllTransparencyTypes returns every defined transparency mode.
@@ -189,16 +173,12 @@ var rayTracingQualityNames = map[RayTracingQualityEnum]string{
 
 // String returns the ray-tracing-quality tier's user-facing name.
 func (r RayTracingQualityEnum) String() string {
-	if name, ok := rayTracingQualityNames[r]; ok {
-		return name
-	}
-	return "rayTracingQuality(?)"
+	return enumName(rayTracingQualityNames, r, "rayTracingQuality(?)")
 }
 
 // IsValid reports whether r is a defined ray-tracing-quality tier.
 func (r RayTracingQualityEnum) IsValid() bool {
-	_, ok := rayTracingQualityNames[r]
-	return ok
+	return enumValid(rayTracingQualityNames, r)
 }
 
 // AllRayTracingQualities returns every defined ray-tracing-quality tier, draft→best.

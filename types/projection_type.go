@@ -27,16 +27,12 @@ var projectionTypeNames = map[ProjectionTypeEnum]string{
 
 // String returns the projection type's user-facing name.
 func (p ProjectionTypeEnum) String() string {
-	if name, ok := projectionTypeNames[p]; ok {
-		return name
-	}
-	return "projectionType(?)"
+	return enumName(projectionTypeNames, p, "projectionType(?)")
 }
 
 // IsValid reports whether p is a defined projection type.
 func (p ProjectionTypeEnum) IsValid() bool {
-	_, ok := projectionTypeNames[p]
-	return ok
+	return enumValid(projectionTypeNames, p)
 }
 
 // AllProjectionTypes returns every defined projection type.

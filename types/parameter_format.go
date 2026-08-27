@@ -25,7 +25,9 @@ var parameterDisplayFormatNames = map[ParameterDisplayFormat]string{
 }
 
 // String returns the display format's wire spelling.
-func (f ParameterDisplayFormat) String() string { return enumName(parameterDisplayFormatNames, f) }
+func (f ParameterDisplayFormat) String() string {
+	return enumName(parameterDisplayFormatNames, f, "enum(?)")
+}
 
 // ParseParameterDisplayFormat resolves a wire spelling back to its ParameterDisplayFormat.
 func ParseParameterDisplayFormat(s string) (ParameterDisplayFormat, bool) {
@@ -49,7 +51,7 @@ var customPropertyTypeNames = map[CustomPropertyType]string{
 }
 
 // String returns the property type's wire spelling.
-func (t CustomPropertyType) String() string { return enumName(customPropertyTypeNames, t) }
+func (t CustomPropertyType) String() string { return enumName(customPropertyTypeNames, t, "enum(?)") }
 
 // ParseCustomPropertyType resolves a wire spelling back to its CustomPropertyType.
 func ParseCustomPropertyType(s string) (CustomPropertyType, bool) {
@@ -119,7 +121,9 @@ var customPropertyPrecisionNames = map[CustomPropertyPrecision]string{
 }
 
 // String returns the precision's wire spelling.
-func (p CustomPropertyPrecision) String() string { return enumName(customPropertyPrecisionNames, p) }
+func (p CustomPropertyPrecision) String() string {
+	return enumName(customPropertyPrecisionNames, p, "enum(?)")
+}
 
 // ParseCustomPropertyPrecision resolves a wire spelling back to its CustomPropertyPrecision.
 func ParseCustomPropertyPrecision(s string) (CustomPropertyPrecision, bool) {

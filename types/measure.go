@@ -37,7 +37,7 @@ var measureTypeNames = map[MeasureType]string{
 
 // String returns the measure type's wire spelling ("length", "area", "distance", "minDistance",
 // "angle", "loopLength").
-func (m MeasureType) String() string { return enumName(measureTypeNames, m) }
+func (m MeasureType) String() string { return enumName(measureTypeNames, m, "enum(?)") }
 
 // ParseMeasureType resolves a wire spelling back to its measure type.
 func ParseMeasureType(s string) (MeasureType, bool) {

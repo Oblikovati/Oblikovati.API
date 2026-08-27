@@ -21,8 +21,5 @@ var messageSeverityNames = map[MessageSeverity]string{
 
 // String returns the severity's stable name ("info", "warning", "error").
 func (m MessageSeverity) String() string {
-	if name, ok := messageSeverityNames[m]; ok {
-		return name
-	}
-	return "messageSeverity(?)"
+	return enumName(messageSeverityNames, m, "messageSeverity(?)")
 }

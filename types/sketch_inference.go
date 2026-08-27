@@ -31,7 +31,9 @@ var sketchPointInferenceNames = map[SketchPointInferenceKind]string{
 }
 
 // String returns the inference kind's wire spelling.
-func (k SketchPointInferenceKind) String() string { return enumName(sketchPointInferenceNames, k) }
+func (k SketchPointInferenceKind) String() string {
+	return enumName(sketchPointInferenceNames, k, "enum(?)")
+}
 
 // ParseSketchPointInferenceKind resolves a wire spelling back to its kind.
 func ParseSketchPointInferenceKind(s string) (SketchPointInferenceKind, bool) {
@@ -72,7 +74,9 @@ var constraintInferenceNames = map[ConstraintInferenceKind]string{
 }
 
 // String returns the inference kind's wire spelling.
-func (k ConstraintInferenceKind) String() string { return enumName(constraintInferenceNames, k) }
+func (k ConstraintInferenceKind) String() string {
+	return enumName(constraintInferenceNames, k, "enum(?)")
+}
 
 // ParseConstraintInferenceKind resolves a wire spelling back to its kind.
 func ParseConstraintInferenceKind(s string) (ConstraintInferenceKind, bool) {
@@ -105,7 +109,7 @@ var constraintInferencePriorityNames = map[ConstraintInferencePriority]string{
 
 // String returns the priority's wire spelling.
 func (p ConstraintInferencePriority) String() string {
-	return enumName(constraintInferencePriorityNames, p)
+	return enumName(constraintInferencePriorityNames, p, "enum(?)")
 }
 
 // ParseConstraintInferencePriority resolves a wire spelling back to its priority.

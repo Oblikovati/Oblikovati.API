@@ -24,7 +24,7 @@ var booleanTypeNames = map[BooleanType]string{
 }
 
 // String returns the operation's wire spelling.
-func (b BooleanType) String() string { return enumName(booleanTypeNames, b) }
+func (b BooleanType) String() string { return enumName(booleanTypeNames, b, "enum(?)") }
 
 // ParseBooleanType resolves a wire spelling back to its operation.
 func ParseBooleanType(s string) (BooleanType, bool) { return enumFromName(booleanTypeNames, s) }
@@ -49,7 +49,9 @@ var offsetCornerClosureNames = map[OffsetCornerClosureType]string{
 }
 
 // String returns the closure's wire spelling.
-func (c OffsetCornerClosureType) String() string { return enumName(offsetCornerClosureNames, c) }
+func (c OffsetCornerClosureType) String() string {
+	return enumName(offsetCornerClosureNames, c, "enum(?)")
+}
 
 // ParseOffsetCornerClosureType resolves a wire spelling back to its closure.
 func ParseOffsetCornerClosureType(s string) (OffsetCornerClosureType, bool) {
@@ -75,7 +77,7 @@ var edgeCollectionKindNames = map[EdgeCollectionKind]string{
 }
 
 // String returns the collection's wire spelling.
-func (k EdgeCollectionKind) String() string { return enumName(edgeCollectionKindNames, k) }
+func (k EdgeCollectionKind) String() string { return enumName(edgeCollectionKindNames, k, "enum(?)") }
 
 // ParseEdgeCollectionKind resolves a wire spelling back to its collection.
 func ParseEdgeCollectionKind(s string) (EdgeCollectionKind, bool) {

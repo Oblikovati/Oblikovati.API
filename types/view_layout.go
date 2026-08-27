@@ -32,16 +32,12 @@ var viewLayoutNames = map[ViewLayout]string{
 
 // String returns the layout's stable, user-facing name.
 func (l ViewLayout) String() string {
-	if name, ok := viewLayoutNames[l]; ok {
-		return name
-	}
-	return "viewLayout(?)"
+	return enumName(viewLayoutNames, l, "viewLayout(?)")
 }
 
 // IsValid reports whether l is a defined layout.
 func (l ViewLayout) IsValid() bool {
-	_, ok := viewLayoutNames[l]
-	return ok
+	return enumValid(viewLayoutNames, l)
 }
 
 // Tiles is how many views the layout renders at once (1–4).

@@ -74,6 +74,28 @@ func TestNameValueMapJSONIsCanonical(t *testing.T) {
 	}
 }
 
+// Guards NameValueMap.NameAt/ValueAt/Insert, which share boundsCheckedAt: each
+// must error out of range and report the offending index and the bound.
+func TestNameValueMapIndexOutOfRange(t *testing.T) {
+	m := TransientObjects{}.CreateNameValueMap()
+	m.Set("a", types.IntegerVariant(1))
+	if _, err := m.NameAt(5); err == nil {
+		t.Error("NameAt out of range must error")
+	} else if want := "client: NameValueMap index 5 out of range [0,1)"; err.Error() != want {
+		t.Errorf("NameAt error = %q, want %q", err, want)
+	}
+	if _, err := m.ValueAt(5); err == nil {
+		t.Error("ValueAt out of range must error")
+	} else if want := "client: NameValueMap index 5 out of range [0,1)"; err.Error() != want {
+		t.Errorf("ValueAt error = %q, want %q", err, want)
+	}
+	if err := m.Insert("b", types.IntegerVariant(2), 5, true); err == nil {
+		t.Error("Insert with an out-of-range target must error")
+	} else if want := "client: NameValueMap insert index 5 out of range [0,1)"; err.Error() != want {
+		t.Errorf("Insert error = %q, want %q", err, want)
+	}
+}
+
 func TestObjectCollectionMutation(t *testing.T) {
 	line := types.NewObjectRef("sketchLine", 7)
 	arc := types.NewObjectRef("sketchArc", 9)
@@ -114,6 +136,22 @@ func TestObjectCollectionJSONIsCanonical(t *testing.T) {
 	}
 }
 
+// Guards ObjectCollection.At/RemoveAt, which share boundsCheckedAt: each must
+// error out of range and report the offending index and the bound.
+func TestObjectCollectionIndexOutOfRange(t *testing.T) {
+	c := TransientObjects{}.CreateObjectCollection(types.NewObjectRef("face", 3))
+	if _, err := c.At(5); err == nil {
+		t.Error("At out of range must error")
+	} else if want := "client: ObjectCollection index 5 out of range [0,1)"; err.Error() != want {
+		t.Errorf("At error = %q, want %q", err, want)
+	}
+	if err := c.RemoveAt(5); err == nil {
+		t.Error("RemoveAt out of range must error")
+	} else if want := "client: ObjectCollection index 5 out of range [0,1)"; err.Error() != want {
+		t.Errorf("RemoveAt error = %q, want %q", err, want)
+	}
+}
+
 func TestObjectCollectionByVariantKeyedAccess(t *testing.T) {
 	c := TransientObjects{}.CreateObjectCollectionByVariant()
 	face := types.NewObjectRef("face", 3)
@@ -134,7 +172,7 @@ func TestObjectCollectionByVariantKeyedAccess(t *testing.T) {
 	}
 }
 
-// Guards the three index-addressed accessors that share errIndexRangeFmt: each
+// Guards the three index-addressed accessors that share boundsCheckedAt: each
 // must error out of range and report the offending index and the bound.
 func TestObjectCollectionByVariantIndexOutOfRange(t *testing.T) {
 	c := TransientObjects{}.CreateObjectCollectionByVariant()

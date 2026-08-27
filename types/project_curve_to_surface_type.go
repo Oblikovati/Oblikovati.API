@@ -30,7 +30,7 @@ var projectCurveToSurfaceTypeNames = map[ProjectCurveToSurfaceType]string{
 
 // String returns the projection type's wire spelling.
 func (p ProjectCurveToSurfaceType) String() string {
-	return enumName(projectCurveToSurfaceTypeNames, p)
+	return enumName(projectCurveToSurfaceTypeNames, p, "enum(?)")
 }
 
 // ParseProjectCurveToSurfaceType resolves a wire spelling back to its projection type; the empty

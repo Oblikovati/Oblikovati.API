@@ -52,18 +52,14 @@ func (m *NameValueMap) Count() int { return len(m.entries) }
 
 // NameAt returns the name at the 0-based index, erroring out of range.
 func (m *NameValueMap) NameAt(index int) (string, error) {
-	if index < 0 || index >= len(m.entries) {
-		return "", fmt.Errorf("client: NameValueMap index %d out of range [0,%d)", index, len(m.entries))
-	}
-	return m.entries[index].Name, nil
+	e, err := boundsCheckedAt(m.entries, index, "NameValueMap")
+	return e.Name, err
 }
 
 // ValueAt returns the value at the 0-based index, erroring out of range.
 func (m *NameValueMap) ValueAt(index int) (types.Variant, error) {
-	if index < 0 || index >= len(m.entries) {
-		return types.Variant{}, fmt.Errorf("client: NameValueMap index %d out of range [0,%d)", index, len(m.entries))
-	}
-	return m.entries[index].Value, nil
+	e, err := boundsCheckedAt(m.entries, index, "NameValueMap")
+	return e.Value, err
 }
 
 // Value returns the value for name, ok=false when absent.
@@ -89,8 +85,8 @@ func (m *NameValueMap) Insert(name string, value types.Variant, targetIndex int,
 	if m.indexOf(name) >= 0 {
 		return fmt.Errorf("client: NameValueMap already has an entry named %q", name)
 	}
-	if targetIndex < 0 || targetIndex >= len(m.entries) {
-		return fmt.Errorf("client: NameValueMap insert index %d out of range [0,%d)", targetIndex, len(m.entries))
+	if _, err := boundsCheckedAt(m.entries, targetIndex, "NameValueMap insert"); err != nil {
+		return err
 	}
 	at := targetIndex
 	if !before {
@@ -136,12 +132,7 @@ func (m *NameValueMap) UnmarshalJSON(b []byte) error { return json.Unmarshal(b, 
 
 // indexOf returns the position of name, or -1.
 func (m *NameValueMap) indexOf(name string) int {
-	for i, e := range m.entries {
-		if e.Name == name {
-			return i
-		}
-	}
-	return -1
+	return indexOfFunc(m.entries, func(e wire.NameValueEntry) bool { return e.Name == name })
 }
 
 // ObjectCollection is the ordered, mutable object-reference collection. Its
@@ -157,10 +148,7 @@ func (c *ObjectCollection) Count() int { return len(c.refs) }
 
 // At returns the reference at the 0-based index, erroring out of range.
 func (c *ObjectCollection) At(index int) (types.ObjectRef, error) {
-	if index < 0 || index >= len(c.refs) {
-		return types.ObjectRef{}, fmt.Errorf("client: ObjectCollection index %d out of range [0,%d)", index, len(c.refs))
-	}
-	return c.refs[index], nil
+	return boundsCheckedAt(c.refs, index, "ObjectCollection")
 }
 
 // Refs returns the references in order (a copy; mutating it is safe).
@@ -173,8 +161,8 @@ func (c *ObjectCollection) Add(ref types.ObjectRef) { c.refs = append(c.refs, re
 
 // RemoveAt deletes the entry at the 0-based index, erroring out of range.
 func (c *ObjectCollection) RemoveAt(index int) error {
-	if index < 0 || index >= len(c.refs) {
-		return fmt.Errorf("client: ObjectCollection index %d out of range [0,%d)", index, len(c.refs))
+	if _, err := boundsCheckedAt(c.refs, index, "ObjectCollection"); err != nil {
+		return err
 	}
 	c.refs = append(c.refs[:index], c.refs[index+1:]...)
 	return nil
@@ -182,13 +170,12 @@ func (c *ObjectCollection) RemoveAt(index int) error {
 
 // RemoveRef deletes the first entry equal to ref, reporting whether one existed.
 func (c *ObjectCollection) RemoveRef(ref types.ObjectRef) bool {
-	for i, r := range c.refs {
-		if r == ref {
-			c.refs = append(c.refs[:i], c.refs[i+1:]...)
-			return true
-		}
+	i := indexOfFunc(c.refs, func(r types.ObjectRef) bool { return r == ref })
+	if i < 0 {
+		return false
 	}
-	return false
+	c.refs = append(c.refs[:i], c.refs[i+1:]...)
+	return true
 }
 
 // Clear removes every reference.

@@ -33,9 +33,4 @@ type OccurrencePattern interface {
 
 // OccurrencePatterns is the read surface of an assembly's persistent occurrence patterns
 // (#1976, host: occurrence.OccurrencePatternSet).
-type OccurrencePatterns interface {
-	// Count returns how many patterns the assembly holds.
-	Count() int
-	// Item returns the i-th pattern in creation order.
-	Item(i int) OccurrencePattern
-}
+type OccurrencePatterns = Enumerable[OccurrencePattern]

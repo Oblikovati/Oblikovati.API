@@ -28,10 +28,7 @@ var addInLoadBehaviorNames = map[AddInLoadBehavior]string{
 
 // String returns the behavior's stable name ("startup", "demand", "disabled").
 func (b AddInLoadBehavior) String() string {
-	if name, ok := addInLoadBehaviorNames[b]; ok {
-		return name
-	}
-	return "addInLoadBehavior(?)"
+	return enumName(addInLoadBehaviorNames, b, "addInLoadBehavior(?)")
 }
 
 // ParseAddInLoadBehavior maps a stable name back to its behavior; ok is false for an
@@ -39,10 +36,5 @@ func (b AddInLoadBehavior) String() string {
 //
 //	b, ok := types.ParseAddInLoadBehavior("demand") // LoadOnDemand, true
 func ParseAddInLoadBehavior(name string) (AddInLoadBehavior, bool) {
-	for b, n := range addInLoadBehaviorNames {
-		if n == name {
-			return b, true
-		}
-	}
-	return LoadOnStartup, false
+	return enumFromName(addInLoadBehaviorNames, name)
 }

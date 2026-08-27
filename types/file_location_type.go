@@ -41,7 +41,7 @@ var fileLocationTypeNames = map[FileLocationType]string{
 }
 
 // String returns the location type's wire spelling.
-func (l FileLocationType) String() string { return enumName(fileLocationTypeNames, l) }
+func (l FileLocationType) String() string { return enumName(fileLocationTypeNames, l, "enum(?)") }
 
 // ParseFileLocationType resolves a wire spelling back to its FileLocationType.
 func ParseFileLocationType(s string) (FileLocationType, bool) {

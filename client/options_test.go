@@ -38,10 +38,31 @@ func TestOptionsGeneralRoundTrip(t *testing.T) {
 	}
 }
 
+// TestOptionsMissingPayloadIsAnError guards all 5 group getters, which share
+// optionGroupField: a reply missing its group's payload must error with the
+// exact "no <group> payload" wording, not return a zero value silently.
 func TestOptionsMissingPayloadIsAnError(t *testing.T) {
-	ft := &fakeTransport{reply: []byte(`{"group":"sketch"}`)}
-	if _, err := New(ft).Options().Sketch(); err == nil {
-		t.Fatal("a group reply without its payload should error, not zero-value")
+	cases := []struct {
+		group string
+		get   func(Options) error
+	}{
+		{"general", func(o Options) error { _, err := o.General(); return err }},
+		{"display", func(o Options) error { _, err := o.Display(); return err }},
+		{"sketch", func(o Options) error { _, err := o.Sketch(); return err }},
+		{"part", func(o Options) error { _, err := o.Part(); return err }},
+		{"save", func(o Options) error { _, err := o.Save(); return err }},
+	}
+	for _, c := range cases {
+		ft := &fakeTransport{reply: []byte(`{"group":"` + c.group + `"}`)}
+		err := c.get(New(ft).Options())
+		if err == nil {
+			t.Errorf("%s: a group reply without its payload should error, not zero-value", c.group)
+			continue
+		}
+		want := `client: options.getGroup("` + c.group + `") reply carries no ` + c.group + ` payload`
+		if err.Error() != want {
+			t.Errorf("%s: error = %q, want %q", c.group, err, want)
+		}
 	}
 }
 

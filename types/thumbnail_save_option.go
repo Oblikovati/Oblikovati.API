@@ -34,7 +34,7 @@ var thumbnailSaveOptionNames = map[ThumbnailSaveOption]string{
 }
 
 // String returns the thumbnail option's wire spelling.
-func (o ThumbnailSaveOption) String() string { return enumName(thumbnailSaveOptionNames, o) }
+func (o ThumbnailSaveOption) String() string { return enumName(thumbnailSaveOptionNames, o, "enum(?)") }
 
 // ParseThumbnailSaveOption resolves a wire spelling back to its option.
 func ParseThumbnailSaveOption(s string) (ThumbnailSaveOption, bool) {

@@ -29,7 +29,7 @@ var coordinateSystemTypeNames = map[CoordinateSystemType]string{
 
 // String returns the coordinate system's wire spelling.
 func (c CoordinateSystemType) String() string {
-	return enumName(coordinateSystemTypeNames, c)
+	return enumName(coordinateSystemTypeNames, c, "enum(?)")
 }
 
 // ParseCoordinateSystemType resolves a wire spelling back to its coordinate system; the empty

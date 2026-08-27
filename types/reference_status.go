@@ -39,7 +39,7 @@ var referenceStatusNames = map[ReferenceStatus]string{
 }
 
 // String returns the reference status's wire spelling.
-func (s ReferenceStatus) String() string { return enumName(referenceStatusNames, s) }
+func (s ReferenceStatus) String() string { return enumName(referenceStatusNames, s, "enum(?)") }
 
 // ParseReferenceStatus resolves a wire spelling back to its ReferenceStatus.
 func ParseReferenceStatus(s string) (ReferenceStatus, bool) {

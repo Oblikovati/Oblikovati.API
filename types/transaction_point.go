@@ -36,7 +36,7 @@ var transactionPointNames = map[TransactionPoint]string{
 }
 
 // String returns the transaction point's wire spelling.
-func (p TransactionPoint) String() string { return enumName(transactionPointNames, p) }
+func (p TransactionPoint) String() string { return enumName(transactionPointNames, p, "enum(?)") }
 
 // ParseTransactionPoint resolves a wire spelling back to its TransactionPoint.
 func ParseTransactionPoint(s string) (TransactionPoint, bool) {

@@ -55,7 +55,7 @@ var sheetSizeNames = map[SheetSize]string{
 }
 
 // String returns the sheet size's wire spelling ("a3", "ansiC", "custom").
-func (s SheetSize) String() string { return enumName(sheetSizeNames, s) }
+func (s SheetSize) String() string { return enumName(sheetSizeNames, s, "enum(?)") }
 
 // ParseSheetSize resolves a wire spelling back to its sheet size.
 //
@@ -111,7 +111,7 @@ var sheetOrientationNames = map[SheetOrientation]string{
 }
 
 // String returns the orientation's wire spelling ("portrait" / "landscape").
-func (o SheetOrientation) String() string { return enumName(sheetOrientationNames, o) }
+func (o SheetOrientation) String() string { return enumName(sheetOrientationNames, o, "enum(?)") }
 
 // ParseSheetOrientation resolves a wire spelling back to its orientation.
 func ParseSheetOrientation(s string) (SheetOrientation, bool) {
@@ -138,7 +138,7 @@ var borderLabelModeNames = map[BorderLabelMode]string{
 }
 
 // String returns the label mode's wire spelling.
-func (m BorderLabelMode) String() string { return enumName(borderLabelModeNames, m) }
+func (m BorderLabelMode) String() string { return enumName(borderLabelModeNames, m, "enum(?)") }
 
 // ParseBorderLabelMode resolves a wire spelling back to its label mode; "" ⇒ AlphabeticalBorderLabel.
 func ParseBorderLabelMode(s string) (BorderLabelMode, bool) {
@@ -171,7 +171,7 @@ var titleBlockLocationNames = map[TitleBlockLocation]string{
 }
 
 // String returns the location's wire spelling.
-func (l TitleBlockLocation) String() string { return enumName(titleBlockLocationNames, l) }
+func (l TitleBlockLocation) String() string { return enumName(titleBlockLocationNames, l, "enum(?)") }
 
 // ParseTitleBlockLocation resolves a wire spelling back to its location; "" ⇒ BottomRightTitleBlock.
 func ParseTitleBlockLocation(s string) (TitleBlockLocation, bool) {

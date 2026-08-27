@@ -24,14 +24,11 @@ var clientGraphicsTypeNames = map[ClientGraphicsTypeEnum]string{
 
 // String returns the client-graphics-type's user-facing name.
 func (c ClientGraphicsTypeEnum) String() string {
-	if name, ok := clientGraphicsTypeNames[c]; ok {
-		return name
-	}
-	return "clientGraphicsType(?)"
+	return enumName(clientGraphicsTypeNames, c, "clientGraphicsType(?)")
 }
 
 // IsValid reports whether c is a defined client-graphics type.
-func (c ClientGraphicsTypeEnum) IsValid() bool { _, ok := clientGraphicsTypeNames[c]; return ok }
+func (c ClientGraphicsTypeEnum) IsValid() bool { return enumValid(clientGraphicsTypeNames, c) }
 
 // AllClientGraphicsTypes returns every defined client-graphics type.
 func AllClientGraphicsTypes() []ClientGraphicsTypeEnum {
@@ -60,14 +57,11 @@ var colorBindingNames = map[ColorBindingEnum]string{
 
 // String returns the color-binding's user-facing name.
 func (c ColorBindingEnum) String() string {
-	if name, ok := colorBindingNames[c]; ok {
-		return name
-	}
-	return "colorBinding(?)"
+	return enumName(colorBindingNames, c, "colorBinding(?)")
 }
 
 // IsValid reports whether c is a defined color binding.
-func (c ColorBindingEnum) IsValid() bool { _, ok := colorBindingNames[c]; return ok }
+func (c ColorBindingEnum) IsValid() bool { return enumValid(colorBindingNames, c) }
 
 // AllColorBindings returns every defined color binding.
 func AllColorBindings() []ColorBindingEnum {
@@ -96,14 +90,11 @@ var normalBindingNames = map[NormalBindingEnum]string{
 
 // String returns the normal-binding's user-facing name.
 func (n NormalBindingEnum) String() string {
-	if name, ok := normalBindingNames[n]; ok {
-		return name
-	}
-	return "normalBinding(?)"
+	return enumName(normalBindingNames, n, "normalBinding(?)")
 }
 
 // IsValid reports whether n is a defined normal binding.
-func (n NormalBindingEnum) IsValid() bool { _, ok := normalBindingNames[n]; return ok }
+func (n NormalBindingEnum) IsValid() bool { return enumValid(normalBindingNames, n) }
 
 // AllNormalBindings returns every defined normal binding.
 func AllNormalBindings() []NormalBindingEnum {
@@ -129,14 +120,11 @@ var graphicsSelectabilityNames = map[GraphicsSelectabilityEnum]string{
 
 // String returns the selectability's user-facing name.
 func (g GraphicsSelectabilityEnum) String() string {
-	if name, ok := graphicsSelectabilityNames[g]; ok {
-		return name
-	}
-	return "graphicsSelectability(?)"
+	return enumName(graphicsSelectabilityNames, g, "graphicsSelectability(?)")
 }
 
 // IsValid reports whether g is a defined selectability.
-func (g GraphicsSelectabilityEnum) IsValid() bool { _, ok := graphicsSelectabilityNames[g]; return ok }
+func (g GraphicsSelectabilityEnum) IsValid() bool { return enumValid(graphicsSelectabilityNames, g) }
 
 // AllGraphicsSelectabilities returns every defined selectability.
 func AllGraphicsSelectabilities() []GraphicsSelectabilityEnum {
@@ -162,14 +150,11 @@ var graphicsVisibilityNames = map[GraphicsVisibilityEnum]string{
 
 // String returns the visibility's user-facing name.
 func (g GraphicsVisibilityEnum) String() string {
-	if name, ok := graphicsVisibilityNames[g]; ok {
-		return name
-	}
-	return "graphicsVisibility(?)"
+	return enumName(graphicsVisibilityNames, g, "graphicsVisibility(?)")
 }
 
 // IsValid reports whether g is a defined visibility.
-func (g GraphicsVisibilityEnum) IsValid() bool { _, ok := graphicsVisibilityNames[g]; return ok }
+func (g GraphicsVisibilityEnum) IsValid() bool { return enumValid(graphicsVisibilityNames, g) }
 
 // AllGraphicsVisibilities returns every defined visibility.
 func AllGraphicsVisibilities() []GraphicsVisibilityEnum {
@@ -214,14 +199,11 @@ var pointRenderStyleNames = map[PointRenderStyleEnum]string{
 
 // String returns the point-render-style's user-facing name.
 func (p PointRenderStyleEnum) String() string {
-	if name, ok := pointRenderStyleNames[p]; ok {
-		return name
-	}
-	return "pointRenderStyle(?)"
+	return enumName(pointRenderStyleNames, p, "pointRenderStyle(?)")
 }
 
 // IsValid reports whether p is a defined point render style.
-func (p PointRenderStyleEnum) IsValid() bool { _, ok := pointRenderStyleNames[p]; return ok }
+func (p PointRenderStyleEnum) IsValid() bool { return enumValid(pointRenderStyleNames, p) }
 
 // AllPointRenderStyles returns every defined point render style.
 func AllPointRenderStyles() []PointRenderStyleEnum {
@@ -251,14 +233,11 @@ var cachedGraphicsStatusNames = map[CachedGraphicsStatusEnum]string{
 
 // String returns the cached-graphics-status's user-facing name.
 func (c CachedGraphicsStatusEnum) String() string {
-	if name, ok := cachedGraphicsStatusNames[c]; ok {
-		return name
-	}
-	return "cachedGraphicsStatus(?)"
+	return enumName(cachedGraphicsStatusNames, c, "cachedGraphicsStatus(?)")
 }
 
 // IsValid reports whether c is a defined cached-graphics status.
-func (c CachedGraphicsStatusEnum) IsValid() bool { _, ok := cachedGraphicsStatusNames[c]; return ok }
+func (c CachedGraphicsStatusEnum) IsValid() bool { return enumValid(cachedGraphicsStatusNames, c) }
 
 // AllCachedGraphicsStatuses returns every defined cached-graphics status.
 func AllCachedGraphicsStatuses() []CachedGraphicsStatusEnum {
@@ -285,14 +264,11 @@ var lineDefinitionSpaceNames = map[LineDefinitionSpaceEnum]string{
 
 // String returns the line-definition-space's user-facing name.
 func (l LineDefinitionSpaceEnum) String() string {
-	if name, ok := lineDefinitionSpaceNames[l]; ok {
-		return name
-	}
-	return "lineDefinitionSpace(?)"
+	return enumName(lineDefinitionSpaceNames, l, "lineDefinitionSpace(?)")
 }
 
 // IsValid reports whether l is a defined line-definition space.
-func (l LineDefinitionSpaceEnum) IsValid() bool { _, ok := lineDefinitionSpaceNames[l]; return ok }
+func (l LineDefinitionSpaceEnum) IsValid() bool { return enumValid(lineDefinitionSpaceNames, l) }
 
 // AllLineDefinitionSpaces returns every defined line-definition space.
 func AllLineDefinitionSpaces() []LineDefinitionSpaceEnum {

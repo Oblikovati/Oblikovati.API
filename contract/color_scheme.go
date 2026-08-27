@@ -33,10 +33,7 @@ type ColorScheme interface {
 // and switches the active one, and carries the application-wide background type. The GPL app
 // satisfies it (compile-time asserted there).
 type ColorSchemes interface {
-	// Count is the number of schemes in the collection.
-	Count() int
-	// Item returns the scheme at index i (0-based), or nil if out of range.
-	Item(i int) ColorScheme
+	Enumerable[ColorScheme]
 	// Active is the currently active scheme.
 	Active() ColorScheme
 	// SetActive makes the named scheme active, returning an error naming the scheme if absent.

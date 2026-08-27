@@ -20,12 +20,7 @@ type ContactSet interface {
 }
 
 // ContactSets is an assembly's contact-set collection (host: assembly.ContactSets).
-type ContactSets interface {
-	// Count returns the number of contact sets.
-	Count() int
-	// Item returns the contact set at index i, or nil when out of range.
-	Item(i int) ContactSet
-}
+type ContactSets = Enumerable[ContactSet]
 
 // ContactSolver reports whether contact enforcement is enabled and how many sets it governs —
 // the reference API's ActiveContactSolver toggle.
@@ -49,10 +44,7 @@ type InterferenceResult interface {
 // InterferenceResults is the outcome of an interference analysis: the interfering pairs and
 // the total overlap volume.
 type InterferenceResults interface {
-	// Count returns the number of interfering pairs found.
-	Count() int
-	// Item returns the i-th interference result, or nil when out of range.
-	Item(i int) InterferenceResult
+	Enumerable[InterferenceResult]
 	// TotalVolume is the sum of every pair's overlap volume.
 	TotalVolume() float64
 }

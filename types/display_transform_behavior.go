@@ -32,16 +32,12 @@ var displayTransformBehaviorNames = map[DisplayTransformBehaviorEnum]string{
 
 // String returns the transform-behavior's user-facing name.
 func (d DisplayTransformBehaviorEnum) String() string {
-	if name, ok := displayTransformBehaviorNames[d]; ok {
-		return name
-	}
-	return "displayTransformBehavior(?)"
+	return enumName(displayTransformBehaviorNames, d, "displayTransformBehavior(?)")
 }
 
 // IsValid reports whether d is a defined transform behavior.
 func (d DisplayTransformBehaviorEnum) IsValid() bool {
-	_, ok := displayTransformBehaviorNames[d]
-	return ok
+	return enumValid(displayTransformBehaviorNames, d)
 }
 
 // AllDisplayTransformBehaviors returns every defined transform behavior.

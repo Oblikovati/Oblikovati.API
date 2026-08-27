@@ -27,16 +27,12 @@ var groundShadowNames = map[GroundShadowEnum]string{
 
 // String returns the ground-shadow mode's user-facing name.
 func (g GroundShadowEnum) String() string {
-	if name, ok := groundShadowNames[g]; ok {
-		return name
-	}
-	return "groundShadow(?)"
+	return enumName(groundShadowNames, g, "groundShadow(?)")
 }
 
 // IsValid reports whether g is a defined ground-shadow mode.
 func (g GroundShadowEnum) IsValid() bool {
-	_, ok := groundShadowNames[g]
-	return ok
+	return enumValid(groundShadowNames, g)
 }
 
 // AllGroundShadows returns every defined ground-shadow mode, in picker order.

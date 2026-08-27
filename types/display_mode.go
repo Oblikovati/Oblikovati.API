@@ -52,16 +52,12 @@ var displayModeNames = map[DisplayModeEnum]string{
 
 // String returns the mode's stable, user-facing name (the Visual Style gallery label).
 func (m DisplayModeEnum) String() string {
-	if name, ok := displayModeNames[m]; ok {
-		return name
-	}
-	return "displayMode(?)"
+	return enumName(displayModeNames, m, "displayMode(?)")
 }
 
 // IsValid reports whether m is a defined display mode.
 func (m DisplayModeEnum) IsValid() bool {
-	_, ok := displayModeNames[m]
-	return ok
+	return enumValid(displayModeNames, m)
 }
 
 // AllDisplayModes returns every display mode in gallery order — the source list for a

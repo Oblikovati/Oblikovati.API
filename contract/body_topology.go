@@ -28,10 +28,7 @@ type FaceShell interface {
 }
 
 // FaceShells enumerates a body's shells.
-type FaceShells interface {
-	Count() int
-	Item(index int) FaceShell
-}
+type FaceShells = Enumerable[FaceShell]
 
 // Wire is an ordered, face-less edge chain on a body — the section/profile
 // currency of ruled surfaces and silhouettes.
@@ -44,10 +41,7 @@ type Wire interface {
 }
 
 // Wires enumerates a body's wires.
-type Wires interface {
-	Count() int
-	Item(index int) Wire
-}
+type Wires = Enumerable[Wire]
 
 // BodyQueries is the reference SurfaceBody query surface: point/ray location,
 // containment, convexity, validity and transient-key binding (M07-F07).

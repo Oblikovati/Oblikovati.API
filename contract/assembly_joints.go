@@ -65,12 +65,7 @@ type AssemblyJointDefinition interface {
 
 // AssemblyJoints is the assembly's joint collection in creation order
 // (host: assembly.JointSet).
-type AssemblyJoints interface {
-	// Count returns the number of joints in the set.
-	Count() int
-	// Item returns the joint at index i (0-based), or nil when out of range.
-	Item(i int) AssemblyJoint
-}
+type AssemblyJoints = Enumerable[AssemblyJoint]
 
 // AssemblyJointProxy is a joint viewed in the context of a specific occurrence path — the
 // reference API's per-instance joint proxy, so a joint in a placed sub-assembly is
@@ -83,12 +78,7 @@ type AssemblyJointProxy interface {
 
 // AssemblyJointsEnumerator is the per-occurrence view of the joints that reference one
 // occurrence (the reference API's per-component Joints collection).
-type AssemblyJointsEnumerator interface {
-	// Count returns the number of joints referencing the occurrence.
-	Count() int
-	// Item returns the i-th joint referencing the occurrence, or nil when out of range.
-	Item(i int) AssemblyJoint
-}
+type AssemblyJointsEnumerator = Enumerable[AssemblyJoint]
 
 // DSDegreesOfFreedom is one degree of freedom of a DS joint: translational or rotational,
 // its imposed-motion mode, and its current value.
@@ -117,12 +107,7 @@ type DSJoint interface {
 }
 
 // DSJoints is the DS-joint collection (host: assembly.DSJointSet).
-type DSJoints interface {
-	// Count returns the number of DS joints.
-	Count() int
-	// Item returns the DS joint at index i, or nil when out of range.
-	Item(i int) DSJoint
-}
+type DSJoints = Enumerable[DSJoint]
 
 // DSJointDefinition is the read surface of a DS joint's definition (its kind).
 type DSJointDefinition interface {

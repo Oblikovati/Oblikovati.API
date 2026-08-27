@@ -27,10 +27,7 @@ var triadSegmentNames = map[TriadSegment]string{
 
 // String returns the segment's stable name.
 func (t TriadSegment) String() string {
-	if name, ok := triadSegmentNames[t]; ok {
-		return name
-	}
-	return "triadSegment(?)"
+	return enumName(triadSegmentNames, t, "triadSegment(?)")
 }
 
 // TriadMoveType is the motion a drag produces — the TriadMoveTypeEnum equivalent.
@@ -54,10 +51,7 @@ var triadMoveTypeNames = map[TriadMoveType]string{
 
 // String returns the move type's stable name.
 func (t TriadMoveType) String() string {
-	if name, ok := triadMoveTypeNames[t]; ok {
-		return name
-	}
-	return "triadMoveType(?)"
+	return enumName(triadMoveTypeNames, t, "triadMoveType(?)")
 }
 
 // PointInferenceKind is the snap a drag landed on — the PointInferenceEnum
@@ -78,8 +72,5 @@ var pointInferenceNames = map[PointInferenceKind]string{
 
 // String returns the inference kind's stable name.
 func (k PointInferenceKind) String() string {
-	if name, ok := pointInferenceNames[k]; ok {
-		return name
-	}
-	return "pointInference(?)"
+	return enumName(pointInferenceNames, k, "pointInference(?)")
 }
