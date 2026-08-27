@@ -5,7 +5,7 @@ package types
 import "testing"
 
 func TestExchangeFormatIsMesh(t *testing.T) {
-	mesh := []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF}
+	mesh := []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatGLTF}
 	for _, f := range mesh {
 		if !f.IsMesh() {
 			t.Errorf("%q.IsMesh() = false, want true", f)
@@ -36,7 +36,7 @@ func TestExchangeFormatIsPointCloud(t *testing.T) {
 			t.Errorf("%q.IsSketch() = true, want false (it is a point-cloud format)", f)
 		}
 	}
-	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatSTEP, FormatDWG, FormatDXF} {
+	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatGLTF, FormatSTEP, FormatDWG, FormatDXF} {
 		if f.IsPointCloud() {
 			t.Errorf("%q.IsPointCloud() = true, want false", f)
 		}
@@ -49,7 +49,7 @@ func TestExchangeFormatIsSketch(t *testing.T) {
 			t.Errorf("%q.IsSketch() = false, want true", f)
 		}
 	}
-	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatSTEP} {
+	for _, f := range []ExchangeFormat{FormatSTL, FormatOBJ, Format3MF, FormatGLTF, FormatSTEP} {
 		if f.IsSketch() {
 			t.Errorf("%q.IsSketch() = true, want false", f)
 		}
