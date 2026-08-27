@@ -48,20 +48,9 @@ type LevelOfDetailRepresentation interface {
 // DesignViewRepresentations / PositionalRepresentations / LevelOfDetailRepresentations are the
 // per-family collections in creation order (host: assembly.Representations).
 type (
-	DesignViewRepresentations interface {
-		// Count returns the number of design-view representations.
-		Count() int
-		// Item returns the representation at index i (0-based), or nil when out of range.
-		Item(i int) DesignViewRepresentation
-	}
-	PositionalRepresentations interface {
-		Count() int
-		Item(i int) PositionalRepresentation
-	}
-	LevelOfDetailRepresentations interface {
-		Count() int
-		Item(i int) LevelOfDetailRepresentation
-	}
+	DesignViewRepresentations    = Enumerable[DesignViewRepresentation]
+	PositionalRepresentations    = Enumerable[PositionalRepresentation]
+	LevelOfDetailRepresentations = Enumerable[LevelOfDetailRepresentation]
 )
 
 // ModelState is a named tuple selecting one representation of each family — the single switch
@@ -81,12 +70,7 @@ type ModelState interface {
 }
 
 // ModelStates is the assembly's model-state collection (host: assembly.ModelStateSet).
-type ModelStates interface {
-	// Count returns the number of model states.
-	Count() int
-	// Item returns the model state at index i, or nil when out of range.
-	Item(i int) ModelState
-}
+type ModelStates = Enumerable[ModelState]
 
 // RepresentationsManager is the assembly's representation hub: the three family collections
 // plus the model states (the reference API's RepresentationsManager).

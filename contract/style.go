@@ -30,10 +30,7 @@ type ColorStyle interface {
 // ColorStyles is the in-process contract for a document's set of color styles. The GPL app
 // satisfies it (compile-time asserted there).
 type ColorStyles interface {
-	// Count is the number of color styles.
-	Count() int
-	// Item returns the color style at index i (0-based), or nil if out of range.
-	Item(i int) ColorStyle
+	Enumerable[ColorStyle]
 	// ByName returns the named color style, or nil if absent.
 	ByName(name string) ColorStyle
 }
