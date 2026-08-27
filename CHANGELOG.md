@@ -8,6 +8,15 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.153.1] - 2026-08-27
+
+### Fixed
+
+- Generic optionGroupField[V] helper to collapse client/options.go's 5 group getters
+- Generic boundsCheckedAt[T]/indexOfFunc[T] helpers for client/ collection types
+- Introduce Enumerable[T any] to collapse 16 duplicate Count()/Item(i) collection interfaces
+- Widen enumName/enumFromName to comparable, adopt across all hand-rolled enum lookups
+
 ## [0.153.0] - 2026-08-27
 
 ### Added
@@ -1279,7 +1288,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...HEAD
+[0.153.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...v0.153.1
 [0.153.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...v0.153.0
 [0.152.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...v0.152.0
 [0.151.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.0...v0.151.1
