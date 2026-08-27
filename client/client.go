@@ -30,20 +30,27 @@ func New(t Caller) *Client { return &Client{t: t} }
 
 // call sends a wire request and decodes the typed response — the one body shared by
 // every typed client method, so each method spells its result DTO exactly once
-// (Oblikovati/Oblikovati#1650). Go has no generic methods, hence a package-level
-// function taking the *Client.
+// (Oblikovati/Oblikovati#1650). A generic method (Go 1.27) on the non-generic
+// *Client, parameterized per call by response type:
 //
 //	func (w WorkPoints) Create(args wire.CreateWorkPointArgs) (wire.CreateWorkPointResult, error) {
-//		return call[wire.CreateWorkPointResult](w.c, wire.MethodWorkPointsCreate, args)
+//		return w.c.call[wire.CreateWorkPointResult](wire.MethodWorkPointsCreate, args)
 //	}
-func call[Resp any](c *Client, method string, req any) (Resp, error) {
+func (c *Client) call[Resp any](method string, req any) (Resp, error) {
 	var r Resp
-	return r, c.call(method, req, &r)
+	return r, c.invoke(method, req, &r)
 }
 
-// call marshals req (nil → no body), invokes method, and unmarshals the reply into
-// out (nil → reply ignored). Errors name the offending method.
-func (c *Client) call(method string, req, out any) error {
+// call is Client.call as a package-level function, kept for existing call sites
+// (Oblikovati/Oblikovati#1650 predates Go 1.27's generic methods).
+func call[Resp any](c *Client, method string, req any) (Resp, error) {
+	return c.call[Resp](method, req)
+}
+
+// invoke marshals req (nil → no body), invokes method, and unmarshals the reply into
+// out (nil → reply ignored). Errors name the offending method. Used directly (rather
+// than through call/Client.call) by methods with no typed response, e.g. deletes.
+func (c *Client) invoke(method string, req, out any) error {
 	if c.t == nil {
 		return fmt.Errorf("client: no transport configured for method %q", method)
 	}

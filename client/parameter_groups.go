@@ -31,7 +31,7 @@ func (p Parameters) AddGroup(args wire.ParameterGroupAddArgs) (wire.ParameterGro
 // mcp:tool parameters_groups_delete
 // mcp:summary Removes a group; args.DeleteParameters opts into also deleting the member parameters (otherwise the members stay, only the group goes).
 func (p Parameters) DeleteGroup(args wire.ParameterGroupDeleteArgs) error {
-	return p.c.call(wire.MethodParametersGroupsDelete, args, nil)
+	return p.c.invoke(wire.MethodParametersGroupsDelete, args, nil)
 }
 
 // SetGroupDisplayName edits a group's display name (the internal name can

@@ -75,7 +75,7 @@ func TestCallGenericMatchesUntypedCallGoldenJSON(t *testing.T) {
 
 	oldFT := &fakeTransport{reply: reply}
 	var oldRes wire.ParameterInfo
-	if err := New(oldFT).call(wire.MethodParametersSet, args, &oldRes); err != nil {
+	if err := New(oldFT).invoke(wire.MethodParametersSet, args, &oldRes); err != nil {
 		t.Fatalf("untyped call: %v", err)
 	}
 
@@ -93,5 +93,22 @@ func TestCallGenericMatchesUntypedCallGoldenJSON(t *testing.T) {
 	}
 	if oldRes != newRes {
 		t.Errorf("decoded: untyped %+v vs generic %+v", oldRes, newRes)
+	}
+}
+
+// TestCallMethodFormMatchesFreeFunction exercises the Go 1.27 generic method
+// (Client.call) directly rather than through the package-level call[Resp] wrapper
+// the tests above use, proving the method form behaves identically.
+func TestCallMethodFormMatchesFreeFunction(t *testing.T) {
+	reply := []byte(`{"name":"depth","kind":"user","expression":"9 mm","value":"9 mm"}`)
+	args := wire.ParameterSetArgs{Name: "depth", Expression: "9 mm"}
+
+	c := New(&fakeTransport{reply: reply})
+	got, err := c.call[wire.ParameterInfo](wire.MethodParametersSet, args)
+	if err != nil {
+		t.Fatalf("Client.call: %v", err)
+	}
+	if got.Name != "depth" || got.Expression != "9 mm" {
+		t.Errorf("decoded = %+v, want depth=9 mm", got)
 	}
 }

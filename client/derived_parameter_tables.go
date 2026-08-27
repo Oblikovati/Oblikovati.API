@@ -41,5 +41,5 @@ func (p Parameters) SetDerivedTableLinked(args wire.DerivedParameterTableSetLink
 // mcp:tool parameters_derived_tables_delete
 // mcp:summary Removes a table and its derived parameters.
 func (p Parameters) DeleteDerivedTable(id int) error {
-	return p.c.call(wire.MethodParametersDerivedTablesDelete, wire.DerivedParameterTableDeleteArgs{ID: id}, nil)
+	return p.c.invoke(wire.MethodParametersDerivedTablesDelete, wire.DerivedParameterTableDeleteArgs{ID: id}, nil)
 }
