@@ -41,7 +41,7 @@ func (g Graphics) List() (wire.ListClientGraphicsResult, error) {
 // mcp:tool delete_client_graphics
 // mcp:summary Delete a client-graphics overlay by id.
 func (g Graphics) Delete(clientID string) error {
-	return g.c.call(wire.MethodClientGraphicsDelete, wire.DeleteClientGraphicsArgs{ClientId: clientID}, nil)
+	return g.c.invoke(wire.MethodClientGraphicsDelete, wire.DeleteClientGraphicsArgs{ClientId: clientID}, nil)
 }
 
 // SetVisible toggles a group's visibility without resubmitting its geometry.
@@ -49,7 +49,7 @@ func (g Graphics) Delete(clientID string) error {
 // mcp:tool set_client_graphics_visible
 // mcp:summary Show or hide a client-graphics overlay by id.
 func (g Graphics) SetVisible(clientID string, visible bool) error {
-	return g.c.call(wire.MethodClientGraphicsSetVisible, wire.SetClientGraphicsVisibleArgs{ClientId: clientID, Visible: visible}, nil)
+	return g.c.invoke(wire.MethodClientGraphicsSetVisible, wire.SetClientGraphicsVisibleArgs{ClientId: clientID, Visible: visible}, nil)
 }
 
 // AddMesh submits a single-color triangle mesh as a persistent group (coords xyz triples,
@@ -150,7 +150,7 @@ func (g Graphics) AddStripMesh(clientID string, coords []float64, color []float3
 // mcp:tool register_color_mapper
 // mcp:summary Register a named, reusable heatmap color mapper shared across overlays.
 func (g Graphics) RegisterColorMapper(name string, mapper wire.GraphicsColorMapper) error {
-	return g.c.call(wire.MethodClientGraphicsRegisterMapper, wire.RegisterColorMapperArgs{Name: name, Mapper: mapper}, nil)
+	return g.c.invoke(wire.MethodClientGraphicsRegisterMapper, wire.RegisterColorMapperArgs{Name: name, Mapper: mapper}, nil)
 }
 
 // ColorMappers lists the registered named color mappers.
@@ -167,7 +167,7 @@ func (g Graphics) ColorMappers() (wire.ColorMappersResult, error) {
 // mcp:tool set_graphics_node_transform
 // mcp:summary Move one client-graphics node (by id) without resending its mesh.
 func (g Graphics) SetNodeTransform(clientID, nodeID string, transform []float64) error {
-	return g.c.call(wire.MethodGraphicsNodeSetTransform, wire.SetNodeTransformArgs{ClientId: clientID, NodeId: nodeID, Transform: transform}, nil)
+	return g.c.invoke(wire.MethodGraphicsNodeSetTransform, wire.SetNodeTransformArgs{ClientId: clientID, NodeId: nodeID, Transform: transform}, nil)
 }
 
 // SetNodeVisible toggles one node's visibility within a group without resubmitting geometry.
@@ -175,7 +175,7 @@ func (g Graphics) SetNodeTransform(clientID, nodeID string, transform []float64)
 // mcp:tool set_graphics_node_visible
 // mcp:summary Show or hide one client-graphics node (by id) without resending its mesh.
 func (g Graphics) SetNodeVisible(clientID, nodeID string, visible bool) error {
-	return g.c.call(wire.MethodGraphicsNodeSetVisible, wire.SetNodeVisibleArgs{ClientId: clientID, NodeId: nodeID, Visible: visible}, nil)
+	return g.c.invoke(wire.MethodGraphicsNodeSetVisible, wire.SetNodeVisibleArgs{ClientId: clientID, NodeId: nodeID, Visible: visible}, nil)
 }
 
 // SetNodeSelectable toggles whether one node's primitives participate in picking.
@@ -183,7 +183,7 @@ func (g Graphics) SetNodeVisible(clientID, nodeID string, visible bool) error {
 // mcp:tool set_graphics_node_selectable
 // mcp:summary Toggle whether one client-graphics node (by id) is pickable.
 func (g Graphics) SetNodeSelectable(clientID, nodeID string, selectable bool) error {
-	return g.c.call(wire.MethodGraphicsNodeSetSelectable, wire.SetNodeSelectableArgs{ClientId: clientID, NodeId: nodeID, Selectable: selectable}, nil)
+	return g.c.invoke(wire.MethodGraphicsNodeSetSelectable, wire.SetNodeSelectableArgs{ClientId: clientID, NodeId: nodeID, Selectable: selectable}, nil)
 }
 
 // oneShot wraps one primitive into a single-node persistent group request.
@@ -209,7 +209,7 @@ type InteractionGraphics struct{ c *Client }
 // mcp:tool update_interaction_graphics
 // mcp:summary Set the transient interaction-graphics overlay (a short-lived preview/highlight pass, replaced each call).
 func (i InteractionGraphics) Update(lane types.GraphicsLane, nodes []wire.GraphicsNode) error {
-	return i.c.call(wire.MethodInteractionGraphicsUpdate, wire.UpdateInteractionGraphicsArgs{Lane: string(lane), Nodes: nodes}, nil)
+	return i.c.invoke(wire.MethodInteractionGraphicsUpdate, wire.UpdateInteractionGraphicsArgs{Lane: string(lane), Nodes: nodes}, nil)
 }
 
 // Clear removes all transient interaction graphics (both lanes).
@@ -217,5 +217,5 @@ func (i InteractionGraphics) Update(lane types.GraphicsLane, nodes []wire.Graphi
 // mcp:tool clear_interaction_graphics
 // mcp:summary Clear the transient interaction-graphics overlay.
 func (i InteractionGraphics) Clear() error {
-	return i.c.call(wire.MethodInteractionGraphicsClear, nil, nil)
+	return i.c.invoke(wire.MethodInteractionGraphicsClear, nil, nil)
 }

@@ -106,7 +106,7 @@ func (p Parameters) SetExpressionList(args wire.ParameterExpressionListArgs) (wi
 // mcp:tool parameters_delete
 // mcp:summary Removes a parameter by name.
 func (p Parameters) Delete(name string) error {
-	return p.c.call(wire.MethodParametersDelete, wire.ParameterNameArgs{Name: name}, nil)
+	return p.c.invoke(wire.MethodParametersDelete, wire.ParameterNameArgs{Name: name}, nil)
 }
 
 // DrivenBy returns the names of the parameters this parameter's expression reads.
