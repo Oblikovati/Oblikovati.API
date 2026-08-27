@@ -31,10 +31,7 @@ var solutionNatureNames = map[SolutionNature]string{
 
 // String returns the classification's stable name.
 func (n SolutionNature) String() string {
-	if name, ok := solutionNatureNames[n]; ok {
-		return name
-	}
-	return "solutionNature(?)"
+	return enumName(solutionNatureNames, n, "solutionNature(?)")
 }
 
 // Containment is the result vocabulary for box/region containment queries.
@@ -54,10 +51,7 @@ var containmentNames = map[Containment]string{
 
 // String returns the containment's stable name.
 func (c Containment) String() string {
-	if name, ok := containmentNames[c]; ok {
-		return name
-	}
-	return "containment(?)"
+	return enumName(containmentNames, c, "containment(?)")
 }
 
 // ParseContainment resolves a wire spelling back to its containment

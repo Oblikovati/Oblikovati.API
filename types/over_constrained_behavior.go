@@ -29,7 +29,7 @@ var overConstrainedBehaviorNames = map[OverConstrainedDimensionBehavior]string{
 
 // String returns the behaviour's wire spelling.
 func (b OverConstrainedDimensionBehavior) String() string {
-	return enumName(overConstrainedBehaviorNames, b)
+	return enumName(overConstrainedBehaviorNames, b, "enum(?)")
 }
 
 // ParseOverConstrainedDimensionBehavior resolves a wire spelling back to its behaviour.

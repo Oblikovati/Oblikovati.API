@@ -25,8 +25,5 @@ var dockingStateNames = map[DockingState]string{
 
 // String returns the state's stable name.
 func (d DockingState) String() string {
-	if name, ok := dockingStateNames[d]; ok {
-		return name
-	}
-	return "dockingState(?)"
+	return enumName(dockingStateNames, d, "dockingState(?)")
 }

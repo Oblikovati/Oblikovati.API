@@ -25,7 +25,9 @@ var drawingSketchEntityKindNames = map[DrawingSketchEntityKind]string{
 }
 
 // String returns the entity kind's wire spelling ("line", "circle", "rectangle").
-func (k DrawingSketchEntityKind) String() string { return enumName(drawingSketchEntityKindNames, k) }
+func (k DrawingSketchEntityKind) String() string {
+	return enumName(drawingSketchEntityKindNames, k, "enum(?)")
+}
 
 // ParseDrawingSketchEntityKind resolves a wire spelling back to its entity kind.
 //

@@ -23,7 +23,7 @@ var holeNoteQuantityNames = map[HoleNoteQuantity]string{
 }
 
 // String returns the quantity mode's wire spelling ("perHole", "combined").
-func (q HoleNoteQuantity) String() string { return enumName(holeNoteQuantityNames, q) }
+func (q HoleNoteQuantity) String() string { return enumName(holeNoteQuantityNames, q, "enum(?)") }
 
 // ParseHoleNoteQuantity resolves a wire spelling back to its quantity mode.
 //

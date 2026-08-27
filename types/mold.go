@@ -28,7 +28,7 @@ var aSideFaceStatusNames = map[ASideFaceStatus]string{
 }
 
 // String returns the status's wire spelling.
-func (s ASideFaceStatus) String() string { return enumName(aSideFaceStatusNames, s) }
+func (s ASideFaceStatus) String() string { return enumName(aSideFaceStatusNames, s, "enum(?)") }
 
 // ParseASideFaceStatus resolves a wire spelling back to its status.
 func ParseASideFaceStatus(s string) (ASideFaceStatus, bool) {

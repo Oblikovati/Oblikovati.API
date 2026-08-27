@@ -46,7 +46,7 @@ var toleranceTypeNames = map[ToleranceType]string{
 }
 
 // String returns the tolerance type's wire spelling.
-func (t ToleranceType) String() string { return enumName(toleranceTypeNames, t) }
+func (t ToleranceType) String() string { return enumName(toleranceTypeNames, t, "enum(?)") }
 
 // ParseToleranceType resolves a wire spelling back to its ToleranceType.
 func ParseToleranceType(s string) (ToleranceType, bool) {
@@ -78,25 +78,25 @@ var modelValueTypeNames = map[ModelValueType]string{
 }
 
 // String returns the model-value type's wire spelling.
-func (m ModelValueType) String() string { return enumName(modelValueTypeNames, m) }
+func (m ModelValueType) String() string { return enumName(modelValueTypeNames, m, "enum(?)") }
 
 // ParseModelValueType resolves a wire spelling back to its ModelValueType.
 func ParseModelValueType(s string) (ModelValueType, bool) {
 	return enumFromName(modelValueTypeNames, s)
 }
 
-// enumName looks up an enum's wire spelling, with a recognizable fallback for
-// values outside the frozen block.
-func enumName[E ~int32](names map[E]string, v E) string {
+// enumName looks up an enum's wire spelling, returning fallback for values
+// outside the map (e.g. "toleranceType(?)").
+func enumName[E comparable](names map[E]string, v E, fallback string) string {
 	if name, ok := names[v]; ok {
 		return name
 	}
-	return "enum(?)"
+	return fallback
 }
 
 // enumFromName is the inverse of [enumName]: it resolves a wire spelling to its
 // enum value, reporting false for unknown spellings.
-func enumFromName[E ~int32](names map[E]string, s string) (E, bool) {
+func enumFromName[E comparable](names map[E]string, s string) (E, bool) {
 	for v, name := range names {
 		if name == s {
 			return v, true
@@ -104,4 +104,11 @@ func enumFromName[E ~int32](names map[E]string, s string) (E, bool) {
 	}
 	var zero E
 	return zero, false
+}
+
+// enumValid reports whether v is a key of names — the shared body for every
+// enum's IsValid method.
+func enumValid[E comparable](names map[E]string, v E) bool {
+	_, ok := names[v]
+	return ok
 }

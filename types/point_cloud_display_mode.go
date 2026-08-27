@@ -36,10 +36,7 @@ var pointCloudDisplayModeNames = map[PointCloudDisplayMode]string{
 // lowercase wire/persist token that is the underlying string value. The label lower-cases back to
 // the token, so writing String() and reading it with strings.ToLower round-trips a stored mode.
 func (m PointCloudDisplayMode) String() string {
-	if name, ok := pointCloudDisplayModeNames[m]; ok {
-		return name
-	}
-	return "pointCloudDisplayMode(?)"
+	return enumName(pointCloudDisplayModeNames, m, "pointCloudDisplayMode(?)")
 }
 
 // IsValid reports whether m is one of the defined display modes.

@@ -56,7 +56,9 @@ var drawingDimensionTypeNames = map[DrawingDimensionType]string{
 }
 
 // String returns the dimension type's wire spelling ("aligned", "horizontal", "vertical").
-func (t DrawingDimensionType) String() string { return enumName(drawingDimensionTypeNames, t) }
+func (t DrawingDimensionType) String() string {
+	return enumName(drawingDimensionTypeNames, t, "enum(?)")
+}
 
 // ParseDrawingDimensionType resolves a wire spelling back to its dimension type.
 //
@@ -92,7 +94,9 @@ var dimensionToleranceTypeNames = map[DimensionToleranceType]string{
 }
 
 // String returns the tolerance type's wire spelling.
-func (t DimensionToleranceType) String() string { return enumName(dimensionToleranceTypeNames, t) }
+func (t DimensionToleranceType) String() string {
+	return enumName(dimensionToleranceTypeNames, t, "enum(?)")
+}
 
 // ParseDimensionToleranceType resolves a wire spelling back to its tolerance type; "" ⇒ none.
 func ParseDimensionToleranceType(s string) (DimensionToleranceType, bool) {
@@ -135,7 +139,7 @@ var inspectionShapeNames = map[InspectionShape]string{
 }
 
 // String returns the inspection shape's wire spelling ("none", "angular", "rounded").
-func (s InspectionShape) String() string { return enumName(inspectionShapeNames, s) }
+func (s InspectionShape) String() string { return enumName(inspectionShapeNames, s, "enum(?)") }
 
 // ParseInspectionShape resolves a wire spelling back to its inspection shape; "" ⇒ none.
 func ParseInspectionShape(s string) (InspectionShape, bool) {

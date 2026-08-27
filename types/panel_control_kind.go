@@ -66,8 +66,5 @@ var panelControlKindNames = map[PanelControlKind]string{
 
 // String returns the kind's stable name.
 func (k PanelControlKind) String() string {
-	if name, ok := panelControlKindNames[k]; ok {
-		return name
-	}
-	return "panelControlKind(?)"
+	return enumName(panelControlKindNames, k, "panelControlKind(?)")
 }

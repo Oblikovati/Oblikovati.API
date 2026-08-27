@@ -25,7 +25,7 @@ var draftingStandardNames = map[DraftingStandard]string{
 }
 
 // String returns the standard's wire spelling ("iso" / "ansi").
-func (d DraftingStandard) String() string { return enumName(draftingStandardNames, d) }
+func (d DraftingStandard) String() string { return enumName(draftingStandardNames, d, "enum(?)") }
 
 // ParseDraftingStandard resolves a wire spelling back to its drafting standard.
 //
@@ -51,7 +51,7 @@ var dimensionUnitNames = map[DimensionUnit]string{
 }
 
 // String returns the unit's wire spelling ("mm" / "in").
-func (u DimensionUnit) String() string { return enumName(dimensionUnitNames, u) }
+func (u DimensionUnit) String() string { return enumName(dimensionUnitNames, u, "enum(?)") }
 
 // ParseDimensionUnit resolves a wire spelling back to its dimension unit.
 func ParseDimensionUnit(s string) (DimensionUnit, bool) {

@@ -30,16 +30,12 @@ var displayQualityNames = map[DisplayQualityEnum]string{
 
 // String returns the display-quality's user-facing name.
 func (d DisplayQualityEnum) String() string {
-	if name, ok := displayQualityNames[d]; ok {
-		return name
-	}
-	return "displayQuality(?)"
+	return enumName(displayQualityNames, d, "displayQuality(?)")
 }
 
 // IsValid reports whether d is a defined display quality.
 func (d DisplayQualityEnum) IsValid() bool {
-	_, ok := displayQualityNames[d]
-	return ok
+	return enumValid(displayQualityNames, d)
 }
 
 // AllDisplayQualities returns every defined display quality, in picker order.

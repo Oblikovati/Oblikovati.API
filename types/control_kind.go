@@ -33,8 +33,5 @@ var controlKindNames = map[ControlKind]string{
 
 // String returns the kind's stable name.
 func (k ControlKind) String() string {
-	if name, ok := controlKindNames[k]; ok {
-		return name
-	}
-	return "controlKind(?)"
+	return enumName(controlKindNames, k, "controlKind(?)")
 }

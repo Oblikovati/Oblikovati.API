@@ -27,7 +27,7 @@ var accuracyNames = map[Accuracy]string{
 }
 
 // String returns the accuracy's wire spelling.
-func (a Accuracy) String() string { return enumName(accuracyNames, a) }
+func (a Accuracy) String() string { return enumName(accuracyNames, a, "enum(?)") }
 
 // ParseAccuracy resolves a wire spelling back to its accuracy.
 func ParseAccuracy(s string) (Accuracy, bool) { return enumFromName(accuracyNames, s) }

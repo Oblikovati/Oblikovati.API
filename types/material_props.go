@@ -161,7 +161,9 @@ var massPropertiesAccuracyNames = map[MassPropertiesAccuracy]string{
 }
 
 // String returns the accuracy level's wire spelling ("medium", "low", "high").
-func (a MassPropertiesAccuracy) String() string { return enumName(massPropertiesAccuracyNames, a) }
+func (a MassPropertiesAccuracy) String() string {
+	return enumName(massPropertiesAccuracyNames, a, "enum(?)")
+}
 
 // ParseMassPropertiesAccuracy resolves a wire spelling back to its accuracy level.
 func ParseMassPropertiesAccuracy(s string) (MassPropertiesAccuracy, bool) {

@@ -32,7 +32,7 @@ var unfoldMethodTypeNames = map[UnfoldMethodType]string{
 }
 
 // String returns the unfold method's wire spelling.
-func (m UnfoldMethodType) String() string { return enumName(unfoldMethodTypeNames, m) }
+func (m UnfoldMethodType) String() string { return enumName(unfoldMethodTypeNames, m, "enum(?)") }
 
 // ParseUnfoldMethodType resolves a wire spelling back to its unfold method.
 func ParseUnfoldMethodType(s string) (UnfoldMethodType, bool) {
@@ -63,7 +63,7 @@ var reliefShapeNames = map[ReliefShape]string{
 }
 
 // String returns the relief shape's wire spelling.
-func (r ReliefShape) String() string { return enumName(reliefShapeNames, r) }
+func (r ReliefShape) String() string { return enumName(reliefShapeNames, r, "enum(?)") }
 
 // ParseReliefShape resolves a wire spelling back to its relief shape. "square" is the older
 // spelling of ReliefStraight and still resolves to it.
@@ -105,7 +105,7 @@ var cornerReliefShapeNames = map[CornerReliefShape]string{
 }
 
 // String returns the corner-relief shape's wire spelling.
-func (c CornerReliefShape) String() string { return enumName(cornerReliefShapeNames, c) }
+func (c CornerReliefShape) String() string { return enumName(cornerReliefShapeNames, c, "enum(?)") }
 
 // ParseCornerReliefShape resolves a wire spelling back to its corner-relief shape.
 func ParseCornerReliefShape(s string) (CornerReliefShape, bool) {
@@ -132,7 +132,9 @@ var cornerReliefPlacementNames = map[CornerReliefPlacement]string{
 }
 
 // String returns the placement's wire spelling.
-func (c CornerReliefPlacement) String() string { return enumName(cornerReliefPlacementNames, c) }
+func (c CornerReliefPlacement) String() string {
+	return enumName(cornerReliefPlacementNames, c, "enum(?)")
+}
 
 // ParseCornerReliefPlacement resolves a wire spelling back to its placement.
 func ParseCornerReliefPlacement(s string) (CornerReliefPlacement, bool) {
@@ -177,7 +179,7 @@ var bendTransitionNames = map[BendTransition]string{
 }
 
 // String returns the transition's wire spelling.
-func (b BendTransition) String() string { return enumName(bendTransitionNames, b) }
+func (b BendTransition) String() string { return enumName(bendTransitionNames, b, "enum(?)") }
 
 // ParseBendTransition resolves a wire spelling back to its transition.
 func ParseBendTransition(s string) (BendTransition, bool) {
@@ -212,7 +214,7 @@ var cornerSeamTypeNames = map[CornerSeamType]string{
 }
 
 // String returns the corner-seam type's wire spelling.
-func (c CornerSeamType) String() string { return enumName(cornerSeamTypeNames, c) }
+func (c CornerSeamType) String() string { return enumName(cornerSeamTypeNames, c, "enum(?)") }
 
 // ParseCornerSeamType resolves a wire spelling back to its corner-seam type. The empty string
 // resolves to the gap default so an omitted type keeps its long-standing meaning.
@@ -243,7 +245,9 @@ var cornerSeamDefinitionTypeNames = map[CornerSeamDefinitionType]string{
 }
 
 // String returns the definition type's wire spelling.
-func (c CornerSeamDefinitionType) String() string { return enumName(cornerSeamDefinitionTypeNames, c) }
+func (c CornerSeamDefinitionType) String() string {
+	return enumName(cornerSeamDefinitionTypeNames, c, "enum(?)")
+}
 
 // ParseCornerSeamDefinitionType resolves a wire spelling back to its definition type. The empty
 // string resolves to the max-distance default.
@@ -278,7 +282,7 @@ var ripTypeNames = map[RipType]string{
 }
 
 // String returns the rip type's wire spelling.
-func (r RipType) String() string { return enumName(ripTypeNames, r) }
+func (r RipType) String() string { return enumName(ripTypeNames, r, "enum(?)") }
 
 // ParseRipType resolves a wire spelling back to its rip type. The empty string resolves to the
 // point-to-point default so an omitted type keeps the existing line rip.
@@ -314,7 +318,9 @@ var loftedFlangeOutputTypeNames = map[LoftedFlangeOutputType]string{
 }
 
 // String returns the output type's wire spelling.
-func (l LoftedFlangeOutputType) String() string { return enumName(loftedFlangeOutputTypeNames, l) }
+func (l LoftedFlangeOutputType) String() string {
+	return enumName(loftedFlangeOutputTypeNames, l, "enum(?)")
+}
 
 // ParseLoftedFlangeOutputType resolves a wire spelling back to its output type. The empty string
 // resolves to the die-formed default.
@@ -355,7 +361,9 @@ var punchRepresentationTypeNames = map[PunchRepresentationType]string{
 }
 
 // String returns the punch representation's wire spelling.
-func (p PunchRepresentationType) String() string { return enumName(punchRepresentationTypeNames, p) }
+func (p PunchRepresentationType) String() string {
+	return enumName(punchRepresentationTypeNames, p, "enum(?)")
+}
 
 // ParsePunchRepresentationType resolves a wire spelling back to its representation type. The empty
 // string resolves to the default.

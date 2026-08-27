@@ -25,8 +25,5 @@ var screenQuadrantNames = map[ScreenQuadrant]string{
 
 // String returns the quadrant's stable compass name.
 func (q ScreenQuadrant) String() string {
-	if name, ok := screenQuadrantNames[q]; ok {
-		return name
-	}
-	return "screenQuadrant(?)"
+	return enumName(screenQuadrantNames, q, "screenQuadrant(?)")
 }

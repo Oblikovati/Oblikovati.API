@@ -40,7 +40,7 @@ var baseViewOrientationNames = map[BaseViewOrientation]string{
 }
 
 // String returns the orientation's wire spelling ("front", "iso").
-func (o BaseViewOrientation) String() string { return enumName(baseViewOrientationNames, o) }
+func (o BaseViewOrientation) String() string { return enumName(baseViewOrientationNames, o, "enum(?)") }
 
 // ParseBaseViewOrientation resolves a wire spelling back to its orientation.
 func ParseBaseViewOrientation(s string) (BaseViewOrientation, bool) {
@@ -78,7 +78,7 @@ var drawingViewStyleNames = map[DrawingViewStyle]string{
 }
 
 // String returns the style's wire spelling.
-func (s DrawingViewStyle) String() string { return enumName(drawingViewStyleNames, s) }
+func (s DrawingViewStyle) String() string { return enumName(drawingViewStyleNames, s, "enum(?)") }
 
 // ParseDrawingViewStyle resolves a wire spelling back to its style.
 func ParseDrawingViewStyle(s string) (DrawingViewStyle, bool) {
@@ -139,7 +139,7 @@ var drawingViewTypeNames = map[DrawingViewType]string{
 }
 
 // String returns the view type's wire spelling ("base", "auxiliary").
-func (t DrawingViewType) String() string { return enumName(drawingViewTypeNames, t) }
+func (t DrawingViewType) String() string { return enumName(drawingViewTypeNames, t, "enum(?)") }
 
 // ParseDrawingViewType resolves a wire spelling back to its view type.
 func ParseDrawingViewType(s string) (DrawingViewType, bool) {
@@ -172,7 +172,7 @@ var sectionViewTypeNames = map[SectionViewType]string{
 }
 
 // String returns the section type's wire spelling ("none", "quarter").
-func (t SectionViewType) String() string { return enumName(sectionViewTypeNames, t) }
+func (t SectionViewType) String() string { return enumName(sectionViewTypeNames, t, "enum(?)") }
 
 // ParseSectionViewType resolves a wire spelling back to its section type ("" ⇒ NoSectionView).
 func ParseSectionViewType(s string) (SectionViewType, bool) {
@@ -200,7 +200,7 @@ var breakOrientationNames = map[BreakOrientation]string{
 }
 
 // String returns the break orientation's wire spelling.
-func (o BreakOrientation) String() string { return enumName(breakOrientationNames, o) }
+func (o BreakOrientation) String() string { return enumName(breakOrientationNames, o, "enum(?)") }
 
 // ParseBreakOrientation resolves a wire spelling back to its break orientation.
 func ParseBreakOrientation(s string) (BreakOrientation, bool) {
@@ -229,7 +229,9 @@ var cropBreakMarkLineTypeNames = map[CropBreakMarkLineType]string{
 }
 
 // String returns the break-mark type's wire spelling ("none", "continuous", "zigzag").
-func (t CropBreakMarkLineType) String() string { return enumName(cropBreakMarkLineTypeNames, t) }
+func (t CropBreakMarkLineType) String() string {
+	return enumName(cropBreakMarkLineTypeNames, t, "enum(?)")
+}
 
 // ParseCropBreakMarkLineType resolves a wire spelling back to its break-mark type; "" ⇒ none.
 func ParseCropBreakMarkLineType(s string) (CropBreakMarkLineType, bool) {
@@ -263,7 +265,7 @@ var drawingCurveKindNames = map[DrawingCurveKind]string{
 }
 
 // String returns the curve kind's wire spelling.
-func (k DrawingCurveKind) String() string { return enumName(drawingCurveKindNames, k) }
+func (k DrawingCurveKind) String() string { return enumName(drawingCurveKindNames, k, "enum(?)") }
 
 // ParseDrawingCurveKind resolves a wire spelling back to its curve kind.
 func ParseDrawingCurveKind(s string) (DrawingCurveKind, bool) {
@@ -293,7 +295,7 @@ var projectionDirectionNames = map[ProjectionDirection]string{
 }
 
 // String returns the direction's wire spelling.
-func (d ProjectionDirection) String() string { return enumName(projectionDirectionNames, d) }
+func (d ProjectionDirection) String() string { return enumName(projectionDirectionNames, d, "enum(?)") }
 
 // ParseProjectionDirection resolves a wire spelling back to its direction.
 func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
@@ -321,7 +323,9 @@ var drawingViewAlignmentNames = map[DrawingViewAlignment]string{
 }
 
 // String returns the alignment's wire spelling.
-func (a DrawingViewAlignment) String() string { return enumName(drawingViewAlignmentNames, a) }
+func (a DrawingViewAlignment) String() string {
+	return enumName(drawingViewAlignmentNames, a, "enum(?)")
+}
 
 // ParseDrawingViewAlignment resolves a wire spelling back to its alignment; "" ⇒ InPositionViewAlignment.
 func ParseDrawingViewAlignment(s string) (DrawingViewAlignment, bool) {
@@ -349,7 +353,7 @@ var viewJustificationNames = map[ViewJustification]string{
 }
 
 // String returns the justification's wire spelling.
-func (j ViewJustification) String() string { return enumName(viewJustificationNames, j) }
+func (j ViewJustification) String() string { return enumName(viewJustificationNames, j, "enum(?)") }
 
 // ParseViewJustification resolves a wire spelling back to its justification; "" ⇒ CenteredViewJustification.
 func ParseViewJustification(s string) (ViewJustification, bool) {
@@ -396,7 +400,7 @@ var drawingEdgeTypeNames = map[DrawingEdgeType]string{
 }
 
 // String returns the edge type's wire spelling ("unknown" for the zero value).
-func (t DrawingEdgeType) String() string { return enumName(drawingEdgeTypeNames, t) }
+func (t DrawingEdgeType) String() string { return enumName(drawingEdgeTypeNames, t, "enum(?)") }
 
 // ParseDrawingEdgeType resolves a wire spelling back to its edge type; "" ⇒ UnknownDrawingEdge.
 func ParseDrawingEdgeType(s string) (DrawingEdgeType, bool) {
@@ -482,7 +486,9 @@ var drawingAnnotationKindNames = map[DrawingAnnotationKind]string{
 }
 
 // String returns the annotation kind's wire spelling.
-func (k DrawingAnnotationKind) String() string { return enumName(drawingAnnotationKindNames, k) }
+func (k DrawingAnnotationKind) String() string {
+	return enumName(drawingAnnotationKindNames, k, "enum(?)")
+}
 
 // ParseDrawingAnnotationKind resolves a wire spelling back to its annotation kind.
 func ParseDrawingAnnotationKind(s string) (DrawingAnnotationKind, bool) {

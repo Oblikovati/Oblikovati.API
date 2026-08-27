@@ -24,14 +24,11 @@ var viewTypeNames = map[ViewTypeEnum]string{
 
 // String returns the view-type's user-facing name.
 func (v ViewTypeEnum) String() string {
-	if name, ok := viewTypeNames[v]; ok {
-		return name
-	}
-	return "viewType(?)"
+	return enumName(viewTypeNames, v, "viewType(?)")
 }
 
 // IsValid reports whether v is a defined view type.
-func (v ViewTypeEnum) IsValid() bool { _, ok := viewTypeNames[v]; return ok }
+func (v ViewTypeEnum) IsValid() bool { return enumValid(viewTypeNames, v) }
 
 // AllViewTypes returns every defined view type.
 func AllViewTypes() []ViewTypeEnum {
@@ -57,14 +54,11 @@ var viewOperationNames = map[ViewOperationTypeEnum]string{
 
 // String returns the view-operation's user-facing name.
 func (v ViewOperationTypeEnum) String() string {
-	if name, ok := viewOperationNames[v]; ok {
-		return name
-	}
-	return "viewOperation(?)"
+	return enumName(viewOperationNames, v, "viewOperation(?)")
 }
 
 // IsValid reports whether v is a defined view operation.
-func (v ViewOperationTypeEnum) IsValid() bool { _, ok := viewOperationNames[v]; return ok }
+func (v ViewOperationTypeEnum) IsValid() bool { return enumValid(viewOperationNames, v) }
 
 // AllViewOperations returns every defined view operation.
 func AllViewOperations() []ViewOperationTypeEnum {
@@ -88,14 +82,11 @@ var orbitTypeNames = map[OrbitTypeEnum]string{
 
 // String returns the orbit-type's user-facing name.
 func (o OrbitTypeEnum) String() string {
-	if name, ok := orbitTypeNames[o]; ok {
-		return name
-	}
-	return "orbitType(?)"
+	return enumName(orbitTypeNames, o, "orbitType(?)")
 }
 
 // IsValid reports whether o is a defined orbit type.
-func (o OrbitTypeEnum) IsValid() bool { _, ok := orbitTypeNames[o]; return ok }
+func (o OrbitTypeEnum) IsValid() bool { return enumValid(orbitTypeNames, o) }
 
 // AllOrbitTypes returns every defined orbit type.
 func AllOrbitTypes() []OrbitTypeEnum { return []OrbitTypeEnum{FreeOrbit, ConstrainedOrbit} }
@@ -123,14 +114,11 @@ var viewTileNames = map[ViewTileTypeEnum]string{
 
 // String returns the view-tile-type's user-facing name.
 func (v ViewTileTypeEnum) String() string {
-	if name, ok := viewTileNames[v]; ok {
-		return name
-	}
-	return "viewTileType(?)"
+	return enumName(viewTileNames, v, "viewTileType(?)")
 }
 
 // IsValid reports whether v is a defined view-tile type.
-func (v ViewTileTypeEnum) IsValid() bool { _, ok := viewTileNames[v]; return ok }
+func (v ViewTileTypeEnum) IsValid() bool { return enumValid(viewTileNames, v) }
 
 // AllViewTileTypes returns every defined view-tile type.
 func AllViewTileTypes() []ViewTileTypeEnum {

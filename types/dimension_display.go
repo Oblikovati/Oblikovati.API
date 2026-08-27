@@ -28,7 +28,7 @@ var dimensionDisplayNames = map[DimensionDisplayType]string{
 }
 
 // String returns the display type's wire spelling.
-func (d DimensionDisplayType) String() string { return enumName(dimensionDisplayNames, d) }
+func (d DimensionDisplayType) String() string { return enumName(dimensionDisplayNames, d, "enum(?)") }
 
 // ParseDimensionDisplayType resolves a wire spelling back to its
 // DimensionDisplayType.

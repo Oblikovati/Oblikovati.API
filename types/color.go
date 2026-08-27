@@ -32,16 +32,12 @@ var colorSourceNames = map[ColorSourceTypeEnum]string{
 
 // String returns the color-source's user-facing name.
 func (c ColorSourceTypeEnum) String() string {
-	if name, ok := colorSourceNames[c]; ok {
-		return name
-	}
-	return "colorSource(?)"
+	return enumName(colorSourceNames, c, "colorSource(?)")
 }
 
 // IsValid reports whether c is a defined color source.
 func (c ColorSourceTypeEnum) IsValid() bool {
-	_, ok := colorSourceNames[c]
-	return ok
+	return enumValid(colorSourceNames, c)
 }
 
 // AllColorSources returns every defined color source, in picker order.

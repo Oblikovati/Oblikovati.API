@@ -32,10 +32,7 @@ var valueTypeNames = map[ValueType]string{
 
 // String returns the tag's stable name — also its wire spelling.
 func (t ValueType) String() string {
-	if name, ok := valueTypeNames[t]; ok {
-		return name
-	}
-	return "valueType(?)"
+	return enumName(valueTypeNames, t, "valueType(?)")
 }
 
 // Variant is a typed bag value: exactly one underlying value, selected by its

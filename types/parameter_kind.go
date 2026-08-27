@@ -25,10 +25,7 @@ var parameterKindNames = map[ParameterKind]string{
 
 // String returns the kind's name.
 func (k ParameterKind) String() string {
-	if name, ok := parameterKindNames[k]; ok {
-		return name
-	}
-	return "kind(?)"
+	return enumName(parameterKindNames, k, "kind(?)")
 }
 
 // Editable reports whether a user may set this kind's expression/value (Model,

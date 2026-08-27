@@ -27,16 +27,12 @@ var lightDefinitionTypeNames = map[LightDefinitionTypeEnum]string{
 
 // String returns the definition type's user-facing name.
 func (t LightDefinitionTypeEnum) String() string {
-	if name, ok := lightDefinitionTypeNames[t]; ok {
-		return name
-	}
-	return "lightDefinitionType(?)"
+	return enumName(lightDefinitionTypeNames, t, "lightDefinitionType(?)")
 }
 
 // IsValid reports whether t is a defined light-definition type.
 func (t LightDefinitionTypeEnum) IsValid() bool {
-	_, ok := lightDefinitionTypeNames[t]
-	return ok
+	return enumValid(lightDefinitionTypeNames, t)
 }
 
 // AllLightDefinitionTypes returns every defined light-definition type, for building a picker.

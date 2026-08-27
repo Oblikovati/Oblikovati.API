@@ -42,16 +42,12 @@ var shadowDirectionNames = map[ShadowDirectionEnum]string{
 
 // String returns the shadow direction's user-facing name.
 func (d ShadowDirectionEnum) String() string {
-	if name, ok := shadowDirectionNames[d]; ok {
-		return name
-	}
-	return "shadowDirection(?)"
+	return enumName(shadowDirectionNames, d, "shadowDirection(?)")
 }
 
 // IsValid reports whether d is a defined shadow direction.
 func (d ShadowDirectionEnum) IsValid() bool {
-	_, ok := shadowDirectionNames[d]
-	return ok
+	return enumValid(shadowDirectionNames, d)
 }
 
 // AllShadowDirections returns every defined shadow direction, in picker order.

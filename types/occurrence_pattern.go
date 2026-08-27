@@ -31,7 +31,7 @@ var occurrencePatternSuppressionNames = map[OccurrencePatternSuppression]string{
 
 // String returns the suppression state's wire spelling.
 func (s OccurrencePatternSuppression) String() string {
-	return enumName(occurrencePatternSuppressionNames, s)
+	return enumName(occurrencePatternSuppressionNames, s, "enum(?)")
 }
 
 // ParseOccurrencePatternSuppression resolves a wire spelling back to its suppression state.

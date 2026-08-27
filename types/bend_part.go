@@ -28,7 +28,7 @@ var bendPartTypeNames = map[BendPartType]string{
 }
 
 // String returns the bend type's wire spelling.
-func (t BendPartType) String() string { return enumName(bendPartTypeNames, t) }
+func (t BendPartType) String() string { return enumName(bendPartTypeNames, t, "enum(?)") }
 
 // ParseBendPartType resolves a wire spelling back to its bend type.
 func ParseBendPartType(s string) (BendPartType, bool) { return enumFromName(bendPartTypeNames, s) }

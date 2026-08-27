@@ -25,7 +25,7 @@ var hatchPatternNames = map[HatchPattern]string{
 }
 
 // String returns the pattern's wire spelling ("general", "cross", "ansi31").
-func (p HatchPattern) String() string { return enumName(hatchPatternNames, p) }
+func (p HatchPattern) String() string { return enumName(hatchPatternNames, p, "enum(?)") }
 
 // ParseHatchPattern resolves a wire spelling back to its pattern.
 //

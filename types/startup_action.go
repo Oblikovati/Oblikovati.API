@@ -21,8 +21,5 @@ var startupActionNames = map[StartupActionType]string{
 
 // String returns the action's stable name ("new-part", "empty").
 func (a StartupActionType) String() string {
-	if name, ok := startupActionNames[a]; ok {
-		return name
-	}
-	return "startupAction(?)"
+	return enumName(startupActionNames, a, "startupAction(?)")
 }

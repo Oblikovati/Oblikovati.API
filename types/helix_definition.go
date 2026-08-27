@@ -31,7 +31,7 @@ var helicalShapeDefinitionNames = map[HelicalShapeDefinitionKind]string{
 
 // String returns the shape kind's wire spelling.
 func (k HelicalShapeDefinitionKind) String() string {
-	return enumName(helicalShapeDefinitionNames, k)
+	return enumName(helicalShapeDefinitionNames, k, "enum(?)")
 }
 
 // ParseHelicalShapeDefinitionKind resolves a wire spelling back to its kind.
@@ -60,7 +60,7 @@ var helixEndNames = map[HelixEndKind]string{
 }
 
 // String returns the end kind's wire spelling.
-func (k HelixEndKind) String() string { return enumName(helixEndNames, k) }
+func (k HelixEndKind) String() string { return enumName(helixEndNames, k, "enum(?)") }
 
 // ParseHelixEndKind resolves a wire spelling back to its kind.
 func ParseHelixEndKind(s string) (HelixEndKind, bool) { return enumFromName(helixEndNames, s) }

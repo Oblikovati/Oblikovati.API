@@ -35,10 +35,7 @@ var buttonStyleNames = map[ButtonStyle]string{
 
 // String returns the style's stable name.
 func (s ButtonStyle) String() string {
-	if name, ok := buttonStyleNames[s]; ok {
-		return name
-	}
-	return "buttonStyle(?)"
+	return enumName(buttonStyleNames, s, "buttonStyle(?)")
 }
 
 // ShowsIcon reports whether the style renders an icon (small or large), so a renderer

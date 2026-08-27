@@ -122,7 +122,9 @@ var assemblyJointOriginModeNames = map[AssemblyJointOriginMode]string{
 }
 
 // String returns the origin mode's wire spelling.
-func (m AssemblyJointOriginMode) String() string { return enumName(assemblyJointOriginModeNames, m) }
+func (m AssemblyJointOriginMode) String() string {
+	return enumName(assemblyJointOriginModeNames, m, "enum(?)")
+}
 
 // ParseAssemblyJointOriginMode resolves a wire spelling back to its mode; "" ⇒ JointOriginInfer.
 func ParseAssemblyJointOriginMode(s string) (AssemblyJointOriginMode, bool) {
@@ -219,7 +221,7 @@ var occurrenceDOFStateNames = map[OccurrenceDOFState]string{
 }
 
 // String returns the DOF state's wire spelling.
-func (s OccurrenceDOFState) String() string { return enumName(occurrenceDOFStateNames, s) }
+func (s OccurrenceDOFState) String() string { return enumName(occurrenceDOFStateNames, s, "enum(?)") }
 
 // ParseOccurrenceDOFState resolves a wire spelling back to its DOF state; "" ⇒ NoDegreeOfFreedomState.
 func ParseOccurrenceDOFState(s string) (OccurrenceDOFState, bool) {

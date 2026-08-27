@@ -31,7 +31,9 @@ var geometryMoveableStatusNames = map[GeometryMoveableStatus]string{
 }
 
 // String returns the status's wire spelling.
-func (m GeometryMoveableStatus) String() string { return enumName(geometryMoveableStatusNames, m) }
+func (m GeometryMoveableStatus) String() string {
+	return enumName(geometryMoveableStatusNames, m, "enum(?)")
+}
 
 // ParseGeometryMoveableStatus resolves a wire spelling back to its status.
 func ParseGeometryMoveableStatus(s string) (GeometryMoveableStatus, bool) {

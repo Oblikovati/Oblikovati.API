@@ -28,7 +28,7 @@ var deriveStyleNames = map[DeriveStyle]string{
 }
 
 // String returns the derive style's wire spelling.
-func (s DeriveStyle) String() string { return enumName(deriveStyleNames, s) }
+func (s DeriveStyle) String() string { return enumName(deriveStyleNames, s, "enum(?)") }
 
 // ParseDeriveStyle resolves a wire spelling back to its DeriveStyle.
 func ParseDeriveStyle(s string) (DeriveStyle, bool) { return enumFromName(deriveStyleNames, s) }
@@ -54,7 +54,9 @@ var shrinkwrapRemoveStyleNames = map[ShrinkwrapRemoveStyle]string{
 }
 
 // String returns the remove style's wire spelling.
-func (s ShrinkwrapRemoveStyle) String() string { return enumName(shrinkwrapRemoveStyleNames, s) }
+func (s ShrinkwrapRemoveStyle) String() string {
+	return enumName(shrinkwrapRemoveStyleNames, s, "enum(?)")
+}
 
 // ParseShrinkwrapRemoveStyle resolves a wire spelling back to its ShrinkwrapRemoveStyle.
 func ParseShrinkwrapRemoveStyle(s string) (ShrinkwrapRemoveStyle, bool) {
@@ -82,7 +84,9 @@ var shrinkwrapEnvelopeStyleNames = map[ShrinkwrapEnvelopeStyle]string{
 }
 
 // String returns the envelope style's wire spelling.
-func (s ShrinkwrapEnvelopeStyle) String() string { return enumName(shrinkwrapEnvelopeStyleNames, s) }
+func (s ShrinkwrapEnvelopeStyle) String() string {
+	return enumName(shrinkwrapEnvelopeStyleNames, s, "enum(?)")
+}
 
 // ParseShrinkwrapEnvelopeStyle resolves a wire spelling back to its ShrinkwrapEnvelopeStyle.
 func ParseShrinkwrapEnvelopeStyle(s string) (ShrinkwrapEnvelopeStyle, bool) {

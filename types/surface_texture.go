@@ -27,7 +27,7 @@ var materialRemovalNames = map[MaterialRemoval]string{
 }
 
 // String returns the variant's wire spelling ("any", "required", "prohibited").
-func (m MaterialRemoval) String() string { return enumName(materialRemovalNames, m) }
+func (m MaterialRemoval) String() string { return enumName(materialRemovalNames, m, "enum(?)") }
 
 // ParseMaterialRemoval resolves a wire spelling back to its variant.
 //

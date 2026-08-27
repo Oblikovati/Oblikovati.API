@@ -35,8 +35,5 @@ var miniToolbarControlKindNames = map[MiniToolbarControlKind]string{
 
 // String returns the kind's stable name.
 func (k MiniToolbarControlKind) String() string {
-	if name, ok := miniToolbarControlKindNames[k]; ok {
-		return name
-	}
-	return "miniToolbarControlKind(?)"
+	return enumName(miniToolbarControlKindNames, k, "miniToolbarControlKind(?)")
 }

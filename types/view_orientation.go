@@ -80,16 +80,12 @@ var viewOrientationNames = map[ViewOrientationTypeEnum]string{
 
 // String returns the view-orientation's user-facing name.
 func (v ViewOrientationTypeEnum) String() string {
-	if name, ok := viewOrientationNames[v]; ok {
-		return name
-	}
-	return "viewOrientation(?)"
+	return enumName(viewOrientationNames, v, "viewOrientation(?)")
 }
 
 // IsValid reports whether v is a defined view orientation.
 func (v ViewOrientationTypeEnum) IsValid() bool {
-	_, ok := viewOrientationNames[v]
-	return ok
+	return enumValid(viewOrientationNames, v)
 }
 
 // AllViewOrientations returns every defined view orientation, in the standard picker order.

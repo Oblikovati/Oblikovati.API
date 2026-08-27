@@ -31,7 +31,7 @@ var patternSpacingTypeNames = map[PatternSpacingType]string{
 }
 
 // String returns the spacing type's wire spelling.
-func (t PatternSpacingType) String() string { return enumName(patternSpacingTypeNames, t) }
+func (t PatternSpacingType) String() string { return enumName(patternSpacingTypeNames, t, "enum(?)") }
 
 // ParsePatternSpacingType resolves a wire spelling back to its spacing type.
 func ParsePatternSpacingType(s string) (PatternSpacingType, bool) {
@@ -58,7 +58,7 @@ var patternComputeTypeNames = map[PatternComputeType]string{
 }
 
 // String returns the compute type's wire spelling.
-func (t PatternComputeType) String() string { return enumName(patternComputeTypeNames, t) }
+func (t PatternComputeType) String() string { return enumName(patternComputeTypeNames, t, "enum(?)") }
 
 // ParsePatternComputeType resolves a wire spelling back to its compute type.
 func ParsePatternComputeType(s string) (PatternComputeType, bool) {
@@ -85,7 +85,7 @@ var patternOrientationNames = map[PatternOrientation]string{
 }
 
 // String returns the orientation's wire spelling.
-func (t PatternOrientation) String() string { return enumName(patternOrientationNames, t) }
+func (t PatternOrientation) String() string { return enumName(patternOrientationNames, t, "enum(?)") }
 
 // ParsePatternOrientation resolves a wire spelling back to its orientation.
 func ParsePatternOrientation(s string) (PatternOrientation, bool) {
@@ -110,7 +110,7 @@ var patternPositioningMethodNames = map[PatternPositioningMethod]string{
 
 // String returns the positioning method's wire spelling.
 func (t PatternPositioningMethod) String() string {
-	return enumName(patternPositioningMethodNames, t)
+	return enumName(patternPositioningMethodNames, t, "enum(?)")
 }
 
 // ParsePatternPositioningMethod resolves a wire spelling back to its positioning method.
@@ -140,7 +140,7 @@ var patternBoundaryInclusionNames = map[PatternBoundaryInclusion]string{
 
 // String returns the boundary-inclusion's wire spelling.
 func (t PatternBoundaryInclusion) String() string {
-	return enumName(patternBoundaryInclusionNames, t)
+	return enumName(patternBoundaryInclusionNames, t, "enum(?)")
 }
 
 // ParsePatternBoundaryInclusion resolves a wire spelling back to its inclusion rule.

@@ -31,7 +31,7 @@ var sweepDefinitionTypeNames = map[SweepDefinitionType]string{
 }
 
 // String returns the definition type's wire spelling.
-func (t SweepDefinitionType) String() string { return enumName(sweepDefinitionTypeNames, t) }
+func (t SweepDefinitionType) String() string { return enumName(sweepDefinitionTypeNames, t, "enum(?)") }
 
 // ParseSweepDefinitionType resolves a wire spelling back to its type.
 func ParseSweepDefinitionType(s string) (SweepDefinitionType, bool) {
@@ -57,7 +57,9 @@ var sweepProfileOrientationNames = map[SweepProfileOrientation]string{
 }
 
 // String returns the orientation's wire spelling.
-func (o SweepProfileOrientation) String() string { return enumName(sweepProfileOrientationNames, o) }
+func (o SweepProfileOrientation) String() string {
+	return enumName(sweepProfileOrientationNames, o, "enum(?)")
+}
 
 // ParseSweepProfileOrientation resolves a wire spelling back to its orientation.
 func ParseSweepProfileOrientation(s string) (SweepProfileOrientation, bool) {
@@ -83,7 +85,7 @@ var sweepProfileScalingNames = map[SweepProfileScaling]string{
 }
 
 // String returns the scaling's wire spelling.
-func (s SweepProfileScaling) String() string { return enumName(sweepProfileScalingNames, s) }
+func (s SweepProfileScaling) String() string { return enumName(sweepProfileScalingNames, s, "enum(?)") }
 
 // ParseSweepProfileScaling resolves a wire spelling back to its scaling.
 func ParseSweepProfileScaling(s string) (SweepProfileScaling, bool) {
@@ -109,7 +111,7 @@ var sweepTypeNames = map[SweepType]string{
 }
 
 // String returns the sweep type's wire spelling.
-func (t SweepType) String() string { return enumName(sweepTypeNames, t) }
+func (t SweepType) String() string { return enumName(sweepTypeNames, t, "enum(?)") }
 
 // ParseSweepType resolves a wire spelling back to its type.
 func ParseSweepType(s string) (SweepType, bool) { return enumFromName(sweepTypeNames, s) }

@@ -24,7 +24,7 @@ var filletTypeNames = map[FilletType]string{
 }
 
 // String returns the fillet type's wire spelling.
-func (t FilletType) String() string { return enumName(filletTypeNames, t) }
+func (t FilletType) String() string { return enumName(filletTypeNames, t, "enum(?)") }
 
 // ParseFilletType resolves a wire spelling back to its type.
 func ParseFilletType(s string) (FilletType, bool) { return enumFromName(filletTypeNames, s) }
@@ -59,7 +59,7 @@ var filletCornerTypeNames = map[FilletCornerType]string{
 }
 
 // String returns the corner type's wire spelling.
-func (t FilletCornerType) String() string { return enumName(filletCornerTypeNames, t) }
+func (t FilletCornerType) String() string { return enumName(filletCornerTypeNames, t, "enum(?)") }
 
 // ParseFilletCornerType resolves a wire spelling back to its corner type.
 func ParseFilletCornerType(s string) (FilletCornerType, bool) {
@@ -128,7 +128,7 @@ var featureApproximationTypeNames = map[FeatureApproximationType]string{
 
 // String returns the approximation's wire spelling.
 func (t FeatureApproximationType) String() string {
-	return enumName(featureApproximationTypeNames, t)
+	return enumName(featureApproximationTypeNames, t, "enum(?)")
 }
 
 // ParseFeatureApproximationType resolves a wire spelling back to its type.
@@ -155,7 +155,9 @@ var modelDiameterFromThreadNames = map[ModelDiameterFromThread]string{
 }
 
 // String returns the model diameter's wire spelling.
-func (t ModelDiameterFromThread) String() string { return enumName(modelDiameterFromThreadNames, t) }
+func (t ModelDiameterFromThread) String() string {
+	return enumName(modelDiameterFromThreadNames, t, "enum(?)")
+}
 
 // ParseModelDiameterFromThread resolves a wire spelling back to its value.
 func ParseModelDiameterFromThread(s string) (ModelDiameterFromThread, bool) {
@@ -187,7 +189,9 @@ var directEditOperationTypeNames = map[DirectEditOperationType]string{
 }
 
 // String returns the operation's wire spelling.
-func (t DirectEditOperationType) String() string { return enumName(directEditOperationTypeNames, t) }
+func (t DirectEditOperationType) String() string {
+	return enumName(directEditOperationTypeNames, t, "enum(?)")
+}
 
 // ParseDirectEditOperationType resolves a wire spelling back to its operation.
 func ParseDirectEditOperationType(s string) (DirectEditOperationType, bool) {
@@ -213,7 +217,7 @@ var splitTypeNames = map[SplitType]string{
 }
 
 // String returns the split type's wire spelling.
-func (t SplitType) String() string { return enumName(splitTypeNames, t) }
+func (t SplitType) String() string { return enumName(splitTypeNames, t, "enum(?)") }
 
 // ParseSplitType resolves a wire spelling back to its type.
 func ParseSplitType(s string) (SplitType, bool) { return enumFromName(splitTypeNames, s) }
@@ -240,7 +244,7 @@ var chamferTypeNames = map[ChamferType]string{
 }
 
 // String returns the chamfer type's wire spelling.
-func (t ChamferType) String() string { return enumName(chamferTypeNames, t) }
+func (t ChamferType) String() string { return enumName(chamferTypeNames, t, "enum(?)") }
 
 // ParseChamferType resolves a wire spelling back to its type.
 func ParseChamferType(s string) (ChamferType, bool) { return enumFromName(chamferTypeNames, s) }
@@ -271,7 +275,9 @@ var chamferConcaveStrategyNames = map[ChamferConcaveStrategy]string{
 }
 
 // String returns the concave strategy's wire spelling.
-func (t ChamferConcaveStrategy) String() string { return enumName(chamferConcaveStrategyNames, t) }
+func (t ChamferConcaveStrategy) String() string {
+	return enumName(chamferConcaveStrategyNames, t, "enum(?)")
+}
 
 // ParseChamferConcaveStrategy resolves a wire spelling back to its strategy.
 func ParseChamferConcaveStrategy(s string) (ChamferConcaveStrategy, bool) {
@@ -303,7 +309,9 @@ var filletConcaveStrategyNames = map[FilletConcaveStrategy]string{
 }
 
 // String returns the concave strategy's wire spelling.
-func (t FilletConcaveStrategy) String() string { return enumName(filletConcaveStrategyNames, t) }
+func (t FilletConcaveStrategy) String() string {
+	return enumName(filletConcaveStrategyNames, t, "enum(?)")
+}
 
 // ParseFilletConcaveStrategy resolves a wire spelling back to its strategy.
 func ParseFilletConcaveStrategy(s string) (FilletConcaveStrategy, bool) {

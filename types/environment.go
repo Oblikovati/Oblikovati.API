@@ -29,8 +29,5 @@ var environmentNames = map[Environment]string{
 
 // String returns the environment's stable name.
 func (e Environment) String() string {
-	if name, ok := environmentNames[e]; ok {
-		return name
-	}
-	return "environment(?)"
+	return enumName(environmentNames, e, "environment(?)")
 }

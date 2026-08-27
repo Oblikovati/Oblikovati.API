@@ -26,16 +26,12 @@ var styleLocationNames = map[StyleLocationEnum]string{
 
 // String returns the style-location's user-facing name.
 func (s StyleLocationEnum) String() string {
-	if name, ok := styleLocationNames[s]; ok {
-		return name
-	}
-	return "styleLocation(?)"
+	return enumName(styleLocationNames, s, "styleLocation(?)")
 }
 
 // IsValid reports whether s is a defined style location.
 func (s StyleLocationEnum) IsValid() bool {
-	_, ok := styleLocationNames[s]
-	return ok
+	return enumValid(styleLocationNames, s)
 }
 
 // AllStyleLocations returns every defined style location.

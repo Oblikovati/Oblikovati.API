@@ -21,8 +21,5 @@ var promptRestrictionNames = map[PromptRestriction]string{
 
 // String returns the restriction's stable name.
 func (p PromptRestriction) String() string {
-	if name, ok := promptRestrictionNames[p]; ok {
-		return name
-	}
-	return "promptRestriction(?)"
+	return enumName(promptRestrictionNames, p, "promptRestriction(?)")
 }

@@ -21,8 +21,5 @@ var windowStateNames = map[WindowState]string{
 
 // String returns the state's stable name.
 func (w WindowState) String() string {
-	if name, ok := windowStateNames[w]; ok {
-		return name
-	}
-	return "windowState(?)"
+	return enumName(windowStateNames, w, "windowState(?)")
 }

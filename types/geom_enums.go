@@ -34,10 +34,7 @@ var curveTypeNames = map[CurveType]string{
 
 // String returns the kind's stable name.
 func (t CurveType) String() string {
-	if name, ok := curveTypeNames[t]; ok {
-		return name
-	}
-	return "curveType(?)"
+	return enumName(curveTypeNames, t, "curveType(?)")
 }
 
 // Curve2dType identifies a 2D transient curve's concrete kind.
@@ -64,10 +61,7 @@ var curve2dTypeNames = map[Curve2dType]string{
 
 // String returns the kind's stable name.
 func (t Curve2dType) String() string {
-	if name, ok := curve2dTypeNames[t]; ok {
-		return name
-	}
-	return "curve2dType(?)"
+	return enumName(curve2dTypeNames, t, "curve2dType(?)")
 }
 
 // SurfaceType identifies a transient surface's concrete kind.
@@ -94,10 +88,7 @@ var surfaceTypeNames = map[SurfaceType]string{
 
 // String returns the kind's stable name.
 func (t SurfaceType) String() string {
-	if name, ok := surfaceTypeNames[t]; ok {
-		return name
-	}
-	return "surfaceType(?)"
+	return enumName(surfaceTypeNames, t, "surfaceType(?)")
 }
 
 // CurveGeometryForm is whether a curve is exactly representable as NURBS data.

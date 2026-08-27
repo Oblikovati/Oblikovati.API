@@ -36,7 +36,7 @@ var unitsTypeNames = map[UnitsType]string{
 }
 
 // String returns the category's wire spelling (e.g. "length").
-func (u UnitsType) String() string { return enumName(unitsTypeNames, u) }
+func (u UnitsType) String() string { return enumName(unitsTypeNames, u, "enum(?)") }
 
 // ParseUnitsType resolves a wire spelling back to its UnitsType.
 func ParseUnitsType(s string) (UnitsType, bool) { return enumFromName(unitsTypeNames, s) }

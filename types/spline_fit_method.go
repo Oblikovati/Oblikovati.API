@@ -28,7 +28,7 @@ var splineFitMethodNames = map[SplineFitMethod]string{
 }
 
 // String returns the fit method's wire spelling.
-func (m SplineFitMethod) String() string { return enumName(splineFitMethodNames, m) }
+func (m SplineFitMethod) String() string { return enumName(splineFitMethodNames, m, "enum(?)") }
 
 // ParseSplineFitMethod resolves a wire spelling back to its method.
 func ParseSplineFitMethod(s string) (SplineFitMethod, bool) {

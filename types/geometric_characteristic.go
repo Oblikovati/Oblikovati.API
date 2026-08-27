@@ -58,7 +58,9 @@ var geometricCharacteristicNames = map[GeometricCharacteristic]string{
 }
 
 // String returns the characteristic's wire spelling.
-func (c GeometricCharacteristic) String() string { return enumName(geometricCharacteristicNames, c) }
+func (c GeometricCharacteristic) String() string {
+	return enumName(geometricCharacteristicNames, c, "enum(?)")
+}
 
 // ParseGeometricCharacteristic resolves a wire spelling back to its characteristic.
 func ParseGeometricCharacteristic(s string) (GeometricCharacteristic, bool) {

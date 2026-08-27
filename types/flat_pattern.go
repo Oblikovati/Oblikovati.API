@@ -26,7 +26,7 @@ var alignmentTypeNames = map[AlignmentType]string{
 }
 
 // String returns the alignment type's wire spelling.
-func (a AlignmentType) String() string { return enumName(alignmentTypeNames, a) }
+func (a AlignmentType) String() string { return enumName(alignmentTypeNames, a, "enum(?)") }
 
 // ParseAlignmentType resolves a wire spelling back to its alignment type.
 func ParseAlignmentType(s string) (AlignmentType, bool) {
@@ -55,7 +55,7 @@ var flatPatternEdgeTypeNames = map[FlatPatternEdgeType]string{
 }
 
 // String returns the edge type's wire spelling.
-func (e FlatPatternEdgeType) String() string { return enumName(flatPatternEdgeTypeNames, e) }
+func (e FlatPatternEdgeType) String() string { return enumName(flatPatternEdgeTypeNames, e, "enum(?)") }
 
 // ParseFlatPatternEdgeType resolves a wire spelling back to its edge type.
 func ParseFlatPatternEdgeType(s string) (FlatPatternEdgeType, bool) {
@@ -85,7 +85,7 @@ var flatPatternFaceTypeNames = map[FlatPatternFaceType]string{
 }
 
 // String returns the face type's wire spelling.
-func (f FlatPatternFaceType) String() string { return enumName(flatPatternFaceTypeNames, f) }
+func (f FlatPatternFaceType) String() string { return enumName(flatPatternFaceTypeNames, f, "enum(?)") }
 
 // ParseFlatPatternFaceType resolves a wire spelling back to its face type.
 func ParseFlatPatternFaceType(s string) (FlatPatternFaceType, bool) {

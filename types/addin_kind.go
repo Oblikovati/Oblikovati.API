@@ -23,8 +23,5 @@ var addInKindNames = map[AddInKind]string{
 
 // String returns the kind's stable name ("standard", "translator").
 func (k AddInKind) String() string {
-	if name, ok := addInKindNames[k]; ok {
-		return name
-	}
-	return "addInKind(?)"
+	return enumName(addInKindNames, k, "addInKind(?)")
 }

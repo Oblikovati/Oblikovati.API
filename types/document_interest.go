@@ -24,7 +24,9 @@ var documentInterestTypeNames = map[DocumentInterestType]string{
 }
 
 // String returns the interest type's wire spelling.
-func (t DocumentInterestType) String() string { return enumName(documentInterestTypeNames, t) }
+func (t DocumentInterestType) String() string {
+	return enumName(documentInterestTypeNames, t, "enum(?)")
+}
 
 // ParseDocumentInterestType resolves a wire spelling back to its type.
 func ParseDocumentInterestType(s string) (DocumentInterestType, bool) {

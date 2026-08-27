@@ -24,16 +24,12 @@ var lightingStyleTypeNames = map[LightingStyleTypeEnum]string{
 
 // String returns the lighting-style type's user-facing name.
 func (t LightingStyleTypeEnum) String() string {
-	if name, ok := lightingStyleTypeNames[t]; ok {
-		return name
-	}
-	return "lightingStyleType(?)"
+	return enumName(lightingStyleTypeNames, t, "lightingStyleType(?)")
 }
 
 // IsValid reports whether t is a defined lighting-style type.
 func (t LightingStyleTypeEnum) IsValid() bool {
-	_, ok := lightingStyleTypeNames[t]
-	return ok
+	return enumValid(lightingStyleTypeNames, t)
 }
 
 // AllLightingStyleTypes returns every defined lighting-style type.
