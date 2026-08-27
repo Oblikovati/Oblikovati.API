@@ -32,16 +32,26 @@ func (o Options) getGroup(group string) (wire.OptionGroupView, error) {
 	return call[wire.OptionGroupView](o.c, wire.MethodOptionsGetGroup, wire.GetOptionGroupArgs{Group: group})
 }
 
+// optionGroupField fetches group and returns the field sel selects from its
+// union view, erroring when the reply carries no payload for it. group also
+// names the payload in that error (wire.OptionGroupXxx are already the
+// lowercase group words: "general", "display", …).
+func optionGroupField[V any](o Options, group string, sel func(wire.OptionGroupView) *V) (V, error) {
+	r, err := o.getGroup(group)
+	if err != nil {
+		var zero V
+		return zero, err
+	}
+	if f := sel(r); f != nil {
+		return *f, nil
+	}
+	var zero V
+	return zero, fmt.Errorf("client: options.getGroup(%q) reply carries no %s payload", group, group)
+}
+
 // General returns the general options (startup behavior).
 func (o Options) General() (wire.GeneralOptionsView, error) {
-	r, err := o.getGroup(wire.OptionGroupGeneral)
-	if err != nil {
-		return wire.GeneralOptionsView{}, err
-	}
-	if r.General == nil {
-		return wire.GeneralOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no general payload", wire.OptionGroupGeneral)
-	}
-	return *r.General, nil
+	return optionGroupField(o, wire.OptionGroupGeneral, func(r wire.OptionGroupView) *wire.GeneralOptionsView { return r.General })
 }
 
 // SetGeneral writes the general options.
@@ -57,14 +67,7 @@ func (o Options) SetGeneral(v wire.GeneralOptionsView) (wire.OKResult, error) {
 
 // Display returns the display options (color scheme + ViewCube).
 func (o Options) Display() (wire.DisplayOptionsView, error) {
-	r, err := o.getGroup(wire.OptionGroupDisplay)
-	if err != nil {
-		return wire.DisplayOptionsView{}, err
-	}
-	if r.Display == nil {
-		return wire.DisplayOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no display payload", wire.OptionGroupDisplay)
-	}
-	return *r.Display, nil
+	return optionGroupField(o, wire.OptionGroupDisplay, func(r wire.OptionGroupView) *wire.DisplayOptionsView { return r.Display })
 }
 
 // SetDisplay writes the display options.
@@ -78,14 +81,7 @@ func (o Options) SetDisplay(v wire.DisplayOptionsView) (wire.OKResult, error) {
 
 // Sketch returns the sketch options (grid + snapping).
 func (o Options) Sketch() (wire.SketchOptionsView, error) {
-	r, err := o.getGroup(wire.OptionGroupSketch)
-	if err != nil {
-		return wire.SketchOptionsView{}, err
-	}
-	if r.Sketch == nil {
-		return wire.SketchOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no sketch payload", wire.OptionGroupSketch)
-	}
-	return *r.Sketch, nil
+	return optionGroupField(o, wire.OptionGroupSketch, func(r wire.OptionGroupView) *wire.SketchOptionsView { return r.Sketch })
 }
 
 // SetSketch writes the sketch options.
@@ -99,14 +95,7 @@ func (o Options) SetSketch(v wire.SketchOptionsView) (wire.OKResult, error) {
 
 // Part returns the part-modeling defaults.
 func (o Options) Part() (wire.PartOptionsView, error) {
-	r, err := o.getGroup(wire.OptionGroupPart)
-	if err != nil {
-		return wire.PartOptionsView{}, err
-	}
-	if r.Part == nil {
-		return wire.PartOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no part payload", wire.OptionGroupPart)
-	}
-	return *r.Part, nil
+	return optionGroupField(o, wire.OptionGroupPart, func(r wire.OptionGroupView) *wire.PartOptionsView { return r.Part })
 }
 
 // SetPart writes the part-modeling defaults.
@@ -121,14 +110,7 @@ func (o Options) SetPart(v wire.PartOptionsView) (wire.OKResult, error) {
 // Save returns the save policy (thumbnail capture, dependents, old-version
 // retention) (M03-F09).
 func (o Options) Save() (wire.SaveOptionsView, error) {
-	r, err := o.getGroup(wire.OptionGroupSave)
-	if err != nil {
-		return wire.SaveOptionsView{}, err
-	}
-	if r.Save == nil {
-		return wire.SaveOptionsView{}, fmt.Errorf("client: options.getGroup(%q) reply carries no save payload", wire.OptionGroupSave)
-	}
-	return *r.Save, nil
+	return optionGroupField(o, wire.OptionGroupSave, func(r wire.OptionGroupView) *wire.SaveOptionsView { return r.Save })
 }
 
 // SetSave writes the save policy; the host rejects capture modes it cannot
