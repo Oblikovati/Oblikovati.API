@@ -17,12 +17,12 @@ package wire
 //     default, visible). This toggles only viewport display — it is orthogonal to Construction.
 //   - Construction, when true, creates the plane as a construction (hidden, consumer-tied) work
 //     feature: excluded from the browser and with a lifecycle tied to its consuming feature
-//     (Inventor's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept
+//     (the reference CAD API's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept
 //     distinct from Visible; the two are independent (settable in any combination). #1849.
 //   - Proximity is the solution-selection point [x,y,z] (cm) for the tangent kinds
 //     ("plane-tangent", "line-tangent"): a surface has two tangent solutions and the plane lands on
 //     whichever side is nearer this point. Quadrant is the same for "two-planes" — it picks which of
-//     the two bisector solutions. Both are Inventor's ProximityPoint/QuadrantPoint; the choice is
+//     the two bisector solutions. Both are the reference CAD API's ProximityPoint/QuadrantPoint; the choice is
 //     recorded on the definition so it survives recompute. Omitting them keeps a deterministic
 //     default. #1844.
 type CreateWorkPlaneArgs struct {
@@ -149,7 +149,7 @@ type RedefineWorkPlaneResult struct {
 // FlipWorkPlaneArgs is the request of [MethodWorkPlanesFlipNormal]: reverse the normal of the user
 // work plane at Index (its position in [MethodWorkPlanesList]). The flip is recorded on the
 // definition and persists across recompute; the plane does not move, only its normal reverses (an
-// offset plane keeps its offset sign relative to the new normal). Inventor's WorkPlane.FlipNormal.
+// offset plane keeps its offset sign relative to the new normal). The reference CAD API's WorkPlane.FlipNormal.
 // #1851.
 type FlipWorkPlaneArgs struct {
 	Index int `json:"index"`

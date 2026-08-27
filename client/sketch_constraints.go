@@ -54,7 +54,7 @@ func (g Constrain) Vertical(p1, p2 uint64) (wire.AddConstraintResult, error) {
 }
 
 // HorizontalLine / VerticalLine make a single line horizontal / vertical
-// (Inventor's single-entity AddHorizontal/AddVertical, #1871).
+// (the reference CAD API's single-entity AddHorizontal/AddVertical, #1871).
 func (g Constrain) HorizontalLine(line uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintHorizontal, line)
 }
@@ -63,7 +63,7 @@ func (g Constrain) VerticalLine(line uint64) (wire.AddConstraintResult, error) {
 	return g.Add(types.GeoConstraintVertical, line)
 }
 
-// HorizontalAlign / VerticalAlign level two points (Inventor's
+// HorizontalAlign / VerticalAlign level two points (the reference CAD API's
 // HorizontalAlign/VerticalAlign), reported as an align constraint distinct from
 // the single-line horizontal/vertical (#1871).
 func (g Constrain) HorizontalAlign(p1, p2 uint64) (wire.AddConstraintResult, error) {

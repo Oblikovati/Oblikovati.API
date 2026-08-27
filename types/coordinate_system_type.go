@@ -2,8 +2,8 @@
 
 package types
 
-// CoordinateSystemType is how a 3D equation curve's three expressions are interpreted (Inventor
-// SketchEquationCurve3D CoordinateSystemTypeEnum, #1846): Cartesian x/y/z, cylindrical radius/
+// CoordinateSystemType is how a 3D equation curve's three expressions are interpreted (the
+// reference CAD API's SketchEquationCurve3D CoordinateSystemTypeEnum, #1846): Cartesian x/y/z, cylindrical radius/
 // theta/z, or spherical radius/theta/phi. The reference enum's numeric ids are not in-repo, so this
 // is an Oblikovati-owned frozen block — the wire contract is the string spelling; never renumber the
 // ids. The zero value is Cartesian, so an omitted selector keeps the pre-#1846 behaviour.

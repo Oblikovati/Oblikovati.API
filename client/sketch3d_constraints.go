@@ -57,7 +57,7 @@ func (s Sketch3D) ParallelToAxis(index int, line uint64, kind types.Geometric3DC
 }
 
 // OnFace holds the 3D sketch point entity on the part face with reference key faceRef: the point is
-// kept on the surface as the sketch solves, removing one DOF (Inventor OnFaceConstraint3D, #1839).
+// kept on the surface as the sketch solves, removing one DOF (the reference CAD API's OnFaceConstraint3D, #1839).
 func (s Sketch3D) OnFace(index int, point uint64, faceRef string) (wire.AddSketch3DConstraintResult, error) {
 	return s.AddConstraint(wire.AddSketch3DConstraintArgs{
 		SketchIndex: index, Kind: string(types.Geo3DOnFace), Entities: []uint64{point}, FaceRef: faceRef,

@@ -19,10 +19,10 @@ type CreateWorkPointArgs struct {
 	Refs []string  `json:"refs,omitempty"` // reference-model kinds: plane-axis-intersection = [plane, axis]
 	// Proximity is the solution-selection point [x, y, z] (cm) for the curve-and-entity kind: when
 	// the curve pierces the entity at more than one point, the intersection nearest Proximity is
-	// chosen (Inventor's AddByCurveAndEntity ProximityPoint). Omitting it takes the first solution. #1842.
+	// chosen (the reference CAD API's AddByCurveAndEntity ProximityPoint). Omitting it takes the first solution. #1842.
 	Proximity []float64 `json:"proximity,omitempty"`
 	// Construction, when true, creates the point as a construction (hidden, consumer-tied) work
-	// feature — Inventor's WorkPoints.Add* Construction parameter; excluded from the browser and
+	// feature — the reference CAD API's WorkPoints.Add* Construction parameter; excluded from the browser and
 	// auto-deleted with its last consumer. #1849.
 	Construction bool `json:"construction,omitempty"`
 }

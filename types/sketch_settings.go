@@ -18,7 +18,7 @@ type SketchSettings struct {
 	// ConstraintPriority picks the constraint family when the inference engine could apply either.
 	ConstraintPriority ConstraintInferencePriority `json:"constraintPriority"`
 
-	// Snap/grid defaults (Inventor SketchSettings, #1877). XSnapSpacing/YSnapSpacing are the grid
+	// Snap/grid defaults (the reference CAD API's SketchSettings, #1877). XSnapSpacing/YSnapSpacing are the grid
 	// snap increments in cm; SnapsPerMinorGrid subdivides a minor grid cell and
 	// MinorLinesPerMajorGridLine sets how many minor lines fall between major grid lines.
 	XSnapSpacing               float64 `json:"xSnapSpacing"`
@@ -26,8 +26,8 @@ type SketchSettings struct {
 	SnapsPerMinorGrid          int     `json:"snapsPerMinorGrid"`
 	MinorLinesPerMajorGridLine int     `json:"minorLinesPerMajorGridLine"`
 
-	// Constraint display / creation behaviour (Inventor SketchConstraintSettings, #1877).
-	// PersistInferredConstraints keeps inferred constraints as persistent relations — Inventor's
+	// Constraint display / creation behaviour (the reference CAD API's SketchConstraintSettings, #1877).
+	// PersistInferredConstraints keeps inferred constraints as persistent relations — the reference CAD API's
 	// EnablePersistConstraints, distinct from AutoApplyConstraints (which governs whether inference
 	// applies them at all). DisplayConstraintsOnCreation shows constraint glyphs as geometry is
 	// placed; EditDimensionsWhenCreated pops the value editor for a new dimension; OverConstrained
@@ -37,9 +37,9 @@ type SketchSettings struct {
 	EditDimensionsWhenCreated    bool                             `json:"editDimensionsWhenCreated"`
 	OverConstrainedBehavior      OverConstrainedDimensionBehavior `json:"overConstrainedBehavior"`
 
-	// Relax-mode settings (Inventor SketchConstraintSettings, #1877): EnableRelaxMode lets dragging
+	// Relax-mode settings (the reference CAD API's SketchConstraintSettings, #1877): EnableRelaxMode lets dragging
 	// drop conflicting constraints, and KeepDimensionsWithEquationInRelaxMode preserves dimensions
-	// whose value is an equation while relaxing. Inventor's GeometricConstraintsToRemoveInRelaxMode
+	// whose value is an equation while relaxing. The reference CAD API's GeometricConstraintsToRemoveInRelaxMode
 	// (a constraint-family bitmask selecting which relations relax may drop) is intentionally out of
 	// scope: Oblikovati's solver has no selective per-family relax pass to configure yet, and adding
 	// a list field would also make this value struct non-comparable. #1877.
@@ -48,7 +48,7 @@ type SketchSettings struct {
 }
 
 // DefaultSketchSettings is the out-of-the-box configuration: inference and auto-apply on with
-// horizontal/vertical preferred (the pre-#1877 behaviour), plus the Inventor-aligned grid/snap and
+// horizontal/vertical preferred (the pre-#1877 behaviour), plus the reference-API-aligned grid/snap and
 // constraint-display defaults — a 1 mm snap grid, persisted inferred constraints, constraint
 // glyphs shown while geometry is placed, the dimension editor on create, and redundant
 // dimensions added as driven.

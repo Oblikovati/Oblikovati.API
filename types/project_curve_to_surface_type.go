@@ -2,8 +2,8 @@
 
 package types
 
-// ProjectCurveToSurfaceType is how a source curve is projected onto a target surface (Inventor
-// ProjectCurveToSurfaceTypeEnum, #1841): perpendicular to the closest point, along a fixed
+// ProjectCurveToSurfaceType is how a source curve is projected onto a target surface (the
+// reference CAD API's ProjectCurveToSurfaceTypeEnum, #1841): perpendicular to the closest point, along a fixed
 // direction vector, or wrapped (arc-length) onto the surface. The values are a frozen block
 // matching the reference enum. The zero value is not a member; an omitted selector parses to
 // closest-point (the pre-#1841 default).

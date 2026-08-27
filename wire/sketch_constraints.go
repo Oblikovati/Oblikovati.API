@@ -28,7 +28,7 @@ package wire
 //     not a solver constraint (M06-F11, Oblikovati/Oblikovati#626)
 //
 // The UseEllipse*MajorAxis flags select which axis of an ellipse operand is the
-// constrained direction (major when nil/true, minor when false) — Inventor's
+// constrained direction (major when nil/true, minor when false) — the reference CAD API's
 // UseEllipseMajorAxis / UseEllipseOneMajorAxis / UseEllipseTwoMajorAxis (#1879).
 // UseEllipseMajorAxis applies to the single-operand horizontal/vertical form;
 // UseEllipseOneMajorAxis / UseEllipseTwoMajorAxis to the first / second operand

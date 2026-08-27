@@ -40,16 +40,16 @@ func ParseUnfoldMethodType(s string) (UnfoldMethodType, bool) {
 }
 
 // ReliefShape names the cut placed at the ends of a BEND so the material can fold without
-// tearing the adjacent web — Inventor's BendReliefShapeEnum.
+// tearing the adjacent web — the reference CAD API's BendReliefShapeEnum.
 type ReliefShape int32
 
 const (
 	// ReliefRound cuts a rounded (filleted) notch at the bend end — the gentlest on the
-	// material. Inventor's kRound.
+	// material. The reference CAD API's kRound.
 	ReliefRound ReliefShape = iota
-	// ReliefStraight cuts a plain rectangular notch — simplest to laser/punch, and Inventor's
+	// ReliefStraight cuts a plain rectangular notch — simplest to laser/punch, and the reference CAD API's
 	// kStraight, which is the shipped default of its Default style. It was spelled "square"
-	// before the enum was reconciled with Inventor's (#1960); that spelling still parses and
+	// before the enum was reconciled with the reference CAD API's (#1960); that spelling still parses and
 	// means the same rectangular cut, so an existing style is unchanged.
 	ReliefStraight
 	// ReliefTear leaves no cut: the material tears along the bend end (no relief geometry).
@@ -75,11 +75,11 @@ func ParseReliefShape(s string) (ReliefShape, bool) {
 }
 
 // CornerReliefShape names the cut placed where flanges meet at a CORNER — a different set from
-// the bend reliefs, and a separate style property (Inventor's CornerReliefShapeEnum, #1960).
+// the bend reliefs, and a separate style property (the reference CAD API's CornerReliefShapeEnum, #1960).
 type CornerReliefShape int32
 
 const (
-	// CornerTrimToBend trims the corner back to the bend tangents — Inventor's kTrimToBend, the
+	// CornerTrimToBend trims the corner back to the bend tangents — the reference CAD API's kTrimToBend, the
 	// shipped default of its Default style, and the zero value here for the same reason.
 	CornerTrimToBend CornerReliefShape = iota
 	// CornerRound / CornerSquare / CornerTear are the plain notch shapes.
@@ -87,7 +87,7 @@ const (
 	CornerSquare
 	CornerTear
 	// CornerFullRound cuts the corner to a full radius joining both bend reliefs; CornerRoundWithRadius
-	// is the same with an explicit radius (Inventor's default THREE-BEND corner relief).
+	// is the same with an explicit radius (the reference CAD API's default THREE-BEND corner relief).
 	CornerFullRound
 	CornerRoundWithRadius
 	// CornerIntersection leaves the two walls running into each other, relieved only where they cross.
@@ -113,7 +113,7 @@ func ParseCornerReliefShape(s string) (CornerReliefShape, bool) {
 }
 
 // CornerReliefPlacement says where the corner relief sits relative to the bend tangents
-// (Inventor's CornerReliefPlacementEnum, #1960).
+// (the reference CAD API's CornerReliefPlacementEnum, #1960).
 type CornerReliefPlacement int32
 
 const (
@@ -142,7 +142,7 @@ func ParseCornerReliefPlacement(s string) (CornerReliefPlacement, bool) {
 }
 
 // BendTransition is how the material is shaped where a bend zone runs into the face beside it —
-// Inventor's BendTransitionEnum (#1959).
+// the reference CAD API's BendTransitionEnum (#1959).
 //
 // Read the shapes carefully before assuming they are all the same kind of thing: three of them
 // describe the FLAT PATTERN's outline through the transition region (a straight line across the
@@ -151,7 +151,7 @@ func ParseCornerReliefPlacement(s string) (CornerReliefPlacement, bool) {
 type BendTransition int32
 
 const (
-	// NoBendTransition leaves the material as the geometry makes it, which is Inventor's shipped
+	// NoBendTransition leaves the material as the geometry makes it, which is the reference CAD API's shipped
 	// default and the zero value here for the same reason.
 	NoBendTransition BendTransition = iota
 	// IntersectionBendTransition runs a straight line from the bend zone's edge to where it meets
@@ -187,22 +187,22 @@ func ParseBendTransition(s string) (BendTransition, bool) {
 }
 
 // CornerSeamType names how the seam is finished where two flange walls meet at a corner —
-// Inventor's CornerTypeEnum plus the ripped (gap) corner it models with IsRippedCorner (#1964).
+// the reference CAD API's CornerTypeEnum plus the ripped (gap) corner it models with IsRippedCorner (#1964).
 // The four are not interchangeable relief styles: gap LEAVES a controlled gap, no-overlap butts
 // the two walls at a miter, and the two overlaps lap one wall over the other (differing only in
 // WHICH wall is on top), so the choice changes the manufactured corner, not merely its size.
 type CornerSeamType int32
 
 const (
-	// CornerSeamGap leaves a gap between the two walls (Inventor's ripped corner) — the default,
+	// CornerSeamGap leaves a gap between the two walls (the reference CAD API's ripped corner) — the default,
 	// and the zero value so an existing seam record (which stored only a gap) reads back unchanged.
 	CornerSeamGap CornerSeamType = iota
-	// CornerSeamOverlap laps one wall OVER the other by PercentOverlap — Inventor's kCornerOverlap.
+	// CornerSeamOverlap laps one wall OVER the other by PercentOverlap — the reference CAD API's kCornerOverlap.
 	CornerSeamOverlap
 	// CornerSeamReverseOverlap is the same lap with the walls' roles swapped (the other wall on
-	// top) — Inventor's kCornerReverseOverlap.
+	// top) — the reference CAD API's kCornerReverseOverlap.
 	CornerSeamReverseOverlap
-	// CornerSeamNoOverlap butts the two walls with neither gap nor lap — Inventor's kCornerNoOverlap.
+	// CornerSeamNoOverlap butts the two walls with neither gap nor lap — the reference CAD API's kCornerNoOverlap.
 	CornerSeamNoOverlap
 )
 
@@ -225,7 +225,7 @@ func ParseCornerSeamType(s string) (CornerSeamType, bool) {
 	return enumFromName(cornerSeamTypeNames, s)
 }
 
-// CornerSeamDefinitionType says how the seam gap is MEASURED — Inventor's CornerDefinitionTypeEnum
+// CornerSeamDefinitionType says how the seam gap is MEASURED — the reference CAD API's CornerDefinitionTypeEnum
 // (#1964). The two give the same corner only on a square miter: max-distance measures the widest
 // clear span across the corner, while face-edge measures perpendicular from one wall's face to the
 // other's edge, so on an oblique corner they place the relief differently.
@@ -233,7 +233,7 @@ type CornerSeamDefinitionType int32
 
 const (
 	// CornerSeamMaxDistance measures the gap as the maximum clear distance across the corner —
-	// Inventor's kCornerMaxDistance, the default and the zero value.
+	// the reference CAD API's kCornerMaxDistance, the default and the zero value.
 	CornerSeamMaxDistance CornerSeamDefinitionType = iota
 	// CornerSeamFaceEdgeDistance measures it from a wall's face to the neighbour's edge — kCornerFaceEdgeDistance.
 	CornerSeamFaceEdgeDistance
@@ -258,7 +258,7 @@ func ParseCornerSeamDefinitionType(s string) (CornerSeamDefinitionType, bool) {
 	return enumFromName(cornerSeamDefinitionTypeNames, s)
 }
 
-// RipType names how a rip's cut is defined on its face — Inventor's RipTypeEnum (#1965). Every rip
+// RipType names how a rip's cut is defined on its face — the reference CAD API's RipTypeEnum (#1965). Every rip
 // acts on a RipFace; the type says what draws the cut across it: two points, one point, or the
 // whole face. The three are not degrees of the same cut — a single-point rip runs the face's full
 // ruling through the picked point, while a point-to-point rip is bounded by the two points.
@@ -268,7 +268,7 @@ const (
 	// PointToPointRip cuts between two points on the face — the default and the zero value, so the
 	// long-standing two-point (sketch-line) rip keeps its meaning when no type is given.
 	PointToPointRip RipType = iota
-	// SinglePointRip cuts the face's full extent through one point — Inventor's kSinglePointRipType,
+	// SinglePointRip cuts the face's full extent through one point — the reference CAD API's kSinglePointRipType,
 	// the usual way to split a rolled tube open along a generator.
 	SinglePointRip
 	// FaceExtentsRip cuts the face's whole extent with no picked point — kFaceExtentsRipType.
@@ -293,7 +293,7 @@ func ParseRipType(s string) (RipType, bool) {
 	return enumFromName(ripTypeNames, s)
 }
 
-// LoftedFlangeOutputType names how a lofted flange's transition wall is CALCULATED — Inventor's
+// LoftedFlangeOutputType names how a lofted flange's transition wall is CALCULATED — the reference CAD API's
 // LoftedFlangeOutputTypeEnum (#1966). Die-formed is the smooth stamped surface; the three
 // press-brake modes facet that surface into flat plates joined by bends so it can be folded on a
 // brake, each mode measuring the facet tolerance a different way.
@@ -334,7 +334,7 @@ func ParseLoftedFlangeOutputType(s string) (LoftedFlangeOutputType, bool) {
 // IsPressBrake reports whether the output type is one of the faceted press-brake modes.
 func (l LoftedFlangeOutputType) IsPressBrake() bool { return l != DieFormedLoftedFlange }
 
-// PunchRepresentationType names how a punch shows in the flat pattern and on a drawing — Inventor's
+// PunchRepresentationType names how a punch shows in the flat pattern and on a drawing — the reference CAD API's
 // PunchRepresentationTypeEnum (#1968). It carries no solid geometry; it drives whether the flat and
 // drawing draw the punch as its formed feature, a 2D sketch outline, a centre mark, or both.
 type PunchRepresentationType int32

@@ -85,16 +85,16 @@ type Mirror struct {
 	Normal         []float64 `json:"normal,omitempty"`
 	// Mode picks what is reflected: "features" (default) re-applies the source features'
 	// own tools on the far side of the plane; "body" reflects the whole running solid,
-	// which is how a symmetric part is usually built (#1890). Inventor spells the same
+	// which is how a symmetric part is usually built (#1890). The reference CAD API spells the same
 	// choice MirrorFeature.MirrorOfBody.
 	Mode string `json:"mode,omitempty"`
 	// RemoveOriginal keeps only the reflected half, discarding the source — how a handed
-	// variant is made. Body mode only, matching Inventor, where RemoveOriginal "only
+	// variant is made. Body mode only, matching the reference CAD API, where RemoveOriginal "only
 	// applies if MirrorOfBody is True".
 	RemoveOriginal bool `json:"removeOriginal,omitempty"`
 	// Operation is how the reflection joins the model: "newBody" (default) leaves it a
 	// separate solid, "join" unions it with the original into one. Body mode only, again
-	// matching Inventor's restriction to kNewBodyOperation / kJoinOperation.
+	// matching the reference CAD API's restriction to kNewBodyOperation / kJoinOperation.
 	Operation string `json:"operation,omitempty"`
 }
 

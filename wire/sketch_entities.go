@@ -25,7 +25,7 @@ type AddSketchEntityArgs struct {
 	Radius       string     `json:"radius,omitempty"`
 	CCW          bool       `json:"ccw,omitempty"`
 	Construction bool       `json:"construction,omitempty"`
-	// Centerline marks a line as the sketch's axis of revolution — Inventor's "revolve about
+	// Centerline marks a line as the sketch's axis of revolution — the reference CAD API's "revolve about
 	// the sketch centerline". It implies Construction (a centerline is reference geometry that
 	// is never part of a profile). A revolve with no explicit axis spins about the sketch's
 	// single centerline; two centerlines in one sketch are ambiguous. Only meaningful for the

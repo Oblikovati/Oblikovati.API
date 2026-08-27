@@ -86,7 +86,7 @@ const (
 	GeoConstraintPointOnCircle GeometricConstraintKind = "pointOnCircle"
 	GeoConstraintHorizontal    GeometricConstraintKind = "horizontal"
 	GeoConstraintVertical      GeometricConstraintKind = "vertical"
-	// GeoConstraintHorizontalAlign / VerticalAlign level TWO points (Inventor's
+	// GeoConstraintHorizontalAlign / VerticalAlign level TWO points (the reference CAD API's
 	// HorizontalAlign/VerticalAlign), distinct from the single-entity horizontal/
 	// vertical that makes one line (or an ellipse axis) horizontal/vertical
 	// (#1871): a single line ref under horizontal/vertical is the single-entity
@@ -136,7 +136,7 @@ const (
 	// AddDimensionArgs.FarSide (Oblikovati/Oblikovati#152).
 	DimConstraintTangentDistance DimensionConstraintKind = "tangentDistance"
 	// DimConstraintOffsetSpline drives the offset distance of a SketchOffsetSpline from its
-	// parent spline (Inventor OffsetSplineDimConstraint / AddOffsetSpline, #1874). Its single
+	// parent spline (the reference CAD API's OffsetSplineDimConstraint / AddOffsetSpline, #1874). Its single
 	// operand is the offset-spline entity id.
 	DimConstraintOffsetSpline DimensionConstraintKind = "offsetSplineDim"
 	DimConstraintUnknown      DimensionConstraintKind = "unknown"

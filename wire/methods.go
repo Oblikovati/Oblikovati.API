@@ -208,7 +208,7 @@ const (
 	MethodSketchAutoDimension    = "sketch.autoDimension"
 	MethodSketchProject          = "sketch.project"
 	// MethodSketchProjectCutEdges projects the section curves where the sketch plane cuts the
-	// part solid (Inventor PlanarSketch.ProjectedCuts, #1873); MethodSketchProjectSilhouette
+	// part solid (the reference CAD API's PlanarSketch.ProjectedCuts, #1873); MethodSketchProjectSilhouette
 	// projects a face's silhouette onto the sketch plane (AddBySilhouette). Both create
 	// associative reference geometry that recomputes with the model.
 	MethodSketchProjectCutEdges   = "sketch.projectCutEdges"

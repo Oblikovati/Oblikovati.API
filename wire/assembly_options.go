@@ -3,7 +3,7 @@
 package wire
 
 // Assembly editing options (#1981): the assembly-modeling option set that governs placement,
-// adaptivity, update deferral, and section/opacity defaults (Inventor's AssemblyOptions). Two options
+// adaptivity, update deferral, and section/opacity defaults (the reference CAD API's AssemblyOptions). Two options
 // change host behaviour — PlaceAndGroundFirstComponentAtOrigin grounds the first placed component, and
 // DeferUpdate batches recomputes until it is cleared — the rest are stored defaults the head reads.
 

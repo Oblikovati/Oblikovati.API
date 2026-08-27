@@ -25,7 +25,7 @@ func (s Sketch) AddLine(index int, a, b []float64, construction bool) (wire.AddS
 }
 
 // AddCenterline adds a construction line between two points (each [x,y] in cm) marked as the
-// sketch's axis of revolution — Inventor's "revolve about the sketch centerline". A revolve
+// sketch's axis of revolution — the reference CAD API's "revolve about the sketch centerline". A revolve
 // with no explicit axis then spins its profile about this line, so a procedural part can be
 // revolved about an internal, tilted axis without an external work axis. Only one centerline
 // per sketch is unambiguous.

@@ -99,7 +99,7 @@ func (t AssemblyJointOriginDefinitionType) String() string {
 	}
 }
 
-// AssemblyJointOriginMode is HOW a joint origin's frame is positioned on its component (Inventor's
+// AssemblyJointOriginMode is HOW a joint origin's frame is positioned on its component (the reference CAD API's
 // AssemblyJointOriginDefinitionTypeEnum) — inferred from the picked geometry, offset from it by X/Y
 // parameters, or projected to the midplane between two faces. This is a positioning mode, distinct
 // from [AssemblyJointOriginDefinitionType] (which geometry kind was picked). The zero value is
@@ -200,7 +200,7 @@ func (t DSDOFImposedMotionType) String() string {
 	}
 }
 
-// OccurrenceDOFState classifies a single degree of freedom for "show DOF" purposes (Inventor's
+// OccurrenceDOFState classifies a single degree of freedom for "show DOF" purposes (the reference CAD API's
 // OccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state
 // value. The zero value is NoDegreeOfFreedomState.
 type OccurrenceDOFState int32

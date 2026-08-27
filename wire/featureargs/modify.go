@@ -23,13 +23,13 @@ type Combine struct {
 	TargetIndex int `json:"targetIndex"`
 	ToolIndex   int `json:"toolIndex"`
 	// ToolIndices booleans the base against SEVERAL tool bodies in one feature (#1894), the way
-	// Inventor's CombineDefinition takes a collection. Splitting them into N features instead
+	// the reference CAD API's CombineDefinition takes a collection. Splitting them into N features instead
 	// changes both the tree and the boolean order, which a cut against overlapping tools can see.
 	// Takes precedence over ToolIndex; give one or the other.
 	ToolIndices []int  `json:"toolIndices,omitempty"`
 	Operation   string `json:"operation"`
 	// KeepToolBodies leaves the tool bodies in the part after the boolean instead of consuming
-	// them (Inventor's KeepToolBodies), so one tool can go on to cut something else. Default
+	// them (the reference CAD API's KeepToolBodies), so one tool can go on to cut something else. Default
 	// false, which is the ordinary consuming combine.
 	KeepToolBodies bool `json:"keepToolBodies,omitempty"`
 }
@@ -38,7 +38,7 @@ type Combine struct {
 func (Combine) Kind() string { return KindCombine }
 
 // Thicken thickens a surface body into a solid — or, with Operation surface, offsets it as a
-// surface (KindThicken). Direction (positive|negative|symmetric, default positive per Inventor)
+// surface (KindThicken). Direction (positive|negative|symmetric, default positive per the reference CAD API)
 // picks the offset side(s); Operation (join|cut|intersect|surface) picks the output; FaceRefs
 // thickens a subset (empty = whole body); CreateVerticalSurfaces (default true) closes subset
 // boundaries with side walls. AutomaticFaceChain / AutomaticBlending are accepted for parity but,
@@ -99,7 +99,7 @@ type FaceOffset struct {
 // Kind reports the feature kind FaceOffset creates.
 func (FaceOffset) Kind() string { return KindFaceOffset }
 
-// DeleteFace deletes picked faces (KindDeleteFace). Heal (default false, matching Inventor's
+// DeleteFace deletes picked faces (KindDeleteFace). Heal (default false, matching the reference CAD API's
 // DeleteFaceFeatures.Add) extends the neighbouring faces to close the opening; when false the
 // faces are removed leaving an open surface body. Selecting the faces of an internal void shell
 // instead removes that void and restores mass (the FaceShell arm) (#1884).
