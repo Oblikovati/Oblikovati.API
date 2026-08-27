@@ -18,10 +18,6 @@ type ObjectCollectionByVariant struct {
 	entries wire.KeyedObjectRefList
 }
 
-// errIndexRangeFmt is the shared out-of-range message for the index-addressed
-// accessors (KeyAt/At/RemoveAt); args are the offending index and the length.
-const errIndexRangeFmt = "client: ObjectCollectionByVariant index %d out of range [0,%d)"
-
 var _ contract.ObjectCollectionByVariant = (*ObjectCollectionByVariant)(nil)
 
 // Count returns the number of entries.
@@ -29,18 +25,14 @@ func (c *ObjectCollectionByVariant) Count() int { return len(c.entries) }
 
 // KeyAt returns the key at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) KeyAt(index int) (string, error) {
-	if index < 0 || index >= len(c.entries) {
-		return "", fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
-	}
-	return c.entries[index].Key, nil
+	e, err := boundsCheckedAt(c.entries, index, "ObjectCollectionByVariant")
+	return e.Key, err
 }
 
 // At returns the reference at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) At(index int) (types.ObjectRef, error) {
-	if index < 0 || index >= len(c.entries) {
-		return types.ObjectRef{}, fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
-	}
-	return c.entries[index].Ref, nil
+	e, err := boundsCheckedAt(c.entries, index, "ObjectCollectionByVariant")
+	return e.Ref, err
 }
 
 // ByKey returns the reference for key, ok=false when absent.
@@ -72,8 +64,8 @@ func (c *ObjectCollectionByVariant) Remove(key string) bool {
 
 // RemoveAt deletes the entry at the 0-based index, erroring out of range.
 func (c *ObjectCollectionByVariant) RemoveAt(index int) error {
-	if index < 0 || index >= len(c.entries) {
-		return fmt.Errorf(errIndexRangeFmt, index, len(c.entries))
+	if _, err := boundsCheckedAt(c.entries, index, "ObjectCollectionByVariant"); err != nil {
+		return err
 	}
 	c.entries = append(c.entries[:index], c.entries[index+1:]...)
 	return nil
@@ -97,10 +89,5 @@ func (c *ObjectCollectionByVariant) UnmarshalJSON(b []byte) error {
 
 // indexOf returns the position of key, or -1.
 func (c *ObjectCollectionByVariant) indexOf(key string) int {
-	for i, e := range c.entries {
-		if e.Key == key {
-			return i
-		}
-	}
-	return -1
+	return indexOfFunc(c.entries, func(e wire.KeyedObjectRef) bool { return e.Key == key })
 }
