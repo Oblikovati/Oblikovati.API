@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.153.0] - 2026-08-27
+
+### Added
+
+- feat: convert Client.call to a generic method
+
 ## [0.152.0] - 2026-08-26
 
 ### Added
@@ -1273,7 +1279,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...HEAD
+[0.153.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...v0.153.0
 [0.152.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...v0.152.0
 [0.151.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.0...v0.151.1
 [0.151.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.150.0...v0.151.0
