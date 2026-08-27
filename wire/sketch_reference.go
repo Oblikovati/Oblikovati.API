@@ -74,14 +74,14 @@ type ProjectGeometryResult struct {
 
 // ProjectCutEdgesArgs is the request of [MethodSketchProjectCutEdges]: project the section
 // curves where the sketch plane cuts the part solid, as associative reference geometry — one
-// projected curve per section loop (Inventor PlanarSketch.ProjectedCuts, #1873).
+// projected curve per section loop (the reference CAD API's PlanarSketch.ProjectedCuts, #1873).
 type ProjectCutEdgesArgs struct {
 	SketchIndex int `json:"sketchIndex"`
 }
 
 // ProjectSilhouetteArgs is the request of [MethodSketchProjectSilhouette]: project the
 // silhouette of the face with reference key FaceRef onto the sketch plane, viewed along the
-// plane normal (Inventor PlanarSketch.AddBySilhouette, #1873). ProximityPoint ([x,y,z] model
+// plane normal (the reference CAD API's PlanarSketch.AddBySilhouette, #1873). ProximityPoint ([x,y,z] model
 // cm) selects which silhouette loop when a face has several — the one nearest the point.
 // IncludeBoundary keeps silhouette runs that coincide with the face's own edges.
 type ProjectSilhouetteArgs struct {

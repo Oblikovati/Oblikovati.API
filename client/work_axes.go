@@ -80,7 +80,7 @@ func (w WorkAxes) AnalyticEdge(edge string) (wire.CreateWorkAxisResult, error) {
 	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisAnalyticEdge), Refs: []string{edge}})
 }
 
-// LineByEntity adds the axis along a linear edge reference (Inventor's AddByLine on an edge); see
+// LineByEntity adds the axis along a linear edge reference (the reference CAD API's AddByLine on an edge); see
 // AnalyticEdge for the reference forms (#1840).
 func (w WorkAxes) LineByEntity(edge string) (wire.CreateWorkAxisResult, error) {
 	return w.Create(wire.CreateWorkAxisArgs{Kind: string(types.WorkAxisLineByEntity), Refs: []string{edge}})

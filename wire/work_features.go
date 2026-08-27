@@ -13,7 +13,7 @@ type SetWorkFeatureVisibleArgs struct {
 // DeleteWorkFeatureArgs is the request of [MethodWorkFeaturesDelete]: remove the user datum work
 // feature (plane, axis, or point) named by Ref (a "plane/N" / "axis/N" / "point/N" reference).
 //
-// RetainDependents mirrors Inventor's WorkFeature.Delete(RetainDependents): when false (Inventor's
+// RetainDependents mirrors the reference CAD API's WorkFeature.Delete(RetainDependents): when false (the reference CAD API's
 // default) every user work feature that references the datum, directly or transitively, is deleted
 // with it; when true those dependents are left in place and go unhealthy, since their reference no
 // longer resolves. Deleting an origin / coordinate-system datum, an unknown ref, or an

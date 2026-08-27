@@ -14,7 +14,7 @@ package wire
 //     (types.WorkRefCenter, types.WorkRefXYPlane …). Each kind expects a fixed count/order:
 //     "two-points" wants two point refs; "plane-intersection" wants two plane refs.
 //   - Construction, when true, creates the axis as a construction (hidden, consumer-tied) work
-//     feature — Inventor's WorkAxes.Add* Construction parameter; excluded from the browser and
+//     feature — the reference CAD API's WorkAxes.Add* Construction parameter; excluded from the browser and
 //     auto-deleted with its last consumer. #1849.
 type CreateWorkAxisArgs struct {
 	Kind         string    `json:"kind"`

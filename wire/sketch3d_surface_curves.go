@@ -20,7 +20,7 @@ type AddSketch3DSurfaceCurveArgs struct {
 	Kind        string   `json:"kind"`
 	FaceRefs    []string `json:"faceRefs"`
 	// WorkRefs are work-plane reference keys usable as intersection operands alongside FaceRefs
-	// (Inventor IntersectionCurves.Add accepts any two entities; #1854). An intersection takes two
+	// (the reference CAD API's IntersectionCurves.Add accepts any two entities; #1854). An intersection takes two
 	// operands total across FaceRefs+WorkRefs; a work plane contributes its infinite plane surface.
 	WorkRefs []string  `json:"workRefs,omitempty"`
 	ViewDir  []float64 `json:"viewDir,omitempty"`

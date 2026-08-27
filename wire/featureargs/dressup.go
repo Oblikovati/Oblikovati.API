@@ -49,7 +49,7 @@ type Fillet struct {
 	// not mint keys for. When set it supplies the edges; EdgeRefs becomes optional. See [GeomEdgeSel].
 	EdgesGeom []GeomEdgeSel `json:"edgesGeom,omitempty"`
 	// Width drives a FACE fillet by the chord it spans instead of by the rolling ball's radius —
-	// Inventor's chordal alternative on FaceFilletDefinition, and what gets measured on the part
+	// the reference CAD API's chordal alternative on FaceFilletDefinition, and what gets measured on the part
 	// (#1887). Unit-bearing, e.g. "4 mm". When set it wins over Radius; the host resolves it against
 	// the angle the two face sets meet at, so they must share an edge and be planar.
 	Width string `json:"width,omitempty"`
@@ -74,7 +74,7 @@ type Chamfer struct {
 	// mirrored geometry that can land the larger setback on the wrong face and change the part.
 	ReferenceFace string `json:"referenceFace,omitempty"`
 	// PartialStart and PartialLength bevel only a SPAN of each edge, measured from its start
-	// vertex (Inventor's partial chamfer). Unit-bearing, e.g. "5 mm"; omit PartialLength for the
+	// vertex (the reference CAD API's partial chamfer). Unit-bearing, e.g. "5 mm"; omit PartialLength for the
 	// whole edge.
 	PartialStart  string `json:"partialStart,omitempty"`
 	PartialLength string `json:"partialLength,omitempty"`
@@ -108,12 +108,12 @@ type Draft struct {
 	FaceRefs []string `json:"faceRefs"`
 	Angle    string   `json:"angle,omitempty"`
 	// PullDirection is the explicit pull/parting direction as a unit vector (matches
-	// InventorDraft.Pull); nil ⇒ the host infers it from the neutral faces (current behavior).
+	// the reference CAD API's Draft.Pull); nil ⇒ the host infers it from the neutral faces (current behavior).
 	PullDirection []float64 `json:"pullDirection,omitempty"`
 	// FacesGeom selects the drafted faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
 	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
 	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
-	// NeutralPlane names the fixed (neutral) plane for a fixed-plane face draft — Inventor's
+	// NeutralPlane names the fixed (neutral) plane for a fixed-plane face draft — the reference CAD API's
 	// kFixedPlaneFaceDraftDefinitionType. Each drafted face pivots on the line where it meets this
 	// plane, so dimensions in the plane are preserved. Value is a planar face reference key, a work
 	// plane ("plane/N"), or an origin plane ("origin/plane/xy"). When set and PullDirection is
@@ -131,12 +131,12 @@ type Shell struct {
 	// FacesGeom selects the removed faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,
 	// so the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.
 	FacesGeom []GeomFaceSel `json:"facesGeom,omitempty"`
-	// Direction is which side of the original faces the wall grows onto — Inventor's
+	// Direction is which side of the original faces the wall grows onto — the reference CAD API's
 	// ShellDirectionEnum: "inside" (default; outer skin kept), "outside" (outer dimensions grow by
 	// thickness), or "both" (wall centred on the faces). Empty ⇒ inside. #1864.
 	Direction string `json:"direction,omitempty"`
 	// FaceThicknesses give named RETAINED faces their own wall thickness on top of Thickness —
-	// Inventor's SetFaceThickness (#1864). A thickened boss wall or a thin window in an otherwise
+	// the reference CAD API's SetFaceThickness (#1864). A thickened boss wall or a thin window in an otherwise
 	// uniform shell; a face that is being REMOVED is an opening and cannot carry one.
 	FaceThicknesses []ShellFaceThickness `json:"faceThicknesses,omitempty"`
 }

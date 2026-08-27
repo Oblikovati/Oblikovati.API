@@ -3,7 +3,7 @@
 package types
 
 // OverConstrainedDimensionBehavior is a document's preference for what happens when a dimension the
-// user adds would over-constrain the sketch (Inventor SketchConstraintSettings.
+// user adds would over-constrain the sketch (the reference CAD API's SketchConstraintSettings.
 // OverConstrainedDimensionBehavior, #1877). The reference enum's numeric ids are not in-repo, so
 // this is an Oblikovati-owned frozen block — the wire contract is the string spelling; never
 // renumber the ids.

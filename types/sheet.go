@@ -118,7 +118,7 @@ func ParseSheetOrientation(s string) (SheetOrientation, bool) {
 	return enumFromName(sheetOrientationNames, s)
 }
 
-// BorderLabelMode is how a zoned border labels one axis of zones (Inventor's BorderLabelModeEnum).
+// BorderLabelMode is how a zoned border labels one axis of zones (the reference CAD API's BorderLabelModeEnum).
 // The zero value is AlphabeticalBorderLabel (A, B, C …), the common default for the vertical axis.
 type BorderLabelMode int32
 
@@ -148,7 +148,7 @@ func ParseBorderLabelMode(s string) (BorderLabelMode, bool) {
 	return enumFromName(borderLabelModeNames, s)
 }
 
-// TitleBlockLocation is the sheet corner a title block sits in (Inventor's TitleBlockLocationEnum).
+// TitleBlockLocation is the sheet corner a title block sits in (the reference CAD API's TitleBlockLocationEnum).
 // The zero value is BottomRightTitleBlock, the drafting default.
 type TitleBlockLocation int32
 

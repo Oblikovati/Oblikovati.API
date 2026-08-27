@@ -91,10 +91,10 @@ const (
 	// MateSolutionAligned is the flush sense: the two face normals point the same way.
 	MateSolutionAligned MateConstraintSolutionType = 1
 	// MateSolutionUndirected resolves to whichever normal sense the parts already hold, so a drag
-	// or drive never forces a flip — Inventor's kUndirectedSolutionType (#1971).
+	// or drive never forces a flip — the reference CAD API's kUndirectedSolutionType (#1971).
 	MateSolutionUndirected MateConstraintSolutionType = 2
 	// MateSolutionNoSolution leaves the directional sense unconstrained, holding only the offset —
-	// Inventor's kNoSolutionType (#1971).
+	// the reference CAD API's kNoSolutionType (#1971).
 	MateSolutionNoSolution MateConstraintSolutionType = 3
 )
 

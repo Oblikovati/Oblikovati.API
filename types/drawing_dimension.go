@@ -32,7 +32,7 @@ const (
 	// full circle's circumference — with the dimension line following the arc.
 	ArcLengthDimension
 	// ForeshortenedDimension is a radius dimension whose centre is off-sheet, drawn with a jogged
-	// (broken) dimension line so the value still reads (Inventor's foreshortened radius, #1994).
+	// (broken) dimension line so the value still reads (the reference CAD API's foreshortened radius, #1994).
 	ForeshortenedDimension
 	// SymmetricDimension dimensions one side of a feature symmetric about a centre line, labelling
 	// the full size from the half measurement (#1994).
@@ -69,7 +69,7 @@ func ParseDrawingDimensionType(s string) (DrawingDimensionType, bool) {
 
 // DimensionToleranceType selects how a dimension's engineering tolerance is shown — none, a
 // symmetric ±, an asymmetric deviation (+plus/−minus), stacked max/min limits, or an ISO
-// limits-and-fits class such as H7 (Inventor's tolerance methods, #1990).
+// limits-and-fits class such as H7 (the reference CAD API's tolerance methods, #1990).
 type DimensionToleranceType int32
 
 const (
@@ -118,7 +118,7 @@ type DimensionTolerance struct {
 }
 
 // InspectionShape selects the border an inspection dimension wraps its text in, matching
-// Inventor's InspectionDimensionShapeEnum. The zero value is NoInspectionBorder — the dimension
+// the reference CAD API's InspectionDimensionShapeEnum. The zero value is NoInspectionBorder — the dimension
 // is not an inspection dimension. An inspection dimension additionally carries a label and a
 // sampling rate for QA / first-article drawings (#1996).
 type InspectionShape int32

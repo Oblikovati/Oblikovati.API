@@ -9,7 +9,7 @@ package wire
 // earlier geometry. WorkPlaneIndex, when set, takes precedence over Plane.
 //
 // Orientation, when set, pins the sketch's in-plane axes deterministically instead of
-// letting the host pick them — Inventor's PlanarSketches.AddWithOrientation. Without it a
+// letting the host pick them — the reference CAD API's PlanarSketches.AddWithOrientation. Without it a
 // sketch on a non-origin plane (e.g. one built through an axis at an angle) gets a
 // host-chosen frame, so an add-in cannot know which sketch direction is "up" and cannot
 // place parametric geometry reliably. See [SketchOrientation].
@@ -20,7 +20,7 @@ type CreateSketchArgs struct {
 }
 
 // SketchOrientation fixes a new sketch's in-plane coordinate frame to a reference axis —
-// Inventor's PlanarSketches.AddWithOrientation(AxisEntity, NaturalAxisDirection, AxisIsX,
+// the reference CAD API's PlanarSketches.AddWithOrientation(AxisEntity, NaturalAxisDirection, AxisIsX,
 // Origin). Axis is the reference whose direction, projected into the sketch plane, becomes
 // one of the sketch axes; the other is the plane normal crossed with it (right-handed). The
 // projection must be non-degenerate — the axis may not be perpendicular to the plane.
@@ -33,9 +33,9 @@ type SketchOrientation struct {
 	// axis constant (types.WorkRefZAxis …), a work-axis ref, or a linear-edge ref.
 	Axis string `json:"axis"`
 	// AxisIsX selects which sketch axis the projected reference becomes: X (true) or Y
-	// (false). Inventor's AxisIsX.
+	// (false). The reference CAD API's AxisIsX.
 	AxisIsX bool `json:"axisIsX,omitempty"`
-	// Reverse uses the reference direction reversed (Inventor's NaturalAxisDirection=false).
+	// Reverse uses the reference direction reversed (the reference CAD API's NaturalAxisDirection=false).
 	Reverse bool `json:"reverse,omitempty"`
 	// Origin optionally sets the sketch origin [x,y,z] in cm; empty keeps the plane origin.
 	Origin []float64 `json:"origin,omitempty"`

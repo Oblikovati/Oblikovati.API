@@ -26,7 +26,7 @@ type SheetMetalStyleInfo struct {
 	BendAllowance float64 `json:"bendAllowance,omitempty"` // reported convenience; not an input
 	// The CORNER relief is a separate property from the bend relief above: it is the cut made
 	// where two flanges meet, with its own shape, size and placement, plus a distinct shape and
-	// size for the three-bend corner (#1960). Inventor's Default style trims the corner to the
+	// size for the three-bend corner (#1960). The reference CAD API's Default style trims the corner to the
 	// bend at four times the thickness, and rounds a three-bend corner at the bend radius.
 	CornerReliefShape     string `json:"cornerReliefShape,omitempty"`
 	CornerReliefSize      string `json:"cornerReliefSize,omitempty"`

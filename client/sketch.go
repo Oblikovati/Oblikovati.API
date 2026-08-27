@@ -22,7 +22,7 @@ func (s Sketch) Create(args wire.CreateSketchArgs) (wire.CreateSketchResult, err
 }
 
 // CreateOnWorkPlaneOriented sketches on the work plane at wpIndex with its in-plane frame
-// pinned to a reference axis (Inventor's AddWithOrientation) — the reliable way to place
+// pinned to a reference axis (the reference CAD API's AddWithOrientation) — the reliable way to place
 // parametric geometry on a non-origin plane whose host-chosen frame is otherwise unknown.
 // Example: on a plane through the Z axis at an angle, pin Y to +Z so the sketch's (X, Y) is
 // (radial, axial) and an ordinary meridian profile drops in unchanged.

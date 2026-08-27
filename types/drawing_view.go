@@ -55,14 +55,14 @@ const (
 	// HiddenLineViewStyle shows visible edges solid and hidden edges dashed (the default).
 	HiddenLineViewStyle DrawingViewStyle = iota
 	// WireframeViewStyle shows every edge as visible (no hidden-line removal). An Oblikovati-only
-	// style with no Inventor equivalent (#1985), kept for the wireframe preview.
+	// style with no equivalent in the reference CAD API (#1985), kept for the wireframe preview.
 	WireframeViewStyle
 	// ShadedViewStyle shades the view (reserved; renders as hidden-line until shading lands).
 	ShadedViewStyle
 	// HiddenLineRemovedViewStyle shows visible edges only — the canonical drafting style with no
-	// dashed hidden lines (Inventor's kHiddenLineRemovedDrawingViewStyle, #1985).
+	// dashed hidden lines (the reference CAD API's kHiddenLineRemovedDrawingViewStyle, #1985).
 	HiddenLineRemovedViewStyle
-	// FromBaseViewStyle inherits the parent view's style associatively (Inventor's kFromBaseDrawingViewStyle).
+	// FromBaseViewStyle inherits the parent view's style associatively (the reference CAD API's kFromBaseDrawingViewStyle).
 	FromBaseViewStyle
 	// ShadedHiddenLineViewStyle overlays shading with hidden edges (reserved until shading lands).
 	ShadedHiddenLineViewStyle
@@ -120,7 +120,7 @@ const (
 	// DrawingViewDraft is a model-less view: a framed container for manually-drawn 2D geometry.
 	DrawingViewDraft
 	// DrawingViewOverlay superimposes an alternate positional or design-view representation of the
-	// model onto a base view (Inventor's overlay view, #1986) — e.g. a mechanism shown in a second
+	// model onto a base view (the reference CAD API's overlay view, #1986) — e.g. a mechanism shown in a second
 	// position, or a simplified rep, drawn over the primary view.
 	DrawingViewOverlay
 )
@@ -146,7 +146,7 @@ func ParseDrawingViewType(s string) (DrawingViewType, bool) {
 	return enumFromName(drawingViewTypeNames, s)
 }
 
-// SectionViewType selects how much of the model a section removes, matching Inventor's
+// SectionViewType selects how much of the model a section removes, matching the reference CAD API's
 // SectionViewTypeEnum. The zero value is NoSectionView (a plain full cut). Quarter/half/
 // three-quarter carve away only part of the near material so the interior shows without hiding
 // the whole front. The through-depth and reverse-direction options are carried separately on the
@@ -208,7 +208,7 @@ func ParseBreakOrientation(s string) (BreakOrientation, bool) {
 }
 
 // CropBreakMarkLineType selects the boundary a cropped view draws around its fence, matching
-// Inventor's CropViewBreakMarkLineTypeEnum. The zero value is NoCropBreakMark — the crop clips the
+// the reference CAD API's CropViewBreakMarkLineTypeEnum. The zero value is NoCropBreakMark — the crop clips the
 // view with no drawn boundary. A crop keeps the view's scale (unlike a detail view) and can apply
 // to any view type (#1987).
 type CropBreakMarkLineType int32
@@ -302,7 +302,7 @@ func ParseProjectionDirection(s string) (ProjectionDirection, bool) {
 	return enumFromName(projectionDirectionNames, s)
 }
 
-// DrawingViewAlignment locks a view's position relative to another view (Inventor's
+// DrawingViewAlignment locks a view's position relative to another view (the reference CAD API's
 // DrawingViewAlignmentEnum). Horizontal/vertical hold the two views on a shared axis so moving one
 // drags the other; InPosition frees the view (breaks the lock). The zero value is InPositionView.
 type DrawingViewAlignment int32
@@ -335,7 +335,7 @@ func ParseDrawingViewAlignment(s string) (DrawingViewAlignment, bool) {
 	return enumFromName(drawingViewAlignmentNames, s)
 }
 
-// ViewJustification is how a view centres itself on recompute (Inventor's ViewJustificationEnum). The
+// ViewJustification is how a view centres itself on recompute (the reference CAD API's ViewJustificationEnum). The
 // zero value is CenteredViewJustification.
 type ViewJustification int32
 
@@ -364,7 +364,7 @@ func ParseViewJustification(s string) (ViewJustification, bool) {
 }
 
 // DrawingEdgeType classifies the model-edge role a drawing curve came from, so a view can style or
-// filter it (Inventor's DrawingEdgeTypeEnum). The zero value is UnknownDrawingEdge — an ordinary
+// filter it (the reference CAD API's DrawingEdgeTypeEnum). The zero value is UnknownDrawingEdge — an ordinary
 // sharp model edge with no special role.
 type DrawingEdgeType int32
 

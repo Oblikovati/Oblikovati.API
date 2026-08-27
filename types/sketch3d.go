@@ -65,7 +65,7 @@ const (
 	Geo3DBend              Geometric3DConstraintKind = "bend"
 	Geo3DHelical           Geometric3DConstraintKind = "helical"
 	// Geo3DOnFace holds a 3D sketch point on a referenced part face — the point is kept on the
-	// surface as the sketch solves (Inventor OnFaceConstraint3D, #1839). Unlike the other kinds it
+	// surface as the sketch solves (the reference CAD API's OnFaceConstraint3D, #1839). Unlike the other kinds it
 	// carries a face reference key ([AddSketch3DConstraintArgs.FaceRef]) rather than only entity ids.
 	Geo3DOnFace  Geometric3DConstraintKind = "onFace"
 	Geo3DUnknown Geometric3DConstraintKind = "unknown"

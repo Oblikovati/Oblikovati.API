@@ -20,7 +20,7 @@ func (w WorkFeatures) SetVisible(ref string, visible bool) (wire.OKResult, error
 }
 
 // Delete removes the user datum work plane, axis, or point named by ref (#1855). With
-// retainDependents=false (Inventor's default) every user work feature that references the datum,
+// retainDependents=false (the reference CAD API's default) every user work feature that references the datum,
 // directly or transitively, is deleted with it; with retainDependents=true those dependents are
 // left in place and go unhealthy. Deletion is a tombstone — surviving datums keep their stable
 // refs. Deleting an origin datum, an unknown ref, or an already-deleted datum is an error. Returns

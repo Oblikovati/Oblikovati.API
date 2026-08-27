@@ -46,7 +46,7 @@ type SheetMetalFlange struct {
 	Angle  string `json:"angle,omitempty"`
 	Radius string `json:"radius,omitempty"`
 	Flip   bool   `json:"flip,omitempty"`
-	// BendPosition is how far back from the picked edge the bend sits — Inventor's
+	// BendPosition is how far back from the picked edge the bend sits — the reference CAD API's
 	// BendPositionEnum (#1957). Two flanges of the same height and angle in different positions
 	// are different parts, because the position decides whether the wall overhangs the edge or
 	// finishes flush with it. "adjacentFace" (default) starts the bend AT the edge;
@@ -55,7 +55,7 @@ type SheetMetalFlange struct {
 	BendPosition string `json:"bendPosition,omitempty"`
 	// PositionOffset is the explicit distance for the two edge-offset positions.
 	PositionOffset string `json:"positionOffset,omitempty"`
-	// HeightDatum is what Height is measured FROM — Inventor's HeightDatumTypeEnum: "tangent"
+	// HeightDatum is what Height is measured FROM — the reference CAD API's HeightDatumTypeEnum: "tangent"
 	// (default; where the bend ends), "outer" or "inner" (the sharp corner the outer/inner faces
 	// would make, which is how a drawing dimensions it), or "outerOrtho"/"innerOrtho" (the same
 	// corners measured perpendicular to the base face, a different number on any bend that is not
@@ -72,7 +72,7 @@ type SheetMetalFlange struct {
 	// MiterGap is the gap left on the miter line; absent ⇒ the style's GapSize.
 	MiterGap string `json:"miterGap,omitempty"`
 	// EdgeSets flanges SEVERAL edges in one feature, each set with its own edges and width extent —
-	// Inventor's FlangeDefinition edge-set collection (EdgeSetCount/AddFlangeEdgeSet/EdgeSetItem,
+	// the reference CAD API's FlangeDefinition edge-set collection (EdgeSetCount/AddFlangeEdgeSet/EdgeSetItem,
 	// #2071). When present it supersedes Edge/Width; the shared height, angle, radius, flip, bend
 	// position, height datum, options and miter apply to every set. Modelling each edge as its own
 	// flange feature makes the same solid — edge sets keep them one feature with one edit.
@@ -86,7 +86,7 @@ type FlangeEdgeSet struct {
 	Width *FlangeWidthExtent `json:"width,omitempty"`
 }
 
-// BendOptions overrides the sheet-metal style's bend properties for one feature — Inventor's
+// BendOptions overrides the sheet-metal style's bend properties for one feature — the reference CAD API's
 // BendOptions (#1959). Every field is optional and an omitted one defers to the style, which is
 // what makes this an override rather than a restatement of the whole style.
 type BendOptions struct {
@@ -116,7 +116,7 @@ type BendOptions struct {
 //   - "offsets" takes Offset (from the edge's start) and Offset2 (from its end);
 //   - "offsetWidth" takes Offset and Width.
 //
-// Inventor's fifth extent, bounded by two referenced entities rather than by distances, is not
+// the reference CAD API's fifth extent, bounded by two referenced entities rather than by distances, is not
 // offered: it needs vertex/plane reference binding the host does not have yet.
 type FlangeWidthExtent struct {
 	Type    string `json:"type,omitempty"`
@@ -128,7 +128,7 @@ type FlangeWidthExtent struct {
 // Kind reports the feature kind SheetMetalFlange creates.
 func (SheetMetalFlange) Kind() string { return KindSheetMetalFlange }
 
-// SheetMetalHem folds a hem along an edge (KindSheetMetalHem) — Inventor's four HemTypeEnum
+// SheetMetalHem folds a hem along an edge (KindSheetMetalHem) — the reference CAD API's four HemTypeEnum
 // shapes. Two of them are driven by a curl rather than a leg, so which dimensions apply depends
 // on Type (#1956):
 //
@@ -268,12 +268,12 @@ func (SheetMetalContourRoll) Kind() string { return KindSheetMetalContourRoll }
 type SheetMetalCornerSeam struct {
 	Edges []string `json:"edges"`
 	// Gap is the relief left between the two walls (the gap seam) or the seam clearance for the
-	// other types — Inventor's GapWidth.
+	// other types — the reference CAD API's GapWidth.
 	Gap string `json:"gap"`
 	// Type is the seam finish: "gap" (default), "overlap", "reverseOverlap" or "noOverlap"
 	// (CornerSeamType). The last three lap or butt the walls rather than gapping them.
 	Type string `json:"type,omitempty"`
-	// Overlap is how far one wall laps over the other, as a percentage 0–100 — Inventor's
+	// Overlap is how far one wall laps over the other, as a percentage 0–100 — the reference CAD API's
 	// PercentOverlap. It applies to the overlap and reverseOverlap types; ignored for gap/noOverlap.
 	Overlap float64 `json:"overlap,omitempty"`
 	// ReliefShape and ReliefSize cut a relief at the seam root — the CornerReliefShape spelling
@@ -301,7 +301,7 @@ type SheetMetalCut struct {
 func (SheetMetalCut) Kind() string { return KindSheetMetalCut }
 
 // SheetMetalRip rips a wall open by a gap (KindSheetMetalRip, #1965). A rip has three forms —
-// Inventor's RipTypeEnum — and they take different inputs:
+// the reference CAD API's RipTypeEnum — and they take different inputs:
 //
 //   - "pointToPoint" (default) rips between two points. Given a SketchIndex/LineIndex it rips
 //     along that sketch line (the long-standing form); given FaceKey + Point + PointTwo it rips
@@ -310,7 +310,7 @@ func (SheetMetalCut) Kind() string { return KindSheetMetalCut }
 //   - "faceExtents" rips the full extent of FaceKey and needs no point.
 //
 // GapSide places the removed material: "symmetric" (default) straddles the rip line, "positive"
-// / "negative" take it wholly to one side (Inventor's PartFeatureExtentDirectionEnum).
+// / "negative" take it wholly to one side (the reference CAD API's PartFeatureExtentDirectionEnum).
 type SheetMetalRip struct {
 	SketchIndex int    `json:"sketchIndex,omitempty"`
 	LineIndex   int    `json:"lineIndex,omitempty"`

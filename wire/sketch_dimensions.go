@@ -20,22 +20,22 @@ type AddDimensionArgs struct {
 	// FarSide selects the far tangent point for a "tangentDistance" dimension (line→circle/arc);
 	// the default (false) dimensions to the near side. Ignored by other kinds (#152).
 	FarSide bool `json:"farSide,omitempty"`
-	// Orientation selects what a "distance" dimension between two points measures — Inventor's
+	// Orientation selects what a "distance" dimension between two points measures — the reference CAD API's
 	// DimensionOrientationEnum: "aligned" (default; Euclidean |P2−P1|), "horizontal" (the X
 	// separation only, leaving the pair free to slide vertically), or "vertical" (the Y
 	// separation only). Empty ⇒ aligned. Ignored by other kinds. #1869.
 	Orientation string `json:"orientation,omitempty"`
 	// Driven creates the dimension as driven (reference) — it measures but does not constrain —
-	// in one call, matching Inventor's Add*(…, bool? Driven=false). The default (false) creates a
+	// in one call, matching the reference CAD API's Add*(…, bool? Driven=false). The default (false) creates a
 	// driving dimension. Setting it here avoids the transient over-constraint of the two-step
 	// create-then-SetDriven path (#1875).
 	Driven bool `json:"driven,omitempty"`
 	// TextPoint is the [x,y] sketch-plane placement (cm) of the dimension's annotation text —
-	// Inventor's Point2d TextPoint. Stored on the dimension and reported on enumeration; omitted
+	// the reference CAD API's Point2d TextPoint. Stored on the dimension and reported on enumeration; omitted
 	// leaves it unset. #1875.
 	TextPoint []float64 `json:"textPoint,omitempty"`
 	// LinearDiameter makes an "offsetDim" or "tangentDistance" dimension read as a diameter: its
-	// value is twice the measured linear distance (Inventor's bool LinearDiameter). Ignored by
+	// value is twice the measured linear distance (the reference CAD API's bool LinearDiameter). Ignored by
 	// other kinds. #1875.
 	LinearDiameter bool `json:"linearDiameter,omitempty"`
 }

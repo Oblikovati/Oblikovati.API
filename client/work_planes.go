@@ -58,7 +58,7 @@ func (w WorkPlanes) Repick(index, slot int, ref string) (wire.RedefineWorkPlaneR
 
 // FlipNormal reverses the normal of the user work plane at index (from List). The plane does not
 // move; only its normal flips, which reverses the direction an extrude or the orientation a sketch
-// built on it takes. The flip persists across recompute. Inventor's WorkPlane.FlipNormal (#1851).
+// built on it takes. The flip persists across recompute. The reference CAD API's WorkPlane.FlipNormal (#1851).
 //
 // mcp:tool flip_work_plane_normal
 // mcp:summary Reverse a user work plane's normal by its index (from list_work_planes) — the standard fix for a datum whose normal points the wrong way (it flips the extrude direction / sketch orientation built on it). The plane stays put; only its normal reverses, and the flip persists.
