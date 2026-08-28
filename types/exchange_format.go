@@ -53,7 +53,7 @@ const (
 	FormatPDF ExchangeFormat = "pdf"
 )
 
-// IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF) — the set
+// IsMesh reports whether the format is a faceted-mesh format (STL/OBJ/3MF/glTF) — the set
 // the mesh-exchange translator handles. STEP is a B-rep format (a different translator).
 func (f ExchangeFormat) IsMesh() bool {
 	return f == FormatSTL || f == FormatOBJ || f == Format3MF || f == FormatGLTF
