@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.154.0] - 2026-08-28
+
+### Added
+
+- feat(api): add FormatGLTF mesh exchange format
+
 ## [0.153.2] - 2026-08-28
 
 ### Fixed
@@ -1294,7 +1300,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.2...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.154.0...HEAD
+[0.154.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.2...v0.154.0
 [0.153.2]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...v0.153.2
 [0.153.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...v0.153.1
 [0.153.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...v0.153.0
