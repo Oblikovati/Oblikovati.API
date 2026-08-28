@@ -99,19 +99,24 @@ type ConstraintStatusResult struct {
 }
 
 // SketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,
-// session id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction
-// flag, the defining points (each [x,y] in sketch-plane cm), and a radius for circular
-// kinds (0 otherwise). MoveableStatus answers whether interactive tools may drag the
+// session id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction and
+// reference flags, the defining points (each [x,y] in sketch-plane cm), and a radius for
+// circular kinds (0 otherwise). MoveableStatus answers whether interactive tools may drag the
 // entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling — M06-F11,
 // Oblikovati/Oblikovati#626); FitMethod is the interpolation parameterization for the
 // spline kind ([oblikovati.org/api/types.SplineFitMethod] wire spelling).
 type SketchEntityInfo struct {
-	Index        int         `json:"index"`
-	ID           uint64      `json:"id"`
-	Kind         string      `json:"kind"`
-	Construction bool        `json:"construction"`
-	Points       [][]float64 `json:"points"`
-	Radius       float64     `json:"radius,omitempty"`
+	Index        int    `json:"index"`
+	ID           uint64 `json:"id"`
+	Kind         string `json:"kind"`
+	Construction bool   `json:"construction"`
+	// Reference marks projected/included reference geometry (ADR-0055): a curve driven by a model
+	// source (a projected edge/face perimeter, a datum intersection). It enumerates under its
+	// concrete Kind (line/circle/arc/…) — there is no distinct "projectedCurve" kind — and is
+	// grounded (the solver holds it fixed) yet still bounds profiles, unlike Construction.
+	Reference bool        `json:"reference,omitempty"`
+	Points    [][]float64 `json:"points"`
+	Radius    float64     `json:"radius,omitempty"`
 	// ReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a
 	// document-scoped UUID stable across save/load and edits, unlike the session ID. Store
 	// it to refer to this entity durably; rebind it with [MethodSketchResolveReference].
