@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.153.2] - 2026-08-28
+
+### Fixed
+
+- wire: add SketchEntityInfo.Reference for projected geometry
+
 ## [0.153.1] - 2026-08-27
 
 ### Fixed
@@ -1288,7 +1294,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.2...HEAD
+[0.153.2]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...v0.153.2
 [0.153.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...v0.153.1
 [0.153.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.152.0...v0.153.0
 [0.152.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.151.1...v0.152.0
