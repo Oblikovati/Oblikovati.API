@@ -1,0 +1,150 @@
+{"Name":"types.FilletConcaveStrategy","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FilletConcaveStrategy","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FilletConcaveStrategy","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FilletCornerType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FilletCornerType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FilletCornerType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FilletCrossSection","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.FilletCrossSection","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.FilletCrossSection","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.FilletType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FilletType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FilletType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FlatPatternEdgeType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FlatPatternEdgeType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FlatPatternEdgeType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FlatPatternFaceType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FlatPatternFaceType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FlatPatternFaceType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Geometric3DConstraintKind","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.Geometric3DConstraintKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.Geometric3DConstraintKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GeometricCharacteristic","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GeometricCharacteristic","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GeometricCharacteristic","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GeometricConstraintKind","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GeometricConstraintKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GeometricConstraintKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GeometricEdgeRef","Case":"zero","Payload":{"midpoint":[0,0,0],"direction":[0,0,0]},"Canonical":{"midpoint":[0,0,0],"direction":[0,0,0]},"Error":""}
+{"Name":"types.GeometricEdgeRef","Case":"filled","Payload":{"midpoint":[1.25,1.25,1.25],"direction":[1.25,1.25,1.25]},"Canonical":{"midpoint":[1.25,1.25,1.25],"direction":[1.25,1.25,1.25]},"Error":""}
+{"Name":"types.GeometricEdgeRef","Case":"empty","Payload":{"midpoint":[1.25,1.25,1.25],"direction":[1.25,1.25,1.25]},"Canonical":{"midpoint":[1.25,1.25,1.25],"direction":[1.25,1.25,1.25]},"Error":""}
+{"Name":"types.GeometryMoveableStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GeometryMoveableStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GeometryMoveableStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GraphicsColorBinding","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsColorBinding","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsColorBinding","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsLane","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsLane","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsLane","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsLineType","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsLineType","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsLineType","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsNormalBinding","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsNormalBinding","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsNormalBinding","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsPointStyle","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsPointStyle","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsPointStyle","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsPrimitiveKind","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.GraphicsPrimitiveKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsPrimitiveKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.GraphicsSelectabilityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GraphicsSelectabilityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GraphicsSelectabilityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GraphicsVisibilityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GraphicsVisibilityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GraphicsVisibilityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GridCell","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"types.GridCell","Case":"filled","Payload":{"col":7,"row":7,"colSpan":7,"rowSpan":7},"Canonical":{"col":7,"row":7,"colSpan":7,"rowSpan":7},"Error":""}
+{"Name":"types.GridCell","Case":"empty","Payload":{"col":7,"row":7,"colSpan":7,"rowSpan":7},"Canonical":{"col":7,"row":7,"colSpan":7,"rowSpan":7},"Error":""}
+{"Name":"types.GridTrack","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"types.GridTrack","Case":"filled","Payload":{"kind":7,"value":1.25,"minPx":1.25,"maxPx":1.25},"Canonical":{"kind":7,"value":1.25,"minPx":1.25,"maxPx":1.25},"Error":""}
+{"Name":"types.GridTrack","Case":"empty","Payload":{"kind":7,"value":1.25,"minPx":1.25,"maxPx":1.25},"Canonical":{"kind":7,"value":1.25,"minPx":1.25,"maxPx":1.25},"Error":""}
+{"Name":"types.GridTrackKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GridTrackKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GridTrackKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GroundShadowEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.GroundShadowEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.GroundShadowEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HatchPattern","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.HatchPattern","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HatchPattern","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HeadsUpDisplayOptions","Case":"zero","Payload":{"enabled":false,"pointerInputEnabled":false,"pointerInputInCartesianCoordinates":false,"dimensionInputEnabled":false,"dimensionInputInCartesianCoordinates":false,"createDimensionsOnValueInput":false},"Canonical":{"enabled":false,"pointerInputEnabled":false,"pointerInputInCartesianCoordinates":false,"dimensionInputEnabled":false,"dimensionInputInCartesianCoordinates":false,"createDimensionsOnValueInput":false},"Error":""}
+{"Name":"types.HeadsUpDisplayOptions","Case":"filled","Payload":{"enabled":true,"pointerInputEnabled":true,"pointerInputInCartesianCoordinates":true,"dimensionInputEnabled":true,"dimensionInputInCartesianCoordinates":true,"createDimensionsOnValueInput":true},"Canonical":{"enabled":true,"pointerInputEnabled":true,"pointerInputInCartesianCoordinates":true,"dimensionInputEnabled":true,"dimensionInputInCartesianCoordinates":true,"createDimensionsOnValueInput":true},"Error":""}
+{"Name":"types.HeadsUpDisplayOptions","Case":"empty","Payload":{"enabled":true,"pointerInputEnabled":true,"pointerInputInCartesianCoordinates":true,"dimensionInputEnabled":true,"dimensionInputInCartesianCoordinates":true,"createDimensionsOnValueInput":true},"Canonical":{"enabled":true,"pointerInputEnabled":true,"pointerInputInCartesianCoordinates":true,"dimensionInputEnabled":true,"dimensionInputInCartesianCoordinates":true,"createDimensionsOnValueInput":true},"Error":""}
+{"Name":"types.HealthStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.HealthStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HealthStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HelicalShapeDefinitionKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.HelicalShapeDefinitionKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HelicalShapeDefinitionKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HelixEndKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.HelixEndKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HelixEndKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HoleNoteQuantity","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.HoleNoteQuantity","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.HoleNoteQuantity","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.InspectionDimension","Case":"zero","Payload":{"shape":0},"Canonical":{"shape":0},"Error":""}
+{"Name":"types.InspectionDimension","Case":"filled","Payload":{"shape":7,"label":"example \u003c\u0026\u003e 日本語","rate":"example \u003c\u0026\u003e 日本語"},"Canonical":{"shape":7,"label":"example \u003c\u0026\u003e 日本語","rate":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.InspectionDimension","Case":"empty","Payload":{"shape":7,"label":"example \u003c\u0026\u003e 日本語","rate":"example \u003c\u0026\u003e 日本語"},"Canonical":{"shape":7,"label":"example \u003c\u0026\u003e 日本語","rate":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.InspectionShape","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.InspectionShape","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.InspectionShape","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.IsotropyClass","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.IsotropyClass","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.IsotropyClass","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.KeyChord","Case":"zero","Payload":{"key":""},"Canonical":{"key":""},"Error":""}
+{"Name":"types.KeyChord","Case":"filled","Payload":{"key":"example \u003c\u0026\u003e 日本語","ctrl":true,"alt":true,"shift":true},"Canonical":{"key":"example \u003c\u0026\u003e 日本語","ctrl":true,"alt":true,"shift":true},"Error":""}
+{"Name":"types.KeyChord","Case":"empty","Payload":{"key":"example \u003c\u0026\u003e 日本語","ctrl":true,"alt":true,"shift":true},"Canonical":{"key":"example \u003c\u0026\u003e 日本語","ctrl":true,"alt":true,"shift":true},"Error":""}
+{"Name":"types.LightDefinitionTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.LightDefinitionTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LightDefinitionTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LightTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.LightTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LightTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LightingStyleTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.LightingStyleTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LightingStyleTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LineDefinitionSpaceEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.LineDefinitionSpaceEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LineDefinitionSpaceEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LoftAreaStop","Case":"zero","Payload":{"t":0,"scale":0},"Canonical":{"t":0,"scale":0},"Error":""}
+{"Name":"types.LoftAreaStop","Case":"filled","Payload":{"t":1.25,"scale":1.25},"Canonical":{"t":1.25,"scale":1.25},"Error":""}
+{"Name":"types.LoftAreaStop","Case":"empty","Payload":{"t":1.25,"scale":1.25},"Canonical":{"t":1.25,"scale":1.25},"Error":""}
+{"Name":"types.LoftCondition","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.LoftCondition","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.LoftCondition","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.LoftType","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.LoftType","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.LoftType","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.LoftedFlangeOutputType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.LoftedFlangeOutputType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.LoftedFlangeOutputType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Magnetic","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"types.Magnetic","Case":"filled","Payload":{"class":"example \u003c\u0026\u003e 日本語","relativePermeability":1.25,"remanence":1.25,"coercivity":1.25,"saturationFluxDensity":1.25,"coreLoss":1.25},"Canonical":{"class":"example \u003c\u0026\u003e 日本語","relativePermeability":1.25,"remanence":1.25,"coercivity":1.25,"saturationFluxDensity":1.25,"coreLoss":1.25},"Error":""}
+{"Name":"types.Magnetic","Case":"empty","Payload":{"class":"example \u003c\u0026\u003e 日本語","relativePermeability":1.25,"remanence":1.25,"coercivity":1.25,"saturationFluxDensity":1.25,"coreLoss":1.25},"Canonical":{"class":"example \u003c\u0026\u003e 日本語","relativePermeability":1.25,"remanence":1.25,"coercivity":1.25,"saturationFluxDensity":1.25,"coreLoss":1.25},"Error":""}
+{"Name":"types.MagneticClass","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.MagneticClass","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.MagneticClass","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.MassPropertiesAccuracy","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.MassPropertiesAccuracy","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MassPropertiesAccuracy","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MateConstraintSolutionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.MateConstraintSolutionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MateConstraintSolutionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MaterialRemoval","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.MaterialRemoval","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MaterialRemoval","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Matrix","Case":"zero","Payload":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"Canonical":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"Error":""}
+{"Name":"types.Matrix","Case":"filled","Payload":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Canonical":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Error":""}
+{"Name":"types.Matrix","Case":"empty","Payload":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Canonical":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Error":""}
+{"Name":"types.Matrix2d","Case":"zero","Payload":[0,0,0,0,0,0,0,0,0],"Canonical":[0,0,0,0,0,0,0,0,0],"Error":""}
+{"Name":"types.Matrix2d","Case":"filled","Payload":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Canonical":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Error":""}
+{"Name":"types.Matrix2d","Case":"empty","Payload":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Canonical":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"Error":""}
+{"Name":"types.MeasureType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.MeasureType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.MeasureType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Mechanical","Case":"zero","Payload":{"youngsModulus":0,"poissonsRatio":0,"yieldStrength":0,"ultimateTensileStrength":0},"Canonical":{"youngsModulus":0,"poissonsRatio":0,"yieldStrength":0,"ultimateTensileStrength":0},"Error":""}
+{"Name":"types.Mechanical","Case":"filled","Payload":{"youngsModulus":1.25,"poissonsRatio":1.25,"yieldStrength":1.25,"ultimateTensileStrength":1.25},"Canonical":{"youngsModulus":1.25,"poissonsRatio":1.25,"yieldStrength":1.25,"ultimateTensileStrength":1.25},"Error":""}
+{"Name":"types.Mechanical","Case":"empty","Payload":{"youngsModulus":1.25,"poissonsRatio":1.25,"yieldStrength":1.25,"ultimateTensileStrength":1.25},"Canonical":{"youngsModulus":1.25,"poissonsRatio":1.25,"yieldStrength":1.25,"ultimateTensileStrength":1.25},"Error":""}
