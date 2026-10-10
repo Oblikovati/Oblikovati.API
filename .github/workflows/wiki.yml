@@ -2,7 +2,7 @@ name: Wiki
 
 # Republish the add-in developer wiki whenever a pull request merges to develop (a
 # merge is a push to develop). The wiki's source of truth is docs/wiki/*.md plus the
-# generated API Docs page (rendered from the contract's Go doc comments).
+# generated Go and Rust references, from the same checked contract.
 #
 # Prerequisite: the repository's Wiki feature must be enabled (Settings → Features →
 # Wikis) and initialized with at least one page so the <repo>.wiki.git remote exists;
@@ -12,10 +12,17 @@ on:
     branches: [develop]
     paths:
       - 'docs/wiki/**'
-      - 'types/**'
-      - 'contract/**'
-      - 'wire/**'
-      - 'client/**'
+      - 'go/types/**'
+      - 'go/contract/**'
+      - 'go/wire/**'
+      - 'go/client/**'
+      - 'go/examples/**'
+      - 'rust/**'
+      - 'scripts/rustgen/**'
+      - 'scripts/wiki-examples.py'
+      - 'scripts/gen-rust-docs.py'
+      - 'scripts/assemble-wiki.sh'
+      - 'Makefile'
       - 'scripts/gen-api-docs.sh'
       - 'scripts/publish-wiki.sh'
       - '.github/workflows/wiki.yml'
@@ -42,12 +49,16 @@ jobs:
 
       - uses: actions/setup-go@v6
         with:
-          go-version-file: go.mod
+          go-version-file: go/go.mod
           cache: false
+
+      - uses: dtolnay/rust-toolchain@1.95.0
+        with:
+          components: rustfmt
 
       - name: Install gomarkdoc
         run: |
-          go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
+          go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@v1.1.0
           echo "GOMARKDOC=$(go env GOPATH)/bin/gomarkdoc" >> "$GITHUB_ENV"
 
       - name: Build and publish the wiki

@@ -1,46 +1,33 @@
 name: CI
-
 on:
   push:
     branches: [develop]
   pull_request:
-
 permissions:
   contents: read
-
-defaults:
-  run:
-    # bash on every OS for consistent shell semantics.
-    shell: bash
-
 jobs:
-  # The Apache-2.0 public API contract module: build, vet, test, and enforce the
-  # license boundary — /api must never import the GPL application module
-  # oblikovati (ADR-0018). This module is self-contained, so
-  # it builds with no sibling checkout.
-  api:
+  gate:
     runs-on: ubuntu-latest
-    env:
-      CGO_ENABLED: "0"
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
-          go-version-file: go.mod
+          go-version-file: go/go.mod
           cache: false
-      - run: go build ./...
-      - run: go vet ./...
-      - run: go test ./...
-      - name: License boundary (api must not import the GPL application)
-        run: |
-          # The contract module is oblikovati.org/api; the GPL application is oblikovati.org
-          # (oblikovati.org/kernel, /model, …). Any oblikovati.org dep that is NOT the api itself
-          # is the application leaking into the contract (ADR-0018 violation).
-          if go list -deps ./... | grep -E '^oblikovati\.org(/|$)' | grep -qv '^oblikovati\.org/api'; then
-            echo "ERROR: /api imports the GPL application module (ADR-0018 violated)"
-            go list -deps ./... | grep -E '^oblikovati\.org(/|$)' | grep -v '^oblikovati\.org/api'
-            exit 1
-          fi
-          echo "OK: /api has no dependency on the application module"
-      - name: SPDX headers present
-        run: python3 scripts/check-spdx.py --check
+      - uses: dtolnay/rust-toolchain@1.95.0
+        with:
+          components: rustfmt, clippy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@v1.1.0
+      - run: make gate
+  rust-portability:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@1.95.0
+      - run: cargo test --manifest-path rust/Cargo.toml --locked

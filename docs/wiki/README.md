@@ -14,8 +14,12 @@ overwritten on the next publish).
 | `First-Steps.md` | First Steps |
 | `Oblikovati-API-Architecture.md` | Oblikovati API Architecture |
 | `Testing-Automation.md` | Testing Automation |
+| `Typed-Operations.md` | Typed Operations (compiled Go and Rust examples) |
+| `C-ABI-Add-ins.md` | C ABI Add-ins (compiled shared libraries in both languages) |
 | `_Sidebar.md`, `_Footer.md` | wiki chrome |
-| _generated_ | **API Docs** — produced from Go doc comments by `scripts/gen-api-docs.sh` |
+| _generated_ | **API Docs** — links to both language references |
+| _generated_ | **Go API Reference** — Go doc comments and declarations |
+| _generated_ | **Rust API Reference** — Rust declarations and client method index |
 
 GitHub maps a filename to a page title by replacing `-` with spaces, so
 `First-Steps.md` becomes the page **First Steps** (and `[[First Steps]]` links to it).
@@ -26,17 +30,21 @@ A GitHub Actions workflow (`.github/workflows/wiki.yml`) republishes the wiki on
 push to `develop` (i.e. when a PR merges). It runs:
 
 ```sh
-scripts/publish-wiki.sh   # assembles static pages + generated API Docs, pushes to the wiki
+bash scripts/publish-wiki.sh
 ```
 
 To preview the assembled output locally without pushing:
 
 ```sh
-go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@latest
-scripts/gen-api-docs.sh build/wiki/API-Docs.md   # just the generated page
-# or run the full assembly (set WIKI_REMOTE to a writable URL to actually push):
-WIKI_REMOTE=/tmp/fake.git scripts/publish-wiki.sh
+go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@v1.1.0
+make generate
+make gate
+make docs
 ```
+
+The assembled pages are in `build/wiki/`. Rustdoc is in `rust/target/doc/`.
+`make docs` does not publish. Edit example source files under `go/examples/` or
+`rust/examples/`, then run `make generate`. CI rejects stale copied code blocks.
 
 ## Copyright note
 

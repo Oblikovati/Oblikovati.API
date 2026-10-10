@@ -8,7 +8,7 @@ add-in — but knowing the shape of the system makes the API obvious.
 
 Oblikovati is a parametric, **feature-based** modeler. From the bottom up:
 
-```
+```text
             ┌──────────────────────────────────────────────────────┐
   UI head   │  ribbon, browser, viewport, dialogs, interaction      │
             ├──────────────────────────────────────────────────────┤
@@ -34,13 +34,10 @@ The kernel is the geometry engine. It has three cooperating parts:
   chamfer, shell, draft, plus *tessellation* (turning exact geometry into the triangle mesh the
   viewport draws) and *mass properties* (volume, area, centroid via the divergence theorem).
 
-Booleans run on **exact** paths: the planar B-rep arrangement for planar-faceted solids and
-the analytic surface–surface-intersection (SSI) pipeline for curved ones — crossing cylinders,
-cones, spheres, tori and their mixes keep their true analytic faces through the operation
-(ADR-0027/ADR-0045). A welded-mesh CSG path remains only as the last-resort fallback for the
-unsupported freeform tail, and taking it is recorded as a counted defect diagnostic, never
-silent. The kernel validates results (manifold, closed, orientation, Euler characteristic) so
-a bad operation is caught rather than silently shipped.
+The kernel contract requires modelling decisions to use the B-rep. Tessellation
+supplies the display mesh. Check operation errors and feature health before you
+use a result. The presence of a method in this API does not prove that every host
+version supports every input configuration.
 
 ### Model layer (the recipe)
 
@@ -74,12 +71,16 @@ ribbon button lives here; clicking it routes back to the add-in (see [[First Ste
 
 ## How an add-in fits in
 
-The host owns the model and runs it on a single session goroutine. An add-in is a separate
+The host owns the model and serializes model access on its session. An add-in is a separate
 shared library with its **own runtime**; it never touches host memory directly. Instead it
 sends JSON *method calls* (`documents.create`, `sketch.rectangle`, `features.add`, …) across the
 C ABI; the host executes each against the live model and returns JSON. The full method
 vocabulary and the typed client that wraps it are described in
 [[Oblikovati API Architecture]].
+
+Go and Rust add-ins use the same C ABI and wire contract. Their language types
+live in `go/` and `rust/` in the API repository. The separate Rust application
+port does not change these ownership rules.
 
 The practical consequences for you:
 

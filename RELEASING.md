@@ -2,8 +2,8 @@
 
 This module follows [Semantic Versioning 2.0.0](https://semver.org). The single
 source of truth for the version is the `Version` constant in
-[`version.go`](version.go); the git tag for a release is `v<Version>` (the Go
-module tag convention — the `v` prefix is not part of the semver string).
+[`go/version.go`](go/version.go). The release tags are `v<Version>` and
+`go/v<Version>` on the same commit. The second tag selects the Go submodule.
 
 ## What is the public surface
 
@@ -29,14 +29,19 @@ Releases are **not** hand-cut. On every merge to `develop` the release workflow
 ([`.github/workflows/release.yml`](.github/workflows/release.yml)) derives the next
 version from the **scope of the commits merged since the last tag** and does the rest:
 
-1. [`scripts/nextver`](scripts/nextver) reads the conventional-commit messages since the
+1. [`go/scripts/nextver`](go/scripts/nextver) reads the conventional-commit messages since the
    last `vX.Y.Z` tag, picks the strongest scope, and applies the policy above to compute
    the next version.
-2. It rewrites `Version` in `version.go` and rolls `CHANGELOG.md` (moves `## [Unreleased]`
+2. It rewrites `Version` in `go/version.go` and rolls `CHANGELOG.md` (moves `## [Unreleased]`
    over a new `## [x.y.z] - DATE` section and refreshes the compare links).
-3. The workflow commits that back to `develop` as `chore(release): vX.Y.Z [skip ci]`
+3. `make generate` updates the Rust package version and C ABI handshake constants.
+   `make gate` checks source drift, both language suites, JSON parity, C ABI calls,
+   lint, licenses, and the generated wiki. `cargo package` verifies the release archive.
+   The workflow checks that the public Go import metadata selects `go/`.
+4. The workflow commits that back to `develop` as `chore(release): vX.Y.Z [skip ci]`
    (the `[skip ci]` stops the bump commit from triggering another release), tags
-   `vx.y.z`, and publishes the GitHub release with notes from the changelog section.
+   `vX.Y.Z` and `go/vX.Y.Z`. It pushes the commit and both tags in one atomic operation.
+   The GitHub release contains the notes and the verified Rust `.crate` archive.
 
 A merge whose commits are all `docs`/`chore`/`ci`/`test`/`refactor` releases nothing.
 
@@ -54,7 +59,7 @@ The bump is only as correct as the commit subjects, so use
 
 Any **unrecognized** subject (no conventional type, e.g. `wire: add …`) is treated as a
 conservative **PATCH** so the version never silently stalls — but an additive surface
-change deserves a MINOR, so prefix it with `feat:`. The logic lives in `scripts/nextver`
+change deserves a MINOR, so prefix it with `feat:`. The logic lives in `go/scripts/nextver`
 and is covered by `go test ./scripts/nextver`.
 
 ## Consuming a release
@@ -63,3 +68,31 @@ Pin a release with `require oblikovati.org/api vX.Y.Z`. Local development (the
 `Oblikovati` application and the bridge add-in) resolves this module through a
 `go.work` workspace over the sibling checkout, so the `require` version is
 overridden there and tracks the working tree, not a published tag.
+
+## Language directories
+
+A release has two tags on the same commit: `vX.Y.Z` for the shared contract and
+`go/vX.Y.Z` for the Go module in the `go/` subdirectory. `make generate` copies
+the Go version into `rust/Cargo.toml` and the Rust handshake constants.
+
+Before the first release from this layout, update the import metadata served
+at `https://oblikovati.org/api?go-get=1` to:
+
+```html
+<meta name="go-import" content="oblikovati.org/api git https://github.com/Oblikovati/Oblikovati.API go">
+```
+
+The fourth field selects the module subdirectory (Go 1.25 or later). See the
+[Go module reference](https://go.dev/ref/mod#vcs-find). Update `go-source` links
+to `tree/develop/go{/dir}` and `blob/develop/go{/dir}/{file}#L{line}` as well.
+The website source is `website-oblikovati.org/public/api/index.html`.
+Existing local workspaces must point to `Oblikovati.API/go`.
+
+The release workflow refuses to tag or push if this metadata is not live.
+The directory move is an alpha API migration. Older source tags use the former
+root layout; keep old checkouts on that layout when reproducing old releases.
+
+Rust consumers can use `oblikovati-api = { git =
+"https://github.com/Oblikovati/Oblikovati.API", tag = "vX.Y.Z" }` or the local
+`rust/` path. Publishing to crates.io is a separate distribution step; this
+workflow does not claim a registry name or require a registry token.
