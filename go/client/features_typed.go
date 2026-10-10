@@ -16,8 +16,8 @@ import (
 // sends it through [Features.Add]; the result shape is operation-specific, so it is returned as
 // raw JSON for the caller to decode (as with Add).
 //
-// A method cannot carry its own type parameter in Go, so this is a free function over the
-// Features group rather than a method — one generic constructor keyed on the arg type, not one
+// This remains a free function over the Features group to keep existing Go callers
+// source-compatible. One generic constructor keyed on the arg type avoids a
 // hand-written method per kind (which would re-create the duplication this removes):
 //
 //	_, err := client.AddFeature(c.Features(), featureargs.Extrude{SketchIndex: 0, Distance: "50 mm"})

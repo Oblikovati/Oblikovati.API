@@ -4,7 +4,7 @@
 package main
 
 /*
-#cgo CFLAGS: -I${SRCDIR}/../../../include -DOBK_BUILDING_ADDIN
+#cgo CFLAGS: -I${SRCDIR}/../../include -DOBK_BUILDING_ADDIN
 #include <stdlib.h>
 #include "oblikovati_addin.h"
 static char *example_id(void) { return "com.oblikovati.example.go"; }

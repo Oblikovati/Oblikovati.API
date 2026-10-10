@@ -16,6 +16,8 @@ fails the build if it is ever violated.
 
 The Go module is in `go/` and the Rust crate is in `rust/`. The C header remains in
 `include/` and is shared by both languages.
+The generated copy in `go/include/` makes the Go module self-contained when it
+is downloaded as a module archive. The generation gate keeps both copies identical.
 
 Four packages: `types` (canonical enums/ids/values), `contract` (in-proc Go
 interfaces / Rust traits), `wire` (method constants + JSON DTOs), `client` (a `Caller` +

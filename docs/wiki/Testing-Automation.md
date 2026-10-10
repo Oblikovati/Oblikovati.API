@@ -8,7 +8,9 @@ make gate
 
 The gate checks generation drift, builds and tests Go and Rust, runs Go vet
 and Rust Clippy, checks formatting and SPDX headers, checks the dependency
-boundary, checks wiki examples, and runs the compiled C ABI host test.
+boundary, checks wiki examples, and runs the compiled C ABI host test. It also
+copies the Go module to an isolated directory and runs all Go tests there, so a
+missing file outside the published module cannot pass unnoticed.
 
 ## Named fake hosts in both languages
 

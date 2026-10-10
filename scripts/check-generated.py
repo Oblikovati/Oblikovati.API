@@ -5,7 +5,14 @@ from hashlib import sha256
 from pathlib import Path
 import subprocess
 
-ROOTS = ("rust/src", "rust/tests", "go/scripts/apifixtures", "go/client", "docs/wiki")
+ROOTS = (
+    "rust/src",
+    "rust/tests",
+    "go/scripts/apifixtures",
+    "go/client",
+    "go/include",
+    "docs/wiki",
+)
 
 
 def snapshot() -> dict[str, str]:

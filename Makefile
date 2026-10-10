@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
-.PHONY: gate build test lint generate check-generated docs docs-lint abi-test
+.PHONY: gate build test lint generate check-generated docs docs-lint abi-test go-package-test
 export GOWORK := off
 # Keep rustc, rustdoc and rustfmt on the pinned toolchain when rustup is installed.
 export PATH := $(HOME)/.cargo/bin:$(PATH)
 
-gate: check-generated build test lint docs-lint docs abi-test
+gate: check-generated build test lint docs-lint docs abi-test go-package-test
 
 build:
 	cd go && go build ./...
@@ -28,6 +28,8 @@ lint:
 
 generate:
 	mkdir -p build
+	mkdir -p go/include
+	cp include/oblikovati_addin.h go/include/oblikovati_addin.h
 	cd go && go run ./scripts/apischema > ../build/api-schema.json
 	python3 scripts/rustgen/main.py < build/api-schema.json
 	gofmt -w go/scripts/apifixtures go/scripts/apischema go/client go/examples
@@ -50,3 +52,6 @@ docs-lint:
 
 abi-test:
 	bash scripts/test-c-abi.sh
+
+go-package-test:
+	bash scripts/test-go-package.sh
