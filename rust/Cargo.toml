@@ -1,6 +1,6 @@
 [package]
 name = "oblikovati-api"
-version = "0.154.0"
+version = "0.155.0"
 edition = "2024"
 rust-version = "1.95"
 description = "The Apache-2.0 Oblikovati automation contract and C ABI client"

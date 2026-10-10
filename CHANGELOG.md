@@ -8,6 +8,20 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.155.0] - 2026-10-10
+
+### Added
+
+- feat: add Rust bindings for the shared API contract
+
+### Changed
+
+- refactor!: move the Go API module into go/
+
+### Fixed
+
+- fix: keep the published Go module self-contained
+
 ## [0.154.0] - 2026-08-28
 
 ### Added
@@ -1300,7 +1314,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.154.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.155.0...HEAD
+[0.155.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.154.0...v0.155.0
 [0.154.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.2...v0.154.0
 [0.153.2]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...v0.153.2
 [0.153.1]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.0...v0.153.1
