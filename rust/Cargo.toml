@@ -1,0 +1,25 @@
+[package]
+name = "oblikovati-api"
+version = "0.154.0"
+edition = "2024"
+rust-version = "1.95"
+description = "The Apache-2.0 Oblikovati automation contract and C ABI client"
+license = "Apache-2.0"
+repository = "https://github.com/Oblikovati/Oblikovati.API"
+readme = "README.md"
+
+[dependencies]
+base64 = "0.22"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["arbitrary_precision", "raw_value"] }
+time = { version = "0.3", features = ["formatting", "parsing"] }
+
+[[example]]
+name = "c_addin"
+crate-type = ["cdylib"]
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "deny"

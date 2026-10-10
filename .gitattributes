@@ -1,0 +1,15 @@
+go/include/oblikovati_addin.h linguist-generated=true
+go/client/rust_parity_*_test.go linguist-generated=true
+go/scripts/apifixtures/registry_*.go linguist-generated=true
+rust/src/**/bindings_*.rs linguist-generated=true
+rust/src/client/mod.rs linguist-generated=true
+rust/src/contract/mod.rs linguist-generated=true
+rust/src/types/mod.rs linguist-generated=true
+rust/src/wire/mod.rs linguist-generated=true
+rust/src/wire/featureargs/mod.rs linguist-generated=true
+rust/src/version.rs linguist-generated=true
+rust/tests/client_generated/** linguist-generated=true
+rust/tests/parity_generated/** linguist-generated=true
+rust/tests/feature_kinds/** linguist-generated=true
+rust/tests/fixtures/** linguist-generated=true
+rust/tests/geometry_contract.rs linguist-generated=true

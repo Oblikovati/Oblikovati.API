@@ -1,0 +1,150 @@
+{"Name":"types.Containment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.Containment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Containment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ControlKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ControlKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ControlKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CoordinateSystemType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CoordinateSystemType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CoordinateSystemType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerReliefPlacement","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CornerReliefPlacement","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerReliefPlacement","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerReliefShape","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CornerReliefShape","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerReliefShape","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerSeamDefinitionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CornerSeamDefinitionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerSeamDefinitionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerSeamType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CornerSeamType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CornerSeamType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CropBreakMarkLineType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CropBreakMarkLineType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CropBreakMarkLineType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Curve2dType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.Curve2dType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Curve2dType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CurveGeometryForm","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CurveGeometryForm","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CurveGeometryForm","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CurveType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CurveType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CurveType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CustomPropertyPrecision","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CustomPropertyPrecision","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CustomPropertyPrecision","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CustomPropertyType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.CustomPropertyType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.CustomPropertyType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DSDOFImposedMotionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DSDOFImposedMotionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DSDOFImposedMotionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DSJointType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DSJointType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DSJointType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DXFVersion","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.DXFVersion","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DXFVersion","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DeriveStyle","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DeriveStyle","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DeriveStyle","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Dimension3DConstraintKind","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.Dimension3DConstraintKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.Dimension3DConstraintKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DimensionConstraintKind","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.DimensionConstraintKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DimensionConstraintKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DimensionDisplayType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DimensionDisplayType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DimensionDisplayType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DimensionTolerance","Case":"zero","Payload":{"type":0},"Canonical":{"type":0},"Error":""}
+{"Name":"types.DimensionTolerance","Case":"filled","Payload":{"type":7,"plus":1.25,"minus":1.25,"fit":"example \u003c\u0026\u003e 日本語","precision":7},"Canonical":{"type":7,"plus":1.25,"minus":1.25,"fit":"example \u003c\u0026\u003e 日本語","precision":7},"Error":""}
+{"Name":"types.DimensionTolerance","Case":"empty","Payload":{"type":7,"plus":1.25,"minus":1.25,"fit":"example \u003c\u0026\u003e 日本語","precision":7},"Canonical":{"type":7,"plus":1.25,"minus":1.25,"fit":"example \u003c\u0026\u003e 日本語","precision":7},"Error":""}
+{"Name":"types.DimensionToleranceType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DimensionToleranceType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DimensionToleranceType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DimensionUnit","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DimensionUnit","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DimensionUnit","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DirectEditOperationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DirectEditOperationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DirectEditOperationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayModeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DisplayModeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayModeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayModeSourceTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DisplayModeSourceTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayModeSourceTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayQualityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DisplayQualityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayQualityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplaySeparateColorsTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DisplaySeparateColorsTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplaySeparateColorsTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayTransformBehaviorEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DisplayTransformBehaviorEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DisplayTransformBehaviorEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DockingState","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DockingState","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DockingState","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DocumentInterestRecord","Case":"zero","Payload":{"clientId":"","name":"","interestType":0},"Canonical":{"clientId":"","name":"","interestType":0},"Error":""}
+{"Name":"types.DocumentInterestRecord","Case":"filled","Payload":{"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","interestType":7,"dataVersion":7,"clientData":"example \u003c\u0026\u003e 日本語"},"Canonical":{"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","interestType":7,"dataVersion":7,"clientData":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.DocumentInterestRecord","Case":"empty","Payload":{"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","interestType":7,"dataVersion":7,"clientData":"example \u003c\u0026\u003e 日本語"},"Canonical":{"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","interestType":7,"dataVersion":7,"clientData":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.DocumentInterestType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DocumentInterestType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DocumentInterestType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DocumentSubTypeID","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.DocumentSubTypeID","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DocumentSubTypeID","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.DocumentType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DocumentType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DocumentType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DraftingStandard","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DraftingStandard","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DraftingStandard","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingAnnotationKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingAnnotationKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingAnnotationKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingCurveKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingCurveKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingCurveKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingDimensionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingDimensionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingDimensionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingEdgeType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingEdgeType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingEdgeType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingSketchEntityKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingSketchEntityKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingSketchEntityKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewAlignment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingViewAlignment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewAlignment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewStyle","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingViewStyle","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewStyle","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DrawingViewType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DrawingViewType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DriveVariable","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.DriveVariable","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.DriveVariable","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.EdgeCollectionKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.EdgeCollectionKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.EdgeCollectionKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Electrical","Case":"zero","Payload":{"resistivity":0,"relativePermittivity":0},"Canonical":{"resistivity":0,"relativePermittivity":0},"Error":""}
+{"Name":"types.Electrical","Case":"filled","Payload":{"resistivity":1.25,"relativePermittivity":1.25},"Canonical":{"resistivity":1.25,"relativePermittivity":1.25},"Error":""}
+{"Name":"types.Electrical","Case":"empty","Payload":{"resistivity":1.25,"relativePermittivity":1.25},"Canonical":{"resistivity":1.25,"relativePermittivity":1.25},"Error":""}
+{"Name":"types.Environment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.Environment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.Environment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ExchangeFormat","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.ExchangeFormat","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.ExchangeFormat","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.FeatureApproximationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FeatureApproximationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FeatureApproximationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FileLocationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.FileLocationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.FileLocationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}

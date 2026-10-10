@@ -1,46 +1,28 @@
 # Oblikovati Add-in Developer Wiki
 
-Welcome. This wiki is for developers building **add-ins** for Oblikovati — the
-parametric, feature-based CAD application. Add-ins extend the host with new ribbon
-commands and drive the live model — parts and assemblies (sketches, parameters, features,
-occurrences, representations, view, materials) — through a stable, permissively-licensed
-contract.
+Build add-ins with Go or Rust through the same public API. Both bindings are
+Apache-2.0 and share one C interface, one JSON protocol and one version.
+The application owns the model; the add-in sends typed requests through a
+host callback.
 
-> **This wiki is generated.** It is rebuilt automatically from
-> [`Oblikovati.API`](https://github.com/Oblikovati/Oblikovati.API) every time a pull
-> request merges to `develop`. Edit the sources under `docs/wiki/` in that repo — manual
-> edits made here will be overwritten on the next merge. The **API Docs** page is produced
-> directly from the contract's Go source and doc comments.
-
-## What an add-in is
-
-An add-in is a shared library (`.so` / `.dll` / `.dylib`) that the host loads in-process at
-runtime. It links **only** the Apache-2.0 contract module (`oblikovati.org/api`) and talks to the
-host across a small C ABI. Because the boundary is a byte protocol (JSON over a single host
-callback), an add-in can be **closed-source** while the contract it depends on stays open.
-
-```
-┌────────────────────┐        C ABI (JSON method calls)        ┌──────────────────────┐
-│   Your add-in      │  ────────────────────────────────────▶  │   Oblikovati host    │
-│  (.so / .dll)      │           oblikovati.org/api/client          │  (kernel + UI head)  │
-│  links only        │  ◀────────────────────────────────────  │  owns the live model │
-│  oblikovati.org/api    │            replies / events              │                      │
-└────────────────────┘                                          └──────────────────────┘
-```
+This wiki is built from `Oblikovati.API/docs/wiki` and the checked-in API
+sources. Edit those sources. The workflow replaces manual wiki edits.
 
 ## Start here
 
-| Page | What it covers |
-|---|---|
-| **[[Oblikovati Architecture]]** | How the application and its geometry kernel are put together. |
-| **[[First Steps]]** | Build an add-in that adds a ribbon button which sketches a rectangle and extrudes a cube. |
-| **[[Oblikovati API Architecture]]** | The four contract packages, the two consumption paths, and how to add to the surface. |
-| **[[Testing Automation]]** | How to unit- and integration-test an add-in while respecting the license boundary. |
-| **[[API Docs]]** | Auto-generated reference for every exported type, function, and method in the contract. |
+| Page | Purpose |
+| --- | --- |
+| [[First Steps]] | Install either binding and run a complete typed-client example. |
+| [[C ABI Add-ins]] | Build Go and Rust shared libraries with the same host interface. |
+| [[Typed Operations]] | Use matching Go and Rust requests, values and events. |
+| [[Oblikovati API Architecture]] | Understand the contract modules and compatibility rules. |
+| [[Testing Automation]] | Test clients, JSON compatibility and C buffer ownership. |
+| [[API Docs]] | Open the generated Go and Rust reference pages. |
+| [[Oblikovati Architecture]] | Understand the application's model and geometry layers. |
 
-## License at a glance
+## License boundary
 
-- The **contract** you build against (`oblikovati.org/api`) is **Apache-2.0**.
-- The **host application** is GPL-2.0 and is never linked by an add-in.
-- Your add-in may carry **any license you choose** — see [[Testing Automation]] for how the
-  build keeps that boundary honest.
+The Go module `oblikovati.org/api` and Rust crate `oblikovati-api` are
+Apache-2.0. The application is GPL-2.0-only. Neither API binding imports or
+links the application. Add-ins communicate through C functions and byte
+buffers. They do not pass Go interfaces or Rust trait objects across C.

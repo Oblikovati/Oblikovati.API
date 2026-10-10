@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Verify (or insert) the Apache-2.0 SPDX header on every Go file in this module.
+"""Verify (or insert) the Apache-2.0 SPDX header on every Go and Rust file in this module.
 
 This is the standalone public API contract module (oblikovati.org/api),
 Apache-2.0 throughout — see ADR-0018 in the Oblikovati app repo. Unlike the
 monorepo predecessor, there is a single license tree rooted at the repo root, so
-the mapping is just "every *.go -> Apache-2.0".
+the mapping is just "every *.go and *.rs -> Apache-2.0".
 
 Placement rules (so Go semantics are preserved):
   * The SPDX comment is its own block followed by a blank line, so it never merges
@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 IDENTIFIER = "Apache-2.0"
 # Directories that are not part of the module's licensed Go surface.
-SKIP_DIRS = {".git", "scripts"}
+SKIP_DIRS = {".git", "target", "build", "Oblikovati.API", ".worktrees", ".claude"}
 
 
 def header(identifier: str) -> str:
@@ -67,7 +67,7 @@ def within_root(path: Path) -> bool:
 def go_files() -> list[Path]:
     return [
         p
-        for p in sorted(ROOT.rglob("*.go"))
+        for p in sorted(list((ROOT / "go").rglob("*.go")) + list((ROOT / "rust").rglob("*.rs")))
         if within_root(p)
         and not any(part in SKIP_DIRS for part in p.relative_to(ROOT).parts)
     ]

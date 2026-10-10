@@ -15,25 +15,13 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-SRC="docs/wiki"
 BUILD="build/wiki"
 WIKI_REMOTE="${WIKI_REMOTE:-https://github.com/Oblikovati/Oblikovati.API.wiki.git}"
 
 # --- 1. Assemble the page set into build/wiki ---------------------------------------
-rm -rf "$BUILD"
-mkdir -p "$BUILD"
-
-# Static pages — everything in docs/wiki except the repo-only README.
-shopt -s nullglob
-for f in "$SRC"/*.md; do
-  base="$(basename "$f")"
-  [[ "$base" = "README.md" ]] && continue
-  cp "$f" "$BUILD/$base"
-done
-shopt -u nullglob
-
-# Generated API reference page (also enforces the no-third-party-product gate).
-scripts/gen-api-docs.sh "$BUILD/API-Docs.md"
+# Assemble both language references and the checked examples before any publish.
+make check-generated
+bash scripts/assemble-wiki.sh
 
 # --- 2. Sync into the wiki repo (preserve history; init if it's brand new) -----------
 WORK="$(mktemp -d)"

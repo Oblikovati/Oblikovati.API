@@ -18,3 +18,8 @@ coverage.out
 
 # Local git worktrees (superpowers:using-git-worktrees convention)
 .worktrees/
+
+# Rust and generation artifacts
+/rust/target/
+__pycache__/
+.coverage

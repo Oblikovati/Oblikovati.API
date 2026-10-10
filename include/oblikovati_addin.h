@@ -38,7 +38,7 @@ extern "C" {
 
 /*
  * Host -> add-in: the single generic RPC entry. Runs `method` with the `req`
- * byte payload (reqLen bytes) and, on OBK_OK, sets *resp/*respLen to a
+ * byte payload (reqLen bytes) and, on OBK_OK, sets *resp and *respLen to a
  * host-owned buffer the add-in must release with ObkHostFree. On error returns
  * OBK_ERR and *resp points to a host-owned UTF-8 error message (respLen bytes).
  */
@@ -97,7 +97,7 @@ extern void ObkFree(uint8_t *p);
  * simply reports hasAutomation:false in the registry. When present, the host routes
  * addins.callAutomation requests here: `method` plus a JSON `req` chosen by THIS
  * add-in's own contract (the host passes both through opaquely). On OBK_OK the
- * add-in sets *resp/*respLen to a buffer it allocated, which the host copies and
+ * add-in sets *resp and *respLen to a buffer it allocated, which the host copies and
  * then releases via ObkFree; on OBK_ERR *resp is a UTF-8 error message (same
  * ownership). Constraints: the call arrives on the host's session goroutine, so the
  * handler must return promptly and must NOT call ObkHostCall synchronously — the
