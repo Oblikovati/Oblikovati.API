@@ -14,7 +14,7 @@ import (
 // produce 0.2.0, rewrite version.go and CHANGELOG.md, and emit the release notes file.
 func TestRunAppliesBump(t *testing.T) {
 	dir := t.TempDir()
-	writeFile(t, dir, "version.go", sampleVersionGo)
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
 	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
 	notesPath := filepath.Join(dir, "notes.md")
 
@@ -26,7 +26,7 @@ func TestRunAppliesBump(t *testing.T) {
 	if got := out.String(); !strings.Contains(got, "next=0.2.0") || !strings.Contains(got, "bump=feature") {
 		t.Fatalf("run output = %q; want next=0.2.0 / bump=feature", got)
 	}
-	assertFileContains(t, filepath.Join(dir, "version.go"), `const Version = "0.2.0"`)
+	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.2.0"`)
 	assertFileContains(t, filepath.Join(dir, "CHANGELOG.md"), "## [0.2.0] - 2026-06-15")
 	assertFileContains(t, notesPath, "- feat(assembly): batch placement")
 }
@@ -34,7 +34,7 @@ func TestRunAppliesBump(t *testing.T) {
 // TestRunNoReleaseLeavesFiles: a docs/chore-only set bumps nothing and writes no output.
 func TestRunNoReleaseLeavesFiles(t *testing.T) {
 	dir := t.TempDir()
-	writeFile(t, dir, "version.go", sampleVersionGo)
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
 	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
 
 	in := strings.NewReader("docs: readme\x00chore: deps")
@@ -45,11 +45,14 @@ func TestRunNoReleaseLeavesFiles(t *testing.T) {
 	if out.String() != "" {
 		t.Fatalf("expected no stdout for a no-release set, got %q", out.String())
 	}
-	assertFileContains(t, filepath.Join(dir, "version.go"), `const Version = "0.1.0"`)
+	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
 }
 
 func writeFile(t *testing.T, dir, name, content string) {
 	t.Helper()
+	if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, name)), 0o755); err != nil {
+		t.Fatal(err)
+	}
 	if err := os.WriteFile(filepath.Join(dir, name), []byte(content), 0o644); err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +80,7 @@ func (failingWriter) Write([]byte) (int, error) { return 0, errors.New("pipe clo
 // nothing or the wrong thing — so the failure has to surface.
 func TestRunReportsAFailedWrite(t *testing.T) {
 	dir := t.TempDir()
-	writeFile(t, dir, "version.go", sampleVersionGo)
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
 	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
 
 	in := strings.NewReader("feat(assembly): batch placement")

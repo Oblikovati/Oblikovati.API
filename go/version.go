@@ -14,7 +14,7 @@ import (
 // Version is the module's version, per Semantic Versioning 2.0.0
 // (https://semver.org). It is the semver string WITHOUT the leading "v" that the
 // git tag carries (the "v" is a Go-module tag convention, not part of semver), so
-// the release tag for this value is "v" + Version.
+// the shared release tag is "v" + Version and the Go submodule tag is "go/v" + Version.
 //
 // While the major version is 0 the API is in initial development: the public
 // surface MAY change in any minor release and there is no backward-compatibility

@@ -19,7 +19,7 @@ import (
 // No output (exit 0) means nothing releasable changed.
 func main() {
 	apply := flag.Bool("apply", false, "rewrite version.go and CHANGELOG.md in place")
-	dir := flag.String("dir", ".", "module root holding version.go and CHANGELOG.md")
+	dir := flag.String("dir", ".", "repository root holding go/version.go and CHANGELOG.md")
 	date := flag.String("date", time.Now().UTC().Format("2006-01-02"), "release date (YYYY-MM-DD)")
 	notesOut := flag.String("notes-out", "", "also write the rendered release notes to this file")
 	flag.Parse()
@@ -34,7 +34,7 @@ func main() {
 // writing the result to out.
 func run(apply bool, dir, date, notesOut string, in io.Reader, out io.Writer) error {
 	messages := readMessages(in)
-	verPath := filepath.Join(dir, "version.go")
+	verPath := filepath.Join(dir, "go", "version.go")
 	verSrc, err := os.ReadFile(verPath)
 	if err != nil {
 		return fmt.Errorf("read %s: %w", verPath, err)
@@ -73,7 +73,7 @@ func applyEdits(dir, verSrc, prevVer, newVer, date string, messages []string, no
 	if err != nil {
 		return err
 	}
-	if err := os.WriteFile(filepath.Join(dir, "version.go"), []byte(bumped), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "go", "version.go"), []byte(bumped), 0o644); err != nil {
 		return fmt.Errorf("write version.go: %w", err)
 	}
 	notes := releaseNotes(messages)
