@@ -8,6 +8,11 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Explicit `ellipseMinorRadius` dimension kind, generated Rust contract, typed
+  Go helper, and matching Go/Rust examples. `ellipseRadius` still selects the major radius.
+
 ## [0.157.0] - 2026-10-11
 
 ### Added

@@ -282,6 +282,9 @@ pub const DIM_CONSTRAINT_DIAMETER: crate::types::DimensionConstraintKind =
 pub const DIM_CONSTRAINT_DISTANCE: crate::types::DimensionConstraintKind =
     crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("distance"));
 
+pub const DIM_CONSTRAINT_ELLIPSE_MINOR_RADIUS: crate::types::DimensionConstraintKind =
+    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("ellipseMinorRadius"));
+
 pub const DIM_CONSTRAINT_ELLIPSE_RADIUS: crate::types::DimensionConstraintKind =
     crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("ellipseRadius"));
 

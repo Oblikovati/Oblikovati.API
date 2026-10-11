@@ -399,7 +399,7 @@ pub struct AddDetailViewArgs {
     pub center_ymm: f64,
 }
 
-#[doc = "```text\nAddDimensionArgs is the request of [MethodSketchAddDimension] — the discriminated\ndimensional-constraint constructor. Kind is a\n[oblikovati.org/api/types.DimensionConstraintKind]; Entities are the session ids\nof the geometry being dimensioned (in the kind's order); Expression is the unit-bearing\nvalue (\"40 mm\", \"30 deg\"):\n\n  - distance: two point ids\n  - angle: two line ids\n  - radius/diameter: one circle id\n  - arcLength: one arc id\n```"]
+#[doc = "```text\nAddDimensionArgs is the request of [MethodSketchAddDimension] — the discriminated\ndimensional-constraint constructor. Kind is a\n[oblikovati.org/api/types.DimensionConstraintKind]; Entities are the session ids\nof the geometry being dimensioned (in the kind's order); Expression is the unit-bearing\nvalue (\"40 mm\", \"30 deg\"):\n\n  - distance: two point ids\n  - angle: two line ids\n  - radius/diameter: one circle id\n  - arcLength: one arc id\n  - ellipseRadius: one ellipse id, major radius\n  - ellipseMinorRadius: one ellipse id, minor radius\n\nEllipse radii are positive lengths with major >= minor. A host must refuse a\nradius crossing; it must not swap axes or silently treat a minor request as major.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct AddDimensionArgs {

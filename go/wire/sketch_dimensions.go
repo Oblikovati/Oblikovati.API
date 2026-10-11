@@ -12,6 +12,11 @@ package wire
 //   - angle: two line ids
 //   - radius/diameter: one circle id
 //   - arcLength: one arc id
+//   - ellipseRadius: one ellipse id, major radius
+//   - ellipseMinorRadius: one ellipse id, minor radius
+//
+// Ellipse radii are positive lengths with major >= minor. A host must refuse a
+// radius crossing; it must not swap axes or silently treat a minor request as major.
 type AddDimensionArgs struct {
 	SketchIndex int      `json:"sketchIndex"`
 	Kind        string   `json:"kind"`

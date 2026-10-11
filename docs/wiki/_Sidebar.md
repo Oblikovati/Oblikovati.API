@@ -4,6 +4,7 @@
 - [[First Steps]]
 - [[C ABI Add-ins]]
 - [[Typed Operations]]
+- [[Ellipse Dimensions]]
 - [[Oblikovati API Architecture]]
 - [[Testing Automation]]
 - [[API Docs]]

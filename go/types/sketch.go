@@ -131,6 +131,9 @@ const (
 	DimConstraintOffset          DimensionConstraintKind = "offsetDim"
 	DimConstraintThreePointAngle DimensionConstraintKind = "threePointAngle"
 	DimConstraintEllipseRadius   DimensionConstraintKind = "ellipseRadius"
+	// DimConstraintEllipseMinorRadius measures or drives the minor radius of one ellipse.
+	// The existing ellipseRadius kind continues to select the major radius.
+	DimConstraintEllipseMinorRadius DimensionConstraintKind = "ellipseMinorRadius"
 	// DimConstraintTangentDistance dimensions the distance from a line to a circle/arc
 	// measured to its tangent point — the near side by default, the far side with
 	// AddDimensionArgs.FarSide (Oblikovati/Oblikovati#152).

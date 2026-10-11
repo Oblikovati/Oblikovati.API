@@ -74,6 +74,12 @@ func (g Dimension) EllipseRadius(ellipse uint64, expression string) (wire.AddDim
 	return g.Add(types.DimConstraintEllipseRadius, expression, ellipse)
 }
 
+// EllipseMinorRadius dimensions an ellipse's minor radius without changing its axis identity.
+// Example: sketch.Dimension(0).EllipseMinorRadius(ellipseID, "5 mm").
+func (g Dimension) EllipseMinorRadius(ellipse uint64, expression string) (wire.AddDimensionResult, error) {
+	return g.Add(types.DimConstraintEllipseMinorRadius, expression, ellipse)
+}
+
 // OffsetSpline drives the offset distance of an offset-spline entity from its parent (#1874).
 func (g Dimension) OffsetSpline(offsetSpline uint64, expression string) (wire.AddDimensionResult, error) {
 	return g.Add(types.DimConstraintOffsetSpline, expression, offsetSpline)
