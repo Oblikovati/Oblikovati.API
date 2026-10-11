@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.158.0] - 2026-10-11
+
+### Added
+
+- feat(sketch): expose independent ellipse minor-radius dimensions
+
 ### Added
 
 - Explicit `ellipseMinorRadius` dimension kind, generated Rust contract, typed
@@ -1339,7 +1345,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.157.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.158.0...HEAD
+[0.158.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.157.0...v0.158.0
 [0.157.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.156.0...v0.157.0
 [0.156.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.155.0...v0.156.0
 [0.155.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.154.0...v0.155.0
