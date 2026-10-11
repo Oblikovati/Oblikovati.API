@@ -188,6 +188,16 @@ impl<T: super::Caller> WorkAxes<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_WORK_AXES_LIST, None::<&()>)
     }
+
+    /// Call `MethodWorkAxesList` with the canonical request and response types.
+    /// Example: `client.work_axes().list_with_options(&args)`.
+    pub fn list_with_options(
+        &self,
+        args: &crate::wire::ListWorkAxesArgs,
+    ) -> Result<crate::wire::ListWorkAxesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_WORK_AXES_LIST, Some(args))
+    }
 }
 
 /// Typed `WorkFeatures` calls over the shared API transport.
@@ -291,6 +301,16 @@ impl<T: super::Caller> WorkPoints<'_, T> {
     pub fn list(&self) -> Result<crate::wire::ListWorkPointsResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_WORK_POINTS_LIST, None::<&()>)
+    }
+
+    /// Call `MethodWorkPointsList` with the canonical request and response types.
+    /// Example: `client.work_points().list_with_options(&args)`.
+    pub fn list_with_options(
+        &self,
+        args: &crate::wire::ListWorkPointsArgs,
+    ) -> Result<crate::wire::ListWorkPointsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_WORK_POINTS_LIST, Some(args))
     }
 }
 

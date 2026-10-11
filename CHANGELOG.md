@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Typed datum list options in Go and Rust, with both-language wiki examples (#297).
+
 ## [0.155.0] - 2026-10-10
 
 ### Added

@@ -26,6 +26,13 @@ func (w WorkAxes) List() (wire.ListWorkAxesResult, error) {
 	return call[wire.ListWorkAxesResult](w.c, wire.MethodWorkAxesList, nil)
 }
 
+// ListWithOptions selects an occurrence and includes construction datums when requested.
+// Example: c.WorkAxes().ListWithOptions(wire.ListWorkAxesArgs{IncludeConstruction: true}).
+// The no-argument List method retains its original empty request for older hosts (#297).
+func (w WorkAxes) ListWithOptions(args wire.ListWorkAxesArgs) (wire.ListWorkAxesResult, error) {
+	return call[wire.ListWorkAxesResult](w.c, wire.MethodWorkAxesList, args)
+}
+
 // Create adds a datum axis from an explicit request — the escape hatch covering every
 // kind; prefer the typed helpers below for the common constructors.
 //

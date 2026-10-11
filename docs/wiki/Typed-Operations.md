@@ -98,6 +98,86 @@ Rust client methods take references to the wire request structs. Go provides som
 scalar convenience methods as well. Use the language reference to find the exact
 signature. The method name and JSON field names on the wire are the same.
 
+## Datum list options
+
+`WorkAxes.ListWithOptions` and `WorkPoints.ListWithOptions` in Go correspond to
+`work_axes().list_with_options` and `work_points().list_with_options` in Rust.
+Use the existing typed list request to include construction datums or select an
+occurrence. The host must support the requested occurrence scope. The Rust
+application currently supports the active local part only.
+
+The no-argument list methods keep their empty request and default filtering.
+Including construction rows does not change visibility. Keep each returned
+index and reference; filtering can leave gaps in collection indices.
+
+### Go datum lists
+
+<!-- example: go/examples/operations/datums.go -->
+```go
+// SPDX-License-Identifier: Apache-2.0
+
+package operations
+
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+)
+
+// ListAllAxes includes construction axes in the active local model.
+// Example: ListAllAxes(host). Use Occurrence only when the host supports that scope.
+func ListAllAxes(host client.Caller) (wire.ListWorkAxesResult, error) {
+	return client.New(host).WorkAxes().ListWithOptions(wire.ListWorkAxesArgs{IncludeConstruction: true})
+}
+
+// ListAllPoints includes construction points without changing their visibility.
+// Example: ListAllPoints(host).
+func ListAllPoints(host client.Caller) (wire.ListWorkPointsResult, error) {
+	return client.New(host).WorkPoints().ListWithOptions(wire.ListWorkPointsArgs{IncludeConstruction: true})
+}
+```
+<!-- /example -->
+
+### Rust datum lists
+
+<!-- example: rust/examples/datums.rs -->
+```rust
+// SPDX-License-Identifier: Apache-2.0
+use oblikovati_api::{
+    Error,
+    client::{Caller, Client},
+    wire,
+};
+
+/// Include construction axes in the active local model. Example: `list_all_axes(host)?`.
+pub fn list_all_axes<T: Caller>(host: T) -> Result<wire::ListWorkAxesResult, Error> {
+    Client::new(host)
+        .work_axes()
+        .list_with_options(&wire::ListWorkAxesArgs {
+            include_construction: true,
+            ..Default::default()
+        })
+}
+
+/// Include construction points without changing visibility. Example: `list_all_points(host)?`.
+pub fn list_all_points<T: Caller>(host: T) -> Result<wire::ListWorkPointsResult, Error> {
+    Client::new(host)
+        .work_points()
+        .list_with_options(&wire::ListWorkPointsArgs {
+            include_construction: true,
+            ..Default::default()
+        })
+}
+
+fn main() {
+    println!("Call list_all_axes or list_all_points with your add-in's HostTransport.");
+}
+
+#[cfg(test)]
+#[path = "support/datums_tests.rs"]
+mod tests;
+```
+<!-- /example -->
+
 ## Events and identifiers
 
 The C host sends events through `ObkAddInNotify`. Decode the event with the

@@ -206,6 +206,20 @@ fn work_axes_list() {
 }
 
 #[test]
+fn work_axes_list_with_options() {
+    let args: oblikovati_api::wire::ListWorkAxesArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_WORK_AXES_LIST,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.work_axes().list_with_options(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn work_features_delete() {
     let args: oblikovati_api::wire::DeleteWorkFeatureArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -215,20 +229,6 @@ fn work_features_delete() {
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(
         client.work_features().delete(&args).unwrap_err().0,
-        "recorded"
-    );
-}
-
-#[test]
-fn work_features_set_visible() {
-    let args: oblikovati_api::wire::SetWorkFeatureVisibleArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_WORK_FEATURES_SET_VISIBLE,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(
-        client.work_features().set_visible(&args).unwrap_err().0,
         "recorded"
     );
 }

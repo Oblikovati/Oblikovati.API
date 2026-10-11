@@ -25,6 +25,13 @@ func (w WorkPoints) List() (wire.ListWorkPointsResult, error) {
 	return call[wire.ListWorkPointsResult](w.c, wire.MethodWorkPointsList, nil)
 }
 
+// ListWithOptions selects an occurrence and includes construction datums when requested.
+// Example: c.WorkPoints().ListWithOptions(wire.ListWorkPointsArgs{IncludeConstruction: true}).
+// The no-argument List method retains its original empty request for older hosts (#297).
+func (w WorkPoints) ListWithOptions(args wire.ListWorkPointsArgs) (wire.ListWorkPointsResult, error) {
+	return call[wire.ListWorkPointsResult](w.c, wire.MethodWorkPointsList, args)
+}
+
 // Create adds a datum point from an explicit request — the escape hatch covering every kind
 // (position, plane-axis-intersection); prefer the typed helpers below for the common
 // constructors. Returns the point's index, reference, name, and health.

@@ -34,6 +34,11 @@ func TestRustParityWorkAxesList(t *testing.T) {
 	checkGoGroup(t, c, "WorkAxes", "List")
 }
 
+func TestRustParityWorkAxesListWithOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
+	checkGoGroup(t, c, "WorkAxes", "ListWithOptions")
+}
+
 func TestRustParityWorkFeaturesDelete(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkFeaturesDelete})
 	checkGoGroup(t, c, "WorkFeatures", "Delete")
@@ -72,6 +77,11 @@ func TestRustParityWorkPointsCreate(t *testing.T) {
 func TestRustParityWorkPointsList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkPointsList})
 	checkGoGroup(t, c, "WorkPoints", "List")
+}
+
+func TestRustParityWorkPointsListWithOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPointsList})
+	checkGoGroup(t, c, "WorkPoints", "ListWithOptions")
 }
 
 func TestRustParityWorkSurfacesGet(t *testing.T) {
