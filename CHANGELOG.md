@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.156.0] - 2026-10-11
+
+### Added
+
+- feat(client): expose typed datum list options in Go and Rust
+
 ### Added
 
 - Typed datum list options in Go and Rust, with both-language wiki examples (#297).
@@ -1318,7 +1324,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.155.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.156.0...HEAD
+[0.156.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.155.0...v0.156.0
 [0.155.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.154.0...v0.155.0
 [0.154.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.2...v0.154.0
 [0.153.2]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.153.1...v0.153.2
