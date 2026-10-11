@@ -42,7 +42,7 @@ func assertDatumListRequest[T comparableRequest](t *testing.T, ft *fakeTransport
 }
 
 type comparableRequest interface {
-	wire.ListWorkAxesArgs | wire.ListWorkPointsArgs
+	wire.ListWorkAxesArgs | wire.ListWorkPointsArgs | wire.ListWorkPlanesArgs
 }
 
 func TestDatumListWithOptionsPropagatesTransportFailure(t *testing.T) {
@@ -51,7 +51,18 @@ func TestDatumListWithOptionsPropagatesTransportFailure(t *testing.T) {
 	c := New(ft)
 	_, axesErr := c.WorkAxes().ListWithOptions(wire.ListWorkAxesArgs{})
 	_, pointsErr := c.WorkPoints().ListWithOptions(wire.ListWorkPointsArgs{})
-	if !errors.Is(axesErr, failure) || !errors.Is(pointsErr, failure) {
+	_, planesErr := c.WorkPlanes().ListWithOptions(wire.ListWorkPlanesArgs{})
+	if !errors.Is(axesErr, failure) || !errors.Is(pointsErr, failure) || !errors.Is(planesErr, failure) {
 		t.Fatalf("errors=(%v,%v): expected transport failure %v", axesErr, pointsErr, failure)
 	}
+}
+
+func TestWorkPlanesListWithOptionsUsesCanonicalRequest(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"planes":[{"index":4,"ref":"datum/v1/9","construction":true}]}`)}
+	args := wire.ListWorkPlanesArgs{Occurrence: []string{"assembly", "part"}, IncludeConstruction: true}
+	result, err := New(ft).WorkPlanes().ListWithOptions(args)
+	if err != nil || len(result.Planes) != 1 || result.Planes[0].Index != 4 || !result.Planes[0].Construction {
+		t.Fatalf("result=%+v error=%v: expected construction plane at index 4", result, err)
+	}
+	assertDatumListRequest(t, ft, wire.MethodWorkPlanesList, args)
 }

@@ -22,3 +22,11 @@ func TestListAllPoints(t *testing.T) {
 		t.Fatalf("result=%+v error=%v: expected one construction point", result, err)
 	}
 }
+
+func TestListAllPlanes(t *testing.T) {
+	host := recordingHost{wire.MethodWorkPlanesList, `{"includeConstruction":true}`, `{"planes":[{"index":4,"construction":true}]}`}
+	result, err := ListAllPlanes(host)
+	if err != nil || len(result.Planes) != 1 || !result.Planes[0].Construction {
+		t.Fatalf("result=%+v error=%v: expected one construction plane", result, err)
+	}
+}

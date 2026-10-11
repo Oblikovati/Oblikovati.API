@@ -54,6 +54,20 @@ fn work_planes_list() {
 }
 
 #[test]
+fn work_planes_list_with_options() {
+    let args: oblikovati_api::wire::ListWorkPlanesArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_WORK_PLANES_LIST,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.work_planes().list_with_options(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn work_planes_redefine() {
     let args: oblikovati_api::wire::RedefineWorkPlaneArgs = Default::default();
     let fake = super::super::RecordingCaller::new(

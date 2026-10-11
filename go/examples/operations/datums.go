@@ -18,3 +18,9 @@ func ListAllAxes(host client.Caller) (wire.ListWorkAxesResult, error) {
 func ListAllPoints(host client.Caller) (wire.ListWorkPointsResult, error) {
 	return client.New(host).WorkPoints().ListWithOptions(wire.ListWorkPointsArgs{IncludeConstruction: true})
 }
+
+// ListAllPlanes includes construction planes in the active local model.
+// Example: ListAllPlanes(host).
+func ListAllPlanes(host client.Caller) (wire.ListWorkPlanesResult, error) {
+	return client.New(host).WorkPlanes().ListWithOptions(wire.ListWorkPlanesArgs{IncludeConstruction: true})
+}

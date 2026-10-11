@@ -25,6 +25,13 @@ func (w WorkPlanes) List() (wire.ListWorkPlanesResult, error) {
 	return call[wire.ListWorkPlanesResult](w.c, wire.MethodWorkPlanesList, nil)
 }
 
+// ListWithOptions selects an occurrence and includes construction planes when requested.
+// Example: c.WorkPlanes().ListWithOptions(wire.ListWorkPlanesArgs{IncludeConstruction: true}).
+// List retains its empty default request for older hosts (#298).
+func (w WorkPlanes) ListWithOptions(args wire.ListWorkPlanesArgs) (wire.ListWorkPlanesResult, error) {
+	return call[wire.ListWorkPlanesResult](w.c, wire.MethodWorkPlanesList, args)
+}
+
 // Create adds a datum plane from an explicit request — the escape hatch covering every
 // kind; prefer the typed helpers below for the common constructors.
 //

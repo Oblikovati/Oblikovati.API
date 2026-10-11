@@ -25,8 +25,18 @@ pub fn list_all_points<T: Caller>(host: T) -> Result<wire::ListWorkPointsResult,
         })
 }
 
+/// Include construction planes in the active local model. Example: `list_all_planes(host)?`.
+pub fn list_all_planes<T: Caller>(host: T) -> Result<wire::ListWorkPlanesResult, Error> {
+    Client::new(host)
+        .work_planes()
+        .list_with_options(&wire::ListWorkPlanesArgs {
+            include_construction: true,
+            ..Default::default()
+        })
+}
+
 fn main() {
-    println!("Call list_all_axes or list_all_points with your add-in's HostTransport.");
+    println!("Call the datum list examples with your add-in's HostTransport.");
 }
 
 #[cfg(test)]

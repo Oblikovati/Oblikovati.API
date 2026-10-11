@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Complete typed datum list options for work planes in both languages (#298).
+
 ## [0.156.0] - 2026-10-11
 
 ### Added

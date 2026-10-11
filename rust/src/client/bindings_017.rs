@@ -266,6 +266,16 @@ impl<T: super::Caller> WorkPlanes<'_, T> {
             .invoke(crate::wire::METHOD_WORK_PLANES_LIST, None::<&()>)
     }
 
+    /// Call `MethodWorkPlanesList` with the canonical request and response types.
+    /// Example: `client.work_planes().list_with_options(&args)`.
+    pub fn list_with_options(
+        &self,
+        args: &crate::wire::ListWorkPlanesArgs,
+    ) -> Result<crate::wire::ListWorkPlanesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_WORK_PLANES_LIST, Some(args))
+    }
+
     /// Call `MethodWorkPlanesRedefine` with the canonical request and response types.
     /// Example: `client.work_planes().redefine(&args)`.
     pub fn redefine(

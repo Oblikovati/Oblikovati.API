@@ -64,6 +64,11 @@ func TestRustParityWorkPlanesList(t *testing.T) {
 	checkGoGroup(t, c, "WorkPlanes", "List")
 }
 
+func TestRustParityWorkPlanesListWithOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
+	checkGoGroup(t, c, "WorkPlanes", "ListWithOptions")
+}
+
 func TestRustParityWorkPlanesRedefine(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkPlanesRedefine})
 	checkGoGroup(t, c, "WorkPlanes", "Redefine")

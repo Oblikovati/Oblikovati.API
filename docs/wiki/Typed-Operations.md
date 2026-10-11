@@ -100,8 +100,9 @@ signature. The method name and JSON field names on the wire are the same.
 
 ## Datum list options
 
-`WorkAxes.ListWithOptions` and `WorkPoints.ListWithOptions` in Go correspond to
-`work_axes().list_with_options` and `work_points().list_with_options` in Rust.
+`WorkPlanes.ListWithOptions`, `WorkAxes.ListWithOptions`, and
+`WorkPoints.ListWithOptions` in Go correspond to the Rust `list_with_options`
+methods on `work_planes()`, `work_axes()`, and `work_points()`.
 Use the existing typed list request to include construction datums or select an
 occurrence. The host must support the requested occurrence scope. The Rust
 application currently supports the active local part only.
@@ -133,6 +134,12 @@ func ListAllAxes(host client.Caller) (wire.ListWorkAxesResult, error) {
 // Example: ListAllPoints(host).
 func ListAllPoints(host client.Caller) (wire.ListWorkPointsResult, error) {
 	return client.New(host).WorkPoints().ListWithOptions(wire.ListWorkPointsArgs{IncludeConstruction: true})
+}
+
+// ListAllPlanes includes construction planes in the active local model.
+// Example: ListAllPlanes(host).
+func ListAllPlanes(host client.Caller) (wire.ListWorkPlanesResult, error) {
+	return client.New(host).WorkPlanes().ListWithOptions(wire.ListWorkPlanesArgs{IncludeConstruction: true})
 }
 ```
 <!-- /example -->
@@ -168,8 +175,18 @@ pub fn list_all_points<T: Caller>(host: T) -> Result<wire::ListWorkPointsResult,
         })
 }
 
+/// Include construction planes in the active local model. Example: `list_all_planes(host)?`.
+pub fn list_all_planes<T: Caller>(host: T) -> Result<wire::ListWorkPlanesResult, Error> {
+    Client::new(host)
+        .work_planes()
+        .list_with_options(&wire::ListWorkPlanesArgs {
+            include_construction: true,
+            ..Default::default()
+        })
+}
+
 fn main() {
-    println!("Call list_all_axes or list_all_points with your add-in's HostTransport.");
+    println!("Call the datum list examples with your add-in's HostTransport.");
 }
 
 #[cfg(test)]

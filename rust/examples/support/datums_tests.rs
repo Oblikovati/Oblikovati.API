@@ -32,3 +32,14 @@ fn points_example_includes_construction_rows() {
     assert!(rows[0].construction);
     assert_eq!(rows[0].index, 2);
 }
+
+#[test]
+fn planes_example_includes_construction_rows() {
+    let host = DatumListHost {
+        method: wire::METHOD_WORK_PLANES_LIST,
+        response: r#"{"planes":[{"index":4,"construction":true}]}"#,
+    };
+    let rows = list_all_planes(host).unwrap().planes.unwrap();
+    assert!(rows[0].construction);
+    assert_eq!(rows[0].index, 4);
+}
