@@ -3,6 +3,42 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSetNodeVisibleArgs is the request of [MethodGraphicsNodeSetVisible]: toggle one node's\nvisibility within a group without resubmitting geometry.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetNodeVisibleArgs {
+    #[serde(rename = "clientId", deserialize_with = "crate::json::null_default")]
+    pub client_id: String,
+    #[serde(rename = "nodeId", deserialize_with = "crate::json::null_default")]
+    pub node_id: String,
+    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
+    pub visible: bool,
+}
+
+#[doc = "```text\nSetNormalDebugArgs is the request of [MethodViewportSetNormalDebug]: turn the viewport's normal-debug\nrender On or off — shaded triangles draw front-facing GREEN and back-facing RED, so winding /\nflipped-normal defects (hidden by normal two-sided shading) are obvious in a capture.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetNormalDebugArgs {
+    #[serde(rename = "on", deserialize_with = "crate::json::null_default")]
+    pub on: bool,
+}
+
+#[doc = "```text\nSetNoticeArgs is the request of [MethodInteractionSetNotice]: a short, transient\nuser-facing message for the host status bar. An add-in uses it to surface state the user\nwould otherwise not see — e.g. a collaboration add-in reporting connection progress or a\nconnection failure (oblikovati-meeting). The host clears the notice on the next user\ninput, so it is for transient status, not persistent UI.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetNoticeArgs {
+    #[serde(rename = "message", deserialize_with = "crate::json::null_default")]
+    pub message: String,
+}
+
+#[doc = "```text\nSetObjectVisibilityArgs is the request of [MethodUISetObjectVisibility].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetObjectVisibilityArgs {
+    #[serde(rename = "visibility", deserialize_with = "crate::json::null_default")]
+    pub visibility: crate::wire::ObjectVisibilityView,
+}
+
 #[doc = "```text\nSetOccurrenceStateArgs is the request of [MethodAssemblySetOccurrenceState]: change any subset of\nthe occurrence's display/state overrides (#1975/#1977). Each pointer field is applied only when\npresent, so one call can toggle a single flag without restating the others. Opacity is in [0,1]\n(0 ⇒ the lane/node default).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -420,32 +456,4 @@ pub struct SetSplineHandleArgs {
         deserialize_with = "crate::json::null_default"
     )]
     pub weight: f64,
-}
-
-#[doc = "```text\nSetStandardArgs is the request of [MethodDrawingStylesSetStandard]: the drafting standard\nto make active (a types.DraftingStandard spelling, \"iso\"/\"ansi\").\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetStandardArgs {
-    #[serde(rename = "standard", deserialize_with = "crate::json::null_default")]
-    pub standard: String,
-}
-
-#[doc = "```text\nSetStatusTextArgs is the request of [MethodStatusSetText]: put a transient message\nin the status bar (the same notice slot failed commits use). Empty clears it.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetStatusTextArgs {
-    #[serde(rename = "text", deserialize_with = "crate::json::null_default")]
-    pub text: String,
-}
-
-#[doc = "```text\nSetSuppressedArgs suppresses or restores an occurrence within a level-of-detail\nrepresentation.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetSuppressedArgs {
-    #[serde(rename = "rep", deserialize_with = "crate::json::null_default")]
-    pub rep: u64,
-    #[serde(rename = "occurrence", deserialize_with = "crate::json::null_default")]
-    pub occurrence: u64,
-    #[serde(rename = "suppressed", deserialize_with = "crate::json::null_default")]
-    pub suppressed: bool,
 }

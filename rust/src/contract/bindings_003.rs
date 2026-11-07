@@ -3,6 +3,32 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nLightingStyle is the in-process contract for a lighting rig,\nscoped to the global controls our renderer consumes plus the discrete [Light]s. The GPL app\nsatisfies it (compile-time asserted there).\n\nAmbience, Brightness and the IBL/shadow scalars are unit-free multipliers/intensities in\n[0,1] unless noted; Exposure is in stops. StyleType distinguishes a standard light rig from\nan image-based (HDR) one.\n```"]
+pub trait LightingStyle {
+    #[doc = "```text\nAmbience is the global ambient fill in [0,1].\n```"]
+    fn ambience(&self) -> f64;
+    #[doc = "```text\nBrightness is the global light multiplier.\n```"]
+    fn brightness(&self) -> f64;
+    #[doc = "```text\nExposure is the tone-map exposure in stops.\n```"]
+    fn exposure(&self) -> f64;
+    #[doc = "```text\nImageBasedLightingBrightness scales the IBL contribution in [0,1].\n```"]
+    fn image_based_lighting_brightness(&self) -> f64;
+    #[doc = "```text\nImageBasedLightingRotation spins the environment about vertical, in radians.\n```"]
+    fn image_based_lighting_rotation(&self) -> f64;
+    #[doc = "```text\nLights are the discrete lights in this style (may be empty for a pure IBL style).\n```"]
+    fn lights(&self) -> Option<Vec<std::sync::Arc<dyn crate::contract::Light>>>;
+    #[doc = "```text\nName is the style's user-facing label.\n```"]
+    fn name(&self) -> String;
+    #[doc = "```text\nShadowDensity is the cast-shadow darkness in [0,1].\n```"]
+    fn shadow_density(&self) -> f64;
+    #[doc = "```text\nShadowDirection is the source direction shadows are cast from.\n```"]
+    fn shadow_direction(&self) -> crate::types::ShadowDirectionEnum;
+    #[doc = "```text\nShadowSoftness is the cast-shadow edge blur in [0,1].\n```"]
+    fn shadow_softness(&self) -> f64;
+    #[doc = "```text\nStyleType is whether this is a standard or image-based style.\n```"]
+    fn style_type(&self) -> crate::types::LightingStyleTypeEnum;
+}
+
 #[doc = "```text\nLine is an unbounded 3D line.\n```"]
 pub trait Line: crate::contract::Curve {
     fn direction(&self) -> crate::types::UnitVector;
@@ -78,7 +104,7 @@ pub trait MeshTranslator {
     fn formats(&self) -> Option<Vec<crate::types::ExchangeFormat>>;
 }
 
-#[doc = "```text\nModelState is a named tuple selecting one representation of each family — the single switch\nusers flip. An empty family name means \"leave that family's active representation unchanged\".\n```"]
+#[doc = "```text\nModelState is a named part or assembly member. Assembly members select one representation\nof each family — the single switch users flip. An empty family name leaves that family unchanged.\n```"]
 pub trait ModelState {
     #[doc = "```text\nActive reports whether this model state is the active one.\n```"]
     fn active(&self) -> bool;
@@ -92,7 +118,7 @@ pub trait ModelState {
     fn positional_name(&self) -> String;
 }
 
-#[doc = "```text\nModelStates is the assembly's model-state collection (host: assembly.ModelStateSet).\n```"]
+#[doc = "```text\nModelStates is a part or assembly's model-state collection in creation order.\n```"]
 pub trait ModelStates:
     crate::contract::Enumerable<std::sync::Arc<dyn crate::contract::ModelState>>
 {
@@ -427,34 +453,4 @@ pub trait Sketch {
     fn name(&self) -> String;
     #[doc = "```text\nVisible reports whether the sketch is shown.\n```"]
     fn visible(&self) -> bool;
-}
-
-#[doc = "```text\nSketch3D is the scalar view of a 3D (non-planar) sketch the host implements\n(model/sketch.Sketch3D) and add-ins consume: its identity, visibility, entity count,\nand the solver's remaining degree-of-freedom count. Like [Sketch] it exposes only the\nscalar surface — entity geometry and constraints travel as wire DTOs (see api/wire).\nThe host satisfies this via a compile-time assertion.\n```"]
-pub trait Sketch3D {
-    #[doc = "```text\nDegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).\n```"]
-    fn degrees_of_freedom(&self) -> i64;
-    #[doc = "```text\nEntityCount is the number of geometry entities the sketch owns.\n```"]
-    fn entity_count(&self) -> i64;
-    #[doc = "```text\nName is the sketch's display name.\n```"]
-    fn name(&self) -> String;
-    #[doc = "```text\nVisible reports whether the sketch is shown.\n```"]
-    fn visible(&self) -> bool;
-}
-
-#[doc = "```text\nSketchBlock is the scalar view of one placed block instance in a sketch.\nThe host's model/sketch.BlockInstance satisfies this.\n```"]
-pub trait SketchBlock {
-    #[doc = "```text\nDefinitionName names the block definition this instance places.\n```"]
-    fn definition_name(&self) -> String;
-    #[doc = "```text\nEntityCount is the live entity count of the instanced definition.\n```"]
-    fn entity_count(&self) -> i64;
-}
-
-#[doc = "```text\nSketchBlockDefinition is the scalar view of a reusable sketch entity group\nowned by a part's component definition (M06-F07,\nOblikovati/Oblikovati#622). The host's model/sketch.BlockDefinition\nsatisfies this via a compile-time assertion.\n```"]
-pub trait SketchBlockDefinition {
-    #[doc = "```text\nEntityCount is the number of entities the definition holds.\n```"]
-    fn entity_count(&self) -> i64;
-    #[doc = "```text\nInstanceCount is how many placed instances reference this definition.\n```"]
-    fn instance_count(&self) -> i64;
-    #[doc = "```text\nName is the definition's unique name within the part.\n```"]
-    fn name(&self) -> String;
 }

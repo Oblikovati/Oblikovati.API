@@ -197,6 +197,17 @@ fn model_states_activate() {
 }
 
 #[test]
+fn model_states_copy() {
+    let args: oblikovati_api::wire::ModelStateNameArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_MODEL_STATES_COPY,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(client.model_states().copy(&args).unwrap_err().0, "recorded");
+}
+
+#[test]
 fn model_states_create() {
     let args: oblikovati_api::wire::CreateModelStateArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -233,12 +244,4 @@ fn model_states_list() {
     );
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(client.model_states().list(&args).unwrap_err().0, "recorded");
-}
-
-#[test]
-fn model_tree() {
-    let fake =
-        super::super::RecordingCaller::new(oblikovati_api::wire::METHOD_MODEL_TREE, Vec::new());
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.model().tree().unwrap_err().0, "recorded");
 }

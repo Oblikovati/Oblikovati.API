@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepCreatePrimitive(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepCreatePrimitive})
+	checkGoGroup(t, c, "TransientBRep", "CreatePrimitive")
+}
+
+func TestRustParityTransientBRepCreateRuledSurface(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepRuledSurface})
+	checkGoGroup(t, c, "TransientBRep", "CreateRuledSurface")
+}
+
 func TestRustParityTransientBRepCreateSilhouetteCurve(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepSilhouette})
 	checkGoGroup(t, c, "TransientBRep", "CreateSilhouetteCurve")
@@ -147,14 +157,4 @@ func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
 func TestRustParityUnitsGetPreciseStringFromValue(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
 	checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
-}
-
-func TestRustParityUnitsGetStringFromType(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromType})
-	checkGoGroup(t, c, "Units", "GetStringFromType")
-}
-
-func TestRustParityUnitsGetStringFromValue(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromValue})
-	checkGoGroup(t, c, "Units", "GetStringFromValue")
 }

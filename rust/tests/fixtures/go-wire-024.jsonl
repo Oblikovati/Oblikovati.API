@@ -1,3 +1,6 @@
+{"Name":"wire.SetVisibilityArgs","Case":"zero","Payload":{"rep":0,"occurrence":0,"visible":false},"Canonical":{"rep":0,"occurrence":0,"visible":false},"Error":""}
+{"Name":"wire.SetVisibilityArgs","Case":"filled","Payload":{"rep":7,"occurrence":7,"visible":true},"Canonical":{"rep":7,"occurrence":7,"visible":true},"Error":""}
+{"Name":"wire.SetVisibilityArgs","Case":"empty","Payload":{"rep":7,"occurrence":7,"visible":true},"Canonical":{"rep":7,"occurrence":7,"visible":true},"Error":""}
 {"Name":"wire.SetVisibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"visible":false},"Canonical":{"id":0,"visible":false},"Error":""}
 {"Name":"wire.SetVisibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"visible":true},"Canonical":{"id":7,"visible":true},"Error":""}
 {"Name":"wire.SetVisibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"visible":true},"Canonical":{"id":7,"visible":true},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.StatusTextResult","Case":"zero","Payload":{"text":""},"Canonical":{"text":""},"Error":""}
 {"Name":"wire.StatusTextResult","Case":"filled","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.StatusTextResult","Case":"empty","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.StringFromValueArgs","Case":"zero","Payload":{"value":0,"unitsType":""},"Canonical":{"value":0,"unitsType":""},"Error":""}
-{"Name":"wire.StringFromValueArgs","Case":"filled","Payload":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.StringFromValueArgs","Case":"empty","Payload":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}

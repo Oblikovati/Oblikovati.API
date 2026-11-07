@@ -3,6 +3,72 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a\nsketch's identity, host plane label, visibility, entity count, remaining DOF, edit\nstate, health, and the display/solve overrides (color, line type/weight, defer).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SketchInfo {
+    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
+    pub index: i64,
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "plane", deserialize_with = "crate::json::null_default")]
+    pub plane: String,
+    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
+    pub visible: bool,
+    #[serde(rename = "entityCount", deserialize_with = "crate::json::null_default")]
+    pub entity_count: i64,
+    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
+    pub dof: i64,
+    #[serde(rename = "editing", deserialize_with = "crate::json::null_default")]
+    pub editing: bool,
+    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
+    pub healthy: bool,
+    #[doc = "```text\nConsumed reports whether a feature has consumed this sketch (drives browser nesting and\nthe delete guard); OwnedBy names the consuming feature (\"\" when not consumed); Shared\nreports the \"share sketch\" flag (a shared sketch stays top-level and reusable by\nseveral features). Enumerate the full dependent set with [MethodSketchDependents].\n```"]
+    #[serde(
+        rename = "consumed",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub consumed: bool,
+    #[serde(
+        rename = "ownedBy",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub owned_by: String,
+    #[serde(
+        rename = "shared",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub shared: bool,
+    #[serde(
+        rename = "color",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub color: String,
+    #[serde(
+        rename = "lineType",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub line_type: String,
+    #[serde(
+        rename = "lineWeight",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub line_weight: f64,
+    #[serde(
+        rename = "deferUpdates",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub defer_updates: bool,
+}
+
 #[doc = "```text\nSketchOptionsView is the \"sketch\" group: the grid and click snapping. Spacing is\nin model/database units (cm) — unit-independent, like the stored preference.\n\nA setGroup write replaces only the fields carried here; the sketch options the host\nkeeps but does not expose (the heads-up display flags) survive it unchanged.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -393,44 +459,4 @@ pub struct TaskPanelSpec {
         deserialize_with = "crate::json::null_default"
     )]
     pub cancel_label: String,
-}
-
-#[doc = "```text\nTextStyleInfo is the JSON shape of an annotation text style.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TextStyleInfo {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "fontName", deserialize_with = "crate::json::null_default")]
-    pub font_name: String,
-    #[serde(
-        rename = "heightMm",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub height_mm: f64,
-}
-
-#[doc = "```text\nThemeSummary is the lightweight entry of [MethodThemeList]: enough to populate a\ntheme picker without sending every color.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ThemeSummary {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "active", deserialize_with = "crate::json::null_default")]
-    pub active: bool,
-}
-
-#[doc = "```text\nThemeView is the JSON shape of one theme: its name, kind (light/dark/custom), and\nevery semantic color as \"#RRGGBBAA\" hex keyed by the token string. Hex (not floats)\nkeeps the payload compact and human-readable, matching the on-disk theme files.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ThemeView {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "colors", deserialize_with = "crate::json::null_default")]
-    pub colors: Option<std::collections::BTreeMap<String, String>>,
 }

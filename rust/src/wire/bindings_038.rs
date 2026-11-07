@@ -3,6 +3,70 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSetDisplayModeArgs is the request of [MethodViewSetDisplayMode]: the mode to switch the\nviewport to.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDisplayModeArgs {
+    #[serde(rename = "mode", deserialize_with = "crate::json::null_default")]
+    pub mode: crate::types::DisplayModeEnum,
+}
+
+#[doc = "```text\nSetDisplaySettingsArgs is the request of [MethodDocumentSetDisplaySettings]: the document to\nupdate and the settings to apply.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDisplaySettingsArgs {
+    #[serde(
+        rename = "document",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub document: String,
+    #[serde(rename = "settings", deserialize_with = "crate::json::null_default")]
+    pub settings: crate::wire::DisplaySettingsView,
+}
+
+#[doc = "```text\nSetDockableWindowArgs is the request of [MethodDockableWindowsSet]: create the\nwindow or replace its title/content if it exists.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDockableWindowArgs {
+    #[serde(rename = "window", deserialize_with = "crate::json::null_default")]
+    pub window: crate::wire::DockableWindowSpec,
+}
+
+#[doc = "```text\nSetDockableWindowReferencesArgs is the request of [MethodDockableWindowsSetReferences]: it\nreplaces a referenceList control's rows exactly as an Add-from-selection would, and notifies\nthe owning add-in with a [PanelReferencesChangedEvent]. Refs is the full new set.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDockableWindowReferencesArgs {
+    #[serde(rename = "windowId", deserialize_with = "crate::json::null_default")]
+    pub window_id: String,
+    #[serde(rename = "controlId", deserialize_with = "crate::json::null_default")]
+    pub control_id: String,
+    #[serde(rename = "refs", deserialize_with = "crate::json::null_default")]
+    pub refs: Option<Vec<String>>,
+}
+
+#[doc = "```text\nSetDockableWindowValueArgs is the request of [MethodDockableWindowsSetValue]: it drives one\neditable control of an add-in dockable window to a value, exactly as a user edit would — the host\nupdates the stored control and notifies the owning add-in (which may react, e.g. re-render the\nwindow). Value is the control's string form: the option text for a dropdown/combo, \"true\"/\"false\"\nfor a checkbox, the number for a value editor/slider, the text for a text box.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDockableWindowValueArgs {
+    #[serde(rename = "windowId", deserialize_with = "crate::json::null_default")]
+    pub window_id: String,
+    #[serde(rename = "controlId", deserialize_with = "crate::json::null_default")]
+    pub control_id: String,
+    #[serde(rename = "value", deserialize_with = "crate::json::null_default")]
+    pub value: String,
+}
+
+#[doc = "```text\nSetDockableWindowVisibleArgs is the request of [MethodDockableWindowsSetVisible].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetDockableWindowVisibleArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
+    pub visible: bool,
+}
+
 #[doc = "```text\nSetDocumentUnitsArgs is the request of [MethodDocumentsSetUnits]: only the\nnon-nil fields are applied, so a caller can change one preference without\nrestating the rest. The response is the updated [DocumentUnitsInfo].\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -393,40 +457,4 @@ pub struct SetNodeTransformArgs {
         deserialize_with = "crate::json::null_default"
     )]
     pub transform: Option<Vec<f64>>,
-}
-
-#[doc = "```text\nSetNodeVisibleArgs is the request of [MethodGraphicsNodeSetVisible]: toggle one node's\nvisibility within a group without resubmitting geometry.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetNodeVisibleArgs {
-    #[serde(rename = "clientId", deserialize_with = "crate::json::null_default")]
-    pub client_id: String,
-    #[serde(rename = "nodeId", deserialize_with = "crate::json::null_default")]
-    pub node_id: String,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
-}
-
-#[doc = "```text\nSetNormalDebugArgs is the request of [MethodViewportSetNormalDebug]: turn the viewport's normal-debug\nrender On or off — shaded triangles draw front-facing GREEN and back-facing RED, so winding /\nflipped-normal defects (hidden by normal two-sided shading) are obvious in a capture.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetNormalDebugArgs {
-    #[serde(rename = "on", deserialize_with = "crate::json::null_default")]
-    pub on: bool,
-}
-
-#[doc = "```text\nSetNoticeArgs is the request of [MethodInteractionSetNotice]: a short, transient\nuser-facing message for the host status bar. An add-in uses it to surface state the user\nwould otherwise not see — e.g. a collaboration add-in reporting connection progress or a\nconnection failure (oblikovati-meeting). The host clears the notice on the next user\ninput, so it is for transient status, not persistent UI.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetNoticeArgs {
-    #[serde(rename = "message", deserialize_with = "crate::json::null_default")]
-    pub message: String,
-}
-
-#[doc = "```text\nSetObjectVisibilityArgs is the request of [MethodUISetObjectVisibility].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetObjectVisibilityArgs {
-    #[serde(rename = "visibility", deserialize_with = "crate::json::null_default")]
-    pub visibility: crate::wire::ObjectVisibilityView,
 }

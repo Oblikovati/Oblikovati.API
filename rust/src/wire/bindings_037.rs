@@ -3,6 +3,66 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nScrollViewportArgs is the request of [MethodViewportScroll]: a mouse-wheel tick at a viewport\npixel, in notches (a wheel detent is one notch; fractional for high-resolution wheels). DY is the\nvertical axis (positive scrolls up — the zoom-in direction the host has always used). DX is the\nhorizontal axis a two-axis wheel or thumbwheel reports (#1822); it is delivered but carries no\ndefault binding, so it changes nothing until a tool or add-in reads it. X/Y locate the cursor so\nthe host can zoom toward it, defaulting to the viewport centre when omitted.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ScrollViewportArgs {
+    #[serde(
+        rename = "dx",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dx: f64,
+    #[serde(
+        rename = "dy",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dy: f64,
+    #[serde(
+        rename = "x",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub x: f64,
+    #[serde(
+        rename = "y",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub y: f64,
+    #[serde(
+        rename = "shift",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub shift: bool,
+    #[serde(
+        rename = "ctrl",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ctrl: bool,
+    #[serde(
+        rename = "alt",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub alt: bool,
+}
+
+#[doc = "```text\nScrollViewportResult is the response of [MethodViewportScroll]: the command still running after\nthe scroll (empty once none is), mirroring the click/key results.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ScrollViewportResult {
+    #[serde(rename = "activeTool", deserialize_with = "crate::json::null_default")]
+    pub active_tool: String,
+}
+
 #[doc = "```text\nSearchCommandsArgs is the request of [MethodUISearch]: find registered commands\nwhose display name, id, or alias matches the query (case-insensitive substring).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -397,68 +457,4 @@ pub struct SetDimensionToleranceArgs {
     pub name: String,
     #[serde(rename = "tolerance", deserialize_with = "crate::json::null_default")]
     pub tolerance: crate::types::DimensionTolerance,
-}
-
-#[doc = "```text\nSetDisplayModeArgs is the request of [MethodViewSetDisplayMode]: the mode to switch the\nviewport to.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDisplayModeArgs {
-    #[serde(rename = "mode", deserialize_with = "crate::json::null_default")]
-    pub mode: crate::types::DisplayModeEnum,
-}
-
-#[doc = "```text\nSetDisplaySettingsArgs is the request of [MethodDocumentSetDisplaySettings]: the document to\nupdate and the settings to apply.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDisplaySettingsArgs {
-    #[serde(
-        rename = "document",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub document: String,
-    #[serde(rename = "settings", deserialize_with = "crate::json::null_default")]
-    pub settings: crate::wire::DisplaySettingsView,
-}
-
-#[doc = "```text\nSetDockableWindowArgs is the request of [MethodDockableWindowsSet]: create the\nwindow or replace its title/content if it exists.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDockableWindowArgs {
-    #[serde(rename = "window", deserialize_with = "crate::json::null_default")]
-    pub window: crate::wire::DockableWindowSpec,
-}
-
-#[doc = "```text\nSetDockableWindowReferencesArgs is the request of [MethodDockableWindowsSetReferences]: it\nreplaces a referenceList control's rows exactly as an Add-from-selection would, and notifies\nthe owning add-in with a [PanelReferencesChangedEvent]. Refs is the full new set.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDockableWindowReferencesArgs {
-    #[serde(rename = "windowId", deserialize_with = "crate::json::null_default")]
-    pub window_id: String,
-    #[serde(rename = "controlId", deserialize_with = "crate::json::null_default")]
-    pub control_id: String,
-    #[serde(rename = "refs", deserialize_with = "crate::json::null_default")]
-    pub refs: Option<Vec<String>>,
-}
-
-#[doc = "```text\nSetDockableWindowValueArgs is the request of [MethodDockableWindowsSetValue]: it drives one\neditable control of an add-in dockable window to a value, exactly as a user edit would — the host\nupdates the stored control and notifies the owning add-in (which may react, e.g. re-render the\nwindow). Value is the control's string form: the option text for a dropdown/combo, \"true\"/\"false\"\nfor a checkbox, the number for a value editor/slider, the text for a text box.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDockableWindowValueArgs {
-    #[serde(rename = "windowId", deserialize_with = "crate::json::null_default")]
-    pub window_id: String,
-    #[serde(rename = "controlId", deserialize_with = "crate::json::null_default")]
-    pub control_id: String,
-    #[serde(rename = "value", deserialize_with = "crate::json::null_default")]
-    pub value: String,
-}
-
-#[doc = "```text\nSetDockableWindowVisibleArgs is the request of [MethodDockableWindowsSetVisible].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SetDockableWindowVisibleArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
 }

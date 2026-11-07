@@ -3,6 +3,10 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_VIEWS_RESTORE_NAMED: &str = "views.restoreNamed";
+
+pub const METHOD_VIEWS_SET_LAYOUT: &str = "views.setLayout";
+
 pub const METHOD_WINDOWS_ACTIVATE_TAB: &str = "windows.activateTab";
 
 pub const METHOD_WINDOWS_CLOSE_TAB: &str = "windows.closeTab";
@@ -367,7 +371,7 @@ pub struct ModelHealthResult {
     pub unhealthy: Option<Vec<crate::wire::FeatureHealth>>,
 }
 
-#[doc = "```text\nModelStateInfo is one model state: its identity and the names of the representation it\nselects in each family (empty ⇒ that family is left unchanged on activate).\n```"]
+#[doc = "```text\nModelStateInfo identifies a part or assembly member. Assembly family names select the\nrepresentation to activate; an empty family name leaves that family unchanged.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct ModelStateInfo {
@@ -399,6 +403,27 @@ pub struct ModelStateInfo {
         deserialize_with = "crate::json::null_default"
     )]
     pub active: bool,
+    #[doc = "```text\nPrimary marks the built-in member; its identity is not inferred from Name.\n```"]
+    #[serde(
+        rename = "primary",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub primary: bool,
+}
+
+#[doc = "```text\nModelStateNameArgs selects an existing member and requests a name for rename or copy.\nRename requires a nonempty unique name. Copy may omit Name to request a generated name.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ModelStateNameArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+    #[serde(
+        rename = "name",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub name: String,
 }
 
 #[doc = "```text\nResult envelopes.\n```"]
@@ -431,20 +456,4 @@ pub struct ModelTreeResult {
     pub features: Option<Vec<crate::wire::FeatureInfo>>,
     #[serde(rename = "bodies", deserialize_with = "crate::json::null_default")]
     pub bodies: i64,
-}
-
-#[doc = "```text\nMoveFreeformVerticesArgs is the request of [MethodFreeformMoveVertices]:\ntranslate the selected cage vertices (by cage index) by [dx,dy,dz] in\ndocument units. Indices outside the cage are rejected with the offending\nindex and the cage size.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct MoveFreeformVerticesArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "vertices", deserialize_with = "crate::json::null_default")]
-    pub vertices: Option<Vec<i64>>,
-    #[serde(
-        rename = "translation",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub translation: [f64; 3],
 }

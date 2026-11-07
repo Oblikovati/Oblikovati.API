@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityViewsSetLayout(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewsSetLayout})
+	checkGoGroup(t, c, "Views", "SetLayout")
+}
+
+func TestRustParityWindowsActivateTab(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWindowsActivateTab})
+	checkGoGroup(t, c, "Windows", "ActivateTab")
+}
+
 func TestRustParityWindowsCloseTab(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWindowsCloseTab})
 	checkGoGroup(t, c, "Windows", "CloseTab")

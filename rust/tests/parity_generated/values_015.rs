@@ -281,6 +281,11 @@ fn wire_model_state_info() {
 }
 
 #[test]
+fn wire_model_state_name_args() {
+    super::check::<oblikovati_api::wire::ModelStateNameArgs>("wire.ModelStateNameArgs");
+}
+
+#[test]
 fn wire_model_state_result() {
     super::check::<oblikovati_api::wire::ModelStateResult>("wire.ModelStateResult");
 }
@@ -298,9 +303,4 @@ fn wire_model_tree_result() {
 #[test]
 fn wire_move_freeform_vertices_args() {
     super::check::<oblikovati_api::wire::MoveFreeformVerticesArgs>("wire.MoveFreeformVerticesArgs");
-}
-
-#[test]
-fn wire_move_sketch_dimension_args() {
-    super::check::<oblikovati_api::wire::MoveSketchDimensionArgs>("wire.MoveSketchDimensionArgs");
 }

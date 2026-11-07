@@ -175,34 +175,35 @@ func (l LODReps) SetSuppressed(args wire.SetSuppressedArgs) (wire.LODResult, err
 	return call[wire.LODResult](l.c, wire.MethodLODRepsSetSuppressed, args)
 }
 
-// ModelStates is the model-state group — a model state selects one representation of each
-// family and activating it switches all three together.
+// ModelStates is the part/assembly member group. Assembly members select one representation
+// of each family; activation switches those families together.
 type ModelStates struct{ c *Client }
 
 // ModelStates returns the model-state group.
 func (c *Client) ModelStates() ModelStates { return ModelStates{c} }
 
-// Create makes a model state selecting one representation of each family by name.
+// Create makes an inactive model-state member. Assembly members may select representation
+// families by name. Activate remains a separate operation.
 //
 // mcp:tool create_model_state
-// mcp:summary Create a model state selecting one representation of each family by name (designView/positional/levelOfDetail; empty leaves a family unchanged). Returns the model state.
+// mcp:summary Create an inactive part or assembly model-state member. Assembly members may select designView/positional/levelOfDetail by name; empty leaves a family unchanged. Returns the model state.
 func (m ModelStates) Create(args wire.CreateModelStateArgs) (wire.ModelStateResult, error) {
 	return call[wire.ModelStateResult](m.c, wire.MethodModelStatesCreate, args)
 }
 
-// Activate switches the assembly to a model state — activating its three representations
+// Activate selects a part member or switches an assembly's selected representation families
 // together.
 //
 // mcp:tool activate_model_state
-// mcp:summary Activate a model state (id) — switch the assembly's design-view, positional, and level-of-detail representations together. Returns the model state.
+// mcp:summary Activate a part or assembly model-state member by id. Assembly activation also switches its selected design-view, positional, and level-of-detail families. Returns the model state.
 func (m ModelStates) Activate(id uint64) (wire.ModelStateResult, error) {
 	return call[wire.ModelStateResult](m.c, wire.MethodModelStatesActivate, wire.RepRef{ID: id})
 }
 
-// List returns the assembly's model states in creation order.
+// List returns the part or assembly's model states in creation order.
 //
 // mcp:tool list_model_states
-// mcp:summary List the assembly's model states: each with id, name, the selected representation names, and active flag.
+// mcp:summary List model-state members with identity, name, selected representation names, active status and Primary marker.
 func (m ModelStates) List() (wire.ModelStatesResult, error) {
 	return call[wire.ModelStatesResult](m.c, wire.MethodModelStatesList, struct{}{})
 }

@@ -436,6 +436,19 @@ pub trait EdgeDisplaySettings {
     fn hidden_line_dimming_percent(&self) -> i64;
 }
 
+#[doc = "```text\nEditableModelState is a model-state member whose owning collection supports\nnaming and copying. The built-in Primary member cannot be renamed or deleted.\nA copy receives a new identity and does not replace the active source member.\n```"]
+pub trait EditableModelState: crate::contract::ModelState {
+    #[doc = "```text\nCopy makes an inactive copy; an empty name asks the owner for a unique name.\n```"]
+    fn copy(
+        &self,
+        new_name: String,
+    ) -> Result<std::sync::Arc<dyn crate::contract::ModelState>, crate::Error>;
+    #[doc = "```text\nPrimary identifies the built-in member without relying on its display name.\n```"]
+    fn primary(&self) -> bool;
+    #[doc = "```text\nSetName changes a non-primary member's unique name without changing its ID.\n```"]
+    fn set_name(&self, name: String) -> Result<(), crate::Error>;
+}
+
 #[doc = "```text\nEllipseFull is a full 3D ellipse.\n```"]
 pub trait EllipseFull: crate::contract::Curve {
     fn center(&self) -> crate::types::Point;
@@ -443,23 +456,4 @@ pub trait EllipseFull: crate::contract::Curve {
     fn major_radius(&self) -> f64;
     fn minor_radius(&self) -> f64;
     fn normal(&self) -> crate::types::UnitVector;
-}
-
-#[doc = "```text\nEllipseFull2d is a full 2D ellipse.\n```"]
-pub trait EllipseFull2d: crate::contract::Curve2d {
-    fn center(&self) -> crate::types::Point2d;
-    fn major_axis(&self) -> crate::types::UnitVector2d;
-    fn major_radius(&self) -> f64;
-    fn minor_radius(&self) -> f64;
-}
-
-#[doc = "```text\nEllipticalArc is a bounded span of a 3D ellipse.\n```"]
-pub trait EllipticalArc: crate::contract::Curve {
-    fn center(&self) -> crate::types::Point;
-    fn major_axis(&self) -> crate::types::UnitVector;
-    fn major_radius(&self) -> f64;
-    fn minor_radius(&self) -> f64;
-    fn normal(&self) -> crate::types::UnitVector;
-    fn start_angle(&self) -> f64;
-    fn sweep_angle(&self) -> f64;
 }

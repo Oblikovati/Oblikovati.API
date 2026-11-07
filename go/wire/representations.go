@@ -45,8 +45,8 @@ type LODInfo struct {
 	SuppressedCount int `json:"suppressedCount,omitempty"`
 }
 
-// ModelStateInfo is one model state: its identity and the names of the representation it
-// selects in each family (empty ⇒ that family is left unchanged on activate).
+// ModelStateInfo identifies a part or assembly member. Assembly family names select the
+// representation to activate; an empty family name leaves that family unchanged.
 type ModelStateInfo struct {
 	ID            uint64 `json:"id"`
 	Name          string `json:"name"`
@@ -54,6 +54,8 @@ type ModelStateInfo struct {
 	Positional    string `json:"positional,omitempty"`
 	LevelOfDetail string `json:"levelOfDetail,omitempty"`
 	Active        bool   `json:"active,omitempty"`
+	// Primary marks the built-in member; its identity is not inferred from Name.
+	Primary bool `json:"primary,omitempty"`
 }
 
 // Result envelopes.
@@ -140,8 +142,8 @@ type SetSuppressedArgs struct {
 	Suppressed bool   `json:"suppressed"`
 }
 
-// CreateModelStateArgs creates a model state selecting one representation of each family by
-// name (an empty family name leaves that family unchanged on activate).
+// CreateModelStateArgs creates an inactive model-state member. Assembly family names select
+// the representation used on later activation; part members leave these family names empty.
 type CreateModelStateArgs struct {
 	Name          string `json:"name"`
 	DesignView    string `json:"designView,omitempty"`

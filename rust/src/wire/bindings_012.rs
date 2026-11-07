@@ -362,7 +362,7 @@ pub struct CreateHighlightSetArgs {
     pub color: String,
 }
 
-#[doc = "```text\nCreateModelStateArgs creates a model state selecting one representation of each family by\nname (an empty family name leaves that family unchanged on activate).\n```"]
+#[doc = "```text\nCreateModelStateArgs creates an inactive model-state member. Assembly family names select\nthe representation used on later activation; part members leave these family names empty.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct CreateModelStateArgs {

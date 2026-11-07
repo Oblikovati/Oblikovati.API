@@ -53,8 +53,8 @@ type (
 	LevelOfDetailRepresentations = Enumerable[LevelOfDetailRepresentation]
 )
 
-// ModelState is a named tuple selecting one representation of each family — the single switch
-// users flip. An empty family name means "leave that family's active representation unchanged".
+// ModelState is a named part or assembly member. Assembly members select one representation
+// of each family — the single switch users flip. An empty family name leaves that family unchanged.
 type ModelState interface {
 	// ID is the model state's session id.
 	ID() uint64
@@ -69,7 +69,7 @@ type ModelState interface {
 	Active() bool
 }
 
-// ModelStates is the assembly's model-state collection (host: assembly.ModelStateSet).
+// ModelStates is a part or assembly's model-state collection in creation order.
 type ModelStates = Enumerable[ModelState]
 
 // RepresentationsManager is the assembly's representation hub: the three family collections

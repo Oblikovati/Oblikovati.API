@@ -3,6 +3,43 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nRepresentationInfo is the identity row common to every representation family.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct RepresentationInfo {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[serde(
+        rename = "active",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub active: bool,
+}
+
+#[doc = "```text\nRequiresUpdateResult is the response of [MethodDocumentsRequiresUpdate]: the read-only flag\ntelling a client the active document has out-of-date features a recompute would change.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct RequiresUpdateResult {
+    #[serde(
+        rename = "requiresUpdate",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub requires_update: bool,
+}
+
+#[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ResetBindingArgs {
+    #[serde(rename = "actionId", deserialize_with = "crate::json::null_default")]
+    pub action_id: String,
+}
+
 #[doc = "```text\nResolveSketchReferenceArgs is the request of [MethodSketchResolveReference]: a previously\nobtained persistent key (a sketch's key or a sketch-entity's key).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -401,64 +438,4 @@ pub struct ScriptRunResult {
         deserialize_with = "crate::json::null_default"
     )]
     pub ops: u64,
-}
-
-#[doc = "```text\nScrollViewportArgs is the request of [MethodViewportScroll]: a mouse-wheel tick at a viewport\npixel, in notches (a wheel detent is one notch; fractional for high-resolution wheels). DY is the\nvertical axis (positive scrolls up — the zoom-in direction the host has always used). DX is the\nhorizontal axis a two-axis wheel or thumbwheel reports (#1822); it is delivered but carries no\ndefault binding, so it changes nothing until a tool or add-in reads it. X/Y locate the cursor so\nthe host can zoom toward it, defaulting to the viewport centre when omitted.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ScrollViewportArgs {
-    #[serde(
-        rename = "dx",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dx: f64,
-    #[serde(
-        rename = "dy",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dy: f64,
-    #[serde(
-        rename = "x",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub x: f64,
-    #[serde(
-        rename = "y",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub y: f64,
-    #[serde(
-        rename = "shift",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shift: bool,
-    #[serde(
-        rename = "ctrl",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ctrl: bool,
-    #[serde(
-        rename = "alt",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alt: bool,
-}
-
-#[doc = "```text\nScrollViewportResult is the response of [MethodViewportScroll]: the command still running after\nthe scroll (empty once none is), mirroring the click/key results.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ScrollViewportResult {
-    #[serde(rename = "activeTool", deserialize_with = "crate::json::null_default")]
-    pub active_tool: String,
 }

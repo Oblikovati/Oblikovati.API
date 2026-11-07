@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityPointCloudsSetScale(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsSetScale})
+	checkGoGroup(t, c, "PointClouds", "SetScale")
+}
+
+func TestRustParityPointCloudsSetTransform(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsSetTransform})
+	checkGoGroup(t, c, "PointClouds", "SetTransform")
+}
+
 func TestRustParityPointCloudsSetVisible(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsSetVisible})
 	checkGoGroup(t, c, "PointClouds", "SetVisible")
@@ -147,14 +157,4 @@ func TestRustParitySketch3DDelete(t *testing.T) {
 func TestRustParitySketch3DDeleteConstraint(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DDeleteConstraint})
 	checkGoGroup(t, c, "Sketch3D", "DeleteConstraint")
-}
-
-func TestRustParitySketch3DDimensions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DDimensions})
-	checkGoGroup(t, c, "Sketch3D", "Dimensions")
-}
-
-func TestRustParitySketch3DDriveDimension(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DDriveDimension})
-	checkGoGroup(t, c, "Sketch3D", "DriveDimension")
 }

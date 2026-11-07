@@ -3,6 +3,86 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTransientSurfaces constructs the transient surfaces (analytic and NURBS).\n```"]
+pub trait TransientSurfaces {
+    fn create_b_spline_surface(
+        &self,
+        def: crate::types::BSplineSurfaceDef,
+    ) -> Result<std::sync::Arc<dyn crate::contract::BSplineSurface>, crate::Error>;
+    fn create_cone(
+        &self,
+        apex: crate::types::Point,
+        axis: crate::types::UnitVector,
+        half_angle: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Cone>, crate::Error>;
+    fn create_cylinder(
+        &self,
+        base: crate::types::Point,
+        axis: crate::types::UnitVector,
+        radius: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Cylinder>, crate::Error>;
+    fn create_elliptical_cone(
+        &self,
+        apex: crate::types::Point,
+        axis: crate::types::UnitVector,
+        major_axis: crate::types::UnitVector,
+        major_half_angle: f64,
+        minor_half_angle: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::EllipticalCone>, crate::Error>;
+    fn create_elliptical_cylinder(
+        &self,
+        base: crate::types::Point,
+        axis: crate::types::UnitVector,
+        major_axis: crate::types::UnitVector,
+        major_radius: f64,
+        minor_radius: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::EllipticalCylinder>, crate::Error>;
+    fn create_plane(
+        &self,
+        root: crate::types::Point,
+        normal: crate::types::UnitVector,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Plane>, crate::Error>;
+    fn create_plane_by_three_points(
+        &self,
+        a: crate::types::Point,
+        b: crate::types::Point,
+        c: crate::types::Point,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Plane>, crate::Error>;
+    fn create_sphere(
+        &self,
+        center: crate::types::Point,
+        radius: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Sphere>, crate::Error>;
+    fn create_torus(
+        &self,
+        center: crate::types::Point,
+        axis: crate::types::UnitVector,
+        major_radius: f64,
+        minor_radius: f64,
+    ) -> Result<std::sync::Arc<dyn crate::contract::Torus>, crate::Error>;
+}
+
+#[doc = "```text\nTransitionalConstraint keeps a face in sliding contact with a transition face.\n```"]
+pub trait TransitionalConstraint: crate::contract::AssemblyConstraint {}
+
+#[doc = "```text\nTranslateTranslateConstraint couples two translations by a ratio.\n```"]
+pub trait TranslateTranslateConstraint: crate::contract::AssemblyConstraint {
+    #[doc = "```text\nRatio is the distance of the second axis per unit distance of the first.\n```"]
+    fn ratio(&self) -> f64;
+}
+
+#[doc = "```text\nTriangleFanGraphics is a triangle-fan primitive.\n```"]
+pub trait TriangleFanGraphics: crate::contract::TriangleGraphics {}
+
+#[doc = "```text\nTriangleGraphics is an indexed triangle-mesh primitive.\n```"]
+pub trait TriangleGraphics: crate::contract::GraphicsPrimitive {
+    #[doc = "```text\nMapper is the color mapper resolving per-vertex colors from scalars, or nil.\n```"]
+    fn mapper(&self) -> std::sync::Arc<dyn crate::contract::GraphicsColorMapper>;
+}
+
+#[doc = "```text\nTriangleStripGraphics is a triangle-strip primitive.\n```"]
+pub trait TriangleStripGraphics: crate::contract::TriangleGraphics {}
+
 #[doc = "```text\nWindowDisplaySettings is the display mode and projection new views of this document open in.\n```"]
 pub trait WindowDisplaySettings {
     #[doc = "```text\nDisplayModeSource is whether the display mode is the default or a per-view override.\n```"]

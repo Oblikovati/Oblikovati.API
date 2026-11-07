@@ -34,6 +34,11 @@ func TestRustParityModelStatesActivate(t *testing.T) {
 	checkGoGroup(t, c, "ModelStates", "Activate")
 }
 
+func TestRustParityModelStatesCopy(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelStatesCopy})
+	checkGoGroup(t, c, "ModelStates", "Copy")
+}
+
 func TestRustParityModelStatesCreate(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelStatesCreate})
 	checkGoGroup(t, c, "ModelStates", "Create")
@@ -47,6 +52,11 @@ func TestRustParityModelStatesDelete(t *testing.T) {
 func TestRustParityModelStatesList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelStatesList})
 	checkGoGroup(t, c, "ModelStates", "List")
+}
+
+func TestRustParityModelStatesRename(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelStatesRename})
+	checkGoGroup(t, c, "ModelStates", "Rename")
 }
 
 func TestRustParityModelTree(t *testing.T) {
@@ -147,14 +157,4 @@ func TestRustParityParametersGet(t *testing.T) {
 func TestRustParityParametersGetDetail(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersGetDetail})
 	checkGoGroup(t, c, "Parameters", "GetDetail")
-}
-
-func TestRustParityParametersGetSettings(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGetSettings})
-	checkGoGroup(t, c, "Parameters", "GetSettings")
-}
-
-func TestRustParityParametersImport(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersImport})
-	checkGoGroup(t, c, "Parameters", "Import")
 }

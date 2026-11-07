@@ -3,6 +3,30 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nShowPromptArgs is the request of [MethodPromptsShow]: queue a declarative prompt.\nID keys the remembered answer (when Restriction allows remembering); Buttons are\nthe answer labels in display order; Default indexes the button focused first.\nThe reply is asynchronous: a remembered prompt resolves instantly, otherwise the\nhead shows it and the answer arrives as a [PromptAnsweredEvent].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ShowPromptArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "message", deserialize_with = "crate::json::null_default")]
+    pub message: String,
+    #[serde(rename = "buttons", deserialize_with = "crate::json::null_default")]
+    pub buttons: Option<Vec<String>>,
+    #[serde(
+        rename = "default",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub default: i64,
+    #[serde(
+        rename = "restriction",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub restriction: crate::types::PromptRestriction,
+}
+
 #[doc = "```text\nShowPromptResult is the response of [MethodPromptsShow]: when Resolved is true the\nremembered Answer is final and no event follows; otherwise the prompt is pending\nand the answer arrives as a [PromptAnsweredEvent].\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -390,70 +414,4 @@ pub struct SketchEntityInfo {
 pub struct SketchFormatModesView {
     #[serde(rename = "modes", deserialize_with = "crate::json::null_default")]
     pub modes: crate::types::SketchFormatModes,
-}
-
-#[doc = "```text\nSketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a\nsketch's identity, host plane label, visibility, entity count, remaining DOF, edit\nstate, health, and the display/solve overrides (color, line type/weight, defer).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct SketchInfo {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "plane", deserialize_with = "crate::json::null_default")]
-    pub plane: String,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
-    #[serde(rename = "entityCount", deserialize_with = "crate::json::null_default")]
-    pub entity_count: i64,
-    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
-    pub dof: i64,
-    #[serde(rename = "editing", deserialize_with = "crate::json::null_default")]
-    pub editing: bool,
-    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
-    pub healthy: bool,
-    #[doc = "```text\nConsumed reports whether a feature has consumed this sketch (drives browser nesting and\nthe delete guard); OwnedBy names the consuming feature (\"\" when not consumed); Shared\nreports the \"share sketch\" flag (a shared sketch stays top-level and reusable by\nseveral features). Enumerate the full dependent set with [MethodSketchDependents].\n```"]
-    #[serde(
-        rename = "consumed",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub consumed: bool,
-    #[serde(
-        rename = "ownedBy",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub owned_by: String,
-    #[serde(
-        rename = "shared",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shared: bool,
-    #[serde(
-        rename = "color",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub color: String,
-    #[serde(
-        rename = "lineType",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub line_type: String,
-    #[serde(
-        rename = "lineWeight",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub line_weight: f64,
-    #[serde(
-        rename = "deferUpdates",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub defer_updates: bool,
 }

@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.Transform3DResult", reflect.TypeFor[wire.Transform3DResult]()},
 	{"wire.TransformOccurrenceArgs", reflect.TypeFor[wire.TransformOccurrenceArgs]()},
 	{"wire.TransformSketchArgs", reflect.TypeFor[wire.TransformSketchArgs]()},
 	{"wire.TransformSketchResult", reflect.TypeFor[wire.TransformSketchResult]()},

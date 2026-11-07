@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Model-state member rename and inactive-copy operations, an explicit Primary
+  marker, and the additive `EditableModelState` contract. Existing create and
+  activate operations retain their separate semantics.
+
 ## [0.158.0] - 2026-10-11
 
 ### Added

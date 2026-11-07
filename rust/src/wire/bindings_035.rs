@@ -3,6 +3,40 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nPropertyInfo is the JSON shape of one document property: its set, name, and typed value.\nFromParameter names the model parameter a property was exposed from (the iProperty bridge),\nempty for a directly authored property.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct PropertyInfo {
+    #[serde(rename = "set", deserialize_with = "crate::json::null_default")]
+    pub set: String,
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "value")]
+    pub value: crate::types::Variant,
+    #[serde(
+        rename = "fromParameter",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub from_parameter: String,
+}
+
+#[doc = "```text\nPropertyResult is the response of [MethodDocumentsGetProperty] / [MethodDocumentsSetProperty]:\nthe addressed property's current state.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct PropertyResult {
+    #[serde(rename = "property", deserialize_with = "crate::json::null_default")]
+    pub property: crate::wire::PropertyInfo,
+}
+
+#[doc = "```text\nPunchesResult is the reply of listPunches: every punch instance developed into the flat.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct PunchesResult {
+    #[serde(rename = "punches", deserialize_with = "crate::json::null_default")]
+    pub punches: Option<Vec<crate::wire::FlatPunchInfo>>,
+}
+
 #[doc = "```text\nRectangularPatternFeatureArgs is the args object for a [FeatureKindPatternRectangular]\n[MethodFeaturesAdd] call: replicate SourceFeatures on a grid. CountX/CountY are the per-\ndirection counts; CountXExpr/CountYExpr are their parameter-expression forms (when set,\nthey supersede the numeric counts) (#189). StepX/StepY are the per-direction spacing\nvectors [x,y,z] in cm (StepY optional for a 1-D pattern).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -425,41 +459,4 @@ pub struct RepresentationEventPayload {
     pub id: u64,
     #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
     pub name: String,
-}
-
-#[doc = "```text\nRepresentationInfo is the identity row common to every representation family.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct RepresentationInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "active",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub active: bool,
-}
-
-#[doc = "```text\nRequiresUpdateResult is the response of [MethodDocumentsRequiresUpdate]: the read-only flag\ntelling a client the active document has out-of-date features a recompute would change.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct RequiresUpdateResult {
-    #[serde(
-        rename = "requiresUpdate",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub requires_update: bool,
-}
-
-#[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ResetBindingArgs {
-    #[serde(rename = "actionId", deserialize_with = "crate::json::null_default")]
-    pub action_id: String,
 }
