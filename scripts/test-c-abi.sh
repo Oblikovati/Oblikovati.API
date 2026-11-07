@@ -12,6 +12,7 @@ esac
 cc -std=c11 -Wall -Wextra -Werror -Iinclude tests/c_abi_host.c "${LINK[@]}" -o build/abi/host
 (cd go && GOWORK=off CGO_ENABLED=1 go build -buildmode=c-shared -o "../build/abi/go_addin.$EXT" ./examples/c_addin)
 cargo build --manifest-path rust/Cargo.toml --locked --example c_addin
+RUST_TARGET="$(cargo metadata --manifest-path rust/Cargo.toml --format-version 1 --no-deps | python3 -c 'import json, sys; print(json.load(sys.stdin)["target_directory"])')"
 VERSION="$(cd go && GOWORK=off go run ./examples/version)"
 build/abi/host "$ROOT/build/abi/go_addin.$EXT" "$VERSION"
-build/abi/host "$ROOT/rust/target/debug/examples/libc_addin.$EXT" "$VERSION"
+build/abi/host "$RUST_TARGET/debug/examples/libc_addin.$EXT" "$VERSION"
