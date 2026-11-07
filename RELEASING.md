@@ -102,3 +102,22 @@ Rust consumers can use `oblikovati-api = { git =
 "https://github.com/Oblikovati/Oblikovati.API", tag = "vX.Y.Z" }` or the local
 `rust/` path. Publishing to crates.io is a separate distribution step; this
 workflow does not claim a registry name or require a registry token.
+
+## Workflow dependency provenance
+
+Remote workflow actions use full source commit SHAs. The comments retain their
+selected major versions; Rust steps also set `toolchain: 1.95.0` explicitly so
+pinning the action implementation does not change the compiler version.
+`make gate` checks these rules through `scripts/workflow_dependencies.py`.
+
+The documentation tool remains gomarkdoc v1.1.0. Workflows install its official
+source commit `e62c5abf78916697dbc4b25f590deb28f26f5184`, which Go resolves to
+v1.1.0. Go version suffixes select exact module versions, rather than version
+ranges; normal public-module checksum verification still applies. For this
+revision, `go mod download -json` reports:
+
+- Module zip: `h1:xtl7mESKQWVuGiFdd1AO3dFA6OenWG86bZu97IqBNPE=`.
+- Module definition: `h1:HI3w0Zv8H03ecak/IqVAcPFTuPt7sn7Top6xbgCs1Qk=`.
+
+The full source revision also makes the tool pin explicit to workflow scanners.
+No tool or language version is upgraded by this pinning change.

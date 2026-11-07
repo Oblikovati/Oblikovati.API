@@ -14,6 +14,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   marker, and the additive `EditableModelState` contract. Existing create and
   activate operations retain their separate semantics.
 
+### Security
+
+- Pin workflow actions and the existing documentation tool to official immutable
+  source revisions. Keep Rust 1.95.0, action majors and gomarkdoc v1.1.0 unchanged,
+  and check dependency references in the local and hosted gate.
+
 ## [0.158.0] - 2026-10-11
 
 ### Added

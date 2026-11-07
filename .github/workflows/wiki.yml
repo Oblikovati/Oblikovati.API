@@ -45,20 +45,21 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
         with:
           go-version-file: go/go.mod
           cache: false
 
-      - uses: dtolnay/rust-toolchain@1.95.0
+      - uses: dtolnay/rust-toolchain@035fceb3c12fb0c6a9461b52775e16473133e591 # 1.95.0
         with:
+          toolchain: "1.95.0"
           components: rustfmt
 
       - name: Install gomarkdoc
         run: |
-          go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@v1.1.0
+          go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@e62c5abf78916697dbc4b25f590deb28f26f5184
           echo "GOMARKDOC=$(go env GOPATH)/bin/gomarkdoc" >> "$GITHUB_ENV"
 
       - name: Build and publish the wiki

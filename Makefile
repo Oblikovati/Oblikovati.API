@@ -19,6 +19,7 @@ test:
 	python3 -m unittest discover -s scripts -p 'test_*.py'
 
 lint:
+	python3 scripts/workflow_dependencies.py
 	cd go && go vet ./...
 	test -z "$$(gofmt -l go)"
 	cargo fmt --manifest-path rust/Cargo.toml -- --check
