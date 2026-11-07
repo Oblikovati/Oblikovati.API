@@ -326,6 +326,16 @@ impl<T: super::Caller> ModelStates<'_, T> {
             .invoke(crate::wire::METHOD_MODEL_STATES_ACTIVATE, Some(args))
     }
 
+    /// Call `MethodModelStatesCopy` with the canonical request and response types.
+    /// Example: `client.model_states().copy(&args)`.
+    pub fn copy(
+        &self,
+        args: &crate::wire::ModelStateNameArgs,
+    ) -> Result<crate::wire::ModelStateResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_MODEL_STATES_COPY, Some(args))
+    }
+
     /// Call `MethodModelStatesCreate` with the canonical request and response types.
     /// Example: `client.model_states().create(&args)`.
     pub fn create(
@@ -354,6 +364,16 @@ impl<T: super::Caller> ModelStates<'_, T> {
     ) -> Result<crate::wire::ModelStatesResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_MODEL_STATES_LIST, Some(args))
+    }
+
+    /// Call `MethodModelStatesRename` with the canonical request and response types.
+    /// Example: `client.model_states().rename(&args)`.
+    pub fn rename(
+        &self,
+        args: &crate::wire::ModelStateNameArgs,
+    ) -> Result<crate::wire::ModelStateResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_MODEL_STATES_RENAME, Some(args))
     }
 }
 

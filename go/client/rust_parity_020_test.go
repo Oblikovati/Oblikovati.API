@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityUnitsGetStringFromType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromType})
+	checkGoGroup(t, c, "Units", "GetStringFromType")
+}
+
+func TestRustParityUnitsGetStringFromValue(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromValue})
+	checkGoGroup(t, c, "Units", "GetStringFromValue")
+}
+
 func TestRustParityUnitsGetTypeFromString(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetTypeFromString})
 	checkGoGroup(t, c, "Units", "GetTypeFromString")
@@ -147,14 +157,4 @@ func TestRustParityViewsRename(t *testing.T) {
 func TestRustParityViewsRestoreNamed(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewsRestoreNamed})
 	checkGoGroup(t, c, "Views", "RestoreNamed")
-}
-
-func TestRustParityViewsSetLayout(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsSetLayout})
-	checkGoGroup(t, c, "Views", "SetLayout")
-}
-
-func TestRustParityWindowsActivateTab(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWindowsActivateTab})
-	checkGoGroup(t, c, "Windows", "ActivateTab")
 }

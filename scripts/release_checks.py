@@ -2,9 +2,10 @@
 """Refuse a Go subdirectory release until its public import metadata is ready."""
 
 from html.parser import HTMLParser
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 ENDPOINT = "https://oblikovati.org/api?go-get=1"
+USER_AGENT = "Oblikovati.API-release-check/1.0"
 EXPECTED = "oblikovati.org/api git https://github.com/Oblikovati/Oblikovati.API go"
 
 
@@ -29,11 +30,22 @@ def validate_metadata(page: str) -> None:
         )
 
 
+def validate_endpoint(final_url: str, status: int) -> None:
+    """Refuse changed origins or failed responses; example: validate_endpoint(ENDPOINT, 200)."""
+    allowed = (ENDPOINT, "https://oblikovati.org/api/?go-get=1")
+    if final_url not in allowed or status != 200:
+        raise ValueError(
+            f"metadata response {final_url!r}, status {status}: expected HTTP 200 at {allowed!r}"
+        )
+
+
 def main() -> None:
     try:
-        with urlopen(ENDPOINT, timeout=20) as response:
+        request = Request(ENDPOINT, headers={"User-Agent": USER_AGENT})
+        with urlopen(request, timeout=20) as response:
+            validate_endpoint(response.geturl(), response.status)
             page = response.read().decode("utf-8")
-    except (OSError, UnicodeError) as error:
+    except (OSError, UnicodeError, ValueError) as error:
         raise SystemExit(
             f"{ENDPOINT}: expected a published UTF-8 Go import page; request failed: {error}"
         ) from error

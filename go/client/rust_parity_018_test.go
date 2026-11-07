@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchSetInferenceOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetInferenceOptions})
+	checkGoGroup(t, c, "Sketch", "SetInferenceOptions")
+}
+
+func TestRustParitySketchSetProperty(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetProperty})
+	checkGoGroup(t, c, "Sketch", "SetProperty")
+}
+
 func TestRustParitySketchSetSplineHandle(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetSplineHandle})
 	checkGoGroup(t, c, "Sketch", "SetSplineHandle")
@@ -147,14 +157,4 @@ func TestRustParityTransientBRepCreateFromDefinition(t *testing.T) {
 func TestRustParityTransientBRepCreateIntersectionWithPlane(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepSectionWithPlane})
 	checkGoGroup(t, c, "TransientBRep", "CreateIntersectionWithPlane")
-}
-
-func TestRustParityTransientBRepCreatePrimitive(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepCreatePrimitive})
-	checkGoGroup(t, c, "TransientBRep", "CreatePrimitive")
-}
-
-func TestRustParityTransientBRepCreateRuledSurface(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepRuledSurface})
-	checkGoGroup(t, c, "TransientBRep", "CreateRuledSurface")
 }

@@ -3,6 +3,42 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct WirePolyline {
+    #[serde(
+        rename = "points",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub points: Option<Vec<f64>>,
+    #[serde(
+        rename = "closed",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub closed: bool,
+}
+
+#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct WireframeDisplayModeOptionsView {
+    #[serde(
+        rename = "depthDimming",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub depth_dimming: bool,
+    #[serde(rename = "silhouettes", deserialize_with = "crate::json::null_default")]
+    pub silhouettes: bool,
+    #[serde(
+        rename = "dimmedHiddenEdges",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dimmed_hidden_edges: bool,
+}
+
 #[doc = "```text\nWorkAxisInfo is one row of [MethodWorkAxesList]: a datum axis's identity and current\ngeometry (Origin point and unit Direction, in database units), whether it is one of the\norigin coordinate-system axes, its health, and its constructor Kind. Origin axes report\nIsOrigin=true.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]

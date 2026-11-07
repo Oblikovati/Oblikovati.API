@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetVisibilityArgs", reflect.TypeFor[wire.SetVisibilityArgs]()},
 	{"wire.SetVisibleOccurrenceArgs", reflect.TypeFor[wire.SetVisibleOccurrenceArgs]()},
 	{"wire.SetWorkFeatureVisibleArgs", reflect.TypeFor[wire.SetWorkFeatureVisibleArgs]()},
 	{"wire.SetWorkSurfaceVisibleArgs", reflect.TypeFor[wire.SetWorkSurfaceVisibleArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.TransactionHistoryEntry", reflect.TypeFor[wire.TransactionHistoryEntry]()},
 	{"wire.TransactionJumpToArgs", reflect.TypeFor[wire.TransactionJumpToArgs]()},
 	{"wire.Transform3DArgs", reflect.TypeFor[wire.Transform3DArgs]()},
-	{"wire.Transform3DResult", reflect.TypeFor[wire.Transform3DResult]()},
 }

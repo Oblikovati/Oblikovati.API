@@ -3,6 +3,47 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTreeNode is one node of a PanelTree (a category-browser hierarchy). ID is the stable key the\nhost echoes in a PanelValueChangedEvent when the node's label is clicked; Label is the display\ntext; Children nests sub-nodes (empty = a leaf). Expanded is a FIRST-RENDER hint only —\nafterwards the host owns expand/collapse (twirling a node does not notify the add-in), so a\nre-sent spec does not fight the user's open/closed state.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TreeNode {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "label", deserialize_with = "crate::json::null_default")]
+    pub label: String,
+    #[serde(
+        rename = "children",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub children: Option<Vec<crate::wire::TreeNode>>,
+    #[serde(
+        rename = "expanded",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub expanded: bool,
+}
+
+#[doc = "```text\nTriadDragEvent is the push event (type [EventTriadDrag]) streaming a triad\ngesture: Phase is \"start\", \"move\" or \"end\"; Delta is the row-major 4×4 transform\naccumulated since the drag started (identity at start).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TriadDragEvent {
+    #[doc = "```text\nalways EventTriadDrag\n```"]
+    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
+    pub type_: String,
+    #[serde(rename = "phase", deserialize_with = "crate::json::null_default")]
+    pub phase: String,
+    #[serde(rename = "segment", deserialize_with = "crate::json::null_default")]
+    pub segment: crate::types::TriadSegment,
+    #[serde(rename = "moveType", deserialize_with = "crate::json::null_default")]
+    pub move_type: crate::types::TriadMoveType,
+    #[serde(rename = "delta")]
+    pub delta: crate::types::Matrix,
+    #[serde(rename = "context", deserialize_with = "crate::json::null_default")]
+    pub context: crate::wire::DragContext,
+}
+
 #[doc = "```text\nTriadSegmentEvent is the push event (type [EventTriadSegment]) fired when the\nhovered/selected segment changes (OnSegmentSelectionChange).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -413,40 +454,4 @@ pub struct WireInfo {
         deserialize_with = "crate::json::null_default"
     )]
     pub transient_key: u64,
-}
-
-#[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct WirePolyline {
-    #[serde(
-        rename = "points",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub points: Option<Vec<f64>>,
-    #[serde(
-        rename = "closed",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub closed: bool,
-}
-
-#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct WireframeDisplayModeOptionsView {
-    #[serde(
-        rename = "depthDimming",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub depth_dimming: bool,
-    #[serde(rename = "silhouettes", deserialize_with = "crate::json::null_default")]
-    pub silhouettes: bool,
-    #[serde(
-        rename = "dimmedHiddenEdges",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dimmed_hidden_edges: bool,
 }

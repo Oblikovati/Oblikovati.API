@@ -84,9 +84,9 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.ModelHealthArgs", reflect.TypeFor[wire.ModelHealthArgs]()},
 	{"wire.ModelHealthResult", reflect.TypeFor[wire.ModelHealthResult]()},
 	{"wire.ModelStateInfo", reflect.TypeFor[wire.ModelStateInfo]()},
+	{"wire.ModelStateNameArgs", reflect.TypeFor[wire.ModelStateNameArgs]()},
 	{"wire.ModelStateResult", reflect.TypeFor[wire.ModelStateResult]()},
 	{"wire.ModelStatesResult", reflect.TypeFor[wire.ModelStatesResult]()},
 	{"wire.ModelTreeResult", reflect.TypeFor[wire.ModelTreeResult]()},
 	{"wire.MoveFreeformVerticesArgs", reflect.TypeFor[wire.MoveFreeformVerticesArgs]()},
-	{"wire.MoveSketchDimensionArgs", reflect.TypeFor[wire.MoveSketchDimensionArgs]()},
 }

@@ -1,3 +1,6 @@
+{"Name":"wire.UpdateProgressResult","Case":"zero","Payload":{"ok":false},"Canonical":{"ok":false},"Error":""}
+{"Name":"wire.UpdateProgressResult","Case":"filled","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
+{"Name":"wire.UpdateProgressResult","Case":"empty","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
 {"Name":"wire.ValidateBodyArgs","Case":"zero","Payload":{"bodyIndex":0},"Canonical":{"bodyIndex":0},"Error":""}
 {"Name":"wire.ValidateBodyArgs","Case":"filled","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}
 {"Name":"wire.ValidateBodyArgs","Case":"empty","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}

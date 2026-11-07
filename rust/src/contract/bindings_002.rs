@@ -3,6 +3,25 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nEllipseFull2d is a full 2D ellipse.\n```"]
+pub trait EllipseFull2d: crate::contract::Curve2d {
+    fn center(&self) -> crate::types::Point2d;
+    fn major_axis(&self) -> crate::types::UnitVector2d;
+    fn major_radius(&self) -> f64;
+    fn minor_radius(&self) -> f64;
+}
+
+#[doc = "```text\nEllipticalArc is a bounded span of a 3D ellipse.\n```"]
+pub trait EllipticalArc: crate::contract::Curve {
+    fn center(&self) -> crate::types::Point;
+    fn major_axis(&self) -> crate::types::UnitVector;
+    fn major_radius(&self) -> f64;
+    fn minor_radius(&self) -> f64;
+    fn normal(&self) -> crate::types::UnitVector;
+    fn start_angle(&self) -> f64;
+    fn sweep_angle(&self) -> f64;
+}
+
 #[doc = "```text\nEllipticalArc2d is a bounded span of a 2D ellipse.\n```"]
 pub trait EllipticalArc2d: crate::contract::Curve2d {
     fn center(&self) -> crate::types::Point2d;
@@ -435,30 +454,4 @@ pub trait Light {
     fn spot_inner_angle(&self) -> f64;
     #[doc = "```text\nSpotOuterAngle is the spot cone's outer half-angle in radians (zero intensity beyond).\n```"]
     fn spot_outer_angle(&self) -> f64;
-}
-
-#[doc = "```text\nLightingStyle is the in-process contract for a lighting rig,\nscoped to the global controls our renderer consumes plus the discrete [Light]s. The GPL app\nsatisfies it (compile-time asserted there).\n\nAmbience, Brightness and the IBL/shadow scalars are unit-free multipliers/intensities in\n[0,1] unless noted; Exposure is in stops. StyleType distinguishes a standard light rig from\nan image-based (HDR) one.\n```"]
-pub trait LightingStyle {
-    #[doc = "```text\nAmbience is the global ambient fill in [0,1].\n```"]
-    fn ambience(&self) -> f64;
-    #[doc = "```text\nBrightness is the global light multiplier.\n```"]
-    fn brightness(&self) -> f64;
-    #[doc = "```text\nExposure is the tone-map exposure in stops.\n```"]
-    fn exposure(&self) -> f64;
-    #[doc = "```text\nImageBasedLightingBrightness scales the IBL contribution in [0,1].\n```"]
-    fn image_based_lighting_brightness(&self) -> f64;
-    #[doc = "```text\nImageBasedLightingRotation spins the environment about vertical, in radians.\n```"]
-    fn image_based_lighting_rotation(&self) -> f64;
-    #[doc = "```text\nLights are the discrete lights in this style (may be empty for a pure IBL style).\n```"]
-    fn lights(&self) -> Option<Vec<std::sync::Arc<dyn crate::contract::Light>>>;
-    #[doc = "```text\nName is the style's user-facing label.\n```"]
-    fn name(&self) -> String;
-    #[doc = "```text\nShadowDensity is the cast-shadow darkness in [0,1].\n```"]
-    fn shadow_density(&self) -> f64;
-    #[doc = "```text\nShadowDirection is the source direction shadows are cast from.\n```"]
-    fn shadow_direction(&self) -> crate::types::ShadowDirectionEnum;
-    #[doc = "```text\nShadowSoftness is the cast-shadow edge blur in [0,1].\n```"]
-    fn shadow_softness(&self) -> f64;
-    #[doc = "```text\nStyleType is whether this is a standard or image-based style.\n```"]
-    fn style_type(&self) -> crate::types::LightingStyleTypeEnum;
 }

@@ -3,6 +3,46 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTextStyleInfo is the JSON shape of an annotation text style.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TextStyleInfo {
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "fontName", deserialize_with = "crate::json::null_default")]
+    pub font_name: String,
+    #[serde(
+        rename = "heightMm",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub height_mm: f64,
+}
+
+#[doc = "```text\nThemeSummary is the lightweight entry of [MethodThemeList]: enough to populate a\ntheme picker without sending every color.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ThemeSummary {
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[serde(rename = "active", deserialize_with = "crate::json::null_default")]
+    pub active: bool,
+}
+
+#[doc = "```text\nThemeView is the JSON shape of one theme: its name, kind (light/dark/custom), and\nevery semantic color as \"#RRGGBBAA\" hex keyed by the token string. Hex (not floats)\nkeeps the payload compact and human-readable, matching the on-disk theme files.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ThemeView {
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[serde(rename = "colors", deserialize_with = "crate::json::null_default")]
+    pub colors: Option<std::collections::BTreeMap<String, String>>,
+}
+
 #[doc = "```text\nThreadInfoResult is the response of [MethodThreadsResolve]: the resolved\nthread data. Diameters and pitch are millimetres. PitchDiameter is the ISO\nbasic pitch diameter; TapDrillDiameter the drill for a tapped hole of this\nthread (≈ the minor diameter).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -409,45 +449,4 @@ pub struct TransformSketchResult {
         deserialize_with = "crate::json::null_default"
     )]
     pub created: Option<Vec<u64>>,
-}
-
-#[doc = "```text\nTreeNode is one node of a PanelTree (a category-browser hierarchy). ID is the stable key the\nhost echoes in a PanelValueChangedEvent when the node's label is clicked; Label is the display\ntext; Children nests sub-nodes (empty = a leaf). Expanded is a FIRST-RENDER hint only —\nafterwards the host owns expand/collapse (twirling a node does not notify the add-in), so a\nre-sent spec does not fight the user's open/closed state.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TreeNode {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "label", deserialize_with = "crate::json::null_default")]
-    pub label: String,
-    #[serde(
-        rename = "children",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub children: Option<Vec<crate::wire::TreeNode>>,
-    #[serde(
-        rename = "expanded",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub expanded: bool,
-}
-
-#[doc = "```text\nTriadDragEvent is the push event (type [EventTriadDrag]) streaming a triad\ngesture: Phase is \"start\", \"move\" or \"end\"; Delta is the row-major 4×4 transform\naccumulated since the drag started (identity at start).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TriadDragEvent {
-    #[doc = "```text\nalways EventTriadDrag\n```"]
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "phase", deserialize_with = "crate::json::null_default")]
-    pub phase: String,
-    #[serde(rename = "segment", deserialize_with = "crate::json::null_default")]
-    pub segment: crate::types::TriadSegment,
-    #[serde(rename = "moveType", deserialize_with = "crate::json::null_default")]
-    pub move_type: crate::types::TriadMoveType,
-    #[serde(rename = "delta")]
-    pub delta: crate::types::Matrix,
-    #[serde(rename = "context", deserialize_with = "crate::json::null_default")]
-    pub context: crate::wire::DragContext,
 }

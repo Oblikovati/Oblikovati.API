@@ -3,6 +3,22 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nOffsetSketchResult is the response of [MethodSketchOffset]: the primary new entity's id\nand kind, plus all created entity ids (more than one for a chain offset).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OffsetSketchResult {
+    #[serde(rename = "entityId", deserialize_with = "crate::json::null_default")]
+    pub entity_id: u64,
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[serde(
+        rename = "created",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub created: Option<Vec<u64>>,
+}
+
 #[doc = "```text\nOpenDocumentArgs is the request of [MethodDocumentsOpen]: the typed open\noptions (replacing the reference API's untyped name-value bag). DeferContent\nopens a reference stub — identity registered, content not paged in.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -421,30 +437,4 @@ pub struct ParameterDetail {
 pub struct ParameterExportResult {
     #[serde(rename = "xml", deserialize_with = "crate::json::null_default")]
     pub xml: String,
-}
-
-#[doc = "```text\nParameterExpressionListArgs is the request of [MethodParametersSetExpressionList].\nAn empty Expressions clears the list, returning the parameter to single-valued.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ParameterExpressionListArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(
-        rename = "expressions",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub expressions: Option<Vec<String>>,
-    #[serde(
-        rename = "allowCustomValues",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub allow_custom_values: bool,
-    #[serde(
-        rename = "customOrder",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub custom_order: bool,
 }

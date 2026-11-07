@@ -1,3 +1,6 @@
+{"Name":"wire.StringFromValueArgs","Case":"zero","Payload":{"value":0,"unitsType":""},"Canonical":{"value":0,"unitsType":""},"Error":""}
+{"Name":"wire.StringFromValueArgs","Case":"filled","Payload":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.StringFromValueArgs","Case":"empty","Payload":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":1.25,"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.StringResult","Case":"zero","Payload":{"value":""},"Canonical":{"value":""},"Error":""}
 {"Name":"wire.StringResult","Case":"filled","Payload":{"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.StringResult","Case":"empty","Payload":{"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.UpdateProgressArgs","Case":"zero","Payload":{"id":0,"step":0},"Canonical":{"id":0,"step":0},"Error":""}
 {"Name":"wire.UpdateProgressArgs","Case":"filled","Payload":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.UpdateProgressArgs","Case":"empty","Payload":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.UpdateProgressResult","Case":"zero","Payload":{"ok":false},"Canonical":{"ok":false},"Error":""}
-{"Name":"wire.UpdateProgressResult","Case":"filled","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
-{"Name":"wire.UpdateProgressResult","Case":"empty","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}

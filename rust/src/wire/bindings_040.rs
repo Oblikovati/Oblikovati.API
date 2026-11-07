@@ -3,6 +3,34 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSetStandardArgs is the request of [MethodDrawingStylesSetStandard]: the drafting standard\nto make active (a types.DraftingStandard spelling, \"iso\"/\"ansi\").\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetStandardArgs {
+    #[serde(rename = "standard", deserialize_with = "crate::json::null_default")]
+    pub standard: String,
+}
+
+#[doc = "```text\nSetStatusTextArgs is the request of [MethodStatusSetText]: put a transient message\nin the status bar (the same notice slot failed commits use). Empty clears it.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetStatusTextArgs {
+    #[serde(rename = "text", deserialize_with = "crate::json::null_default")]
+    pub text: String,
+}
+
+#[doc = "```text\nSetSuppressedArgs suppresses or restores an occurrence within a level-of-detail\nrepresentation.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SetSuppressedArgs {
+    #[serde(rename = "rep", deserialize_with = "crate::json::null_default")]
+    pub rep: u64,
+    #[serde(rename = "occurrence", deserialize_with = "crate::json::null_default")]
+    pub occurrence: u64,
+    #[serde(rename = "suppressed", deserialize_with = "crate::json::null_default")]
+    pub suppressed: bool,
+}
+
 #[doc = "```text\nSetTextFontArgs is the request of [MethodSketchSetTextFont]: choose the font of the sketch\nTEXT entity EntityID in sketch SketchIndex. Provide Path for a host font (its bytes are\nembedded into the document) OR Family for a bundled face (recorded without bytes); if both\nare set, Path wins. The font becomes a document resource the text/emboss resolves by, so the\ndocument is self-contained (ADR-0031).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -432,28 +460,4 @@ pub struct ShowFileDialogArgs {
         deserialize_with = "crate::json::null_default"
     )]
     pub multi_select: bool,
-}
-
-#[doc = "```text\nShowPromptArgs is the request of [MethodPromptsShow]: queue a declarative prompt.\nID keys the remembered answer (when Restriction allows remembering); Buttons are\nthe answer labels in display order; Default indexes the button focused first.\nThe reply is asynchronous: a remembered prompt resolves instantly, otherwise the\nhead shows it and the answer arrives as a [PromptAnsweredEvent].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ShowPromptArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "message", deserialize_with = "crate::json::null_default")]
-    pub message: String,
-    #[serde(rename = "buttons", deserialize_with = "crate::json::null_default")]
-    pub buttons: Option<Vec<String>>,
-    #[serde(
-        rename = "default",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub default: i64,
-    #[serde(
-        rename = "restriction",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub restriction: crate::types::PromptRestriction,
 }

@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSketch3D is the scalar view of a 3D (non-planar) sketch the host implements\n(model/sketch.Sketch3D) and add-ins consume: its identity, visibility, entity count,\nand the solver's remaining degree-of-freedom count. Like [Sketch] it exposes only the\nscalar surface — entity geometry and constraints travel as wire DTOs (see api/wire).\nThe host satisfies this via a compile-time assertion.\n```"]
+pub trait Sketch3D {
+    #[doc = "```text\nDegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).\n```"]
+    fn degrees_of_freedom(&self) -> i64;
+    #[doc = "```text\nEntityCount is the number of geometry entities the sketch owns.\n```"]
+    fn entity_count(&self) -> i64;
+    #[doc = "```text\nName is the sketch's display name.\n```"]
+    fn name(&self) -> String;
+    #[doc = "```text\nVisible reports whether the sketch is shown.\n```"]
+    fn visible(&self) -> bool;
+}
+
+#[doc = "```text\nSketchBlock is the scalar view of one placed block instance in a sketch.\nThe host's model/sketch.BlockInstance satisfies this.\n```"]
+pub trait SketchBlock {
+    #[doc = "```text\nDefinitionName names the block definition this instance places.\n```"]
+    fn definition_name(&self) -> String;
+    #[doc = "```text\nEntityCount is the live entity count of the instanced definition.\n```"]
+    fn entity_count(&self) -> i64;
+}
+
+#[doc = "```text\nSketchBlockDefinition is the scalar view of a reusable sketch entity group\nowned by a part's component definition (M06-F07,\nOblikovati/Oblikovati#622). The host's model/sketch.BlockDefinition\nsatisfies this via a compile-time assertion.\n```"]
+pub trait SketchBlockDefinition {
+    #[doc = "```text\nEntityCount is the number of entities the definition holds.\n```"]
+    fn entity_count(&self) -> i64;
+    #[doc = "```text\nInstanceCount is how many placed instances reference this definition.\n```"]
+    fn instance_count(&self) -> i64;
+    #[doc = "```text\nName is the definition's unique name within the part.\n```"]
+    fn name(&self) -> String;
+}
+
 #[doc = "```text\nSphere is a full sphere (u longitude, v latitude).\n```"]
 pub trait Sphere: crate::contract::Surface {
     fn center(&self) -> crate::types::Point;
@@ -381,83 +411,3 @@ pub trait TransientObjects {
         &self,
     ) -> std::sync::Arc<dyn crate::contract::ObjectCollectionByVariant>;
 }
-
-#[doc = "```text\nTransientSurfaces constructs the transient surfaces (analytic and NURBS).\n```"]
-pub trait TransientSurfaces {
-    fn create_b_spline_surface(
-        &self,
-        def: crate::types::BSplineSurfaceDef,
-    ) -> Result<std::sync::Arc<dyn crate::contract::BSplineSurface>, crate::Error>;
-    fn create_cone(
-        &self,
-        apex: crate::types::Point,
-        axis: crate::types::UnitVector,
-        half_angle: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Cone>, crate::Error>;
-    fn create_cylinder(
-        &self,
-        base: crate::types::Point,
-        axis: crate::types::UnitVector,
-        radius: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Cylinder>, crate::Error>;
-    fn create_elliptical_cone(
-        &self,
-        apex: crate::types::Point,
-        axis: crate::types::UnitVector,
-        major_axis: crate::types::UnitVector,
-        major_half_angle: f64,
-        minor_half_angle: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::EllipticalCone>, crate::Error>;
-    fn create_elliptical_cylinder(
-        &self,
-        base: crate::types::Point,
-        axis: crate::types::UnitVector,
-        major_axis: crate::types::UnitVector,
-        major_radius: f64,
-        minor_radius: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::EllipticalCylinder>, crate::Error>;
-    fn create_plane(
-        &self,
-        root: crate::types::Point,
-        normal: crate::types::UnitVector,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Plane>, crate::Error>;
-    fn create_plane_by_three_points(
-        &self,
-        a: crate::types::Point,
-        b: crate::types::Point,
-        c: crate::types::Point,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Plane>, crate::Error>;
-    fn create_sphere(
-        &self,
-        center: crate::types::Point,
-        radius: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Sphere>, crate::Error>;
-    fn create_torus(
-        &self,
-        center: crate::types::Point,
-        axis: crate::types::UnitVector,
-        major_radius: f64,
-        minor_radius: f64,
-    ) -> Result<std::sync::Arc<dyn crate::contract::Torus>, crate::Error>;
-}
-
-#[doc = "```text\nTransitionalConstraint keeps a face in sliding contact with a transition face.\n```"]
-pub trait TransitionalConstraint: crate::contract::AssemblyConstraint {}
-
-#[doc = "```text\nTranslateTranslateConstraint couples two translations by a ratio.\n```"]
-pub trait TranslateTranslateConstraint: crate::contract::AssemblyConstraint {
-    #[doc = "```text\nRatio is the distance of the second axis per unit distance of the first.\n```"]
-    fn ratio(&self) -> f64;
-}
-
-#[doc = "```text\nTriangleFanGraphics is a triangle-fan primitive.\n```"]
-pub trait TriangleFanGraphics: crate::contract::TriangleGraphics {}
-
-#[doc = "```text\nTriangleGraphics is an indexed triangle-mesh primitive.\n```"]
-pub trait TriangleGraphics: crate::contract::GraphicsPrimitive {
-    #[doc = "```text\nMapper is the color mapper resolving per-vertex colors from scalars, or nil.\n```"]
-    fn mapper(&self) -> std::sync::Arc<dyn crate::contract::GraphicsColorMapper>;
-}
-
-#[doc = "```text\nTriangleStripGraphics is a triangle-strip primitive.\n```"]
-pub trait TriangleStripGraphics: crate::contract::TriangleGraphics {}

@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.SetBOMStructureResult", reflect.TypeFor[wire.SetBOMStructureResult]()},
 	{"wire.SetBendOrderArgs", reflect.TypeFor[wire.SetBendOrderArgs]()},
 	{"wire.SetBrowserPaneArgs", reflect.TypeFor[wire.SetBrowserPaneArgs]()},
 	{"wire.SetCameraArgs", reflect.TypeFor[wire.SetCameraArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetTitleBlockArgs", reflect.TypeFor[wire.SetTitleBlockArgs]()},
 	{"wire.SetViewDisplayArgs", reflect.TypeFor[wire.SetViewDisplayArgs]()},
 	{"wire.SetViewLabelArgs", reflect.TypeFor[wire.SetViewLabelArgs]()},
-	{"wire.SetVisibilityArgs", reflect.TypeFor[wire.SetVisibilityArgs]()},
 }

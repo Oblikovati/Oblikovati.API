@@ -3,6 +3,22 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nMoveFreeformVerticesArgs is the request of [MethodFreeformMoveVertices]:\ntranslate the selected cage vertices (by cage index) by [dx,dy,dz] in\ndocument units. Indices outside the cage are rejected with the offending\nindex and the cage size.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct MoveFreeformVerticesArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+    #[serde(rename = "vertices", deserialize_with = "crate::json::null_default")]
+    pub vertices: Option<Vec<i64>>,
+    #[serde(
+        rename = "translation",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub translation: [f64; 3],
+}
+
 #[doc = "```text\nMoveSketchDimensionArgs is the request of [MethodSketchMoveDimension]: where to place a dimension's\nannotation text, as an [x,y] sketch-plane point in centimetres. This is the same placement\n[AddDimensionArgs.TextPoint] sets at create time and that dragging the label in the sketch\neditor writes; it moves only the annotation, never the geometry being measured. #2017.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -435,20 +451,4 @@ pub struct OffsetSketchArgs {
     pub arc_segments: i64,
     #[serde(rename = "distance", deserialize_with = "crate::json::null_default")]
     pub distance: String,
-}
-
-#[doc = "```text\nOffsetSketchResult is the response of [MethodSketchOffset]: the primary new entity's id\nand kind, plus all created entity ids (more than one for a chain offset).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OffsetSketchResult {
-    #[serde(rename = "entityId", deserialize_with = "crate::json::null_default")]
-    pub entity_id: u64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "created",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub created: Option<Vec<u64>>,
 }

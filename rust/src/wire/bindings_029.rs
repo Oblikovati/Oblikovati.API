@@ -21,11 +21,15 @@ pub const METHOD_MODEL_SELECTION: &str = "model.selection";
 
 pub const METHOD_MODEL_STATES_ACTIVATE: &str = "modelStates.activate";
 
+pub const METHOD_MODEL_STATES_COPY: &str = "modelStates.copy";
+
 pub const METHOD_MODEL_STATES_CREATE: &str = "modelStates.create";
 
 pub const METHOD_MODEL_STATES_DELETE: &str = "modelStates.delete";
 
 pub const METHOD_MODEL_STATES_LIST: &str = "modelStates.list";
+
+pub const METHOD_MODEL_STATES_RENAME: &str = "modelStates.rename";
 
 pub const METHOD_MODEL_TREE: &str = "model.tree";
 
@@ -459,7 +463,3 @@ pub const METHOD_VIEWS_LIST: &str = "views.list";
 pub const METHOD_VIEWS_LIST_NAMED: &str = "views.listNamed";
 
 pub const METHOD_VIEWS_RENAME: &str = "views.rename";
-
-pub const METHOD_VIEWS_RESTORE_NAMED: &str = "views.restoreNamed";
-
-pub const METHOD_VIEWS_SET_LAYOUT: &str = "views.setLayout";

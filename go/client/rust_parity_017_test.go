@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchCreate(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchCreate})
+	checkGoGroup(t, c, "Sketch", "Create")
+}
+
+func TestRustParitySketchCreateBlockDefinition(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionCreate})
+	checkGoGroup(t, c, "Sketch", "CreateBlockDefinition")
+}
+
 func TestRustParitySketchDelete(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchDelete})
 	checkGoGroup(t, c, "Sketch", "Delete")
@@ -147,14 +157,4 @@ func TestRustParitySketchSetEntityFormat(t *testing.T) {
 func TestRustParitySketchSetFormatModes(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetFormatModes})
 	checkGoGroup(t, c, "Sketch", "SetFormatModes")
-}
-
-func TestRustParitySketchSetInferenceOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchSetInferenceOptions})
-	checkGoGroup(t, c, "Sketch", "SetInferenceOptions")
-}
-
-func TestRustParitySketchSetProperty(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchSetProperty})
-	checkGoGroup(t, c, "Sketch", "SetProperty")
 }

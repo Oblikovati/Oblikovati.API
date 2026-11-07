@@ -4,12 +4,13 @@ import unittest
 from unittest.mock import patch
 from typing import NoReturn
 from urllib.error import HTTPError
+from urllib.request import Request
 from release_checks import EXPECTED, validate_metadata, main
 
 
 class MissingImportEndpoint:
-    def __call__(self, url: str, timeout: int) -> NoReturn:
-        raise HTTPError(url, 404, "Not Found", {}, None)
+    def __call__(self, request: Request, timeout: int) -> NoReturn:
+        raise HTTPError(request.full_url, 404, "Not Found", {}, None)
 
 
 class ReleaseMetadataTests(unittest.TestCase):
