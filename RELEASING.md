@@ -88,6 +88,12 @@ to `tree/develop/go{/dir}` and `blob/develop/go{/dir}/{file}#L{line}` as well.
 The website source is `website-oblikovati.org/public/api/index.html`.
 Existing local workspaces must point to `Oblikovati.API/go`.
 
+The release checker identifies itself as `Oblikovati.API-release-check/1.0`.
+It requests the canonical HTTPS endpoint, accepts only HTTP 200 at `/api` or
+`/api/` with the `go-get=1` query, and requires the exact import metadata above.
+A forbidden response, or a final response at another origin or over HTTP, remains
+a failure.
+
 The release workflow refuses to tag or push if this metadata is not live.
 The directory move is an alpha API migration. Older source tags use the former
 root layout; keep old checkouts on that layout when reproducing old releases.
