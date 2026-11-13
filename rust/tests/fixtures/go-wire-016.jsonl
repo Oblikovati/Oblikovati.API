@@ -1,3 +1,9 @@
+{"Name":"wire.GetSketchSettingsArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
+{"Name":"wire.GetSketchSettingsArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.GetSketchSettingsArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.GetStyleArgs","Case":"zero","Payload":{"name":""},"Canonical":{"name":""},"Error":""}
+{"Name":"wire.GetStyleArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetStyleArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.GetTextArgs","Case":"zero","Payload":{"sketchIndex":0,"entityId":0},"Canonical":{"sketchIndex":0,"entityId":0},"Error":""}
 {"Name":"wire.GetTextArgs","Case":"filled","Payload":{"sketchIndex":7,"entityId":7},"Canonical":{"sketchIndex":7,"entityId":7},"Error":""}
 {"Name":"wire.GetTextArgs","Case":"empty","Payload":{"sketchIndex":7,"entityId":7},"Canonical":{"sketchIndex":7,"entityId":7},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.LightingStyleInfo","Case":"zero","Payload":{"name":"","active":false},"Canonical":{"name":"","active":false},"Error":""}
 {"Name":"wire.LightingStyleInfo","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
 {"Name":"wire.LightingStyleInfo","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"zero","Payload":{"styles":null},"Canonical":{"styles":null},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"filled","Payload":{"styles":[{"name":"example \u003c\u0026\u003e 日本語","active":true}]},"Canonical":{"styles":[{"name":"example \u003c\u0026\u003e 日本語","active":true}]},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"empty","Payload":{"styles":[]},"Canonical":{"styles":[]},"Error":""}
-{"Name":"wire.LightingStyleView","Case":"zero","Payload":{"name":"","styleType":0,"ambience":0,"brightness":0,"exposure":0,"iblBrightness":0,"iblRotation":0,"shadowDensity":0,"shadowSoftness":0,"shadowDirection":0},"Canonical":{"name":"","styleType":0,"ambience":0,"brightness":0,"exposure":0,"iblBrightness":0,"iblRotation":0,"shadowDensity":0,"shadowSoftness":0,"shadowDirection":0},"Error":""}
-{"Name":"wire.LightingStyleView","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","styleType":7,"ambience":1.25,"brightness":1.25,"exposure":1.25,"iblBrightness":1.25,"iblRotation":1.25,"shadowDensity":1.25,"shadowSoftness":1.25,"shadowDirection":7},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","styleType":7,"ambience":1.25,"brightness":1.25,"exposure":1.25,"iblBrightness":1.25,"iblRotation":1.25,"shadowDensity":1.25,"shadowSoftness":1.25,"shadowDirection":7},"Error":""}
-{"Name":"wire.LightingStyleView","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","styleType":7,"ambience":1.25,"brightness":1.25,"exposure":1.25,"iblBrightness":1.25,"iblRotation":1.25,"shadowDensity":1.25,"shadowSoftness":1.25,"shadowDirection":7},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","styleType":7,"ambience":1.25,"brightness":1.25,"exposure":1.25,"iblBrightness":1.25,"iblRotation":1.25,"shadowDensity":1.25,"shadowSoftness":1.25,"shadowDirection":7},"Error":""}

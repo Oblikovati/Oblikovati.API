@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CreateWorkPointResult", reflect.TypeFor[wire.CreateWorkPointResult]()},
+	{"wire.CustomPropertyFormatInfo", reflect.TypeFor[wire.CustomPropertyFormatInfo]()},
 	{"wire.DSDOFInfo", reflect.TypeFor[wire.DSDOFInfo]()},
 	{"wire.DSJointInfo", reflect.TypeFor[wire.DSJointInfo]()},
 	{"wire.DSJointResult", reflect.TypeFor[wire.DSJointResult]()},
@@ -87,6 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DrivingParametersResult", reflect.TypeFor[wire.DrivingParametersResult]()},
 	{"wire.DuplicateAssetArgs", reflect.TypeFor[wire.DuplicateAssetArgs]()},
 	{"wire.EdgesOfTypeArgs", reflect.TypeFor[wire.EdgesOfTypeArgs]()},
-	{"wire.EdgesResult", reflect.TypeFor[wire.EdgesResult]()},
-	{"wire.EditAssemblyFeatureArgs", reflect.TypeFor[wire.EditAssemblyFeatureArgs]()},
 }

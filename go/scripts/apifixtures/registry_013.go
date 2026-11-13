@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup13 = []fixtureType{
+	{"wire.ProfileInfo", reflect.TypeFor[wire.ProfileInfo]()},
+	{"wire.ProgressCancelledEvent", reflect.TypeFor[wire.ProgressCancelledEvent]()},
 	{"wire.ProjectCutEdgesArgs", reflect.TypeFor[wire.ProjectCutEdgesArgs]()},
 	{"wire.ProjectGeometryArgs", reflect.TypeFor[wire.ProjectGeometryArgs]()},
 	{"wire.ProjectGeometryResult", reflect.TypeFor[wire.ProjectGeometryResult]()},
@@ -87,6 +89,4 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.SetAssemblyOptionsArgs", reflect.TypeFor[wire.SetAssemblyOptionsArgs]()},
 	{"wire.SetAssemblyParticipantPathsArgs", reflect.TypeFor[wire.SetAssemblyParticipantPathsArgs]()},
 	{"wire.SetAssemblyParticipantsArgs", reflect.TypeFor[wire.SetAssemblyParticipantsArgs]()},
-	{"wire.SetAttributeArgs", reflect.TypeFor[wire.SetAttributeArgs]()},
-	{"wire.SetBOMStructureArgs", reflect.TypeFor[wire.SetBOMStructureArgs]()},
 }

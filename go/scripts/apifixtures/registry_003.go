@@ -85,8 +85,8 @@ var fixtureGroup3 = []fixtureType{
 	{"types.SketchEntityKind", reflect.TypeFor[types.SketchEntityKind]()},
 	{"types.SketchFormatModes", reflect.TypeFor[types.SketchFormatModes]()},
 	{"types.SketchLineType", reflect.TypeFor[types.SketchLineType]()},
+	{"types.SketchMoveDimensionPolicy", reflect.TypeFor[types.SketchMoveDimensionPolicy]()},
+	{"types.SketchMoveGeometricPolicy", reflect.TypeFor[types.SketchMoveGeometricPolicy]()},
 	{"types.SketchPatternKind", reflect.TypeFor[types.SketchPatternKind]()},
 	{"types.SketchPointInferenceKind", reflect.TypeFor[types.SketchPointInferenceKind]()},
-	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
-	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
 }

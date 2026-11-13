@@ -10,6 +10,8 @@ import (
 )
 
 var fixtureGroup4 = []fixtureType{
+	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
+	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
 	{"types.SolutionNature", reflect.TypeFor[types.SolutionNature]()},
 	{"types.SplineFitMethod", reflect.TypeFor[types.SplineFitMethod]()},
 	{"types.SplitType", reflect.TypeFor[types.SplitType]()},
@@ -88,6 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddDSJointArgs", reflect.TypeFor[wire.AddDSJointArgs]()},
 	{"wire.AddDatumFeatureArgs", reflect.TypeFor[wire.AddDatumFeatureArgs]()},
 	{"wire.AddDefaultBorderArgs", reflect.TypeFor[wire.AddDefaultBorderArgs]()},
-	{"wire.AddDetailViewArgs", reflect.TypeFor[wire.AddDetailViewArgs]()},
-	{"wire.AddDimensionArgs", reflect.TypeFor[wire.AddDimensionArgs]()},
 }

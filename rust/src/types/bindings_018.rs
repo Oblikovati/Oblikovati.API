@@ -3,6 +3,73 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+    Copy,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct ViewTypeEnum(pub i32);
+
+pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
+
+pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
+
+pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
+
+pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);
+
+#[doc = "```text\nWindowState is a view frame's window state — the WindowsSizeEnum equivalent\n(M05-F10, #617).\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+    Copy,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct WindowState(pub u8);
+impl From<u8> for WindowState {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<WindowState> for u8 {
+    fn from(value: WindowState) -> Self {
+        value.0
+    }
+}
+
+pub const WIREFRAME_NO_HIDDEN_EDGES: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8711);
+
+pub const WIREFRAME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8706);
+
+pub const WIREFRAME_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(1);
+
+pub const WIREFRAME_WITH_HIDDEN_EDGES_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8712);
+
+pub const WORK_AXIS_ANALYTIC_EDGE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("analytic-edge"));
+
 #[doc = "```text\nWorkAxisKind names a datum-axis constructor, the discriminator of a work-axis\ncreate request. The string values are the stable wire vocabulary — treat them as\nfrozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor.\n```"]
 #[derive(
     Debug,

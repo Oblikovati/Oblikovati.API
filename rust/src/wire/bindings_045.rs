@@ -3,6 +3,67 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nWebDialogChangedEvent is the push event (type [EventWebDialogChanged]) fired when\na web view's visibility changes (shown, or closed by the user/the owner).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct WebDialogChangedEvent {
+    #[doc = "```text\nalways EventWebDialogChanged\n```"]
+    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
+    pub type_: String,
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
+    pub visible: bool,
+}
+
+#[doc = "```text\nWebDialogSpec is one web view the host presents: a floating dialog (Modal pins\nit on top) or, with Dock set, a view docked into the chrome like an add-in\nwindow. The host's web rendering is behind a thin engine seam; a host without an\nembedded engine shows the URL with an open-in-browser affordance.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct WebDialogSpec {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "title", deserialize_with = "crate::json::null_default")]
+    pub title: String,
+    #[serde(rename = "url", deserialize_with = "crate::json::null_default")]
+    pub url: String,
+    #[serde(
+        rename = "modal",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub modal: bool,
+    #[serde(
+        rename = "dock",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dock: crate::types::DockingState,
+    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
+    pub visible: bool,
+}
+
+#[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct WireInfo {
+    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
+    pub index: i64,
+    #[serde(rename = "closed", deserialize_with = "crate::json::null_default")]
+    pub closed: bool,
+    #[serde(rename = "planar", deserialize_with = "crate::json::null_default")]
+    pub planar: bool,
+    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
+    pub edges: i64,
+    #[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
+    #[serde(rename = "key", deserialize_with = "crate::json::null_default")]
+    pub key: String,
+    #[serde(
+        rename = "transientKey",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub transient_key: u64,
+}
+
 #[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]

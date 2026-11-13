@@ -69,6 +69,24 @@ pub struct SketchInfo {
     pub defer_updates: bool,
 }
 
+#[doc = "```text\nSketchMoveDecision identifies which constraint policies require a user decision.\nAt least one field is true. No sketch edit has been committed when this is returned.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SketchMoveDecision {
+    #[serde(
+        rename = "dimension",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dimension: bool,
+    #[serde(
+        rename = "geometric",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub geometric: bool,
+}
+
 #[doc = "```text\nSketchOptionsView is the \"sketch\" group: the grid and click snapping. Spacing is\nin model/database units (cm) — unit-independent, like the stored preference.\n\nA setGroup write replaces only the fields carried here; the sketch options the host\nkeeps but does not expose (the heads-up display flags) survive it unchanged.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -429,34 +447,4 @@ pub struct TaskPanelClosedEvent {
     pub id: String,
     #[serde(rename = "accepted", deserialize_with = "crate::json::null_default")]
     pub accepted: bool,
-}
-
-#[doc = "```text\nTaskPanelSpec is a modal task panel that takes over the host task area (FreeCAD Task-dialog\nsemantics): declarative PanelControlSpec content with OK/Cancel. Showing is asynchronous — like\nfile dialogs it must never block the session goroutine — so the user's accept/cancel arrives as a\n[TaskPanelClosedEvent]. While open, edits to its controls push the same PanelValueChangedEvent /\nPanelReferencesChangedEvent keyed on this panel's ID. Unlike WebDialogSpec it is built from the\nshared control vocabulary, so a referenceList composes inside it.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TaskPanelSpec {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "title", deserialize_with = "crate::json::null_default")]
-    pub title: String,
-    #[serde(
-        rename = "controls",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub controls: Option<Vec<crate::wire::PanelControlSpec>>,
-    #[doc = "```text\ndefault \"OK\"\n```"]
-    #[serde(
-        rename = "okLabel",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ok_label: String,
-    #[doc = "```text\ndefault \"Cancel\"\n```"]
-    #[serde(
-        rename = "cancelLabel",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub cancel_label: String,
 }

@@ -3,6 +3,61 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTolerance is an engineering tolerance: a flavor plus the deviation band from the nominal\nvalue (Upper, Lower, database units). The zero Tolerance means \"standard/default tolerance,\nno explicit band\"; [Tolerance.Kind] maps the zero Type onto [ToleranceDefault], so a\n`t != Tolerance{}` has-explicit-tolerance check keeps working. Which value within the band\nthe model consumes is the parameter's [ModelValueType] (the reference API splits\nTolerance.ToleranceType from Parameter.ModelValueType).\n\nHoleTolerance and ShaftTolerance are the ISO limits-and-fits class strings (e.g. \"H7\",\n\"g6\") for a fits tolerance (parity: Tolerance.HoleTolerance/ShaftTolerance, #1848); they\nare empty for the non-fits flavors. Both are plain comparable strings, so Tolerance stays\ncomparable (the `t != Tolerance{}` guard is preserved).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct Tolerance {
+    #[serde(rename = "Type", deserialize_with = "crate::json::null_default")]
+    pub type_: crate::types::ToleranceType,
+    #[serde(
+        rename = "Upper",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub upper: f64,
+    #[serde(
+        rename = "Lower",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub lower: f64,
+    #[serde(
+        rename = "HoleTolerance",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub hole_tolerance: String,
+    #[serde(
+        rename = "ShaftTolerance",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub shaft_tolerance: String,
+}
+
+pub const TOLERANCE_BASIC: crate::types::ToleranceType = crate::types::ToleranceType(31245);
+
+pub const TOLERANCE_DEFAULT: crate::types::ToleranceType = crate::types::ToleranceType(31233);
+
+pub const TOLERANCE_DEVIATION: crate::types::ToleranceType = crate::types::ToleranceType(31236);
+
+pub const TOLERANCE_LIMIT_LINEAR: crate::types::ToleranceType = crate::types::ToleranceType(31238);
+
+pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
+    crate::types::ToleranceType(31242);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_SIZE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31243);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_TOLERANCE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31244);
+
+pub const TOLERANCE_LIMITS_FITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31241);
+
+pub const TOLERANCE_LIMITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31237);
+
+pub const TOLERANCE_MAX: crate::types::ToleranceType = crate::types::ToleranceType(31239);
+
 pub const TOLERANCE_MIN: crate::types::ToleranceType = crate::types::ToleranceType(31240);
 
 pub const TOLERANCE_OVERRIDE: crate::types::ToleranceType = crate::types::ToleranceType(31234);
@@ -391,70 +446,3 @@ pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTyp
 #[repr(transparent)]
 #[serde(transparent)]
 pub struct ViewTileTypeEnum(pub i32);
-
-#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ViewTypeEnum(pub i32);
-
-pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
-
-pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
-
-pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
-
-pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);
-
-#[doc = "```text\nWindowState is a view frame's window state — the WindowsSizeEnum equivalent\n(M05-F10, #617).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct WindowState(pub u8);
-impl From<u8> for WindowState {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<WindowState> for u8 {
-    fn from(value: WindowState) -> Self {
-        value.0
-    }
-}
-
-pub const WIREFRAME_NO_HIDDEN_EDGES: crate::types::DisplayModeEnum =
-    crate::types::DisplayModeEnum(8711);
-
-pub const WIREFRAME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8706);
-
-pub const WIREFRAME_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(1);
-
-pub const WIREFRAME_WITH_HIDDEN_EDGES_RENDERING: crate::types::DisplayModeEnum =
-    crate::types::DisplayModeEnum(8712);
-
-pub const WORK_AXIS_ANALYTIC_EDGE: crate::types::WorkAxisKind =
-    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("analytic-edge"));

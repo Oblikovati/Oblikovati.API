@@ -3,6 +3,51 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SURFACE_FORM_NOT_NURBS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(8);
+
+pub const SURFACE_FORM_PROCEDURAL_TO_NURBS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(16);
+
+#[doc = "```text\nSurfaceGeometryForm is the surface representation classification (flag values,\nfrozen to the reference).\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+    Copy,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct SurfaceGeometryForm(pub i32);
+
+pub const SURFACE_TEXTURE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(6);
+
+#[doc = "```text\nSurfaceType identifies a transient surface's concrete kind.\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+    Copy,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct SurfaceType(pub i32);
+
 #[doc = "```text\nSweepDefinitionType discriminates the sweep definition union.\n```"]
 #[derive(
     Debug,
@@ -407,58 +452,3 @@ pub const TOKEN_VIEWPORT_ACTIVE_BORDER: crate::types::ThemeToken =
 
 pub const TOKEN_VIEWPORT_BG: crate::types::ThemeToken =
     crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.bg"));
-
-#[doc = "```text\nTolerance is an engineering tolerance: a flavor plus the deviation band from the nominal\nvalue (Upper, Lower, database units). The zero Tolerance means \"standard/default tolerance,\nno explicit band\"; [Tolerance.Kind] maps the zero Type onto [ToleranceDefault], so a\n`t != Tolerance{}` has-explicit-tolerance check keeps working. Which value within the band\nthe model consumes is the parameter's [ModelValueType] (the reference API splits\nTolerance.ToleranceType from Parameter.ModelValueType).\n\nHoleTolerance and ShaftTolerance are the ISO limits-and-fits class strings (e.g. \"H7\",\n\"g6\") for a fits tolerance (parity: Tolerance.HoleTolerance/ShaftTolerance, #1848); they\nare empty for the non-fits flavors. Both are plain comparable strings, so Tolerance stays\ncomparable (the `t != Tolerance{}` guard is preserved).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Tolerance {
-    #[serde(rename = "Type", deserialize_with = "crate::json::null_default")]
-    pub type_: crate::types::ToleranceType,
-    #[serde(
-        rename = "Upper",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub upper: f64,
-    #[serde(
-        rename = "Lower",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub lower: f64,
-    #[serde(
-        rename = "HoleTolerance",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub hole_tolerance: String,
-    #[serde(
-        rename = "ShaftTolerance",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shaft_tolerance: String,
-}
-
-pub const TOLERANCE_BASIC: crate::types::ToleranceType = crate::types::ToleranceType(31245);
-
-pub const TOLERANCE_DEFAULT: crate::types::ToleranceType = crate::types::ToleranceType(31233);
-
-pub const TOLERANCE_DEVIATION: crate::types::ToleranceType = crate::types::ToleranceType(31236);
-
-pub const TOLERANCE_LIMIT_LINEAR: crate::types::ToleranceType = crate::types::ToleranceType(31238);
-
-pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
-    crate::types::ToleranceType(31242);
-
-pub const TOLERANCE_LIMITS_FITS_SHOW_SIZE: crate::types::ToleranceType =
-    crate::types::ToleranceType(31243);
-
-pub const TOLERANCE_LIMITS_FITS_SHOW_TOLERANCE: crate::types::ToleranceType =
-    crate::types::ToleranceType(31244);
-
-pub const TOLERANCE_LIMITS_FITS_STACKED: crate::types::ToleranceType =
-    crate::types::ToleranceType(31241);
-
-pub const TOLERANCE_LIMITS_STACKED: crate::types::ToleranceType =
-    crate::types::ToleranceType(31237);
-
-pub const TOLERANCE_MAX: crate::types::ToleranceType = crate::types::ToleranceType(31239);

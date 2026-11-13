@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Added optional sketch Move policies for dimensional and geometric constraints.
+
 ## [0.159.0] - 2026-11-07
 
 ### Added

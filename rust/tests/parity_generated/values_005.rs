@@ -82,6 +82,20 @@ fn types_sketch_line_type() {
 }
 
 #[test]
+fn types_sketch_move_dimension_policy() {
+    super::check::<oblikovati_api::types::SketchMoveDimensionPolicy>(
+        "types.SketchMoveDimensionPolicy",
+    );
+}
+
+#[test]
+fn types_sketch_move_geometric_policy() {
+    super::check::<oblikovati_api::types::SketchMoveGeometricPolicy>(
+        "types.SketchMoveGeometricPolicy",
+    );
+}
+
+#[test]
 fn types_sketch_pattern_kind() {
     super::check::<oblikovati_api::types::SketchPatternKind>("types.SketchPatternKind");
 }
@@ -291,14 +305,4 @@ fn types_view_orientation_type_enum() {
 #[test]
 fn types_view_tile_type_enum() {
     super::check::<oblikovati_api::types::ViewTileTypeEnum>("types.ViewTileTypeEnum");
-}
-
-#[test]
-fn types_view_type_enum() {
-    super::check::<oblikovati_api::types::ViewTypeEnum>("types.ViewTypeEnum");
-}
-
-#[test]
-fn types_window_state() {
-    super::check::<oblikovati_api::types::WindowState>("types.WindowState");
 }

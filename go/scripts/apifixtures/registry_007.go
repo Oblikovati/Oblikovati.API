@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup7 = []fixtureType{
+	{"wire.CallAddInAutomationArgs", reflect.TypeFor[wire.CallAddInAutomationArgs]()},
+	{"wire.CallAddInAutomationResult", reflect.TypeFor[wire.CallAddInAutomationResult]()},
 	{"wire.CameraChangedEvent", reflect.TypeFor[wire.CameraChangedEvent]()},
 	{"wire.CameraView", reflect.TypeFor[wire.CameraView]()},
 	{"wire.CaptureNamedViewArgs", reflect.TypeFor[wire.CaptureNamedViewArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CreateWorkPlaneArgs", reflect.TypeFor[wire.CreateWorkPlaneArgs]()},
 	{"wire.CreateWorkPlaneResult", reflect.TypeFor[wire.CreateWorkPlaneResult]()},
 	{"wire.CreateWorkPointArgs", reflect.TypeFor[wire.CreateWorkPointArgs]()},
-	{"wire.CreateWorkPointResult", reflect.TypeFor[wire.CreateWorkPointResult]()},
-	{"wire.CustomPropertyFormatInfo", reflect.TypeFor[wire.CustomPropertyFormatInfo]()},
 }

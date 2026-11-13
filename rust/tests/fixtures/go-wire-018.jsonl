@@ -1,3 +1,9 @@
+{"Name":"wire.ListProfiles3DResult","Case":"zero","Payload":{"profiles":null},"Canonical":{"profiles":null},"Error":""}
+{"Name":"wire.ListProfiles3DResult","Case":"filled","Payload":{"profiles":[{"index":7,"area":1.25,"normal":[1.25],"vertices":7}]},"Canonical":{"profiles":[{"index":7,"area":1.25,"normal":[1.25],"vertices":7}]},"Error":""}
+{"Name":"wire.ListProfiles3DResult","Case":"empty","Payload":{"profiles":[]},"Canonical":{"profiles":[]},"Error":""}
+{"Name":"wire.ListProfilesResult","Case":"zero","Payload":{"profiles":null},"Canonical":{"profiles":null},"Error":""}
+{"Name":"wire.ListProfilesResult","Case":"filled","Payload":{"profiles":[{"index":7,"area":1.25,"closed":true,"holes":7}]},"Canonical":{"profiles":[{"index":7,"area":1.25,"closed":true,"holes":7}]},"Error":""}
+{"Name":"wire.ListProfilesResult","Case":"empty","Payload":{"profiles":[]},"Canonical":{"profiles":[]},"Error":""}
 {"Name":"wire.ListPropertiesArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
 {"Name":"wire.ListPropertiesArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
 {"Name":"wire.ListPropertiesArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.MinimumDistanceResult","Case":"zero","Payload":{"distance":0},"Canonical":{"distance":0},"Error":""}
 {"Name":"wire.MinimumDistanceResult","Case":"filled","Payload":{"distance":1.25},"Canonical":{"distance":1.25},"Error":""}
 {"Name":"wire.MinimumDistanceResult","Case":"empty","Payload":{"distance":1.25},"Canonical":{"distance":1.25},"Error":""}
-{"Name":"wire.MirrorComponentsArgs","Case":"zero","Payload":{"sources":null,"origin":[0,0,0],"normal":[0,0,0]},"Canonical":{"sources":null,"origin":[0,0,0],"normal":[0,0,0]},"Error":""}
-{"Name":"wire.MirrorComponentsArgs","Case":"filled","Payload":{"sources":[7],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"sources":[7],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.MirrorComponentsArgs","Case":"empty","Payload":{"sources":[],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"sources":[],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"zero","Payload":{"sourceFeatures":null,"normal":null},"Canonical":{"sourceFeatures":null,"normal":null},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"filled","Payload":{"sourceFeatures":["example \u003c\u0026\u003e 日本語"],"origin":[1.25],"normal":[1.25]},"Canonical":{"sourceFeatures":["example \u003c\u0026\u003e 日本語"],"origin":[1.25],"normal":[1.25]},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"empty","Payload":{"sourceFeatures":[],"normal":[]},"Canonical":{"sourceFeatures":[],"normal":[]},"Error":""}

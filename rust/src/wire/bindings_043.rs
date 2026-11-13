@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTaskPanelSpec is a modal task panel that takes over the host task area (FreeCAD Task-dialog\nsemantics): declarative PanelControlSpec content with OK/Cancel. Showing is asynchronous — like\nfile dialogs it must never block the session goroutine — so the user's accept/cancel arrives as a\n[TaskPanelClosedEvent]. While open, edits to its controls push the same PanelValueChangedEvent /\nPanelReferencesChangedEvent keyed on this panel's ID. Unlike WebDialogSpec it is built from the\nshared control vocabulary, so a referenceList composes inside it.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TaskPanelSpec {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: String,
+    #[serde(rename = "title", deserialize_with = "crate::json::null_default")]
+    pub title: String,
+    #[serde(
+        rename = "controls",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub controls: Option<Vec<crate::wire::PanelControlSpec>>,
+    #[doc = "```text\ndefault \"OK\"\n```"]
+    #[serde(
+        rename = "okLabel",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ok_label: String,
+    #[doc = "```text\ndefault \"Cancel\"\n```"]
+    #[serde(
+        rename = "cancelLabel",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub cancel_label: String,
+}
+
 #[doc = "```text\nTextStyleInfo is the JSON shape of an annotation text style.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -399,54 +429,4 @@ pub struct TransformOccurrenceArgs {
     pub id: u64,
     #[serde(rename = "transform")]
     pub transform: crate::types::Matrix,
-}
-
-#[doc = "```text\nTransformSketchArgs is the request of [MethodSketchTransform] — the discriminated edit\noperation on a selection of entities. Op is \"move\" | \"rotate\" | \"copy\" | \"mirror\":\n\n  - move:   translate the selection in place by Vector ([dx,dy] cm).\n  - copy:   duplicate the selection, offset by Vector; the copies are returned.\n  - rotate: rotate the selection in place about Center ([x,y] cm) by Angle (a\n    unit-bearing expression like \"90 deg\").\n  - mirror: reflect the selection across the line MirrorLine (an entity id); the\n    mirrored copies are returned.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TransformSketchArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "op", deserialize_with = "crate::json::null_default")]
-    pub op: String,
-    #[serde(rename = "entities", deserialize_with = "crate::json::null_default")]
-    pub entities: Option<Vec<u64>>,
-    #[serde(
-        rename = "vector",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub vector: Option<Vec<f64>>,
-    #[serde(
-        rename = "center",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center: Option<Vec<f64>>,
-    #[serde(
-        rename = "angle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angle: String,
-    #[serde(
-        rename = "mirrorLine",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub mirror_line: u64,
-}
-
-#[doc = "```text\nTransformSketchResult is the response of [MethodSketchTransform]: the ids of any newly\ncreated entities (the copies for \"copy\"/\"mirror\"; empty for the in-place \"move\"/\"rotate\").\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct TransformSketchResult {
-    #[serde(
-        rename = "created",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub created: Option<Vec<u64>>,
 }

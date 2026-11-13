@@ -3,6 +3,74 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTransformSketchArgs is the request of [MethodSketchTransform] — the discriminated edit\noperation on a selection of entities. Op is \"move\" | \"rotate\" | \"copy\" | \"mirror\":\n\n  - move:   translate the selection in place by Vector ([dx,dy] cm).\n  - copy:   duplicate the selection, offset by Vector; the copies are returned.\n  - rotate: rotate the selection in place about Center ([x,y] cm) by Angle (a\n    unit-bearing expression like \"90 deg\").\n  - mirror: reflect the selection across the line MirrorLine (an entity id); the\n    mirrored copies are returned.\n\nDimensionPolicy and GeometricPolicy apply to move only. An omitted policy means\n\"never\". A host that needs a decision for \"prompt\" returns DecisionRequired\nwithout changing the sketch; the caller can ask the user and retry explicitly.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TransformSketchArgs {
+    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
+    pub sketch_index: i64,
+    #[serde(rename = "op", deserialize_with = "crate::json::null_default")]
+    pub op: String,
+    #[serde(rename = "entities", deserialize_with = "crate::json::null_default")]
+    pub entities: Option<Vec<u64>>,
+    #[serde(
+        rename = "vector",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub vector: Option<Vec<f64>>,
+    #[serde(
+        rename = "center",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub center: Option<Vec<f64>>,
+    #[serde(
+        rename = "angle",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub angle: String,
+    #[serde(
+        rename = "mirrorLine",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub mirror_line: u64,
+    #[serde(
+        rename = "dimensionPolicy",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dimension_policy: crate::types::SketchMoveDimensionPolicy,
+    #[serde(
+        rename = "geometricPolicy",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub geometric_policy: crate::types::SketchMoveGeometricPolicy,
+}
+
+#[doc = "```text\nTransformSketchResult is the response of [MethodSketchTransform]: the ids of any newly\ncreated entities, or a decision needed before a move can be committed.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct TransformSketchResult {
+    #[serde(
+        rename = "created",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub created: Option<Vec<u64>>,
+    #[serde(
+        rename = "decisionRequired",
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub decision_required: Option<Box<crate::wire::SketchMoveDecision>>,
+}
+
 #[doc = "```text\nTreeNode is one node of a PanelTree (a category-browser hierarchy). ID is the stable key the\nhost echoes in a PanelValueChangedEvent when the node's label is clicked; Label is the display\ntext; Children nests sub-nodes (empty = a leaf). Expanded is a FIRST-RENDER hint only —\nafterwards the host owns expand/collapse (twirling a node does not notify the add-in), so a\nre-sent spec does not fight the user's open/closed state.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -393,65 +461,4 @@ pub struct ViewTabInfo {
         deserialize_with = "crate::json::null_default"
     )]
     pub dirty: bool,
-}
-
-#[doc = "```text\nWebDialogChangedEvent is the push event (type [EventWebDialogChanged]) fired when\na web view's visibility changes (shown, or closed by the user/the owner).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct WebDialogChangedEvent {
-    #[doc = "```text\nalways EventWebDialogChanged\n```"]
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
-}
-
-#[doc = "```text\nWebDialogSpec is one web view the host presents: a floating dialog (Modal pins\nit on top) or, with Dock set, a view docked into the chrome like an add-in\nwindow. The host's web rendering is behind a thin engine seam; a host without an\nembedded engine shows the URL with an open-in-browser affordance.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct WebDialogSpec {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "title", deserialize_with = "crate::json::null_default")]
-    pub title: String,
-    #[serde(rename = "url", deserialize_with = "crate::json::null_default")]
-    pub url: String,
-    #[serde(
-        rename = "modal",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub modal: bool,
-    #[serde(
-        rename = "dock",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dock: crate::types::DockingState,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
-}
-
-#[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct WireInfo {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "closed", deserialize_with = "crate::json::null_default")]
-    pub closed: bool,
-    #[serde(rename = "planar", deserialize_with = "crate::json::null_default")]
-    pub planar: bool,
-    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
-    pub edges: i64,
-    #[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
-    #[serde(rename = "key", deserialize_with = "crate::json::null_default")]
-    pub key: String,
-    #[serde(
-        rename = "transientKey",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub transient_key: u64,
 }

@@ -35,6 +35,61 @@ pub const SKETCH_LINE_PHANTOM: crate::types::SketchLineType =
 #[serde(transparent)]
 pub struct SketchLineType(pub std::borrow::Cow<'static, str>);
 
+pub const SKETCH_MOVE_DIMENSION_ALWAYS: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_DIMENSION_IF_NO_EQUATION: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("ifNoEquation"));
+
+pub const SKETCH_MOVE_DIMENSION_NEVER: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("never"));
+
+#[doc = "```text\nSketchMoveDimensionPolicy controls changes to driving dimensions during a sketch move.\nThe empty value means Never, preserving the behavior of requests without this field.\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct SketchMoveDimensionPolicy(pub std::borrow::Cow<'static, str>);
+
+pub const SKETCH_MOVE_DIMENSION_PROMPT: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("prompt"));
+
+pub const SKETCH_MOVE_GEOMETRIC_ALWAYS: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_GEOMETRIC_NEVER: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("never"));
+
+#[doc = "```text\nSketchMoveGeometricPolicy controls removal of geometric relations during a sketch move.\nThe empty value means Never, preserving the behavior of requests without this field.\n```"]
+#[derive(
+    Debug,
+    Clone,
+    Default,
+    PartialEq,
+    PartialOrd,
+    serde::Serialize,
+    serde::Deserialize,
+    Eq,
+    Ord,
+    Hash,
+)]
+#[repr(transparent)]
+#[serde(transparent)]
+pub struct SketchMoveGeometricPolicy(pub std::borrow::Cow<'static, str>);
+
+pub const SKETCH_MOVE_GEOMETRIC_PROMPT: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("prompt"));
+
 pub const SKETCH_PATTERN_CIRCULAR: crate::types::SketchPatternKind =
     crate::types::SketchPatternKind(std::borrow::Cow::Borrowed("circular"));
 
@@ -406,48 +461,3 @@ pub const SURFACE_FORM_NURBS: crate::types::SurfaceGeometryForm =
 
 pub const SURFACE_FORM_NOT_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
     crate::types::SurfaceGeometryForm(2);
-
-pub const SURFACE_FORM_NOT_NURBS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(8);
-
-pub const SURFACE_FORM_PROCEDURAL_TO_NURBS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(16);
-
-#[doc = "```text\nSurfaceGeometryForm is the surface representation classification (flag values,\nfrozen to the reference).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct SurfaceGeometryForm(pub i32);
-
-pub const SURFACE_TEXTURE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(6);
-
-#[doc = "```text\nSurfaceType identifies a transient surface's concrete kind.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct SurfaceType(pub i32);

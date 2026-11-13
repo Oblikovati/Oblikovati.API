@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetViewDisplayArgs", reflect.TypeFor[wire.SetViewDisplayArgs]()},
+	{"wire.SetViewLabelArgs", reflect.TypeFor[wire.SetViewLabelArgs]()},
 	{"wire.SetVisibilityArgs", reflect.TypeFor[wire.SetVisibilityArgs]()},
 	{"wire.SetVisibleOccurrenceArgs", reflect.TypeFor[wire.SetVisibleOccurrenceArgs]()},
 	{"wire.SetWorkFeatureVisibleArgs", reflect.TypeFor[wire.SetWorkFeatureVisibleArgs]()},
@@ -44,6 +46,7 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
 	{"wire.SketchInfo", reflect.TypeFor[wire.SketchInfo]()},
+	{"wire.SketchMoveDecision", reflect.TypeFor[wire.SketchMoveDecision]()},
 	{"wire.SketchOptionsView", reflect.TypeFor[wire.SketchOptionsView]()},
 	{"wire.SketchOrientation", reflect.TypeFor[wire.SketchOrientation]()},
 	{"wire.SketchRectangleArgs", reflect.TypeFor[wire.SketchRectangleArgs]()},
@@ -86,7 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.TransactionEventPayload", reflect.TypeFor[wire.TransactionEventPayload]()},
 	{"wire.TransactionHistory", reflect.TypeFor[wire.TransactionHistory]()},
 	{"wire.TransactionHistoryArgs", reflect.TypeFor[wire.TransactionHistoryArgs]()},
-	{"wire.TransactionHistoryEntry", reflect.TypeFor[wire.TransactionHistoryEntry]()},
-	{"wire.TransactionJumpToArgs", reflect.TypeFor[wire.TransactionJumpToArgs]()},
-	{"wire.Transform3DArgs", reflect.TypeFor[wire.Transform3DArgs]()},
 }
