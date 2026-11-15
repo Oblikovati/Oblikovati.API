@@ -41,6 +41,22 @@ var headerRe = regexp.MustCompile(`^([A-Za-z]+)(?:\([^)]*\))?(!)?:`)
 // line ("BREAKING CHANGE:" or "BREAKING-CHANGE:").
 var breakingFooterRe = regexp.MustCompile(`(?m)^BREAKING[ -]CHANGE:`)
 
+// additiveScopeRe allows a release correction to state the additive scope of
+// existing commits without rewriting their published identities (#3965).
+var additiveScopeRe = regexp.MustCompile(`(?m)^Release-Scope: feature[\t ]*\r?$`)
+
+// validateReleaseScopes refuses misspelled release directives before any bump.
+func validateReleaseScopes(messages []string) error {
+	for _, message := range messages {
+		for _, line := range strings.Split(message, "\n") {
+			if strings.HasPrefix(line, "Release-Scope:") && strings.TrimSpace(line) != "Release-Scope: feature" {
+				return fmt.Errorf("release scope %q: expected Release-Scope: feature", line)
+			}
+		}
+	}
+	return nil
+}
+
 // patchTypes are the conventional types that warrant a PATCH; featureTypes a feature;
 // silentTypes nothing. An unrecognized type defaults to changePatch so the version
 // never silently stalls on a real change — but additive surface changes should use
@@ -86,6 +102,9 @@ func classify(messages []string) change {
 	for _, m := range messages {
 		if c := classifyOne(m); c > strongest {
 			strongest = c
+		}
+		if additiveScopeRe.MatchString(m) && strongest < changeFeature {
+			strongest = changeFeature
 		}
 	}
 	return strongest

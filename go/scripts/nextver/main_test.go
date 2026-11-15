@@ -48,6 +48,21 @@ func TestRunNoReleaseLeavesFiles(t *testing.T) {
 	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
 }
 
+func TestRunRejectsInvalidScopeBeforeEditingFiles(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
+	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
+	var out strings.Builder
+	err := run(true, dir, "2026-06-15", "", strings.NewReader("fix: x\n\nRelease-Scope: minor"), &out)
+	if err == nil || !strings.Contains(err.Error(), "Release-Scope: minor") {
+		t.Fatalf("error %v: expected invalid scope diagnostic", err)
+	}
+	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
+	if out.String() != "" {
+		t.Fatalf("output %q: expected no version", out.String())
+	}
+}
+
 func writeFile(t *testing.T, dir, name, content string) {
 	t.Helper()
 	if err := os.MkdirAll(filepath.Dir(filepath.Join(dir, name)), 0o755); err != nil {

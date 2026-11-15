@@ -34,6 +34,9 @@ func main() {
 // writing the result to out.
 func run(apply bool, dir, date, notesOut string, in io.Reader, out io.Writer) error {
 	messages := readMessages(in)
+	if err := validateReleaseScopes(messages); err != nil {
+		return err
+	}
 	verPath := filepath.Join(dir, "go", "version.go")
 	verSrc, err := os.ReadFile(verPath)
 	if err != nil {

@@ -62,6 +62,12 @@ conservative **PATCH** so the version never silently stalls — but an additive 
 change deserves a MINOR, so prefix it with `feat:`. The logic lives in `go/scripts/nextver`
 and is covered by `go test ./scripts/nextver`.
 
+When an already published commit has a nonconventional subject that understates
+an additive API change, add a correction commit that explains the affected
+changes and includes `Release-Scope: feature` on a separate line in its body.
+The trailer sets a minimum feature scope for the release. A breaking-change
+marker still takes precedence. This preserves the original commit identities.
+
 ## Consuming a release
 
 Pin a release with `require oblikovati.org/api vX.Y.Z`. Local development (the
