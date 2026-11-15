@@ -3,461 +3,461 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nDrawingViewType discriminates the kind of a drawing view. The reference contracts model\nauxiliary/overlay/slice as a base DrawingView carrying this discriminator (not distinct\ninterfaces); only section and detail are also distinct contracts. The zero value is\nDrawingViewBase.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DrawingViewType(pub i32);
+pub const LIGHT_THREE_SHADOW: crate::types::ShadowDirectionEnum =
+    crate::types::ShadowDirectionEnum(92166);
 
-pub const DRIVE_ANGULAR: crate::types::DriveVariable = crate::types::DriveVariable(1);
+pub const LIGHT_TWO_SHADOW: crate::types::ShadowDirectionEnum =
+    crate::types::ShadowDirectionEnum(92165);
 
-pub const DRIVE_LINEAR: crate::types::DriveVariable = crate::types::DriveVariable(2);
-
-pub const DRIVE_NATURAL: crate::types::DriveVariable = crate::types::DriveVariable(0);
-
-#[doc = "```text\nDriveVariable selects which of a relationship's driven variables a drive sweeps. A\nrotational joint has one angular variable; a slider one linear; a cylindrical joint both,\nso the caller must pick. The zero value asks for the relationship's natural variable.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DriveVariable(pub u32);
-
-pub const EACH_PART_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127493);
-
-pub const EACH_TOP_LEVEL_COMPONENT_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127491);
-
-pub const EACH_UNIQUE_PART_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127492);
-
-pub const EACH_UNIQUE_TOP_LEVEL_COMPONENT_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127490);
-
-#[doc = "```text\nEdgeCollectionKind identifies a body's classified edge collection\n(SurfaceBody.ConvexEdges / ConcaveEdges and tangentially connected sets).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct EdgeCollectionKind(pub i32);
-
-pub const EDGE_FILLET: crate::types::FilletType = crate::types::FilletType(61697);
-
-#[doc = "```text\nElectrical groups a material's electrical properties. Common mechanical-CAD material\nmodels stop at mechanical/thermal; electrical is added here because the user models it\nexplicitly.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Electrical {
-    #[doc = "```text\nΩ·m\n```"]
-    #[serde(
-        rename = "resistivity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub resistivity: f64,
-    #[doc = "```text\ndimensionless (εr)\n```"]
-    #[serde(
-        rename = "relativePermittivity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub relative_permittivity: f64,
+generated_scalar! { integer,
+#[doc = "```text\nLightTypeEnum is the coordinate space a light lives in. A model-space light is fixed to\nthe model; a view-space light follows the camera (a headlight); a ground-plane-space\nlight is fixed to the ground/orientation-cube frame. The numeric ids are stable, frozen\nvalues (52993–52995).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(app.LightTypeEnum) and maps it onto the renderer's lighting rig.\n```"]
+pub struct LightTypeEnum(pub i32);
 }
 
-pub const ELLIPSE_FULL_CURVE: crate::types::CurveType = crate::types::CurveType(5126);
+generated_scalar! { integer,
+#[doc = "```text\nLightingStyleTypeEnum says whether a lighting style is a traditional multi-light rig or an\nimage-based (HDR environment) style. The numeric ids are stable, frozen values\n(50750977–50750978).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(app.LightingStyleTypeEnum).\n```"]
+pub struct LightingStyleTypeEnum(pub i32);
+}
 
-pub const ELLIPSE_FULL_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5254);
+pub const LIMITS_TOLERANCE: crate::types::DimensionToleranceType =
+    crate::types::DimensionToleranceType(3);
 
-pub const ELLIPTICAL_ARC_CURVE: crate::types::CurveType = crate::types::CurveType(5127);
+pub const LINE_CURVE: crate::types::CurveType = crate::types::CurveType(5122);
 
-pub const ELLIPTICAL_ARC_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5255);
+pub const LINE_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5250);
 
-pub const ELLIPTICAL_CONE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5894);
+generated_scalar! { integer,
+#[doc = "```text\nLineDefinitionSpaceEnum is the coordinate space a line graphic's width/pattern is defined\nin: screen space (constant pixels), model space (scales with zoom), or hybrid. Frozen ids\n49921–49923.\n```"]
+pub struct LineDefinitionSpaceEnum(pub i32);
+}
 
-pub const ELLIPTICAL_CYLINDER_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5892);
+pub const LINE_SEGMENT_CURVE: crate::types::CurveType = crate::types::CurveType(5123);
 
-pub const END_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20234);
+pub const LINE_SEGMENT_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5251);
 
-pub const ENVELOPE_NONE: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(0);
+pub const LINEAR_CORNER_CLOSURE: crate::types::OffsetCornerClosureType =
+    crate::types::OffsetCornerClosureType(96258);
 
-pub const ENVELOPE_PER_PART: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(1);
+pub const LOAD_DISABLED: crate::types::AddInLoadBehavior = crate::types::AddInLoadBehavior(2);
 
-pub const ENVELOPE_WHOLE: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(2);
+pub const LOAD_ON_DEMAND: crate::types::AddInLoadBehavior = crate::types::AddInLoadBehavior(1);
 
-#[doc = "```text\nEnvironment is a ribbon context within a document. The base environment is always shown; a\ncontextual environment (e.g. sketch editing) contributes its tabs only while it is active —\nthe mechanism behind a contextual tab such as the Sketch tab. An add-in scopes a control\nto an environment so it appears only in that context.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(app.Environment) so existing call sites are unaffected.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct Environment(pub u8);
-impl From<u8> for Environment {
+pub const LOAD_ON_STARTUP: crate::types::AddInLoadBehavior = crate::types::AddInLoadBehavior(0);
+
+pub const LOCAL_STYLE_LOCATION: crate::types::StyleLocationEnum =
+    crate::types::StyleLocationEnum(51202);
+
+pub const LOCATION_CLOUD: crate::types::FileLocationType = crate::types::FileLocationType(45063);
+
+pub const LOCATION_LIBRARY: crate::types::FileLocationType = crate::types::FileLocationType(45060);
+
+pub const LOCATION_LOCAL: crate::types::FileLocationType = crate::types::FileLocationType(45058);
+
+pub const LOCATION_OWNER_DIRECTORY: crate::types::FileLocationType =
+    crate::types::FileLocationType(45062);
+
+pub const LOCATION_UNKNOWN: crate::types::FileLocationType = crate::types::FileLocationType(45061);
+
+pub const LOCATION_WORKGROUP: crate::types::FileLocationType =
+    crate::types::FileLocationType(45059);
+
+pub const LOCATION_WORKSPACE: crate::types::FileLocationType =
+    crate::types::FileLocationType(45057);
+
+pub const LOFT_ANGLE: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("angle"));
+
+#[doc = "```text\nLoftAreaStop is one control point of a loft area graph (the kLoftWithAreaGraphSections mode):\nat fractional position T along the loft (0=start, 1=end) the cross-section's area is scaled by\nScale (1 = unchanged). The graph is interpolated linearly between stops, so a stop set of\n{{0,1},{0.5,2},{1,1}} doubles the mid cross-section's area — a barrel controlled by area.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct LoftAreaStop {
+    #[serde(
+        rename = "t",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub t: f64,
+    #[serde(
+        rename = "scale",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub scale: f64,
+}
+
+generated_scalar! { string,
+#[doc = "```text\nLoftCondition selects how a loft surface leaves the starting section (or arrives at the\nending section) — the boundary tangency control that lets a loft curve away from a flat\nruled blend. It mirrors the established loft-condition set: a free (natural) end, an\nangled takeoff measured against the section's sketch plane, tangency/curvature continuity\nwith adjacent faces, and the point-section cases.\n\nThis is the canonical, Apache-2.0 definition; the GPL model aliases it\n(model/feature.LoftCondition = types.LoftCondition).\n```"]
+pub struct LoftCondition(pub std::borrow::Cow<'static, str>);
+}
+
+pub const LOFT_DIRECTION: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("direction"));
+
+pub const LOFT_FREE: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("free"));
+
+pub const LOFT_G3: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("g3"));
+
+pub const LOFT_SHARP_POINT: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("sharp"));
+
+pub const LOFT_SMOOTH: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("smooth"));
+
+pub const LOFT_TANGENT: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("tangent"));
+
+pub const LOFT_TANGENT_TO_PLANE: crate::types::LoftCondition =
+    crate::types::LoftCondition(std::borrow::Cow::Borrowed("tangent-to-plane"));
+
+generated_scalar! { string,
+#[doc = "```text\nLoftType is the loft mode — a plain blend through the sections, or one additionally guided by\nrails / a centerline / area-graph sections. It mirrors the established loft-type set.\n\nThis is the canonical, Apache-2.0 definition; the GPL model derives it\n(model/feature.LoftDefinition.LoftType()).\n```"]
+pub struct LoftType(pub std::borrow::Cow<'static, str>);
+}
+
+pub const LOFT_WITH_AREA_GRAPH_SECTIONS: crate::types::LoftType =
+    crate::types::LoftType(std::borrow::Cow::Borrowed("area-graph"));
+
+pub const LOFT_WITH_CENTERLINE: crate::types::LoftType =
+    crate::types::LoftType(std::borrow::Cow::Borrowed("centerline"));
+
+pub const LOFT_WITH_RAILS: crate::types::LoftType =
+    crate::types::LoftType(std::borrow::Cow::Borrowed("rails"));
+
+generated_scalar! { integer,
+#[doc = "```text\nLoftedFlangeOutputType names how a lofted flange's transition wall is CALCULATED — the reference CAD API's\nLoftedFlangeOutputTypeEnum (#1966). Die-formed is the smooth stamped surface; the three\npress-brake modes facet that surface into flat plates joined by bends so it can be folded on a\nbrake, each mode measuring the facet tolerance a different way.\n```"]
+pub struct LoftedFlangeOutputType(pub i32);
+}
+
+pub const LOW_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
+    crate::types::RayTracingQualityEnum(95748);
+
+#[doc = "```text\nMagnetic groups a material's magnetic properties — the constitutive data a 2D/3D\nmagnetostatics solver (e.g. the FEMM bridge add-in) needs to assign a block material.\nIt serves both soft-magnetic cores and permanent magnets, distinguished by [Class]:\n\n  - Soft-magnetic: RelativePermeability is the (initial/amplitude) μr and\n    SaturationFluxDensity caps the linear region; Remanence/Coercivity are zero.\n  - Hard-magnetic (PM): Remanence (Br) and Coercivity (Hc) define the demagnetisation\n    line, and RelativePermeability is the recoil μr ≈ Br/(μ0·Hc) (typically ~1.05).\n\nThe zero value (Class == \"\", all fields 0) is a non-magnetic material; the solver\ntreats it as free space (μr = 1). Existing materials therefore need no migration.\n\nExample (NdFeB N42 permanent magnet):\n\n\tMagnetic{Class: HardMagnetic, Remanence: 1.30, Coercivity: 915, RelativePermeability: 1.05}\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct Magnetic {
+    #[doc = "```text\nClass selects the constitutive model (soft vs hard); \"\" == non-magnetic.\n```"]
+    #[serde(
+        rename = "class",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub class: crate::types::MagneticClass,
+    #[doc = "```text\nRelativePermeability is μr [-]: the amplitude permeability for a soft-magnetic core,\nor the recoil permeability for a permanent magnet (≈ 1.05 for sintered NdFeB).\n```"]
+    #[serde(
+        rename = "relativePermeability",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub relative_permeability: f64,
+    #[doc = "```text\nRemanence is the residual flux density Br [T] of a permanent magnet (0 for soft iron).\n```"]
+    #[serde(
+        rename = "remanence",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub remanence: f64,
+    #[doc = "```text\nCoercivity is the (intrinsic) coercive field Hc [kA/m] of a permanent magnet, the\nfield that drives B to zero — the demagnetisation margin a motor design checks.\n```"]
+    #[serde(
+        rename = "coercivity",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub coercivity: f64,
+    #[doc = "```text\nSaturationFluxDensity is Bsat [T] where a soft-magnetic core leaves its linear region\n(~1.5–2.0 T for electrical steels, ~2.3 T for cobalt iron). 0 when not applicable.\n```"]
+    #[serde(
+        rename = "saturationFluxDensity",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub saturation_flux_density: f64,
+    #[doc = "```text\nCoreLoss is the specific iron loss at 1.5 T, 50 Hz [W/kg] of a lamination grade\n(the W15/50 figure), for downstream loss estimation. 0 when unknown/not applicable.\n```"]
+    #[serde(
+        rename = "coreLoss",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub core_loss: f64,
+}
+
+generated_scalar! { string,
+#[doc = "```text\nMagneticClass declares how a material responds to a magnetic field, telling a\nmagnetostatics (FEA) solver which constitutive law to apply. The zero value (\"\") means\nthe material is effectively non-magnetic (μr ≈ 1, no remanence), so the overwhelming\nmajority of materials — plastics, woods, non-ferrous metals — carry no [Magnetic] group\nand need no migration. Only soft-magnetic cores and permanent magnets declare a class.\n```"]
+pub struct MagneticClass(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nMassPropertiesAccuracy selects the tessellation fidelity a mass-properties computation uses —\ntrading speed for accuracy on curved geometry (planar bodies are exact at any level). The zero\nvalue is MassPropertiesMedium.\n```"]
+pub struct MassPropertiesAccuracy(pub i32);
+}
+
+pub const MASS_PROPERTIES_HIGH: crate::types::MassPropertiesAccuracy =
+    crate::types::MassPropertiesAccuracy(2);
+
+pub const MASS_PROPERTIES_LOW: crate::types::MassPropertiesAccuracy =
+    crate::types::MassPropertiesAccuracy(1);
+
+pub const MASS_PROPERTIES_MEDIUM: crate::types::MassPropertiesAccuracy =
+    crate::types::MassPropertiesAccuracy(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nMateConstraintSolutionType discriminates how a mate between two directional faces\nresolves: opposed normals (a true mate) or aligned normals (a flush). It is the\ndirected sense the solver enforces on the two faces' normals.\n```"]
+pub struct MateConstraintSolutionType(pub u32);
+}
+
+pub const MATE_SOLUTION_ALIGNED: crate::types::MateConstraintSolutionType =
+    crate::types::MateConstraintSolutionType(1);
+
+pub const MATE_SOLUTION_NO_SOLUTION: crate::types::MateConstraintSolutionType =
+    crate::types::MateConstraintSolutionType(3);
+
+pub const MATE_SOLUTION_OPPOSED: crate::types::MateConstraintSolutionType =
+    crate::types::MateConstraintSolutionType(0);
+
+pub const MATE_SOLUTION_UNDIRECTED: crate::types::MateConstraintSolutionType =
+    crate::types::MateConstraintSolutionType(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nMaterialRemoval is the surface-texture symbol variant — whether material removal (machining) is\nallowed, required or forbidden. The zero value is MaterialRemovalAny (the basic √ symbol).\n```"]
+pub struct MaterialRemoval(pub i32);
+}
+
+pub const MATERIAL_REMOVAL_ANY: crate::types::MaterialRemoval = crate::types::MaterialRemoval(0);
+
+pub const MATERIAL_REMOVAL_PROHIBITED: crate::types::MaterialRemoval =
+    crate::types::MaterialRemoval(2);
+
+pub const MATERIAL_REMOVAL_REQUIRED: crate::types::MaterialRemoval =
+    crate::types::MaterialRemoval(1);
+
+pub const MEAN_APPROXIMATION: crate::types::FeatureApproximationType =
+    crate::types::FeatureApproximationType(60674);
+
+pub const MEASURE_ANGLE: crate::types::MeasureType = crate::types::MeasureType(4);
+
+pub const MEASURE_AREA: crate::types::MeasureType = crate::types::MeasureType(1);
+
+pub const MEASURE_DISTANCE: crate::types::MeasureType = crate::types::MeasureType(2);
+
+pub const MEASURE_LENGTH: crate::types::MeasureType = crate::types::MeasureType(0);
+
+pub const MEASURE_LOOP_LENGTH: crate::types::MeasureType = crate::types::MeasureType(5);
+
+pub const MEASURE_MIN_DISTANCE: crate::types::MeasureType = crate::types::MeasureType(3);
+
+generated_scalar! { integer,
+#[doc = "```text\nMeasureType is the quantity a measurement reports. The zero value is MeasureLength.\n```"]
+pub struct MeasureType(pub i32);
+}
+
+#[doc = "```text\nMechanical groups a material's structural properties. Units follow common\nmechanical-CAD conventions so values transfer 1:1 from existing material libraries.\nThe yaml tags keep the on-disk document/library form readable (the tags are plain\nstrings, so types still has no yaml dependency).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct Mechanical {
+    #[doc = "```text\nGPa\n```"]
+    #[serde(
+        rename = "youngsModulus",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub youngs_modulus: f64,
+    #[doc = "```text\ndimensionless\n```"]
+    #[serde(
+        rename = "poissonsRatio",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub poissons_ratio: f64,
+    #[doc = "```text\nMPa\n```"]
+    #[serde(
+        rename = "yieldStrength",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub yield_strength: f64,
+    #[doc = "```text\nMPa\n```"]
+    #[serde(
+        rename = "ultimateTensileStrength",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ultimate_tensile_strength: f64,
+}
+
+pub const MEDIUM_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
+    crate::types::DisplayQualityEnum(58882);
+
+generated_scalar! { string,
+#[doc = "```text\nMeshResolution selects the tessellation density of an exported mesh: coarser (low)\nto finer (high). It maps in the host to chord/angle tolerances — higher resolution\nyields more triangles for curved bodies (planar bodies are unaffected; they\ntriangulate exactly). The zero value \"\" is treated as Medium.\n\nExample:\n\n\treq := wire.ExportRequest{Path: \"p.stl\", Format: \"stl\", Resolution: string(types.ResolutionHigh)}\n```"]
+pub struct MeshResolution(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nMessageSeverity grades a message-center entry (M05-F09, #616). The zero value is\ninformational so a bare message is never accidentally an error.\n```"]
+pub struct MessageSeverity(pub u8);
+}
+impl From<u8> for MessageSeverity {
     fn from(value: u8) -> Self {
         Self(value)
     }
 }
-impl From<Environment> for u8 {
-    fn from(value: Environment) -> Self {
+impl From<MessageSeverity> for u8 {
+    fn from(value: MessageSeverity) -> Self {
         value.0
     }
 }
 
-pub const ENVIRONMENT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92168);
+pub const MINI_TOOLBAR_BUTTON: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(0);
 
-pub const EQUATION_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(2);
+pub const MINI_TOOLBAR_CHECKBOX: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(1);
 
-#[doc = "```text\nExchangeFormat names a foreign file format the host can import from or export to.\nIt is a pure value enum (a stable wire string); the parser/encoder lives in the GPL\nhost, never here. STEP is reserved (its translator ships separately, M17-F02).\n\nExample:\n\n\treq := wire.ExportRequest{Path: \"part.stl\", Format: string(types.FormatSTL)}\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ExchangeFormat(pub std::borrow::Cow<'static, str>);
+pub const MINI_TOOLBAR_COMBO: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(2);
 
-pub const EXTEND_CORNER_CLOSURE: crate::types::OffsetCornerClosureType =
-    crate::types::OffsetCornerClosureType(96259);
+generated_scalar! { integer,
+#[doc = "```text\nMiniToolbarControlKind is the kind of one declarative control on an in-canvas\nmini-toolbar — the MiniToolbarControlTypeEnum equivalent (M05-F07, #614). Like\nthe dockable-window panel controls, a mini-toolbar is declared data the host\nrenders, not a widget toolkit.\n```"]
+pub struct MiniToolbarControlKind(pub u8);
+}
+impl From<u8> for MiniToolbarControlKind {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<MiniToolbarControlKind> for u8 {
+    fn from(value: MiniToolbarControlKind) -> Self {
+        value.0
+    }
+}
 
-pub const FACE_EXTENTS_RIP: crate::types::RipType = crate::types::RipType(2);
+pub const MINI_TOOLBAR_SLIDER: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(3);
 
-pub const FACE_FILLET: crate::types::FilletType = crate::types::FilletType(61698);
+pub const MINI_TOOLBAR_TEXT_BOX: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(4);
 
-#[doc = "```text\nFeatureApproximationType is the approximation a thicken / face-offset\nfeature may accept when the exact offset is not computable (#331 parity).\nAn exact result satisfies every bound below, so a kernel computing the\nexact offset honours any requested approximation.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FeatureApproximationType(pub i32);
+pub const MINI_TOOLBAR_TEXT_EDITOR: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(6);
 
-pub const FEATURE_CONTROL_FRAME_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(4);
+pub const MINI_TOOLBAR_VALUE_EDITOR: crate::types::MiniToolbarControlKind =
+    crate::types::MiniToolbarControlKind(5);
 
-#[doc = "```text\nFileLocationType classifies where a referenced file lives relative to the\ndesign project's search roots — the editable workspace, a shared workgroup,\na read-only library, or somewhere unmanaged (M03-F07,\nOblikovati/Oblikovati#608).\n\nThe values are a frozen block matching the reference API's location-type\nenum; never renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FileLocationType(pub i32);
+generated_scalar! { integer,
+#[doc = "```text\nModelDiameterFromThread selects which diameter of a thread definition the\nmodeled cylindrical face represents (#325 parity).\n```"]
+pub struct ModelDiameterFromThread(pub i32);
+}
 
-pub const FILLED_CIRCLE_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20228);
+pub const MODEL_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(1);
 
-pub const FILLED_CIRCLE_SELECT_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20229);
+pub const MODEL_SPACE: crate::types::LineDefinitionSpaceEnum =
+    crate::types::LineDefinitionSpaceEnum(49922);
 
-pub const FILLED_CROSS_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20231);
+pub const MODEL_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52993);
 
-pub const FILLET_CONCAVE_INWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200112);
+pub const MODEL_VALUE_LOWER: crate::types::ModelValueType = crate::types::ModelValueType(31490);
 
-pub const FILLET_CONCAVE_OUTWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200111);
+pub const MODEL_VALUE_MEDIAN: crate::types::ModelValueType = crate::types::ModelValueType(31492);
 
-#[doc = "```text\nFilletConcaveStrategy selects how a fillet treats a CONCAVE (internal) edge — one where the two\nfaces fold over the material (dihedral > π), e.g. the inside corner where a rib meets a plate. A\nconvex edge always rounds its corner away and ignores this. The fillet keeps an exact rolling-ball\ncylinder face either way; only which side the ball rolls on (and thus whether material is added or\nremoved) changes. An Oblikovati extension (no reference-API equivalent); the block is OURS but, once\nshipped, equally frozen: never renumber.\n\n  - FilletConcaveOutward — fill the inside corner with material (a concave fillet bridging the two\n    faces). The DEFAULT; the zero value resolves to it.\n  - FilletConcaveInward — round a recess into the corner instead (material removed).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletConcaveStrategy(pub i32);
+pub const MODEL_VALUE_NOMINAL: crate::types::ModelValueType = crate::types::ModelValueType(31489);
 
-pub const FILLET_CORNER_MITER: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200001);
+generated_scalar! { integer,
+#[doc = "```text\nModelValueType selects which value within a tolerance band the model actually\nconsumes when recomputing (parity: ModelValueTypeEnum). The numeric values\nare frozen at the reference API's ids and must never be renumbered.\n```"]
+pub struct ModelValueType(pub i32);
+}
 
-pub const FILLET_CORNER_ROUND: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200003);
+pub const MODEL_VALUE_UPPER: crate::types::ModelValueType = crate::types::ModelValueType(31491);
 
-pub const FILLET_CORNER_SETBACK: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200002);
+pub const MONOCHROME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8713);
 
-#[doc = "```text\nFilletCornerType selects how an edge fillet treats a corner where two filleted edges meet at a\nvertex whose third edge stays sharp (the two rolling-ball cylinders cannot be joined by a single\nsphere unless that third edge is also rounded). It is an Oblikovati extension with no reference-API\nequivalent, so the numeric block below is OURS (chosen clear of the frozen reference blocks above)\n— but, once shipped, it is equally frozen: never renumber.\n\n  - FilletCornerMiter — the two cylinders mutually trim along their intersection seam (a crease);\n    the geometrically exact rolling-ball result for rounding only two of a corner's three edges.\n  - FilletCornerSetback — a spherical corner patch tangent to the three faces, set back from the\n    sharp edge by a small planar setback face (a smoothed corner; not the exact rolling-ball form).\n  - FilletCornerRound — round the corner fully into a single sphere octant by also rolling over the\n    third edge (the true 3-edge blend; the corner becomes G1-smooth all round).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletCornerType(pub i32);
+pub const MOVE_ALONG_RAY: crate::types::MoveOperationType =
+    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("alongRay"));
 
-#[doc = "```text\nFilletCrossSection selects the shape of an edge blend's cross-section profile (M36-F08): the\ndefault circular arc (G1 — tangent to both walls), a curvature-continuous G2 profile (zero\ncurvature at the tangency lines, so a blend between flat walls has no curvature jump), or a conic\n(rho-controlled) profile whose shoulder fullness is set by a separate rho parameter. It is a\nstring enum so the empty value reads as the arc default; the kernel maps it to its blend builder.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletCrossSection(pub std::borrow::Cow<'static, str>);
+pub const MOVE_FREE_DRAG: crate::types::MoveOperationType =
+    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("freeDrag"));
 
-pub const FILLET_SECTION_ARC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("arc"));
+generated_scalar! { string,
+#[doc = "```text\nMoveOperationType discriminates one entry in a Move feature's ordered operation list\n(M20·F20 parity). A move definition composes a sequence of independently parametric\noperations rather than a single baked transform, so \"rotate 30° about this edge then\nslide 5 mm along it\" round-trips as two separately driven operations. The reference\nAPI models these as typed operation objects (free-drag / move-along-ray /\nrotate-about-line) with no numeric enum; the string values are the stable wire\nvocabulary — treat them as frozen.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation maps each to its\nmodel operation builder.\n```"]
+pub struct MoveOperationType(pub std::borrow::Cow<'static, str>);
+}
 
-pub const FILLET_SECTION_CONIC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("conic"));
+pub const MOVE_ROTATE_ABOUT_LINE: crate::types::MoveOperationType =
+    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("rotateAboutLine"));
 
-pub const FILLET_SECTION_G2: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("g2"));
+pub const MOVEABLE_BY_DIMENSION_CHANGE: crate::types::GeometryMoveableStatus =
+    crate::types::GeometryMoveableStatus(53506);
 
-#[doc = "```text\nFilletType discriminates the fillet definition: edge sets, a face-pair\nfillet, or a full round across three face sets.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletType(pub i32);
+pub const MOVEABLE_FIXED: crate::types::GeometryMoveableStatus =
+    crate::types::GeometryMoveableStatus(53507);
 
-pub const FITS_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(4);
+pub const MOVEABLE_FREE: crate::types::GeometryMoveableStatus =
+    crate::types::GeometryMoveableStatus(53505);
 
-pub const FIXED_VIEW_JUSTIFICATION: crate::types::ViewJustification =
-    crate::types::ViewJustification(1);
+pub const MOVEABLE_UNKNOWN: crate::types::GeometryMoveableStatus =
+    crate::types::GeometryMoveableStatus(53508);
 
-pub const FLAT_BACKSIDE_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10773);
+pub const NEVER_TOO_THICK_APPROXIMATION: crate::types::FeatureApproximationType =
+    crate::types::FeatureApproximationType(60675);
 
-pub const FLAT_BACKSIDE_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10772);
+pub const NEVER_TOO_THIN_APPROXIMATION: crate::types::FeatureApproximationType =
+    crate::types::FeatureApproximationType(60676);
 
-pub const FLAT_BACKSIDE_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10771);
+#[doc = "```text\nNewFileMetadata is the typed \"new file\" descriptor consumed by operations\nthat mint a file the user never explicitly created — save-copy-as targets\ntoday; model-state and member exports later (M03-F09,\nOblikovati/Oblikovati#610). Zero-value fields inherit from the source\ndocument of the operation.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct NewFileMetadata {
+    #[doc = "```text\nFileName is the target full file name, when the operation does not\nalready carry one.\n```"]
+    #[serde(
+        rename = "fileName",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub file_name: String,
+    #[doc = "```text\nDisplayName overrides the new file's display name.\n```"]
+    #[serde(
+        rename = "displayName",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub display_name: String,
+    #[doc = "```text\nTemplateFile seeds the new file from a template package.\n```"]
+    #[serde(
+        rename = "templateFile",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub template_file: String,
+    #[doc = "```text\nSubType stamps the new file with a flavored document subtype id.\n```"]
+    #[serde(
+        rename = "subType",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub sub_type: String,
+}
 
-pub const FLAT_BACKSIDE_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10770);
+pub const NO_APPROXIMATION: crate::types::FeatureApproximationType =
+    crate::types::FeatureApproximationType(60673);
 
-#[doc = "```text\nFlatPatternEdgeType classifies an edge of the developed flat for manufacturing and drawing:\na fold line where the sheet bends up or down, or a tangent line where a curved wall met the\nflat tangentially. Outer-profile (cut) edges carry no flat-pattern type.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FlatPatternEdgeType(pub i32);
+pub const NO_BEND_TRANSITION: crate::types::BendTransition = crate::types::BendTransition(0);
 
-#[doc = "```text\nFlatPatternFaceType classifies a face of the developed flat: the front (top) face the\norientation presents, the back (bottom) face, a detail face, or unknown.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FlatPatternFaceType(pub i32);
+pub const NO_BORDER_LABEL: crate::types::BorderLabelMode = crate::types::BorderLabelMode(2);
 
-pub const FLAT_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10769);
+pub const NO_CROP_BREAK_MARK: crate::types::CropBreakMarkLineType =
+    crate::types::CropBreakMarkLineType(0);
 
-pub const FLAT_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10768);
+pub const NO_DEGREE_OF_FREEDOM_STATE: crate::types::OccurrenceDOFState =
+    crate::types::OccurrenceDOFState(0);
 
-pub const FLAT_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10767);
+pub const NO_GRAPHICS_SELECTABLE: crate::types::GraphicsSelectabilityEnum =
+    crate::types::GraphicsSelectabilityEnum(25345);
 
-pub const FORESHORTENED_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(8);
+pub const NO_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
+    crate::types::GraphicsVisibilityEnum(25089);
 
-pub const FORMAT3_MF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("3mf"));
-
-pub const FORMAT_DWG: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dwg"));
-
-pub const FORMAT_DXF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dxf"));
-
-pub const FORMAT_E57: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("e57"));
-
-pub const FORMAT_GLTF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("gltf"));
-
-pub const FORMAT_LAS: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("las"));
-
-pub const FORMAT_OBJ: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("obj"));
-
-pub const FORMAT_PDF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("pdf"));
-
-pub const FORMAT_PLY: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("ply"));
-
-pub const FORMAT_STEP: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("step"));
-
-pub const FORMAT_STL: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("stl"));
-
-pub const FORMED_FEATURE_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(1);
-
-pub const FORTY_FIVE_DEGREES_LEFT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92161);
-
-pub const FORTY_FIVE_DEGREES_RIGHT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92162);
-
-pub const FREE_ORBIT: crate::types::OrbitTypeEnum = crate::types::OrbitTypeEnum(86017);
-
-pub const FROM_BASE_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(4);
-
-pub const FRONT_FACING_AND_PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26115);
-
-pub const FRONT_FACING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26113);
-
-pub const FRONT_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(1);
-
-pub const FRONT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10764);
-
-pub const FULL_ROUND_FILLET: crate::types::FilletType = crate::types::FilletType(61699);
-
-pub const GEO3_D_BEND: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("bend"));
-
-pub const GEO3_D_COINCIDENT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("coincident"));
-
-pub const GEO3_D_COLLINEAR: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("collinear"));
-
-pub const GEO3_D_CONCENTRIC: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("concentric"));
-
-pub const GEO3_D_EQUAL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("equal"));
+pub const NO_GROUND_SHADOW: crate::types::GroundShadowEnum = crate::types::GroundShadowEnum(69121);

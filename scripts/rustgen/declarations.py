@@ -87,14 +87,13 @@ def render_scalar(decl: Declaration, interfaces: set[tuple[str, str]]) -> str:
     underlying = rust_type(decl.shape, interfaces)
     if underlying == "String":
         underlying = "std::borrow::Cow<'static, str>"
-    derives = "Debug, Clone, Default, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize"
-    if underlying not in ("f32", "f64"):
-        derives += ", Eq, Ord, Hash"
-    if underlying != "std::borrow::Cow<'static, str>":
-        derives += ", Copy"
+    kind = "string" if underlying == "std::borrow::Cow<'static, str>" else (
+        "float" if underlying in ("f32", "f64") else "integer"
+    )
     result = (
-        rust_doc(decl.doc)
-        + f"#[derive({derives})]\n#[repr(transparent)]\n#[serde(transparent)]\npub struct {decl.name}(pub {underlying});\n"
+        f"generated_scalar! {{ {kind},\n"
+        + rust_doc(decl.doc)
+        + f"pub struct {decl.name}(pub {underlying});\n}}\n"
     )
     if underlying == "u8":
         result += f"impl From<u8> for {decl.name} {{ fn from(value: u8) -> Self {{ Self(value) }} }}\n"

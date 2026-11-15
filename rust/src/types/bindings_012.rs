@@ -3,460 +3,193 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nPanelControlKind is the kind of one declarative control inside an add-in panel\nsurface (a dockable window; also mini-toolbars, M05-F07). A panel is declared data the\nhost renders, not a widget toolkit (M05-F03, #247). The editable kinds mirror a\nconventional mini-toolbar control set (check box / combo box / dropdown / value editor /\nslider / text box) so add-ins get a familiar form vocabulary. Each editable control carries an ID;\nwhen the user changes it the host pushes a [PanelValueChangedEvent] to the add-in.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PanelControlKind(pub u8);
-impl From<u8> for PanelControlKind {
+pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52994);
+
+generated_scalar! { integer,
+#[doc = "```text\nViewTileTypeEnum is how a document's views are tiled when more than one is shown: a single\narrange, or a horizontal/vertical split. Frozen ids 117761–117764. (This is the typed\ncounterpart of the numeric [ViewLayout] used by the views collection.)\n```"]
+pub struct ViewTileTypeEnum(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
+pub struct ViewTypeEnum(pub i32);
+}
+
+pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
+
+pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
+
+pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
+
+pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nWindowState is a view frame's window state — the WindowsSizeEnum equivalent\n(M05-F10, #617).\n```"]
+pub struct WindowState(pub u8);
+}
+impl From<u8> for WindowState {
     fn from(value: u8) -> Self {
         Self(value)
     }
 }
-impl From<PanelControlKind> for u8 {
-    fn from(value: PanelControlKind) -> Self {
+impl From<WindowState> for u8 {
+    fn from(value: WindowState) -> Self {
         value.0
     }
 }
 
-pub const PANEL_DROPDOWN: crate::types::PanelControlKind = crate::types::PanelControlKind(6);
+pub const WIREFRAME_NO_HIDDEN_EDGES: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8711);
 
-pub const PANEL_GRID: crate::types::PanelControlKind = crate::types::PanelControlKind(9);
+pub const WIREFRAME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8706);
 
-pub const PANEL_GROUP: crate::types::PanelControlKind = crate::types::PanelControlKind(10);
+pub const WIREFRAME_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(1);
 
-pub const PANEL_LABEL: crate::types::PanelControlKind = crate::types::PanelControlKind(0);
+pub const WIREFRAME_WITH_HIDDEN_EDGES_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8712);
 
-pub const PANEL_REFERENCE_LIST: crate::types::PanelControlKind = crate::types::PanelControlKind(12);
+pub const WORK_AXIS_ANALYTIC_EDGE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("analytic-edge"));
 
-pub const PANEL_SEPARATOR: crate::types::PanelControlKind = crate::types::PanelControlKind(2);
-
-pub const PANEL_SLIDER: crate::types::PanelControlKind = crate::types::PanelControlKind(8);
-
-pub const PANEL_TABLE: crate::types::PanelControlKind = crate::types::PanelControlKind(14);
-
-pub const PANEL_TABS: crate::types::PanelControlKind = crate::types::PanelControlKind(11);
-
-pub const PANEL_TEXT_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(3);
-
-pub const PANEL_TREE: crate::types::PanelControlKind = crate::types::PanelControlKind(13);
-
-pub const PANEL_VALUE_EDITOR: crate::types::PanelControlKind = crate::types::PanelControlKind(4);
-
-pub const PARALLEL_TO_ORIGINAL_PROFILE: crate::types::SweepProfileOrientation =
-    crate::types::SweepProfileOrientation(59650);
-
-#[doc = "```text\nParamAnomaly reports the irregularities of one parameter direction: whether\nthe parameterization wraps (and with what period), hits singular points\n(a sphere pole, a cone apex, a polyline corner), or runs unbounded.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ParamAnomaly {
-    #[serde(
-        rename = "periodic",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub periodic: bool,
-    #[serde(
-        rename = "period",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub period: f64,
-    #[serde(
-        rename = "singular",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub singular: bool,
-    #[serde(
-        rename = "unbounded",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub unbounded: bool,
+generated_scalar! { string,
+#[doc = "```text\nWorkAxisKind names a datum-axis constructor, the discriminator of a work-axis\ncreate request. The string values are the stable wire vocabulary — treat them as\nfrozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor.\n```"]
+pub struct WorkAxisKind(pub std::borrow::Cow<'static, str>);
 }
 
-#[doc = "```text\nParameterDisplayFormat is how a parameter's numeric value is rendered for\ndisplay (parity: ParameterDisplayFormatEnum). It affects presentation only,\nnever the stored or model value. The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases\nit (ADR-0018).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ParameterDisplayFormat(pub i32);
+pub const WORK_AXIS_LINE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line"));
 
-#[doc = "```text\nParameterGroupKey is the immutable, locale-stable internal name that\nidentifies a custom parameter group for its whole life (M02-F05,\nOblikovati/Oblikovati#604). The editable, localizable display name lives\nbeside it; persistence, wire methods, and membership all address a group by\nthis key, so renaming the display never breaks references.\n\n\tkey := types.ParameterGroupKey(\"com.example.gears:ratios\")\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ParameterGroupKey(pub std::borrow::Cow<'static, str>);
+pub const WORK_AXIS_LINE_AND_PLANE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-and-plane"));
 
-#[doc = "```text\nParameterKind is a parameter's category, with stable explicit ids.\nModel/User/Table parameters are user-editable; Reference\n(driven by geometry) and Derived (linked from another document) are read-only.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(model/param.ParameterKind) so existing call sites are unaffected.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ParameterKind(pub u8);
-impl From<u8> for ParameterKind {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<ParameterKind> for u8 {
-    fn from(value: ParameterKind) -> Self {
-        value.0
-    }
+pub const WORK_AXIS_LINE_AND_POINT: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-and-point"));
+
+pub const WORK_AXIS_LINE_BY_ENTITY: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-by-entity"));
+
+pub const WORK_AXIS_PLANE_INTERSECTION: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("plane-intersection"));
+
+pub const WORK_AXIS_POINT_AND_PLANE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("point-and-plane"));
+
+pub const WORK_AXIS_REVOLVED_FACE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("revolved-face"));
+
+pub const WORK_AXIS_TWO_POINTS: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("two-points"));
+
+pub const WORK_PLANE_FIXED: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("fixed-frame"));
+
+generated_scalar! { string,
+#[doc = "```text\nWorkPlaneKind names a datum-plane constructor, the discriminator of a work-plane\ncreate request. The string values are the stable\nwire vocabulary — treat them as frozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor.\n```"]
+pub struct WorkPlaneKind(pub std::borrow::Cow<'static, str>);
 }
 
-pub const PART_FILE_EXTENSION: &str = ".opd";
+pub const WORK_PLANE_LINE_AND_POINT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-point"));
 
-pub const PART_RIBBON: crate::types::RibbonKey =
-    crate::types::RibbonKey(std::borrow::Cow::Borrowed("Part"));
+pub const WORK_PLANE_LINE_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-tangent"));
 
-pub const PARTS_LIST_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(7);
+pub const WORK_PLANE_LINE_PLANE_ANGLE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-plane-angle"));
 
-pub const PATH_AND_GUIDE_RAIL_SWEEP_DEF: crate::types::SweepDefinitionType =
-    crate::types::SweepDefinitionType(59138);
+pub const WORK_PLANE_NORMAL_TO_CURVE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("normal-to-curve"));
 
-pub const PATH_AND_GUIDE_RAIL_SWEEP_TYPE: crate::types::SweepType = crate::types::SweepType(104450);
+pub const WORK_PLANE_OFFSET: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-offset"));
 
-pub const PATH_AND_GUIDE_SURFACE_SWEEP_DEF: crate::types::SweepDefinitionType =
-    crate::types::SweepDefinitionType(59139);
+pub const WORK_PLANE_PLANE_AND_POINT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-point"));
 
-pub const PATH_AND_GUIDE_SURFACE_SWEEP_TYPE: crate::types::SweepType =
-    crate::types::SweepType(104451);
+pub const WORK_PLANE_PLANE_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-tangent"));
 
-pub const PATH_AND_SECTION_TWIST_SWEEP_TYPE: crate::types::SweepType =
-    crate::types::SweepType(104452);
+pub const WORK_PLANE_POINT_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("point-tangent"));
 
-pub const PATH_AND_SECTION_TWISTS_SWEEP_DEF: crate::types::SweepDefinitionType =
-    crate::types::SweepDefinitionType(59140);
+pub const WORK_PLANE_THREE_POINTS: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("three-points"));
 
-pub const PATH_SWEEP_DEF: crate::types::SweepDefinitionType =
-    crate::types::SweepDefinitionType(59137);
+pub const WORK_PLANE_TORUS_MID_PLANE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("torus-midplane"));
 
-pub const PATH_SWEEP_TYPE: crate::types::SweepType = crate::types::SweepType(104449);
+pub const WORK_PLANE_TWO_LINES: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("two-lines"));
 
-#[doc = "```text\nPatternBoundaryInclusion decides whether an occurrence inside/outside a bounding\nprofile is kept, by which point of the occurrence is tested (parity:\nPatternBoundaryInclusionEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PatternBoundaryInclusion(pub i32);
+pub const WORK_PLANE_TWO_PLANES: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("two-planes"));
 
-#[doc = "```text\nPatternComputeType selects how each occurrence's geometry is computed (parity:\nPatternComputeTypeEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PatternComputeType(pub i32);
+pub const WORK_POINT_CENTROID: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("centroid"));
 
-#[doc = "```text\nPatternOrientation selects how each occurrence is rotated relative to the seed\n(parity: PatternOrientationEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PatternOrientation(pub i32);
+pub const WORK_POINT_CLOUD: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("cloud-point"));
 
-#[doc = "```text\nPatternPositioningMethod selects how occurrences are positioned along a direction\n(parity: PatternPositioningMethodEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PatternPositioningMethod(pub i32);
+pub const WORK_POINT_CURVE_AND_ENTITY: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("curve-and-entity"));
 
-#[doc = "```text\nPatternSpacingType interprets a pattern direction's spacing value (parity:\nPatternSpacingTypeEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PatternSpacingType(pub i32);
+pub const WORK_POINT_FACE_CENTER: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("face-center"));
 
-pub const PER_ITEM_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19459);
-
-pub const PER_ITEM_NORMALS: crate::types::NormalBindingEnum =
-    crate::types::NormalBindingEnum(19715);
-
-pub const PER_STRIP_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19458);
-
-pub const PER_STRIP_NORMALS: crate::types::NormalBindingEnum =
-    crate::types::NormalBindingEnum(19714);
-
-pub const PER_VERTEX_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19457);
-
-pub const PER_VERTEX_NORMALS: crate::types::NormalBindingEnum =
-    crate::types::NormalBindingEnum(19713);
-
-pub const PERSPECTIVE_PROJECTION: crate::types::ProjectionTypeEnum =
-    crate::types::ProjectionTypeEnum(86274);
-
-pub const PERSPECTIVE_WITH_ORTHO_FACES_PROJECTION: crate::types::ProjectionTypeEnum =
-    crate::types::ProjectionTypeEnum(86275);
-
-#[doc = "```text\nPhysicalProperties is the computed mass/geometry summary of a body or part given its\nmaterial's density. Volume/area/centroid come from geometry; mass = density × volume.\nLengths are in database units (cm), so volume is cm³, area cm², and — with density in\ng/cm³ — mass is grams.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct PhysicalProperties {
-    #[doc = "```text\ng\n```"]
-    #[serde(
-        rename = "mass",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub mass: f64,
-    #[doc = "```text\ncm³\n```"]
-    #[serde(
-        rename = "volume",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub volume: f64,
-    #[doc = "```text\ncm²\n```"]
-    #[serde(
-        rename = "area",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub area: f64,
-    #[doc = "```text\ng/cm³\n```"]
-    #[serde(
-        rename = "density",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub density: f64,
-    #[doc = "```text\ncenter of mass (cm)\n```"]
-    #[serde(
-        rename = "centroid",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub centroid: [f64; 3],
+generated_scalar! { string,
+#[doc = "```text\nWorkPointKind names a datum-point constructor, the discriminator of a work-point\ncreate request. The string values are the stable wire vocabulary — treat them as\nfrozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor. An empty kind means [WorkPointPosition] so the\noriginal position-only request (just \"at\") keeps working unchanged.\n```"]
+pub struct WorkPointKind(pub std::borrow::Cow<'static, str>);
 }
 
-pub const PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26114);
+pub const WORK_POINT_MIDPOINT_OF_EDGE: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("edge-midpoint"));
 
-pub const PLANE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5890);
+pub const WORK_POINT_ON_POINT: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("point"));
 
-#[doc = "```text\nPointCloudDisplayMode is how an attached point cloud is coloured in the viewport\n(Oblikovati/Oblikovati#645). Unlike the numeric-id enums, this is a lowercase string token so it\nis stable in the on-the-wire JSON and in the persisted `.obk` document without a lookup table:\n\n\tDefault   — the neutral marker colour (the pre-#645 look).\n\tRGB       — per-point colour decoded from the scan (LAS/PLY/E57), falling back to the marker\n\t            colour where a point carries none.\n\tIntensity — per-point greyscale mapped from the scan's intensity channel, normalised over the\n\t            cloud's decoded range, falling back to the marker colour when the cloud has no\n\t            usable intensity.\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(pointcloud.DisplayMode) and maps it onto the renderer.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PointCloudDisplayMode(pub std::borrow::Cow<'static, str>);
+pub const WORK_POINT_PLANE_AXIS_INTERSECTION: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("plane-axis-intersection"));
 
-pub const POINT_CLOUD_DISPLAY_MODE_DEFAULT: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("default"));
+pub const WORK_POINT_POSITION: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("position"));
 
-pub const POINT_CLOUD_DISPLAY_MODE_INTENSITY: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("intensity"));
+pub const WORK_POINT_THREE_PLANES: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("three-planes"));
 
-pub const POINT_CLOUD_DISPLAY_MODE_RGB: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("rgb"));
+pub const WORK_POINT_TWO_LINES: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("two-lines"));
 
-#[doc = "```text\nPointInferenceKind is the snap a drag landed on — the PointInferenceEnum\nequivalent, narrowed to what the host infers today (work/datum points; the\nsketch-internal kinds stay in the sketch domain).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PointInferenceKind(pub u8);
-impl From<u8> for PointInferenceKind {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<PointInferenceKind> for u8 {
-    fn from(value: PointInferenceKind) -> Self {
-        value.0
-    }
-}
+pub const WORK_REF_CENTER: &str = "origin/point/center";
 
-pub const POINT_LIGHT: crate::types::LightDefinitionTypeEnum =
-    crate::types::LightDefinitionTypeEnum(53250);
+pub const WORK_REF_X_AXIS: &str = "origin/axis/x";
 
-#[doc = "```text\nPointRenderStyleEnum is the glyph a point primitive draws (the full reference set; the\ncompact [GraphicsPointStyle] strings are the bulk-transport subset). Frozen ids 20225–20235.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct PointRenderStyleEnum(pub i32);
+pub const WORK_REF_XY_PLANE: &str = "origin/plane/xy";
 
-pub const POINT_TO_POINT_RIP: crate::types::RipType = crate::types::RipType(0);
+pub const WORK_REF_XZ_PLANE: &str = "origin/plane/xz";
 
-pub const POLYLINE_CURVE: crate::types::CurveType = crate::types::CurveType(5129);
+pub const WORK_REF_Y_AXIS: &str = "origin/axis/y";
 
-pub const POLYLINE_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5257);
+pub const WORK_REF_YZ_PLANE: &str = "origin/plane/yz";
 
-pub const POPUP_CONTROL: crate::types::ControlKind = crate::types::ControlKind(4);
+pub const WORK_REF_Z_AXIS: &str = "origin/axis/z";
 
-pub const POSITION_FITTED: crate::types::PatternPositioningMethod =
-    crate::types::PatternPositioningMethod(113409);
+pub const X_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20225);
 
-pub const POSITION_INCREMENTAL: crate::types::PatternPositioningMethod =
-    crate::types::PatternPositioningMethod(113410);
+pub const X_PROFILE_SCALING: crate::types::SweepProfileScaling =
+    crate::types::SweepProfileScaling(59394);
 
-pub const PRECISION_DEGREES_ANGLE: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85522);
+pub const X_RAY_GROUND_SHADOW: crate::types::GroundShadowEnum =
+    crate::types::GroundShadowEnum(69123);
 
-pub const PRECISION_EIGHT_DECIMAL_PLACES: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85513);
+pub const XY_PROFILE_SCALING: crate::types::SweepProfileScaling =
+    crate::types::SweepProfileScaling(59393);
 
-pub const PRECISION_EIGHTHS_FRACTIONAL: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85517);
+pub const ZERO_DOC_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("ZeroDoc"));
 
-pub const PRECISION_FIVE_DECIMAL_PLACES: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85510);
+pub const ZIGZAG_CROP_BREAK_MARK: crate::types::CropBreakMarkLineType =
+    crate::types::CropBreakMarkLineType(2);
 
-pub const PRECISION_FOUR_DECIMAL_PLACES: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85509);
-
-pub const PRECISION_HALF_FRACTIONAL: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85515);
-
-pub const PRECISION_MINUTES_ANGLE: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85523);
-
-pub const PRECISION_ONE_DECIMAL_PLACE: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85506);
-
-pub const PRECISION_ONE_TWENTY_EIGHTHS_FRACTIONAL: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85521);
-
-pub const PRECISION_QUARTER_FRACTIONAL: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85516);
-
-pub const PRECISION_SECONDS_ANGLE: crate::types::CustomPropertyPrecision =
-    crate::types::CustomPropertyPrecision(85524);
+pub const ZOOM_VIEW_OPERATION: crate::types::ViewOperationTypeEnum =
+    crate::types::ViewOperationTypeEnum(30211);

@@ -102,9 +102,11 @@ class DeclarationTests(unittest.TestCase):
         self.assertIn("```text", rust_doc("original Go example"))
 
     def test_scalars_constants_and_aliases(self) -> None:
-        for name in ["uint8", "string", "float64"]:
+        for name, kind in [("uint8", "integer"), ("string", "string"), ("float64", "float")]:
             text = render_declaration(declaration(Shape("basic", name)), set())
             self.assertIn("pub struct Example", text)
+            self.assertIn(f"generated_scalar! {{ {kind},", text)
+            self.assertIn("Example documents intent.", text)
         text = render_declaration(
             declaration(Shape("basic", "string"), alias=True), set()
         )

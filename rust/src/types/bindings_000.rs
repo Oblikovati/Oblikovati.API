@@ -5,23 +5,10 @@
 
 pub const A_SIDE_DEFAULT: crate::types::ASideFaceStatus = crate::types::ASideFaceStatus(106241);
 
+generated_scalar! { integer,
 #[doc = "```text\nASideFaceStatus reports how a face of a mold parting was assigned to the A-side of\nthe tooling split (parity: ASideFaceStatusEnum). The A-side faces are those that go\nwith the cavity half; \"default\" means the assignment was made automatically, while\n\"sick\" flags a face whose assignment could not be resolved. The numeric values are\nfrozen at the reference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(ADR-0018) and maps it onto the core/cavity split result.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct ASideFaceStatus(pub i32);
+}
 
 pub const A_SIDE_SICK: crate::types::ASideFaceStatus = crate::types::ASideFaceStatus(106242);
 
@@ -30,23 +17,10 @@ pub const A_SIDE_UP_TO_DATE: crate::types::ASideFaceStatus = crate::types::ASide
 pub const ABOVE_SHADOW: crate::types::ShadowDirectionEnum =
     crate::types::ShadowDirectionEnum(92163);
 
+generated_scalar! { integer,
 #[doc = "```text\nAccuracy selects the computational accuracy of a property calculation\n(region properties, mass properties). Higher accuracy maps to denser\nsampling/quadrature and costs proportionally more (M06-F08,\nOblikovati/Oblikovati#623; shared vocabulary with M18-F01 mass properties).\n\nThe values are a frozen block matching the reference API's accuracy enum;\nnever renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct Accuracy(pub i32);
+}
 
 pub const ACCURACY_HIGH: crate::types::Accuracy = crate::types::Accuracy(69379);
 
@@ -67,41 +41,15 @@ pub const ACTION_NONE: crate::types::ActionType = crate::types::ActionType(0);
 
 pub const ACTION_RENAME: crate::types::ActionType = crate::types::ActionType(2);
 
+generated_scalar! { integer,
 #[doc = "```text\nActionType is a bitmask of the edit actions that can be restricted on a\nparameter (parity: ActionTypeEnum, used by Parameter.DisabledActionTypes). A\nset bit means the corresponding action is DISABLED for that parameter.\n\nThe reference API's ActionTypeEnum is a large flags enum whose numeric ids are\nnot available in-repo; only the parameter-relevant subset is modelled here, so\nthese values are iota-owned (single bits) rather than frozen at reference ids\n(contrast [ToleranceType]). The wire form is the list of set-bit spellings\n([ActionType.Names]), never the raw mask, so the numeric layout stays internal.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct ActionType(pub i32);
+}
 
+generated_scalar! { integer,
 #[doc = "```text\nAddInKind classifies an installed add-in — the ApplicationAddInTypeEnum\nequivalent. The host treats kinds identically today; the classification exists so\nUI (an add-in manager dialog) and tooling can group entries, and so translator\nadd-ins can be routed to the exchange layer when that seam opens (M05-F01, #245).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AddInKind(pub u8);
+}
 impl From<u8> for AddInKind {
     fn from(value: u8) -> Self {
         Self(value)
@@ -113,23 +61,10 @@ impl From<AddInKind> for u8 {
     }
 }
 
+generated_scalar! { integer,
 #[doc = "```text\nAddInLoadBehavior is when (and whether) the host activates an installed add-in —\nthe AddInLoadBehaviorEnum equivalent, narrowed to the behaviors the host honors\ntoday. Per-document-type loading (load-with-parts/assemblies/…) is intentionally\nnot modeled until the host has per-document applets to defer to (M05-F01, #245).\n\nThe zero value is LoadOnStartup so a freshly discovered add-in activates without\nany stored preference.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AddInLoadBehavior(pub u8);
+}
 impl From<u8> for AddInLoadBehavior {
     fn from(value: u8) -> Self {
         Self(value)
@@ -147,23 +82,10 @@ pub const ALIGN_TO_VECTOR: crate::types::SweepProfileOrientation =
 pub const ALIGNED_DIMENSION: crate::types::DrawingDimensionType =
     crate::types::DrawingDimensionType(0);
 
+generated_scalar! { integer,
 #[doc = "```text\nAlignmentType names how a flat-pattern orientation aligns its reference axis to the page:\nthe chosen edge/axis is laid horizontal or vertical, then rotated by the orientation's\nalignment angle.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AlignmentType(pub i32);
+}
 
 pub const ALL_CONCAVE_EDGES: crate::types::EdgeCollectionKind =
     crate::types::EdgeCollectionKind(27650);
@@ -183,23 +105,10 @@ pub const ALL_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
 pub const ALPHABETICAL_BORDER_LABEL: crate::types::BorderLabelMode =
     crate::types::BorderLabelMode(0);
 
+generated_scalar! { integer,
 #[doc = "```text\nAngleConstraintSolutionType discriminates how an angle constraint measures its\nangle: undirected (the unsigned angle), directed about an explicit reference axis\n(so the sign and full 0–360° range are meaningful), or the reference-vector form\nthat names the third axis directly.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AngleConstraintSolutionType(pub u32);
+}
 
 pub const ANGLE_SOLUTION_DIRECTED: crate::types::AngleConstraintSolutionType =
     crate::types::AngleConstraintSolutionType(1);
@@ -319,79 +228,27 @@ pub const ARC_LENGTH_DIMENSION: crate::types::DrawingDimensionType =
 pub const ARRANGE_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
     crate::types::ViewTileTypeEnum(117762);
 
+generated_scalar! { integer,
 #[doc = "```text\nAssemblyConstraintType discriminates the assembly relationship kinds. The classic\nset (mate…symmetry) positions geometry; the motion set (rotate-rotate…\ntranslate-translate) couples driven values; transitional models sliding contact;\ncustom is solved by an add-in.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AssemblyConstraintType(pub u32);
+}
 
 pub const ASSEMBLY_FILE_EXTENSION: &str = ".oad";
 
+generated_scalar! { integer,
 #[doc = "```text\nAssemblyJointOriginDefinitionType discriminates how a joint origin (the frame the joint is\nbuilt on, on each component) is defined: from a point, an edge/axis, or a planar face.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AssemblyJointOriginDefinitionType(pub u32);
+}
 
+generated_scalar! { integer,
 #[doc = "```text\nAssemblyJointOriginMode is HOW a joint origin's frame is positioned on its component (the reference CAD API's\nAssemblyJointOriginDefinitionTypeEnum) — inferred from the picked geometry, offset from it by X/Y\nparameters, or projected to the midplane between two faces. This is a positioning mode, distinct\nfrom [AssemblyJointOriginDefinitionType] (which geometry kind was picked). The zero value is\nJointOriginInfer.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AssemblyJointOriginMode(pub i32);
+}
 
+generated_scalar! { integer,
 #[doc = "```text\nAssemblyJointType discriminates the standard joint kinds, ordered by remaining freedom:\nrigid (0 DOF) through ball (3 rotational DOF). A joint reduces the relative placement of\ntwo occurrences to exactly its degrees of freedom.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AssemblyJointType(pub u32);
+}
 
 pub const ASSEMBLY_RIBBON: crate::types::RibbonKey =
     crate::types::RibbonKey(std::borrow::Cow::Borrowed("Assembly"));
@@ -405,44 +262,19 @@ pub const ASSET_DOCUMENT: crate::types::AssetSource =
 pub const ASSET_PROJECT: crate::types::AssetSource =
     crate::types::AssetSource(std::borrow::Cow::Borrowed("project"));
 
+generated_scalar! { string,
 #[doc = "```text\nAssetSource says where an appearance or material asset comes from, which fixes its\nedit policy and resolution priority. A document-embedded copy is authoritative for\nportability, then the project library (the shared catalog), then the shipped\nbuilt-ins (read-only). This follows the standard library/document asset distinction.\n\nThis is the canonical, Apache-2.0 definition; the GPL model aliases it\n(model/material.Source = types.AssetSource).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AssetSource(pub std::borrow::Cow<'static, str>);
+}
 
 pub const ATTACHMENT_EMBEDDED: crate::types::AttachmentKind = crate::types::AttachmentKind(3330);
 
 pub const ATTACHMENT_GENERIC: crate::types::AttachmentKind = crate::types::AttachmentKind(3329);
 
+generated_scalar! { integer,
 #[doc = "```text\nAttachmentKind classifies a document's reference to a foreign (non-native)\nfile: linked in place, embedded as a payload carried inside the document, or\na generic tracked path (M03-F08, Oblikovati/Oblikovati#609).\n\nThe values are a frozen block matching the reference API's foreign-document\ntype enum; never renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct AttachmentKind(pub i32);
+}
 
 pub const ATTACHMENT_LINKED: crate::types::AttachmentKind = crate::types::AttachmentKind(3331);
 
@@ -463,3 +295,171 @@ pub const BOM_PARTS_ONLY: crate::types::BOMViewKind =
 
 pub const BOM_PHANTOM: crate::types::BOMStructure =
     crate::types::BOMStructure(std::borrow::Cow::Borrowed("phantom"));
+
+pub const BOM_PURCHASED: crate::types::BOMStructure =
+    crate::types::BOMStructure(std::borrow::Cow::Borrowed("purchased"));
+
+pub const BOM_REFERENCE: crate::types::BOMStructure =
+    crate::types::BOMStructure(std::borrow::Cow::Borrowed("reference"));
+
+generated_scalar! { string,
+#[doc = "```text\nBOMStructure is how a placed component participates in the bill of materials (M11-F05,\nOblikovati/Oblikovati#730). The wire spelling matches the model's bom.Structure.String().\n```"]
+pub struct BOMStructure(pub std::borrow::Cow<'static, str>);
+}
+
+pub const BOM_STRUCTURED: crate::types::BOMViewKind =
+    crate::types::BOMViewKind(std::borrow::Cow::Borrowed("structured"));
+
+pub const BOM_VARIES: crate::types::BOMStructure =
+    crate::types::BOMStructure(std::borrow::Cow::Borrowed("varies"));
+
+generated_scalar! { string,
+#[doc = "```text\nBOMViewKind selects a bill-of-materials view.\n```"]
+pub struct BOMViewKind(pub std::borrow::Cow<'static, str>);
+}
+
+#[doc = "```text\nBSplineCurve2dDef is the 2D NURBS curve recipe.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BSplineCurve2dDef {
+    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
+    pub degree: i64,
+    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
+    pub poles: Option<Vec<crate::types::Point2d>>,
+    #[serde(
+        rename = "weights",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weights: Option<Vec<f64>>,
+    #[serde(
+        rename = "knots",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub knots: Option<Vec<f64>>,
+}
+
+pub const B_SPLINE_CURVE2D_KIND: crate::types::Curve2dType = crate::types::Curve2dType(5256);
+
+#[doc = "```text\nBSplineCurveDef is the complete NURBS curve recipe — the\nBSplineCurveDefinition equivalent as pure data, usable locally by an add-in\nand as the wire encoding of a spline crossing the boundary. Weights may be nil\nfor a non-rational curve (all 1).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BSplineCurveDef {
+    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
+    pub degree: i64,
+    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
+    pub poles: Option<Vec<crate::types::Point>>,
+    #[serde(
+        rename = "weights",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weights: Option<Vec<f64>>,
+    #[serde(
+        rename = "knots",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub knots: Option<Vec<f64>>,
+}
+
+pub const B_SPLINE_CURVE_KIND: crate::types::CurveType = crate::types::CurveType(5128);
+
+#[doc = "```text\nBSplineSurfaceDef is the NURBS surface recipe: poles in row-major (u-major)\norder, PolesU×PolesV of them, with optional weights in the same layout.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BSplineSurfaceDef {
+    #[serde(rename = "degreeU", deserialize_with = "crate::json::null_default")]
+    pub degree_u: i64,
+    #[serde(rename = "degreeV", deserialize_with = "crate::json::null_default")]
+    pub degree_v: i64,
+    #[serde(rename = "polesU", deserialize_with = "crate::json::null_default")]
+    pub poles_u: i64,
+    #[serde(rename = "polesV", deserialize_with = "crate::json::null_default")]
+    pub poles_v: i64,
+    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
+    pub poles: Option<Vec<crate::types::Point>>,
+    #[serde(
+        rename = "weights",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weights: Option<Vec<f64>>,
+    #[serde(
+        rename = "knotsU",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub knots_u: Option<Vec<f64>>,
+    #[serde(
+        rename = "knotsV",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub knots_v: Option<Vec<f64>>,
+}
+
+pub const B_SPLINE_SURFACE_KIND: crate::types::SurfaceType = crate::types::SurfaceType(5897);
+
+generated_scalar! { integer,
+#[doc = "```text\nBackFaceCullingEnum is which triangle winding the renderer culls: none, clockwise, or\ncounter-clockwise. Frozen ids 96769–96771.\n```"]
+pub struct BackFaceCullingEnum(pub i32);
+}
+
+pub const BACK_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
+    crate::types::FlatPatternFaceType(2);
+
+pub const BACK_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10756);
+
+generated_scalar! { integer,
+#[doc = "```text\nBackgroundTypeEnum is how the viewport background is painted: a single solid color, a\nvertical two-color gradient, or a background image. The numeric ids are stable, frozen\nvalues (52737–52739).\n\nFirst consumed by the color-scheme palette (which carries the background colors); the\ndisplay-settings surface reuses it. This is the canonical Apache-2.0 definition; the GPL\nimplementation aliases it (app.BackgroundTypeEnum).\n```"]
+pub struct BackgroundTypeEnum(pub i32);
+}
+
+pub const BALLOON_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(8);
+
+pub const BASE_ENVIRONMENT: crate::types::Environment = crate::types::Environment(0);
+
+pub const BASE_VIEW_BACK: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(3);
+
+pub const BASE_VIEW_BOTTOM: crate::types::BaseViewOrientation =
+    crate::types::BaseViewOrientation(5);
+
+pub const BASE_VIEW_FRONT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(0);
+
+pub const BASE_VIEW_ISO: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(6);
+
+pub const BASE_VIEW_LEFT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(4);
+
+generated_scalar! { integer,
+#[doc = "```text\nBaseViewOrientation names the standard orientation a base view projects from. The zero\nvalue is BaseViewFront.\n```"]
+pub struct BaseViewOrientation(pub i32);
+}
+
+pub const BASE_VIEW_RIGHT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(2);
+
+pub const BASE_VIEW_TOP: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(1);
+
+pub const BEND_DOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(4);
+
+pub const BEND_DOWN_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
+    crate::types::FlatPatternEdgeType(1);
+
+pub const BEND_EXTENT_DRAWING_EDGE: crate::types::DrawingEdgeType =
+    crate::types::DrawingEdgeType(5);
+
+pub const BEND_NOTE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(16);
+
+generated_scalar! { integer,
+#[doc = "```text\nBendPartType discriminates how a Bend Part feature's geometry is driven (parity:\nBendPartTypeEnum). A bend wraps a solid body around a sketch bend line; exactly two\nof {radius, angle, arc length} are supplied and the third is derived, so the type\nnames which pair the definition carries. The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(ADR-0018) and maps it onto the bend kernel op.\n```"]
+pub struct BendPartType(pub i32);
+}
+
+pub const BEND_TABLE_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(1);

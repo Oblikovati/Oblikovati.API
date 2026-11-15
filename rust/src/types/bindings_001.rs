@@ -3,267 +3,10 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-pub const BOM_PURCHASED: crate::types::BOMStructure =
-    crate::types::BOMStructure(std::borrow::Cow::Borrowed("purchased"));
-
-pub const BOM_REFERENCE: crate::types::BOMStructure =
-    crate::types::BOMStructure(std::borrow::Cow::Borrowed("reference"));
-
-#[doc = "```text\nBOMStructure is how a placed component participates in the bill of materials (M11-F05,\nOblikovati/Oblikovati#730). The wire spelling matches the model's bom.Structure.String().\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BOMStructure(pub std::borrow::Cow<'static, str>);
-
-pub const BOM_STRUCTURED: crate::types::BOMViewKind =
-    crate::types::BOMViewKind(std::borrow::Cow::Borrowed("structured"));
-
-pub const BOM_VARIES: crate::types::BOMStructure =
-    crate::types::BOMStructure(std::borrow::Cow::Borrowed("varies"));
-
-#[doc = "```text\nBOMViewKind selects a bill-of-materials view.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BOMViewKind(pub std::borrow::Cow<'static, str>);
-
-#[doc = "```text\nBSplineCurve2dDef is the 2D NURBS curve recipe.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BSplineCurve2dDef {
-    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
-    pub degree: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point2d>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knots",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots: Option<Vec<f64>>,
-}
-
-pub const B_SPLINE_CURVE2D_KIND: crate::types::Curve2dType = crate::types::Curve2dType(5256);
-
-#[doc = "```text\nBSplineCurveDef is the complete NURBS curve recipe — the\nBSplineCurveDefinition equivalent as pure data, usable locally by an add-in\nand as the wire encoding of a spline crossing the boundary. Weights may be nil\nfor a non-rational curve (all 1).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BSplineCurveDef {
-    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
-    pub degree: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knots",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots: Option<Vec<f64>>,
-}
-
-pub const B_SPLINE_CURVE_KIND: crate::types::CurveType = crate::types::CurveType(5128);
-
-#[doc = "```text\nBSplineSurfaceDef is the NURBS surface recipe: poles in row-major (u-major)\norder, PolesU×PolesV of them, with optional weights in the same layout.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BSplineSurfaceDef {
-    #[serde(rename = "degreeU", deserialize_with = "crate::json::null_default")]
-    pub degree_u: i64,
-    #[serde(rename = "degreeV", deserialize_with = "crate::json::null_default")]
-    pub degree_v: i64,
-    #[serde(rename = "polesU", deserialize_with = "crate::json::null_default")]
-    pub poles_u: i64,
-    #[serde(rename = "polesV", deserialize_with = "crate::json::null_default")]
-    pub poles_v: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knotsU",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots_u: Option<Vec<f64>>,
-    #[serde(
-        rename = "knotsV",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots_v: Option<Vec<f64>>,
-}
-
-pub const B_SPLINE_SURFACE_KIND: crate::types::SurfaceType = crate::types::SurfaceType(5897);
-
-#[doc = "```text\nBackFaceCullingEnum is which triangle winding the renderer culls: none, clockwise, or\ncounter-clockwise. Frozen ids 96769–96771.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BackFaceCullingEnum(pub i32);
-
-pub const BACK_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(2);
-
-pub const BACK_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10756);
-
-#[doc = "```text\nBackgroundTypeEnum is how the viewport background is painted: a single solid color, a\nvertical two-color gradient, or a background image. The numeric ids are stable, frozen\nvalues (52737–52739).\n\nFirst consumed by the color-scheme palette (which carries the background colors); the\ndisplay-settings surface reuses it. This is the canonical Apache-2.0 definition; the GPL\nimplementation aliases it (app.BackgroundTypeEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BackgroundTypeEnum(pub i32);
-
-pub const BALLOON_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(8);
-
-pub const BASE_ENVIRONMENT: crate::types::Environment = crate::types::Environment(0);
-
-pub const BASE_VIEW_BACK: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(3);
-
-pub const BASE_VIEW_BOTTOM: crate::types::BaseViewOrientation =
-    crate::types::BaseViewOrientation(5);
-
-pub const BASE_VIEW_FRONT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(0);
-
-pub const BASE_VIEW_ISO: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(6);
-
-pub const BASE_VIEW_LEFT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(4);
-
-#[doc = "```text\nBaseViewOrientation names the standard orientation a base view projects from. The zero\nvalue is BaseViewFront.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BaseViewOrientation(pub i32);
-
-pub const BASE_VIEW_RIGHT: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(2);
-
-pub const BASE_VIEW_TOP: crate::types::BaseViewOrientation = crate::types::BaseViewOrientation(1);
-
-pub const BEND_DOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(4);
-
-pub const BEND_DOWN_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
-    crate::types::FlatPatternEdgeType(1);
-
-pub const BEND_EXTENT_DRAWING_EDGE: crate::types::DrawingEdgeType =
-    crate::types::DrawingEdgeType(5);
-
-pub const BEND_NOTE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(16);
-
-#[doc = "```text\nBendPartType discriminates how a Bend Part feature's geometry is driven (parity:\nBendPartTypeEnum). A bend wraps a solid body around a sketch bend line; exactly two\nof {radius, angle, arc length} are supplied and the third is derived, so the type\nnames which pair the definition carries. The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(ADR-0018) and maps it onto the bend kernel op.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct BendPartType(pub i32);
-
-pub const BEND_TABLE_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(1);
-
+generated_scalar! { integer,
 #[doc = "```text\nBendTransition is how the material is shaped where a bend zone runs into the face beside it —\nthe reference CAD API's BendTransitionEnum (#1959).\n\nRead the shapes carefully before assuming they are all the same kind of thing: three of them\ndescribe the FLAT PATTERN's outline through the transition region (a straight line across the\nbend zone, a straight line to the bent feature's edge, or an arc tangent to both), one is a CUT\nin the folded model, and the default is neither — the geometry simply runs on as it does.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct BendTransition(pub i32);
+}
 
 pub const BEND_UP_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(3);
 
@@ -280,45 +23,19 @@ pub const BOOLEAN_DIFFERENCE: crate::types::BooleanType = crate::types::BooleanT
 
 pub const BOOLEAN_INTERSECT: crate::types::BooleanType = crate::types::BooleanType(74243);
 
+generated_scalar! { integer,
 #[doc = "```text\nBooleanType selects the transient B-rep boolean operation\n(TransientBRep.DoBoolean).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct BooleanType(pub i32);
+}
 
 pub const BOOLEAN_UNION: crate::types::BooleanType = crate::types::BooleanType(74242);
 
 pub const BOOLEAN_VALUE: crate::types::ValueType = crate::types::ValueType(14597);
 
+generated_scalar! { integer,
 #[doc = "```text\nBorderLabelMode is how a zoned border labels one axis of zones (the reference CAD API's BorderLabelModeEnum).\nThe zero value is AlphabeticalBorderLabel (A, B, C …), the common default for the vertical axis.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct BorderLabelMode(pub i32);
+}
 
 pub const BOTH_STYLE_LOCATION: crate::types::StyleLocationEnum =
     crate::types::StyleLocationEnum(51201);
@@ -354,23 +71,10 @@ pub struct Box2d {
 
 pub const BREAK_HORIZONTAL: crate::types::BreakOrientation = crate::types::BreakOrientation(0);
 
+generated_scalar! { integer,
 #[doc = "```text\nBreakOrientation is the axis along which a break view compresses: a horizontal break removes\na vertical band (shortening a wide part), a vertical break removes a horizontal band. The zero\nvalue is BreakHorizontal.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
 pub struct BreakOrientation(pub i32);
+}
 
 pub const BREAK_VERTICAL: crate::types::BreakOrientation = crate::types::BreakOrientation(1);
 
@@ -409,3 +113,352 @@ pub struct BrepBodyDefinition {
     )]
     pub lumps: Option<Vec<crate::types::BrepLumpDef>>,
 }
+
+#[doc = "```text\nBrepCurveDef is one edge's model-space curve, tagged by Kind.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepCurveDef {
+    #[doc = "```text\nKind is \"lineSegment\", \"arc\" or \"polyline\".\n```"]
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[doc = "```text\nPoints are flattened xyz triplets: the two ends of a lineSegment, the\nvertices of a polyline (unused for an arc).\n```"]
+    #[serde(
+        rename = "points",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub points: Option<Vec<f64>>,
+    #[doc = "```text\nArc geometry: center, plane normal, the radius direction at angle 0.\n```"]
+    #[serde(
+        rename = "center",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub center: Option<Vec<f64>>,
+    #[serde(
+        rename = "normal",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub normal: Option<Vec<f64>>,
+    #[serde(
+        rename = "refDir",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ref_dir: Option<Vec<f64>>,
+    #[serde(
+        rename = "radius",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub radius: f64,
+    #[doc = "```text\nStartAngle/SweepAngle in radians; positive sweep is counterclockwise\nabout Normal.\n```"]
+    #[serde(
+        rename = "startAngle",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub start_angle: f64,
+    #[serde(
+        rename = "sweepAngle",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub sweep_angle: f64,
+}
+
+#[doc = "```text\nBrepDefinitionIssue is one construction problem, addressed by its graph\npath (e.g. \"edges[3]\").\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepDefinitionIssue {
+    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
+    pub path: String,
+    #[serde(rename = "problem", deserialize_with = "crate::json::null_default")]
+    pub problem: String,
+}
+
+#[doc = "```text\nBrepEdgeDef is one edge: curve plus endpoint vertex indices.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepEdgeDef {
+    #[serde(rename = "curve", deserialize_with = "crate::json::null_default")]
+    pub curve: crate::types::BrepCurveDef,
+    #[serde(rename = "startVertex", deserialize_with = "crate::json::null_default")]
+    pub start_vertex: i64,
+    #[serde(rename = "endVertex", deserialize_with = "crate::json::null_default")]
+    pub end_vertex: i64,
+    #[serde(
+        rename = "associativeId",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub associative_id: i64,
+}
+
+#[doc = "```text\nBrepEdgeUseDef is one oriented edge use within a loop.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepEdgeUseDef {
+    #[serde(rename = "edge", deserialize_with = "crate::json::null_default")]
+    pub edge: i64,
+    #[doc = "```text\nOpposed traverses the edge against its natural start→end direction.\n```"]
+    #[serde(
+        rename = "opposed",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub opposed: bool,
+}
+
+#[doc = "```text\nBrepFaceDef is one face: surface, loops, material sense.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepFaceDef {
+    #[serde(rename = "surface", deserialize_with = "crate::json::null_default")]
+    pub surface: crate::types::BrepSurfaceDef,
+    #[doc = "```text\nParamReversed marks the material side opposing the surface normal.\n```"]
+    #[serde(
+        rename = "paramReversed",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub param_reversed: bool,
+    #[serde(
+        rename = "loops",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub loops: Option<Vec<crate::types::BrepLoopDef>>,
+    #[serde(
+        rename = "associativeId",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub associative_id: i64,
+}
+
+#[doc = "```text\nBrepLoopDef is one boundary loop; a face's FIRST loop is its outer.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepLoopDef {
+    #[serde(rename = "uses", deserialize_with = "crate::json::null_default")]
+    pub uses: Option<Vec<crate::types::BrepEdgeUseDef>>,
+}
+
+#[doc = "```text\nBrepLumpDef groups shells and wires (one connected region).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepLumpDef {
+    #[serde(
+        rename = "shells",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub shells: Option<Vec<crate::types::BrepShellDef>>,
+    #[serde(
+        rename = "wires",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub wires: Option<Vec<crate::types::BrepWireDef>>,
+}
+
+#[doc = "```text\nBrepShellDef groups face indices into one shell.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepShellDef {
+    #[serde(rename = "faces", deserialize_with = "crate::json::null_default")]
+    pub faces: Option<Vec<i64>>,
+}
+
+#[doc = "```text\nBrepSurfaceDef is one face's surface, tagged by Kind.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepSurfaceDef {
+    #[doc = "```text\nKind is \"plane\", \"cylinder\", \"cone\", \"sphere\" or \"torus\".\n```"]
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[doc = "```text\nOrigin is the plane origin / cylinder base / cone apex / sphere or\ntorus center.\n```"]
+    #[serde(
+        rename = "origin",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub origin: Option<Vec<f64>>,
+    #[doc = "```text\nNormal is the plane normal; Axis the cylinder/cone/torus axis.\n```"]
+    #[serde(
+        rename = "normal",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub normal: Option<Vec<f64>>,
+    #[serde(
+        rename = "axis",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub axis: Option<Vec<f64>>,
+    #[serde(
+        rename = "radius",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub radius: f64,
+    #[doc = "```text\nHalfAngle is the cone half-angle in radians.\n```"]
+    #[serde(
+        rename = "halfAngle",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub half_angle: f64,
+    #[serde(
+        rename = "majorRadius",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub major_radius: f64,
+    #[serde(
+        rename = "minorRadius",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub minor_radius: f64,
+}
+
+#[doc = "```text\nBrepVertexDef is one definition-graph vertex.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepVertexDef {
+    #[serde(
+        rename = "position",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub position: Option<Vec<f64>>,
+    #[doc = "```text\nAssociativeID (non-zero) keys the vertex's reference identity so the\ncaller's picks survive recompute; 0 falls back to the definition index.\n```"]
+    #[serde(
+        rename = "associativeId",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub associative_id: i64,
+}
+
+#[doc = "```text\nBrepWireDef is an ordered face-less edge chain.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct BrepWireDef {
+    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
+    pub edges: Option<Vec<i64>>,
+}
+
+pub const BROWSER_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9219);
+
+pub const BUTTON_CONTROL: crate::types::ControlKind = crate::types::ControlKind(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nButtonStyle is how a command renders in the ribbon, narrowed to the four styles we\nsupport. The control's behavior is identical; only its size and how the icon and\ndisplay name combine differ.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(app.ButtonStyle) so existing call sites are unaffected.\n```"]
+pub struct ButtonStyle(pub u8);
+}
+impl From<u8> for ButtonStyle {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<ButtonStyle> for u8 {
+    fn from(value: ButtonStyle) -> Self {
+        value.0
+    }
+}
+
+pub const BYTE_ARRAY_VALUE: crate::types::ValueType = crate::types::ValueType(14596);
+
+generated_scalar! { integer,
+#[doc = "```text\nCachedGraphicsStatusEnum is the freshness of a document's cached (persistent) client\ngraphics: none, out-of-date (needs rebuild), or up-to-date. Frozen ids 103169–103171.\n```"]
+pub struct CachedGraphicsStatusEnum(pub i32);
+}
+
+pub const CAN_IGNORE_DEGREE_OF_FREEDOM: crate::types::OccurrenceDOFState =
+    crate::types::OccurrenceDOFState(2);
+
+pub const CAN_RETAIN_DEGREE_OF_FREEDOM: crate::types::OccurrenceDOFState =
+    crate::types::OccurrenceDOFState(1);
+
+pub const CENTER_MARK_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(2);
+
+pub const CENTERED_VIEW_JUSTIFICATION: crate::types::ViewJustification =
+    crate::types::ViewJustification(0);
+
+pub const CENTERLINE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(3);
+
+pub const CENTERMARK_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(3);
+
+pub const CHAMFER_CONCAVE_INWARD: crate::types::ChamferConcaveStrategy =
+    crate::types::ChamferConcaveStrategy(200102);
+
+pub const CHAMFER_CONCAVE_OUTWARD: crate::types::ChamferConcaveStrategy =
+    crate::types::ChamferConcaveStrategy(200101);
+
+generated_scalar! { integer,
+#[doc = "```text\nChamferConcaveStrategy selects how an edge chamfer treats a CONCAVE (internal) edge — one\nwhere the two faces fold over the material so the dihedral exceeds π (e.g. the inside corner\nwhere a rib meets a plate). A convex edge always cuts its corner and ignores this. An\nOblikovati extension with no reference-API equivalent, so the numeric block below is OURS\n(chosen clear of the frozen reference blocks) — but, once shipped, equally frozen: never\nrenumber.\n\n  - ChamferConcaveOutward — fill the inside corner with material: a flat 45° gusset that\n    bridges the two faces (Boolean union). The DEFAULT; the zero value resolves to it.\n  - ChamferConcaveInward — instead cut a recessed groove into the corner, relieving it\n    (Boolean cut on the material side).\n```"]
+pub struct ChamferConcaveStrategy(pub i32);
+}
+
+pub const CHAMFER_DISTANCE: crate::types::ChamferType = crate::types::ChamferType(26881);
+
+pub const CHAMFER_DISTANCE_AND_ANGLE: crate::types::ChamferType = crate::types::ChamferType(26882);
+
+pub const CHAMFER_NOTE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(15);
+
+pub const CHAMFER_TWO_DISTANCES: crate::types::ChamferType = crate::types::ChamferType(26883);
+
+generated_scalar! { integer,
+#[doc = "```text\nChamferType discriminates how an edge chamfer's setback is specified (parity:\nChamferDefinitionType): an equal distance on both faces, a distance on one face plus the\nchamfer-face angle, or two independent distances (asymmetric). The numeric values are\nfrozen at the reference API's ids and must never be renumbered.\n```"]
+pub struct ChamferType(pub i32);
+}
+
+pub const CHARACTERISTIC_ANGULARITY: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(32);
+
+pub const CHARACTERISTIC_AXIALITY: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(524288);
+
+pub const CHARACTERISTIC_AXIS_INTERSECTION: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(32768);
+
+pub const CHARACTERISTIC_CIRCULAR_RUNOUT: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(1024);
+
+pub const CHARACTERISTIC_CIRCULAR_RUNOUT_FILLED: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(65536);
+
+pub const CHARACTERISTIC_CIRCULARITY: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(4);
+
+pub const CHARACTERISTIC_CONCENTRICITY: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(512);
+
+pub const CHARACTERISTIC_CYLINDRICITY: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(8192);
+
+pub const CHARACTERISTIC_FLATNESS: crate::types::GeometricCharacteristic =
+    crate::types::GeometricCharacteristic(2);

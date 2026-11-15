@@ -3,436 +3,461 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-pub const GEO3_D_GROUND: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("ground"));
+pub const NO_INSPECTION_BORDER: crate::types::InspectionShape = crate::types::InspectionShape(0);
 
-pub const GEO3_D_HELICAL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("helical"));
+pub const NO_PROFILE_SCALING: crate::types::SweepProfileScaling =
+    crate::types::SweepProfileScaling(59395);
 
-pub const GEO3_D_MIDPOINT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
+pub const NO_SECTION_VIEW: crate::types::SectionViewType = crate::types::SectionViewType(0);
 
-pub const GEO3_D_ON_FACE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("onFace"));
+pub const NO_SNAP_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20233);
 
-pub const GEO3_D_PARALLEL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallel"));
+pub const NO_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(4);
 
-pub const GEO3_D_PARALLEL_TO_X_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXAxis"));
+pub const NO_TOLERANCE: crate::types::DimensionToleranceType =
+    crate::types::DimensionToleranceType(0);
 
-pub const GEO3_D_PARALLEL_TO_XY_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXYPlane"));
+pub const NO_TRANSFORM_BEHAVIORS: crate::types::DisplayTransformBehaviorEnum =
+    crate::types::DisplayTransformBehaviorEnum(26116);
 
-pub const GEO3_D_PARALLEL_TO_XZ_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXZPlane"));
+pub const NON_MAGNETIC: crate::types::MagneticClass =
+    crate::types::MagneticClass(std::borrow::Cow::Borrowed("non-magnetic"));
 
-pub const GEO3_D_PARALLEL_TO_Y_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYAxis"));
+pub const NONE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103169);
 
-pub const GEO3_D_PARALLEL_TO_YZ_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYZPlane"));
+pub const NONE_DISPLAY_SEPARATE_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
+    crate::types::DisplaySeparateColorsTypeEnum(127489);
 
-pub const GEO3_D_PARALLEL_TO_Z_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToZAxis"));
+pub const NONE_SUPPRESSED: crate::types::OccurrencePatternSuppression =
+    crate::types::OccurrencePatternSuppression(118530);
 
-pub const GEO3_D_PERPENDICULAR: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
-
-pub const GEO3_D_SMOOTH: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("smooth"));
-
-pub const GEO3_D_SPLINE_FIT_POINTS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("splineFitPoints"));
-
-pub const GEO3_D_TANGENT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("tangent"));
-
-pub const GEO3_D_UNKNOWN: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-pub const GEO_CONSTRAINT_COINCIDENT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("coincident"));
-
-pub const GEO_CONSTRAINT_COLLINEAR: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("collinear"));
-
-pub const GEO_CONSTRAINT_CONCENTRIC: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("concentric"));
-
-pub const GEO_CONSTRAINT_CUSTOM: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("custom"));
-
-pub const GEO_CONSTRAINT_EQUAL_LENGTH: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalLength"));
-
-pub const GEO_CONSTRAINT_EQUAL_RADIUS: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalRadius"));
-
-pub const GEO_CONSTRAINT_FIX: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("fix"));
-
-pub const GEO_CONSTRAINT_GROUND: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("ground"));
-
-pub const GEO_CONSTRAINT_HORIZONTAL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontal"));
-
-pub const GEO_CONSTRAINT_HORIZONTAL_ALIGN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontalAlign"));
-
-pub const GEO_CONSTRAINT_MIDPOINT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
-
-pub const GEO_CONSTRAINT_OFFSET: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("offset"));
-
-pub const GEO_CONSTRAINT_PARALLEL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("parallel"));
-
-pub const GEO_CONSTRAINT_PATTERN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("patternLink"));
-
-pub const GEO_CONSTRAINT_PERPENDICULAR: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
-
-pub const GEO_CONSTRAINT_POINT_ON_CIRCLE: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnCircle"));
-
-pub const GEO_CONSTRAINT_POINT_ON_LINE: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnLine"));
-
-pub const GEO_CONSTRAINT_SMOOTH: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("smooth"));
-
-pub const GEO_CONSTRAINT_SYMMETRY: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("symmetry"));
-
-pub const GEO_CONSTRAINT_TANGENT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("tangent"));
-
-pub const GEO_CONSTRAINT_TEXT_BOX: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("textBox"));
-
-pub const GEO_CONSTRAINT_UNKNOWN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-pub const GEO_CONSTRAINT_VERTICAL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("vertical"));
-
-pub const GEO_CONSTRAINT_VERTICAL_ALIGN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("verticalAlign"));
-
-#[doc = "```text\nGeometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —\nthe value of [oblikovati.org/api/wire.AddSketch3DConstraintArgs.Kind] and of\neach enumerated 3D constraint's Kind. String values are frozen. Members are wired in\nacross M22-F05.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct Geometric3DConstraintKind(pub std::borrow::Cow<'static, str>);
-
-#[doc = "```text\nGeometricCharacteristic is the geometric-tolerance symbol carried by a feature-control\nframe in a model GD&T annotation (parity: GeometricCharacteristicEnum). The values are the\nreference API's frozen bit ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it (ADR-0018).\nUsed by the model-tolerance carrier (a metadata feature; #866).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GeometricCharacteristic(pub i32);
-
-#[doc = "```text\nGeometricConstraintKind discriminates a sketch geometric (non-dimensional)\nconstraint. Used by [oblikovati.org/api/wire.AddConstraintArgs.Kind] and by\nthe enumerated constraint's Kind. String values are frozen.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GeometricConstraintKind(pub std::borrow::Cow<'static, str>);
-
-#[doc = "```text\nGeometricEdgeRef names a B-rep edge by WHERE it sits — its midpoint and a sign-agnostic\ndirection — rather than by an Oblikovati lineage key (ADR-0040). It is the external author's\npath to a topology selection: an exporter reading another CAD system knows the edge's geometry,\nnot Oblikovati's internally-minted lineage. The host re-binds it to the running body each\nrecompute by geometric nearness (topo.FindEdgeByGeometry), returning it only when it is\nunambiguous. Coordinates are model space (database units, centimetres).\n\nA work-feature reference string carries this descriptor via [GeometricEdgeRef.Ref]; the same\nstring can equally be a lineage-key edge reference (\"edge/…\") produced by an interactive pick —\nboth resolve through the host's edge resolver. Use it wherever a work-axis/point create takes an\nedge reference (analytic-edge / line-by-entity axis, edge-midpoint point).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GeometricEdgeRef {
-    #[doc = "```text\na point on the edge, model cm\n```"]
-    #[serde(
-        rename = "midpoint",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub midpoint: [f64; 3],
-    #[doc = "```text\nthe edge tangent (orientation only; sign ignored)\n```"]
-    #[serde(
-        rename = "direction",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction: [f64; 3],
+generated_scalar! { integer,
+#[doc = "```text\nNormalBindingEnum is how a primitive's normals bind to its geometry: per-vertex (smooth),\nper-strip, per-item, or one overall normal. Frozen ids 19713–19716.\n```"]
+pub struct NormalBindingEnum(pub i32);
 }
 
-#[doc = "```text\nGeometryMoveableStatus answers \"can this sketch entity be dragged?\" for\ninteractive tools — derived from the solver's per-entity constraint\nanalysis (M06-F11, Oblikovati/Oblikovati#626).\n\nThe values are a frozen block matching the reference API's\ngeometry-moveable-status enum; never renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GeometryMoveableStatus(pub i32);
+pub const NORMAL_TO_PATH: crate::types::SweepProfileOrientation =
+    crate::types::SweepProfileOrientation(59649);
 
-pub const GOOD_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
-    crate::types::RayTracingQualityEnum(95746);
+pub const NOTE_BOOK_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9220);
 
-pub const GRADIENT_BACKGROUND: crate::types::BackgroundTypeEnum =
-    crate::types::BackgroundTypeEnum(52738);
+pub const NUMERIC_BORDER_LABEL: crate::types::BorderLabelMode = crate::types::BorderLabelMode(1);
 
-#[doc = "```text\nGraphicsColorBinding says how a primitive's colors map onto its geometry. With\nper-vertex each vertex carries its own color (the heatmap case); overall uses the\nsingle primitive color; per-item colors each line/triangle.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsColorBinding(pub std::borrow::Cow<'static, str>);
+generated_scalar! { string,
+#[doc = "```text\nObjectKind identifies the kind of document object a metadata-mutation event concerns\n(Oblikovati/Oblikovati#1644): a body, sketch, feature, occurrence, or the document itself. It is\nthe discriminator carried by object.renamed and property.changed so ONE generic event serves\nevery rename / property change instead of a bespoke event per mutation — an add-in matches on\nKind to route the event to the right mirror of the document structure.\n```"]
+pub struct ObjectKind(pub std::borrow::Cow<'static, str>);
+}
 
-pub const GRAPHICS_COLOR_OVERALL: crate::types::GraphicsColorBinding =
-    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("overall"));
+pub const OBJECT_KIND_BODY: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("body"));
 
-pub const GRAPHICS_COLOR_PER_ITEM: crate::types::GraphicsColorBinding =
-    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("perItem"));
+pub const OBJECT_KIND_DOCUMENT: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("document"));
 
-pub const GRAPHICS_COLOR_PER_VERTEX: crate::types::GraphicsColorBinding =
-    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("perVertex"));
+pub const OBJECT_KIND_FEATURE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("feature"));
 
-pub const GRAPHICS_CURVE: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("curve"));
+pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("occurrence"));
 
-pub const GRAPHICS_IMAGE: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("image"));
+pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));
 
-#[doc = "```text\nGraphicsLane selects which display lane a graphics group lives in — the bridge between\nthe two graphics surfaces. \"persistent\" is client graphics (document-owned, lives until\ndeleted); \"overlay\" and \"preview\" are the interaction-graphics lanes (command-scoped,\ncleared when the interaction ends). Overlay graphics draw on top of the scene\n(depth-test off); preview graphics draw depth-tested with the scene.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsLane(pub std::borrow::Cow<'static, str>);
+#[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ObjectRef {
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+}
 
-pub const GRAPHICS_LANE_OVERLAY: crate::types::GraphicsLane =
-    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("overlay"));
+generated_scalar! { integer,
+#[doc = "```text\nOccurrenceDOFState classifies a single degree of freedom for \"show DOF\" purposes (the reference CAD API's\nOccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state\nvalue. The zero value is NoDegreeOfFreedomState.\n```"]
+pub struct OccurrenceDOFState(pub i32);
+}
 
-pub const GRAPHICS_LANE_PERSISTENT: crate::types::GraphicsLane =
-    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("persistent"));
+generated_scalar! { integer,
+#[doc = "```text\nOccurrencePatternSuppression reports how much of an occurrence pattern is suppressed\n(parity: OccurrencePatternSuppressionEnum). It is a derived read state, not a request:\nsuppressing the pattern or its elements moves it between these.\n```"]
+pub struct OccurrencePatternSuppression(pub i32);
+}
 
-pub const GRAPHICS_LANE_PREVIEW: crate::types::GraphicsLane =
-    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("preview"));
+generated_scalar! { integer,
+#[doc = "```text\nOffsetCornerClosureType selects how a planar wire offset closes a gap\ncorner (Wire.OffsetPlanarWire).\n```"]
+pub struct OffsetCornerClosureType(pub i32);
+}
 
-pub const GRAPHICS_LINE_CONTINUOUS: crate::types::GraphicsLineType =
-    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("continuous"));
+pub const ON_CONTAINMENT: crate::types::Containment = crate::types::Containment(30979);
 
-pub const GRAPHICS_LINE_DASHED: crate::types::GraphicsLineType =
-    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("dashed"));
+pub const ON_CURVE_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20232);
 
-pub const GRAPHICS_LINE_DOTTED: crate::types::GraphicsLineType =
-    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("dotted"));
+pub const ONE_COLOR_BACKGROUND: crate::types::BackgroundTypeEnum =
+    crate::types::BackgroundTypeEnum(52737);
 
-pub const GRAPHICS_LINE_STRIP: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("lineStrip"));
+#[doc = "```text\nOpenPBRBase groups OpenPBR Surface's Base parameter group (spec §Base,\nparametrization.md.html) — the diffuse/metal foundation lobe every other layer sits on\ntop of. Field defaults mirror the spec's table exactly; see [DefaultOpenPBRBase].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRBase {
+    #[doc = "```text\nbase_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\nbase_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\nbase_metalness, [0,1]\n```"]
+    #[serde(
+        rename = "metalness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub metalness: f32,
+    #[doc = "```text\nbase_diffuse_roughness, [0,1]\n```"]
+    #[serde(
+        rename = "diffuseRoughness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub diffuse_roughness: f32,
+}
 
-#[doc = "```text\nGraphicsLineType is a line primitive's dash pattern (a subset of the line-type styles).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsLineType(pub std::borrow::Cow<'static, str>);
+#[doc = "```text\nOpenPBRCoat groups OpenPBR Surface's Coat parameter group (spec §Coat) — a clear\ndielectric layer above everything else (Base, Specular, Transmission, Subsurface). IOR\nhas norm range [1,3] though its full range is (0,∞). Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRCoat].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRCoat {
+    #[doc = "```text\ncoat_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\ncoat_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\ncoat_roughness, [0,1]\n```"]
+    #[serde(
+        rename = "roughness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub roughness: f32,
+    #[doc = "```text\ncoat_roughness_anisotropy, [0,1]\n```"]
+    #[serde(
+        rename = "roughnessAnisotropy",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub roughness_anisotropy: f32,
+    #[doc = "```text\ncoat_ior, (0,∞), norm [1,3]\n```"]
+    #[serde(
+        rename = "ior",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ior: f32,
+    #[doc = "```text\ncoat_darkening, [0,1]\n```"]
+    #[serde(
+        rename = "darkening",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub darkening: f32,
+}
 
-pub const GRAPHICS_LINES: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("lines"));
+#[doc = "```text\nOpenPBREmission groups OpenPBR Surface's Emission parameter group (spec §Emission) —\nself-emitted radiance, independent of every reflective/transmissive lobe. Luminance is\nin nits (cd/m²) with norm range [0,1000] though its full range is [0,∞); Color is\nunbounded above (unlike every other Color3 field in this package's OpenPBR groups).\nField defaults mirror the spec's table exactly; see [DefaultOpenPBREmission].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBREmission {
+    #[doc = "```text\nemission_luminance, [0,∞), nits, norm [0,1000]\n```"]
+    #[serde(
+        rename = "luminance",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub luminance: f32,
+    #[doc = "```text\nemission_color, [0,∞)^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+}
 
-#[doc = "```text\nGraphicsNormalBinding says how normals map onto a triangle primitive. Per-vertex\ngives smooth shading; overall a single face normal.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsNormalBinding(pub std::borrow::Cow<'static, str>);
+#[doc = "```text\nOpenPBRFuzz groups OpenPBR Surface's Fuzz parameter group (spec §Fuzz) — a\nsheen/velvet-like retroreflective lobe (Zeltner sheen BRDF) layered above Coat. Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRFuzz].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRFuzz {
+    #[doc = "```text\nfuzz_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\nfuzz_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\nfuzz_roughness, [0,1]\n```"]
+    #[serde(
+        rename = "roughness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub roughness: f32,
+}
 
-pub const GRAPHICS_NORMAL_OVERALL: crate::types::GraphicsNormalBinding =
-    crate::types::GraphicsNormalBinding(std::borrow::Cow::Borrowed("overall"));
+#[doc = "```text\nOpenPBRGeometry groups OpenPBR Surface's Geometry parameter group (spec §Geometry) —\nsurface-level overrides that apply regardless of which lobes are active. Normal/Tangent/\nCoatNormal/CoatTangent are nil by default (\"unperturbed\": use the surface's own\ngeometric normal/tangent); a non-nil override is a per-point perturbation (e.g. a normal\nmap), not a per-appearance constant, but the constant form is represented the same way.\nField defaults mirror the spec's table exactly; see [DefaultOpenPBRGeometry].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRGeometry {
+    #[doc = "```text\ngeometry_opacity, [0,1]\n```"]
+    #[serde(
+        rename = "opacity",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub opacity: f32,
+    #[doc = "```text\ngeometry_thin_walled\n```"]
+    #[serde(rename = "thinWalled", deserialize_with = "crate::json::null_default")]
+    pub thin_walled: bool,
+    #[doc = "```text\ngeometry_normal\n```"]
+    #[serde(
+        rename = "normal",
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub normal: Option<Box<crate::types::Vector>>,
+    #[doc = "```text\ngeometry_tangent\n```"]
+    #[serde(
+        rename = "tangent",
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub tangent: Option<Box<crate::types::Vector>>,
+    #[doc = "```text\ngeometry_coat_normal\n```"]
+    #[serde(
+        rename = "coatNormal",
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub coat_normal: Option<Box<crate::types::Vector>>,
+    #[doc = "```text\ngeometry_coat_tangent\n```"]
+    #[serde(
+        rename = "coatTangent",
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub coat_tangent: Option<Box<crate::types::Vector>>,
+}
 
-pub const GRAPHICS_NORMAL_PER_VERTEX: crate::types::GraphicsNormalBinding =
-    crate::types::GraphicsNormalBinding(std::borrow::Cow::Borrowed("perVertex"));
+#[doc = "```text\nOpenPBRSpecular groups OpenPBR Surface's Specular parameter group (spec §Specular) — the\ndielectric microfacet lobe layered over Base. Weight has norm range [0,1] though its full\nrange is unbounded; IOR has norm range [1,3] though its full range is (0,∞). Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRSpecular].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRSpecular {
+    #[doc = "```text\nspecular_weight, [0,∞), norm [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\nspecular_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\nspecular_roughness, [0,1]\n```"]
+    #[serde(
+        rename = "roughness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub roughness: f32,
+    #[doc = "```text\nspecular_roughness_anisotropy, [0,1]\n```"]
+    #[serde(
+        rename = "roughnessAnisotropy",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub roughness_anisotropy: f32,
+    #[doc = "```text\nspecular_ior, (0,∞), norm [1,3]\n```"]
+    #[serde(
+        rename = "ior",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ior: f32,
+}
 
-pub const GRAPHICS_POINT_CIRCLE: crate::types::GraphicsPointStyle =
-    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("circle"));
+#[doc = "```text\nOpenPBRSubsurface groups OpenPBR Surface's Subsurface parameter group (spec\n§Subsurface) — volumetric subsurface scattering coupled to the Base diffuse lobe.\nRadius is in scene length units; norm range [0,1]. Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRSubsurface].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRSubsurface {
+    #[doc = "```text\nsubsurface_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\nsubsurface_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\nsubsurface_radius, [0,∞), length, norm [0,1]\n```"]
+    #[serde(
+        rename = "radius",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub radius: f32,
+    #[doc = "```text\nsubsurface_radius_scale, [0,1]^3\n```"]
+    #[serde(rename = "radiusScale", deserialize_with = "crate::json::null_default")]
+    pub radius_scale: crate::types::Color3,
+    #[doc = "```text\nsubsurface_scatter_anisotropy, [-1,1]\n```"]
+    #[serde(
+        rename = "scatterAnisotropy",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub scatter_anisotropy: f32,
+}
 
-pub const GRAPHICS_POINT_CROSS: crate::types::GraphicsPointStyle =
-    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("cross"));
+#[doc = "```text\nOpenPBRThinFilm groups OpenPBR Surface's Thin-film parameter group (spec §Thin-film) —\nwavelength-dependent iridescence from a microscopically thin dielectric film over\nSpecular/Base (Airy-summation interference). Thickness is in micrometres, norm range\n[0,1]. IOR has norm range [1,3] though its full range is (0,∞). Field defaults mirror\nthe spec's table exactly; see [DefaultOpenPBRThinFilm].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRThinFilm {
+    #[doc = "```text\nthin_film_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\nthin_film_thickness, [0,∞), µm, norm [0,1]\n```"]
+    #[serde(
+        rename = "thickness",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub thickness: f32,
+    #[doc = "```text\nthin_film_ior, (0,∞), norm [1,3]\n```"]
+    #[serde(
+        rename = "ior",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ior: f32,
+}
 
-pub const GRAPHICS_POINT_DOT: crate::types::GraphicsPointStyle =
-    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("dot"));
+#[doc = "```text\nOpenPBRTransmission groups OpenPBR Surface's Transmission parameter group (spec\n§Transmission) — dielectric refraction through the Base layer, with volumetric\nscattering/absorption and physical dispersion. Depth is in scene length units; norm\nrange [0,1]. Abbe number has norm range [9,91] (its full range is (0,∞)). Field defaults\nmirror the spec's table exactly; see [DefaultOpenPBRTransmission].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OpenPBRTransmission {
+    #[doc = "```text\ntransmission_weight, [0,1]\n```"]
+    #[serde(
+        rename = "weight",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub weight: f32,
+    #[doc = "```text\ntransmission_color, [0,1]^3\n```"]
+    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
+    pub color: crate::types::Color3,
+    #[doc = "```text\ntransmission_depth, [0,∞), length, norm [0,1]\n```"]
+    #[serde(
+        rename = "depth",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub depth: f32,
+    #[doc = "```text\ntransmission_scatter, [0,1]^3\n```"]
+    #[serde(rename = "scatter", deserialize_with = "crate::json::null_default")]
+    pub scatter: crate::types::Color3,
+    #[doc = "```text\ntransmission_scatter_anisotropy, [-1,1]\n```"]
+    #[serde(
+        rename = "scatterAnisotropy",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub scatter_anisotropy: f32,
+    #[doc = "```text\ntransmission_dispersion_scale, [0,1]\n```"]
+    #[serde(
+        rename = "dispersionScale",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dispersion_scale: f32,
+    #[doc = "```text\ntransmission_dispersion_abbe_number, (0,∞), norm [9,91]\n```"]
+    #[serde(
+        rename = "dispersionAbbeNumber",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub dispersion_abbe_number: f32,
+}
 
-pub const GRAPHICS_POINT_PLUS: crate::types::GraphicsPointStyle =
-    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("plus"));
+generated_scalar! { integer,
+#[doc = "```text\nOrbitTypeEnum is how the orbit gesture is constrained: a free (trackball) orbit or a\nconstrained (turntable) orbit about vertical. Frozen ids 86017–86018.\n```"]
+pub struct OrbitTypeEnum(pub i32);
+}
 
-pub const GRAPHICS_POINT_SQUARE: crate::types::GraphicsPointStyle =
-    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("square"));
+pub const ORDINATE_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(6);
 
-#[doc = "```text\nGraphicsPointStyle is the glyph drawn for a points primitive (a subset of the point\nrender styles). The host expands each point into screen-constant glyph geometry.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsPointStyle(pub std::borrow::Cow<'static, str>);
+pub const ORIENT_IDENTICAL: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33793);
 
-pub const GRAPHICS_POINTS: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("points"));
+pub const ORIENT_TO_DIRECTION1: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33794);
 
-#[doc = "```text\nGraphicsPrimitiveKind names the topology of one graphics primitive (line, point,\ntriangle, or text graphics). It is the discriminator\nof a [oblikovati.org/api/wire.GraphicsPrimitive].\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsPrimitiveKind(pub std::borrow::Cow<'static, str>);
+pub const ORIENT_TO_DIRECTION2: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33795);
 
-#[doc = "```text\nGraphicsSelectabilityEnum is whether none, some, or all of a graphics node's geometry can be\npicked. Frozen ids 25345–25347.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsSelectabilityEnum(pub i32);
+#[doc = "```text\nOrientedBox is a box aligned to its own orthonormal frame: corner point plus\nthree edge DIRECTIONS with per-axis extents (the reference's corner+vectors\nform, expressed with the unit/length split kept explicit).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct OrientedBox {
+    #[serde(rename = "corner")]
+    pub corner: crate::types::Point,
+    #[serde(rename = "xAxis")]
+    pub x_axis: crate::types::UnitVector,
+    #[serde(rename = "yAxis")]
+    pub y_axis: crate::types::UnitVector,
+    #[serde(rename = "zAxis")]
+    pub z_axis: crate::types::UnitVector,
+    #[doc = "```text\nedge lengths along the three axes\n```"]
+    #[serde(rename = "extents")]
+    pub extents: crate::types::Vector,
+}
 
-pub const GRAPHICS_SURFACE: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("surface"));
+pub const ORTHOGRAPHIC_PROJECTION: crate::types::ProjectionTypeEnum =
+    crate::types::ProjectionTypeEnum(86273);
 
-pub const GRAPHICS_TEXT: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("text"));
+pub const ORTHOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("orthotropic"));
 
-pub const GRAPHICS_TRIANGLE_FAN: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangleFan"));
+pub const OUT_OF_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103170);
 
-pub const GRAPHICS_TRIANGLE_STRIP: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangleStrip"));
+pub const OUTSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30980);
 
-pub const GRAPHICS_TRIANGLES: crate::types::GraphicsPrimitiveKind =
-    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangles"));
+pub const OVER_CONSTRAINED_APPLY_DRIVEN: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(0);
 
-pub const GRAPHICS_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9218);
+pub const OVER_CONSTRAINED_APPLY_DRIVING: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(1);
 
-#[doc = "```text\nGraphicsVisibilityEnum is whether none, some, or all of a graphics node is visible. Frozen\nids 25089–25091.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GraphicsVisibilityEnum(pub i32);
+generated_scalar! { integer,
+#[doc = "```text\nOverConstrainedDimensionBehavior is a document's preference for what happens when a dimension the\nuser adds would over-constrain the sketch (the reference CAD API's SketchConstraintSettings.\nOverConstrainedDimensionBehavior, #1877). The reference enum's numeric ids are not in-repo, so\nthis is an Oblikovati-owned frozen block — the wire contract is the string spelling; never\nrenumber the ids.\n```"]
+pub struct OverConstrainedDimensionBehavior(pub i32);
+}
+
+pub const OVER_CONSTRAINED_PROMPT: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(2);
+
+pub const OVERALL_COLOR: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19460);
+
+pub const OVERALL_NORMAL: crate::types::NormalBindingEnum = crate::types::NormalBindingEnum(19716);

@@ -9,6 +9,8 @@
 //! assert_eq!(oblikovati_api::API_MAJOR, 0);
 //! ```
 
+#[macro_use]
+mod generated_scalar;
 pub mod client;
 pub mod contract;
 mod error;

@@ -3,452 +3,462 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nCurve2dType identifies a 2D transient curve's concrete kind.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct Curve2dType(pub i32);
-
-pub const CURVE_FORM_NURBS: crate::types::CurveGeometryForm = crate::types::CurveGeometryForm(1);
-
-pub const CURVE_FORM_NOT_NURBS: crate::types::CurveGeometryForm =
-    crate::types::CurveGeometryForm(2);
-
-#[doc = "```text\nCurveGeometryForm is whether a curve is exactly representable as NURBS data.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct CurveGeometryForm(pub i32);
-
-#[doc = "```text\nCurveType identifies a 3D transient curve's concrete kind.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct CurveType(pub i32);
-
-pub const CUSTOM_IMAGE_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20235);
-
-pub const CUSTOM_PROPERTY_NUMBER: crate::types::CustomPropertyType =
-    crate::types::CustomPropertyType(85250);
-
-#[doc = "```text\nCustomPropertyPrecision is the precision used when formatting a parameter\nvalue published as a custom document property (parity:\nCustomPropertyPrecisionEnum): decimal places, fractional denominators for\nlengths, or angular sexagesimal forms. The numeric values are frozen at the\nreference API's ids.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct CustomPropertyPrecision(pub i32);
-
-pub const CUSTOM_PROPERTY_TEXT: crate::types::CustomPropertyType =
-    crate::types::CustomPropertyType(85249);
-
-#[doc = "```text\nCustomPropertyType is whether a parameter exposed as a custom document\nproperty is published as text or as a number (parity: CustomPropertyTypeEnum).\nThe numeric values are frozen at the reference API's ids.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct CustomPropertyType(pub i32);
-
-pub const CUSTOM_TABLE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(13);
-
-pub const CYLINDER_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5891);
-
-pub const DSDOF_DRIVEN: crate::types::DSDOFImposedMotionType =
-    crate::types::DSDOFImposedMotionType(1);
-
-pub const DSDOF_FREE: crate::types::DSDOFImposedMotionType =
-    crate::types::DSDOFImposedMotionType(0);
-
-#[doc = "```text\nDSDOFImposedMotionType discriminates how a single DS degree of freedom is driven: free to\nmove, driven to an imposed value (a motor / drive, M12-F03), or locked at its value.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DSDOFImposedMotionType(pub u32);
-
-pub const DSDOF_LOCKED: crate::types::DSDOFImposedMotionType =
-    crate::types::DSDOFImposedMotionType(2);
-
-pub const DS_JOINT_CYLINDRICAL: crate::types::DSJointType = crate::types::DSJointType(4);
-
-pub const DS_JOINT_PLANAR: crate::types::DSJointType = crate::types::DSJointType(5);
-
-pub const DS_JOINT_PRISMATIC: crate::types::DSJointType = crate::types::DSJointType(3);
-
-pub const DS_JOINT_RIGID: crate::types::DSJointType = crate::types::DSJointType(1);
-
-pub const DS_JOINT_ROTATIONAL: crate::types::DSJointType = crate::types::DSJointType(2);
-
-pub const DS_JOINT_SPHERICAL: crate::types::DSJointType = crate::types::DSJointType(6);
-
-#[doc = "```text\nDSJointType discriminates the DS-joint kinds — the degrees-of-freedom view of a joint,\nnamed in the mechanism vocabulary (prismatic = slider, spherical = ball).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DSJointType(pub u32);
-
-pub const DS_JOINT_UNKNOWN: crate::types::DSJointType = crate::types::DSJointType(0);
-
-pub const DXFR2000: crate::types::DXFVersion =
-    crate::types::DXFVersion(std::borrow::Cow::Borrowed("r2000"));
-
-pub const DXFR2018: crate::types::DXFVersion =
-    crate::types::DXFVersion(std::borrow::Cow::Borrowed("r2018"));
-
-#[doc = "```text\nDXFVersion selects the generation an exported DXF targets. The geometry is identical\nacross versions; the version sets $ACADVER and the surrounding section scaffolding. The\nzero value \"\" is treated as R2000.\n\nExample:\n\n\treq := wire.ExportDXFArgs{Path: \"part.dxf\", Version: string(types.DXFR2018)}\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DXFVersion(pub std::borrow::Cow<'static, str>);
-
-pub const DATUM_FEATURE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(5);
-
-pub const DEFAULT_BEND_TRANSITION: crate::types::BendTransition = crate::types::BendTransition(5);
-
-pub const DEFAULT_DISPLAY_MODE_SOURCE: crate::types::DisplayModeSourceTypeEnum =
-    crate::types::DisplayModeSourceTypeEnum(54273);
-
-pub const DEFAULT_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(0);
-
-pub const DEFAULT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10753);
-
-pub const DERIVE_EXCLUDE: crate::types::DeriveStyle = crate::types::DeriveStyle(1);
-
-pub const DERIVE_INCLUDE: crate::types::DeriveStyle = crate::types::DeriveStyle(0);
-
-#[doc = "```text\nDeriveStyle controls how one source occurrence contributes to a derived assembly's\nbase body — the reference API's per-occurrence derive style. The zero value is\nDeriveInclude, so an unstyled occurrence is merged in.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DeriveStyle(pub i32);
-
-pub const DERIVE_SUBTRACT: crate::types::DeriveStyle = crate::types::DeriveStyle(2);
-
-pub const DERIVED_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(4);
-
-pub const DETAIL_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(3);
-
-pub const DEVIATION_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(2);
-
-pub const DIAMETER_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(4);
-
-pub const DIE_FORMED_LOFTED_FLANGE: crate::types::LoftedFlangeOutputType =
-    crate::types::LoftedFlangeOutputType(0);
-
-pub const DIM3_D_DISTANCE: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("distance"));
-
-pub const DIM3_D_LINE_LENGTH: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("lineLength"));
-
-pub const DIM3_D_POINT_PLANE_DISTANCE: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("pointPlaneDistance"));
-
-pub const DIM3_D_RADIUS: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("radius"));
-
-pub const DIM3_D_SPLINE_LENGTH: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("splineLength"));
-
-pub const DIM3_D_TWO_LINE_ANGLE: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("twoLineAngle"));
-
-pub const DIM3_D_UNKNOWN: crate::types::Dimension3DConstraintKind =
-    crate::types::Dimension3DConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-pub const DIM_CIRCULAR_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20227);
-
-pub const DIM_CONSTRAINT_ANGLE: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("angle"));
-
-pub const DIM_CONSTRAINT_ARC_LENGTH: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("arcLength"));
-
-pub const DIM_CONSTRAINT_DIAMETER: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("diameter"));
-
-pub const DIM_CONSTRAINT_DISTANCE: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("distance"));
-
-pub const DIM_CONSTRAINT_ELLIPSE_MINOR_RADIUS: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("ellipseMinorRadius"));
-
-pub const DIM_CONSTRAINT_ELLIPSE_RADIUS: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("ellipseRadius"));
-
-pub const DIM_CONSTRAINT_OFFSET: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("offsetDim"));
-
-pub const DIM_CONSTRAINT_OFFSET_SPLINE: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("offsetSplineDim"));
-
-pub const DIM_CONSTRAINT_RADIUS: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("radius"));
-
-pub const DIM_CONSTRAINT_TANGENT_DISTANCE: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("tangentDistance"));
-
-pub const DIM_CONSTRAINT_THREE_POINT_ANGLE: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("threePointAngle"));
-
-pub const DIM_CONSTRAINT_UNKNOWN: crate::types::DimensionConstraintKind =
-    crate::types::DimensionConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-#[doc = "```text\nDimension3DConstraintKind discriminates a 3D dimensional (driving/driven) constraint —\nthe value of [oblikovati.org/api/wire.AddSketch3DDimensionArgs.Kind] and of\neach enumerated 3D dimension's Kind. String values are frozen. Members are wired in\nacross M22-F06.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct Dimension3DConstraintKind(pub std::borrow::Cow<'static, str>);
-
-#[doc = "```text\nDimensionConstraintKind discriminates a sketch dimensional (driving/driven)\nconstraint. Used by [oblikovati.org/api/wire.AddDimensionArgs.Kind] and by\nthe enumerated dimension's Kind. String values are frozen.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DimensionConstraintKind(pub std::borrow::Cow<'static, str>);
-
-pub const DIMENSION_DISPLAY_EXPRESSION: crate::types::DimensionDisplayType =
-    crate::types::DimensionDisplayType(34819);
-
-pub const DIMENSION_DISPLAY_NAME: crate::types::DimensionDisplayType =
-    crate::types::DimensionDisplayType(34818);
-
-pub const DIMENSION_DISPLAY_PRECISE_VALUE: crate::types::DimensionDisplayType =
-    crate::types::DimensionDisplayType(34821);
-
-pub const DIMENSION_DISPLAY_TOLERANCE: crate::types::DimensionDisplayType =
-    crate::types::DimensionDisplayType(34820);
-
-#[doc = "```text\nDimensionDisplayType controls how dimensions tied to parameters render in\nsketches: the evaluated value, the parameter name, the authored expression,\nthe value with its tolerance, or the precise (unrounded) value (parity:\nDimensionDisplayTypeEnum, M02-F07, Oblikovati/Oblikovati#606). The numeric\nvalues are frozen at the reference API's ids and must never be renumbered.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DimensionDisplayType(pub i32);
-
-pub const DIMENSION_DISPLAY_VALUE: crate::types::DimensionDisplayType =
-    crate::types::DimensionDisplayType(34817);
-
-pub const DIMENSION_INCH: crate::types::DimensionUnit = crate::types::DimensionUnit(1);
-
-pub const DIMENSION_MILLIMETER: crate::types::DimensionUnit = crate::types::DimensionUnit(0);
-
-#[doc = "```text\nDimensionTolerance is one dimension's engineering tolerance (#1990): its method, the upper (Plus) and\nlower (Minus) deviations in millimetres, the ISO fit class for the fits method, and the decimal\nprecision the tolerance values render at.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DimensionTolerance {
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: crate::types::DimensionToleranceType,
-    #[serde(
-        rename = "plus",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plus: f64,
-    #[serde(
-        rename = "minus",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub minus: f64,
-    #[serde(
-        rename = "fit",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub fit: String,
-    #[serde(
-        rename = "precision",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub precision: i64,
+generated_scalar! { integer,
+#[doc = "```text\nFeatureApproximationType is the approximation a thicken / face-offset\nfeature may accept when the exact offset is not computable (#331 parity).\nAn exact result satisfies every bound below, so a kernel computing the\nexact offset honours any requested approximation.\n```"]
+pub struct FeatureApproximationType(pub i32);
 }
 
-#[doc = "```text\nDimensionToleranceType selects how a dimension's engineering tolerance is shown — none, a\nsymmetric ±, an asymmetric deviation (+plus/−minus), stacked max/min limits, or an ISO\nlimits-and-fits class such as H7 (the reference CAD API's tolerance methods, #1990).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DimensionToleranceType(pub i32);
+pub const FEATURE_CONTROL_FRAME_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(4);
 
-#[doc = "```text\nDimensionUnit names the unit a dimension is measured and displayed in. The zero\nvalue is DimensionMillimeter (the ISO default).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DimensionUnit(pub i32);
+generated_scalar! { integer,
+#[doc = "```text\nFileLocationType classifies where a referenced file lives relative to the\ndesign project's search roots — the editable workspace, a shared workgroup,\na read-only library, or somewhere unmanaged (M03-F07,\nOblikovati/Oblikovati#608).\n\nThe values are a frozen block matching the reference API's location-type\nenum; never renumber them.\n```"]
+pub struct FileLocationType(pub i32);
+}
 
-pub const DIRECT_EDIT_DELETE_OPERATION: crate::types::DirectEditOperationType =
-    crate::types::DirectEditOperationType(105732);
+pub const FILLED_CIRCLE_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20228);
 
-pub const DIRECT_EDIT_MOVE_OPERATION: crate::types::DirectEditOperationType =
-    crate::types::DirectEditOperationType(105729);
+pub const FILLED_CIRCLE_SELECT_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20229);
+
+pub const FILLED_CROSS_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20231);
+
+pub const FILLET_CONCAVE_INWARD: crate::types::FilletConcaveStrategy =
+    crate::types::FilletConcaveStrategy(200112);
+
+pub const FILLET_CONCAVE_OUTWARD: crate::types::FilletConcaveStrategy =
+    crate::types::FilletConcaveStrategy(200111);
+
+generated_scalar! { integer,
+#[doc = "```text\nFilletConcaveStrategy selects how a fillet treats a CONCAVE (internal) edge — one where the two\nfaces fold over the material (dihedral > π), e.g. the inside corner where a rib meets a plate. A\nconvex edge always rounds its corner away and ignores this. The fillet keeps an exact rolling-ball\ncylinder face either way; only which side the ball rolls on (and thus whether material is added or\nremoved) changes. An Oblikovati extension (no reference-API equivalent); the block is OURS but, once\nshipped, equally frozen: never renumber.\n\n  - FilletConcaveOutward — fill the inside corner with material (a concave fillet bridging the two\n    faces). The DEFAULT; the zero value resolves to it.\n  - FilletConcaveInward — round a recess into the corner instead (material removed).\n```"]
+pub struct FilletConcaveStrategy(pub i32);
+}
+
+pub const FILLET_CORNER_MITER: crate::types::FilletCornerType =
+    crate::types::FilletCornerType(200001);
+
+pub const FILLET_CORNER_ROUND: crate::types::FilletCornerType =
+    crate::types::FilletCornerType(200003);
+
+pub const FILLET_CORNER_SETBACK: crate::types::FilletCornerType =
+    crate::types::FilletCornerType(200002);
+
+generated_scalar! { integer,
+#[doc = "```text\nFilletCornerType selects how an edge fillet treats a corner where two filleted edges meet at a\nvertex whose third edge stays sharp (the two rolling-ball cylinders cannot be joined by a single\nsphere unless that third edge is also rounded). It is an Oblikovati extension with no reference-API\nequivalent, so the numeric block below is OURS (chosen clear of the frozen reference blocks above)\n— but, once shipped, it is equally frozen: never renumber.\n\n  - FilletCornerMiter — the two cylinders mutually trim along their intersection seam (a crease);\n    the geometrically exact rolling-ball result for rounding only two of a corner's three edges.\n  - FilletCornerSetback — a spherical corner patch tangent to the three faces, set back from the\n    sharp edge by a small planar setback face (a smoothed corner; not the exact rolling-ball form).\n  - FilletCornerRound — round the corner fully into a single sphere octant by also rolling over the\n    third edge (the true 3-edge blend; the corner becomes G1-smooth all round).\n```"]
+pub struct FilletCornerType(pub i32);
+}
+
+generated_scalar! { string,
+#[doc = "```text\nFilletCrossSection selects the shape of an edge blend's cross-section profile (M36-F08): the\ndefault circular arc (G1 — tangent to both walls), a curvature-continuous G2 profile (zero\ncurvature at the tangency lines, so a blend between flat walls has no curvature jump), or a conic\n(rho-controlled) profile whose shoulder fullness is set by a separate rho parameter. It is a\nstring enum so the empty value reads as the arc default; the kernel maps it to its blend builder.\n```"]
+pub struct FilletCrossSection(pub std::borrow::Cow<'static, str>);
+}
+
+pub const FILLET_SECTION_ARC: crate::types::FilletCrossSection =
+    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("arc"));
+
+pub const FILLET_SECTION_CONIC: crate::types::FilletCrossSection =
+    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("conic"));
+
+pub const FILLET_SECTION_G2: crate::types::FilletCrossSection =
+    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("g2"));
+
+generated_scalar! { integer,
+#[doc = "```text\nFilletType discriminates the fillet definition: edge sets, a face-pair\nfillet, or a full round across three face sets.\n```"]
+pub struct FilletType(pub i32);
+}
+
+pub const FITS_TOLERANCE: crate::types::DimensionToleranceType =
+    crate::types::DimensionToleranceType(4);
+
+pub const FIXED_VIEW_JUSTIFICATION: crate::types::ViewJustification =
+    crate::types::ViewJustification(1);
+
+pub const FLAT_BACKSIDE_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10773);
+
+pub const FLAT_BACKSIDE_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10772);
+
+pub const FLAT_BACKSIDE_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10771);
+
+pub const FLAT_BACKSIDE_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10770);
+
+generated_scalar! { integer,
+#[doc = "```text\nFlatPatternEdgeType classifies an edge of the developed flat for manufacturing and drawing:\na fold line where the sheet bends up or down, or a tangent line where a curved wall met the\nflat tangentially. Outer-profile (cut) edges carry no flat-pattern type.\n```"]
+pub struct FlatPatternEdgeType(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nFlatPatternFaceType classifies a face of the developed flat: the front (top) face the\norientation presents, the back (bottom) face, a detail face, or unknown.\n```"]
+pub struct FlatPatternFaceType(pub i32);
+}
+
+pub const FLAT_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10769);
+
+pub const FLAT_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10768);
+
+pub const FLAT_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10767);
+
+pub const FORESHORTENED_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(8);
+
+pub const FORMAT3_MF: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("3mf"));
+
+pub const FORMAT_DWG: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dwg"));
+
+pub const FORMAT_DXF: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dxf"));
+
+pub const FORMAT_E57: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("e57"));
+
+pub const FORMAT_GLTF: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("gltf"));
+
+pub const FORMAT_LAS: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("las"));
+
+pub const FORMAT_OBJ: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("obj"));
+
+pub const FORMAT_PDF: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("pdf"));
+
+pub const FORMAT_PLY: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("ply"));
+
+pub const FORMAT_STEP: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("step"));
+
+pub const FORMAT_STL: crate::types::ExchangeFormat =
+    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("stl"));
+
+pub const FORMED_FEATURE_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(1);
+
+pub const FORTY_FIVE_DEGREES_LEFT_SHADOW: crate::types::ShadowDirectionEnum =
+    crate::types::ShadowDirectionEnum(92161);
+
+pub const FORTY_FIVE_DEGREES_RIGHT_SHADOW: crate::types::ShadowDirectionEnum =
+    crate::types::ShadowDirectionEnum(92162);
+
+pub const FREE_ORBIT: crate::types::OrbitTypeEnum = crate::types::OrbitTypeEnum(86017);
+
+pub const FROM_BASE_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(4);
+
+pub const FRONT_FACING_AND_PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
+    crate::types::DisplayTransformBehaviorEnum(26115);
+
+pub const FRONT_FACING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
+    crate::types::DisplayTransformBehaviorEnum(26113);
+
+pub const FRONT_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
+    crate::types::FlatPatternFaceType(1);
+
+pub const FRONT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10764);
+
+pub const FULL_ROUND_FILLET: crate::types::FilletType = crate::types::FilletType(61699);
+
+pub const GEO3_D_BEND: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("bend"));
+
+pub const GEO3_D_COINCIDENT: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("coincident"));
+
+pub const GEO3_D_COLLINEAR: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("collinear"));
+
+pub const GEO3_D_CONCENTRIC: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("concentric"));
+
+pub const GEO3_D_EQUAL: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("equal"));
+
+pub const GEO3_D_GROUND: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("ground"));
+
+pub const GEO3_D_HELICAL: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("helical"));
+
+pub const GEO3_D_MIDPOINT: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
+
+pub const GEO3_D_ON_FACE: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("onFace"));
+
+pub const GEO3_D_PARALLEL: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallel"));
+
+pub const GEO3_D_PARALLEL_TO_X_AXIS: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXAxis"));
+
+pub const GEO3_D_PARALLEL_TO_XY_PLANE: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXYPlane"));
+
+pub const GEO3_D_PARALLEL_TO_XZ_PLANE: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXZPlane"));
+
+pub const GEO3_D_PARALLEL_TO_Y_AXIS: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYAxis"));
+
+pub const GEO3_D_PARALLEL_TO_YZ_PLANE: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYZPlane"));
+
+pub const GEO3_D_PARALLEL_TO_Z_AXIS: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToZAxis"));
+
+pub const GEO3_D_PERPENDICULAR: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
+
+pub const GEO3_D_SMOOTH: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("smooth"));
+
+pub const GEO3_D_SPLINE_FIT_POINTS: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("splineFitPoints"));
+
+pub const GEO3_D_TANGENT: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("tangent"));
+
+pub const GEO3_D_UNKNOWN: crate::types::Geometric3DConstraintKind =
+    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("unknown"));
+
+pub const GEO_CONSTRAINT_COINCIDENT: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("coincident"));
+
+pub const GEO_CONSTRAINT_COLLINEAR: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("collinear"));
+
+pub const GEO_CONSTRAINT_CONCENTRIC: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("concentric"));
+
+pub const GEO_CONSTRAINT_CUSTOM: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("custom"));
+
+pub const GEO_CONSTRAINT_EQUAL_LENGTH: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalLength"));
+
+pub const GEO_CONSTRAINT_EQUAL_RADIUS: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalRadius"));
+
+pub const GEO_CONSTRAINT_FIX: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("fix"));
+
+pub const GEO_CONSTRAINT_GROUND: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("ground"));
+
+pub const GEO_CONSTRAINT_HORIZONTAL: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontal"));
+
+pub const GEO_CONSTRAINT_HORIZONTAL_ALIGN: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontalAlign"));
+
+pub const GEO_CONSTRAINT_MIDPOINT: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
+
+pub const GEO_CONSTRAINT_OFFSET: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("offset"));
+
+pub const GEO_CONSTRAINT_PARALLEL: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("parallel"));
+
+pub const GEO_CONSTRAINT_PATTERN: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("patternLink"));
+
+pub const GEO_CONSTRAINT_PERPENDICULAR: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
+
+pub const GEO_CONSTRAINT_POINT_ON_CIRCLE: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnCircle"));
+
+pub const GEO_CONSTRAINT_POINT_ON_LINE: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnLine"));
+
+pub const GEO_CONSTRAINT_SMOOTH: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("smooth"));
+
+pub const GEO_CONSTRAINT_SYMMETRY: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("symmetry"));
+
+pub const GEO_CONSTRAINT_TANGENT: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("tangent"));
+
+pub const GEO_CONSTRAINT_TEXT_BOX: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("textBox"));
+
+pub const GEO_CONSTRAINT_UNKNOWN: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("unknown"));
+
+pub const GEO_CONSTRAINT_VERTICAL: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("vertical"));
+
+pub const GEO_CONSTRAINT_VERTICAL_ALIGN: crate::types::GeometricConstraintKind =
+    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("verticalAlign"));
+
+generated_scalar! { string,
+#[doc = "```text\nGeometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —\nthe value of [oblikovati.org/api/wire.AddSketch3DConstraintArgs.Kind] and of\neach enumerated 3D constraint's Kind. String values are frozen. Members are wired in\nacross M22-F05.\n```"]
+pub struct Geometric3DConstraintKind(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nGeometricCharacteristic is the geometric-tolerance symbol carried by a feature-control\nframe in a model GD&T annotation (parity: GeometricCharacteristicEnum). The values are the\nreference API's frozen bit ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it (ADR-0018).\nUsed by the model-tolerance carrier (a metadata feature; #866).\n```"]
+pub struct GeometricCharacteristic(pub i32);
+}
+
+generated_scalar! { string,
+#[doc = "```text\nGeometricConstraintKind discriminates a sketch geometric (non-dimensional)\nconstraint. Used by [oblikovati.org/api/wire.AddConstraintArgs.Kind] and by\nthe enumerated constraint's Kind. String values are frozen.\n```"]
+pub struct GeometricConstraintKind(pub std::borrow::Cow<'static, str>);
+}
+
+#[doc = "```text\nGeometricEdgeRef names a B-rep edge by WHERE it sits — its midpoint and a sign-agnostic\ndirection — rather than by an Oblikovati lineage key (ADR-0040). It is the external author's\npath to a topology selection: an exporter reading another CAD system knows the edge's geometry,\nnot Oblikovati's internally-minted lineage. The host re-binds it to the running body each\nrecompute by geometric nearness (topo.FindEdgeByGeometry), returning it only when it is\nunambiguous. Coordinates are model space (database units, centimetres).\n\nA work-feature reference string carries this descriptor via [GeometricEdgeRef.Ref]; the same\nstring can equally be a lineage-key edge reference (\"edge/…\") produced by an interactive pick —\nboth resolve through the host's edge resolver. Use it wherever a work-axis/point create takes an\nedge reference (analytic-edge / line-by-entity axis, edge-midpoint point).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct GeometricEdgeRef {
+    #[doc = "```text\na point on the edge, model cm\n```"]
+    #[serde(
+        rename = "midpoint",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub midpoint: [f64; 3],
+    #[doc = "```text\nthe edge tangent (orientation only; sign ignored)\n```"]
+    #[serde(
+        rename = "direction",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub direction: [f64; 3],
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nGeometryMoveableStatus answers \"can this sketch entity be dragged?\" for\ninteractive tools — derived from the solver's per-entity constraint\nanalysis (M06-F11, Oblikovati/Oblikovati#626).\n\nThe values are a frozen block matching the reference API's\ngeometry-moveable-status enum; never renumber them.\n```"]
+pub struct GeometryMoveableStatus(pub i32);
+}
+
+pub const GOOD_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
+    crate::types::RayTracingQualityEnum(95746);
+
+pub const GRADIENT_BACKGROUND: crate::types::BackgroundTypeEnum =
+    crate::types::BackgroundTypeEnum(52738);
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsColorBinding says how a primitive's colors map onto its geometry. With\nper-vertex each vertex carries its own color (the heatmap case); overall uses the\nsingle primitive color; per-item colors each line/triangle.\n```"]
+pub struct GraphicsColorBinding(pub std::borrow::Cow<'static, str>);
+}
+
+pub const GRAPHICS_COLOR_OVERALL: crate::types::GraphicsColorBinding =
+    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("overall"));
+
+pub const GRAPHICS_COLOR_PER_ITEM: crate::types::GraphicsColorBinding =
+    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("perItem"));
+
+pub const GRAPHICS_COLOR_PER_VERTEX: crate::types::GraphicsColorBinding =
+    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("perVertex"));
+
+pub const GRAPHICS_CURVE: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("curve"));
+
+pub const GRAPHICS_IMAGE: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("image"));
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsLane selects which display lane a graphics group lives in — the bridge between\nthe two graphics surfaces. \"persistent\" is client graphics (document-owned, lives until\ndeleted); \"overlay\" and \"preview\" are the interaction-graphics lanes (command-scoped,\ncleared when the interaction ends). Overlay graphics draw on top of the scene\n(depth-test off); preview graphics draw depth-tested with the scene.\n```"]
+pub struct GraphicsLane(pub std::borrow::Cow<'static, str>);
+}
+
+pub const GRAPHICS_LANE_OVERLAY: crate::types::GraphicsLane =
+    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("overlay"));
+
+pub const GRAPHICS_LANE_PERSISTENT: crate::types::GraphicsLane =
+    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("persistent"));
+
+pub const GRAPHICS_LANE_PREVIEW: crate::types::GraphicsLane =
+    crate::types::GraphicsLane(std::borrow::Cow::Borrowed("preview"));
+
+pub const GRAPHICS_LINE_CONTINUOUS: crate::types::GraphicsLineType =
+    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("continuous"));
+
+pub const GRAPHICS_LINE_DASHED: crate::types::GraphicsLineType =
+    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("dashed"));
+
+pub const GRAPHICS_LINE_DOTTED: crate::types::GraphicsLineType =
+    crate::types::GraphicsLineType(std::borrow::Cow::Borrowed("dotted"));
+
+pub const GRAPHICS_LINE_STRIP: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("lineStrip"));
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsLineType is a line primitive's dash pattern (a subset of the line-type styles).\n```"]
+pub struct GraphicsLineType(pub std::borrow::Cow<'static, str>);
+}
+
+pub const GRAPHICS_LINES: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("lines"));
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsNormalBinding says how normals map onto a triangle primitive. Per-vertex\ngives smooth shading; overall a single face normal.\n```"]
+pub struct GraphicsNormalBinding(pub std::borrow::Cow<'static, str>);
+}
+
+pub const GRAPHICS_NORMAL_OVERALL: crate::types::GraphicsNormalBinding =
+    crate::types::GraphicsNormalBinding(std::borrow::Cow::Borrowed("overall"));
+
+pub const GRAPHICS_NORMAL_PER_VERTEX: crate::types::GraphicsNormalBinding =
+    crate::types::GraphicsNormalBinding(std::borrow::Cow::Borrowed("perVertex"));
+
+pub const GRAPHICS_POINT_CIRCLE: crate::types::GraphicsPointStyle =
+    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("circle"));
+
+pub const GRAPHICS_POINT_CROSS: crate::types::GraphicsPointStyle =
+    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("cross"));
+
+pub const GRAPHICS_POINT_DOT: crate::types::GraphicsPointStyle =
+    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("dot"));
+
+pub const GRAPHICS_POINT_PLUS: crate::types::GraphicsPointStyle =
+    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("plus"));
+
+pub const GRAPHICS_POINT_SQUARE: crate::types::GraphicsPointStyle =
+    crate::types::GraphicsPointStyle(std::borrow::Cow::Borrowed("square"));
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsPointStyle is the glyph drawn for a points primitive (a subset of the point\nrender styles). The host expands each point into screen-constant glyph geometry.\n```"]
+pub struct GraphicsPointStyle(pub std::borrow::Cow<'static, str>);
+}
+
+pub const GRAPHICS_POINTS: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("points"));
+
+generated_scalar! { string,
+#[doc = "```text\nGraphicsPrimitiveKind names the topology of one graphics primitive (line, point,\ntriangle, or text graphics). It is the discriminator\nof a [oblikovati.org/api/wire.GraphicsPrimitive].\n```"]
+pub struct GraphicsPrimitiveKind(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nGraphicsSelectabilityEnum is whether none, some, or all of a graphics node's geometry can be\npicked. Frozen ids 25345–25347.\n```"]
+pub struct GraphicsSelectabilityEnum(pub i32);
+}
+
+pub const GRAPHICS_SURFACE: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("surface"));
+
+pub const GRAPHICS_TEXT: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("text"));
+
+pub const GRAPHICS_TRIANGLE_FAN: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangleFan"));
+
+pub const GRAPHICS_TRIANGLE_STRIP: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangleStrip"));
+
+pub const GRAPHICS_TRIANGLES: crate::types::GraphicsPrimitiveKind =
+    crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangles"));

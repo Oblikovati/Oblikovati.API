@@ -3,451 +3,458 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nOccurrencePatternSuppression reports how much of an occurrence pattern is suppressed\n(parity: OccurrencePatternSuppressionEnum). It is a derived read state, not a request:\nsuppressing the pattern or its elements moves it between these.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct OccurrencePatternSuppression(pub i32);
-
-#[doc = "```text\nOffsetCornerClosureType selects how a planar wire offset closes a gap\ncorner (Wire.OffsetPlanarWire).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct OffsetCornerClosureType(pub i32);
-
-pub const ON_CONTAINMENT: crate::types::Containment = crate::types::Containment(30979);
-
-pub const ON_CURVE_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20232);
-
-pub const ONE_COLOR_BACKGROUND: crate::types::BackgroundTypeEnum =
-    crate::types::BackgroundTypeEnum(52737);
-
-#[doc = "```text\nOpenPBRBase groups OpenPBR Surface's Base parameter group (spec §Base,\nparametrization.md.html) — the diffuse/metal foundation lobe every other layer sits on\ntop of. Field defaults mirror the spec's table exactly; see [DefaultOpenPBRBase].\n```"]
+#[doc = "```text\nThermal groups a material's heat-related properties.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
-pub struct OpenPBRBase {
-    #[doc = "```text\nbase_weight, [0,1]\n```"]
+pub struct Thermal {
+    #[doc = "```text\nW/(m·K)\n```"]
     #[serde(
-        rename = "weight",
+        rename = "conductivity",
         serialize_with = "crate::json::finite::serialize",
         deserialize_with = "crate::json::null_default"
     )]
-    pub weight: f32,
-    #[doc = "```text\nbase_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\nbase_metalness, [0,1]\n```"]
+    pub conductivity: f64,
+    #[doc = "```text\n1/K (linear)\n```"]
     #[serde(
-        rename = "metalness",
+        rename = "expansionCoeff",
         serialize_with = "crate::json::finite::serialize",
         deserialize_with = "crate::json::null_default"
     )]
-    pub metalness: f32,
-    #[doc = "```text\nbase_diffuse_roughness, [0,1]\n```"]
+    pub expansion_coeff: f64,
+    #[doc = "```text\nJ/(kg·K)\n```"]
     #[serde(
-        rename = "diffuseRoughness",
+        rename = "specificHeat",
         serialize_with = "crate::json::finite::serialize",
         deserialize_with = "crate::json::null_default"
     )]
-    pub diffuse_roughness: f32,
+    pub specific_heat: f64,
 }
 
-#[doc = "```text\nOpenPBRCoat groups OpenPBR Surface's Coat parameter group (spec §Coat) — a clear\ndielectric layer above everything else (Base, Specular, Transmission, Subsurface). IOR\nhas norm range [1,3] though its full range is (0,∞). Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRCoat].\n```"]
+pub const THREAD_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(2);
+
+pub const THREAD_MAJOR_DIAMETER: crate::types::ModelDiameterFromThread =
+    crate::types::ModelDiameterFromThread(21761);
+
+pub const THREAD_MINOR_DIAMETER: crate::types::ModelDiameterFromThread =
+    crate::types::ModelDiameterFromThread(21762);
+
+pub const THREAD_PITCH_DIAMETER: crate::types::ModelDiameterFromThread =
+    crate::types::ModelDiameterFromThread(21763);
+
+pub const THREAD_TAP_DRILL_DIAMETER: crate::types::ModelDiameterFromThread =
+    crate::types::ModelDiameterFromThread(21764);
+
+pub const THREE_QUARTER_SECTION_VIEW: crate::types::SectionViewType =
+    crate::types::SectionViewType(3);
+
+pub const THUMBNAIL_ACTIVE_WINDOW: crate::types::ThumbnailSaveOption =
+    crate::types::ThumbnailSaveOption(79876);
+
+pub const THUMBNAIL_ACTIVE_WINDOW_ON_SAVE: crate::types::ThumbnailSaveOption =
+    crate::types::ThumbnailSaveOption(79875);
+
+pub const THUMBNAIL_IMPORT_FROM_FILE: crate::types::ThumbnailSaveOption =
+    crate::types::ThumbnailSaveOption(79877);
+
+pub const THUMBNAIL_ISO_VIEW_ON_SAVE: crate::types::ThumbnailSaveOption =
+    crate::types::ThumbnailSaveOption(79874);
+
+pub const THUMBNAIL_NONE: crate::types::ThumbnailSaveOption =
+    crate::types::ThumbnailSaveOption(79873);
+
+generated_scalar! { integer,
+#[doc = "```text\nThumbnailSaveOption controls whether and how a preview thumbnail is captured\nwhen a document is saved (M03-F09, Oblikovati/Oblikovati#610). Thumbnails are\ngit-ignored sidecar images, never document content (ADR-0020).\n\nThe values are a frozen block matching the reference API's thumbnail-save\nenum; never renumber them. A host may implement a subset and reject the\nrest when the save options are written.\n```"]
+pub struct ThumbnailSaveOption(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nTitleBlockLocation is the sheet corner a title block sits in (the reference CAD API's TitleBlockLocationEnum).\nThe zero value is BottomRightTitleBlock, the drafting default.\n```"]
+pub struct TitleBlockLocation(pub i32);
+}
+
+pub const TOGGLE_CONTROL: crate::types::ControlKind = crate::types::ControlKind(1);
+
+pub const TOKEN_CHROME_ACCENT: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.accent"));
+
+pub const TOKEN_CHROME_BORDER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.border"));
+
+pub const TOKEN_CHROME_BUTTON: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.button"));
+
+pub const TOKEN_CHROME_BUTTON_ACTIVE: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.button_active"));
+
+pub const TOKEN_CHROME_BUTTON_HOVER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.button_hover"));
+
+pub const TOKEN_CHROME_CONTROL_ACTIVE: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.control_active"));
+
+pub const TOKEN_CHROME_CONTROL_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.control_bg"));
+
+pub const TOKEN_CHROME_CONTROL_HOVER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.control_hover"));
+
+pub const TOKEN_CHROME_DANGER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.danger"));
+
+pub const TOKEN_CHROME_HEADER_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.header_bg"));
+
+pub const TOKEN_CHROME_MENU_BAR_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.menu_bar_bg"));
+
+pub const TOKEN_CHROME_PANEL_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.panel_bg"));
+
+pub const TOKEN_CHROME_POPUP_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.popup_bg"));
+
+pub const TOKEN_CHROME_SCROLLBAR: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.scrollbar"));
+
+pub const TOKEN_CHROME_TEXT: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.text"));
+
+pub const TOKEN_CHROME_TEXT_DISABLED: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.text_disabled"));
+
+pub const TOKEN_CHROME_WINDOW_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("chrome.window_bg"));
+
+pub const TOKEN_DIMENSION_DRIVEN: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.dimension_driven"));
+
+pub const TOKEN_DIMENSION_DRIVING: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.dimension_driving"));
+
+pub const TOKEN_DIMENSION_SKETCH: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.dimension_sketch"));
+
+pub const TOKEN_GRID_AXIS: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.grid_axis"));
+
+pub const TOKEN_GRID_MAJOR: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.grid_major"));
+
+pub const TOKEN_GRID_MINOR: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.grid_minor"));
+
+pub const TOKEN_ICON_BACKGROUND: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("icon.background"));
+
+pub const TOKEN_ICON_PRIMARY: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("icon.primary"));
+
+pub const TOKEN_ICON_SECONDARY: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("icon.secondary"));
+
+pub const TOKEN_ICON_TERTIARY: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("icon.tertiary"));
+
+pub const TOKEN_PLANE_FAINT: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("gizmo.plane_faint"));
+
+pub const TOKEN_PLANE_FILL: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("gizmo.plane_fill"));
+
+pub const TOKEN_PLANE_HOVER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("gizmo.plane_hover"));
+
+pub const TOKEN_PLANE_SELECTED: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("gizmo.plane_selected"));
+
+pub const TOKEN_SELECTION_HIGHLIGHT: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("gizmo.selection_highlight"));
+
+pub const TOKEN_SKETCH_CANDIDATE: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_candidate"));
+
+pub const TOKEN_SKETCH_GEOMETRY: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_geometry"));
+
+pub const TOKEN_SKETCH_PREVIEW: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_preview"));
+
+pub const TOKEN_SKETCH_SELECTED: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_selected"));
+
+pub const TOKEN_SNAP_GLYPH: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.snap_glyph"));
+
+pub const TOKEN_VIEWPORT_ACTIVE_BORDER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.active_border"));
+
+pub const TOKEN_VIEWPORT_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.bg"));
+
+#[doc = "```text\nTolerance is an engineering tolerance: a flavor plus the deviation band from the nominal\nvalue (Upper, Lower, database units). The zero Tolerance means \"standard/default tolerance,\nno explicit band\"; [Tolerance.Kind] maps the zero Type onto [ToleranceDefault], so a\n`t != Tolerance{}` has-explicit-tolerance check keeps working. Which value within the band\nthe model consumes is the parameter's [ModelValueType] (the reference API splits\nTolerance.ToleranceType from Parameter.ModelValueType).\n\nHoleTolerance and ShaftTolerance are the ISO limits-and-fits class strings (e.g. \"H7\",\n\"g6\") for a fits tolerance (parity: Tolerance.HoleTolerance/ShaftTolerance, #1848); they\nare empty for the non-fits flavors. Both are plain comparable strings, so Tolerance stays\ncomparable (the `t != Tolerance{}` guard is preserved).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
-pub struct OpenPBRCoat {
-    #[doc = "```text\ncoat_weight, [0,1]\n```"]
+pub struct Tolerance {
+    #[serde(rename = "Type", deserialize_with = "crate::json::null_default")]
+    pub type_: crate::types::ToleranceType,
     #[serde(
-        rename = "weight",
+        rename = "Upper",
         serialize_with = "crate::json::finite::serialize",
         deserialize_with = "crate::json::null_default"
     )]
-    pub weight: f32,
-    #[doc = "```text\ncoat_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\ncoat_roughness, [0,1]\n```"]
+    pub upper: f64,
     #[serde(
-        rename = "roughness",
+        rename = "Lower",
         serialize_with = "crate::json::finite::serialize",
         deserialize_with = "crate::json::null_default"
     )]
-    pub roughness: f32,
-    #[doc = "```text\ncoat_roughness_anisotropy, [0,1]\n```"]
+    pub lower: f64,
     #[serde(
-        rename = "roughnessAnisotropy",
-        serialize_with = "crate::json::finite::serialize",
+        rename = "HoleTolerance",
         deserialize_with = "crate::json::null_default"
     )]
-    pub roughness_anisotropy: f32,
-    #[doc = "```text\ncoat_ior, (0,∞), norm [1,3]\n```"]
+    pub hole_tolerance: String,
     #[serde(
-        rename = "ior",
-        serialize_with = "crate::json::finite::serialize",
+        rename = "ShaftTolerance",
         deserialize_with = "crate::json::null_default"
     )]
-    pub ior: f32,
-    #[doc = "```text\ncoat_darkening, [0,1]\n```"]
-    #[serde(
-        rename = "darkening",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub darkening: f32,
+    pub shaft_tolerance: String,
 }
 
-#[doc = "```text\nOpenPBREmission groups OpenPBR Surface's Emission parameter group (spec §Emission) —\nself-emitted radiance, independent of every reflective/transmissive lobe. Luminance is\nin nits (cd/m²) with norm range [0,1000] though its full range is [0,∞); Color is\nunbounded above (unlike every other Color3 field in this package's OpenPBR groups).\nField defaults mirror the spec's table exactly; see [DefaultOpenPBREmission].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBREmission {
-    #[doc = "```text\nemission_luminance, [0,∞), nits, norm [0,1000]\n```"]
-    #[serde(
-        rename = "luminance",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub luminance: f32,
-    #[doc = "```text\nemission_color, [0,∞)^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
+pub const TOLERANCE_BASIC: crate::types::ToleranceType = crate::types::ToleranceType(31245);
+
+pub const TOLERANCE_DEFAULT: crate::types::ToleranceType = crate::types::ToleranceType(31233);
+
+pub const TOLERANCE_DEVIATION: crate::types::ToleranceType = crate::types::ToleranceType(31236);
+
+pub const TOLERANCE_LIMIT_LINEAR: crate::types::ToleranceType = crate::types::ToleranceType(31238);
+
+pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
+    crate::types::ToleranceType(31242);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_SIZE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31243);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_TOLERANCE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31244);
+
+pub const TOLERANCE_LIMITS_FITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31241);
+
+pub const TOLERANCE_LIMITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31237);
+
+pub const TOLERANCE_MAX: crate::types::ToleranceType = crate::types::ToleranceType(31239);
+
+pub const TOLERANCE_MIN: crate::types::ToleranceType = crate::types::ToleranceType(31240);
+
+pub const TOLERANCE_OVERRIDE: crate::types::ToleranceType = crate::types::ToleranceType(31234);
+
+pub const TOLERANCE_REFERENCE: crate::types::ToleranceType = crate::types::ToleranceType(31246);
+
+pub const TOLERANCE_SYMMETRIC: crate::types::ToleranceType = crate::types::ToleranceType(31235);
+
+generated_scalar! { integer,
+#[doc = "```text\nToleranceType is the engineering-tolerance flavor attached to a parameter or\ndimension (parity: ToleranceTypeEnum). The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases\nit (ADR-0018).\n```"]
+pub struct ToleranceType(pub i32);
 }
 
-#[doc = "```text\nOpenPBRFuzz groups OpenPBR Surface's Fuzz parameter group (spec §Fuzz) — a\nsheen/velvet-like retroreflective lobe (Zeltner sheen BRDF) layered above Coat. Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRFuzz].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRFuzz {
-    #[doc = "```text\nfuzz_weight, [0,1]\n```"]
-    #[serde(
-        rename = "weight",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight: f32,
-    #[doc = "```text\nfuzz_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\nfuzz_roughness, [0,1]\n```"]
-    #[serde(
-        rename = "roughness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub roughness: f32,
+pub const TOP_LEFT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(2);
+
+pub const TOP_RIGHT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(3);
+
+pub const TOP_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10754);
+
+pub const TORUS_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5895);
+
+generated_scalar! { integer,
+#[doc = "```text\nTransactionPoint identifies a position on a document's transaction stream\nrelative to the cursor — which step a transaction event or navigation acts\non. A committed edit acts on the current point, undo acts on the previous\none, redo on the next (M04-F05, Oblikovati/Oblikovati#613).\n\nThe values are a frozen block matching the reference API's transaction-point\nenum; never renumber them.\n```"]
+pub struct TransactionPoint(pub i32);
 }
 
-#[doc = "```text\nOpenPBRGeometry groups OpenPBR Surface's Geometry parameter group (spec §Geometry) —\nsurface-level overrides that apply regardless of which lobes are active. Normal/Tangent/\nCoatNormal/CoatTangent are nil by default (\"unperturbed\": use the surface's own\ngeometric normal/tangent); a non-nil override is a per-point perturbation (e.g. a normal\nmap), not a per-appearance constant, but the constant form is represented the same way.\nField defaults mirror the spec's table exactly; see [DefaultOpenPBRGeometry].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRGeometry {
-    #[doc = "```text\ngeometry_opacity, [0,1]\n```"]
-    #[serde(
-        rename = "opacity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub opacity: f32,
-    #[doc = "```text\ngeometry_thin_walled\n```"]
-    #[serde(rename = "thinWalled", deserialize_with = "crate::json::null_default")]
-    pub thin_walled: bool,
-    #[doc = "```text\ngeometry_normal\n```"]
-    #[serde(
-        rename = "normal",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub normal: Option<Box<crate::types::Vector>>,
-    #[doc = "```text\ngeometry_tangent\n```"]
-    #[serde(
-        rename = "tangent",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tangent: Option<Box<crate::types::Vector>>,
-    #[doc = "```text\ngeometry_coat_normal\n```"]
-    #[serde(
-        rename = "coatNormal",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub coat_normal: Option<Box<crate::types::Vector>>,
-    #[doc = "```text\ngeometry_coat_tangent\n```"]
-    #[serde(
-        rename = "coatTangent",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub coat_tangent: Option<Box<crate::types::Vector>>,
+pub const TRANSACTION_POINT_CURRENT: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3588);
+
+pub const TRANSACTION_POINT_NEXT: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3586);
+
+pub const TRANSACTION_POINT_PREVIOUS: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3587);
+
+pub const TRANSACTION_POINT_UNKNOWN: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3585);
+
+pub const TRANSACTION_POINT_UP_TO_SPECIFIED: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3589);
+
+pub const TRANSIENT_CLIENT_GRAPHICS: crate::types::ClientGraphicsTypeEnum =
+    crate::types::ClientGraphicsTypeEnum(45313);
+
+pub const TRANSLATOR_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(1);
+
+generated_scalar! { integer,
+#[doc = "```text\nTransparencyTypeEnum is how transparency is rendered: per-pixel alpha blending or a\nscreen-door (stipple) approximation. Frozen ids 58625–58626.\n```"]
+pub struct TransparencyTypeEnum(pub i32);
 }
 
-#[doc = "```text\nOpenPBRSpecular groups OpenPBR Surface's Specular parameter group (spec §Specular) — the\ndielectric microfacet lobe layered over Base. Weight has norm range [0,1] though its full\nrange is unbounded; IOR has norm range [1,3] though its full range is (0,∞). Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRSpecular].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRSpecular {
-    #[doc = "```text\nspecular_weight, [0,∞), norm [0,1]\n```"]
-    #[serde(
-        rename = "weight",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight: f32,
-    #[doc = "```text\nspecular_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\nspecular_roughness, [0,1]\n```"]
-    #[serde(
-        rename = "roughness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub roughness: f32,
-    #[doc = "```text\nspecular_roughness_anisotropy, [0,1]\n```"]
-    #[serde(
-        rename = "roughnessAnisotropy",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub roughness_anisotropy: f32,
-    #[doc = "```text\nspecular_ior, (0,∞), norm [1,3]\n```"]
-    #[serde(
-        rename = "ior",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ior: f32,
+pub const TRANSVERSELY_ISOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("transversely-isotropic"));
+
+pub const TRIAD_FREE: crate::types::TriadMoveType = crate::types::TriadMoveType(3);
+
+generated_scalar! { integer,
+#[doc = "```text\nTriadMoveType is the motion a drag produces — the TriadMoveTypeEnum equivalent.\n```"]
+pub struct TriadMoveType(pub u8);
+}
+impl From<u8> for TriadMoveType {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<TriadMoveType> for u8 {
+    fn from(value: TriadMoveType) -> Self {
+        value.0
+    }
 }
 
-#[doc = "```text\nOpenPBRSubsurface groups OpenPBR Surface's Subsurface parameter group (spec\n§Subsurface) — volumetric subsurface scattering coupled to the Base diffuse lobe.\nRadius is in scene length units; norm range [0,1]. Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRSubsurface].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRSubsurface {
-    #[doc = "```text\nsubsurface_weight, [0,1]\n```"]
-    #[serde(
-        rename = "weight",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight: f32,
-    #[doc = "```text\nsubsurface_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\nsubsurface_radius, [0,∞), length, norm [0,1]\n```"]
-    #[serde(
-        rename = "radius",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: f32,
-    #[doc = "```text\nsubsurface_radius_scale, [0,1]^3\n```"]
-    #[serde(rename = "radiusScale", deserialize_with = "crate::json::null_default")]
-    pub radius_scale: crate::types::Color3,
-    #[doc = "```text\nsubsurface_scatter_anisotropy, [-1,1]\n```"]
-    #[serde(
-        rename = "scatterAnisotropy",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub scatter_anisotropy: f32,
+pub const TRIAD_ORIGIN: crate::types::TriadSegment = crate::types::TriadSegment(0);
+
+pub const TRIAD_ROTATE: crate::types::TriadMoveType = crate::types::TriadMoveType(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nTriadSegment is the part of the move/rotate triad the user grabbed — the\nTriadSegmentEnum equivalent (M05-F13, #620).\n```"]
+pub struct TriadSegment(pub u8);
+}
+impl From<u8> for TriadSegment {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<TriadSegment> for u8 {
+    fn from(value: TriadSegment) -> Self {
+        value.0
+    }
 }
 
-#[doc = "```text\nOpenPBRThinFilm groups OpenPBR Surface's Thin-film parameter group (spec §Thin-film) —\nwavelength-dependent iridescence from a microscopically thin dielectric film over\nSpecular/Base (Airy-summation interference). Thickness is in micrometres, norm range\n[0,1]. IOR has norm range [1,3] though its full range is (0,∞). Field defaults mirror\nthe spec's table exactly; see [DefaultOpenPBRThinFilm].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRThinFilm {
-    #[doc = "```text\nthin_film_weight, [0,1]\n```"]
-    #[serde(
-        rename = "weight",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight: f32,
-    #[doc = "```text\nthin_film_thickness, [0,∞), µm, norm [0,1]\n```"]
-    #[serde(
-        rename = "thickness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub thickness: f32,
-    #[doc = "```text\nthin_film_ior, (0,∞), norm [1,3]\n```"]
-    #[serde(
-        rename = "ior",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ior: f32,
+pub const TRIAD_TRANSLATE: crate::types::TriadMoveType = crate::types::TriadMoveType(0);
+
+pub const TRIAD_TRANSLATE_PLANAR: crate::types::TriadMoveType = crate::types::TriadMoveType(1);
+
+pub const TRIAD_X_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(1);
+
+pub const TRIAD_X_RING: crate::types::TriadSegment = crate::types::TriadSegment(7);
+
+pub const TRIAD_XY_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(4);
+
+pub const TRIAD_XZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(6);
+
+pub const TRIAD_Y_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(2);
+
+pub const TRIAD_Y_RING: crate::types::TriadSegment = crate::types::TriadSegment(8);
+
+pub const TRIAD_YZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(5);
+
+pub const TRIAD_Z_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(3);
+
+pub const TRIAD_Z_RING: crate::types::TriadSegment = crate::types::TriadSegment(9);
+
+pub const TRIM_SOLID_SPLIT: crate::types::SplitType = crate::types::SplitType(32769);
+
+pub const TRIM_TO_BEND_BEND_TRANSITION: crate::types::BendTransition =
+    crate::types::BendTransition(4);
+
+pub const UNDEFINED_EDGE_COLLECTION: crate::types::EdgeCollectionKind =
+    crate::types::EdgeCollectionKind(27652);
+
+generated_scalar! { integer,
+#[doc = "```text\nUnfoldMethodType names how a bend's flat length (its bend allowance) is computed when\nthe part is developed into its flat pattern. The three methods are the industry\nstandard set: a single K-factor, a per-angle bend table, or a custom equation.\n```"]
+pub struct UnfoldMethodType(pub i32);
 }
 
-#[doc = "```text\nOpenPBRTransmission groups OpenPBR Surface's Transmission parameter group (spec\n§Transmission) — dielectric refraction through the Base layer, with volumetric\nscattering/absorption and physical dispersion. Depth is in scene length units; norm\nrange [0,1]. Abbe number has norm range [9,91] (its full range is (0,∞)). Field defaults\nmirror the spec's table exactly; see [DefaultOpenPBRTransmission].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OpenPBRTransmission {
-    #[doc = "```text\ntransmission_weight, [0,1]\n```"]
-    #[serde(
-        rename = "weight",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight: f32,
-    #[doc = "```text\ntransmission_color, [0,1]^3\n```"]
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Color3,
-    #[doc = "```text\ntransmission_depth, [0,∞), length, norm [0,1]\n```"]
-    #[serde(
-        rename = "depth",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub depth: f32,
-    #[doc = "```text\ntransmission_scatter, [0,1]^3\n```"]
-    #[serde(rename = "scatter", deserialize_with = "crate::json::null_default")]
-    pub scatter: crate::types::Color3,
-    #[doc = "```text\ntransmission_scatter_anisotropy, [-1,1]\n```"]
-    #[serde(
-        rename = "scatterAnisotropy",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub scatter_anisotropy: f32,
-    #[doc = "```text\ntransmission_dispersion_scale, [0,1]\n```"]
-    #[serde(
-        rename = "dispersionScale",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dispersion_scale: f32,
-    #[doc = "```text\ntransmission_dispersion_abbe_number, (0,∞), norm [9,91]\n```"]
-    #[serde(
-        rename = "dispersionAbbeNumber",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dispersion_abbe_number: f32,
+pub const UNIQUE_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(1);
+
+pub const UNITS_ANGLE: crate::types::UnitsType = crate::types::UnitsType(2);
+
+pub const UNITS_AREA: crate::types::UnitsType = crate::types::UnitsType(3);
+
+pub const UNITS_LENGTH: crate::types::UnitsType = crate::types::UnitsType(1);
+
+pub const UNITS_MASS: crate::types::UnitsType = crate::types::UnitsType(5);
+
+pub const UNITS_TIME: crate::types::UnitsType = crate::types::UnitsType(6);
+
+generated_scalar! { integer,
+#[doc = "```text\nUnitsType is the dimension category of a measured value (parity:\nValueUnitsTypeEnum) — the kind of quantity a unit name belongs to, as opposed\nto the unit name itself (\"mm\", \"in\"). It is carried on the wire by its\nspelling (UnitsType.String()); the numeric ids are stable and must never be\nrenumbered.\n\nThis is the canonical, Apache-2.0 definition. The host's parameter engine has\nits own richer internal category type (which also models non-arithmetic flag/\ntext values); it maps to and from these spellings at the wire boundary.\n```"]
+pub struct UnitsType(pub i32);
 }
 
-#[doc = "```text\nOrbitTypeEnum is how the orbit gesture is constrained: a free (trackball) orbit or a\nconstrained (turntable) orbit about vertical. Frozen ids 86017–86018.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct OrbitTypeEnum(pub i32);
+pub const UNITS_UNITLESS: crate::types::UnitsType = crate::types::UnitsType(0);
 
-pub const ORDINATE_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(6);
+pub const UNITS_VOLUME: crate::types::UnitsType = crate::types::UnitsType(4);
 
-pub const ORIENT_IDENTICAL: crate::types::PatternOrientation =
-    crate::types::PatternOrientation(33793);
+pub const UNKNOWN_CONTAINMENT: crate::types::Containment = crate::types::Containment(30977);
 
-pub const ORIENT_TO_DIRECTION1: crate::types::PatternOrientation =
-    crate::types::PatternOrientation(33794);
+pub const UNKNOWN_CURVE: crate::types::CurveType = crate::types::CurveType(5121);
 
-pub const ORIENT_TO_DIRECTION2: crate::types::PatternOrientation =
-    crate::types::PatternOrientation(33795);
+pub const UNKNOWN_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5249);
 
-#[doc = "```text\nOrientedBox is a box aligned to its own orthonormal frame: corner point plus\nthree edge DIRECTIONS with per-axis extents (the reference's corner+vectors\nform, expressed with the unit/length split kept explicit).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct OrientedBox {
-    #[serde(rename = "corner")]
-    pub corner: crate::types::Point,
-    #[serde(rename = "xAxis")]
-    pub x_axis: crate::types::UnitVector,
-    #[serde(rename = "yAxis")]
-    pub y_axis: crate::types::UnitVector,
-    #[serde(rename = "zAxis")]
-    pub z_axis: crate::types::UnitVector,
-    #[doc = "```text\nedge lengths along the three axes\n```"]
-    #[serde(rename = "extents")]
-    pub extents: crate::types::Vector,
+pub const UNKNOWN_DOCUMENT_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("UnknownDocument"));
+
+pub const UNKNOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(0);
+
+pub const UNKNOWN_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
+    crate::types::FlatPatternFaceType(0);
+
+pub const UNKNOWN_SOLUTION_NATURE: crate::types::SolutionNature = crate::types::SolutionNature(0);
+
+pub const UNKNOWN_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5889);
+
+pub const UNKNOWN_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117761);
+
+pub const UNKNOWN_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9217);
+
+pub const UP_TO_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103171);
+
+pub const USER_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nValueType is the type tag of a [Variant]. Numeric values are FROZEN to the\nreference ValueTypeEnum — clients and saved automations depend on them.\n```"]
+pub struct ValueType(pub i32);
 }
 
-pub const ORTHOGRAPHIC_PROJECTION: crate::types::ProjectionTypeEnum =
-    crate::types::ProjectionTypeEnum(86273);
+pub const VERTICAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(1);
 
-pub const ORTHOTROPIC: crate::types::IsotropyClass =
-    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("orthotropic"));
+pub const VERTICAL_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(2);
 
-pub const OUT_OF_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
-    crate::types::CachedGraphicsStatusEnum(103170);
+pub const VERTICAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
+    crate::types::DrawingViewAlignment(2);
 
-pub const OUTSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30980);
+pub const VERTICAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117764);
 
-pub const OVER_CONSTRAINED_APPLY_DRIVEN: crate::types::OverConstrainedDimensionBehavior =
-    crate::types::OverConstrainedDimensionBehavior(0);
+generated_scalar! { integer,
+#[doc = "```text\nViewJustification is how a view centres itself on recompute (the reference CAD API's ViewJustificationEnum). The\nzero value is CenteredViewJustification.\n```"]
+pub struct ViewJustification(pub i32);
+}
 
-pub const OVER_CONSTRAINED_APPLY_DRIVING: crate::types::OverConstrainedDimensionBehavior =
-    crate::types::OverConstrainedDimensionBehavior(1);
+generated_scalar! { integer,
+#[doc = "```text\nViewLayout is how a document's open views are tiled in the viewport — how many views\nare shown at once and in what arrangement. A document always has at least one view;\nthe layout decides how many of them render simultaneously (many MCAD apps show views\nin separate windows; we tile them in one viewport). This is the canonical Apache-2.0\ndefinition; the GPL implementation aliases it and maps it onto the tiled renderer.\n```"]
+pub struct ViewLayout(pub i32);
+}
 
-#[doc = "```text\nOverConstrainedDimensionBehavior is a document's preference for what happens when a dimension the\nuser adds would over-constrain the sketch (the reference CAD API's SketchConstraintSettings.\nOverConstrainedDimensionBehavior, #1877). The reference enum's numeric ids are not in-repo, so\nthis is an Oblikovati-owned frozen block — the wire contract is the string spelling; never\nrenumber the ids.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct OverConstrainedDimensionBehavior(pub i32);
+generated_scalar! { integer,
+#[doc = "```text\nViewOperationTypeEnum is an interactive view manipulation: rotate (orbit), pan, or zoom.\nFrozen ids 30209–30211.\n```"]
+pub struct ViewOperationTypeEnum(pub i32);
+}
 
-pub const OVER_CONSTRAINED_PROMPT: crate::types::OverConstrainedDimensionBehavior =
-    crate::types::OverConstrainedDimensionBehavior(2);
-
-pub const OVERALL_COLOR: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19460);
-
-pub const OVERALL_NORMAL: crate::types::NormalBindingEnum = crate::types::NormalBindingEnum(19716);
-
-pub const OVERRIDE_COLOR_SOURCE: crate::types::ColorSourceTypeEnum =
-    crate::types::ColorSourceTypeEnum(79105);
-
-pub const OVERRIDE_DISPLAY_MODE_SOURCE: crate::types::DisplayModeSourceTypeEnum =
-    crate::types::DisplayModeSourceTypeEnum(54274);
-
-pub const PAN_VIEW_OPERATION: crate::types::ViewOperationTypeEnum =
-    crate::types::ViewOperationTypeEnum(30210);
-
-pub const PANEL_BUTTON: crate::types::PanelControlKind = crate::types::PanelControlKind(1);
-
-pub const PANEL_CHECK_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(5);
-
-pub const PANEL_COMBO_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(7);
+generated_scalar! { integer,
+#[doc = "```text\nViewOrientationTypeEnum names a standard camera orientation — the front/top/iso… presets a\nview cube or the named-view picker restores. The numeric ids are stable, frozen values\n(10753–10773).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
+pub struct ViewOrientationTypeEnum(pub i32);
+}
