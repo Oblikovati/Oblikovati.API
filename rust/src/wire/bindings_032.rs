@@ -36,6 +36,13 @@ pub struct OpenDocumentArgs {
         deserialize_with = "crate::json::null_default"
     )]
     pub defer_content: bool,
+    #[doc = "```text\nExpress requests a validated saved presentation without loading assembly components.\nThe host rejects a missing or stale cache and the combination with DeferContent.\n```"]
+    #[serde(
+        rename = "express",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub express: bool,
 }
 
 pub const OPTION_GROUP_DISPLAY: &str = "display";

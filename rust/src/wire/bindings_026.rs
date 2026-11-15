@@ -45,6 +45,14 @@ pub struct LoadEnvironmentImageArgs {
     pub file_path: String,
 }
 
+#[doc = "```text\nLoadFullDocumentArgs identifies an express assembly to load with its components.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct LoadFullDocumentArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+}
+
 #[doc = "```text\nLocateUsingPointArgs is the request of [MethodBodyLocateUsingPoint].\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]

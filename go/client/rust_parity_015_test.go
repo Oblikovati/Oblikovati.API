@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityPointCloudsSetDisplayMode(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsSetDisplayMode})
+	checkGoGroup(t, c, "PointClouds", "SetDisplayMode")
+}
+
 func TestRustParityPointCloudsSetScale(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsSetScale})
 	checkGoGroup(t, c, "PointClouds", "SetScale")
@@ -152,9 +157,4 @@ func TestRustParitySketch3DCreate(t *testing.T) {
 func TestRustParitySketch3DDelete(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DDelete})
 	checkGoGroup(t, c, "Sketch3D", "Delete")
-}
-
-func TestRustParitySketch3DDeleteConstraint(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DDeleteConstraint})
-	checkGoGroup(t, c, "Sketch3D", "DeleteConstraint")
 }

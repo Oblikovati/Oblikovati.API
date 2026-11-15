@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityModelHighlightSets(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
+	checkGoGroup(t, c, "Model", "HighlightSets")
+}
+
 func TestRustParityModelReferenceKeys(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelReferenceKeys})
 	checkGoGroup(t, c, "Model", "ReferenceKeys")
@@ -152,9 +157,4 @@ func TestRustParityParametersExport(t *testing.T) {
 func TestRustParityParametersGet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersGet})
 	checkGoGroup(t, c, "Parameters", "Get")
-}
-
-func TestRustParityParametersGetDetail(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGetDetail})
-	checkGoGroup(t, c, "Parameters", "GetDetail")
 }

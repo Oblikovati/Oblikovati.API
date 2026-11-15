@@ -11,6 +11,7 @@ type DocumentInfo struct {
 	Dirty   bool   `json:"dirty"`
 	Visible bool   `json:"visible"`
 	Active  bool   `json:"active"`
+	Express bool   `json:"express,omitempty"` // assembly presentation is open without fully loaded components
 }
 
 // ListDocumentsResult is the response of [MethodDocumentsList]: every open document

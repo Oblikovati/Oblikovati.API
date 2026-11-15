@@ -165,6 +165,13 @@ pub struct DocumentInfo {
     pub visible: bool,
     #[serde(rename = "active", deserialize_with = "crate::json::null_default")]
     pub active: bool,
+    #[doc = "```text\nassembly presentation is open without fully loaded components\n```"]
+    #[serde(
+        rename = "express",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub express: bool,
 }
 
 #[doc = "```text\nDocumentSubTypeInfo is one entry of [MethodDocumentsListSubTypes].\n```"]

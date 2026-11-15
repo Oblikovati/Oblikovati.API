@@ -1,3 +1,6 @@
+{"Name":"wire.SaveOptionsView","Case":"zero","Payload":{"thumbnail":0,"saveDependents":false,"oldVersionsToKeep":0},"Canonical":{"thumbnail":0,"saveDependents":false,"oldVersionsToKeep":0},"Error":""}
+{"Name":"wire.SaveOptionsView","Case":"filled","Payload":{"thumbnail":7,"saveDependents":true,"oldVersionsToKeep":7},"Canonical":{"thumbnail":7,"saveDependents":true,"oldVersionsToKeep":7},"Error":""}
+{"Name":"wire.SaveOptionsView","Case":"empty","Payload":{"thumbnail":7,"saveDependents":true,"oldVersionsToKeep":7},"Canonical":{"thumbnail":7,"saveDependents":true,"oldVersionsToKeep":7},"Error":""}
 {"Name":"wire.SaveWarning","Case":"zero","Payload":{"document":0,"code":"","detail":""},"Canonical":{"document":0,"code":"","detail":""},"Error":""}
 {"Name":"wire.SaveWarning","Case":"filled","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SaveWarning","Case":"empty","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SetFlexibleChildArgs","Case":"zero","Payload":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
 {"Name":"wire.SetFlexibleChildArgs","Case":"filled","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
 {"Name":"wire.SetFlexibleChildArgs","Case":"empty","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}

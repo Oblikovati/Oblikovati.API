@@ -101,6 +101,20 @@ fn documents_list_properties() {
 }
 
 #[test]
+fn documents_load_full() {
+    let args: oblikovati_api::wire::LoadFullDocumentArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_DOCUMENTS_LOAD_FULL,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.documents().load_full(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn documents_open() {
     let args: oblikovati_api::wire::OpenDocumentArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -237,20 +251,6 @@ fn documents_set_property() {
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(
         client.documents().set_property(&args).unwrap_err().0,
-        "recorded"
-    );
-}
-
-#[test]
-fn documents_set_sketch_settings() {
-    let args: oblikovati_api::wire::SetSketchSettingsArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_DOCUMENT_SET_SKETCH_SETTINGS,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(
-        client.documents().set_sketch_settings(&args).unwrap_err().0,
         "recorded"
     );
 }

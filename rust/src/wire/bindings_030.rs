@@ -3,6 +3,8 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_VIEWS_RENAME: &str = "views.rename";
+
 pub const METHOD_VIEWS_RESTORE_NAMED: &str = "views.restoreNamed";
 
 pub const METHOD_VIEWS_SET_LAYOUT: &str = "views.setLayout";

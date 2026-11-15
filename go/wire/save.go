@@ -16,6 +16,14 @@ type OpenDocumentArgs struct {
 	FullDocumentName string `json:"fullDocumentName"`
 	Visible          bool   `json:"visible"`
 	DeferContent     bool   `json:"deferContent,omitempty"`
+	// Express requests a validated saved presentation without loading assembly components.
+	// The host rejects a missing or stale cache and the combination with DeferContent.
+	Express bool `json:"express,omitempty"`
+}
+
+// LoadFullDocumentArgs identifies an express assembly to load with its components.
+type LoadFullDocumentArgs struct {
+	ID uint64 `json:"id"`
 }
 
 // SaveDocumentArgs is the request of [MethodDocumentsSave]: save the document

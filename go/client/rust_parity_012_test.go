@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityLightingListStyles(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodLightingListStyles})
+	checkGoGroup(t, c, "Lighting", "ListStyles")
+}
+
 func TestRustParityLightingSetLight(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodLightingSetLight})
 	checkGoGroup(t, c, "Lighting", "SetLight")
@@ -152,9 +157,4 @@ func TestRustParityModelDeleteHighlightSet(t *testing.T) {
 func TestRustParityModelDeselect(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelDeselect})
 	checkGoGroup(t, c, "Model", "Deselect")
-}
-
-func TestRustParityModelHighlightSets(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
-	checkGoGroup(t, c, "Model", "HighlightSets")
 }

@@ -3,6 +3,30 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nShadedDisplayOptions is the in-process contract for the shaded-mode display sub-options\n(edge overlay, transparency rendering). The GPL app satisfies it.\n```"]
+pub trait ShadedDisplayOptions {
+    #[doc = "```text\nEdgeColor is the overlaid edge color.\n```"]
+    fn edge_color(&self) -> crate::types::Color;
+    #[doc = "```text\nEdgeDisplay reports whether edges overlay the shaded faces.\n```"]
+    fn edge_display(&self) -> bool;
+    #[doc = "```text\nSilhouettes reports whether silhouette edges are drawn.\n```"]
+    fn silhouettes(&self) -> bool;
+    #[doc = "```text\nTransparencyType is how transparency is rendered (blending / screen-door).\n```"]
+    fn transparency_type(&self) -> crate::types::TransparencyTypeEnum;
+}
+
+#[doc = "```text\nSketch is the scalar view of a 2D planar sketch: its identity, visibility, and the\nsolver's degree-of-freedom count. The host's model/sketch.Sketch satisfies this via\na compile-time assertion.\n```"]
+pub trait Sketch {
+    #[doc = "```text\nDegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).\n```"]
+    fn degrees_of_freedom(&self) -> i64;
+    #[doc = "```text\nEntityCount is the number of geometry entities the sketch owns.\n```"]
+    fn entity_count(&self) -> i64;
+    #[doc = "```text\nName is the sketch's display name.\n```"]
+    fn name(&self) -> String;
+    #[doc = "```text\nVisible reports whether the sketch is shown.\n```"]
+    fn visible(&self) -> bool;
+}
+
 #[doc = "```text\nSketch3D is the scalar view of a 3D (non-planar) sketch the host implements\n(model/sketch.Sketch3D) and add-ins consume: its identity, visibility, entity count,\nand the solver's remaining degree-of-freedom count. Like [Sketch] it exposes only the\nscalar surface — entity geometry and constraints travel as wire DTOs (see api/wire).\nThe host satisfies this via a compile-time assertion.\n```"]
 pub trait Sketch3D {
     #[doc = "```text\nDegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).\n```"]

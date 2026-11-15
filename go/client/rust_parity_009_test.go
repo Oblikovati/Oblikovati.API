@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityDrawingSketchesList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingSketchesList})
+	checkGoGroup(t, c, "DrawingSketches", "List")
+}
+
 func TestRustParityDrawingStylesGetActiveStyle(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingStylesGetActiveStyle})
 	checkGoGroup(t, c, "DrawingStyles", "GetActiveStyle")
@@ -152,9 +157,4 @@ func TestRustParityFeaturesDelete(t *testing.T) {
 func TestRustParityFeaturesEdit(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodFeaturesEdit})
 	checkGoGroup(t, c, "Features", "Edit")
-}
-
-func TestRustParityFeaturesGet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodFeaturesGet})
-	checkGoGroup(t, c, "Features", "Get")
 }

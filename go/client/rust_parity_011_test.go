@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityGraphicsList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodClientGraphicsList})
+	checkGoGroup(t, c, "Graphics", "List")
+}
+
 func TestRustParityGraphicsRegisterColorMapper(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodClientGraphicsRegisterMapper})
 	checkGoGroup(t, c, "Graphics", "RegisterColorMapper")
@@ -152,9 +157,4 @@ func TestRustParityLightingAddLight(t *testing.T) {
 func TestRustParityLightingLights(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodLightingListLights})
 	checkGoGroup(t, c, "Lighting", "Lights")
-}
-
-func TestRustParityLightingListStyles(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodLightingListStyles})
-	checkGoGroup(t, c, "Lighting", "ListStyles")
 }

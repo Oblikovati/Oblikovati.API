@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepCreateIntersectionWithPlane(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepSectionWithPlane})
+	checkGoGroup(t, c, "TransientBRep", "CreateIntersectionWithPlane")
+}
+
 func TestRustParityTransientBRepCreatePrimitive(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepCreatePrimitive})
 	checkGoGroup(t, c, "TransientBRep", "CreatePrimitive")
@@ -152,9 +157,4 @@ func TestRustParityUnitsGetDrivingParameters(t *testing.T) {
 func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
 	checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
-}
-
-func TestRustParityUnitsGetPreciseStringFromValue(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
-	checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
 }

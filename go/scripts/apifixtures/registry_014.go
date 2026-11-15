@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.SetAttributeArgs", reflect.TypeFor[wire.SetAttributeArgs]()},
 	{"wire.SetBOMStructureArgs", reflect.TypeFor[wire.SetBOMStructureArgs]()},
 	{"wire.SetBOMStructureResult", reflect.TypeFor[wire.SetBOMStructureResult]()},
 	{"wire.SetBendOrderArgs", reflect.TypeFor[wire.SetBendOrderArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetTextFontArgs", reflect.TypeFor[wire.SetTextFontArgs]()},
 	{"wire.SetTextFontResult", reflect.TypeFor[wire.SetTextFontResult]()},
 	{"wire.SetTitleBlockArgs", reflect.TypeFor[wire.SetTitleBlockArgs]()},
-	{"wire.SetViewDisplayArgs", reflect.TypeFor[wire.SetViewDisplayArgs]()},
 }

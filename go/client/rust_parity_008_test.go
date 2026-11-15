@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityDrawingAnnotationsAddRevisionTable(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTable})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTable")
+}
+
 func TestRustParityDrawingAnnotationsAddRevisionTag(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTag})
 	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTag")
@@ -152,9 +157,4 @@ func TestRustParityDrawingSketchesAddEntity(t *testing.T) {
 func TestRustParityDrawingSketchesAddHatchRegion(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAddHatch})
 	checkGoGroup(t, c, "DrawingSketches", "AddHatchRegion")
-}
-
-func TestRustParityDrawingSketchesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingSketchesList})
-	checkGoGroup(t, c, "DrawingSketches", "List")
 }

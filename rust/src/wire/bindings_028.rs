@@ -111,6 +111,8 @@ pub const METHOD_DOCUMENTS_LIST_PROPERTIES: &str = "documents.listProperties";
 
 pub const METHOD_DOCUMENTS_LIST_SUB_TYPES: &str = "documents.listSubTypes";
 
+pub const METHOD_DOCUMENTS_LOAD_FULL: &str = "documents.loadFull";
+
 pub const METHOD_DOCUMENTS_OPEN: &str = "documents.open";
 
 pub const METHOD_DOCUMENTS_REBUILD: &str = "documents.rebuild";
@@ -460,5 +462,3 @@ pub const METHOD_MODEL_ASSIGN_MATERIAL: &str = "model.assignMaterial";
 pub const METHOD_MODEL_CLEAR_SELECTION: &str = "model.clearSelection";
 
 pub const METHOD_MODEL_DESELECT: &str = "model.deselect";
-
-pub const METHOD_MODEL_HIGHLIGHT_SET_ADD_ITEMS: &str = "model.highlightSets.addItems";

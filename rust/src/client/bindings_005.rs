@@ -269,6 +269,16 @@ impl<T: super::Caller> super::Documents<'_, T> {
             .invoke(crate::wire::METHOD_DOCUMENTS_LIST_PROPERTIES, Some(args))
     }
 
+    /// Call `MethodDocumentsLoadFull` with the canonical request and response types.
+    /// Example: `client.documents().load_full(&args)`.
+    pub fn load_full(
+        &self,
+        args: &crate::wire::LoadFullDocumentArgs,
+    ) -> Result<crate::wire::DocumentInfo, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DOCUMENTS_LOAD_FULL, Some(args))
+    }
+
     /// Call `MethodDocumentsOpen` with the canonical request and response types.
     /// Example: `client.documents().open(&args)`.
     pub fn open(
@@ -385,7 +395,9 @@ impl<T: super::Caller> super::Documents<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_DOCUMENT_SET_SKETCH_SETTINGS, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Documents<'_, T> {
     /// Call `MethodDocumentsSetUnits` with the canonical request and response types.
     /// Example: `client.documents().set_units(&args)`.
     pub fn set_units(
@@ -395,9 +407,7 @@ impl<T: super::Caller> super::Documents<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_DOCUMENTS_SET_UNITS, Some(args))
     }
-}
 
-impl<T: super::Caller> super::Documents<'_, T> {
     /// Call `MethodDocumentsListSubTypes` with the canonical request and response types.
     /// Example: `client.documents().sub_types()`.
     pub fn sub_types(&self) -> Result<crate::wire::ListDocumentSubTypesResult, crate::Error> {

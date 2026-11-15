@@ -144,6 +144,11 @@ func TestRustParityDocumentsListProperties(t *testing.T) {
 	checkGoGroup(t, c, "Documents", "ListProperties")
 }
 
+func TestRustParityDocumentsLoadFull(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsLoadFull})
+	checkGoGroup(t, c, "Documents", "LoadFull")
+}
+
 func TestRustParityDocumentsOpen(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentsOpen})
 	checkGoGroup(t, c, "Documents", "Open")
@@ -152,9 +157,4 @@ func TestRustParityDocumentsOpen(t *testing.T) {
 func TestRustParityDocumentsRebuild(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentsRebuild})
 	checkGoGroup(t, c, "Documents", "Rebuild")
-}
-
-func TestRustParityDocumentsRegisterSubType(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsRegisterSubType})
-	checkGoGroup(t, c, "Documents", "RegisterSubType")
 }

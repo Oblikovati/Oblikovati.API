@@ -51,6 +51,7 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.ListWorkPointsResult", reflect.TypeFor[wire.ListWorkPointsResult]()},
 	{"wire.ListWorkSurfacesResult", reflect.TypeFor[wire.ListWorkSurfacesResult]()},
 	{"wire.LoadEnvironmentImageArgs", reflect.TypeFor[wire.LoadEnvironmentImageArgs]()},
+	{"wire.LoadFullDocumentArgs", reflect.TypeFor[wire.LoadFullDocumentArgs]()},
 	{"wire.LocateUsingPointArgs", reflect.TypeFor[wire.LocateUsingPointArgs]()},
 	{"wire.LocateUsingPointResult", reflect.TypeFor[wire.LocateUsingPointResult]()},
 	{"wire.LocatedEntityInfo", reflect.TypeFor[wire.LocatedEntityInfo]()},
@@ -88,5 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.ModelStateResult", reflect.TypeFor[wire.ModelStateResult]()},
 	{"wire.ModelStatesResult", reflect.TypeFor[wire.ModelStatesResult]()},
 	{"wire.ModelTreeResult", reflect.TypeFor[wire.ModelTreeResult]()},
-	{"wire.MoveFreeformVerticesArgs", reflect.TypeFor[wire.MoveFreeformVerticesArgs]()},
 }

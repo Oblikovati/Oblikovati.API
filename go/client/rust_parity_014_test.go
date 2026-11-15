@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityParametersGetDetail(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersGetDetail})
+	checkGoGroup(t, c, "Parameters", "GetDetail")
+}
+
 func TestRustParityParametersGetSettings(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersGetSettings})
 	checkGoGroup(t, c, "Parameters", "GetSettings")
@@ -152,9 +157,4 @@ func TestRustParityPointCloudsSetCropActive(t *testing.T) {
 func TestRustParityPointCloudsSetDensity(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsSetDensity})
 	checkGoGroup(t, c, "PointClouds", "SetDensity")
-}
-
-func TestRustParityPointCloudsSetDisplayMode(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodPointCloudsSetDisplayMode})
-	checkGoGroup(t, c, "PointClouds", "SetDisplayMode")
 }

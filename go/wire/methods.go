@@ -68,6 +68,7 @@ const (
 	// Document open/save lifecycle (#138) and the save policy layer around it:
 	// SaveCopyAs and batch save (M03-F09, #610).
 	MethodDocumentsOpen       = "documents.open"
+	MethodDocumentsLoadFull   = "documents.loadFull"
 	MethodDocumentsSave       = "documents.save"
 	MethodDocumentsSaveAs     = "documents.saveAs"
 	MethodDocumentsSaveCopyAs = "documents.saveCopyAs"

@@ -3,6 +3,8 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_MODEL_HIGHLIGHT_SET_ADD_ITEMS: &str = "model.highlightSets.addItems";
+
 pub const METHOD_MODEL_HIGHLIGHT_SET_CREATE: &str = "model.highlightSets.create";
 
 pub const METHOD_MODEL_HIGHLIGHT_SET_DELETE: &str = "model.highlightSets.delete";
@@ -461,5 +463,3 @@ pub const METHOD_VIEWS_GET_LAYOUT: &str = "views.getLayout";
 pub const METHOD_VIEWS_LIST: &str = "views.list";
 
 pub const METHOD_VIEWS_LIST_NAMED: &str = "views.listNamed";
-
-pub const METHOD_VIEWS_RENAME: &str = "views.rename";

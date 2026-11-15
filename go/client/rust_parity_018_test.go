@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchSetFormatModes(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetFormatModes})
+	checkGoGroup(t, c, "Sketch", "SetFormatModes")
+}
+
 func TestRustParitySketchSetInferenceOptions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetInferenceOptions})
 	checkGoGroup(t, c, "Sketch", "SetInferenceOptions")
@@ -152,9 +157,4 @@ func TestRustParityTransientBRepCopy(t *testing.T) {
 func TestRustParityTransientBRepCreateFromDefinition(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepCreateFromDefinition})
 	checkGoGroup(t, c, "TransientBRep", "CreateFromDefinition")
-}
-
-func TestRustParityTransientBRepCreateIntersectionWithPlane(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepSectionWithPlane})
-	checkGoGroup(t, c, "TransientBRep", "CreateIntersectionWithPlane")
 }

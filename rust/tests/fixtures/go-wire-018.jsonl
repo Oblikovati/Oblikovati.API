@@ -64,6 +64,9 @@
 {"Name":"wire.LoadEnvironmentImageArgs","Case":"zero","Payload":{"filePath":""},"Canonical":{"filePath":""},"Error":""}
 {"Name":"wire.LoadEnvironmentImageArgs","Case":"filled","Payload":{"filePath":"example \u003c\u0026\u003e 日本語"},"Canonical":{"filePath":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.LoadEnvironmentImageArgs","Case":"empty","Payload":{"filePath":"example \u003c\u0026\u003e 日本語"},"Canonical":{"filePath":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.LoadFullDocumentArgs","Case":"zero","Payload":{"id":0},"Canonical":{"id":0},"Error":""}
+{"Name":"wire.LoadFullDocumentArgs","Case":"filled","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
+{"Name":"wire.LoadFullDocumentArgs","Case":"empty","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
 {"Name":"wire.LocateUsingPointArgs","Case":"zero","Payload":{"bodyIndex":0,"point":null,"proximityTolerance":0},"Canonical":{"bodyIndex":0,"point":null,"proximityTolerance":0},"Error":""}
 {"Name":"wire.LocateUsingPointArgs","Case":"filled","Payload":{"bodyIndex":7,"point":[1.25],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Canonical":{"bodyIndex":7,"point":[1.25],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Error":""}
 {"Name":"wire.LocateUsingPointArgs","Case":"empty","Payload":{"bodyIndex":7,"point":[],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Canonical":{"bodyIndex":7,"point":[],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.MirrorComponentsArgs","Case":"zero","Payload":{"sources":null,"origin":[0,0,0],"normal":[0,0,0]},"Canonical":{"sources":null,"origin":[0,0,0],"normal":[0,0,0]},"Error":""}
 {"Name":"wire.MirrorComponentsArgs","Case":"filled","Payload":{"sources":[7],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"sources":[7],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
 {"Name":"wire.MirrorComponentsArgs","Case":"empty","Payload":{"sources":[],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"sources":[],"origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"zero","Payload":{"sourceFeatures":null,"normal":null},"Canonical":{"sourceFeatures":null,"normal":null},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"filled","Payload":{"sourceFeatures":["example \u003c\u0026\u003e 日本語"],"origin":[1.25],"normal":[1.25]},"Canonical":{"sourceFeatures":["example \u003c\u0026\u003e 日本語"],"origin":[1.25],"normal":[1.25]},"Error":""}
-{"Name":"wire.MirrorFeatureArgs","Case":"empty","Payload":{"sourceFeatures":[],"normal":[]},"Canonical":{"sourceFeatures":[],"normal":[]},"Error":""}

@@ -10,6 +10,8 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Express assembly open state and a typed Load Full operation.
+
 - Typed nonfatal save warnings for single saves, batch saves, and save-on-close.
 
 ## [0.159.0] - 2026-11-07

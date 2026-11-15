@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketch3DDeleteConstraint(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DDeleteConstraint})
+	checkGoGroup(t, c, "Sketch3D", "DeleteConstraint")
+}
+
 func TestRustParitySketch3DDimensions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DDimensions})
 	checkGoGroup(t, c, "Sketch3D", "Dimensions")
@@ -152,9 +157,4 @@ func TestRustParitySketchConstraintStatus(t *testing.T) {
 func TestRustParitySketchConstraints(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
 	checkGoGroup(t, c, "Sketch", "Constraints")
-}
-
-func TestRustParitySketchCopyTo(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchCopyTo})
-	checkGoGroup(t, c, "Sketch", "CopyTo")
 }

@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityDocumentsRegisterSubType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsRegisterSubType})
+	checkGoGroup(t, c, "Documents", "RegisterSubType")
+}
+
 func TestRustParityDocumentsRemoveAttachment(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentsRemoveAttachment})
 	checkGoGroup(t, c, "Documents", "RemoveAttachment")
@@ -152,9 +157,4 @@ func TestRustParityDrawingAnnotationsAddPartsList(t *testing.T) {
 func TestRustParityDrawingAnnotationsAddRevisionCloud(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevisionCloud})
 	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionCloud")
-}
-
-func TestRustParityDrawingAnnotationsAddRevisionTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTable})
-	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTable")
 }

@@ -114,6 +114,11 @@ fn wire_load_environment_image_args() {
 }
 
 #[test]
+fn wire_load_full_document_args() {
+    super::check::<oblikovati_api::wire::LoadFullDocumentArgs>("wire.LoadFullDocumentArgs");
+}
+
+#[test]
 fn wire_locate_using_point_args() {
     super::check::<oblikovati_api::wire::LocateUsingPointArgs>("wire.LocateUsingPointArgs");
 }
@@ -298,9 +303,4 @@ fn wire_model_states_result() {
 #[test]
 fn wire_model_tree_result() {
     super::check::<oblikovati_api::wire::ModelTreeResult>("wire.ModelTreeResult");
-}
-
-#[test]
-fn wire_move_freeform_vertices_args() {
-    super::check::<oblikovati_api::wire::MoveFreeformVerticesArgs>("wire.MoveFreeformVerticesArgs");
 }
