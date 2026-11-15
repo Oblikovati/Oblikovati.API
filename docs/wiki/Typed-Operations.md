@@ -9,6 +9,21 @@ extrude function requires an active part with a closed, fully constrained sketch
 Create and constrain the sketch before you call it. Dimensions use expressions,
 such as `50 mm` or the name of a document parameter.
 
+## Express assemblies and save warnings
+
+Set `Express` in `OpenDocumentArgs` to request an assembly's validated saved
+presentation. The response's `Express` field reports whether component geometry
+is deferred. A missing or stale presentation is an error; the host also rejects
+`Express` together with `DeferContent`. Call the typed `LoadFull` operation with
+the returned document ID to load the components. If loading fails, the assembly
+remains in Express mode. These fields are omitted when false so older requests
+and responses retain their meaning.
+
+Save, batch-save, and save-on-close results can include `SaveWarning` values.
+For `assemblyCacheUnavailable`, the document was saved but its optional Express
+presentation could not be qualified. Inspect the warning detail before relying
+on a later Express open. A warning does not turn a successful save into an error.
+
 ## Go
 
 <!-- example: go/examples/operations/operations.go -->
