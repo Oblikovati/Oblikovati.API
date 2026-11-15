@@ -3,6 +3,22 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nConstraintStatusResult is the response of [MethodSketchConstraintStatus]: the sketch's\nconstraint state without moving geometry (a non-mutating DOF analysis). Status is a\n[oblikovati.org/api/types.ConstraintStatus]; DOF is the remaining free degrees\nof freedom; Variables/Equations are the system size; Redundant counts the dependent\nconstraints (> 0 ⇒ over-constrained).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct ConstraintStatusResult {
+    #[serde(rename = "status", deserialize_with = "crate::json::null_default")]
+    pub status: String,
+    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
+    pub dof: i64,
+    #[serde(rename = "variables", deserialize_with = "crate::json::null_default")]
+    pub variables: i64,
+    #[serde(rename = "equations", deserialize_with = "crate::json::null_default")]
+    pub equations: i64,
+    #[serde(rename = "redundant", deserialize_with = "crate::json::null_default")]
+    pub redundant: i64,
+}
+
 #[doc = "```text\nConstraintsResult is the reply of [MethodAssemblyConstraintsList]: the active assembly's\nconstraint set in creation order.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -386,79 +402,4 @@ pub struct CreateModelStateArgs {
         deserialize_with = "crate::json::null_default"
     )]
     pub level_of_detail: String,
-}
-
-#[doc = "```text\nCreatePatternArgs is the request of [MethodAssemblyPatternCreate]: replicate the Seed\noccurrence (by session id) across an arrangement, adding one occurrence per generated\nelement beyond the seed. Kind selects the arrangement and the fields it reads:\n  - \"circular\": Origin, Axis, Angle (radians between adjacent elements), Count (total,\n    including the seed);\n  - \"rectangular\": Direction1/Spacing1/Count1 and Direction2/Spacing2/Count2 (a\n    Count1×Count2 grid; the seed is element 0,0).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreatePatternArgs {
-    #[serde(rename = "seed", deserialize_with = "crate::json::null_default")]
-    pub seed: u64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[doc = "```text\nCircular arrangement.\n```"]
-    #[serde(
-        rename = "origin",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin: [f64; 3],
-    #[serde(
-        rename = "axis",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub axis: [f64; 3],
-    #[serde(
-        rename = "angle",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angle: f64,
-    #[serde(
-        rename = "count",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count: i64,
-    #[doc = "```text\nRectangular arrangement.\n```"]
-    #[serde(
-        rename = "direction1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction1: [f64; 3],
-    #[serde(
-        rename = "spacing1",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spacing1: f64,
-    #[serde(
-        rename = "count1",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count1: i64,
-    #[serde(
-        rename = "direction2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction2: [f64; 3],
-    #[serde(
-        rename = "spacing2",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spacing2: f64,
-    #[serde(
-        rename = "count2",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count2: i64,
 }

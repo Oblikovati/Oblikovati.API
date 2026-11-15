@@ -361,7 +361,7 @@ pub struct SaveDocumentAsArgs {
     pub new_full_document_name: String,
 }
 
-#[doc = "```text\nSaveDocumentResult is the response of [MethodDocumentsSave],\n[MethodDocumentsSaveAs] and [MethodDocumentsSaveCopyAs]: where the bytes\nlanded.\n```"]
+#[doc = "```text\nSaveDocumentResult is the response of [MethodDocumentsSave],\n[MethodDocumentsSaveAs] and [MethodDocumentsSaveCopyAs]: where the bytes\nlanded. Warnings report nonfatal outcomes after a successful save.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct SaveDocumentResult {
@@ -370,6 +370,12 @@ pub struct SaveDocumentResult {
         deserialize_with = "crate::json::null_default"
     )]
     pub full_document_name: String,
+    #[serde(
+        rename = "warnings",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub warnings: Option<Vec<crate::wire::SaveWarning>>,
 }
 
 #[doc = "```text\nSaveOptionsView is the \"save\" option group (M03-F09): application-level\nsave policy. Thumbnail support is host-dependent — writing an unsupported\ncapture mode errors rather than persisting a dead setting. OldVersionsToKeep\nmoves the prior file into an OldVersions sibling directory on save, pruned\nto the configured count; 0 disables retention.\n```"]
@@ -389,6 +395,20 @@ pub struct SaveOptionsView {
     )]
     pub old_versions_to_keep: i64,
 }
+
+#[doc = "```text\nSaveWarning reports a nonfatal outcome for a successfully saved document.\nCode identifies the condition and Detail explains the specific cause.\nDocument identifies the session that was saved, including during close-all.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct SaveWarning {
+    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
+    pub document: u64,
+    #[serde(rename = "code", deserialize_with = "crate::json::null_default")]
+    pub code: String,
+    #[serde(rename = "detail", deserialize_with = "crate::json::null_default")]
+    pub detail: String,
+}
+
+pub const SAVE_WARNING_ASSEMBLY_CACHE_UNAVAILABLE: &str = "assemblyCacheUnavailable";
 
 #[doc = "```text\nScalarEdit sets the work plane's scalar at slot Index to a unit-bearing Value (\"30 mm\",\n\"60 deg\") — the index comes from [WorkPlaneScalar].\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]

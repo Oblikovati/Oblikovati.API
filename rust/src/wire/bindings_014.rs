@@ -3,6 +3,100 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nCustomPropertyFormatInfo is the JSON shape of how a parameter value is\nformatted when exposed as a custom document property. PropertyType and\nPrecision carry the wire spellings of types.CustomPropertyType and\ntypes.CustomPropertyPrecision; Units empty means the document display unit.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct CustomPropertyFormatInfo {
+    #[serde(
+        rename = "propertyType",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub property_type: String,
+    #[serde(
+        rename = "units",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub units: String,
+    #[serde(rename = "precision", deserialize_with = "crate::json::null_default")]
+    pub precision: String,
+    #[serde(
+        rename = "showLeadingZeros",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_leading_zeros: bool,
+    #[serde(
+        rename = "showTrailingZeros",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_trailing_zeros: bool,
+    #[serde(
+        rename = "showUnitsString",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_units_string: bool,
+}
+
+#[doc = "```text\nDSDOFInfo is one degree of freedom of a DS joint: whether it is translational or\nrotational, how its motion is imposed (free/driven/locked), and its current value\n(cm or radians).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DSDOFInfo {
+    #[serde(rename = "rotational", deserialize_with = "crate::json::null_default")]
+    pub rotational: bool,
+    #[serde(
+        rename = "imposedMotion",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub imposed_motion: String,
+    #[serde(
+        rename = "value",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub value: f64,
+}
+
+#[doc = "```text\nDSJointInfo is one row of the DS-joint set: its id, kind, name, and per-DOF imposed-motion\nbreakdown — the kinematic (degrees-of-freedom) view of a joint that motion/simulation\nconsumers read.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DSJointInfo {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: u64,
+    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
+    pub type_: String,
+    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
+    pub name: String,
+    #[serde(rename = "a", deserialize_with = "crate::json::null_default")]
+    pub a: crate::wire::ConstraintGeomRef,
+    #[serde(rename = "b", deserialize_with = "crate::json::null_default")]
+    pub b: crate::wire::ConstraintGeomRef,
+    #[serde(
+        rename = "degreesOfFreedom",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub degrees_of_freedom: Option<Vec<crate::wire::DSDOFInfo>>,
+}
+
+#[doc = "```text\nDSJointResult is the reply of the single DS-joint operations.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DSJointResult {
+    #[serde(rename = "joint", deserialize_with = "crate::json::null_default")]
+    pub joint: crate::wire::DSJointInfo,
+}
+
+#[doc = "```text\nDSJointsResult is the reply of [MethodDSJointsList]: the DS-joint set.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DSJointsResult {
+    #[serde(rename = "joints", deserialize_with = "crate::json::null_default")]
+    pub joints: Option<Vec<crate::wire::DSJointInfo>>,
+}
+
 #[doc = "```text\nDatabaseUnitsResult is the evaluated database-unit value of an expression and\nthe category it resolved to (response of\n[MethodUnitsGetDatabaseUnitsFromExpression]).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -343,74 +437,4 @@ pub struct DeriveCreateArgs {
 pub struct DeriveStatusArgs {
     #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
     pub id: u64,
-}
-
-#[doc = "```text\nDeriveStatusResult reports whether a derived component is out of date relative to its\nsource document — the reference API's drive state. OutOfDate is true when the source's\ncurrent recipe revision (CurrentRevision) differs from the one captured when the derive\nwas last created/updated (SavedRevision); it is the basis for the \"out of date\" badge.\nLinked is false after a break-link (the source is frozen). SourceDocument is the source's\nfull document name. CurrentRevision is empty when the source is not currently resolvable.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeriveStatusResult {
-    #[serde(rename = "outOfDate", deserialize_with = "crate::json::null_default")]
-    pub out_of_date: bool,
-    #[serde(rename = "linked", deserialize_with = "crate::json::null_default")]
-    pub linked: bool,
-    #[serde(
-        rename = "sourceDocument",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub source_document: String,
-    #[serde(
-        rename = "savedRevision",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub saved_revision: String,
-    #[serde(
-        rename = "currentRevision",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub current_revision: String,
-}
-
-#[doc = "```text\nDerivedParameterReference is one derived parameter's link back to its source —\nthe JSON projection of the reference API's DerivedParameter.ReferencedEntity\n(#1561): the local derived parameter's name, the document it derives from, and\nthe source parameter's name there.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DerivedParameterReference {
-    #[serde(rename = "parameter", deserialize_with = "crate::json::null_default")]
-    pub parameter: String,
-    #[serde(
-        rename = "sourceDocument",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub source_document: String,
-    #[serde(
-        rename = "sourceParameter",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub source_parameter: String,
-}
-
-#[doc = "```text\nDerivedParameterTableAddArgs is the request of\n[MethodParametersDerivedTablesAdd]: the source document and the source\nparameter names to link. An empty Linked links nothing yet — the table\nstill records the connection and lists candidates.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DerivedParameterTableAddArgs {
-    #[serde(
-        rename = "sourceDocument",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub source_document: String,
-    #[serde(
-        rename = "linked",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub linked: Option<Vec<String>>,
-}
-
-#[doc = "```text\nDerivedParameterTableDeleteArgs is the request of\n[MethodParametersDerivedTablesDelete]. Deleting a table deletes its derived\nparameters; a table owned by a derived component cannot be deleted directly\n(delete the component instead).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DerivedParameterTableDeleteArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: i64,
 }

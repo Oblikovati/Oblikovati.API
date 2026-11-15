@@ -102,7 +102,7 @@ pub struct BatchSaveItem {
     pub target_file_name: String,
 }
 
-#[doc = "```text\nBatchSaveItemResult is one per-file outcome of [MethodDocumentsBatchSave].\n```"]
+#[doc = "```text\nBatchSaveItemResult is one per-file outcome of [MethodDocumentsBatchSave].\nWarnings report nonfatal outcomes only when OK is true.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct BatchSaveItemResult {
@@ -122,6 +122,12 @@ pub struct BatchSaveItemResult {
         deserialize_with = "crate::json::null_default"
     )]
     pub error: String,
+    #[serde(
+        rename = "warnings",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub warnings: Option<Vec<crate::wire::SaveWarning>>,
 }
 
 #[doc = "```text\nBatchSaveResult is the response of [MethodDocumentsBatchSave].\n```"]

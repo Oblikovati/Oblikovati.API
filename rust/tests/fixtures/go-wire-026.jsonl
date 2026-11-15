@@ -1,3 +1,6 @@
+{"Name":"wire.UpdateProgressArgs","Case":"zero","Payload":{"id":0,"step":0},"Canonical":{"id":0,"step":0},"Error":""}
+{"Name":"wire.UpdateProgressArgs","Case":"filled","Payload":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.UpdateProgressArgs","Case":"empty","Payload":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":7,"step":7,"message":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.UpdateProgressResult","Case":"zero","Payload":{"ok":false},"Canonical":{"ok":false},"Error":""}
 {"Name":"wire.UpdateProgressResult","Case":"filled","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
 {"Name":"wire.UpdateProgressResult","Case":"empty","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}

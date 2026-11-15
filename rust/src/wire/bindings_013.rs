@@ -3,6 +3,81 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nCreatePatternArgs is the request of [MethodAssemblyPatternCreate]: replicate the Seed\noccurrence (by session id) across an arrangement, adding one occurrence per generated\nelement beyond the seed. Kind selects the arrangement and the fields it reads:\n  - \"circular\": Origin, Axis, Angle (radians between adjacent elements), Count (total,\n    including the seed);\n  - \"rectangular\": Direction1/Spacing1/Count1 and Direction2/Spacing2/Count2 (a\n    Count1×Count2 grid; the seed is element 0,0).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct CreatePatternArgs {
+    #[serde(rename = "seed", deserialize_with = "crate::json::null_default")]
+    pub seed: u64,
+    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
+    pub kind: String,
+    #[doc = "```text\nCircular arrangement.\n```"]
+    #[serde(
+        rename = "origin",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub origin: [f64; 3],
+    #[serde(
+        rename = "axis",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub axis: [f64; 3],
+    #[serde(
+        rename = "angle",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub angle: f64,
+    #[serde(
+        rename = "count",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub count: i64,
+    #[doc = "```text\nRectangular arrangement.\n```"]
+    #[serde(
+        rename = "direction1",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub direction1: [f64; 3],
+    #[serde(
+        rename = "spacing1",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub spacing1: f64,
+    #[serde(
+        rename = "count1",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub count1: i64,
+    #[serde(
+        rename = "direction2",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub direction2: [f64; 3],
+    #[serde(
+        rename = "spacing2",
+        skip_serializing_if = "crate::json::is_zero",
+        serialize_with = "crate::json::finite::serialize",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub spacing2: f64,
+    #[serde(
+        rename = "count2",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub count2: i64,
+}
+
 #[doc = "```text\nCreatePatternResult is the reply of [MethodAssemblyPatternCreate]: the persistent pattern\n(by id, so it can be re-read and edited) and the occurrences it added, in element order.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -360,98 +435,4 @@ pub struct CreateWorkPointResult {
         deserialize_with = "crate::json::null_default"
     )]
     pub reason: String,
-}
-
-#[doc = "```text\nCustomPropertyFormatInfo is the JSON shape of how a parameter value is\nformatted when exposed as a custom document property. PropertyType and\nPrecision carry the wire spellings of types.CustomPropertyType and\ntypes.CustomPropertyPrecision; Units empty means the document display unit.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CustomPropertyFormatInfo {
-    #[serde(
-        rename = "propertyType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub property_type: String,
-    #[serde(
-        rename = "units",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub units: String,
-    #[serde(rename = "precision", deserialize_with = "crate::json::null_default")]
-    pub precision: String,
-    #[serde(
-        rename = "showLeadingZeros",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_leading_zeros: bool,
-    #[serde(
-        rename = "showTrailingZeros",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_trailing_zeros: bool,
-    #[serde(
-        rename = "showUnitsString",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_units_string: bool,
-}
-
-#[doc = "```text\nDSDOFInfo is one degree of freedom of a DS joint: whether it is translational or\nrotational, how its motion is imposed (free/driven/locked), and its current value\n(cm or radians).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSDOFInfo {
-    #[serde(rename = "rotational", deserialize_with = "crate::json::null_default")]
-    pub rotational: bool,
-    #[serde(
-        rename = "imposedMotion",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub imposed_motion: String,
-    #[serde(
-        rename = "value",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub value: f64,
-}
-
-#[doc = "```text\nDSJointInfo is one row of the DS-joint set: its id, kind, name, and per-DOF imposed-motion\nbreakdown — the kinematic (degrees-of-freedom) view of a joint that motion/simulation\nconsumers read.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "a", deserialize_with = "crate::json::null_default")]
-    pub a: crate::wire::ConstraintGeomRef,
-    #[serde(rename = "b", deserialize_with = "crate::json::null_default")]
-    pub b: crate::wire::ConstraintGeomRef,
-    #[serde(
-        rename = "degreesOfFreedom",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub degrees_of_freedom: Option<Vec<crate::wire::DSDOFInfo>>,
-}
-
-#[doc = "```text\nDSJointResult is the reply of the single DS-joint operations.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointResult {
-    #[serde(rename = "joint", deserialize_with = "crate::json::null_default")]
-    pub joint: crate::wire::DSJointInfo,
-}
-
-#[doc = "```text\nDSJointsResult is the reply of [MethodDSJointsList]: the DS-joint set.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointsResult {
-    #[serde(rename = "joints", deserialize_with = "crate::json::null_default")]
-    pub joints: Option<Vec<crate::wire::DSJointInfo>>,
 }

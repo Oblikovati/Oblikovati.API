@@ -50,9 +50,11 @@ type CloseAllDocumentsArgs struct {
 }
 
 // CloseDocumentsResult is the response of [MethodDocumentsClose] /
-// [MethodDocumentsCloseAll]: how many documents were closed.
+// [MethodDocumentsCloseAll]: how many documents were closed and any nonfatal
+// warnings from saving them.
 type CloseDocumentsResult struct {
-	Closed int `json:"closed"`
+	Closed   int           `json:"closed"`
+	Warnings []SaveWarning `json:"warnings,omitempty"`
 }
 
 // RegisterDocumentSubTypeArgs is the request of [MethodDocumentsRegisterSubType]:

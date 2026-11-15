@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Typed nonfatal save warnings for single saves, batch saves, and save-on-close.
+
 ## [0.159.0] - 2026-11-07
 
 ### Added

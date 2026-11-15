@@ -3,6 +3,76 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nDeriveStatusResult reports whether a derived component is out of date relative to its\nsource document — the reference API's drive state. OutOfDate is true when the source's\ncurrent recipe revision (CurrentRevision) differs from the one captured when the derive\nwas last created/updated (SavedRevision); it is the basis for the \"out of date\" badge.\nLinked is false after a break-link (the source is frozen). SourceDocument is the source's\nfull document name. CurrentRevision is empty when the source is not currently resolvable.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DeriveStatusResult {
+    #[serde(rename = "outOfDate", deserialize_with = "crate::json::null_default")]
+    pub out_of_date: bool,
+    #[serde(rename = "linked", deserialize_with = "crate::json::null_default")]
+    pub linked: bool,
+    #[serde(
+        rename = "sourceDocument",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub source_document: String,
+    #[serde(
+        rename = "savedRevision",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub saved_revision: String,
+    #[serde(
+        rename = "currentRevision",
+        skip_serializing_if = "crate::json::is_zero",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub current_revision: String,
+}
+
+#[doc = "```text\nDerivedParameterReference is one derived parameter's link back to its source —\nthe JSON projection of the reference API's DerivedParameter.ReferencedEntity\n(#1561): the local derived parameter's name, the document it derives from, and\nthe source parameter's name there.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DerivedParameterReference {
+    #[serde(rename = "parameter", deserialize_with = "crate::json::null_default")]
+    pub parameter: String,
+    #[serde(
+        rename = "sourceDocument",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub source_document: String,
+    #[serde(
+        rename = "sourceParameter",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub source_parameter: String,
+}
+
+#[doc = "```text\nDerivedParameterTableAddArgs is the request of\n[MethodParametersDerivedTablesAdd]: the source document and the source\nparameter names to link. An empty Linked links nothing yet — the table\nstill records the connection and lists candidates.\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DerivedParameterTableAddArgs {
+    #[serde(
+        rename = "sourceDocument",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub source_document: String,
+    #[serde(
+        rename = "linked",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub linked: Option<Vec<String>>,
+}
+
+#[doc = "```text\nDerivedParameterTableDeleteArgs is the request of\n[MethodParametersDerivedTablesDelete]. Deleting a table deletes its derived\nparameters; a table owned by a derived component cannot be deleted directly\n(delete the component instead).\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DerivedParameterTableDeleteArgs {
+    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
+    pub id: i64,
+}
+
 #[doc = "```text\nDerivedParameterTableInfo is the JSON shape of one table: its stable id,\nthe source document (full document name), the linked source-parameter\nnames, the source parameters available to link (the candidates), the\ntable's health — \"\" when every link resolves, otherwise a reason (e.g. the\nsource document is missing or a linked parameter was removed at the source) —\nthe per-derived-parameter references back to their source (the reference API's\nDerivedParameter.ReferencedEntity), and the table's provenance.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
@@ -389,76 +459,4 @@ pub struct DisplayOptionsView {
         deserialize_with = "crate::json::null_default"
     )]
     pub cube_corner: i64,
-}
-
-#[doc = "```text\nDisplaySettingsView is the JSON shape of a document's per-document display settings — the\nresponse of [MethodDocumentGetDisplaySettings] and the request of\n[MethodDocumentSetDisplaySettings].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DisplaySettingsView {
-    #[serde(
-        rename = "backgroundType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub background_type: crate::types::BackgroundTypeEnum,
-    #[serde(rename = "edgeColor", deserialize_with = "crate::json::null_default")]
-    pub edge_color: crate::types::Color,
-    #[serde(
-        rename = "depthDimming",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub depth_dimming: bool,
-    #[serde(
-        rename = "displaySilhouettes",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub display_silhouettes: bool,
-    #[serde(
-        rename = "hiddenLineDimmingPercent",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub hidden_line_dimming_percent: i64,
-    #[serde(
-        rename = "newWindowDisplayMode",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub new_window_display_mode: crate::types::DisplayModeEnum,
-    #[serde(
-        rename = "displayModeSource",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub display_mode_source: crate::types::DisplayModeSourceTypeEnum,
-    #[serde(
-        rename = "newWindowProjection",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub new_window_projection: crate::types::ProjectionTypeEnum,
-    #[serde(rename = "groundPlane", deserialize_with = "crate::json::null_default")]
-    pub ground_plane: crate::wire::GroundPlaneView,
-    #[serde(
-        rename = "groundShadow",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ground_shadow: crate::types::GroundShadowEnum,
-    #[serde(
-        rename = "shadowDirection",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shadow_direction: crate::types::ShadowDirectionEnum,
-    #[serde(
-        rename = "showGroundReflections",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_ground_reflections: bool,
-    #[serde(
-        rename = "showObjectShadows",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_object_shadows: bool,
-    #[serde(
-        rename = "showAmbientShadows",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_ambient_shadows: bool,
-    #[serde(rename = "texturesOn", deserialize_with = "crate::json::null_default")]
-    pub textures_on: bool,
 }

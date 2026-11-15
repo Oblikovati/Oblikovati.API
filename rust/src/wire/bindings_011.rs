@@ -36,12 +36,18 @@ pub struct CloseDocumentArgs {
     pub force: bool,
 }
 
-#[doc = "```text\nCloseDocumentsResult is the response of [MethodDocumentsClose] /\n[MethodDocumentsCloseAll]: how many documents were closed.\n```"]
+#[doc = "```text\nCloseDocumentsResult is the response of [MethodDocumentsClose] /\n[MethodDocumentsCloseAll]: how many documents were closed and any nonfatal\nwarnings from saving them.\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]
 pub struct CloseDocumentsResult {
     #[serde(rename = "closed", deserialize_with = "crate::json::null_default")]
     pub closed: i64,
+    #[serde(
+        rename = "warnings",
+        skip_serializing_if = "crate::json::slice_is_empty",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub warnings: Option<Vec<crate::wire::SaveWarning>>,
 }
 
 #[doc = "```text\nCloseTaskPanelArgs is the request of [MethodTaskPanelClose] (programmatic dismissal).\n```"]
@@ -444,20 +450,4 @@ pub struct ConstraintLimits {
 pub struct ConstraintResult {
     #[serde(rename = "constraint", deserialize_with = "crate::json::null_default")]
     pub constraint: crate::wire::AssemblyConstraintInfo,
-}
-
-#[doc = "```text\nConstraintStatusResult is the response of [MethodSketchConstraintStatus]: the sketch's\nconstraint state without moving geometry (a non-mutating DOF analysis). Status is a\n[oblikovati.org/api/types.ConstraintStatus]; DOF is the remaining free degrees\nof freedom; Variables/Equations are the system size; Redundant counts the dependent\nconstraints (> 0 ⇒ over-constrained).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintStatusResult {
-    #[serde(rename = "status", deserialize_with = "crate::json::null_default")]
-    pub status: String,
-    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
-    pub dof: i64,
-    #[serde(rename = "variables", deserialize_with = "crate::json::null_default")]
-    pub variables: i64,
-    #[serde(rename = "equations", deserialize_with = "crate::json::null_default")]
-    pub equations: i64,
-    #[serde(rename = "redundant", deserialize_with = "crate::json::null_default")]
-    pub redundant: i64,
 }

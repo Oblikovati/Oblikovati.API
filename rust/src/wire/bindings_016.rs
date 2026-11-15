@@ -3,6 +3,78 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nDisplaySettingsView is the JSON shape of a document's per-document display settings — the\nresponse of [MethodDocumentGetDisplaySettings] and the request of\n[MethodDocumentSetDisplaySettings].\n```"]
+#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
+pub struct DisplaySettingsView {
+    #[serde(
+        rename = "backgroundType",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub background_type: crate::types::BackgroundTypeEnum,
+    #[serde(rename = "edgeColor", deserialize_with = "crate::json::null_default")]
+    pub edge_color: crate::types::Color,
+    #[serde(
+        rename = "depthDimming",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub depth_dimming: bool,
+    #[serde(
+        rename = "displaySilhouettes",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub display_silhouettes: bool,
+    #[serde(
+        rename = "hiddenLineDimmingPercent",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub hidden_line_dimming_percent: i64,
+    #[serde(
+        rename = "newWindowDisplayMode",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub new_window_display_mode: crate::types::DisplayModeEnum,
+    #[serde(
+        rename = "displayModeSource",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub display_mode_source: crate::types::DisplayModeSourceTypeEnum,
+    #[serde(
+        rename = "newWindowProjection",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub new_window_projection: crate::types::ProjectionTypeEnum,
+    #[serde(rename = "groundPlane", deserialize_with = "crate::json::null_default")]
+    pub ground_plane: crate::wire::GroundPlaneView,
+    #[serde(
+        rename = "groundShadow",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub ground_shadow: crate::types::GroundShadowEnum,
+    #[serde(
+        rename = "shadowDirection",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub shadow_direction: crate::types::ShadowDirectionEnum,
+    #[serde(
+        rename = "showGroundReflections",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_ground_reflections: bool,
+    #[serde(
+        rename = "showObjectShadows",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_object_shadows: bool,
+    #[serde(
+        rename = "showAmbientShadows",
+        deserialize_with = "crate::json::null_default"
+    )]
+    pub show_ambient_shadows: bool,
+    #[serde(rename = "texturesOn", deserialize_with = "crate::json::null_default")]
+    pub textures_on: bool,
+}
+
 #[doc = "```text\nDockableWindowChangedEvent is the push event (type [EventDockableWindowChanged])\nfired when a dockable window's visibility changes — whether by the add-in, a\nhost menu toggle, or the user closing the window (the DockableWindowsEvents\nOnShow/OnHide equivalent).\n```"]
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 #[serde(default)]

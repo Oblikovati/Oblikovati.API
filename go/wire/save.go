@@ -31,11 +31,25 @@ type SaveDocumentAsArgs struct {
 	NewFullDocumentName string `json:"newFullDocumentName"`
 }
 
+// SaveWarningAssemblyCacheUnavailable means the model was saved but its
+// optional Express assembly presentation could not be qualified.
+const SaveWarningAssemblyCacheUnavailable = "assemblyCacheUnavailable"
+
+// SaveWarning reports a nonfatal outcome for a successfully saved document.
+// Code identifies the condition and Detail explains the specific cause.
+// Document identifies the session that was saved, including during close-all.
+type SaveWarning struct {
+	Document uint64 `json:"document"`
+	Code     string `json:"code"`
+	Detail   string `json:"detail"`
+}
+
 // SaveDocumentResult is the response of [MethodDocumentsSave],
 // [MethodDocumentsSaveAs] and [MethodDocumentsSaveCopyAs]: where the bytes
-// landed.
+// landed. Warnings report nonfatal outcomes after a successful save.
 type SaveDocumentResult struct {
-	FullDocumentName string `json:"fullDocumentName"`
+	FullDocumentName string        `json:"fullDocumentName"`
+	Warnings         []SaveWarning `json:"warnings,omitempty"`
 }
 
 // SaveCopyAsArgs is the request of [MethodDocumentsSaveCopyAs]: write a copy
@@ -65,11 +79,13 @@ type BatchSaveArgs struct {
 }
 
 // BatchSaveItemResult is one per-file outcome of [MethodDocumentsBatchSave].
+// Warnings report nonfatal outcomes only when OK is true.
 type BatchSaveItemResult struct {
-	Document         uint64 `json:"document"`
-	FullDocumentName string `json:"fullDocumentName,omitempty"`
-	OK               bool   `json:"ok"`
-	Error            string `json:"error,omitempty"`
+	Document         uint64        `json:"document"`
+	FullDocumentName string        `json:"fullDocumentName,omitempty"`
+	OK               bool          `json:"ok"`
+	Error            string        `json:"error,omitempty"`
+	Warnings         []SaveWarning `json:"warnings,omitempty"`
 }
 
 // BatchSaveResult is the response of [MethodDocumentsBatchSave].

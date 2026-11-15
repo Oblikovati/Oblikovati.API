@@ -110,6 +110,11 @@ fn wire_save_options_view() {
 }
 
 #[test]
+fn wire_save_warning() {
+    super::check::<oblikovati_api::wire::SaveWarning>("wire.SaveWarning");
+}
+
+#[test]
 fn wire_scalar_edit() {
     super::check::<oblikovati_api::wire::ScalarEdit>("wire.ScalarEdit");
 }
@@ -317,12 +322,5 @@ fn wire_set_dockable_window_args() {
 fn wire_set_dockable_window_references_args() {
     super::check::<oblikovati_api::wire::SetDockableWindowReferencesArgs>(
         "wire.SetDockableWindowReferencesArgs",
-    );
-}
-
-#[test]
-fn wire_set_dockable_window_value_args() {
-    super::check::<oblikovati_api::wire::SetDockableWindowValueArgs>(
-        "wire.SetDockableWindowValueArgs",
     );
 }

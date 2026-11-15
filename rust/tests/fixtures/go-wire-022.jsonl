@@ -1,3 +1,6 @@
+{"Name":"wire.SaveWarning","Case":"zero","Payload":{"document":0,"code":"","detail":""},"Canonical":{"document":0,"code":"","detail":""},"Error":""}
+{"Name":"wire.SaveWarning","Case":"filled","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.SaveWarning","Case":"empty","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.ScalarEdit","Case":"zero","Payload":{"index":0,"value":""},"Canonical":{"index":0,"value":""},"Error":""}
 {"Name":"wire.ScalarEdit","Case":"filled","Payload":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.ScalarEdit","Case":"empty","Payload":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"zero","Payload":{"id":0,"level":0},"Canonical":{"id":0,"level":0},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"filled","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"empty","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}

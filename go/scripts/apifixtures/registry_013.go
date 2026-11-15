@@ -69,6 +69,7 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.SaveDocumentAsArgs", reflect.TypeFor[wire.SaveDocumentAsArgs]()},
 	{"wire.SaveDocumentResult", reflect.TypeFor[wire.SaveDocumentResult]()},
 	{"wire.SaveOptionsView", reflect.TypeFor[wire.SaveOptionsView]()},
+	{"wire.SaveWarning", reflect.TypeFor[wire.SaveWarning]()},
 	{"wire.ScalarEdit", reflect.TypeFor[wire.ScalarEdit]()},
 	{"wire.ScriptRunArgs", reflect.TypeFor[wire.ScriptRunArgs]()},
 	{"wire.ScriptRunResult", reflect.TypeFor[wire.ScriptRunResult]()},
@@ -88,5 +89,4 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.SetAssemblyParticipantPathsArgs", reflect.TypeFor[wire.SetAssemblyParticipantPathsArgs]()},
 	{"wire.SetAssemblyParticipantsArgs", reflect.TypeFor[wire.SetAssemblyParticipantsArgs]()},
 	{"wire.SetAttributeArgs", reflect.TypeFor[wire.SetAttributeArgs]()},
-	{"wire.SetBOMStructureArgs", reflect.TypeFor[wire.SetBOMStructureArgs]()},
 }

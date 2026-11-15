@@ -86,7 +86,7 @@
 {"Name":"wire.CloseDocumentArgs","Case":"filled","Payload":{"id":7,"force":true},"Canonical":{"id":7,"force":true},"Error":""}
 {"Name":"wire.CloseDocumentArgs","Case":"empty","Payload":{"id":7,"force":true},"Canonical":{"id":7,"force":true},"Error":""}
 {"Name":"wire.CloseDocumentsResult","Case":"zero","Payload":{"closed":0},"Canonical":{"closed":0},"Error":""}
-{"Name":"wire.CloseDocumentsResult","Case":"filled","Payload":{"closed":7},"Canonical":{"closed":7},"Error":""}
+{"Name":"wire.CloseDocumentsResult","Case":"filled","Payload":{"closed":7,"warnings":[{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"}]},"Canonical":{"closed":7,"warnings":[{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"}]},"Error":""}
 {"Name":"wire.CloseDocumentsResult","Case":"empty","Payload":{"closed":7},"Canonical":{"closed":7},"Error":""}
 {"Name":"wire.CloseTaskPanelArgs","Case":"zero","Payload":{"id":""},"Canonical":{"id":""},"Error":""}
 {"Name":"wire.CloseTaskPanelArgs","Case":"filled","Payload":{"id":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":"example \u003c\u0026\u003e 日本語"},"Error":""}
