@@ -116,6 +116,11 @@ func TestUnconventionalSubjectsAreChangedInReleaseNotes(t *testing.T) {
 	if got := classify(messages); got != changePatch {
 		t.Fatalf("version scope %s: expected conservative patch floor", got)
 	}
+	for _, message := range messages {
+		if got := noteCategory(message); got != noteChanged {
+			t.Fatalf("note category %v for %q: expected changed", got, message)
+		}
+	}
 	notes := releaseNotes(messages)
 	if !strings.Contains(notes, "### Changed\n\n- Define express assembly loading operations\n- wire: extend save results") || strings.Contains(notes, "### Fixed") {
 		t.Fatalf("release notes %q: expected both subjects under Changed", notes)

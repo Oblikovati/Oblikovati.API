@@ -129,30 +129,47 @@ func notesGroups(messages []string) (added, changed, fixed []string) {
 		if subject == "" {
 			continue
 		}
-		switch noteScope(m) {
-		case changeFeature:
+		switch noteCategory(m) {
+		case noteAdded:
 			added = append(added, subject)
-		case changePatch:
+		case noteFixed:
 			fixed = append(fixed, subject)
-		case changeBreaking:
+		case noteChanged:
 			changed = append(changed, subject)
 		}
 	}
 	return added, changed, fixed
 }
 
-// noteScope keeps unknown commit subjects under Changed while preserving the
-// conservative patch floor used by the separate version classifier.
-func noteScope(message string) change {
+type noteGroup int
+
+const (
+	noteSkip noteGroup = iota
+	noteAdded
+	noteChanged
+	noteFixed
+)
+
+// noteCategory classifies presentation separately from semantic version scope.
+func noteCategory(message string) noteGroup {
 	match := headerRe.FindStringSubmatch(strings.TrimSpace(message))
 	if match == nil {
-		return changeBreaking
+		return noteChanged
 	}
 	kind := strings.ToLower(match[1])
 	if !featureTypes[kind] && !patchTypes[kind] && !silentTypes[kind] {
-		return changeBreaking
+		return noteChanged
 	}
-	return classifyOne(message)
+	switch classifyOne(message) {
+	case changeFeature:
+		return noteAdded
+	case changePatch:
+		return noteFixed
+	case changeBreaking:
+		return noteChanged
+	default:
+		return noteSkip
+	}
 }
 
 func writeGroup(b *strings.Builder, heading string, items []string) {
