@@ -3,451 +3,463 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nClientOperationEvent is the push event (type [EventClientOperation]) telling a\nsubtype's owner its flavored document needs servicing: Operation is \"created\",\n\"opened\", \"activated\" or \"saved\".\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ClientOperationEvent {
-    #[doc = "```text\nalways EventClientOperation\n```"]
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(rename = "subType", deserialize_with = "crate::json::null_default")]
-    pub sub_type: String,
-    #[serde(rename = "operation", deserialize_with = "crate::json::null_default")]
-    pub operation: String,
+generated_dto! {
+#[doc = "```text\nLightingStyleView is the JSON shape of the active lighting style — the response of\n[MethodLightingGetStyle] and [MethodLightingSetStyle].\n```"]
+pub struct LightingStyleView {
+    pub name: String => required("name");
+    pub style_type: crate::types::LightingStyleTypeEnum => required("styleType");
+    pub ambience: f64 => finite("ambience");
+    pub brightness: f64 => finite("brightness");
+    pub exposure: f64 => finite("exposure");
+    pub ibl_brightness: f64 => finite("iblBrightness");
+    pub ibl_rotation: f64 => finite("iblRotation");
+    pub shadow_density: f64 => finite("shadowDensity");
+    pub shadow_softness: f64 => finite("shadowSoftness");
+    pub shadow_dir: crate::types::ShadowDirectionEnum => required("shadowDirection");
+}
 }
 
-#[doc = "```text\nCloseAllDocumentsArgs is the request of [MethodDocumentsCloseAll]: close every\nopen document. Force discards unsaved changes (the usual choice to start a clean\nsession).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseAllDocumentsArgs {
-    #[serde(rename = "force", deserialize_with = "crate::json::null_default")]
-    pub force: bool,
+generated_dto! {
+#[doc = "```text\nLineStyleInfo is the JSON shape of a drawing line style.\n```"]
+pub struct LineStyleInfo {
+    pub name: String => required("name");
+    pub weight_mm: f64 => finite("weightMm");
+}
 }
 
-#[doc = "```text\nCloseDocumentArgs is the request of [MethodDocumentsClose]: the session id of the\ndocument to close. Force discards unsaved changes instead of saving them first.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseDocumentArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "force", deserialize_with = "crate::json::null_default")]
-    pub force: bool,
+generated_dto! {
+#[doc = "```text\nListAddInsResult is the response of [MethodAddInsList], in registration order.\n```"]
+pub struct ListAddInsResult {
+    pub add_ins: Option<Vec<crate::wire::AddInInfo>> => required("addIns");
+}
 }
 
-#[doc = "```text\nCloseDocumentsResult is the response of [MethodDocumentsClose] /\n[MethodDocumentsCloseAll]: how many documents were closed and any nonfatal\nwarnings from saving them.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseDocumentsResult {
-    #[serde(rename = "closed", deserialize_with = "crate::json::null_default")]
-    pub closed: i64,
-    #[serde(
-        rename = "warnings",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub warnings: Option<Vec<crate::wire::SaveWarning>>,
+generated_dto! {
+#[doc = "```text\nListAppearancesResult is the [MethodAppearancesList] response.\n```"]
+pub struct ListAppearancesResult {
+    pub appearances: Option<Vec<crate::wire::AppearanceInfo>> => required("appearances");
+}
 }
 
-#[doc = "```text\nCloseTaskPanelArgs is the request of [MethodTaskPanelClose] (programmatic dismissal).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseTaskPanelArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
+generated_dto! {
+#[doc = "```text\nListAttachmentsArgs is the request of [MethodDocumentsListAttachments].\n```"]
+pub struct ListAttachmentsArgs {
+    pub document: u64 => required("document");
+}
 }
 
-#[doc = "```text\nCloseViewArgs is the request of [MethodViewsClose]: remove the indexed view. Closing\nthe last remaining view of a document is refused (a document always has ≥1 view).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseViewArgs {
-    #[serde(
-        rename = "document",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub document: u64,
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
+generated_dto! {
+#[doc = "```text\nListAttachmentsResult is the response of [MethodDocumentsListAttachments].\n```"]
+pub struct ListAttachmentsResult {
+    pub attachments: Option<Vec<crate::wire::AttachmentInfo>> => required("attachments");
+}
 }
 
-#[doc = "```text\nCloseViewTabArgs is the request of [MethodWindowsCloseTab]; Force discards\nunsaved changes (otherwise the document is saved first).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseViewTabArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(
-        rename = "force",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub force: bool,
+generated_dto! {
+#[doc = "```text\nListAttributeSetsArgs is the request of [MethodAttributesListSets]: the document whose attribute\nset names to enumerate.\n```"]
+pub struct ListAttributeSetsArgs {
+    pub document: u64 => required("document");
+}
 }
 
-#[doc = "```text\nCloseWebDialogArgs is the request of [MethodDialogsCloseWebDialog].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CloseWebDialogArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
+generated_dto! {
+#[doc = "```text\nListAttributeSetsResult is the response of [MethodAttributesListSets]: the set names, sorted.\n```"]
+pub struct ListAttributeSetsResult {
+    pub sets: Option<Vec<String>> => required("sets");
+}
 }
 
-#[doc = "```text\nColorMapperInfo is one entry of [ColorMappersResult]: a registered named mapper.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorMapperInfo {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "stopCount", deserialize_with = "crate::json::null_default")]
-    pub stop_count: i64,
+generated_dto! {
+#[doc = "```text\nListAttributesArgs is the request of [MethodAttributesList]: every attribute on the document, or\nonly those in Set when it is non-empty. By default it lists the document-scoped attributes;\nset Target to list a specific entity's attributes, or set AllTargets to list every attribute on\nevery target (each carrying its Target in the result).\n```"]
+pub struct ListAttributesArgs {
+    pub document: u64 => required("document");
+    pub set: String => omitted("set", "crate::json::is_zero");
+    pub target: String => omitted("target", "crate::json::is_zero");
+    pub all_targets: bool => omitted("allTargets", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nColorMappersResult is the response of [MethodClientGraphicsListMappers].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorMappersResult {
-    #[serde(rename = "mappers", deserialize_with = "crate::json::null_default")]
-    pub mappers: Option<Vec<crate::wire::ColorMapperInfo>>,
+generated_dto! {
+#[doc = "```text\nListAttributesResult is the response of [MethodAttributesList]: the matching attributes in set\nthen insertion order.\n```"]
+pub struct ListAttributesResult {
+    pub attributes: Option<Vec<crate::wire::AttributeInfo>> => required("attributes");
+}
 }
 
-#[doc = "```text\nColorSchemeView is the JSON shape of one color scheme — the element of\n[ColorSchemesResult] and the response of [MethodColorSchemesGetActive] /\n[MethodColorSchemesSetActive]. The background colors honor BackgroundType: ScreenColor for\na solid background, Top/BottomScreenColor for a gradient. Highlight/select colors feed the\nselection pipeline.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorSchemeView {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "active", deserialize_with = "crate::json::null_default")]
-    pub active: bool,
-    #[serde(
-        rename = "backgroundType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub background_type: crate::types::BackgroundTypeEnum,
-    #[serde(rename = "screenColor", deserialize_with = "crate::json::null_default")]
-    pub screen_color: crate::types::Color,
-    #[serde(
-        rename = "topScreenColor",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub top_screen: crate::types::Color,
-    #[serde(
-        rename = "bottomScreenColor",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub bottom_screen: crate::types::Color,
-    #[serde(
-        rename = "highlightColor",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub highlight: crate::types::Color,
-    #[serde(
-        rename = "primarySelectColor",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub primary_select: crate::types::Color,
-    #[serde(
-        rename = "secondarySelectColor",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub second_select: crate::types::Color,
+generated_dto! {
+#[doc = "```text\nListBindingsResult is the response of [MethodKeymapList]: the full catalog, in a\nstable display order (commands first in registration order, then built-ins).\n```"]
+pub struct ListBindingsResult {
+    pub bindings: Option<Vec<crate::wire::BindingInfo>> => required("bindings");
+}
 }
 
-#[doc = "```text\nColorSchemesResult is the response of [MethodColorSchemesList]: every scheme, with the\nactive one flagged.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorSchemesResult {
-    #[serde(rename = "schemes", deserialize_with = "crate::json::null_default")]
-    pub schemes: Option<Vec<crate::wire::ColorSchemeView>>,
+generated_dto! {
+#[doc = "```text\nListBlockDefinitionsResult is the response of [MethodSketchBlockDefinitionList]:\nevery block definition of the active part's component definition.\n```"]
+pub struct ListBlockDefinitionsResult {
+    pub definitions: Option<Vec<crate::wire::SketchBlockDefinitionInfo>> => required("definitions");
+}
 }
 
-#[doc = "```text\nColorStyleView is the JSON shape of one color style — the element of [ColorStylesResult] and\nthe response of [MethodStylesGet] / [MethodStylesSet] and the request of the latter. The\ncolor components are full [types.Color] value objects; Shininess/Opacity are in [0,1].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorStyleView {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "diffuse", deserialize_with = "crate::json::null_default")]
-    pub diffuse: crate::types::Color,
-    #[serde(rename = "ambient", deserialize_with = "crate::json::null_default")]
-    pub ambient: crate::types::Color,
-    #[serde(rename = "specular", deserialize_with = "crate::json::null_default")]
-    pub specular: crate::types::Color,
-    #[serde(rename = "emissive", deserialize_with = "crate::json::null_default")]
-    pub emissive: crate::types::Color,
-    #[serde(
-        rename = "shininess",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shininess: f64,
-    #[serde(
-        rename = "opacity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub opacity: f64,
-    #[serde(rename = "location", deserialize_with = "crate::json::null_default")]
-    pub location: crate::types::StyleLocationEnum,
+generated_dto! {
+#[doc = "```text\nListBlockInstancesResult is the response of [MethodSketchListBlockInstances].\n```"]
+pub struct ListBlockInstancesResult {
+    pub instances: Option<Vec<crate::wire::SketchBlockInfo>> => required("instances");
+}
 }
 
-#[doc = "```text\nColorStylesResult is the response of [MethodStylesList]: every color style in the document.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ColorStylesResult {
-    #[serde(rename = "styles", deserialize_with = "crate::json::null_default")]
-    pub styles: Option<Vec<crate::wire::ColorStyleView>>,
+generated_dto! {
+#[doc = "```text\nListBrowserPanesResult is the response of [MethodBrowserListPanes]: every add-in\npane in creation order (the built-in Model pane is not listed — it is the\ndocument tree, served by model.tree).\n```"]
+pub struct ListBrowserPanesResult {
+    pub panes: Option<Vec<crate::wire::BrowserPaneSpec>> => required("panes");
+}
 }
 
-#[doc = "```text\nCommandInfo is the JSON shape of a registered command (its control-definition\nmetadata) plus its current enabled state.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CommandInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "displayName", deserialize_with = "crate::json::null_default")]
-    pub display_name: String,
-    #[serde(
-        rename = "ribbon",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ribbon: crate::types::RibbonKey,
-    #[serde(
-        rename = "tab",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tab: String,
-    #[serde(
-        rename = "category",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub category: String,
-    #[serde(
-        rename = "environment",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub environment: crate::types::Environment,
-    #[serde(
-        rename = "alias",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alias: String,
-    #[serde(
-        rename = "tooltip",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tooltip: String,
-    #[doc = "```text\nTooltipTitle / TooltipExpanded are the progressive tooltip (M05-F09): the\ntitle heads the hover tip; the expanded text appears after a longer hover.\n```"]
-    #[serde(
-        rename = "tooltipTitle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tooltip_title: String,
-    #[serde(
-        rename = "tooltipExpanded",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tooltip_expanded: String,
-    #[serde(
-        rename = "icon",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub icon: String,
-    #[doc = "```text\nIconSVG is inline SVG markup the add-in supplied for this button (see\n[CreateCommandArgs.IconSVG]); empty when the button uses a host-bundled Icon key.\n```"]
-    #[serde(
-        rename = "iconSvg",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub icon_svg: String,
-    #[serde(
-        rename = "buttonStyle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub button_style: crate::types::ButtonStyle,
-    #[serde(rename = "enabled", deserialize_with = "crate::json::null_default")]
-    pub enabled: bool,
+generated_dto! {
+#[doc = "```text\nListClientApplicationsResult is the response of [MethodClientAppsList], in\nregistration order.\n```"]
+pub struct ListClientApplicationsResult {
+    pub clients: Option<Vec<crate::wire::ClientApplicationInfo>> => required("clients");
+}
 }
 
-#[doc = "```text\nCommandLineResult is the response of [MethodCommandLineSubmit]. Output is the scrollback\nlines this submission produced (echoes, prompts, results). Prompt is the active command's\nnext step prompt, and Awaiting is true while a command is mid-interaction (more input\nexpected). Error carries a command-line error (e.g. an unknown command) as a message\nrather than a transport failure, so the caller can show it inline like the UI does.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CommandLineResult {
-    #[serde(
-        rename = "output",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub output: Option<Vec<String>>,
-    #[serde(
-        rename = "prompt",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub prompt: String,
-    #[serde(rename = "awaiting", deserialize_with = "crate::json::null_default")]
-    pub awaiting: bool,
-    #[serde(
-        rename = "error",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub error: String,
+generated_dto! {
+#[doc = "```text\nListClientGraphicsResult is the response of [MethodClientGraphicsList].\n```"]
+pub struct ListClientGraphicsResult {
+    pub groups: Option<Vec<crate::wire::ClientGraphicsInfo>> => required("groups");
+}
 }
 
-#[doc = "```text\nCommandStartedEvent is the push event (type [EventCommandStarted]) fired when a\ncommand begins — the OnStartCommand observation; command.ended already reports\ncompletion.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CommandStartedEvent {
-    #[doc = "```text\nalways EventCommandStarted\n```"]
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "command", deserialize_with = "crate::json::null_default")]
-    pub command: String,
+generated_dto! {
+#[doc = "```text\nListCommandsResult is the response of [MethodCommandsList].\n```"]
+pub struct ListCommandsResult {
+    pub commands: Option<Vec<crate::wire::CommandInfo>> => required("commands");
+}
 }
 
-#[doc = "```text\nCompatibleUnitsResult reports whether an expression's resolved unit is\ndimensionally compatible with the target category (response of\n[MethodUnitsCompatibleUnits]).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CompatibleUnitsResult {
-    #[serde(rename = "compatible", deserialize_with = "crate::json::null_default")]
-    pub compatible: bool,
+generated_dto! {
+#[doc = "```text\nListConstraints3DResult is the response of [MethodSketch3DConstraints].\n```"]
+pub struct ListConstraints3DResult {
+    pub constraints: Option<Vec<crate::wire::Constraint3DInfo>> => required("constraints");
+}
 }
 
-#[doc = "```text\nConstraint3DInfo is one enumerated geometric constraint from\n[MethodSketch3DConstraints]: its index, kind\n([oblikovati.org/api/types.Geometric3DConstraintKind]), and the session ids of\nthe entities/points it relates.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Constraint3DInfo {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "entities",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub entities: Option<Vec<u64>>,
+generated_dto! {
+#[doc = "```text\nListConstraintsResult is the response of [MethodSketchConstraints].\n```"]
+pub struct ListConstraintsResult {
+    pub constraints: Option<Vec<crate::wire::ConstraintInfo>> => required("constraints");
+}
 }
 
-#[doc = "```text\nConstraintEventPayload is the body of the assembly relationship events\n([EventAssemblyConstraintAdded], [EventAssemblyConstraintDeleted], [EventAssemblyResolved]):\nwhich assembly (Document), and for add/delete the affected constraint's id and kind.\nThe resolved event carries no constraint (Constraint is 0, Kind empty).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintEventPayload {
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(
-        rename = "constraint",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub constraint: u64,
-    #[serde(
-        rename = "kind",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub kind: String,
+generated_dto! {
+#[doc = "```text\nListDerivedParameterTablesResult is the response of\n[MethodParametersDerivedTablesList].\n```"]
+pub struct ListDerivedParameterTablesResult {
+    pub tables: Option<Vec<crate::wire::DerivedParameterTableInfo>> => omitted("tables", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nConstraintGeomRef addresses one geometry input of a constraint: the Occurrence (session\nid) whose component carries the geometry, and the Entity's reference key on that\ncomponent (a face, edge, or vertex key). The solver resolves it to assembly-space\ngeometry through the occurrence's placement.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintGeomRef {
-    #[serde(rename = "occurrence", deserialize_with = "crate::json::null_default")]
-    pub occurrence: u64,
-    #[serde(rename = "entity", deserialize_with = "crate::json::null_default")]
-    pub entity: String,
+generated_dto! {
+#[doc = "```text\nListDimensions3DResult is the response of [MethodSketch3DDimensions].\n```"]
+pub struct ListDimensions3DResult {
+    pub dimensions: Option<Vec<crate::wire::Dimension3DInfo>> => required("dimensions");
+}
 }
 
-#[doc = "```text\nConstraintInfo is one enumerated geometric constraint from [MethodSketchConstraints]:\nits index, kind ([oblikovati.org/api/types.GeometricConstraintKind]), and the\nsession ids of the entities it relates. Deletable is false for system-owned\nconstraints (the textBox anchor — M06-F11, Oblikovati/Oblikovati#626);\nsketch.deleteConstraint rejects those. ClientID and Name carry the owning add-in and\nthe record name of a \"custom\" tag constraint.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintInfo {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "entities", deserialize_with = "crate::json::null_default")]
-    pub entities: Option<Vec<u64>>,
-    #[serde(rename = "deletable", deserialize_with = "crate::json::null_default")]
-    pub deletable: bool,
-    #[serde(
-        rename = "clientId",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub client_id: String,
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
+generated_dto! {
+#[doc = "```text\nListDimensionsResult is the response of [MethodSketchDimensions].\n```"]
+pub struct ListDimensionsResult {
+    pub dimensions: Option<Vec<crate::wire::DimensionInfo>> => required("dimensions");
+}
 }
 
-#[doc = "```text\nConstraintLimits bounds a constraint's driven value (offset/angle). Each bound is\noptional; an absent bound (its Has* flag false) does not clamp. Resting is the value\na drive returns to when released.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintLimits {
-    #[serde(
-        rename = "hasMin",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_min: bool,
-    #[serde(
-        rename = "min",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub min: f64,
-    #[serde(
-        rename = "hasMax",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_max: bool,
-    #[serde(
-        rename = "max",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub max: f64,
-    #[serde(
-        rename = "hasResting",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_resting: bool,
-    #[serde(
-        rename = "resting",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub resting: f64,
+generated_dto! {
+#[doc = "```text\nListDisplayModesResult is the response of [MethodViewListDisplayModes].\n```"]
+pub struct ListDisplayModesResult {
+    pub modes: Option<Vec<crate::wire::DisplayModeInfo>> => required("modes");
+}
 }
 
-#[doc = "```text\nConstraintResult is the reply of the single-constraint add operations: the new\nconstraint's info (after the assembly re-solves).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ConstraintResult {
-    #[serde(rename = "constraint", deserialize_with = "crate::json::null_default")]
-    pub constraint: crate::wire::AssemblyConstraintInfo,
+generated_dto! {
+#[doc = "```text\nListDockableWindowsResult is the response of [MethodDockableWindowsList], in\ncreation order.\n```"]
+pub struct ListDockableWindowsResult {
+    pub windows: Option<Vec<crate::wire::DockableWindowSpec>> => required("windows");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentFileReferencesArgs is the request of\n[MethodDocumentsListFileReferences]: the session id of the document whose\nfile references to enumerate.\n```"]
+pub struct ListDocumentFileReferencesArgs {
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentFileReferencesResult is the response of\n[MethodDocumentsListFileReferences].\n```"]
+pub struct ListDocumentFileReferencesResult {
+    pub references: Option<Vec<crate::wire::DocumentFileReferenceInfo>> => required("references");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentInterestsArgs is the request of [MethodDocumentsListInterests].\n```"]
+pub struct ListDocumentInterestsArgs {
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentInterestsResult is the response of [MethodDocumentsListInterests].\n```"]
+pub struct ListDocumentInterestsResult {
+    pub interests: Option<Vec<crate::types::DocumentInterestRecord>> => required("interests");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentSubTypesResult is the response of [MethodDocumentsListSubTypes].\n```"]
+pub struct ListDocumentSubTypesResult {
+    pub sub_types: Option<Vec<crate::wire::DocumentSubTypeInfo>> => required("subTypes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDocumentsResult is the response of [MethodDocumentsList]: every open document\nand (via each DocumentInfo.Active flag) which one is active.\n```"]
+pub struct ListDocumentsResult {
+    pub documents: Option<Vec<crate::wire::DocumentInfo>> => required("documents");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDrawingAnnotationsResult is the response of [MethodDrawingAnnotationsList].\n```"]
+pub struct ListDrawingAnnotationsResult {
+    pub annotations: Option<Vec<crate::wire::DrawingAnnotationInfo>> => required("annotations");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDrawingDimensionsResult is the response of [MethodDrawingDimensionsList].\n```"]
+pub struct ListDrawingDimensionsResult {
+    pub dimensions: Option<Vec<crate::wire::DrawingDimensionInfo>> => required("dimensions");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDrawingSketchesResult is the response of [MethodDrawingSketchesList].\n```"]
+pub struct ListDrawingSketchesResult {
+    pub sketches: Option<Vec<crate::wire::DrawingSketchInfo>> => required("sketches");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListDrawingViewsResult is the response of [MethodDrawingViewsList]: the active sheet's views.\n```"]
+pub struct ListDrawingViewsResult {
+    pub views: Option<Vec<crate::wire::DrawingViewInfo>> => required("views");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListEnvironmentsResult is the response of [MethodUIListEnvironments].\n```"]
+pub struct ListEnvironmentsResult {
+    pub environments: Option<Vec<crate::wire::EnvironmentInfo>> => required("environments");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListErrorsResult is the response of [MethodErrorsList]: the message tree and the\naggregate flags (the ErrorManager HasErrors/HasWarnings equivalents).\n```"]
+pub struct ListErrorsResult {
+    pub root: crate::wire::MessageSectionView => required("root");
+    pub has_errors: bool => required("hasErrors");
+    pub has_warnings: bool => required("hasWarnings");
+    pub last_message: String => omitted("lastMessage", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListFeatureKindsResult is the response of [MethodFeaturesList].\n```"]
+pub struct ListFeatureKindsResult {
+    pub kinds: Option<Vec<crate::wire::FeatureKindInfo>> => required("kinds");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListFileReferencesResult is the response of [MethodFilesListReferences].\n```"]
+pub struct ListFileReferencesResult {
+    pub references: Option<Vec<crate::wire::FileReferenceInfo>> => required("references");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListFontsResult is the response of [MethodFontsList]: every face the picker can offer — the\napplication's bundled faces plus the fonts installed on the host.\n```"]
+pub struct ListFontsResult {
+    pub faces: Option<Vec<crate::wire::FontFace>> => required("faces");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListHighlightSetsResult is the response of [MethodModelHighlightSetList].\n```"]
+pub struct ListHighlightSetsResult {
+    pub sets: Option<Vec<crate::wire::HighlightSetInfo>> => required("sets");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListMaterialsResult is the list response.\n```"]
+pub struct ListMaterialsResult {
+    pub materials: Option<Vec<crate::wire::MaterialInfo>> => required("materials");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListMiniToolbarsResult is the response of [MethodMiniToolbarList], in creation\norder.\n```"]
+pub struct ListMiniToolbarsResult {
+    pub toolbars: Option<Vec<crate::wire::MiniToolbarSpec>> => required("toolbars");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListOptionGroupsResult is the response of [MethodOptionsListGroups].\n```"]
+pub struct ListOptionGroupsResult {
+    pub groups: Option<Vec<String>> => required("groups");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListParameterGroupsResult is the response of [MethodParametersGroupsList].\n```"]
+pub struct ListParameterGroupsResult {
+    pub groups: Option<Vec<crate::wire::ParameterGroupInfo>> => omitted("groups", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListParametersResult is the response of [MethodParametersList].\n```"]
+pub struct ListParametersResult {
+    pub parameters: Option<Vec<crate::wire::ParameterInfo>> => required("parameters");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPaths3DResult is the response of [MethodSketch3DPaths].\n```"]
+pub struct ListPaths3DResult {
+    pub paths: Option<Vec<crate::wire::Path3DInfo>> => required("paths");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPointCloudCropsArgs is the request of [MethodPointCloudsListCrops]: the owning cloud's name.\n```"]
+pub struct ListPointCloudCropsArgs {
+    pub cloud: String => required("cloud");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPointCloudCropsResult is the response of [MethodPointCloudsListCrops].\n```"]
+pub struct ListPointCloudCropsResult {
+    pub crops: Option<Vec<crate::wire::PointCloudCropInfo>> => required("crops");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPointCloudsResult is the response of [MethodPointCloudsList].\n```"]
+pub struct ListPointCloudsResult {
+    pub point_clouds: Option<Vec<crate::wire::PointCloudInfo>> => required("pointClouds");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListProfiles3DResult is the response of [MethodSketch3DProfiles].\n```"]
+pub struct ListProfiles3DResult {
+    pub profiles: Option<Vec<crate::wire::Profile3DInfo>> => required("profiles");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListProfilesResult is the response of [MethodSketchProfiles].\n```"]
+pub struct ListProfilesResult {
+    pub profiles: Option<Vec<crate::wire::ProfileInfo>> => required("profiles");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPropertiesArgs is the request of [MethodDocumentsListProperties]: the document whose\nproperties to enumerate (by session id from documents.list).\n```"]
+pub struct ListPropertiesArgs {
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListPropertiesResult is the response of [MethodDocumentsListProperties]: every property of\nthe document, across all its sets, in set then insertion order.\n```"]
+pub struct ListPropertiesResult {
+    pub properties: Option<Vec<crate::wire::PropertyInfo>> => required("properties");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListRetrievableDimensionsArgs is the request of [MethodDrawingDimensionsListRetrievable]: the base\nview whose referenced model's parametric dimensions to list (#1991).\n```"]
+pub struct ListRetrievableDimensionsArgs {
+    pub view_name: String => required("viewName");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListRibbonResult is the response of [MethodRibbonList]: the ribbon currently shown for the\nactive document (Key is ZeroDoc when none is open), with its tabs/panels/controls. It is\nthe discovery surface an add-in reads to find the internal names to insert into (it lists\nthe contents of the ribbon). Contextual tabs (e.g. Sketch) appear only when their\nenvironment is active.\n```"]
+pub struct ListRibbonResult {
+    pub key: crate::types::RibbonKey => required("key");
+    pub tabs: Option<Vec<crate::wire::RibbonTabInfo>> => omitted("tabs", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListSheetsResult is the response of [MethodDrawingListSheets]: every sheet (the\nactive one flagged) and the drawing's primary referenced model, if set.\n```"]
+pub struct ListSheetsResult {
+    pub sheets: Option<Vec<crate::wire::SheetInfo>> => required("sheets");
+    pub model_reference: String => omitted("modelReference", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListSketches3DResult is the response of [MethodSketch3DList].\n```"]
+pub struct ListSketches3DResult {
+    pub sketches: Option<Vec<crate::wire::Sketch3DInfo>> => required("sketches");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListSketchesResult is the response of [MethodSketchList].\n```"]
+pub struct ListSketchesResult {
+    pub sketches: Option<Vec<crate::wire::SketchInfo>> => required("sketches");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListStandardsResult is the response of [MethodDrawingStylesListStandards]: the available\ndrafting standards and the active one.\n```"]
+pub struct ListStandardsResult {
+    pub standards: Option<Vec<String>> => required("standards");
+    pub active: String => required("active");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListThemesResult is the response of [MethodThemeList].\n```"]
+pub struct ListThemesResult {
+    pub themes: Option<Vec<crate::wire::ThemeSummary>> => required("themes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListViewFramesResult is the response of [MethodWindowsListFrames].\n```"]
+pub struct ListViewFramesResult {
+    pub frames: Option<Vec<crate::wire::ViewFrameInfo>> => required("frames");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListViewTabsResult is the response of [MethodWindowsListTabs], in strip order.\n```"]
+pub struct ListViewTabsResult {
+    pub tabs: Option<Vec<crate::wire::ViewTabInfo>> => required("tabs");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListViewsArgs is the request of [MethodViewsList]: which document to enumerate.\n```"]
+pub struct ListViewsArgs {
+#[doc = "```text\n0 ⇒ active document\n```"]
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+}
 }

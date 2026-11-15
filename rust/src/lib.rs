@@ -11,6 +11,8 @@
 
 #[macro_use]
 mod generated_scalar;
+#[macro_use]
+mod generated_dto;
 pub mod client;
 pub mod contract;
 mod error;

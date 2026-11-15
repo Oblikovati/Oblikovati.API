@@ -43,8 +43,7 @@ class GenerationTests(unittest.TestCase):
             Path("go/client").mkdir(parents=True)
             generate_bindings(sample_schema(), Path("rust/src"))
             text = Path("rust/src/wire/bindings_000.rs").read_text()
-            self.assertIn('rename = "id"', text)
-            self.assertIn("pub id: u64", text)
+            self.assertIn('pub id: u64 => required("id")', text)
             self.assertIn("METHOD_GET", text)
             self.assertIn(
                 "sample_get",

@@ -3,433 +3,199 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nHighlightSetRefArgs addresses a highlight set by Name ([MethodModelHighlightSetDelete]).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct HighlightSetRefArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
+generated_dto! {
+#[doc = "```text\nViewInfo is the JSON shape of one view: its index in the document's collection, its\nname, whether it is the active view, its kind, its camera frame, and the display mode it\nrenders in (the camera + display-mode pair a client view carries).\n```"]
+pub struct ViewInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub active: bool => required("active");
+    pub view_type: crate::types::ViewTypeEnum => required("viewType");
+    pub camera: crate::wire::CameraView => required("camera");
+    pub display_mode: crate::types::DisplayModeEnum => required("displayMode");
+}
 }
 
-#[doc = "```text\nImportDWGArgs is the request of [MethodImportDWG]: the host-side path of a .dwg\nfile and the target work plane for a 2D drawing. Plane names a plane from\nlist_work_planes (e.g. \"XY Plane\", or a user work plane); empty defaults to the\nfirst origin plane. A non-planar drawing imports into a 3D sketch and ignores\nPlane. The DWG world origin maps onto the chosen plane's origin.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportDWGArgs {
-    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
-    pub path: String,
-    #[serde(
-        rename = "plane",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane: String,
+generated_dto! {
+#[doc = "```text\nViewResult is the response of [MethodDrawingViewsAddBase] / [MethodDrawingViewsAddProjected]:\nthe created view.\n```"]
+pub struct ViewResult {
+    pub view: crate::wire::DrawingViewInfo => required("view");
+}
 }
 
-#[doc = "```text\nImportDWGResult is the response of [MethodImportDWG]: whether the drawing landed\nin a 3D sketch (vs a 2D sketch on the chosen plane), how many curve entities were\nadded, and any per-entity warnings (unmapped/undecodable objects that were\nskipped).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportDWGResult {
-    #[serde(rename = "is3D", deserialize_with = "crate::json::null_default")]
-    pub is3_d: bool,
-    #[serde(rename = "entityCount", deserialize_with = "crate::json::null_default")]
-    pub entity_count: i64,
-    #[serde(
-        rename = "warnings",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub warnings: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nViewTabInfo is one document tab of the frame's tab strip.\n```"]
+pub struct ViewTabInfo {
+    pub document: u64 => required("document");
+    pub title: String => required("title");
+    pub active: bool => required("active");
+    pub dirty: bool => omitted("dirty", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nImportDXFArgs is the request of [MethodImportDXF]: the host-side path of a .dxf file and\nthe target work plane for a 2D drawing. Plane names a plane from list_work_planes (e.g.\n\"XY Plane\", or a user work plane); empty defaults to the first origin plane. A non-planar\ndrawing imports into a 3D sketch and ignores Plane. The DXF world origin maps onto the\nchosen plane's origin. (DXF is DWG's open text sibling; the import behaves identically.)\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportDXFArgs {
-    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
-    pub path: String,
-    #[serde(
-        rename = "plane",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane: String,
+generated_dto! {
+#[doc = "```text\nWebDialogChangedEvent is the push event (type [EventWebDialogChanged]) fired when\na web view's visibility changes (shown, or closed by the user/the owner).\n```"]
+pub struct WebDialogChangedEvent {
+#[doc = "```text\nalways EventWebDialogChanged\n```"]
+    pub type_: String => required("type");
+    pub id: String => required("id");
+    pub visible: bool => required("visible");
+}
 }
 
-#[doc = "```text\nImportDXFResult is the response of [MethodImportDXF]: whether the drawing landed in a 3D\nsketch (vs a 2D sketch on the chosen plane), how many curve entities were added, and any\nper-entity warnings (unmapped/undecodable objects that were skipped).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportDXFResult {
-    #[serde(rename = "is3D", deserialize_with = "crate::json::null_default")]
-    pub is3_d: bool,
-    #[serde(rename = "entityCount", deserialize_with = "crate::json::null_default")]
-    pub entity_count: i64,
-    #[serde(
-        rename = "warnings",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub warnings: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nWebDialogSpec is one web view the host presents: a floating dialog (Modal pins\nit on top) or, with Dock set, a view docked into the chrome like an add-in\nwindow. The host's web rendering is behind a thin engine seam; a host without an\nembedded engine shows the URL with an open-in-browser affordance.\n```"]
+pub struct WebDialogSpec {
+    pub id: String => required("id");
+    pub title: String => required("title");
+    pub url: String => required("url");
+    pub modal: bool => omitted("modal", "crate::json::is_zero");
+    pub dock: crate::types::DockingState => omitted("dock", "crate::json::is_zero");
+    pub visible: bool => required("visible");
+}
 }
 
-#[doc = "```text\nImportPDFArgs is the request of [MethodImportPDF]: the host-side path of a vector\n.pdf file and the target work plane for its 2D geometry. Plane names a plane from\nlist_work_planes (e.g. \"XY Plane\", or a user work plane); empty defaults to the\nfirst origin plane. Every page imports onto the same plane (one 2D sketch per page),\nthe PDF page origin mapping onto the plane origin.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportPDFArgs {
-    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
-    pub path: String,
-    #[serde(
-        rename = "plane",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane: String,
+generated_dto! {
+#[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
+pub struct WireInfo {
+    pub index: i64 => required("index");
+    pub closed: bool => required("closed");
+    pub planar: bool => required("planar");
+    pub edges: i64 => required("edges");
+#[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
+    pub key: String => required("key");
+    pub transient_key: u64 => required("transientKey");
+}
 }
 
-#[doc = "```text\nImportPDFResult is the response of [MethodImportPDF]: whether any page landed in a 3D\nsketch (always false for the page-flat PDFs this importer targets, but kept parallel\nto the DWG/DXF results), how many curve entities were added across all pages, and any\nper-page warnings (unsupported operators, skipped text/raster content, or pages that\ncould not be decoded).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportPDFResult {
-    #[serde(rename = "is3D", deserialize_with = "crate::json::null_default")]
-    pub is3_d: bool,
-    #[serde(rename = "entityCount", deserialize_with = "crate::json::null_default")]
-    pub entity_count: i64,
-    #[serde(
-        rename = "warnings",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub warnings: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
+pub struct WirePolyline {
+    pub points: Option<Vec<f64>> => finite("points");
+    pub closed: bool => omitted("closed", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nImportRequest is the request of [MethodDocumentsImport]: read the file at Path\n(interpreted as Format — an [oblikovati.org/api/types.ExchangeFormat] string) into the\nactive part as an imported-body feature. Options carries free-form translator knobs\n(e.g. \"weldTolerance\"); unknown keys are ignored.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportRequest {
-    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
-    pub path: String,
-    #[serde(rename = "format", deserialize_with = "crate::json::null_default")]
-    pub format: String,
-    #[serde(
-        rename = "options",
-        skip_serializing_if = "crate::json::map_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub options: Option<std::collections::BTreeMap<String, String>>,
+generated_dto! {
+#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
+pub struct WireframeDisplayModeOptionsView {
+    pub depth_dimming: bool => required("depthDimming");
+    pub silhouettes: bool => required("silhouettes");
+    pub dimmed_hidden_edges: bool => required("dimmedHiddenEdges");
+}
 }
 
-#[doc = "```text\nImportResponse is the reply of [MethodDocumentsImport]: how many bodies were\nimported, whether the (first) body came in as a watertight solid (vs an open\nsurface body), and any non-fatal warnings (non-manifold edges, dropped attributes).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportResponse {
-    #[serde(rename = "bodyCount", deserialize_with = "crate::json::null_default")]
-    pub body_count: i64,
-    #[serde(rename = "solid", deserialize_with = "crate::json::null_default")]
-    pub solid: bool,
-    #[serde(
-        rename = "warnings",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub warnings: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nWorkAxisInfo is one row of [MethodWorkAxesList]: a datum axis's identity and current\ngeometry (Origin point and unit Direction, in database units), whether it is one of the\norigin coordinate-system axes, its health, and its constructor Kind. Origin axes report\nIsOrigin=true.\n```"]
+pub struct WorkAxisInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+#[doc = "```text\na types.WorkAxisKind value\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+    pub origin: Option<Vec<f64>> => finite("origin");
+    pub direction: Option<Vec<f64>> => finite("direction");
+    pub is_origin: bool => required("isOrigin");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nImportStyleLibraryArgs is the request of [MethodStylesImportLibrary]: the path to a style\nlibrary file to load into the cascade.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ImportStyleLibraryArgs {
-    #[serde(rename = "path", deserialize_with = "crate::json::null_default")]
-    pub path: String,
+generated_dto! {
+#[doc = "```text\nWorkPlaneInfo is one row of [MethodWorkPlanesList]: a datum plane's identity and\ncurrent geometry (origin and unit normal, in model units), whether it is one of the\norigin coordinate-system planes, its health, its constructor Kind, and — for a user\nplane — the editable inputs [MethodWorkPlanesRedefine] accepts (its scalars and its\nre-pickable reference slots). Origin planes report no scalars/slots (not redefinable).\n```"]
+pub struct WorkPlaneInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub origin: Option<Vec<f64>> => finite("origin");
+    pub normal: Option<Vec<f64>> => finite("normal");
+    pub is_origin: bool => required("isOrigin");
+    pub visible: bool => required("visible");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+#[doc = "```text\ndisplayed size tracks the component box (#1851)\n```"]
+    pub auto_resize: bool => omitted("autoResize", "crate::json::is_zero");
+#[doc = "```text\ngrounded flag (#1851)\n```"]
+    pub grounded: bool => omitted("grounded", "crate::json::is_zero");
+#[doc = "```text\ndisplayed rectangle extents: two corners [x,y,z] cm (#1851)\n```"]
+    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+#[doc = "```text\na types.WorkPlaneKind value\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+#[doc = "```text\neditable distance/angle inputs\n```"]
+    pub scalars: Option<Vec<crate::wire::WorkPlaneScalar>> => omitted("scalars", "crate::json::slice_is_empty");
+#[doc = "```text\nre-pickable reference inputs\n```"]
+    pub slots: Option<Vec<crate::wire::WorkPlaneRefSlot>> => omitted("slots", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nIncludeSketch2DArgs is the request of [MethodSketch3DIncludeSketch]: include geometry of\nan existing 2D sketch into a 3D sketch as associative reference geometry, lifted through\nthe 2D sketch's host plane. SketchIndex is the target 3D sketch; SourceSketchIndex is\nthe source 2D sketch; EntityIDs are the session ids of the 2D points/curves to include.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct IncludeSketch2DArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(
-        rename = "sourceSketchIndex",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub source_sketch_index: i64,
-    #[serde(rename = "entityIDs", deserialize_with = "crate::json::null_default")]
-    pub entity_i_ds: Option<Vec<u64>>,
+generated_dto! {
+#[doc = "```text\nWorkPlaneRefSlot describes one re-pickable reference of a work plane: its slot Index, Label,\nand Kind — \"plane\" | \"axis\" | \"point\" | \"face\" — so a client knows what reference string a\n[SlotRepick] for this slot accepts (an origin constant, a List ref, or a face key).\n```"]
+pub struct WorkPlaneRefSlot {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub kind: String => required("kind");
+}
 }
 
-#[doc = "```text\nIncludeSketch3DArgs is the request of [MethodSketch3DInclude]: include referenced part\ngeometry (edges/vertices, by reference key) into a 3D sketch as associative reference\ngeometry. Refs are the reference keys of the part edges/vertices to include.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct IncludeSketch3DArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "refs", deserialize_with = "crate::json::null_default")]
-    pub refs: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nWorkPlaneScalar describes one editable scalar of a work plane (offset distance, line-plane\nangle): its slot Index, Label, the Unit its value is shown in (\"mm\", \"deg\", …), and the\ncurrent Value in that unit. A redefine sets it via [ScalarEdit] keyed on Index.\n```"]
+pub struct WorkPlaneScalar {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub unit: String => omitted("unit", "crate::json::is_zero");
+    pub value: f64 => finite("value");
+}
 }
 
-#[doc = "```text\nIncludeSketch3DResult is the response of [MethodSketch3DInclude]: the session ids of the\ncreated included entities, and whether every reference resolved (Healthy false ⇒ a\nreference was lost, its include skipped).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct IncludeSketch3DResult {
-    #[serde(
-        rename = "created",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub created: Option<Vec<u64>>,
-    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
-    pub healthy: bool,
+generated_dto! {
+#[doc = "```text\nWorkPointInfo is one row of [MethodWorkPointsList]: a datum point's identity, current position\n([x, y, z] in model units), whether it is the origin centre point, its visibility, health, and\nconstructor kind. #1842.\n```"]
+pub struct WorkPointInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub position: Option<Vec<f64>> => finite("position");
+    pub is_origin: bool => required("isOrigin");
+    pub visible: bool => required("visible");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+#[doc = "```text\nthe point's constructor kind\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nInferenceOptionsView is the sketch inference configuration: whether point\nand constraint inference run at all, and which constraint family wins when\ntwo could apply (the [oblikovati.org/api/types.ConstraintInferencePriority]\nwire spelling). It is the result of [MethodSketchGetInferenceOptions] and\nthe request of [MethodSketchSetInferenceOptions]; on set, empty Priority\nkeeps the current value.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct InferenceOptionsView {
-    #[serde(
-        rename = "inferEnabled",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub infer_enabled: bool,
-    #[serde(
-        rename = "constrainEnabled",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub constrain_enabled: bool,
-    #[serde(
-        rename = "priority",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub priority: String,
+generated_dto! {
+#[doc = "```text\nWorkSurfaceDetailResult is the response of [MethodWorkSurfacesGet],\n[MethodWorkSurfacesSetVisible], and [MethodWorkSurfacesRename]: the surface's refreshed\nstate after the call.\n```"]
+pub struct WorkSurfaceDetailResult {
+    pub surface: crate::wire::WorkSurfaceInfo => required("surface");
+}
 }
 
-#[doc = "```text\nInteractionState is the JSON shape of the host's current interaction status — whether\nthe local user is mid-action — the response of [MethodInteractionState].\n\nIt exists so a collaboration add-in can gate incoming remote edits: applying a remote\nmutation while the local user is dragging a handle or running a tool risks a race in\nthe host's recompute/undo state, so the add-in buffers remote operations while Busy is\ntrue (oblikovati-meeting ADR-0005).\n\nBusy is the single predicate add-ins should branch on (true when an interactive tool or\ncommand is active, or an explicit transaction is open). ActiveCommand/ActiveTool name\nwhat is running, for diagnostics/UI; they are empty when nothing is active.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct InteractionState {
-    #[serde(rename = "busy", deserialize_with = "crate::json::null_default")]
-    pub busy: bool,
-    #[serde(
-        rename = "activeCommand",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub active_command: String,
-    #[serde(
-        rename = "activeTool",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub active_tool: String,
-    #[serde(
-        rename = "inTransaction",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub in_transaction: bool,
+generated_dto! {
+#[doc = "```text\nWorkSurfaceInfo is one row of [MethodWorkSurfacesList] and the payload of\n[MethodWorkSurfacesGet]: a construction surface's identity, display state, the count of\nsurface bodies it wraps, the feature that produced it, and a stable reference for\nconsuming it as a feature input.\n```"]
+pub struct WorkSurfaceInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub visible: bool => required("visible");
+    pub translucent: bool => required("translucent");
+#[doc = "```text\nnumber of surface bodies wrapped\n```"]
+    pub bodies: i64 => required("bodies");
+#[doc = "```text\nname of the feature that produced it\n```"]
+    pub source: String => omitted("source", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nInterferenceResultInfo is one overlapping pair: the two occurrence ids, the overlap volume\n(cm³), and a representative point inside the overlap.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct InterferenceResultInfo {
-    #[serde(rename = "occurrenceA", deserialize_with = "crate::json::null_default")]
-    pub occurrence_a: u64,
-    #[serde(rename = "occurrenceB", deserialize_with = "crate::json::null_default")]
-    pub occurrence_b: u64,
-    #[serde(
-        rename = "volume",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub volume: f64,
-    #[serde(rename = "center")]
-    pub center: crate::types::Point,
+generated_dto! {
+#[doc = "```text\nWorkSurfaceRefArgs is the request of [MethodWorkSurfacesGet]: one work surface by its\nIndex in the collection (from [MethodWorkSurfacesList]).\n```"]
+pub struct WorkSurfaceRefArgs {
+    pub index: i64 => required("index");
 }
-
-#[doc = "```text\nResult envelopes.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct InterferenceResultsResult {
-    #[serde(rename = "results", deserialize_with = "crate::json::null_default")]
-    pub results: Option<Vec<crate::wire::InterferenceResultInfo>>,
-    #[serde(
-        rename = "totalVolume",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub total_volume: f64,
-}
-
-#[doc = "```text\nIsPointInsideArgs is the request of [MethodBodyIsPointInside]. ShellIndex\n(when non-nil) classifies against one shell's bounded region instead of the\nwhole body's material.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct IsPointInsideArgs {
-    #[serde(rename = "bodyIndex", deserialize_with = "crate::json::null_default")]
-    pub body_index: i64,
-    #[serde(
-        rename = "shellIndex",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shell_index: Option<Box<i64>>,
-    #[serde(
-        rename = "point",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub point: Option<Vec<f64>>,
-    #[doc = "```text\nOnTolerance is the distance treated as ON the boundary (0 → 1e-6 cm).\n```"]
-    #[serde(
-        rename = "onTolerance",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub on_tolerance: f64,
-}
-
-#[doc = "```text\nIsPointInsideResult is the response of [MethodBodyIsPointInside].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct IsPointInsideResult {
-    #[serde(rename = "containment", deserialize_with = "crate::json::null_default")]
-    pub containment: String,
-}
-
-#[doc = "```text\nJointEventPayload is the body of the assembly joint events ([EventAssemblyJointAdded],\n[EventAssemblyJointDeleted]): which assembly (Document), and the affected joint's id and\nkind.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct JointEventPayload {
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(rename = "joint", deserialize_with = "crate::json::null_default")]
-    pub joint: u64,
-    #[serde(
-        rename = "kind",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub kind: String,
-}
-
-#[doc = "```text\nJointInfo is one row of the assembly's joint set: its session id, kind, name, the two\njoint-origin geometry inputs, the flip flag, optional limits, the free DOF the joint\nleaves, health, and suppression.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct JointInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "a", deserialize_with = "crate::json::null_default")]
-    pub a: crate::wire::ConstraintGeomRef,
-    #[serde(rename = "b", deserialize_with = "crate::json::null_default")]
-    pub b: crate::wire::ConstraintGeomRef,
-    #[serde(
-        rename = "flip",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub flip: bool,
-    #[serde(
-        rename = "degreesOfFreedom",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub degrees_of_freedom: i64,
-    #[serde(
-        rename = "limits",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub limits: Option<Box<crate::wire::JointLimits>>,
-    #[serde(
-        rename = "health",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub health: String,
-    #[serde(
-        rename = "suppressed",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub suppressed: bool,
-    #[doc = "```text\nSeating and state (#1970/#1974). Gap is the axial seating between the two origins;\nLinearPosition/AngularPosition are where the joint rests along its free DOF; Locked freezes\nthat DOF (so DegreesOfFreedom reads 0); Protected shields it from other relationships.\n```"]
-    #[serde(
-        rename = "gap",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub gap: f64,
-    #[serde(
-        rename = "linearPosition",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub linear_position: f64,
-    #[serde(
-        rename = "angularPosition",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angular_position: f64,
-    #[serde(
-        rename = "locked",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub locked: bool,
-    #[serde(
-        rename = "protected",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub protected: bool,
-    #[doc = "```text\nOrigin definition (#1973): how each of the two joint origins is positioned\n(types.AssemblyJointOriginMode: \"infer\"/\"offset\"/\"betweenTwoFaces\") and, for an offset origin,\nits X/Y offset in the frame's plane.\n```"]
-    #[serde(
-        rename = "originOneMode",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_one_mode: String,
-    #[serde(
-        rename = "originTwoMode",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_two_mode: String,
-    #[serde(
-        rename = "originOneXOffset",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_one_x_offset: f64,
-    #[serde(
-        rename = "originOneYOffset",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_one_y_offset: f64,
-    #[serde(
-        rename = "originTwoXOffset",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_two_x_offset: f64,
-    #[serde(
-        rename = "originTwoYOffset",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin_two_y_offset: f64,
 }

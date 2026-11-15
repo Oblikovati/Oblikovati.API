@@ -3,361 +3,6 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-generated_scalar! { integer,
-#[doc = "```text\nFeatureApproximationType is the approximation a thicken / face-offset\nfeature may accept when the exact offset is not computable (#331 parity).\nAn exact result satisfies every bound below, so a kernel computing the\nexact offset honours any requested approximation.\n```"]
-pub struct FeatureApproximationType(pub i32);
-}
-
-pub const FEATURE_CONTROL_FRAME_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(4);
-
-generated_scalar! { integer,
-#[doc = "```text\nFileLocationType classifies where a referenced file lives relative to the\ndesign project's search roots — the editable workspace, a shared workgroup,\na read-only library, or somewhere unmanaged (M03-F07,\nOblikovati/Oblikovati#608).\n\nThe values are a frozen block matching the reference API's location-type\nenum; never renumber them.\n```"]
-pub struct FileLocationType(pub i32);
-}
-
-pub const FILLED_CIRCLE_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20228);
-
-pub const FILLED_CIRCLE_SELECT_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20229);
-
-pub const FILLED_CROSS_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20231);
-
-pub const FILLET_CONCAVE_INWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200112);
-
-pub const FILLET_CONCAVE_OUTWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200111);
-
-generated_scalar! { integer,
-#[doc = "```text\nFilletConcaveStrategy selects how a fillet treats a CONCAVE (internal) edge — one where the two\nfaces fold over the material (dihedral > π), e.g. the inside corner where a rib meets a plate. A\nconvex edge always rounds its corner away and ignores this. The fillet keeps an exact rolling-ball\ncylinder face either way; only which side the ball rolls on (and thus whether material is added or\nremoved) changes. An Oblikovati extension (no reference-API equivalent); the block is OURS but, once\nshipped, equally frozen: never renumber.\n\n  - FilletConcaveOutward — fill the inside corner with material (a concave fillet bridging the two\n    faces). The DEFAULT; the zero value resolves to it.\n  - FilletConcaveInward — round a recess into the corner instead (material removed).\n```"]
-pub struct FilletConcaveStrategy(pub i32);
-}
-
-pub const FILLET_CORNER_MITER: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200001);
-
-pub const FILLET_CORNER_ROUND: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200003);
-
-pub const FILLET_CORNER_SETBACK: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200002);
-
-generated_scalar! { integer,
-#[doc = "```text\nFilletCornerType selects how an edge fillet treats a corner where two filleted edges meet at a\nvertex whose third edge stays sharp (the two rolling-ball cylinders cannot be joined by a single\nsphere unless that third edge is also rounded). It is an Oblikovati extension with no reference-API\nequivalent, so the numeric block below is OURS (chosen clear of the frozen reference blocks above)\n— but, once shipped, it is equally frozen: never renumber.\n\n  - FilletCornerMiter — the two cylinders mutually trim along their intersection seam (a crease);\n    the geometrically exact rolling-ball result for rounding only two of a corner's three edges.\n  - FilletCornerSetback — a spherical corner patch tangent to the three faces, set back from the\n    sharp edge by a small planar setback face (a smoothed corner; not the exact rolling-ball form).\n  - FilletCornerRound — round the corner fully into a single sphere octant by also rolling over the\n    third edge (the true 3-edge blend; the corner becomes G1-smooth all round).\n```"]
-pub struct FilletCornerType(pub i32);
-}
-
-generated_scalar! { string,
-#[doc = "```text\nFilletCrossSection selects the shape of an edge blend's cross-section profile (M36-F08): the\ndefault circular arc (G1 — tangent to both walls), a curvature-continuous G2 profile (zero\ncurvature at the tangency lines, so a blend between flat walls has no curvature jump), or a conic\n(rho-controlled) profile whose shoulder fullness is set by a separate rho parameter. It is a\nstring enum so the empty value reads as the arc default; the kernel maps it to its blend builder.\n```"]
-pub struct FilletCrossSection(pub std::borrow::Cow<'static, str>);
-}
-
-pub const FILLET_SECTION_ARC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("arc"));
-
-pub const FILLET_SECTION_CONIC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("conic"));
-
-pub const FILLET_SECTION_G2: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("g2"));
-
-generated_scalar! { integer,
-#[doc = "```text\nFilletType discriminates the fillet definition: edge sets, a face-pair\nfillet, or a full round across three face sets.\n```"]
-pub struct FilletType(pub i32);
-}
-
-pub const FITS_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(4);
-
-pub const FIXED_VIEW_JUSTIFICATION: crate::types::ViewJustification =
-    crate::types::ViewJustification(1);
-
-pub const FLAT_BACKSIDE_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10773);
-
-pub const FLAT_BACKSIDE_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10772);
-
-pub const FLAT_BACKSIDE_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10771);
-
-pub const FLAT_BACKSIDE_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10770);
-
-generated_scalar! { integer,
-#[doc = "```text\nFlatPatternEdgeType classifies an edge of the developed flat for manufacturing and drawing:\na fold line where the sheet bends up or down, or a tangent line where a curved wall met the\nflat tangentially. Outer-profile (cut) edges carry no flat-pattern type.\n```"]
-pub struct FlatPatternEdgeType(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nFlatPatternFaceType classifies a face of the developed flat: the front (top) face the\norientation presents, the back (bottom) face, a detail face, or unknown.\n```"]
-pub struct FlatPatternFaceType(pub i32);
-}
-
-pub const FLAT_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10769);
-
-pub const FLAT_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10768);
-
-pub const FLAT_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10767);
-
-pub const FORESHORTENED_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(8);
-
-pub const FORMAT3_MF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("3mf"));
-
-pub const FORMAT_DWG: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dwg"));
-
-pub const FORMAT_DXF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dxf"));
-
-pub const FORMAT_E57: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("e57"));
-
-pub const FORMAT_GLTF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("gltf"));
-
-pub const FORMAT_LAS: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("las"));
-
-pub const FORMAT_OBJ: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("obj"));
-
-pub const FORMAT_PDF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("pdf"));
-
-pub const FORMAT_PLY: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("ply"));
-
-pub const FORMAT_STEP: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("step"));
-
-pub const FORMAT_STL: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("stl"));
-
-pub const FORMED_FEATURE_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(1);
-
-pub const FORTY_FIVE_DEGREES_LEFT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92161);
-
-pub const FORTY_FIVE_DEGREES_RIGHT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92162);
-
-pub const FREE_ORBIT: crate::types::OrbitTypeEnum = crate::types::OrbitTypeEnum(86017);
-
-pub const FROM_BASE_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(4);
-
-pub const FRONT_FACING_AND_PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26115);
-
-pub const FRONT_FACING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26113);
-
-pub const FRONT_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(1);
-
-pub const FRONT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10764);
-
-pub const FULL_ROUND_FILLET: crate::types::FilletType = crate::types::FilletType(61699);
-
-pub const GEO3_D_BEND: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("bend"));
-
-pub const GEO3_D_COINCIDENT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("coincident"));
-
-pub const GEO3_D_COLLINEAR: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("collinear"));
-
-pub const GEO3_D_CONCENTRIC: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("concentric"));
-
-pub const GEO3_D_EQUAL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("equal"));
-
-pub const GEO3_D_GROUND: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("ground"));
-
-pub const GEO3_D_HELICAL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("helical"));
-
-pub const GEO3_D_MIDPOINT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
-
-pub const GEO3_D_ON_FACE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("onFace"));
-
-pub const GEO3_D_PARALLEL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallel"));
-
-pub const GEO3_D_PARALLEL_TO_X_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXAxis"));
-
-pub const GEO3_D_PARALLEL_TO_XY_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXYPlane"));
-
-pub const GEO3_D_PARALLEL_TO_XZ_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToXZPlane"));
-
-pub const GEO3_D_PARALLEL_TO_Y_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYAxis"));
-
-pub const GEO3_D_PARALLEL_TO_YZ_PLANE: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToYZPlane"));
-
-pub const GEO3_D_PARALLEL_TO_Z_AXIS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("parallelToZAxis"));
-
-pub const GEO3_D_PERPENDICULAR: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
-
-pub const GEO3_D_SMOOTH: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("smooth"));
-
-pub const GEO3_D_SPLINE_FIT_POINTS: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("splineFitPoints"));
-
-pub const GEO3_D_TANGENT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("tangent"));
-
-pub const GEO3_D_UNKNOWN: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-pub const GEO_CONSTRAINT_COINCIDENT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("coincident"));
-
-pub const GEO_CONSTRAINT_COLLINEAR: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("collinear"));
-
-pub const GEO_CONSTRAINT_CONCENTRIC: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("concentric"));
-
-pub const GEO_CONSTRAINT_CUSTOM: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("custom"));
-
-pub const GEO_CONSTRAINT_EQUAL_LENGTH: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalLength"));
-
-pub const GEO_CONSTRAINT_EQUAL_RADIUS: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("equalRadius"));
-
-pub const GEO_CONSTRAINT_FIX: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("fix"));
-
-pub const GEO_CONSTRAINT_GROUND: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("ground"));
-
-pub const GEO_CONSTRAINT_HORIZONTAL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontal"));
-
-pub const GEO_CONSTRAINT_HORIZONTAL_ALIGN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("horizontalAlign"));
-
-pub const GEO_CONSTRAINT_MIDPOINT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("midpoint"));
-
-pub const GEO_CONSTRAINT_OFFSET: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("offset"));
-
-pub const GEO_CONSTRAINT_PARALLEL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("parallel"));
-
-pub const GEO_CONSTRAINT_PATTERN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("patternLink"));
-
-pub const GEO_CONSTRAINT_PERPENDICULAR: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("perpendicular"));
-
-pub const GEO_CONSTRAINT_POINT_ON_CIRCLE: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnCircle"));
-
-pub const GEO_CONSTRAINT_POINT_ON_LINE: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("pointOnLine"));
-
-pub const GEO_CONSTRAINT_SMOOTH: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("smooth"));
-
-pub const GEO_CONSTRAINT_SYMMETRY: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("symmetry"));
-
-pub const GEO_CONSTRAINT_TANGENT: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("tangent"));
-
-pub const GEO_CONSTRAINT_TEXT_BOX: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("textBox"));
-
-pub const GEO_CONSTRAINT_UNKNOWN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("unknown"));
-
-pub const GEO_CONSTRAINT_VERTICAL: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("vertical"));
-
-pub const GEO_CONSTRAINT_VERTICAL_ALIGN: crate::types::GeometricConstraintKind =
-    crate::types::GeometricConstraintKind(std::borrow::Cow::Borrowed("verticalAlign"));
-
-generated_scalar! { string,
-#[doc = "```text\nGeometric3DConstraintKind discriminates a 3D geometric (non-dimensional) constraint —\nthe value of [oblikovati.org/api/wire.AddSketch3DConstraintArgs.Kind] and of\neach enumerated 3D constraint's Kind. String values are frozen. Members are wired in\nacross M22-F05.\n```"]
-pub struct Geometric3DConstraintKind(pub std::borrow::Cow<'static, str>);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nGeometricCharacteristic is the geometric-tolerance symbol carried by a feature-control\nframe in a model GD&T annotation (parity: GeometricCharacteristicEnum). The values are the\nreference API's frozen bit ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it (ADR-0018).\nUsed by the model-tolerance carrier (a metadata feature; #866).\n```"]
-pub struct GeometricCharacteristic(pub i32);
-}
-
-generated_scalar! { string,
-#[doc = "```text\nGeometricConstraintKind discriminates a sketch geometric (non-dimensional)\nconstraint. Used by [oblikovati.org/api/wire.AddConstraintArgs.Kind] and by\nthe enumerated constraint's Kind. String values are frozen.\n```"]
-pub struct GeometricConstraintKind(pub std::borrow::Cow<'static, str>);
-}
-
-#[doc = "```text\nGeometricEdgeRef names a B-rep edge by WHERE it sits — its midpoint and a sign-agnostic\ndirection — rather than by an Oblikovati lineage key (ADR-0040). It is the external author's\npath to a topology selection: an exporter reading another CAD system knows the edge's geometry,\nnot Oblikovati's internally-minted lineage. The host re-binds it to the running body each\nrecompute by geometric nearness (topo.FindEdgeByGeometry), returning it only when it is\nunambiguous. Coordinates are model space (database units, centimetres).\n\nA work-feature reference string carries this descriptor via [GeometricEdgeRef.Ref]; the same\nstring can equally be a lineage-key edge reference (\"edge/…\") produced by an interactive pick —\nboth resolve through the host's edge resolver. Use it wherever a work-axis/point create takes an\nedge reference (analytic-edge / line-by-entity axis, edge-midpoint point).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GeometricEdgeRef {
-    #[doc = "```text\na point on the edge, model cm\n```"]
-    #[serde(
-        rename = "midpoint",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub midpoint: [f64; 3],
-    #[doc = "```text\nthe edge tangent (orientation only; sign ignored)\n```"]
-    #[serde(
-        rename = "direction",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction: [f64; 3],
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nGeometryMoveableStatus answers \"can this sketch entity be dragged?\" for\ninteractive tools — derived from the solver's per-entity constraint\nanalysis (M06-F11, Oblikovati/Oblikovati#626).\n\nThe values are a frozen block matching the reference API's\ngeometry-moveable-status enum; never renumber them.\n```"]
-pub struct GeometryMoveableStatus(pub i32);
-}
-
-pub const GOOD_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
-    crate::types::RayTracingQualityEnum(95746);
-
-pub const GRADIENT_BACKGROUND: crate::types::BackgroundTypeEnum =
-    crate::types::BackgroundTypeEnum(52738);
-
-generated_scalar! { string,
-#[doc = "```text\nGraphicsColorBinding says how a primitive's colors map onto its geometry. With\nper-vertex each vertex carries its own color (the heatmap case); overall uses the\nsingle primitive color; per-item colors each line/triangle.\n```"]
-pub struct GraphicsColorBinding(pub std::borrow::Cow<'static, str>);
-}
-
-pub const GRAPHICS_COLOR_OVERALL: crate::types::GraphicsColorBinding =
-    crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("overall"));
-
 pub const GRAPHICS_COLOR_PER_ITEM: crate::types::GraphicsColorBinding =
     crate::types::GraphicsColorBinding(std::borrow::Cow::Borrowed("perItem"));
 
@@ -462,3 +107,357 @@ pub const GRAPHICS_TRIANGLE_STRIP: crate::types::GraphicsPrimitiveKind =
 
 pub const GRAPHICS_TRIANGLES: crate::types::GraphicsPrimitiveKind =
     crate::types::GraphicsPrimitiveKind(std::borrow::Cow::Borrowed("triangles"));
+
+pub const GRAPHICS_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9218);
+
+generated_scalar! { integer,
+#[doc = "```text\nGraphicsVisibilityEnum is whether none, some, or all of a graphics node is visible. Frozen\nids 25089–25091.\n```"]
+pub struct GraphicsVisibilityEnum(pub i32);
+}
+
+generated_dto! {
+#[doc = "```text\nGridCell is the explicit placement of one child inside its parent grid. Col is the\n0-based column; ColSpan (>=1; 0 is treated as 1) is how many columns the child covers.\nA child with no Cell (nil pointer on the wire) auto-flows into the next free cell.\n\nRow and RowSpan are reserved for a later slice: the wire shape accepts them so it stays\nforward-stable, but the host renders rows as content-height auto-flow, so RowSpan must be\n1 in this version (the router rejects RowSpan > 1).\n```"]
+pub struct GridCell {
+    pub col: i64 => omitted("col", "crate::json::is_zero");
+    pub row: i64 => omitted("row", "crate::json::is_zero");
+    pub col_span: i64 => omitted("colSpan", "crate::json::is_zero");
+    pub row_span: i64 => omitted("rowSpan", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGridTrack is one column track of a grid. Value is pixels when Fixed and the fraction\nweight when Fraction (ignored when Auto). MinPx/MaxPx (0 = unset) clamp the resolved\nwidth, expressing CSS minmax(): e.g. a 1fr track that never shrinks below 80px is\n{Kind: GridTrackFraction, Value: 1, MinPx: 80}.\n\nExample: a label/field form is two tracks — TrackAuto() for labels, TrackFr(1) for fields.\n```"]
+pub struct GridTrack {
+    pub kind: crate::types::GridTrackKind => omitted("kind", "crate::json::is_zero");
+    pub value: f64 => omitted_finite("value", "crate::json::is_zero");
+    pub min_px: f64 => omitted_finite("minPx", "crate::json::is_zero");
+    pub max_px: f64 => omitted_finite("maxPx", "crate::json::is_zero");
+}
+}
+
+pub const GRID_TRACK_AUTO: crate::types::GridTrackKind = crate::types::GridTrackKind(0);
+
+pub const GRID_TRACK_FIXED: crate::types::GridTrackKind = crate::types::GridTrackKind(1);
+
+pub const GRID_TRACK_FRACTION: crate::types::GridTrackKind = crate::types::GridTrackKind(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nGridTrackKind is how one grid column track is sized.\n```"]
+pub struct GridTrackKind(pub u8);
+}
+impl From<u8> for GridTrackKind {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<GridTrackKind> for u8 {
+    fn from(value: GridTrackKind) -> Self {
+        value.0
+    }
+}
+
+pub const GROUND_PLANE_SPACE_LIGHT: crate::types::LightTypeEnum =
+    crate::types::LightTypeEnum(52995);
+
+pub const GROUND_SHADOW: crate::types::GroundShadowEnum = crate::types::GroundShadowEnum(69122);
+
+generated_scalar! { integer,
+#[doc = "```text\nGroundShadowEnum is how the scene casts shadows onto the ground plane: none, a standard\nground shadow, or an X-ray (see-through) ground shadow. The numeric ids are stable,\nfrozen values (69121–69123).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(app.GroundShadowEnum).\n```"]
+pub struct GroundShadowEnum(pub i32);
+}
+
+pub const HALF_SECTION_VIEW: crate::types::SectionViewType = crate::types::SectionViewType(2);
+
+pub const HARD_MAGNETIC: crate::types::MagneticClass =
+    crate::types::MagneticClass(std::borrow::Cow::Borrowed("hard-magnetic"));
+
+pub const HATCH_ANSI31: crate::types::HatchPattern = crate::types::HatchPattern(2);
+
+pub const HATCH_CROSS: crate::types::HatchPattern = crate::types::HatchPattern(1);
+
+pub const HATCH_GENERAL: crate::types::HatchPattern = crate::types::HatchPattern(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nHatchPattern is a built-in hatch line family. The zero value is HatchGeneral (single 45° lines).\n```"]
+pub struct HatchPattern(pub i32);
+}
+
+generated_dto! {
+#[doc = "```text\nHeadsUpDisplayOptions is the application's in-canvas input configuration while sketching: the\npointer-input boxes that place a shape's first point by coordinate, the dimension-input boxes\nthat size the shape being placed, and whether a typed value becomes a persistent dimension\n(Oblikovati/Oblikovati#2014).\n\nPointer input and dimension input are separate on purpose: they answer different questions\n(\"where does this start?\" versus \"how big is it?\") and a user may want one without the other.\n```"]
+pub struct HeadsUpDisplayOptions {
+#[doc = "```text\nEnabled switches the whole in-canvas input off, leaving only the command line.\n```"]
+    pub enabled: bool => required("enabled");
+#[doc = "```text\nPointerInputEnabled shows the coordinate boxes for a shape's first point, and\nPointerInputInCartesianCoordinates shows them as X/Y rather than length and angle.\n```"]
+    pub pointer_input_enabled: bool => required("pointerInputEnabled");
+    pub pointer_input_in_cartesian_coordinates: bool => required("pointerInputInCartesianCoordinates");
+#[doc = "```text\nDimensionInputEnabled shows the boxes that size the shape being placed, and\nDimensionInputInCartesianCoordinates shows them as width/height rather than length and\nangle where the shape offers both readings.\n```"]
+    pub dimension_input_enabled: bool => required("dimensionInputEnabled");
+    pub dimension_input_in_cartesian_coordinates: bool => required("dimensionInputInCartesianCoordinates");
+#[doc = "```text\nCreateDimensionsOnValueInput makes a value the user types into a dimension box become a\npersistent driving dimension when the shape commits. With it off the typed value still\nsizes the shape, but states nothing afterwards.\n```"]
+    pub create_dimensions_on_value_input: bool => required("createDimensionsOnValueInput");
+}
+}
+
+pub const HEALTH_OK: crate::types::HealthStatus = crate::types::HealthStatus(0);
+
+pub const HEALTH_SICK: crate::types::HealthStatus = crate::types::HealthStatus(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nHealthStatus is the condition a constraint (or any modeling entity) reports when it\ncannot be fully evaluated — the public, Apache-2.0 form of the host's health\nvocabulary (model/health). A constraint whose geometry vanished goes Sick and is\nre-selectable; an over-constrained assembly that still solved reports Warning.\n```"]
+pub struct HealthStatus(pub u8);
+}
+impl From<u8> for HealthStatus {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<HealthStatus> for u8 {
+    fn from(value: HealthStatus) -> Self {
+        value.0
+    }
+}
+
+pub const HEALTH_SUPPRESSED: crate::types::HealthStatus = crate::types::HealthStatus(3);
+
+pub const HEALTH_WARNING: crate::types::HealthStatus = crate::types::HealthStatus(1);
+
+generated_scalar! { integer,
+#[doc = "```text\nHelicalShapeDefinitionKind discriminates how a helical curve's shape is\nspecified (M06-F09, Oblikovati/Oblikovati#624). The wire spellings double as\nthe helix Mode strings already accepted by sketch3d.addEntity since M22-F04.\n\nThe values are a frozen block matching the reference API's helical-shape\ndefinition enum; never renumber them.\n```"]
+pub struct HelicalShapeDefinitionKind(pub i32);
+}
+
+pub const HELIX_CURVE: crate::types::CurveType = crate::types::CurveType(5130);
+
+pub const HELIX_END_FLAT: crate::types::HelixEndKind = crate::types::HelixEndKind(115970);
+
+generated_scalar! { integer,
+#[doc = "```text\nHelixEndKind is the transition condition at one end of a helical curve\n(M06-F09). A natural end stops on the helix; a flat end appends a planar\ntransition (governed by the definition's transition/flat angles) so the\ncoil seats flat — the standard spring end treatment.\n\nThe values are a frozen block matching the reference API's helix-end enum;\nnever renumber them.\n```"]
+pub struct HelixEndKind(pub i32);
+}
+
+pub const HELIX_END_NATURAL: crate::types::HelixEndKind = crate::types::HelixEndKind(115969);
+
+pub const HELIX_SHAPE_PITCH_HEIGHT: crate::types::HelicalShapeDefinitionKind =
+    crate::types::HelicalShapeDefinitionKind(115714);
+
+pub const HELIX_SHAPE_PITCH_REVOLUTION: crate::types::HelicalShapeDefinitionKind =
+    crate::types::HelicalShapeDefinitionKind(115713);
+
+pub const HELIX_SHAPE_REVOLUTION_HEIGHT: crate::types::HelicalShapeDefinitionKind =
+    crate::types::HelicalShapeDefinitionKind(115715);
+
+pub const HELIX_SHAPE_SPIRAL: crate::types::HelicalShapeDefinitionKind =
+    crate::types::HelicalShapeDefinitionKind(115716);
+
+pub const HIDDEN_EDGE_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8707);
+
+pub const HIDDEN_LINE_REMOVED_VIEW_STYLE: crate::types::DrawingViewStyle =
+    crate::types::DrawingViewStyle(3);
+
+pub const HIDDEN_LINE_VIEW_STYLE: crate::types::DrawingViewStyle =
+    crate::types::DrawingViewStyle(0);
+
+pub const HIGH_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
+    crate::types::RayTracingQualityEnum(95750);
+
+pub const HOLE_NOTE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(14);
+
+pub const HOLE_NOTE_COMBINED: crate::types::HoleNoteQuantity = crate::types::HoleNoteQuantity(1);
+
+pub const HOLE_NOTE_PER_HOLE: crate::types::HoleNoteQuantity = crate::types::HoleNoteQuantity(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nHoleNoteQuantity is how hole notes treat multiple holes of the same size. The zero value is\nHoleNotePerHole (one callout per hole).\n```"]
+pub struct HoleNoteQuantity(pub i32);
+}
+
+pub const HOLE_TABLE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(9);
+
+pub const HORIZONTAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(0);
+
+pub const HORIZONTAL_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(1);
+
+pub const HORIZONTAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
+    crate::types::DrawingViewAlignment(1);
+
+pub const HORIZONTAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117763);
+
+pub const HYBRID_SPACE: crate::types::LineDefinitionSpaceEnum =
+    crate::types::LineDefinitionSpaceEnum(49923);
+
+pub const I_FEATURES_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("iFeatures"));
+
+pub const ILLUSTRATION_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8715);
+
+pub const IMAGE_BACKGROUND: crate::types::BackgroundTypeEnum =
+    crate::types::BackgroundTypeEnum(52739);
+
+pub const IMAGE_BASED_LIGHTING_STYLE: crate::types::LightingStyleTypeEnum =
+    crate::types::LightingStyleTypeEnum(50750978);
+
+pub const IN_POSITION_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
+    crate::types::DrawingViewAlignment(0);
+
+pub const INCLUDE_BY_BASE_POINT: crate::types::PatternBoundaryInclusion =
+    crate::types::PatternBoundaryInclusion(128771);
+
+pub const INCLUDE_BY_CENTROID: crate::types::PatternBoundaryInclusion =
+    crate::types::PatternBoundaryInclusion(128770);
+
+pub const INCLUDE_ENCLOSED_GEOMETRY: crate::types::PatternBoundaryInclusion =
+    crate::types::PatternBoundaryInclusion(128769);
+
+pub const INFER_COINCIDENT: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(1);
+
+pub const INFER_HORIZONTAL: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(2);
+
+pub const INFER_INTERSECTION: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(4);
+
+pub const INFER_MIDPOINT: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(8);
+
+pub const INFER_ON_CURVE: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(16);
+
+pub const INFER_PARALLEL: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(32);
+
+pub const INFER_PERPENDICULAR: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(64);
+
+pub const INFER_TANGENT: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(128);
+
+pub const INFER_VERTICAL: crate::types::ConstraintInferenceKind =
+    crate::types::ConstraintInferenceKind(256);
+
+pub const INFERENCE_NONE: crate::types::PointInferenceKind = crate::types::PointInferenceKind(0);
+
+pub const INFERENCE_POINT: crate::types::PointInferenceKind = crate::types::PointInferenceKind(1);
+
+pub const INFINITELY_MANY_SOLUTIONS: crate::types::SolutionNature = crate::types::SolutionNature(3);
+
+pub const INSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30978);
+
+generated_dto! {
+#[doc = "```text\nInspectionDimension is a dimension's inspection annotation (#1996): the border shape, and the\nQA label and sampling rate shown with it. A NoInspectionBorder shape means the dimension is not\nan inspection dimension (Label and Rate are then ignored).\n```"]
+pub struct InspectionDimension {
+    pub shape: crate::types::InspectionShape => required("shape");
+    pub label: String => omitted("label", "crate::json::is_zero");
+    pub rate: String => omitted("rate", "crate::json::is_zero");
+}
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nInspectionShape selects the border an inspection dimension wraps its text in, matching\nthe reference CAD API's InspectionDimensionShapeEnum. The zero value is NoInspectionBorder — the dimension\nis not an inspection dimension. An inspection dimension additionally carries a label and a\nsampling rate for QA / first-article drawings (#1996).\n```"]
+pub struct InspectionShape(pub i32);
+}
+
+pub const INTEGER_VALUE: crate::types::ValueType = crate::types::ValueType(14593);
+
+pub const INTERACTIVE_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
+    crate::types::RayTracingQualityEnum(95745);
+
+pub const INTEREST_NONE: crate::types::DocumentInterestType =
+    crate::types::DocumentInterestType(68865);
+
+pub const INTERESTED: crate::types::DocumentInterestType =
+    crate::types::DocumentInterestType(68866);
+
+pub const INTERSECTION_BEND_TRANSITION: crate::types::BendTransition =
+    crate::types::BendTransition(1);
+
+pub const ISO_BOTTOM_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10762);
+
+pub const ISO_BOTTOM_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10761);
+
+pub const ISO_TOP_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10760);
+
+pub const ISO_TOP_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10759);
+
+pub const ISOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("isotropic"));
+
+generated_scalar! { string,
+#[doc = "```text\nIsotropyClass declares a material's elastic symmetry, telling a structural (FEA) solver\nhow to read its stiffness. An isotropic material is fully described by the scalar\n[Mechanical] group (E, ν); orthotropic and transversely-isotropic materials additionally\ncarry an [AnisotropicElastic] group of direction-dependent constants. The zero value (\"\")\nis treated as Isotropic, so existing materials need no migration.\n```"]
+pub struct IsotropyClass(pub std::borrow::Cow<'static, str>);
+}
+
+pub const JOINT_BALL: crate::types::AssemblyJointType = crate::types::AssemblyJointType(6);
+
+pub const JOINT_CYLINDRICAL: crate::types::AssemblyJointType = crate::types::AssemblyJointType(4);
+
+pub const JOINT_ORIGIN_BETWEEN_TWO_FACES: crate::types::AssemblyJointOriginMode =
+    crate::types::AssemblyJointOriginMode(2);
+
+pub const JOINT_ORIGIN_EDGE: crate::types::AssemblyJointOriginDefinitionType =
+    crate::types::AssemblyJointOriginDefinitionType(2);
+
+pub const JOINT_ORIGIN_INFER: crate::types::AssemblyJointOriginMode =
+    crate::types::AssemblyJointOriginMode(0);
+
+pub const JOINT_ORIGIN_OFFSET: crate::types::AssemblyJointOriginMode =
+    crate::types::AssemblyJointOriginMode(1);
+
+pub const JOINT_ORIGIN_PLANE: crate::types::AssemblyJointOriginDefinitionType =
+    crate::types::AssemblyJointOriginDefinitionType(3);
+
+pub const JOINT_ORIGIN_POINT: crate::types::AssemblyJointOriginDefinitionType =
+    crate::types::AssemblyJointOriginDefinitionType(1);
+
+pub const JOINT_ORIGIN_UNKNOWN: crate::types::AssemblyJointOriginDefinitionType =
+    crate::types::AssemblyJointOriginDefinitionType(0);
+
+pub const JOINT_PLANAR: crate::types::AssemblyJointType = crate::types::AssemblyJointType(5);
+
+pub const JOINT_RIGID: crate::types::AssemblyJointType = crate::types::AssemblyJointType(1);
+
+pub const JOINT_ROTATIONAL: crate::types::AssemblyJointType = crate::types::AssemblyJointType(2);
+
+pub const JOINT_SLIDER: crate::types::AssemblyJointType = crate::types::AssemblyJointType(3);
+
+pub const JOINT_UNKNOWN: crate::types::AssemblyJointType = crate::types::AssemblyJointType(0);
+
+pub const K_FACTOR_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(0);
+
+generated_dto! {
+#[doc = "```text\nKeyChord is a keyboard shortcut: a key token plus held modifiers. This is the\ncanonical, Apache-2.0 definition shared by the typed client and the host's binding\nengine; the GPL implementation maps it onto its internal modifier bitmask. The\ncanonical text form ([KeyChord.String]) is \"Ctrl+Alt+Shift+Key\" with the modifiers\nin that fixed order, so two chords are equal iff their String values match — that\nstring is the comparison key the engine uses for conflict detection.\n\nExample: KeyChord{Key: \"E\"}.String() == \"E\"; KeyChord{Key: \"z\", Ctrl: true}.String() == \"Ctrl+Z\".\n```"]
+pub struct KeyChord {
+    pub key: String => required("key");
+    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
+    pub alt: bool => omitted("alt", "crate::json::is_zero");
+    pub shift: bool => omitted("shift", "crate::json::is_zero");
+}
+}
+
+pub const LARGE_ICON_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(2);
+
+pub const LAYER_COLOR_SOURCE: crate::types::ColorSourceTypeEnum =
+    crate::types::ColorSourceTypeEnum(79107);
+
+pub const LAYOUT_FOUR: crate::types::ViewLayout = crate::types::ViewLayout(4);
+
+pub const LAYOUT_SINGLE: crate::types::ViewLayout = crate::types::ViewLayout(0);
+
+pub const LAYOUT_THREE: crate::types::ViewLayout = crate::types::ViewLayout(3);
+
+pub const LAYOUT_TWO_H: crate::types::ViewLayout = crate::types::ViewLayout(1);
+
+pub const LAYOUT_TWO_V: crate::types::ViewLayout = crate::types::ViewLayout(2);
+
+pub const LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10758);

@@ -3,436 +3,462 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nCreatePatternArgs is the request of [MethodAssemblyPatternCreate]: replicate the Seed\noccurrence (by session id) across an arrangement, adding one occurrence per generated\nelement beyond the seed. Kind selects the arrangement and the fields it reads:\n  - \"circular\": Origin, Axis, Angle (radians between adjacent elements), Count (total,\n    including the seed);\n  - \"rectangular\": Direction1/Spacing1/Count1 and Direction2/Spacing2/Count2 (a\n    Count1×Count2 grid; the seed is element 0,0).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreatePatternArgs {
-    #[serde(rename = "seed", deserialize_with = "crate::json::null_default")]
-    pub seed: u64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[doc = "```text\nCircular arrangement.\n```"]
-    #[serde(
-        rename = "origin",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin: [f64; 3],
-    #[serde(
-        rename = "axis",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub axis: [f64; 3],
-    #[serde(
-        rename = "angle",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angle: f64,
-    #[serde(
-        rename = "count",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count: i64,
-    #[doc = "```text\nRectangular arrangement.\n```"]
-    #[serde(
-        rename = "direction1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction1: [f64; 3],
-    #[serde(
-        rename = "spacing1",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spacing1: f64,
-    #[serde(
-        rename = "count1",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count1: i64,
-    #[serde(
-        rename = "direction2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction2: [f64; 3],
-    #[serde(
-        rename = "spacing2",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spacing2: f64,
-    #[serde(
-        rename = "count2",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub count2: i64,
-}
+pub const METHOD_ASSEMBLY_PATTERN_CREATE: &str = "assembly.patternCreate";
 
-#[doc = "```text\nCreatePatternResult is the reply of [MethodAssemblyPatternCreate]: the persistent pattern\n(by id, so it can be re-read and edited) and the occurrences it added, in element order.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreatePatternResult {
-    #[serde(rename = "pattern", deserialize_with = "crate::json::null_default")]
-    pub pattern: crate::wire::PatternInfo,
-    #[serde(rename = "created", deserialize_with = "crate::json::null_default")]
-    pub created: Option<Vec<crate::wire::OccurrenceInfo>>,
-}
+pub const METHOD_ASSEMBLY_PATTERN_DELETE: &str = "assembly.patternDelete";
 
-#[doc = "```text\nCreatePrimitiveArgs is the request of [MethodBrepCreatePrimitive]. Kind\nselects the shape and which fields apply:\n  - \"block\": Min, Max (opposite box corners);\n  - \"cylinderCone\": Bottom, Top (section centers), BottomRadius, TopRadius\n    (equal = cylinder, one zero = full cone);\n  - \"sphere\": Center, Radius;\n  - \"torus\": Center, Axis, MajorRadius, MinorRadius.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreatePrimitiveArgs {
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "min",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub min: Option<Vec<f64>>,
-    #[serde(
-        rename = "max",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub max: Option<Vec<f64>>,
-    #[serde(
-        rename = "bottom",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub bottom: Option<Vec<f64>>,
-    #[serde(
-        rename = "top",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub top: Option<Vec<f64>>,
-    #[serde(
-        rename = "bottomRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub bottom_radius: f64,
-    #[serde(
-        rename = "topRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub top_radius: f64,
-    #[serde(
-        rename = "center",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center: Option<Vec<f64>>,
-    #[serde(
-        rename = "axis",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub axis: Option<Vec<f64>>,
-    #[serde(
-        rename = "radius",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: f64,
-    #[serde(
-        rename = "majorRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub major_radius: f64,
-    #[serde(
-        rename = "minorRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub minor_radius: f64,
-}
+pub const METHOD_ASSEMBLY_PATTERN_ELEMENT_REPOSITION: &str = "assembly.patternElementReposition";
 
-#[doc = "```text\nCreateSketch3DArgs is the request of [MethodSketch3DCreate]: an optional name for the\nnew (empty) 3D sketch. A 3D sketch has no host plane — its geometry lives directly in\nmodel space.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateSketch3DArgs {
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
-}
+pub const METHOD_ASSEMBLY_PATTERN_ELEMENT_SUPPRESS: &str = "assembly.patternElementSetSuppressed";
 
-#[doc = "```text\nCreateSketch3DResult is the response of [MethodSketch3DCreate]: the new sketch's index.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateSketch3DResult {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-}
+pub const METHOD_ASSEMBLY_PATTERN_LIST: &str = "assembly.patternList";
 
-#[doc = "```text\nCreateSketchArgs is the request of [MethodSketchCreate]: where to start the new sketch.\nBy default it is an origin plane (Plane: XY | XZ | YZ; empty defaults to XY). Set\nWorkPlaneIndex to sketch on a user work plane instead (its index in list_work_planes) —\nthe way to sketch on a plane built on a feature-created face, so later features reference\nearlier geometry. WorkPlaneIndex, when set, takes precedence over Plane.\n\nOrientation, when set, pins the sketch's in-plane axes deterministically instead of\nletting the host pick them — the reference CAD API's PlanarSketches.AddWithOrientation. Without it a\nsketch on a non-origin plane (e.g. one built through an axis at an angle) gets a\nhost-chosen frame, so an add-in cannot know which sketch direction is \"up\" and cannot\nplace parametric geometry reliably. See [SketchOrientation].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateSketchArgs {
-    #[serde(
-        rename = "plane",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane: String,
-    #[serde(
-        rename = "workPlaneIndex",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub work_plane_index: Option<Box<i64>>,
-    #[serde(
-        rename = "orientation",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub orientation: Option<Box<crate::wire::SketchOrientation>>,
-}
+pub const METHOD_ASSEMBLY_PATTERN_SET_SUPPRESSED: &str = "assembly.patternSetSuppressed";
 
-#[doc = "```text\nCreateSketchResult is the response of [MethodSketchCreate]: the new sketch's index\n(for sketch.rectangle / features.add) and the normalized plane label.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateSketchResult {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "plane", deserialize_with = "crate::json::null_default")]
-    pub plane: String,
-}
+pub const METHOD_ASSEMBLY_PLACE: &str = "assembly.place";
 
-#[doc = "```text\nCreateWorkAxisArgs is the request of [MethodWorkAxesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkAxisKind] value) and its inputs.\n\n  - Origin and Direction give the grounded \"line\" axis: the origin point [x,y,z]\n    and the axis direction [dx,dy,dz], both in database units (centimetres; Direction\n    is a direction, so only its orientation matters). This is the raw axis a revolve\n    or sweep spins about when the axis is not one of the origin axes.\n  - Refs are work-feature references for the reference-model kinds — refs returned by\n    [MethodWorkPointsCreate] / [MethodWorkPlanesList] or origin constants\n    (types.WorkRefCenter, types.WorkRefXYPlane …). Each kind expects a fixed count/order:\n    \"two-points\" wants two point refs; \"plane-intersection\" wants two plane refs.\n  - Construction, when true, creates the axis as a construction (hidden, consumer-tied) work\n    feature — the reference CAD API's WorkAxes.Add* Construction parameter; excluded from the browser and\n    auto-deleted with its last consumer. #1849.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkAxisArgs {
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "origin",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin: Option<Vec<f64>>,
-    #[serde(
-        rename = "direction",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction: Option<Vec<f64>>,
-    #[serde(
-        rename = "refs",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub refs: Option<Vec<String>>,
-    #[doc = "```text\n#1849\n```"]
-    #[serde(
-        rename = "construction",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub construction: bool,
-}
+pub const METHOD_ASSEMBLY_PLACE_BY_DEFINITION: &str = "assembly.placeByDefinition";
 
-#[doc = "```text\nCreateWorkAxisResult is the response of [MethodWorkAxesCreate]: the new axis's index\nin the work-axes collection, its stable reference (for building further datums — a\ntwo-plane bisector, a normal-to-curve plane, or a revolve axis), its name, and whether\nit resolved (an unsatisfiable definition reports healthy=false, with Reason, rather\nthan failing the call).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkAxisResult {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "ref", deserialize_with = "crate::json::null_default")]
-    pub ref_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
-    pub healthy: bool,
-    #[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    #[serde(
-        rename = "reason",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub reason: String,
-}
+pub const METHOD_ASSEMBLY_PLACE_BY_DEFINITION_BATCH: &str = "assembly.placeByDefinitionBatch";
 
-#[doc = "```text\nCreateWorkPlaneArgs is the request of [MethodWorkPlanesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkPlaneKind] value) and its inputs.\n\n  - Refs are work-feature references the plane is built on — origin constants\n    (types.WorkRefXYPlane …), refs returned by [MethodWorkPlanesList], or a face\n    reference for the tangent kinds. Each kind expects a fixed count/order (e.g.\n    \"plane-offset\" wants one plane ref; \"three-points\" wants three point refs).\n  - Offset and Angle are unit-bearing expressions (\"10 mm\", \"45 deg\") for the\n    offset and line-plane-angle kinds.\n  - Origin, XAxis, YAxis give the AddFixed frame: the origin point [x,y,z] (model\n    units) and two in-plane axis direction components.\n  - Visible, when non-nil, sets the new plane's viewport visibility (nil ⇒ the model\n    default, visible). This toggles only viewport display — it is orthogonal to Construction.\n  - Construction, when true, creates the plane as a construction (hidden, consumer-tied) work\n    feature: excluded from the browser and with a lifecycle tied to its consuming feature\n    (the reference CAD API's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept\n    distinct from Visible; the two are independent (settable in any combination). #1849.\n  - Proximity is the solution-selection point [x,y,z] (cm) for the tangent kinds\n    (\"plane-tangent\", \"line-tangent\"): a surface has two tangent solutions and the plane lands on\n    whichever side is nearer this point. Quadrant is the same for \"two-planes\" — it picks which of\n    the two bisector solutions. Both are the reference CAD API's ProximityPoint/QuadrantPoint; the choice is\n    recorded on the definition so it survives recompute. Omitting them keeps a deterministic\n    default. #1844.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkPlaneArgs {
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "refs",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub refs: Option<Vec<String>>,
-    #[serde(
-        rename = "offset",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub offset: String,
-    #[serde(
-        rename = "angle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angle: String,
-    #[serde(
-        rename = "origin",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub origin: Option<Vec<f64>>,
-    #[serde(
-        rename = "xaxis",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub x_axis: Option<Vec<f64>>,
-    #[serde(
-        rename = "yaxis",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub y_axis: Option<Vec<f64>>,
-    #[serde(
-        rename = "visible",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub visible: Option<Box<bool>>,
-    #[doc = "```text\n#1849\n```"]
-    #[serde(
-        rename = "construction",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub construction: bool,
-    #[doc = "```text\ntangent-kind solution point [x,y,z] cm (#1844)\n```"]
-    #[serde(
-        rename = "proximity",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub proximity: Option<Vec<f64>>,
-    #[doc = "```text\ntwo-planes bisector solution point [x,y,z] cm (#1844)\n```"]
-    #[serde(
-        rename = "quadrant",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub quadrant: Option<Vec<f64>>,
-}
+pub const METHOD_ASSEMBLY_REMOVE: &str = "assembly.remove";
 
-#[doc = "```text\nCreateWorkPlaneResult is the response of [MethodWorkPlanesCreate]: the new plane's\nindex in the work-planes collection, its stable reference (for building further\ndatums), its name, and whether it resolved (an unsatisfiable definition reports\nhealthy=false rather than failing the call).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkPlaneResult {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "ref", deserialize_with = "crate::json::null_default")]
-    pub ref_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
-    pub healthy: bool,
-}
+pub const METHOD_ASSEMBLY_REPLACE: &str = "assembly.replace";
 
-#[doc = "```text\nCreateWorkPointArgs is the request of [MethodWorkPointsCreate]: which constructor (Kind, a\n[oblikovati.org/api/types.WorkPointKind] value) and its inputs. An empty Kind means the\nposition constructor, so the original position-only request (just At) is unchanged.\n\n  - position (default): At is the point [x, y, z] in model units.\n  - plane-axis-intersection: Refs = [plane, axis] — the point where the axis pierces the\n    plane. At is ignored.\n  - curve-and-entity: Refs = [curve, entity]; Proximity [x,y,z] cm picks the nearest\n    intersection when the curve crosses the entity more than once.\n  - centroid: Refs = [edge, edge, …] — the length-weighted centroid of the edges.\n  - cloud-point: Refs = [cloudID]; At is the frozen [x,y,z] captured from that cloud.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkPointArgs {
-    #[doc = "```text\nposition kind: [x, y, z] in model units\n```"]
-    #[serde(
-        rename = "at",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub at: Option<Vec<f64>>,
-    #[doc = "```text\na types.WorkPointKind value (empty = position)\n```"]
-    #[serde(
-        rename = "kind",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub kind: String,
-    #[doc = "```text\nreference-model kinds: plane-axis-intersection = [plane, axis]\n```"]
-    #[serde(
-        rename = "refs",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub refs: Option<Vec<String>>,
-    #[doc = "```text\nProximity is the solution-selection point [x, y, z] (cm) for the curve-and-entity kind: when\nthe curve pierces the entity at more than one point, the intersection nearest Proximity is\nchosen (the reference CAD API's AddByCurveAndEntity ProximityPoint). Omitting it takes the first solution. #1842.\n```"]
-    #[serde(
-        rename = "proximity",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub proximity: Option<Vec<f64>>,
-    #[doc = "```text\nConstruction, when true, creates the point as a construction (hidden, consumer-tied) work\nfeature — the reference CAD API's WorkPoints.Add* Construction parameter; excluded from the browser and\nauto-deleted with its last consumer. #1849.\n```"]
-    #[serde(
-        rename = "construction",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub construction: bool,
-}
+pub const METHOD_ASSEMBLY_SET_BOM_STRUCTURE: &str = "assembly.setBOMStructure";
 
-#[doc = "```text\nCreateWorkPointResult is the response of [MethodWorkPointsCreate]: the new point's index in\nthe work-points collection, its stable reference (usable as a point input to a work plane —\ne.g. a three-point plane — or to [MethodWorkPlanesRedefine]'s Repick), and its name. Healthy\nis false (with Reason) for a well-formed but unsatisfiable definition — e.g. a\nplane-axis-intersection whose axis is parallel to the plane; a position point is always\nhealthy.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CreateWorkPointResult {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "ref", deserialize_with = "crate::json::null_default")]
-    pub ref_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "healthy", deserialize_with = "crate::json::null_default")]
-    pub healthy: bool,
-    #[doc = "```text\nempty when healthy\n```"]
-    #[serde(
-        rename = "reason",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub reason: String,
-}
+pub const METHOD_ASSEMBLY_SET_END_OF_FEATURES: &str = "assembly.setEndOfFeatures";
+
+pub const METHOD_ASSEMBLY_SET_FLEXIBLE: &str = "assembly.setFlexible";
+
+pub const METHOD_ASSEMBLY_SET_FLEXIBLE_CHILD: &str = "assembly.setFlexibleChild";
+
+pub const METHOD_ASSEMBLY_SET_OCCURRENCE_STATE: &str = "assembly.setOccurrenceState";
+
+pub const METHOD_ASSEMBLY_SET_VISIBLE: &str = "assembly.setVisible";
+
+pub const METHOD_ASSEMBLY_SHRINKWRAP_CREATE: &str = "assembly.shrinkwrapCreate";
+
+pub const METHOD_ASSEMBLY_SUBSTITUTE: &str = "assembly.substitute";
+
+pub const METHOD_ASSEMBLY_SUPPRESS: &str = "assembly.suppress";
+
+pub const METHOD_ASSEMBLY_TRANSFORM: &str = "assembly.transform";
+
+pub const METHOD_ATTRIBUTES_DELETE: &str = "attributes.delete";
+
+pub const METHOD_ATTRIBUTES_FIND: &str = "attributes.find";
+
+pub const METHOD_ATTRIBUTES_GET: &str = "attributes.get";
+
+pub const METHOD_ATTRIBUTES_LIST: &str = "attributes.list";
+
+pub const METHOD_ATTRIBUTES_LIST_SETS: &str = "attributes.listSets";
+
+pub const METHOD_ATTRIBUTES_SET: &str = "attributes.set";
+
+pub const METHOD_BALLOON_TIP_REGISTER: &str = "balloonTip.register";
+
+pub const METHOD_BALLOON_TIP_SHOW: &str = "balloonTip.show";
+
+pub const METHOD_BODY_BIND_TRANSIENT_KEY: &str = "body.bindTransientKey";
+
+pub const METHOD_BODY_CALCULATE_FACETS: &str = "body.calculateFacets";
+
+pub const METHOD_BODY_CALCULATE_STROKES: &str = "body.calculateStrokes";
+
+pub const METHOD_BODY_CONVEXITY_EDGES: &str = "body.convexityEdges";
+
+pub const METHOD_BODY_DELETE: &str = "body.delete";
+
+pub const METHOD_BODY_EXISTING_FACETS: &str = "body.existingFacets";
+
+pub const METHOD_BODY_EXISTING_STROKES: &str = "body.existingStrokes";
+
+pub const METHOD_BODY_FACE_EVALUATE: &str = "body.faceEvaluate";
+
+pub const METHOD_BODY_FACET_TOLERANCES: &str = "body.facetTolerances";
+
+pub const METHOD_BODY_FIND_USING_RAY: &str = "body.findUsingRay";
+
+pub const METHOD_BODY_IS_POINT_INSIDE: &str = "body.isPointInside";
+
+pub const METHOD_BODY_LIST: &str = "body.list";
+
+pub const METHOD_BODY_LOCATE_USING_POINT: &str = "body.locateUsingPoint";
+
+pub const METHOD_BODY_MINIMUM_DISTANCE: &str = "body.minimumDistance";
+
+pub const METHOD_BODY_PHYSICAL_PROPS: &str = "body.physicalProperties";
+
+pub const METHOD_BODY_RANGE_BOX: &str = "body.rangeBox";
+
+pub const METHOD_BODY_RENAME: &str = "body.rename";
+
+pub const METHOD_BODY_SET_VISIBLE: &str = "body.setVisible";
+
+pub const METHOD_BODY_SHELLS: &str = "body.shells";
+
+pub const METHOD_BODY_STROKE_TOLERANCES: &str = "body.strokeTolerances";
+
+pub const METHOD_BODY_VALIDATE: &str = "body.validate";
+
+pub const METHOD_BODY_WIRES: &str = "body.wires";
+
+pub const METHOD_BREP_BOOLEAN: &str = "brep.boolean";
+
+pub const METHOD_BREP_COPY: &str = "brep.copy";
+
+pub const METHOD_BREP_CREATE_FROM_DEFINITION: &str = "brep.createFromDefinition";
+
+pub const METHOD_BREP_CREATE_PRIMITIVE: &str = "brep.createPrimitive";
+
+pub const METHOD_BREP_DELETE: &str = "brep.delete";
+
+pub const METHOD_BREP_DELETE_FACES: &str = "brep.deleteFaces";
+
+pub const METHOD_BREP_DESCRIBE: &str = "brep.describe";
+
+pub const METHOD_BREP_IDENTICAL_BODIES: &str = "brep.identicalBodies";
+
+pub const METHOD_BREP_IMPRINT: &str = "brep.imprint";
+
+pub const METHOD_BREP_LIST: &str = "brep.list";
+
+pub const METHOD_BREP_OFFSET_FACES: &str = "brep.offsetFaces";
+
+pub const METHOD_BREP_RULED_SURFACE: &str = "brep.ruledSurface";
+
+pub const METHOD_BREP_SECTION_WITH_PLANE: &str = "brep.sectionWithPlane";
+
+pub const METHOD_BREP_SILHOUETTE: &str = "brep.silhouette";
+
+pub const METHOD_BREP_TRANSFORM: &str = "brep.transform";
+
+pub const METHOD_BROWSER_DELETE_PANE: &str = "browser.deletePane";
+
+pub const METHOD_BROWSER_LIST_PANES: &str = "browser.listPanes";
+
+pub const METHOD_BROWSER_SET_PANE: &str = "browser.setPane";
+
+pub const METHOD_CLIENT_APPS_LIST: &str = "clientApps.list";
+
+pub const METHOD_CLIENT_APPS_REGISTER: &str = "clientApps.register";
+
+pub const METHOD_CLIENT_APPS_UNREGISTER: &str = "clientApps.unregister";
+
+pub const METHOD_CLIENT_GRAPHICS_DELETE: &str = "clientGraphics.delete";
+
+pub const METHOD_CLIENT_GRAPHICS_LIST: &str = "clientGraphics.list";
+
+pub const METHOD_CLIENT_GRAPHICS_LIST_MAPPERS: &str = "clientGraphics.listColorMappers";
+
+pub const METHOD_CLIENT_GRAPHICS_REGISTER_MAPPER: &str = "clientGraphics.registerColorMapper";
+
+pub const METHOD_CLIENT_GRAPHICS_SET: &str = "clientGraphics.set";
+
+pub const METHOD_CLIENT_GRAPHICS_SET_VISIBLE: &str = "clientGraphics.setVisible";
+
+pub const METHOD_COLOR_SCHEMES_GET_ACTIVE: &str = "colorSchemes.getActive";
+
+pub const METHOD_COLOR_SCHEMES_LIST: &str = "colorSchemes.list";
+
+pub const METHOD_COLOR_SCHEMES_SET_ACTIVE: &str = "colorSchemes.setActive";
+
+pub const METHOD_COMMAND_LINE_SUBMIT: &str = "commandLine.submit";
+
+pub const METHOD_COMMANDS_CREATE: &str = "commands.create";
+
+pub const METHOD_COMMANDS_EXECUTE: &str = "commands.execute";
+
+pub const METHOD_COMMANDS_LIST: &str = "commands.list";
+
+pub const METHOD_COMMANDS_SET_STATE: &str = "commands.setState";
+
+pub const METHOD_CONTACT_SETS_ADD_MEMBER: &str = "contactSets.addMember";
+
+pub const METHOD_CONTACT_SETS_CREATE: &str = "contactSets.create";
+
+pub const METHOD_CONTACT_SETS_DELETE: &str = "contactSets.delete";
+
+pub const METHOD_CONTACT_SETS_LIST: &str = "contactSets.list";
+
+pub const METHOD_CONTACT_SETS_REMOVE_MEMBER: &str = "contactSets.removeMember";
+
+pub const METHOD_CONTACT_SOLVER_SET_ENABLED: &str = "contactSolver.setEnabled";
+
+pub const METHOD_CONTACT_SOLVER_STATUS: &str = "contactSolver.status";
+
+pub const METHOD_DS_JOINTS_ADD: &str = "dsJoints.add";
+
+pub const METHOD_DS_JOINTS_DELETE: &str = "dsJoints.delete";
+
+pub const METHOD_DS_JOINTS_LIST: &str = "dsJoints.list";
+
+pub const METHOD_DS_JOINTS_SET_IMPOSED_MOTION: &str = "dsJoints.setImposedMotion";
+
+pub const METHOD_DESIGN_REPS_ACTIVATE: &str = "designReps.activate";
+
+pub const METHOD_DESIGN_REPS_ADD_SECTION: &str = "designReps.addSection";
+
+pub const METHOD_DESIGN_REPS_CAPTURE: &str = "designReps.capture";
+
+pub const METHOD_DESIGN_REPS_DELETE: &str = "designReps.delete";
+
+pub const METHOD_DESIGN_REPS_LIST: &str = "designReps.list";
+
+pub const METHOD_DESIGN_REPS_SET_APPEARANCE: &str = "designReps.setAppearance";
+
+pub const METHOD_DESIGN_REPS_SET_VISIBILITY: &str = "designReps.setVisibility";
+
+pub const METHOD_DIALOGS_CLOSE_WEB_DIALOG: &str = "dialogs.closeWebDialog";
+
+pub const METHOD_DIALOGS_LIST_WEB_VIEWS: &str = "dialogs.listWebViews";
+
+pub const METHOD_DIALOGS_SHOW_FILE_DIALOG: &str = "dialogs.showFileDialog";
+
+pub const METHOD_DIALOGS_SHOW_WEB_DIALOG: &str = "dialogs.showWebDialog";
+
+pub const METHOD_DISPLAY_GET_OPTIONS: &str = "display.getOptions";
+
+pub const METHOD_DISPLAY_SET_OPTIONS: &str = "display.setOptions";
+
+pub const METHOD_DOCKABLE_WINDOWS_DELETE: &str = "dockableWindows.delete";
+
+pub const METHOD_DOCKABLE_WINDOWS_LIST: &str = "dockableWindows.list";
+
+pub const METHOD_DOCKABLE_WINDOWS_SET: &str = "dockableWindows.set";
+
+pub const METHOD_DOCKABLE_WINDOWS_SET_REFERENCES: &str = "dockableWindows.setReferences";
+
+pub const METHOD_DOCKABLE_WINDOWS_SET_VALUE: &str = "dockableWindows.setValue";
+
+pub const METHOD_DOCKABLE_WINDOWS_SET_VISIBLE: &str = "dockableWindows.setVisible";
+
+pub const METHOD_DOCUMENT_GET_DISPLAY_SETTINGS: &str = "document.getDisplaySettings";
+
+pub const METHOD_DOCUMENT_GET_END_OF_PART: &str = "document.getEndOfPart";
+
+pub const METHOD_DOCUMENT_GET_SKETCH_SETTINGS: &str = "document.getSketchSettings";
+
+pub const METHOD_DOCUMENT_SET_DISPLAY_SETTINGS: &str = "document.setDisplaySettings";
+
+pub const METHOD_DOCUMENT_SET_END_OF_PART: &str = "document.setEndOfPart";
+
+pub const METHOD_DOCUMENT_SET_SKETCH_SETTINGS: &str = "document.setSketchSettings";
+
+pub const METHOD_DOCUMENTS_ACTIVATE: &str = "documents.activate";
+
+pub const METHOD_DOCUMENTS_ADD_ATTACHMENT: &str = "documents.addAttachment";
+
+pub const METHOD_DOCUMENTS_ADD_INTEREST: &str = "documents.addInterest";
+
+pub const METHOD_DOCUMENTS_BATCH_SAVE: &str = "documents.batchSave";
+
+pub const METHOD_DOCUMENTS_CLOSE: &str = "documents.close";
+
+pub const METHOD_DOCUMENTS_CLOSE_ALL: &str = "documents.closeAll";
+
+pub const METHOD_DOCUMENTS_CREATE: &str = "documents.create";
+
+pub const METHOD_DOCUMENTS_EXPORT: &str = "documents.export";
+
+pub const METHOD_DOCUMENTS_GET_PROPERTY: &str = "documents.getProperty";
+
+pub const METHOD_DOCUMENTS_GET_UNITS: &str = "documents.getUnits";
+
+pub const METHOD_DOCUMENTS_HAS_INTEREST: &str = "documents.hasInterest";
+
+pub const METHOD_DOCUMENTS_IMPORT: &str = "documents.import";
+
+pub const METHOD_DOCUMENTS_LIST: &str = "documents.list";
+
+pub const METHOD_DOCUMENTS_LIST_ATTACHMENTS: &str = "documents.listAttachments";
+
+pub const METHOD_DOCUMENTS_LIST_FILE_REFERENCES: &str = "documents.listFileReferences";
+
+pub const METHOD_DOCUMENTS_LIST_INTERESTS: &str = "documents.listInterests";
+
+pub const METHOD_DOCUMENTS_LIST_PROPERTIES: &str = "documents.listProperties";
+
+pub const METHOD_DOCUMENTS_LIST_SUB_TYPES: &str = "documents.listSubTypes";
+
+pub const METHOD_DOCUMENTS_LOAD_FULL: &str = "documents.loadFull";
+
+pub const METHOD_DOCUMENTS_OPEN: &str = "documents.open";
+
+pub const METHOD_DOCUMENTS_REBUILD: &str = "documents.rebuild";
+
+pub const METHOD_DOCUMENTS_REGISTER_SUB_TYPE: &str = "documents.registerSubType";
+
+pub const METHOD_DOCUMENTS_REMOVE_ATTACHMENT: &str = "documents.removeAttachment";
+
+pub const METHOD_DOCUMENTS_REMOVE_INTEREST: &str = "documents.removeInterest";
+
+pub const METHOD_DOCUMENTS_REQUIRES_UPDATE: &str = "documents.requiresUpdate";
+
+pub const METHOD_DOCUMENTS_SAVE: &str = "documents.save";
+
+pub const METHOD_DOCUMENTS_SAVE_AS: &str = "documents.saveAs";
+
+pub const METHOD_DOCUMENTS_SAVE_COPY_AS: &str = "documents.saveCopyAs";
+
+pub const METHOD_DOCUMENTS_SET_PROPERTY: &str = "documents.setProperty";
+
+pub const METHOD_DOCUMENTS_SET_UNITS: &str = "documents.setUnits";
+
+pub const METHOD_DOCUMENTS_UPDATE: &str = "documents.update";
+
+pub const METHOD_DRAWING_ADD_DEFAULT_BORDER: &str = "drawing.addDefaultBorder";
+
+pub const METHOD_DRAWING_ADD_SHEET: &str = "drawing.addSheet";
+
+pub const METHOD_DRAWING_ADD_SHEET_USING_FORMAT: &str = "drawing.addSheetUsingFormat";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_BALLOON: &str = "drawingAnnotations.addBalloon";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_BEND_NOTE: &str = "drawingAnnotations.addBendNote";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_CENTER_MARKS: &str = "drawingAnnotations.addCenterMarks";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_CENTERLINES: &str = "drawingAnnotations.addCenterlines";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_CHAMFER_NOTE: &str = "drawingAnnotations.addChamferNote";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_CO_G: &str = "drawingAnnotations.addCoG";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_CUSTOM_TABLE: &str = "drawingAnnotations.addCustomTable";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_DATUM: &str = "drawingAnnotations.addDatumFeature";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_FCF: &str = "drawingAnnotations.addFeatureControlFrame";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_HOLE_NOTES: &str = "drawingAnnotations.addHoleNotes";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_HOLE_TABLE: &str = "drawingAnnotations.addHoleTable";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_NOTE: &str = "drawingAnnotations.addNote";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_PARTS_LIST: &str = "drawingAnnotations.addPartsList";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_REV_TABLE: &str = "drawingAnnotations.addRevisionTable";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_REV_TAG: &str = "drawingAnnotations.addRevisionTag";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_REVISION_CLOUD: &str =
+    "drawingAnnotations.addRevisionCloud";
+
+pub const METHOD_DRAWING_ANNOTATIONS_ADD_SURFACE_TEXT: &str =
+    "drawingAnnotations.addSurfaceTexture";
+
+pub const METHOD_DRAWING_ANNOTATIONS_DELETE: &str = "drawingAnnotations.delete";
+
+pub const METHOD_DRAWING_ANNOTATIONS_LIST: &str = "drawingAnnotations.list";
+
+pub const METHOD_DRAWING_DEFINE_SHEET_FORMAT: &str = "drawing.defineSheetFormat";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_ANGULAR: &str = "drawingDimensions.addAngular";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_ARC_LENGTH: &str = "drawingDimensions.addArcLength";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_BASELINE: &str = "drawingDimensions.addBaseline";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_CHAIN: &str = "drawingDimensions.addChain";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_LINEAR: &str = "drawingDimensions.addLinear";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_ORDINATE: &str = "drawingDimensions.addOrdinate";
+
+pub const METHOD_DRAWING_DIMENSIONS_ADD_RADIAL: &str = "drawingDimensions.addRadial";
+
+pub const METHOD_DRAWING_DIMENSIONS_DELETE: &str = "drawingDimensions.delete";
+
+pub const METHOD_DRAWING_DIMENSIONS_LIST: &str = "drawingDimensions.list";
+
+pub const METHOD_DRAWING_DIMENSIONS_LIST_RETRIEVABLE: &str = "drawingDimensions.listRetrievable";
+
+pub const METHOD_DRAWING_DIMENSIONS_RETRIEVE: &str = "drawingDimensions.retrieve";
+
+pub const METHOD_DRAWING_DIMENSIONS_SET_INSPECTION: &str = "drawingDimensions.setInspection";
+
+pub const METHOD_DRAWING_DIMENSIONS_SET_TEXT_STYLE: &str = "drawingDimensions.setTextStyle";
+
+pub const METHOD_DRAWING_DIMENSIONS_SET_TOLERANCE: &str = "drawingDimensions.setTolerance";
+
+pub const METHOD_DRAWING_EXPORT_DXF: &str = "drawing.exportDXF";
+
+pub const METHOD_DRAWING_LIST_SHEETS: &str = "drawing.listSheets";
+
+pub const METHOD_DRAWING_REMOVE_SHEET: &str = "drawing.removeSheet";
+
+pub const METHOD_DRAWING_SET_ACTIVE_SHEET: &str = "drawing.setActiveSheet";
+
+pub const METHOD_DRAWING_SET_MODEL_REFERENCE: &str = "drawing.setModelReference";
+
+pub const METHOD_DRAWING_SET_SHEET_REVISION: &str = "drawing.setSheetRevision";
+
+pub const METHOD_DRAWING_SET_TITLE_BLOCK: &str = "drawing.setTitleBlock";
+
+pub const METHOD_DRAWING_SKETCHES_ADD: &str = "drawingSketches.add";
+
+pub const METHOD_DRAWING_SKETCHES_ADD_ENTITY: &str = "drawingSketches.addEntity";
+
+pub const METHOD_DRAWING_SKETCHES_ADD_HATCH: &str = "drawingSketches.addHatchRegion";
+
+pub const METHOD_DRAWING_SKETCHES_LIST: &str = "drawingSketches.list";
+
+pub const METHOD_DRAWING_STYLES_GET_ACTIVE_STYLE: &str = "drawingStyles.getActiveStyle";
+
+pub const METHOD_DRAWING_STYLES_LIST_STANDARDS: &str = "drawingStyles.listStandards";
+
+pub const METHOD_DRAWING_STYLES_SET_STANDARD: &str = "drawingStyles.setStandard";
+
+pub const METHOD_DRAWING_TITLE_BLOCK_FIELDS: &str = "drawing.titleBlockFields";
+
+pub const METHOD_DRAWING_VIEWS_ADD_AUXILIARY: &str = "drawingViews.addAuxiliary";
+
+pub const METHOD_DRAWING_VIEWS_ADD_BASE: &str = "drawingViews.addBase";
+
+pub const METHOD_DRAWING_VIEWS_ADD_BREAK: &str = "drawingViews.addBreak";
+
+pub const METHOD_DRAWING_VIEWS_ADD_BREAKOUT: &str = "drawingViews.addBreakout";
+
+pub const METHOD_DRAWING_VIEWS_ADD_CROP: &str = "drawingViews.addCrop";
+
+pub const METHOD_DRAWING_VIEWS_ADD_DETAIL: &str = "drawingViews.addDetail";
+
+pub const METHOD_DRAWING_VIEWS_ADD_DRAFT: &str = "drawingViews.addDraft";
+
+pub const METHOD_DRAWING_VIEWS_ADD_PROJECTED: &str = "drawingViews.addProjected";
+
+pub const METHOD_DRAWING_VIEWS_ADD_SECTION: &str = "drawingViews.addSection";
+
+pub const METHOD_DRAWING_VIEWS_ADD_SLICE: &str = "drawingViews.addSlice";
+
+pub const METHOD_DRAWING_VIEWS_ALIGN: &str = "drawingViews.align";
+
+pub const METHOD_DRAWING_VIEWS_CURVES: &str = "drawingViews.curves";
+
+pub const METHOD_DRAWING_VIEWS_DELETE: &str = "drawingViews.delete";
+
+pub const METHOD_DRAWING_VIEWS_LIST: &str = "drawingViews.list";
+
+pub const METHOD_DRAWING_VIEWS_REMOVE_CROP: &str = "drawingViews.removeCrop";
+
+pub const METHOD_DRAWING_VIEWS_ROTATE: &str = "drawingViews.rotate";
+
+pub const METHOD_DRAWING_VIEWS_SET_DISPLAY: &str = "drawingViews.setDisplay";
+
+pub const METHOD_DRAWING_VIEWS_SET_LABEL: &str = "drawingViews.setLabel";
+
+pub const METHOD_ENVIRONMENT_GET: &str = "environment.get";
+
+pub const METHOD_ENVIRONMENT_LIST_PRESETS: &str = "environment.listPresets";
+
+pub const METHOD_ENVIRONMENT_LOAD_IMAGE: &str = "environment.loadImage";
+
+pub const METHOD_ENVIRONMENT_SET: &str = "environment.set";
+
+pub const METHOD_ERRORS_ADD_MESSAGE: &str = "errors.addMessage";
+
+pub const METHOD_ERRORS_BEGIN_SECTION: &str = "errors.beginSection";

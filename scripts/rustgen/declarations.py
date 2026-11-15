@@ -17,7 +17,6 @@ CUSTOM = {
     "Matrix2d",
     "Variant",
 }
-DERIVE = "#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]\n"
 
 
 def rust_doc(doc: str) -> str:
@@ -63,14 +62,14 @@ def render_declaration(decl: Declaration, interfaces: set[tuple[str, str]]) -> s
                 + f"#[derive(Debug, Clone)]\npub struct {decl.name} {{\n{fields}\n}}\n"
             )
         body = "\n".join(
-            render_field(item, interfaces)
+            render_dto_field(item, interfaces)
             for item in decl.shape.fields
             if item.tag != "-"
         )
         result = (
-            rust_doc(decl.doc)
-            + DERIVE
-            + f"#[serde(default)]\npub struct {decl.name} {{\n{body}\n}}\n"
+            "generated_dto! {\n"
+            + rust_doc(decl.doc)
+            + f"pub struct {decl.name} {{\n{body}\n}}\n}}\n"
         )
         if decl.feature_kind:
             result += f"impl crate::wire::featureargs::Arg for {decl.name} {{ fn kind(&self) -> String {{ {decl.feature_kind}.into() }} }}\n"
@@ -87,8 +86,10 @@ def render_scalar(decl: Declaration, interfaces: set[tuple[str, str]]) -> str:
     underlying = rust_type(decl.shape, interfaces)
     if underlying == "String":
         underlying = "std::borrow::Cow<'static, str>"
-    kind = "string" if underlying == "std::borrow::Cow<'static, str>" else (
-        "float" if underlying in ("f32", "f64") else "integer"
+    kind = (
+        "string"
+        if underlying == "std::borrow::Cow<'static, str>"
+        else ("float" if underlying in ("f32", "f64") else "integer")
     )
     result = (
         f"generated_scalar! {{ {kind},\n"
@@ -111,7 +112,8 @@ def render_constant(decl: Declaration, interfaces: set[tuple[str, str]]) -> str:
     return f"pub const {snake(decl.name).upper()}: {typ} = {value};\n"
 
 
-def render_field(field: Field, interfaces: set[tuple[str, str]]) -> str:
+def field_attributes(field: Field) -> list[str]:
+    """Build Go-compatible field attributes; example: `field_attributes(field)`."""
     name, *options = field.tag.split(",")
     name = name or field.name
     attrs = ["flatten"] if field.embedded else ["rename = " + json.dumps(name)]
@@ -127,9 +129,39 @@ def render_field(field: Field, interfaces: set[tuple[str, str]]) -> str:
     )
     if not custom:
         attrs.append('deserialize_with = "crate::json::null_default"')
+    return attrs
+
+
+def dto_field_rule(attrs: list[str]) -> str:
+    """Select a shared field rule; example: `dto_field_rule(['flatten'])`."""
+    if not attrs:
+        raise ValueError(
+            f"DTO field attributes {attrs!r}: expected a nonempty attribute list"
+        )
+    normal = 'deserialize_with = "crate::json::null_default"'
+    finite = 'serialize_with = "crate::json::finite::serialize"'
+    if not attrs[0].startswith("rename = ") or attrs[-1] != normal:
+        return f"raw({', '.join(attrs)})"
+    rename, middle = attrs[0].removeprefix("rename = "), attrs[1:-1]
+    if not middle:
+        return f"required({rename})"
+    if middle == [finite]:
+        return f"finite({rename})"
+    if middle[0].startswith("skip_serializing_if = "):
+        skip = middle[0].split(" = ", 1)[1]
+        if len(middle) == 1:
+            return f"omitted({rename}, {skip})"
+        if middle[1:] == [finite]:
+            return f"omitted_finite({rename}, {skip})"
+    return f"raw({', '.join(attrs)})"
+
+
+def render_dto_field(field: Field, interfaces: set[tuple[str, str]]) -> str:
+    """Render one shared DTO field; example: `render_dto_field(field, set())`."""
+    mode = dto_field_rule(field_attributes(field))
     return (
         rust_doc(field.doc)
-        + f"    #[serde({', '.join(attrs)})]\n    pub {snake(field.name)}: {rust_type(field.shape, interfaces)},"
+        + f"    pub {snake(field.name)}: {rust_type(field.shape, interfaces)} => {mode};"
     )
 
 

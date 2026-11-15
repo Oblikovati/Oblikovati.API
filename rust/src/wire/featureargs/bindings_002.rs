@@ -3,364 +3,458 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nFillet rounds picked edges of a body (KindFillet). EdgeSets is the edge-set form (#323), taking\nprecedence over the flat EdgeRefs+Radius pair; FaceRefsA/B is the face-fillet form (#694).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Fillet {
-    #[serde(rename = "edgeRefs", deserialize_with = "crate::json::null_default")]
-    pub edge_refs: Option<Vec<String>>,
-    #[serde(
-        rename = "radius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: String,
-    #[serde(
-        rename = "edgeSets",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub edge_sets: Option<Vec<crate::wire::featureargs::FilletEdgeSet>>,
-    #[serde(
-        rename = "faceRefsA",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub face_refs_a: Option<Vec<String>>,
-    #[serde(
-        rename = "faceRefsB",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub face_refs_b: Option<Vec<String>>,
-    #[doc = "```text\nshared-corner treatment (default miter)\n```"]
-    #[serde(
-        rename = "cornerType",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub corner_type: String,
-    #[doc = "```text\nblend cross-section (default arc; #1284)\n```"]
-    #[serde(
-        rename = "crossSection",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub cross_section: String,
-    #[doc = "```text\nconic fullness (0<ρ<1, 0.5=parabola)\n```"]
-    #[serde(
-        rename = "rho",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub rho: f64,
-    #[doc = "```text\nconcave-edge handling (default outward)\n```"]
-    #[serde(
-        rename = "concaveStrategy",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub concave_strategy: String,
-    #[doc = "```text\nEdgesGeom selects the rounded edges by GEOMETRY (midpoint + direction) instead of EdgeRefs\nkeys, so the binding survives recompute — the way an external author references edges it did\nnot mint keys for. When set it supplies the edges; EdgeRefs becomes optional. See [GeomEdgeSel].\n```"]
-    #[serde(
-        rename = "edgesGeom",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub edges_geom: Option<Vec<crate::wire::featureargs::GeomEdgeSel>>,
-    #[doc = "```text\nWidth drives a FACE fillet by the chord it spans instead of by the rolling ball's radius —\nthe reference CAD API's chordal alternative on FaceFilletDefinition, and what gets measured on the part\n(#1887). Unit-bearing, e.g. \"4 mm\". When set it wins over Radius; the host resolves it against\nthe angle the two face sets meet at, so they must share an edge and be planar.\n```"]
-    #[serde(
-        rename = "width",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width: String,
+generated_dto! {
+#[doc = "```text\nMoveBodyOp is one entry of an ordered move-operation list (M20-F20): a typed, independently\nparametric step (freeDrag: x/y/z; alongRay: dir+dist; rotateAboutLine: point+dir+angle).\n```"]
+pub struct MoveBodyOp {
+    pub type_: String => required("type");
+    pub x: String => omitted("x", "crate::json::is_zero");
+    pub y: String => omitted("y", "crate::json::is_zero");
+    pub z: String => omitted("z", "crate::json::is_zero");
+    pub dir: Option<Vec<f64>> => omitted_finite("dir", "crate::json::slice_is_empty");
+    pub dist: String => omitted("dist", "crate::json::is_zero");
+    pub point: Option<Vec<f64>> => omitted_finite("point", "crate::json::slice_is_empty");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
 }
-impl crate::wire::featureargs::Arg for Fillet {
+}
+
+generated_dto! {
+#[doc = "```text\nMoveFace moves picked faces by a translation, or rotates them about an axis (#331) (KindMoveFace).\n```"]
+pub struct MoveFace {
+    pub face_refs: Option<Vec<String>> => required("faceRefs");
+    pub translation: Option<Vec<f64>> => omitted_finite("translation", "crate::json::slice_is_empty");
+    pub axis_point: Option<Vec<f64>> => omitted_finite("axisPoint", "crate::json::slice_is_empty");
+    pub axis_dir: Option<Vec<f64>> => omitted_finite("axisDir", "crate::json::slice_is_empty");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for MoveFace {
     fn kind(&self) -> String {
-        "fillet".into()
+        "moveFace".into()
     }
 }
 
-#[doc = "```text\nFilletEdgeSet is one fillet edge set: constant (Radius) or variable (StartRadius+EndRadius over\nexactly one edge, plus optional intermediate RadiusPoints, #695).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FilletEdgeSet {
-    #[serde(rename = "edgeRefs", deserialize_with = "crate::json::null_default")]
-    pub edge_refs: Option<Vec<String>>,
-    #[serde(
-        rename = "radius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: String,
-    #[serde(
-        rename = "startRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub start_radius: String,
-    #[serde(
-        rename = "endRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub end_radius: String,
-    #[serde(
-        rename = "radiusPoints",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius_points: Option<Vec<crate::wire::featureargs::FilletRadiusPoint>>,
+generated_dto! {
+#[doc = "```text\nNetworkSurface interpolates a grid of intersecting U/V curves with a single NURBS (Gordon\nnetwork surface) (KindNetworkSurface). Each curve is a list of [x,y,z] model-space points.\n```"]
+pub struct NetworkSurface {
+    pub u_curves: Option<Vec<Option<Vec<Option<Vec<f64>>>>>> => finite("uCurves");
+    pub v_curves: Option<Vec<Option<Vec<Option<Vec<f64>>>>>> => finite("vCurves");
 }
-
-#[doc = "```text\nFilletRadiusPoint is one intermediate radius stop on a variable fillet edge (#695).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FilletRadiusPoint {
-    #[serde(
-        rename = "t",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub t: f64,
-    #[serde(rename = "radius", deserialize_with = "crate::json::null_default")]
-    pub radius: String,
 }
-
-#[doc = "```text\nFitSurface fits a clean Class-A NURBS surface to a named point cloud's cropped region\n(KindFitSurface).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FitSurface {
-    #[serde(rename = "cloud", deserialize_with = "crate::json::null_default")]
-    pub cloud: String,
-    #[serde(
-        rename = "degree",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub degree: i64,
-    #[serde(
-        rename = "nu",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub nu: i64,
-    #[serde(
-        rename = "nv",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub nv: i64,
-}
-impl crate::wire::featureargs::Arg for FitSurface {
+impl crate::wire::featureargs::Arg for NetworkSurface {
     fn kind(&self) -> String {
-        "fitSurface".into()
+        "networkSurface".into()
     }
 }
 
-#[doc = "```text\nFlangeEdgeSet is one edge group of a multi-edge flange (#2071): the edges to flange, and the width\nextent that bounds their walls (absent ⇒ each wall spans its whole edge).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlangeEdgeSet {
-    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
-    pub edges: Option<Vec<String>>,
-    #[serde(
-        rename = "width",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width: Option<Box<crate::wire::featureargs::FlangeWidthExtent>>,
+generated_dto! {
+#[doc = "```text\nPatternBoundary is the optional pattern-clipping boundary (M20-F18): a closed loop of 3D points\n(cm) projected into the plane through PlaneOrigin with PlaneNormal; an occurrence is dropped when\nits Inclusion point falls outside the loop.\n```"]
+pub struct PatternBoundary {
+    pub plane_origin: Option<Vec<f64>> => omitted_finite("planeOrigin", "crate::json::slice_is_empty");
+    pub plane_normal: Option<Vec<f64>> => finite("planeNormal");
+    pub polygon: Option<Vec<Option<Vec<f64>>>> => finite("polygon");
+    pub inclusion: String => omitted("inclusion", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nFlangeWidthExtent bounds a flange's wall to part of its edge — a bracket tab on a long edge, or\na wall that stops short of the corners so the neighbouring flanges have somewhere to go (#1958).\nType picks which distances apply:\n\n  - \"edge\" (default) spans the whole edge and takes none;\n  - \"centered\" takes Width;\n  - \"offsets\" takes Offset (from the edge's start) and Offset2 (from its end);\n  - \"offsetWidth\" takes Offset and Width.\n\nthe reference CAD API's fifth extent, bounded by two referenced entities rather than by distances, is not\noffered: it needs vertex/plane reference binding the host does not have yet.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlangeWidthExtent {
-    #[serde(
-        rename = "type",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub type_: String,
-    #[serde(
-        rename = "width",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width: String,
-    #[serde(
-        rename = "offset",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub offset: String,
-    #[serde(
-        rename = "offset2",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub offset2: String,
+generated_dto! {
+#[doc = "```text\nPatternCircular replicates features in a circular array about an axis (KindPatternCircular).\n```"]
+pub struct PatternCircular {
+    pub source_features: Option<Vec<String>> => required("sourceFeatures");
+    pub count: i64 => omitted("count", "crate::json::is_zero");
+    pub count_expr: String => omitted("countExpr", "crate::json::is_zero");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub axis_point: Option<Vec<f64>> => omitted_finite("axisPoint", "crate::json::slice_is_empty");
+    pub axis_dir: Option<Vec<f64>> => omitted_finite("axisDir", "crate::json::slice_is_empty");
+#[doc = "```text\nMidPlane sweeps the occurrences to both sides of the seed rather than all one way\nround the axis (#1889); see [PatternRectangular.MidPlaneX] for the even-count rule.\n```"]
+    pub mid_plane: bool => omitted("midPlane", "crate::json::is_zero");
+    pub pattern_placement: crate::wire::featureargs::PatternPlacement => raw(flatten, deserialize_with = "crate::json::null_default");
 }
-
-#[doc = "```text\nFreeformBox creates a freeform (T-spline) box primitive (KindFreeformBox).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FreeformBox {
-    #[serde(
-        rename = "sizeX",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size_x: String,
-    #[serde(
-        rename = "sizeY",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size_y: String,
-    #[serde(
-        rename = "sizeZ",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size_z: String,
-    #[serde(
-        rename = "level",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub level: i64,
 }
-impl crate::wire::featureargs::Arg for FreeformBox {
+impl crate::wire::featureargs::Arg for PatternCircular {
     fn kind(&self) -> String {
-        "freeformBox".into()
+        "patternCircular".into()
     }
 }
 
-#[doc = "```text\nFreeformPlane creates a freeform (T-spline) plane primitive (KindFreeformPlane).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FreeformPlane {
-    #[serde(
-        rename = "sizeX",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size_x: String,
-    #[serde(
-        rename = "sizeY",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size_y: String,
-    #[serde(
-        rename = "level",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub level: i64,
+generated_dto! {
+#[doc = "```text\nPatternPlacement is the shared occurrence-placement option set of the rectangular and circular\npatterns (spacing/compute/orientation/positioning + an optional clipping boundary). It is\nembedded so its fields stay flat on the wire.\n```"]
+pub struct PatternPlacement {
+    pub spacing_type: String => omitted("spacingType", "crate::json::is_zero");
+    pub compute_type: String => omitted("computeType", "crate::json::is_zero");
+    pub orientation: String => omitted("orientation", "crate::json::is_zero");
+    pub positioning_method: String => omitted("positioningMethod", "crate::json::is_zero");
+    pub boundary: Option<Box<crate::wire::featureargs::PatternBoundary>> => omitted("boundary", "Option::is_none");
+#[doc = "```text\nSuppressedElements drops individual occurrences from the pattern by element index\n(#1889). Element 0 is the seed — the source features' own material, which the recipe\nalready applied before the pattern ran — so it cannot be suppressed here; suppress the\nsource feature instead. Indices survive a count change, so an occurrence stays dropped\nwhile the pattern is resized.\n```"]
+    pub suppressed_elements: Option<Vec<i64>> => omitted("suppressedElements", "crate::json::slice_is_empty");
 }
-impl crate::wire::featureargs::Arg for FreeformPlane {
+}
+
+generated_dto! {
+#[doc = "```text\nPatternRectangular replicates features on a rectangular grid (KindPatternRectangular).\n```"]
+pub struct PatternRectangular {
+    pub source_features: Option<Vec<String>> => required("sourceFeatures");
+    pub count_x: i64 => omitted("countX", "crate::json::is_zero");
+    pub count_y: i64 => omitted("countY", "crate::json::is_zero");
+    pub count_x_expr: String => omitted("countXExpr", "crate::json::is_zero");
+    pub count_y_expr: String => omitted("countYExpr", "crate::json::is_zero");
+    pub step_x: Option<Vec<f64>> => omitted_finite("stepX", "crate::json::slice_is_empty");
+    pub step_y: Option<Vec<f64>> => omitted_finite("stepY", "crate::json::slice_is_empty");
+#[doc = "```text\nMidPlaneX/MidPlaneY spread that direction's occurrences to BOTH sides of the seed\ninstead of running one way from it (#1889). The seed does not move. With an even\ncount the two sides cannot match, and the extra occurrence goes on the step's own\nside — reverse the step to put it on the other.\n```"]
+    pub mid_plane_x: bool => omitted("midPlaneX", "crate::json::is_zero");
+    pub mid_plane_y: bool => omitted("midPlaneY", "crate::json::is_zero");
+    pub pattern_placement: crate::wire::featureargs::PatternPlacement => raw(flatten, deserialize_with = "crate::json::null_default");
+}
+}
+impl crate::wire::featureargs::Arg for PatternRectangular {
     fn kind(&self) -> String {
-        "freeformPlane".into()
+        "patternRectangular".into()
     }
 }
 
-#[doc = "```text\nFreeformQuadBall creates a freeform (T-spline) quadball (sphere) primitive (KindFreeformQuadBall).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FreeformQuadBall {
-    #[serde(
-        rename = "radius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: String,
-    #[serde(
-        rename = "level",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub level: i64,
+generated_dto! {
+#[doc = "```text\nPatternSketchDriven replicates features at a set of placement points (KindPatternSketchDriven).\n```"]
+pub struct PatternSketchDriven {
+    pub source_features: Option<Vec<String>> => required("sourceFeatures");
+    pub points: Option<Vec<Option<Vec<f64>>>> => finite("points");
 }
-impl crate::wire::featureargs::Arg for FreeformQuadBall {
+}
+impl crate::wire::featureargs::Arg for PatternSketchDriven {
     fn kind(&self) -> String {
-        "freeformQuadBall".into()
+        "patternSketchDriven".into()
     }
 }
 
-#[doc = "```text\nFullRoundFillet replaces a center face with a full round tangent to two parallel side faces\n(KindFullRoundFillet).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FullRoundFillet {
-    #[serde(rename = "side1Ref", deserialize_with = "crate::json::null_default")]
-    pub side1_ref: String,
-    #[serde(rename = "centerRef", deserialize_with = "crate::json::null_default")]
-    pub center_ref: String,
-    #[serde(rename = "side2Ref", deserialize_with = "crate::json::null_default")]
-    pub side2_ref: String,
+generated_dto! {
+#[doc = "```text\nReplaceFace replaces picked faces with new face geometry (KindReplaceFace). NewFaceRefs is the\n#1886 replacement set — each entry is a planar face key, a work plane (\"plane/N\",\n\"origin/plane/xy\"), and the faces may come from different bodies; each picked face is retrimmed\nonto its nearest new face. TargetRef is the legacy single same-body target (kept associative);\nNewFaceRefs takes precedence when present.\n```"]
+pub struct ReplaceFace {
+    pub face_refs: Option<Vec<String>> => required("faceRefs");
+    pub target_ref: String => omitted("targetRef", "crate::json::is_zero");
+    pub new_face_refs: Option<Vec<String>> => omitted("newFaceRefs", "crate::json::slice_is_empty");
 }
-impl crate::wire::featureargs::Arg for FullRoundFillet {
+}
+impl crate::wire::featureargs::Arg for ReplaceFace {
     fn kind(&self) -> String {
-        "fullRoundFillet".into()
+        "replaceFace".into()
     }
 }
 
-#[doc = "```text\nGeomEdgeSel selects an edge by its GEOMETRY — midpoint and direction in model-space\n(cm / unit) — the edge counterpart of [GeomFaceSel] (see there for why geometry beats a\nreference key). Midpoint is [x, y, z] cm; Direction is the unit tangent [x, y, z].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GeomEdgeSel {
-    #[serde(
-        rename = "midpoint",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub midpoint: Option<Vec<f64>>,
-    #[serde(
-        rename = "direction",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction: Option<Vec<f64>>,
+generated_dto! {
+#[doc = "```text\nRest adds a raised (or recessed) rest pad bounded by a closed sketch profile (KindRest).\n```"]
+pub struct Rest {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_indices: Option<Vec<i64>> => omitted("profileIndices", "crate::json::slice_is_empty");
+    pub profile_index: i64 => required("profileIndex");
+    pub depth: String => required("depth");
+    pub recessed: bool => omitted("recessed", "crate::json::is_zero");
 }
-
-#[doc = "```text\nGeomFaceSel selects a face by its GEOMETRY — centroid and outward normal in model-space\n(cm / unit) — instead of by a reference key. An external author (e.g. an exporter) cannot\nmint the host's lineage reference keys, and a key located at author time does not survive\nthe feature's own recompute (the base solid re-mints lineage), so geometry is the stable\nselector: the host rebinds it to a body face on every recompute (ADR-0040). Centroid is\n[x, y, z] cm; Normal is the outward unit normal [x, y, z].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GeomFaceSel {
-    #[serde(
-        rename = "centroid",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub centroid: Option<Vec<f64>>,
-    #[serde(
-        rename = "normal",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub normal: Option<Vec<f64>>,
 }
-
-#[doc = "```text\nGrill cuts a ventilation grill bridged by the boundary profile's rib/spar/island structure (KindGrill).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Grill {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "boundaries", deserialize_with = "crate::json::null_default")]
-    pub boundaries: Option<Vec<i64>>,
-    #[serde(
-        rename = "draft",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub draft: f64,
-}
-impl crate::wire::featureargs::Arg for Grill {
+impl crate::wire::featureargs::Arg for Rest {
     fn kind(&self) -> String {
-        "grill".into()
+        "rest".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nRevolve sweeps a closed sketch profile about an axis (KindRevolve).\n```"]
+pub struct Revolve {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub axis_ref: String => omitted("axisRef", "crate::json::is_zero");
+#[doc = "```text\nAboutCenterline revolves about the sketch's single centerline (the reference CAD API's \"revolve about\nthe sketch centerline\") instead of an explicit AxisRef — the way to spin a profile about\nan internal, tilted axis authored with [AddSketchEntityArgs.Centerline]. When set, AxisRef\nis ignored; the sketch must have exactly one centerline. See PartDesigner #54.\n```"]
+    pub about_centerline: bool => omitted("aboutCenterline", "crate::json::is_zero");
+    pub angle: String => required("angle");
+#[doc = "```text\nsecond-direction sweep (#313)\n```"]
+    pub angle2: String => omitted("angle2", "crate::json::is_zero");
+#[doc = "```text\nDirection is the side Angle sweeps to: \"positive\" (default, forward from the profile),\n\"negative\" (the same sweep the other way) or \"symmetric\" (half the angle each way) — the\nrevolve counterpart of [Extrude.Direction] (#2019). Ignored when Angle2 is set, which is the\nasymmetric mode and names both sides itself. Unobservable on a full revolution.\n```"]
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+#[doc = "```text\nExtent is how the revolve TERMINATES, the revolve half of PartFeatureExtentEnum: \"angle\"\n(default — sweep Angle/Angle2, the reference CAD API's kAngleExtent, with a full turn spelled \"360 deg\"),\n\"to-face\" (sweep until the profile reaches ToFace), \"from-to\" (bounded by FromFace and\nToFace) or \"to-next\" (stop at the next material the sweep meets). The geometric extents\nterminate a turned part on its own geometry — a groove that stops on a rib wall keeps its\nparametric link instead of freezing a hand-computed angle. Angle is unused by them.\n```"]
+    pub extent: String => omitted("extent", "crate::json::is_zero");
+#[doc = "```text\nToFace is the stop target of the \"to-face\" extent and the END of \"from-to\": a planar face\nreference key, \"plane/N\", or \"origin/plane/xy\". A revolve terminator must CONTAIN the revolve\naxis (a radial face) — only then does the swept solid meet it at one constant sweep angle.\n```"]
+    pub to_face: String => omitted("toFace", "crate::json::is_zero");
+#[doc = "```text\nToFaceGeom names the ToFace target by GEOMETRY (a planar face's centroid + normal) instead of\na key, for an author that cannot mint one — see [Extrude.ToFaceGeom]. Wins over ToFace.\n```"]
+    pub to_face_geom: Option<Box<crate::wire::featureargs::GeomFaceSel>> => omitted("toFaceGeom", "Option::is_none");
+#[doc = "```text\nFromFace is the START target of a \"from-to\" revolve, named like ToFace. The swept wedge runs\nbackwards from the profile to FromFace and forwards to ToFace, so it always contains the\nprofile; a span that closes on itself is a full revolution.\n```"]
+    pub from_face: String => omitted("fromFace", "crate::json::is_zero");
+#[doc = "```text\nFromFaceGeom names the \"from-to\" START target by GEOMETRY instead of a key. Wins over FromFace.\n```"]
+    pub from_face_geom: Option<Box<crate::wire::featureargs::GeomFaceSel>> => omitted("fromFaceGeom", "Option::is_none");
+#[doc = "```text\nProfileSeed selects the revolved region by an interior seed point (sketch 2-D, cm) instead\nof ProfileIndex, resolved by containment on the solved sketch each recompute (see\n[Extrude.ProfileSeeds]). When present it wins over ProfileIndex.\n```"]
+    pub profile_seed: Option<Vec<f64>> => omitted_finite("profileSeed", "crate::json::slice_is_empty");
+}
+}
+impl crate::wire::featureargs::Arg for Revolve {
+    fn kind(&self) -> String {
+        "revolve".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nRib thickens an open sketch profile into a supporting rib/web (KindRib).\n```"]
+pub struct Rib {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub thickness: String => required("thickness");
+    pub depth: String => omitted("depth", "crate::json::is_zero");
+#[doc = "```text\nextend to the existing material (#316)\n```"]
+    pub to_next: bool => omitted("toNext", "crate::json::is_zero");
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+#[doc = "```text\nThickenSide is which side of the profile the wall grows on: \"symmetric\" (default, half the\nthickness each side), \"side1\" (the path's left side, walking it as drawn) or \"side2\" (its\nright side) — the reference CAD API's RibDefinition.ThicknessDirection. The sides are named side1/side2\nrather than positive/negative (as on Extrude.Direction) because they are the two sides of a\ncurve IN the sketch plane, which has no signed direction the caller can picture. #1882.\n```"]
+    pub thicken_side: String => omitted("thickenSide", "crate::json::is_zero");
+#[doc = "```text\nDraft tapers the wall across its extent, opening toward the root — the end that lands on the\npart (a unit-bearing angle, e.g. \"3 deg\"). The reference CAD API's RibDefinition.DraftAngle. #1882.\n```"]
+    pub draft: String => omitted("draft", "crate::json::is_zero");
+#[doc = "```text\nThicknessPlane picks which end honours the nominal Thickness once Draft tapers the wall:\n\"sketch\" (default) holds it at the profile's own plane, \"root\" at the end that lands on the\npart — the reference CAD API's RibThicknessPlaneEnum. With no draft the wall is prismatic and the two are\nthe same, so this option is observable only together with Draft. #1882.\n```"]
+    pub thickness_plane: String => omitted("thicknessPlane", "crate::json::is_zero");
+#[doc = "```text\nExtendProfile lengthens the open profile's two ends along their end tangents until they\nreach the existing material, so a wall sketched short of the part still lands on it\n(the reference CAD API's RibDefinition.ExtendProfile). An end with no material ahead of it stays put.\n#1882.\n```"]
+    pub extend_profile: bool => omitted("extendProfile", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Rib {
+    fn kind(&self) -> String {
+        "rib".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nRuleFillet rounds a whole dihedral class of a body's edges in one feature (KindRuleFillet).\n```"]
+pub struct RuleFillet {
+    pub rule: String => required("rule");
+    pub radius: String => required("radius");
+}
+}
+impl crate::wire::featureargs::Arg for RuleFillet {
+    fn kind(&self) -> String {
+        "ruleFillet".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nRuledSurface sweeps straight rulings off a profile into a surface (KindRuledSurface). Type selects\nthe ruling convention: normal (along the profile-plane normal, the default), sweep (along the\nexplicit Direction vector), or tangent (tangent to the adjacent face — phase C, not yet built).\nDraftAngle flares each ruling radially outward; Flip reverses the ruling side (#1868).\n```"]
+pub struct RuledSurface {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub type_: String => omitted("type", "crate::json::is_zero");
+    pub distance: String => required("distance");
+    pub direction: Option<Vec<f64>> => omitted_finite("direction", "crate::json::slice_is_empty");
+    pub draft_angle: String => omitted("draftAngle", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for RuledSurface {
+    fn kind(&self) -> String {
+        "ruledSurface".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSculpt fills the volume bounded by surface bodies into a solid (KindSculpt). Without Surfaces it\nwelds all running bounding surfaces (a closed quilt); with Surfaces it uses the listed bounding\nsurfaces and their per-surface directions to close open surfaces (#1881). AffectedBodyIndex is the\njoin/cut target (default the last solid).\n```"]
+pub struct Sculpt {
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+    pub tolerance: String => omitted("tolerance", "crate::json::is_zero");
+    pub surfaces: Option<Vec<crate::wire::featureargs::SculptSurface>> => omitted("surfaces", "crate::json::slice_is_empty");
+    pub affected_body_index: Option<Box<i64>> => omitted("affectedBodyIndex", "Option::is_none");
+}
+}
+impl crate::wire::featureargs::Arg for Sculpt {
+    fn kind(&self) -> String {
+        "sculpt".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSculpt combines surfaces and solids into a sculpted body (KindSculpt).\nSculptSurface is one bounding surface of a sculpt: the surface body (by index) and the direction\n(positive|negative) naming which side of it faces the enclosed volume (#1881).\n```"]
+pub struct SculptSurface {
+    pub body_index: i64 => required("bodyIndex");
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalBend adds a bend across a sketch line (KindSheetMetalBend).\n```"]
+pub struct SheetMetalBend {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub line_index: i64 => required("lineIndex");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalBend {
+    fn kind(&self) -> String {
+        "sheetMetalBend".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalContourFlange runs a contour flange (a profile sketch) along an edge\n(KindSheetMetalContourFlange).\n```"]
+pub struct SheetMetalContourFlange {
+    pub edge: String => required("edge");
+    pub profile_sketch: i64 => required("profileSketch");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
+#[doc = "```text\nWidth bounds the swept wall to part of the edge (#1958); absent ⇒ the whole edge.\n```"]
+    pub width: Option<Box<crate::wire::featureargs::FlangeWidthExtent>> => omitted("width", "Option::is_none");
+#[doc = "```text\nOperation is how the wall joins the model (#1961): \"join\" (default) unions it onto the\nrunning sheet, \"new\" starts a body of its own.\n```"]
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+#[doc = "```text\nRadius rounds the profile's corners into bends; absent ⇒ the rule's BendRadius. A contour\nflange's corners ARE bends, so a sharp one is geometry no press brake can make.\n```"]
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalContourFlange {
+    fn kind(&self) -> String {
+        "sheetMetalContourFlange".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalContourRoll rolls a profile about an axis line (KindSheetMetalContourRoll).\n```"]
+pub struct SheetMetalContourRoll {
+    pub profile_sketch: i64 => required("profileSketch");
+    pub axis_line: i64 => required("axisLine");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub operation: String => required("operation");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalContourRoll {
+    fn kind(&self) -> String {
+        "sheetMetalContourRoll".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalCorner applies a corner treatment (of the given Size) to picked edges\n(KindSheetMetalCorner, #1967). A chamfer is a single Size by default, or — with ChamferType —\na distance-and-angle or two-distance bevel; a round carries one Size, or several EdgeSets each\nwith its own radius in one feature.\n```"]
+pub struct SheetMetalCorner {
+    pub edges: Option<Vec<String>> => required("edges");
+    pub treatment: String => required("treatment");
+    pub size: String => omitted("size", "crate::json::is_zero");
+#[doc = "```text\nChamferType picks the chamfer's setback shape (ChamferType): \"distance\" (default, equal both\nfaces), \"distanceAndAngle\" (Size on one face, Angle to it) or \"twoDistances\" (Size + DistanceTwo).\n```"]
+    pub chamfer_type: String => omitted("chamferType", "crate::json::is_zero");
+#[doc = "```text\nDistanceTwo is the second setback for the two-distance chamfer; Angle is the bevel angle for\nthe distance-and-angle chamfer; FaceKey names the face Size is measured on (both variants).\n```"]
+    pub distance_two: String => omitted("distanceTwo", "crate::json::is_zero");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub face_key: String => omitted("faceKey", "crate::json::is_zero");
+#[doc = "```text\nEdgeSets rounds several corner-edge groups, each with its own Radius, in one feature (a corner\nround with multiple radii). When present it supersedes Edges/Size for the round treatment.\n```"]
+    pub edge_sets: Option<Vec<crate::wire::featureargs::CornerRoundEdgeSet>> => omitted("edgeSets", "crate::json::slice_is_empty");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalCorner {
+    fn kind(&self) -> String {
+        "sheetMetalCorner".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalCornerSeam finishes the seam at picked corner edges where two flange walls meet\n(KindSheetMetalCornerSeam, #1964).\n```"]
+pub struct SheetMetalCornerSeam {
+    pub edges: Option<Vec<String>> => required("edges");
+#[doc = "```text\nGap is the relief left between the two walls (the gap seam) or the seam clearance for the\nother types — the reference CAD API's GapWidth.\n```"]
+    pub gap: String => required("gap");
+#[doc = "```text\nType is the seam finish: \"gap\" (default), \"overlap\", \"reverseOverlap\" or \"noOverlap\"\n(CornerSeamType). The last three lap or butt the walls rather than gapping them.\n```"]
+    pub type_: String => omitted("type", "crate::json::is_zero");
+#[doc = "```text\nOverlap is how far one wall laps over the other, as a percentage 0–100 — the reference CAD API's\nPercentOverlap. It applies to the overlap and reverseOverlap types; ignored for gap/noOverlap.\n```"]
+    pub overlap: f64 => omitted_finite("overlap", "crate::json::is_zero");
+#[doc = "```text\nReliefShape and ReliefSize cut a relief at the seam root — the CornerReliefShape spelling\n(\"round\", \"square\", \"tear\", …) and its size as a length. Absent ⇒ no seam-root relief.\n```"]
+    pub relief_shape: String => omitted("reliefShape", "crate::json::is_zero");
+    pub relief_size: String => omitted("reliefSize", "crate::json::is_zero");
+#[doc = "```text\nDefinitionType is how the gap is measured — \"maxDistance\" (default) or \"faceEdgeDistance\"\n(CornerSeamDefinitionType). They agree on a square miter and differ on an oblique corner.\n```"]
+    pub definition_type: String => omitted("definitionType", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalCornerSeam {
+    fn kind(&self) -> String {
+        "sheetMetalCornerSeam".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalCosmeticBend adds a cosmetic (display-only) bend across a sketch line\n(KindSheetMetalCosmeticBend).\n```"]
+pub struct SheetMetalCosmeticBend {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub line_index: i64 => required("lineIndex");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalCosmeticBend {
+    fn kind(&self) -> String {
+        "sheetMetalCosmeticBend".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalCut cuts a sketch profile through the wall (or across a bend) (KindSheetMetalCut).\n```"]
+pub struct SheetMetalCut {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+    pub distance: String => omitted("distance", "crate::json::is_zero");
+    pub across_bend: bool => omitted("acrossBend", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalCut {
+    fn kind(&self) -> String {
+        "sheetMetalCut".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalFace adds a base wall (operation new) or a secondary wall (join) from a sketch profile\n(KindSheetMetalFace).\n```"]
+pub struct SheetMetalFace {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub operation: String => required("operation");
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalFace {
+    fn kind(&self) -> String {
+        "sheetMetalFace".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalFlange adds a flange along an edge (KindSheetMetalFlange).\n```"]
+pub struct SheetMetalFlange {
+    pub edge: String => required("edge");
+    pub height: String => required("height");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
+#[doc = "```text\nBendPosition is how far back from the picked edge the bend sits — the reference CAD API's\nBendPositionEnum (#1957). Two flanges of the same height and angle in different positions\nare different parts, because the position decides whether the wall overhangs the edge or\nfinishes flush with it. \"adjacentFace\" (default) starts the bend AT the edge;\n\"outsideBaseFace\" and \"insideBendFace\" set it back until the wall's outer or inner face\nreaches the edge; \"outerEdgeOffset\" and \"innerEdgeOffset\" are those two plus PositionOffset.\n```"]
+    pub bend_position: String => omitted("bendPosition", "crate::json::is_zero");
+#[doc = "```text\nPositionOffset is the explicit distance for the two edge-offset positions.\n```"]
+    pub position_offset: String => omitted("positionOffset", "crate::json::is_zero");
+#[doc = "```text\nHeightDatum is what Height is measured FROM — the reference CAD API's HeightDatumTypeEnum: \"tangent\"\n(default; where the bend ends), \"outer\" or \"inner\" (the sharp corner the outer/inner faces\nwould make, which is how a drawing dimensions it), or \"outerOrtho\"/\"innerOrtho\" (the same\ncorners measured perpendicular to the base face, a different number on any bend that is not\na right angle).\n```"]
+    pub height_datum: String => omitted("heightDatum", "crate::json::is_zero");
+#[doc = "```text\nWidth is how much of the picked edge the wall covers (#1958). Absent ⇒ the whole edge.\n```"]
+    pub width: Option<Box<crate::wire::featureargs::FlangeWidthExtent>> => omitted("width", "Option::is_none");
+#[doc = "```text\nOptions overrides the style's bend properties for THIS bend only (#1959). Absent ⇒ the style.\n```"]
+    pub options: Option<Box<crate::wire::featureargs::BendOptions>> => omitted("options", "Option::is_none");
+#[doc = "```text\nApplyAutoMiter extends this wall and the one it corners with until they meet, then cuts\nMiterGap between them (#1961). Two walls each stop at their own bend line, so the corner\nbetween them is otherwise OPEN. Off by default, so an existing part's corners are unchanged.\n```"]
+    pub apply_auto_miter: bool => omitted("applyAutoMiter", "crate::json::is_zero");
+#[doc = "```text\nMiterGap is the gap left on the miter line; absent ⇒ the style's GapSize.\n```"]
+    pub miter_gap: String => omitted("miterGap", "crate::json::is_zero");
+#[doc = "```text\nEdgeSets flanges SEVERAL edges in one feature, each set with its own edges and width extent —\nthe reference CAD API's FlangeDefinition edge-set collection (EdgeSetCount/AddFlangeEdgeSet/EdgeSetItem,\n#2071). When present it supersedes Edge/Width; the shared height, angle, radius, flip, bend\nposition, height datum, options and miter apply to every set. Modelling each edge as its own\nflange feature makes the same solid — edge sets keep them one feature with one edit.\n```"]
+    pub edge_sets: Option<Vec<crate::wire::featureargs::FlangeEdgeSet>> => omitted("edgeSets", "crate::json::slice_is_empty");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalFlange {
+    fn kind(&self) -> String {
+        "sheetMetalFlange".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalFold folds the part along a sketch line (KindSheetMetalFold).\n```"]
+pub struct SheetMetalFold {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub line_index: i64 => required("lineIndex");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+    pub location: String => omitted("location", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalFold {
+    fn kind(&self) -> String {
+        "sheetMetalFold".into()
     }
 }

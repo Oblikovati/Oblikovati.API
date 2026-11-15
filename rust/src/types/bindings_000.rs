@@ -125,94 +125,34 @@ pub const ANGULAR_DIMENSION: crate::types::DrawingDimensionType =
 pub const ANGULAR_ENDS_INSPECTION_BORDER: crate::types::InspectionShape =
     crate::types::InspectionShape(1);
 
+generated_dto! {
 #[doc = "```text\nAnisotropicElastic holds the direction-dependent elastic constants of an orthotropic\nmaterial (a transversely-isotropic material is the constrained special case E2=E3,\nG12=G13, ν12=ν13), expressed in the material's principal axes. Axis convention: for wood\n1 = longitudinal (along grain), 2 = radial, 3 = tangential; for a unidirectional fibre\nlamina 1 = fibre, 2 = 3 = transverse. A solver uses these in place of the scalar\n[Mechanical] E/ν when [IsotropyClass] is not isotropic; yield and ultimate strengths\nstill come from [Mechanical] as an equivalent scalar until directional strength\nallowables are added (ADR-0025).\n\nThe nine constants are the independent entries of the orthotropic compliance matrix; νIJ\nis the Poisson contraction along J from a load along I, with the symmetry νIJ/Ei = νJI/Ej.\nAlpha1..3 are the linear thermal expansion coefficients along each axis, for orthotropic\nthermal-stress analysis (these can be negative, e.g. the fibre direction of carbon/aramid\nlaminates).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
 pub struct AnisotropicElastic {
-    #[doc = "```text\nGPa, axis-1 Young's modulus\n```"]
-    #[serde(
-        rename = "e1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub e1: f64,
-    #[doc = "```text\nGPa, axis-2 Young's modulus\n```"]
-    #[serde(
-        rename = "e2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub e2: f64,
-    #[doc = "```text\nGPa, axis-3 Young's modulus\n```"]
-    #[serde(
-        rename = "e3",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub e3: f64,
-    #[doc = "```text\nGPa, shear modulus in the 1-2 plane\n```"]
-    #[serde(
-        rename = "g12",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub g12: f64,
-    #[doc = "```text\nGPa, shear modulus in the 2-3 plane\n```"]
-    #[serde(
-        rename = "g23",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub g23: f64,
-    #[doc = "```text\nGPa, shear modulus in the 1-3 plane\n```"]
-    #[serde(
-        rename = "g13",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub g13: f64,
-    #[doc = "```text\nmajor Poisson's ratio, load on 1 → strain on 2\n```"]
-    #[serde(
-        rename = "nu12",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub nu12: f64,
-    #[doc = "```text\nmajor Poisson's ratio, load on 2 → strain on 3\n```"]
-    #[serde(
-        rename = "nu23",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub nu23: f64,
-    #[doc = "```text\nmajor Poisson's ratio, load on 1 → strain on 3\n```"]
-    #[serde(
-        rename = "nu13",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub nu13: f64,
-    #[doc = "```text\n1/K, axis-1 linear thermal expansion\n```"]
-    #[serde(
-        rename = "alpha1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alpha1: f64,
-    #[doc = "```text\n1/K, axis-2 linear thermal expansion\n```"]
-    #[serde(
-        rename = "alpha2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alpha2: f64,
-    #[doc = "```text\n1/K, axis-3 linear thermal expansion\n```"]
-    #[serde(
-        rename = "alpha3",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alpha3: f64,
+#[doc = "```text\nGPa, axis-1 Young's modulus\n```"]
+    pub e1: f64 => finite("e1");
+#[doc = "```text\nGPa, axis-2 Young's modulus\n```"]
+    pub e2: f64 => finite("e2");
+#[doc = "```text\nGPa, axis-3 Young's modulus\n```"]
+    pub e3: f64 => finite("e3");
+#[doc = "```text\nGPa, shear modulus in the 1-2 plane\n```"]
+    pub g12: f64 => finite("g12");
+#[doc = "```text\nGPa, shear modulus in the 2-3 plane\n```"]
+    pub g23: f64 => finite("g23");
+#[doc = "```text\nGPa, shear modulus in the 1-3 plane\n```"]
+    pub g13: f64 => finite("g13");
+#[doc = "```text\nmajor Poisson's ratio, load on 1 → strain on 2\n```"]
+    pub nu12: f64 => finite("nu12");
+#[doc = "```text\nmajor Poisson's ratio, load on 2 → strain on 3\n```"]
+    pub nu23: f64 => finite("nu23");
+#[doc = "```text\nmajor Poisson's ratio, load on 1 → strain on 3\n```"]
+    pub nu13: f64 => finite("nu13");
+#[doc = "```text\n1/K, axis-1 linear thermal expansion\n```"]
+    pub alpha1: f64 => finite("alpha1");
+#[doc = "```text\n1/K, axis-2 linear thermal expansion\n```"]
+    pub alpha2: f64 => finite("alpha2");
+#[doc = "```text\n1/K, axis-3 linear thermal expansion\n```"]
+    pub alpha3: f64 => finite("alpha3");
+}
 }
 
 pub const ARBITRARY_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
@@ -318,89 +258,42 @@ generated_scalar! { string,
 pub struct BOMViewKind(pub std::borrow::Cow<'static, str>);
 }
 
+generated_dto! {
 #[doc = "```text\nBSplineCurve2dDef is the 2D NURBS curve recipe.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
 pub struct BSplineCurve2dDef {
-    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
-    pub degree: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point2d>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knots",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots: Option<Vec<f64>>,
+    pub degree: i64 => required("degree");
+    pub poles: Option<Vec<crate::types::Point2d>> => required("poles");
+    pub weights: Option<Vec<f64>> => omitted_finite("weights", "crate::json::slice_is_empty");
+    pub knots: Option<Vec<f64>> => finite("knots");
+}
 }
 
 pub const B_SPLINE_CURVE2D_KIND: crate::types::Curve2dType = crate::types::Curve2dType(5256);
 
+generated_dto! {
 #[doc = "```text\nBSplineCurveDef is the complete NURBS curve recipe — the\nBSplineCurveDefinition equivalent as pure data, usable locally by an add-in\nand as the wire encoding of a spline crossing the boundary. Weights may be nil\nfor a non-rational curve (all 1).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
 pub struct BSplineCurveDef {
-    #[serde(rename = "degree", deserialize_with = "crate::json::null_default")]
-    pub degree: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knots",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots: Option<Vec<f64>>,
+    pub degree: i64 => required("degree");
+    pub poles: Option<Vec<crate::types::Point>> => required("poles");
+    pub weights: Option<Vec<f64>> => omitted_finite("weights", "crate::json::slice_is_empty");
+    pub knots: Option<Vec<f64>> => finite("knots");
+}
 }
 
 pub const B_SPLINE_CURVE_KIND: crate::types::CurveType = crate::types::CurveType(5128);
 
+generated_dto! {
 #[doc = "```text\nBSplineSurfaceDef is the NURBS surface recipe: poles in row-major (u-major)\norder, PolesU×PolesV of them, with optional weights in the same layout.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
 pub struct BSplineSurfaceDef {
-    #[serde(rename = "degreeU", deserialize_with = "crate::json::null_default")]
-    pub degree_u: i64,
-    #[serde(rename = "degreeV", deserialize_with = "crate::json::null_default")]
-    pub degree_v: i64,
-    #[serde(rename = "polesU", deserialize_with = "crate::json::null_default")]
-    pub poles_u: i64,
-    #[serde(rename = "polesV", deserialize_with = "crate::json::null_default")]
-    pub poles_v: i64,
-    #[serde(rename = "poles", deserialize_with = "crate::json::null_default")]
-    pub poles: Option<Vec<crate::types::Point>>,
-    #[serde(
-        rename = "weights",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weights: Option<Vec<f64>>,
-    #[serde(
-        rename = "knotsU",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots_u: Option<Vec<f64>>,
-    #[serde(
-        rename = "knotsV",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub knots_v: Option<Vec<f64>>,
+    pub degree_u: i64 => required("degreeU");
+    pub degree_v: i64 => required("degreeV");
+    pub poles_u: i64 => required("polesU");
+    pub poles_v: i64 => required("polesV");
+    pub poles: Option<Vec<crate::types::Point>> => required("poles");
+    pub weights: Option<Vec<f64>> => omitted_finite("weights", "crate::json::slice_is_empty");
+    pub knots_u: Option<Vec<f64>> => finite("knotsU");
+    pub knots_v: Option<Vec<f64>> => finite("knotsV");
+}
 }
 
 pub const B_SPLINE_SURFACE_KIND: crate::types::SurfaceType = crate::types::SurfaceType(5897);
@@ -463,3 +356,103 @@ pub struct BendPartType(pub i32);
 }
 
 pub const BEND_TABLE_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(1);
+
+generated_scalar! { integer,
+#[doc = "```text\nBendTransition is how the material is shaped where a bend zone runs into the face beside it —\nthe reference CAD API's BendTransitionEnum (#1959).\n\nRead the shapes carefully before assuming they are all the same kind of thing: three of them\ndescribe the FLAT PATTERN's outline through the transition region (a straight line across the\nbend zone, a straight line to the bent feature's edge, or an arc tangent to both), one is a CUT\nin the folded model, and the default is neither — the geometry simply runs on as it does.\n```"]
+pub struct BendTransition(pub i32);
+}
+
+pub const BEND_UP_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(3);
+
+pub const BEND_UP_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
+    crate::types::FlatPatternEdgeType(0);
+
+pub const BEST_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
+    crate::types::RayTracingQualityEnum(95747);
+
+pub const BLENDING_TRANSPARENCY: crate::types::TransparencyTypeEnum =
+    crate::types::TransparencyTypeEnum(58625);
+
+pub const BOOLEAN_DIFFERENCE: crate::types::BooleanType = crate::types::BooleanType(74241);
+
+pub const BOOLEAN_INTERSECT: crate::types::BooleanType = crate::types::BooleanType(74243);
+
+generated_scalar! { integer,
+#[doc = "```text\nBooleanType selects the transient B-rep boolean operation\n(TransientBRep.DoBoolean).\n```"]
+pub struct BooleanType(pub i32);
+}
+
+pub const BOOLEAN_UNION: crate::types::BooleanType = crate::types::BooleanType(74242);
+
+pub const BOOLEAN_VALUE: crate::types::ValueType = crate::types::ValueType(14597);
+
+generated_scalar! { integer,
+#[doc = "```text\nBorderLabelMode is how a zoned border labels one axis of zones (the reference CAD API's BorderLabelModeEnum).\nThe zero value is AlphabeticalBorderLabel (A, B, C …), the common default for the vertical axis.\n```"]
+pub struct BorderLabelMode(pub i32);
+}
+
+pub const BOTH_STYLE_LOCATION: crate::types::StyleLocationEnum =
+    crate::types::StyleLocationEnum(51201);
+
+pub const BOTTOM_LEFT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(1);
+
+pub const BOTTOM_RIGHT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(0);
+
+pub const BOTTOM_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10757);
+
+generated_dto! {
+#[doc = "```text\nBox is an axis-aligned 3D bounding range. An empty box has Min > Max in some\ncomponent (the zero value, with both at the origin, is the degenerate\nsingle-point box; use NewEmptyBox for the absorbing identity of Union).\n```"]
+pub struct Box {
+    pub min: crate::types::Point => raw(rename = "min");
+    pub max: crate::types::Point => raw(rename = "max");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBox2d is an axis-aligned 2D bounding range.\n```"]
+pub struct Box2d {
+    pub min: crate::types::Point2d => raw(rename = "min");
+    pub max: crate::types::Point2d => raw(rename = "max");
+}
+}
+
+pub const BREAK_HORIZONTAL: crate::types::BreakOrientation = crate::types::BreakOrientation(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nBreakOrientation is the axis along which a break view compresses: a horizontal break removes\na vertical band (shortening a wide part), a vertical break removes a horizontal band. The zero\nvalue is BreakHorizontal.\n```"]
+pub struct BreakOrientation(pub i32);
+}
+
+pub const BREAK_VERTICAL: crate::types::BreakOrientation = crate::types::BreakOrientation(1);
+
+generated_dto! {
+#[doc = "```text\nBrepBodyDefinition is the whole bottom-up graph.\n```"]
+pub struct BrepBodyDefinition {
+    pub solid: bool => omitted("solid", "crate::json::is_zero");
+    pub vertices: Option<Vec<crate::types::BrepVertexDef>> => omitted("vertices", "crate::json::slice_is_empty");
+    pub edges: Option<Vec<crate::types::BrepEdgeDef>> => omitted("edges", "crate::json::slice_is_empty");
+    pub faces: Option<Vec<crate::types::BrepFaceDef>> => omitted("faces", "crate::json::slice_is_empty");
+    pub lumps: Option<Vec<crate::types::BrepLumpDef>> => omitted("lumps", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrepCurveDef is one edge's model-space curve, tagged by Kind.\n```"]
+pub struct BrepCurveDef {
+#[doc = "```text\nKind is \"lineSegment\", \"arc\" or \"polyline\".\n```"]
+    pub kind: String => required("kind");
+#[doc = "```text\nPoints are flattened xyz triplets: the two ends of a lineSegment, the\nvertices of a polyline (unused for an arc).\n```"]
+    pub points: Option<Vec<f64>> => omitted_finite("points", "crate::json::slice_is_empty");
+#[doc = "```text\nArc geometry: center, plane normal, the radius direction at angle 0.\n```"]
+    pub center: Option<Vec<f64>> => omitted_finite("center", "crate::json::slice_is_empty");
+    pub normal: Option<Vec<f64>> => omitted_finite("normal", "crate::json::slice_is_empty");
+    pub ref_dir: Option<Vec<f64>> => omitted_finite("refDir", "crate::json::slice_is_empty");
+    pub radius: f64 => omitted_finite("radius", "crate::json::is_zero");
+#[doc = "```text\nStartAngle/SweepAngle in radians; positive sweep is counterclockwise\nabout Normal.\n```"]
+    pub start_angle: f64 => omitted_finite("startAngle", "crate::json::is_zero");
+    pub sweep_angle: f64 => omitted_finite("sweepAngle", "crate::json::is_zero");
+}
+}

@@ -3,425 +3,449 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nAddSectionArgs adds a section/clipping plane to a design-view representation.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSectionArgs {
-    #[serde(rename = "rep", deserialize_with = "crate::json::null_default")]
-    pub rep: u64,
-    #[serde(rename = "plane", deserialize_with = "crate::json::null_default")]
-    pub plane: crate::types::SectionPlane,
+generated_dto! {
+#[doc = "```text\nBrepIdenticalBodiesResult groups indices into Sources; identical bodies\nshare a group.\n```"]
+pub struct BrepIdenticalBodiesResult {
+    pub groups: Option<Vec<Option<Vec<i64>>>> => omitted("groups", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nAddSectionViewArgs is the request of [MethodDrawingViewsAddSection]: a section view of the\nparent's model, cut by the plane through the section line (X1,Y1)-(X2,Y2) on the parent (sheet\nmillimetres), perpendicular to the parent. The near half is removed, the cut outline drawn\nbold and the exposed faces hatched; the view is placed at (CenterXMM, CenterYMM).\n\nThe retained material is tunable (#1982): FullDepth (the default) keeps everything behind the\nplane, or FullDepth=false limits it to a slab SectionDepthMM deep so only geometry within that\ndistance of the plane participates. Reverse keeps the opposite half. SectionType selects a\npartial cut (none/quarter/half/threeQuarter; \"\" ⇒ none, a plain full cut).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSectionViewArgs {
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
-    #[serde(rename = "parentView", deserialize_with = "crate::json::null_default")]
-    pub parent_view: String,
-    #[serde(
-        rename = "x1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub x1: f64,
-    #[serde(
-        rename = "y1",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub y1: f64,
-    #[serde(
-        rename = "x2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub x2: f64,
-    #[serde(
-        rename = "y2",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub y2: f64,
-    #[serde(
-        rename = "centerXmm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center_xmm: f64,
-    #[serde(
-        rename = "centerYmm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center_ymm: f64,
-    #[serde(
-        rename = "fullDepth",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub full_depth: bool,
-    #[serde(
-        rename = "sectionDepthMm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub section_depth_mm: f64,
-    #[serde(
-        rename = "reverse",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub reverse: bool,
-    #[serde(
-        rename = "sectionType",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub section_type: String,
+generated_dto! {
+#[doc = "```text\nBrepImprintArgs is the request of [MethodBrepImprint].\n```"]
+pub struct BrepImprintArgs {
+    pub body_one: crate::wire::BrepBodyRef => required("bodyOne");
+    pub body_two: crate::wire::BrepBodyRef => required("bodyTwo");
+#[doc = "```text\nImprintCoincidentEdges is accepted for reference parity; coincident\nboundary edges are always imprinted by the planar arrangement.\n```"]
+    pub imprint_coincident_edges: bool => omitted("imprintCoincidentEdges", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nAddSheetArgs is the request of [MethodDrawingAddSheet]. Size is a types.SheetSize\nspelling; for \"custom\" (or an empty Size) WidthMM/HeightMM give the dimensions. An\nempty Name lets the host assign the next \"Sheet:N\" name.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSheetArgs {
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
-    #[serde(
-        rename = "size",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size: String,
-    #[serde(
-        rename = "orientation",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub orientation: String,
-    #[serde(
-        rename = "widthMm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width_mm: f64,
-    #[serde(
-        rename = "heightMm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub height_mm: f64,
+generated_dto! {
+#[doc = "```text\nBrepImprintResult is the response of [MethodBrepImprint]: imprinted copies\nplus the touched faces / new imprint edges of each, by reference key.\n```"]
+pub struct BrepImprintResult {
+    pub handle_one: i64 => required("handleOne");
+    pub handle_two: i64 => required("handleTwo");
+    pub one_touched_face_keys: Option<Vec<String>> => omitted("oneTouchedFaceKeys", "crate::json::slice_is_empty");
+    pub two_touched_face_keys: Option<Vec<String>> => omitted("twoTouchedFaceKeys", "crate::json::slice_is_empty");
+    pub one_imprinted_edge_keys: Option<Vec<String>> => omitted("oneImprintedEdgeKeys", "crate::json::slice_is_empty");
+    pub two_imprinted_edge_keys: Option<Vec<String>> => omitted("twoImprintedEdgeKeys", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nAddSheetUsingFormatArgs is the request of [MethodDrawingAddSheetUsingFormat]: add a sheet named Name\nstamped from the registered format Format (#1989).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSheetUsingFormatArgs {
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
-    #[serde(rename = "format", deserialize_with = "crate::json::null_default")]
-    pub format: String,
+generated_dto! {
+#[doc = "```text\nBrepListResult is the response of [MethodBrepList].\n```"]
+pub struct BrepListResult {
+    pub handles: Option<Vec<i64>> => omitted("handles", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nAddSketch3DConstraintArgs is the request of [MethodSketch3DAddConstraint] — the\ndiscriminated 3D geometric-constraint constructor. Kind is the constraint\n([oblikovati.org/api/types.Geometric3DConstraintKind]). Entities are the session\nids of the geometry it relates, in the kind's expected order (parallel/perpendicular:\ntwo line ids; midpoint: point id + line id; ground: a point id; parallelToAxis/Plane:\na single line id; coincident/concentric: two point ids; collinear: three point ids;\ntangent/smooth: two curve ids (line/arc/spline — the join lands on their nearest\nendpoints, and smooth needs at least one spline); equal: two circle/helix ids (their\nradius DOFs); splineFitPoints: a fit-spline id + a point id (attached to the nearest\nfit point); helical: a helix id + the circle it starts on, with parallel axes;\nbend: an arc id + the two lines it joins — the bend radius is captured from the\narc's current geometry).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DConstraintArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "entities",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub entities: Option<Vec<u64>>,
-    #[doc = "```text\nFaceRef is the part-face reference key an \"onFace\" constraint holds its point on (#1839);\nunused by the entity-id-only kinds.\n```"]
-    #[serde(
-        rename = "faceRef",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub face_ref: String,
+generated_dto! {
+#[doc = "```text\nBrepOffsetFacesArgs is the request of [MethodBrepOffsetFaces]: offset the faces of Source named by\nreference key outward by Distance along their surface normals, returning a transient body of the\noffset faces (addressable by the other brep.* methods — e.g. tessellate or [MethodBodyFaceEvaluate]\nto sample it). CAM uses it for 3D surfacing tool compensation: offset the part surface by the tool\nradius, then drop the tool onto the offset. The offset is exact for analytic surfaces (plane,\ncylinder, sphere, cone, torus) and a tolerant parallel surface otherwise.\n\nThe parameters are Distance, Reverse (offset the opposite way,\ninto the solid), and Tolerance (the chordal tolerance for offsetting a freeform surface; 0 ⇒ a\nkernel default).\n```"]
+pub struct BrepOffsetFacesArgs {
+    pub source: crate::wire::BrepBodyRef => required("source");
+    pub face_keys: Option<Vec<String>> => required("faceKeys");
+    pub distance: f64 => finite("distance");
+    pub reverse: bool => omitted("reverse", "crate::json::is_zero");
+    pub tolerance: f64 => omitted_finite("tolerance", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nAddSketch3DConstraintResult is the response of [MethodSketch3DAddConstraint]: the new\nconstraint's index in the sketch's geometric-constraint collection, its kind, and the\nsketch's resulting degree-of-freedom count.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DConstraintResult {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
-    pub dof: i64,
+generated_dto! {
+#[doc = "```text\nBrepRuledSurfaceArgs is the request of [MethodBrepRuledSurface].\n```"]
+pub struct BrepRuledSurfaceArgs {
+    pub section_one: crate::wire::BrepWireRef => required("sectionOne");
+    pub section_two: crate::wire::BrepWireRef => required("sectionTwo");
+}
 }
 
-#[doc = "```text\nAddSketch3DDimensionArgs is the request of [MethodSketch3DAddDimension] — the\ndiscriminated 3D dimensional-constraint constructor. Kind is the dimension\n([oblikovati.org/api/types.Dimension3DConstraintKind]). Entities are the session\nids of the dimensioned geometry (distance: two point ids; lineLength/radius: one entity\nid; pointPlaneDistance: one point id; twoLineAngle: two line ids). Expression is the\nunit-bearing value (\"10 mm\", \"30 deg\"). Plane selects the reference origin plane for\npointPlaneDistance (\"XY\" | \"XZ\" | \"YZ\").\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DDimensionArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "entities",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub entities: Option<Vec<u64>>,
-    #[serde(rename = "expression", deserialize_with = "crate::json::null_default")]
-    pub expression: String,
-    #[serde(
-        rename = "plane",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane: String,
+generated_dto! {
+#[doc = "```text\nBrepSectionArgs is the request of [MethodBrepSectionWithPlane].\n```"]
+pub struct BrepSectionArgs {
+    pub source: crate::wire::BrepBodyRef => required("source");
+    pub plane_origin: Option<Vec<f64>> => finite("planeOrigin");
+    pub plane_normal: Option<Vec<f64>> => finite("planeNormal");
+}
 }
 
-#[doc = "```text\nAddSketch3DDimensionResult is the response of [MethodSketch3DAddDimension]: the\ndimension's index, its kind, the backing parameter name, the current measured value\n(cm/rad), and the sketch's resulting degree-of-freedom count.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DDimensionResult {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "parameter", deserialize_with = "crate::json::null_default")]
-    pub parameter: String,
-    #[serde(
-        rename = "value",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub value: f64,
-    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
-    pub dof: i64,
+generated_dto! {
+#[doc = "```text\nBrepSilhouetteArgs is the request of [MethodBrepSilhouette]: the silhouette\ncurves of one face viewed along ViewDirection.\n```"]
+pub struct BrepSilhouetteArgs {
+    pub source: crate::wire::BrepBodyRef => required("source");
+    pub face_key: String => required("faceKey");
+    pub view_direction: Option<Vec<f64>> => finite("viewDirection");
+#[doc = "```text\nIncludeBoundary keeps silhouette runs lying on the face's own edges.\n```"]
+    pub include_boundary: bool => omitted("includeBoundary", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nAddSketch3DEntityArgs is the request of [MethodSketch3DAddEntity] — the discriminated\n3D entity constructor. Kind is the base entity\n([oblikovati.org/api/types.Sketch3DEntityKind]: point | line | circle | arc | …).\nPoints are the defining points, each [x,y,z] in model database units (cm), in the\nconstructor's expected order (line: A,B; circle: center; arc: center,start,end). Radius\nis a unit-bearing expression (\"10 mm\") for circular kinds. Axis is the circle plane's\nnormal [x,y,z] (defaults to +Z when empty). CCW orients an arc. Construction marks the\nentity as reference geometry.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DEntityArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "points",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub points: Option<Vec<Option<Vec<f64>>>>,
-    #[serde(
-        rename = "radius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub radius: String,
-    #[serde(
-        rename = "axis",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub axis: Option<Vec<f64>>,
-    #[serde(
-        rename = "ccw",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ccw: bool,
-    #[serde(
-        rename = "construction",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub construction: bool,
-    #[doc = "```text\nHelix-only fields (kind \"helical\"). Mode selects which two of pitch/height/\nrevolutions define the helix (\"pitchHeight\" | \"pitchRevolution\" |\n\"revolutionHeight\" | \"spiral\"); the third is derived. Pitch/Height are\nunit-bearing lengths, Revolutions a turn count, Taper a per-revolution radial\ngrowth length (spiral pitch). Clockwise sets the handedness; Points[0] is the\naxis-base origin and Axis the winding axis (defaults to +Z).\n```"]
-    #[serde(
-        rename = "mode",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub mode: String,
-    #[serde(
-        rename = "pitch",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub pitch: String,
-    #[serde(
-        rename = "height",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub height: String,
-    #[serde(
-        rename = "revolutions",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub revolutions: f64,
-    #[serde(
-        rename = "taper",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub taper: String,
-    #[serde(
-        rename = "clockwise",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub clockwise: bool,
-    #[doc = "```text\nConic fields (kind \"ellipse\"/\"ellipticalArc\"). Points[0] is the center, Axis the\nplane normal (defaults to +Z), MajorAxis the in-plane major direction (defaults to\n+X). MajorRadius/MinorRadius are unit-bearing lengths; StartAngle/SweepAngle are\nunit-bearing angles bounding an elliptical arc.\n```"]
-    #[serde(
-        rename = "majorAxis",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub major_axis: Option<Vec<f64>>,
-    #[serde(
-        rename = "majorRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub major_radius: String,
-    #[serde(
-        rename = "minorRadius",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub minor_radius: String,
-    #[serde(
-        rename = "startAngle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub start_angle: String,
-    #[serde(
-        rename = "sweepAngle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub sweep_angle: String,
-    #[doc = "```text\nBend-only field (kind \"bend\"): the session ids of the two connected lines whose\ncorner the bend fills. Radius is the bend radius (\"5 mm\"). The lines are trimmed\nto the tangent points, the returned arc joins them, and a bend constraint keeps\nthe join tangent (the reference API's SketchArcs3D.AddAsBend).\n```"]
-    #[serde(
-        rename = "lines",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub lines: Option<Vec<u64>>,
-    #[doc = "```text\nSpline fields. For spline/controlPointSpline/fixedSpline, Points are the defining\npoints (each [x,y,z] in cm); Closed marks a closed loop; FitMethod is the\ninterpolation parameterization ([oblikovati.org/api/types.SplineFitMethod] wire\nspelling, empty ⇒ \"smooth\" — M06-F11, Oblikovati/Oblikovati#626). For\nequationCurve, XExpr/YExpr/ZExpr are x(t)/y(t)/z(t) over [T0,T1]. CoordinateSystem\n([oblikovati.org/api/types.CoordinateSystemType] spelling: cartesian | cylindrical |\nspherical; empty ⇒ cartesian) reinterprets the three expressions as radius/theta/z or\nradius/theta/phi (#1846).\n```"]
-    #[serde(
-        rename = "closed",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub closed: bool,
-    #[serde(
-        rename = "fitMethod",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub fit_method: String,
-    #[serde(
-        rename = "xExpr",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub x_expr: String,
-    #[serde(
-        rename = "yExpr",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub y_expr: String,
-    #[serde(
-        rename = "zExpr",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub z_expr: String,
-    #[serde(
-        rename = "t0",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub t0: f64,
-    #[serde(
-        rename = "t1",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub t1: f64,
-    #[serde(
-        rename = "coordinateSystem",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub coordinate_system: String,
-    #[doc = "```text\nVariable-shape helix fields (kind \"helical\" — M06-F09, #624): a row\ntable varying pitch/diameter per station replaces the constant shape;\nStart/End set the end transition conditions (nil ⇒ natural ends).\n```"]
-    #[serde(
-        rename = "rows",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub rows: Option<Vec<crate::wire::HelixShapeRow>>,
-    #[serde(
-        rename = "start",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub start: Option<Box<crate::wire::HelixEndCondition>>,
-    #[serde(
-        rename = "end",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub end: Option<Box<crate::wire::HelixEndCondition>>,
+generated_dto! {
+#[doc = "```text\nBrepTransformArgs is the request of [MethodBrepTransform]: a 4×4 row-major\nmatrix restricted to rotation/translation/reflection/uniform scale.\n```"]
+pub struct BrepTransformArgs {
+    pub handle: i64 => required("handle");
+    pub matrix: Option<Vec<f64>> => finite("matrix");
+}
 }
 
-#[doc = "```text\nAddSketch3DEntityResult is the response of [MethodSketch3DAddEntity]: the created\nentity's session id, its base kind, and the session ids of its defining points.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct AddSketch3DEntityResult {
-    #[serde(rename = "entityId", deserialize_with = "crate::json::null_default")]
-    pub entity_id: u64,
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(
-        rename = "pointIds",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub point_i_ds: Option<Vec<u64>>,
+generated_dto! {
+#[doc = "```text\nBrepWireRef addresses one wire of a body for the ruled surface.\n```"]
+pub struct BrepWireRef {
+    pub body: crate::wire::BrepBodyRef => required("body");
+    pub wire_index: i64 => required("wireIndex");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrepWiresResult is the payload of section/silhouette results: the wires\nland on a new transient body and are also returned sampled.\n```"]
+pub struct BrepWiresResult {
+    pub handle: i64 => required("handle");
+    pub wires: Option<Vec<crate::wire::WirePolyline>> => omitted("wires", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrowserMenuItem is one entry of a node's right-click context menu. ID names the item\nin the [BrowserNodeEvent] when chosen; Label is what's shown; Disabled greys it out\n(the zero value is enabled, the common case).\n```"]
+pub struct BrowserMenuItem {
+    pub id: String => required("id");
+    pub label: String => required("label");
+    pub disabled: bool => omitted("disabled", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrowserNodeEvent is the push event (type [EventBrowserNode]) an add-in receives\nwhen the user interacts with one of its pane nodes. Gesture is \"select\", \"double\",\n\"expand\", \"collapse\", or \"menu\". For \"menu\", MenuItem is the chosen item's ID.\n```"]
+pub struct BrowserNodeEvent {
+#[doc = "```text\nalways EventBrowserNode\n```"]
+    pub type_: String => required("type");
+    pub pane: String => required("pane");
+    pub node: String => required("node");
+    pub gesture: String => required("gesture");
+#[doc = "```text\nchosen context-menu item id (Gesture \"menu\")\n```"]
+    pub menu_item: String => omitted("menuItem", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrowserNodeSpec is one node of an add-in browser pane: a label with an optional\nicon and children, drawn like a built-in document-tree node. ID must be unique\nwithin its pane — it names the node in the [BrowserNodeEvent] the add-in receives\nwhen the user interacts with it. Expanded is the node's initial state; the user's\nexpansion is kept across re-sets of the pane (the spec declares content, not view\nstate). IconSVG is an inline themed glyph (the ribbon's sentinel-colour SVG\nconvention) the host rasterises beside the label, so an add-in node looks like a\ndocument node. Menu is the node's right-click context menu; choosing an item\nreports a [BrowserNodeEvent] with Gesture \"menu\" and MenuItem set.\n```"]
+pub struct BrowserNodeSpec {
+    pub id: String => required("id");
+    pub label: String => required("label");
+#[doc = "```text\nbuilt-in icon key (host nodes)\n```"]
+    pub icon: String => omitted("icon", "crate::json::is_zero");
+#[doc = "```text\ninline themed glyph (add-in nodes)\n```"]
+    pub icon_svg: String => omitted("iconSVG", "crate::json::is_zero");
+    pub expanded: bool => omitted("expanded", "crate::json::is_zero");
+    pub menu: Option<Vec<crate::wire::BrowserMenuItem>> => omitted("menu", "crate::json::slice_is_empty");
+    pub children: Option<Vec<crate::wire::BrowserNodeSpec>> => omitted("children", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nBrowserPaneSpec is one add-in browser pane: a named tree shown alongside the\nbuilt-in Model pane (the ClientBrowserNodeDefinition equivalent, M05-F03 #256).\nSetting a pane replaces its whole tree — the declared-bulk-state model the\nclientGraphics groups established — so an add-in never patches node-by-node.\n```"]
+pub struct BrowserPaneSpec {
+    pub id: String => required("id");
+    pub title: String => required("title");
+    pub nodes: Option<Vec<crate::wire::BrowserNodeSpec>> => omitted("nodes", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCalculateFacetsArgs is the request of [MethodBodyCalculateFacets] and\n[MethodBodyExistingFacets].\n```"]
+pub struct CalculateFacetsArgs {
+    pub body_index: i64 => required("bodyIndex");
+    pub tolerance: f64 => finite("tolerance");
+#[doc = "```text\nIncludeTextureMap adds per-vertex surface-parameter (u, v) pairs.\n```"]
+    pub include_texture_map: bool => omitted("includeTextureMap", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCalculateStrokesArgs is the request of [MethodBodyCalculateStrokes] and\n[MethodBodyExistingStrokes].\n```"]
+pub struct CalculateStrokesArgs {
+    pub body_index: i64 => required("bodyIndex");
+    pub tolerance: f64 => finite("tolerance");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCallAddInAutomationArgs is the request of [MethodAddInsCallAutomation]: invoke a\nmethod on another add-in's automation surface (ApplicationAddIn.Automation). Args\nis the target's own request shape, passed through opaquely — the host routes, it\ndoes not interpret.\n```"]
+pub struct CallAddInAutomationArgs {
+    pub id: String => required("id");
+    pub method: String => required("method");
+    pub args: crate::json::JsonValue => raw(rename = "args", skip_serializing_if = "crate::json::JsonValue::is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCallAddInAutomationResult is the response of [MethodAddInsCallAutomation]: the\ntarget add-in's reply, passed through opaquely.\n```"]
+pub struct CallAddInAutomationResult {
+    pub result: crate::json::JsonValue => raw(rename = "result", skip_serializing_if = "crate::json::JsonValue::is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCameraChangedEvent is the payload of the [EventCameraChanged] push event: the document whose\nactive-view camera moved and the new frame.\n```"]
+pub struct CameraChangedEvent {
+    pub document: u64 => required("document");
+    pub camera: crate::wire::CameraView => required("camera");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCameraView is the JSON shape of the viewport's camera as a look-at frame: the eye\nposition, the target it looks at, the up vector, and the vertical field of view in\nradians. It is the response of [MethodViewGetCamera] and [MethodViewSetCamera].\n\nThe look-at form is the host-native representation (lossless round-trip with the\nrenderer's camera). A collaboration add-in that wants a position+orientation form\n(e.g. for slerp during presenter-follow, see the oblikovati-meeting ADR-0003)\nderives the rotation from eye→target and up on its own side.\n\nEye and Target are positions, Up a direction — the M01-F05 geometry value\ntypes, whose [x, y, z] JSON form is identical to the [3]float64 encoding this\ntype used before they existed.\n```"]
+pub struct CameraView {
+    pub eye: crate::types::Point => raw(rename = "eye");
+    pub target: crate::types::Point => raw(rename = "target");
+    pub up: crate::types::Vector => raw(rename = "up");
+    pub fov: f64 => finite("fov");
+#[doc = "```text\nProjection is how the view projects: orthographic (parallel), perspective, or perspective\nwith orthographic view-cube faces. It is a property of the VIEW, not of the look-at frame,\nand was previously reachable only as the global new-window default — so a client could not\ntell whether what it captured was foreshortened.\n```"]
+    pub projection: crate::types::ProjectionTypeEnum => omitted("projection", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureNamedViewArgs is the request of [MethodViewsCaptureNamed]: save the active view's\ncurrent camera under Name (replacing any existing named view of that name).\n```"]
+pub struct CaptureNamedViewArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureRepArgs captures the current scene state into a new representation of its family.\n```"]
+pub struct CaptureRepArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureViewportArgs is the request of [MethodViewportCapture]: write the active document's viewport\nframebuffer to a PNG at Path (empty ⇒ a default temp location). The capture reflects the NEXT\nrendered frame, so the host writes the file asynchronously and the caller reads it once written.\n\nRealistic display mode (types.RealisticRendering, #2149) is NOT reflected: that mode's path-traced\nresult composites directly onto the application window's swapchain, bypassing the offscreen\nframebuffer this method reads back, so the file keeps showing the last raster-mode frame. Use\n[CaptureWindowArgs] instead when the active display mode is Realistic.\n```"]
+pub struct CaptureViewportArgs {
+    pub path: String => omitted("path", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureViewportResult is the reply of [MethodViewportCapture]: the PNG path the host will write and\nthe viewport's pixel size. The file appears within a frame of the call (poll Path / its mtime).\n```"]
+pub struct CaptureViewportResult {
+    pub path: String => required("path");
+    pub width: i64 => required("width");
+    pub height: i64 => required("height");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureWindowArgs is the request of [MethodViewportCaptureWindow]: write the WHOLE application\nwindow — the ImGui chrome (ribbon, browser, dialogs) composited with the 3D viewport, i.e.\neverything the user sees — to a PNG at Path (empty ⇒ a default temp location). Unlike\n[CaptureViewportArgs], which captures only the 3D framebuffer, this captures the full swapchain\nimage, so it shows open dialogs and UI state. The host writes the file asynchronously (within a\nframe); the caller reads it once written.\n```"]
+pub struct CaptureWindowArgs {
+    pub path: String => omitted("path", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCaptureWindowResult is the reply of [MethodViewportCaptureWindow]: the PNG path the host will write\nand the window's pixel size. The file appears within a frame of the call (poll Path / its mtime).\n```"]
+pub struct CaptureWindowResult {
+    pub path: String => required("path");
+    pub width: i64 => required("width");
+    pub height: i64 => required("height");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCenterMarksResult is the response of [MethodDrawingAnnotationsAddCenterMarks]: the marks created.\n```"]
+pub struct CenterMarksResult {
+    pub annotations: Option<Vec<crate::wire::DrawingAnnotationInfo>> => required("annotations");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCenterlineInfo is one cosmetic centerline on the flat: its index and the line segment\n(start→end) in flat 2D coordinates (database units, cm).\n```"]
+pub struct CenterlineInfo {
+    pub index: i64 => required("index");
+    pub start: crate::types::Point2d => raw(rename = "start");
+    pub end: crate::types::Point2d => raw(rename = "end");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCenterlinesResult is the reply of addCenterline/listCenterlines/deleteCenterline: the flat's\ncosmetic centerlines.\n```"]
+pub struct CenterlinesResult {
+    pub centerlines: Option<Vec<crate::wire::CenterlineInfo>> => required("centerlines");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCircularPatternFeatureArgs is the args object for a [FeatureKindPatternCircular]\n[MethodFeaturesAdd] call: replicate SourceFeatures (tree names) in a circular array\nabout an axis. Count is the occurrence count; CountExpr is its parameter-expression\nform (\"slots\", \"poles/2\") evaluated through the document's parameter engine and, when\nset, supersedes Count — so the pattern count is parameter-driven (#189). Angle is the\nunit-bearing total sweep (\"360 deg\"). AxisPoint/AxisDir default to the origin and +Z.\n```"]
+pub struct CircularPatternFeatureArgs {
+    pub source_features: Option<Vec<String>> => required("sourceFeatures");
+    pub count: i64 => omitted("count", "crate::json::is_zero");
+    pub count_expr: String => omitted("countExpr", "crate::json::is_zero");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub axis_point: Option<Vec<f64>> => omitted_finite("axisPoint", "crate::json::slice_is_empty");
+    pub axis_dir: Option<Vec<f64>> => omitted_finite("axisDir", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nClickViewportArgs is the request of [MethodViewportClick]: where to click, and with what.\n\nGive the position EITHER as viewport pixels (X, Y from the top-left of the 3D viewport) or as\nPoint, a model-space position the host projects to pixels for you. Point is usually what a\ncaller wants — it needs no knowledge of the camera — and is required when clicking a spot on a\nsketch plane, where a pixel would have to be derived from the current view.\n```"]
+pub struct ClickViewportArgs {
+    pub x: f64 => omitted_finite("x", "crate::json::is_zero");
+    pub y: f64 => omitted_finite("y", "crate::json::is_zero");
+#[doc = "```text\nPoint is a model-space position to click, projected to the viewport by the host. It takes\nprecedence over X/Y.\n```"]
+    pub point: Option<Box<crate::types::Point>> => omitted("point", "Option::is_none");
+#[doc = "```text\nButton is \"left\" (the default), \"right\", \"middle\", or one of the extended buttons a mouse may\ncarry: \"back\", \"forward\", \"button5\", \"button6\", \"button7\" (#1822). The extended buttons deliver\nbut carry no default binding, so a host tool or add-in reads them without any built-in effect.\n```"]
+    pub button: String => omitted("button", "crate::json::is_zero");
+#[doc = "```text\nHeld modifiers, as the selection and snapping paths read them.\n```"]
+    pub shift: bool => omitted("shift", "crate::json::is_zero");
+    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
+    pub alt: bool => omitted("alt", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nClickViewportResult is the response of [MethodViewportClick]: the pixel actually clicked (useful\nwhen Point was projected), and the command still running afterwards — empty once a command has\nfinished, which is how a caller knows a shape was created rather than another click awaited.\n```"]
+pub struct ClickViewportResult {
+    pub x: f64 => finite("x");
+    pub y: f64 => finite("y");
+    pub active_tool: String => required("activeTool");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nClientApplicationInfo is one entry of [MethodClientAppsList]: an external client\napplication (an out-of-process automation driver, e.g. an MCP client connected\nthrough the bridge) registered for the session — the ClientApplications\nequivalent, distinct from in-process add-ins.\n```"]
+pub struct ClientApplicationInfo {
+    pub id: i64 => required("id");
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nClientGraphicsInfo is one row of [MethodClientGraphicsList].\n```"]
+pub struct ClientGraphicsInfo {
+    pub client_id: String => required("clientId");
+    pub lane: String => required("lane");
+    pub visible: bool => required("visible");
+    pub node_count: i64 => required("nodeCount");
+    pub primitive_count: i64 => required("primitiveCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nClientOperationEvent is the push event (type [EventClientOperation]) telling a\nsubtype's owner its flavored document needs servicing: Operation is \"created\",\n\"opened\", \"activated\" or \"saved\".\n```"]
+pub struct ClientOperationEvent {
+#[doc = "```text\nalways EventClientOperation\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub sub_type: String => required("subType");
+    pub operation: String => required("operation");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseAllDocumentsArgs is the request of [MethodDocumentsCloseAll]: close every\nopen document. Force discards unsaved changes (the usual choice to start a clean\nsession).\n```"]
+pub struct CloseAllDocumentsArgs {
+    pub force: bool => required("force");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseDocumentArgs is the request of [MethodDocumentsClose]: the session id of the\ndocument to close. Force discards unsaved changes instead of saving them first.\n```"]
+pub struct CloseDocumentArgs {
+    pub id: u64 => required("id");
+    pub force: bool => required("force");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseDocumentsResult is the response of [MethodDocumentsClose] /\n[MethodDocumentsCloseAll]: how many documents were closed and any nonfatal\nwarnings from saving them.\n```"]
+pub struct CloseDocumentsResult {
+    pub closed: i64 => required("closed");
+    pub warnings: Option<Vec<crate::wire::SaveWarning>> => omitted("warnings", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseTaskPanelArgs is the request of [MethodTaskPanelClose] (programmatic dismissal).\n```"]
+pub struct CloseTaskPanelArgs {
+    pub id: String => required("id");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseViewArgs is the request of [MethodViewsClose]: remove the indexed view. Closing\nthe last remaining view of a document is refused (a document always has ≥1 view).\n```"]
+pub struct CloseViewArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub index: i64 => required("index");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseViewTabArgs is the request of [MethodWindowsCloseTab]; Force discards\nunsaved changes (otherwise the document is saved first).\n```"]
+pub struct CloseViewTabArgs {
+    pub document: u64 => required("document");
+    pub force: bool => omitted("force", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCloseWebDialogArgs is the request of [MethodDialogsCloseWebDialog].\n```"]
+pub struct CloseWebDialogArgs {
+    pub id: String => required("id");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorMapperInfo is one entry of [ColorMappersResult]: a registered named mapper.\n```"]
+pub struct ColorMapperInfo {
+    pub name: String => required("name");
+    pub stop_count: i64 => required("stopCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorMappersResult is the response of [MethodClientGraphicsListMappers].\n```"]
+pub struct ColorMappersResult {
+    pub mappers: Option<Vec<crate::wire::ColorMapperInfo>> => required("mappers");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorSchemeView is the JSON shape of one color scheme — the element of\n[ColorSchemesResult] and the response of [MethodColorSchemesGetActive] /\n[MethodColorSchemesSetActive]. The background colors honor BackgroundType: ScreenColor for\na solid background, Top/BottomScreenColor for a gradient. Highlight/select colors feed the\nselection pipeline.\n```"]
+pub struct ColorSchemeView {
+    pub name: String => required("name");
+    pub active: bool => required("active");
+    pub background_type: crate::types::BackgroundTypeEnum => required("backgroundType");
+    pub screen_color: crate::types::Color => required("screenColor");
+    pub top_screen: crate::types::Color => required("topScreenColor");
+    pub bottom_screen: crate::types::Color => required("bottomScreenColor");
+    pub highlight: crate::types::Color => required("highlightColor");
+    pub primary_select: crate::types::Color => required("primarySelectColor");
+    pub second_select: crate::types::Color => required("secondarySelectColor");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorSchemesResult is the response of [MethodColorSchemesList]: every scheme, with the\nactive one flagged.\n```"]
+pub struct ColorSchemesResult {
+    pub schemes: Option<Vec<crate::wire::ColorSchemeView>> => required("schemes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorStyleView is the JSON shape of one color style — the element of [ColorStylesResult] and\nthe response of [MethodStylesGet] / [MethodStylesSet] and the request of the latter. The\ncolor components are full [types.Color] value objects; Shininess/Opacity are in [0,1].\n```"]
+pub struct ColorStyleView {
+    pub name: String => required("name");
+    pub diffuse: crate::types::Color => required("diffuse");
+    pub ambient: crate::types::Color => required("ambient");
+    pub specular: crate::types::Color => required("specular");
+    pub emissive: crate::types::Color => required("emissive");
+    pub shininess: f64 => finite("shininess");
+    pub opacity: f64 => finite("opacity");
+    pub location: crate::types::StyleLocationEnum => required("location");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nColorStylesResult is the response of [MethodStylesList]: every color style in the document.\n```"]
+pub struct ColorStylesResult {
+    pub styles: Option<Vec<crate::wire::ColorStyleView>> => required("styles");
+}
 }

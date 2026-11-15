@@ -3,333 +3,458 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nFlatPatternOrientationInfo is one orientation, as reported by listOrientations and returned\nby addOrientation/activateOrientation. AlignmentRotation is in degrees; Length and Width are\nthe flat's extents under this orientation (database units, cm). AlignmentAxis is a topology\nreference key, empty when the orientation uses the part's natural axes.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlatPatternOrientationInfo {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(
-        rename = "alignmentType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alignment_type: String,
-    #[serde(
-        rename = "alignmentRotation",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alignment_rotation: f64,
-    #[serde(
-        rename = "alignmentAxis",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub alignment_axis: String,
-    #[serde(
-        rename = "flipAlignmentAxis",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub flip_alignment_axis: bool,
-    #[serde(
-        rename = "flipBaseFace",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub flip_base_face: bool,
-    #[serde(
-        rename = "active",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub active: bool,
-    #[serde(
-        rename = "length",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub length: f64,
-    #[serde(
-        rename = "width",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width: f64,
+generated_dto! {
+#[doc = "```text\nShowBalloonTipArgs is the request of [MethodBalloonTipShow].\n```"]
+pub struct ShowBalloonTipArgs {
+    pub id: String => required("id");
+}
 }
 
-#[doc = "```text\nFlatPatternSettings is the per-document flat-pattern settings. DeferUpdate suppresses the\nautomatic flat-pattern recompute, so a heavy flat is only developed on demand.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlatPatternSettings {
-    #[serde(rename = "deferUpdate", deserialize_with = "crate::json::null_default")]
-    pub defer_update: bool,
+generated_dto! {
+#[doc = "```text\nShowBalloonTipResult is the response of [MethodBalloonTipShow]: Shown is false\nwhen the user suppressed this tip (\"don't show again\").\n```"]
+pub struct ShowBalloonTipResult {
+    pub shown: bool => required("shown");
+}
 }
 
-#[doc = "```text\nFlatPunchInfo is one punch instance in the developed flat — the data a nest, a DXF punch layer\nor a punch note needs (#1963): which punch it came from, where its outline sits and how it is\nturned in the flat, whether it was punched from the front or the back, and how deep it goes.\n\nDepth is only meaningful when HasDepth is set: a through punch has no depth, and reporting one\nas 0 would read as a zero-deep punch rather than a cut clean through.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlatPunchInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-    #[serde(rename = "position")]
-    pub position: crate::types::Point2d,
-    #[serde(
-        rename = "angle",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angle: f64,
-    #[serde(rename = "directionUp", deserialize_with = "crate::json::null_default")]
-    pub direction_up: bool,
-    #[serde(
-        rename = "hasDepth",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_depth: bool,
-    #[serde(
-        rename = "depth",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub depth: f64,
-    #[serde(
-        rename = "outline",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub outline: Option<Vec<crate::types::Point2d>>,
-    #[doc = "```text\nRepresentationType is the punch's flat/drawing representation (PunchRepresentationType, #1968) —\nwhat a punch note or DXF layer draws for it. Empty ⇒ the document default.\n```"]
-    #[serde(
-        rename = "representationType",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub representation_type: String,
+generated_dto! {
+#[doc = "```text\nShowFileDialogArgs is the request of [MethodDialogsShowFileDialog]: open the\nhost's file dialog. ID keys the [FileDialogChosenEvent] that delivers the answer.\nSave switches to save semantics (type a new name) instead of open. Filter is a\ndisplay-name|pattern list like \"Meshes (*.stl *.obj)|*.stl;*.obj\" with\nFilterIndex picking the initial entry. MultiSelect requests multiple paths\n(hosts may return a single one when their dialog cannot multi-select).\n```"]
+pub struct ShowFileDialogArgs {
+    pub id: String => required("id");
+    pub title: String => omitted("title", "crate::json::is_zero");
+    pub save: bool => omitted("save", "crate::json::is_zero");
+    pub filter: String => omitted("filter", "crate::json::is_zero");
+    pub filter_index: i64 => omitted("filterIndex", "crate::json::is_zero");
+    pub initial_dir: String => omitted("initialDir", "crate::json::is_zero");
+    pub multi_select: bool => omitted("multiSelect", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nFlipWorkPlaneArgs is the request of [MethodWorkPlanesFlipNormal]: reverse the normal of the user\nwork plane at Index (its position in [MethodWorkPlanesList]). The flip is recorded on the\ndefinition and persists across recompute; the plane does not move, only its normal reverses (an\noffset plane keeps its offset sign relative to the new normal). The reference CAD API's WorkPlane.FlipNormal.\n#1851.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlipWorkPlaneArgs {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
+generated_dto! {
+#[doc = "```text\nShowPromptArgs is the request of [MethodPromptsShow]: queue a declarative prompt.\nID keys the remembered answer (when Restriction allows remembering); Buttons are\nthe answer labels in display order; Default indexes the button focused first.\nThe reply is asynchronous: a remembered prompt resolves instantly, otherwise the\nhead shows it and the answer arrives as a [PromptAnsweredEvent].\n```"]
+pub struct ShowPromptArgs {
+    pub id: String => required("id");
+    pub message: String => required("message");
+    pub buttons: Option<Vec<String>> => required("buttons");
+    pub default: i64 => omitted("default", "crate::json::is_zero");
+    pub restriction: crate::types::PromptRestriction => omitted("restriction", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nFlipWorkPlaneResult is the response of [MethodWorkPlanesFlipNormal]: the plane's refreshed info\nwith its reversed normal. #1851.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FlipWorkPlaneResult {
-    #[serde(rename = "plane", deserialize_with = "crate::json::null_default")]
-    pub plane: crate::wire::WorkPlaneInfo,
+generated_dto! {
+#[doc = "```text\nShowPromptResult is the response of [MethodPromptsShow]: when Resolved is true the\nremembered Answer is final and no event follows; otherwise the prompt is pending\nand the answer arrives as a [PromptAnsweredEvent].\n```"]
+pub struct ShowPromptResult {
+    pub resolved: bool => required("resolved");
+    pub answer: String => omitted("answer", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nFontFace is one selectable font in the picker: a family + style, its Source (\"embedded\" for\nan application-bundled face, \"system\" for a host-installed one), and — for a system face —\nthe file Path whose bytes are embedded into the document when it is chosen (ADR-0031).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct FontFace {
-    #[serde(rename = "family", deserialize_with = "crate::json::null_default")]
-    pub family: String,
-    #[serde(
-        rename = "style",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub style: String,
-    #[doc = "```text\n\"embedded\" | \"system\"\n```"]
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: String,
-    #[doc = "```text\nsystem fonts only: the file to embed on select\n```"]
-    #[serde(
-        rename = "path",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub path: String,
+generated_dto! {
+#[doc = "```text\nShowTaskPanelArgs is the request of [MethodTaskPanelShow].\n```"]
+pub struct ShowTaskPanelArgs {
+    pub panel: crate::wire::TaskPanelSpec => required("panel");
+}
 }
 
-#[doc = "```text\nGeneralOptionsView is the \"general\" group: application-level behavior.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GeneralOptionsView {
-    #[serde(
-        rename = "startupAction",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub startup_action: crate::types::StartupActionType,
+generated_dto! {
+#[doc = "```text\nShowTriadArgs is the request of [MethodTriadShow] (and [MethodTriadUpdate]).\n```"]
+pub struct ShowTriadArgs {
+    pub triad: crate::wire::TriadSpec => required("triad");
+}
 }
 
-#[doc = "```text\nGetAttributeArgs is the request of [MethodAttributesGet]: address one attribute by its set and\nname on the document, anchored to Target (empty = the document itself).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetAttributeArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(rename = "set", deserialize_with = "crate::json::null_default")]
-    pub set: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(
-        rename = "target",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub target: String,
+generated_dto! {
+#[doc = "```text\nShowWebDialogArgs is the request of [MethodDialogsShowWebDialog]: create the web\nview or replace its title/URL if it exists.\n```"]
+pub struct ShowWebDialogArgs {
+    pub dialog: crate::wire::WebDialogSpec => required("dialog");
+}
 }
 
-#[doc = "```text\nGetCameraArgs is the request of [MethodViewGetCamera]: which document's active-view\ncamera to read. Document is optional and defaults to the active document (so a no-arg\ncall reads the active document's active view, as before camera became per-view).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetCameraArgs {
-    #[doc = "```text\n0 ⇒ active document; reads that document's active view\n```"]
-    #[serde(
-        rename = "document",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub document: u64,
+generated_dto! {
+#[doc = "```text\nShrinkwrapCreateArgs is the request of [MethodAssemblyShrinkwrapCreate]: derive the\nopen assembly document Source into the active part as a simplified, lightweight base\nbody. RemoveStyle/MinPartVolume drop parts before merging (MinPartVolume in document\nunits³ applies to RemoveSmallParts); EnvelopeStyle replaces the kept parts with\nbounding-box proxies; PatchHoles fills internal voids first; MaxHoleDiameter (when > 0,\ndocument units) caps surface-opening through-holes/pockets no wider than it, closing them\nflush while keeping the real outer geometry. The zero options reduce to a plain include-all\nderive.\n```"]
+pub struct ShrinkwrapCreateArgs {
+    pub source: u64 => required("source");
+    pub remove_style: crate::types::ShrinkwrapRemoveStyle => omitted("removeStyle", "crate::json::is_zero");
+    pub min_part_volume: f64 => omitted_finite("minPartVolume", "crate::json::is_zero");
+    pub envelope_style: crate::types::ShrinkwrapEnvelopeStyle => omitted("envelopeStyle", "crate::json::is_zero");
+    pub patch_holes: bool => omitted("patchHoles", "crate::json::is_zero");
+    pub max_hole_diameter: f64 => omitted_finite("maxHoleDiameter", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nGetDisplaySettingsArgs is the request of [MethodDocumentGetDisplaySettings]: which document's\nsettings to read (empty selects the active document).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetDisplaySettingsArgs {
-    #[serde(
-        rename = "document",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub document: String,
+generated_dto! {
+#[doc = "```text\nSketch3DArgs is the request of the per-3D-sketch methods that take only a target:\n[MethodSketch3DGet], [MethodSketch3DEdit], [MethodSketch3DExitEdit],\n[MethodSketch3DSolve], [MethodSketch3DDelete], [MethodSketch3DEntities],\n[MethodSketch3DConstraints], [MethodSketch3DDimensions],\n[MethodSketch3DConstraintStatus]. SketchIndex is the sketch's index in the active\npart's 3D-sketch collection (as returned by [MethodSketch3DCreate]/[MethodSketch3DList]).\n```"]
+pub struct Sketch3DArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
 }
 
-#[doc = "```text\nGetFileArgs is the request of [MethodFilesGet] and [MethodFilesListReferences]:\nthe full file name of an open file.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetFileArgs {
-    #[serde(
-        rename = "fullFileName",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub full_file_name: String,
+generated_dto! {
+#[doc = "```text\nSketch3DEntityInfo is one enumerated entity from [MethodSketch3DEntities]: its index,\nsession id, kind ([oblikovati.org/api/types.Sketch3DEntityKind]), construction\nflag, the defining points (each [x,y,z] in model database units, cm), and a radius for\ncircular kinds (0 otherwise). MoveableStatus answers whether interactive tools may\ndrag the entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling —\nM06-F11, Oblikovati/Oblikovati#626).\n```"]
+pub struct Sketch3DEntityInfo {
+    pub index: i64 => required("index");
+    pub id: u64 => required("id");
+    pub kind: String => required("kind");
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+    pub points: Option<Vec<Option<Vec<f64>>>> => omitted_finite("points", "crate::json::slice_is_empty");
+    pub radius: f64 => omitted_finite("radius", "crate::json::is_zero");
+#[doc = "```text\nReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a\ndocument-scoped UUID stable across save/load and edits, unlike the session ID. Store\nit to refer to this entity durably; rebind it with [MethodSketchResolveReference].\n```"]
+    pub reference_key: String => omitted("referenceKey", "crate::json::is_zero");
+    pub moveable_status: String => omitted("moveableStatus", "crate::json::is_zero");
+#[doc = "```text\nCoordinateSystem reports an equation curve's coordinate system (cylindrical/spherical),\nabsent for a Cartesian curve and every other kind, so a round-trip preserves it (#1846).\n```"]
+    pub coordinate_system: String => omitted("coordinateSystem", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nGetMarkingMenuArgs is the request of [MethodUIGetMarkingMenu].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetMarkingMenuArgs {
-    #[serde(rename = "environment", deserialize_with = "crate::json::null_default")]
-    pub environment: crate::types::Environment,
+generated_dto! {
+#[doc = "```text\nSketch3DInfo is one row of [MethodSketch3DList] and the result of [MethodSketch3DGet]:\na 3D sketch's identity, visibility, entity count, remaining DOF, edit state, health,\nand the display/solve overrides (dimensions-visible, color, defer).\n```"]
+pub struct Sketch3DInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub visible: bool => required("visible");
+    pub dimensions_visible: bool => required("dimensionsVisible");
+    pub entity_count: i64 => required("entityCount");
+    pub dof: i64 => required("dof");
+    pub editing: bool => required("editing");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nShared reports the \"share sketch\" flag. (A 3D sketch's consumed/ownedBy state\nawaits the 3D path→sketch dependency link; see the 2D [SketchInfo] for those notions.)\n```"]
+    pub shared: bool => omitted("shared", "crate::json::is_zero");
+    pub color: String => omitted("color", "crate::json::is_zero");
+    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nGetOptionGroupArgs is the request of [MethodOptionsGetGroup].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetOptionGroupArgs {
-    #[serde(rename = "group", deserialize_with = "crate::json::null_default")]
-    pub group: String,
+generated_dto! {
+#[doc = "```text\nSketchArgs is the request of the per-sketch methods that take only a target:\n[MethodSketchGet], [MethodSketchEdit], [MethodSketchExitEdit], [MethodSketchSolve],\n[MethodSketchDelete], [MethodSketchEntities], [MethodSketchConstraints],\n[MethodSketchDimensions]. SketchIndex is the sketch's index in the active part's\nsketch collection (as returned by [MethodSketchCreate] / [MethodSketchList]).\n```"]
+pub struct SketchArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
 }
 
-#[doc = "```text\nGetPropertyArgs is the request of [MethodDocumentsGetProperty]: address one property by its\nset and name on the document.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetPropertyArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(rename = "set", deserialize_with = "crate::json::null_default")]
-    pub set: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
+generated_dto! {
+#[doc = "```text\nSketchBlockDefinitionInfo is one row of [MethodSketchBlockDefinitionList] and\nthe result of [MethodSketchBlockDefinitionCreate]: the definition's identity\nplus how much geometry it holds and how widely it is instanced.\n```"]
+pub struct SketchBlockDefinitionInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub entity_count: i64 => required("entityCount");
+    pub instance_count: i64 => required("instanceCount");
+}
 }
 
-#[doc = "```text\nGetSketchSettingsArgs is the request of [MethodDocumentGetSketchSettings]: the document whose\nsketch settings to read.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetSketchSettingsArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
+generated_dto! {
+#[doc = "```text\nSketchBlockInfo is one row of [MethodSketchListBlockInstances]: a placed\nblock instance — its session id, the definition it instances, its placement\n(insertion point in sketch cm, rotation in radians CCW, uniform scale), and\nthe live entity count of its definition.\n```"]
+pub struct SketchBlockInfo {
+    pub index: i64 => required("index");
+    pub id: u64 => required("id");
+    pub definition: String => required("definition");
+    pub position: Option<Vec<f64>> => finite("position");
+    pub rotation: f64 => finite("rotation");
+    pub scale: f64 => finite("scale");
+    pub entity_count: i64 => required("entityCount");
+}
 }
 
-#[doc = "```text\nGetStyleArgs is the request of [MethodStylesGet] / [MethodStylesDelete]: the style by name.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetStyleArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
+generated_dto! {
+#[doc = "```text\nSketchCustomLineTypeResult is the response of [MethodSketchSetCustomLineType] and\n[MethodSketchGetCustomLineType]. Loaded reports whether the sketch holds a custom\ndefinition; Pattern is the .lin dash sequence (>0 dash, <0 gap, 0 dot), lengths\nin cm.\n```"]
+pub struct SketchCustomLineTypeResult {
+    pub loaded: bool => required("loaded");
+    pub line_type_name: String => omitted("lineTypeName", "crate::json::is_zero");
+    pub full_file_name: String => omitted("fullFileName", "crate::json::is_zero");
+    pub pattern: Option<Vec<f64>> => omitted_finite("pattern", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nGetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text\nentity EntityID in sketch SketchIndex.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GetTextArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(rename = "entityId", deserialize_with = "crate::json::null_default")]
-    pub entity_id: u64,
+generated_dto! {
+#[doc = "```text\nSketchDependent is one thing that depends on a sketch — today a feature that consumes it,\naddressed by its stable id (from model.tree), with its display name and kind.\n```"]
+pub struct SketchDependent {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+}
 }
 
-#[doc = "```text\nGraphicsColorMapper maps scalar vertex values to colors — the heatmap legend. Values is\nan ascending list of scalar stops; Colors is the rgba quad for each stop (len(Colors)\n== 4*len(Values)). The host interpolates piecewise-linearly between stops and clamps\noutside the range. A primitive carrying both Scalars and ColorMapper resolves per-vertex\ncolors from them.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GraphicsColorMapper {
-    #[serde(
-        rename = "values",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub values: Option<Vec<f64>>,
-    #[serde(
-        rename = "colors",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub colors: Option<Vec<f32>>,
+generated_dto! {
+#[doc = "```text\nSketchDependentsResult is the response of [MethodSketchDependents]: every dependent of the\nsketch addressed by [SketchArgs.SketchIndex], in history order (empty when nothing uses it).\n```"]
+pub struct SketchDependentsResult {
+    pub dependents: Option<Vec<crate::wire::SketchDependent>> => required("dependents");
+}
 }
 
-#[doc = "```text\nGraphicsNode groups primitives under one transform and visibility/opacity.\nTransform (optional 16-element row-major matrix) places the node's\ngeometry; Visible nil means \"inherit the group's visibility\".\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GraphicsNode {
-    #[serde(
-        rename = "id",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub id: String,
-    #[serde(
-        rename = "transform",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub transform: Option<Vec<f64>>,
-    #[serde(
-        rename = "visible",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub visible: Option<Box<bool>>,
-    #[serde(
-        rename = "opacity",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub opacity: f32,
-    #[serde(rename = "primitives", deserialize_with = "crate::json::null_default")]
-    pub primitives: Option<Vec<crate::wire::GraphicsPrimitive>>,
-    #[doc = "```text\nSelectable makes the node's primitives pickable (default false: overlay graphics do not\nintercept picks). ComponentKey anchors the node to a component/feature by reference key so\nit transforms with that owner rather than the document root (the ComponentGraphics case).\n```"]
-    #[serde(
-        rename = "selectable",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub selectable: bool,
-    #[serde(
-        rename = "componentKey",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub component_key: String,
+generated_dto! {
+#[doc = "```text\nSketchEditEvent is the JSON shape of the [EventSketchEditEntered] / [EventSketchEditExited] push\nevents (#148): the host entered or left the edit mode of a sketch — the SketchEvents surface. It\nis delivered to an add-in's Notify entry point (ADR-0016); an add-in matches on Type and reads\nthe sketch identity from the payload. On exit the Sketch id is the sketch just left. Fires for\nboth UI-driven and add-in-driven sketch-edit transitions.\n```"]
+pub struct SketchEditEvent {
+#[doc = "```text\nEventSketchEditEntered or EventSketchEditExited\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub sketch: u64 => required("sketch");
+    pub name: String => omitted("name", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchEntityFormatArgs addresses one sketch entity in the active sketch. It is the request of\n[MethodSketchGetEntityFormat].\n```"]
+pub struct SketchEntityFormatArgs {
+    pub entity_id: u64 => required("entityId");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchEntityFormatView is one entity's formatting. HasFormat distinguishes an entity that\noverrides nothing from one whose overrides happen to be empty — without it a caller could not\ntell \"inherits everything\" from \"explicitly default\", which are the same picture but different\nstates to write back.\n```"]
+pub struct SketchEntityFormatView {
+    pub entity_id: u64 => required("entityId");
+    pub has_format: bool => required("hasFormat");
+    pub format: crate::types::SketchEntityFormat => required("format");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,\nsession id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction and\nreference flags, the defining points (each [x,y] in sketch-plane cm), and a radius for\ncircular kinds (0 otherwise). MoveableStatus answers whether interactive tools may drag the\nentity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling — M06-F11,\nOblikovati/Oblikovati#626); FitMethod is the interpolation parameterization for the\nspline kind ([oblikovati.org/api/types.SplineFitMethod] wire spelling).\n```"]
+pub struct SketchEntityInfo {
+    pub index: i64 => required("index");
+    pub id: u64 => required("id");
+    pub kind: String => required("kind");
+    pub construction: bool => required("construction");
+#[doc = "```text\nReference marks projected/included reference geometry (ADR-0055): a curve driven by a model\nsource (a projected edge/face perimeter, a datum intersection). It enumerates under its\nconcrete Kind (line/circle/arc/…) — there is no distinct \"projectedCurve\" kind — and is\ngrounded (the solver holds it fixed) yet still bounds profiles, unlike Construction.\n```"]
+    pub reference: bool => omitted("reference", "crate::json::is_zero");
+    pub points: Option<Vec<Option<Vec<f64>>>> => finite("points");
+    pub radius: f64 => omitted_finite("radius", "crate::json::is_zero");
+#[doc = "```text\nReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a\ndocument-scoped UUID stable across save/load and edits, unlike the session ID. Store\nit to refer to this entity durably; rebind it with [MethodSketchResolveReference].\n```"]
+    pub reference_key: String => omitted("referenceKey", "crate::json::is_zero");
+    pub moveable_status: String => omitted("moveableStatus", "crate::json::is_zero");
+    pub fit_method: String => omitted("fitMethod", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchFormatModesView is the Format panel's armed creation state. It is the result of\n[MethodSketchGetFormatModes] and the request of [MethodSketchSetFormatModes]; a set replaces\nevery field, so read-modify-write to change one.\n```"]
+pub struct SketchFormatModesView {
+    pub modes: crate::types::SketchFormatModes => required("modes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a\nsketch's identity, host plane label, visibility, entity count, remaining DOF, edit\nstate, health, and the display/solve overrides (color, line type/weight, defer).\n```"]
+pub struct SketchInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub plane: String => required("plane");
+    pub visible: bool => required("visible");
+    pub entity_count: i64 => required("entityCount");
+    pub dof: i64 => required("dof");
+    pub editing: bool => required("editing");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nConsumed reports whether a feature has consumed this sketch (drives browser nesting and\nthe delete guard); OwnedBy names the consuming feature (\"\" when not consumed); Shared\nreports the \"share sketch\" flag (a shared sketch stays top-level and reusable by\nseveral features). Enumerate the full dependent set with [MethodSketchDependents].\n```"]
+    pub consumed: bool => omitted("consumed", "crate::json::is_zero");
+    pub owned_by: String => omitted("ownedBy", "crate::json::is_zero");
+    pub shared: bool => omitted("shared", "crate::json::is_zero");
+    pub color: String => omitted("color", "crate::json::is_zero");
+    pub line_type: String => omitted("lineType", "crate::json::is_zero");
+    pub line_weight: f64 => omitted_finite("lineWeight", "crate::json::is_zero");
+    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchOptionsView is the \"sketch\" group: the grid and click snapping. Spacing is\nin model/database units (cm) — unit-independent, like the stored preference.\n\nA setGroup write replaces only the fields carried here; the sketch options the host\nkeeps but does not expose (the heads-up display flags) survive it unchanged.\n```"]
+pub struct SketchOptionsView {
+    pub grid_spacing_cm: f64 => finite("gridSpacingCm");
+    pub grid_visible: bool => required("gridVisible");
+    pub grid_major_every: i64 => required("gridMajorEvery");
+    pub snap_to_points: bool => required("snapToPoints");
+    pub snap_to_grid: bool => required("snapToGrid");
+#[doc = "```text\nAutoProjectOrigin projects the part's origin centre point into every newly created\nsketch, giving it an anchor to constrain against at (0,0). On by default, so a client\nthat means to leave it alone must round-trip the value it read from getGroup rather\nthan send a zero SketchOptionsView (#2016).\n```"]
+    pub auto_project_origin: bool => required("autoProjectOrigin");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchOrientation fixes a new sketch's in-plane coordinate frame to a reference axis —\nthe reference CAD API's PlanarSketches.AddWithOrientation(AxisEntity, NaturalAxisDirection, AxisIsX,\nOrigin). Axis is the reference whose direction, projected into the sketch plane, becomes\none of the sketch axes; the other is the plane normal crossed with it (right-handed). The\nprojection must be non-degenerate — the axis may not be perpendicular to the plane.\n\nExample: to sketch a meridian on a plane built through the Z axis at an angle, set\nAxis:\"origin/axis/z\", AxisIsX:false — the sketch's Y then runs along +Z (axial) and X\nruns radially, so the same (radius, axial) profile drawn on XZ works unchanged.\n```"]
+pub struct SketchOrientation {
+#[doc = "```text\nAxis is the reference axis whose in-plane projection fixes a sketch axis: an origin\naxis constant (types.WorkRefZAxis …), a work-axis ref, or a linear-edge ref.\n```"]
+    pub axis: String => required("axis");
+#[doc = "```text\nAxisIsX selects which sketch axis the projected reference becomes: X (true) or Y\n(false). The reference CAD API's AxisIsX.\n```"]
+    pub axis_is_x: bool => omitted("axisIsX", "crate::json::is_zero");
+#[doc = "```text\nReverse uses the reference direction reversed (the reference CAD API's NaturalAxisDirection=false).\n```"]
+    pub reverse: bool => omitted("reverse", "crate::json::is_zero");
+#[doc = "```text\nOrigin optionally sets the sketch origin [x,y,z] in cm; empty keeps the plane origin.\n```"]
+    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchRectangleArgs is the request of [MethodSketchRectangle]: a closed rectangle\nfrom the sketch origin to (Width, Height), each a unit-bearing expression\n(e.g. \"40 mm\").\n```"]
+pub struct SketchRectangleArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub width: String => required("width");
+    pub height: String => required("height");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchRectangleResult is the response of [MethodSketchRectangle]: the sketch index\nand its resulting profile count.\n```"]
+pub struct SketchRectangleResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profiles: i64 => required("profiles");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchReferenceKeyResult is the response of [MethodSketchReferenceKey]: the persistent\nreference key of the sketch addressed by [SketchArgs.SketchIndex].\n```"]
+pub struct SketchReferenceKeyResult {
+    pub reference_key: String => required("referenceKey");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchSettingsResult is the response of [MethodDocumentGetSketchSettings] and\n[MethodDocumentSetSketchSettings]: the document's current sketch settings.\n```"]
+pub struct SketchSettingsResult {
+    pub settings: crate::types::SketchSettings => required("settings");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):\nthe entity id plus its resolved text style.\n```"]
+pub struct SketchTextResult {
+    pub entity_id: u64 => required("entityId");
+    pub style: crate::types::SketchTextStyle => required("style");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSlotRepick re-points the work plane's reference Slot at a new reference Ref — an origin\nconstant (types.WorkRefXYPlane …), a ref returned by List, or a face key. Slot is the\n[WorkPlaneRefSlot] index.\n```"]
+pub struct SlotRepick {
+    pub slot: i64 => required("slot");
+    pub ref_: String => required("ref");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSnapConstraintArgs is the request of [MethodAssemblyConstraintsSnap]: \"grip snap\" — pick a\ngeometry A on the component to move and a target geometry B on another component, and the host\nINFERS the assembly constraint that snaps A onto B (planar faces → mate or flush; cylinder axes →\ninsert; an axis pair → mate; plane + cylinder → tangent; a point → coincident mate), creates it at\noffset 0, and re-solves so the part jumps into place. Prefer overrides the inference with an\n[types.AssemblyConstraintType] wire spelling (\"mate\"|\"flush\"|\"insert\"|\"tangent\"); \"\" ⇒ auto. The\nreply is the usual [ConstraintResult]; its Constraint.Type is the inferred (or preferred) kind.\n```"]
+pub struct SnapConstraintArgs {
+    pub a: crate::wire::ConstraintGeomRef => required("a");
+    pub b: crate::wire::ConstraintGeomRef => required("b");
+    pub prefer: String => omitted("prefer", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSolveSketch3DResult is the response of [MethodSketch3DSolve]: remaining DOF, a status\nstring (\"well\" | \"under\" | \"over\"), whether the Newton/LM iteration converged, and\nthe resulting health.\n```"]
+pub struct SolveSketch3DResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub dof: i64 => required("dof");
+    pub status: String => required("status");
+    pub converged: bool => required("converged");
+    pub healthy: bool => required("healthy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSolveSketchResult is the response of [MethodSketchSolve]: the solve outcome —\nremaining DOF, a status string (\"well\" | \"under\" | \"over\"), whether the Newton/LM\niteration converged, and the resulting health.\n```"]
+pub struct SolveSketchResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub dof: i64 => required("dof");
+    pub status: String => required("status");
+    pub converged: bool => required("converged");
+    pub healthy: bool => required("healthy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSplineHandleInfo is the response of [MethodSketchSetSplineHandle] and\n[MethodSketch3DSetSplineHandle]: the handle's session id (0 when the call\ndeactivated it), its current tangent direction and weight.\n```"]
+pub struct SplineHandleInfo {
+    pub handle_id: u64 => omitted("handleId", "crate::json::is_zero");
+    pub tangent: Option<Vec<f64>> => omitted_finite("tangent", "crate::json::slice_is_empty");
+    pub weight: f64 => omitted_finite("weight", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStandardStyleInfo is one drafting standard's complete style preset.\n```"]
+pub struct StandardStyleInfo {
+#[doc = "```text\ntypes.DraftingStandard spelling\n```"]
+    pub standard: String => required("standard");
+    pub dimension: crate::wire::DimensionStyleInfo => required("dimension");
+    pub text: crate::wire::TextStyleInfo => required("text");
+    pub line: crate::wire::LineStyleInfo => required("line");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStandardStyleResult is the response of [MethodDrawingStylesGetActiveStyle] /\n[MethodDrawingStylesSetStandard]: the active standard's resolved style preset.\n```"]
+pub struct StandardStyleResult {
+    pub style: crate::wire::StandardStyleInfo => required("style");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStatusTextResult is the response of [MethodStatusGetText].\n```"]
+pub struct StatusTextResult {
+    pub text: String => required("text");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStringFromValueArgs is the request of [MethodUnitsGetStringFromValue] and\n[MethodUnitsGetPreciseStringFromValue]: a Value in database units of the\ngiven UnitsType (a types.UnitsType spelling), formatted in the document's\ndisplay unit — honoring display precision (GetStringFromValue) or at full\nprecision (GetPreciseStringFromValue).\n```"]
+pub struct StringFromValueArgs {
+    pub value: f64 => finite("value");
+    pub units_type: String => required("unitsType");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStringResult is a single formatted/normalized string (response of the\nvalue-formatting and locale/type-name methods).\n```"]
+pub struct StringResult {
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStrokeSetResult is the wireframe payload: every edge sampled into a\npolyline; PolylineLengths gives each polyline's point count, in order,\nover the shared VertexCoordinates.\n```"]
+pub struct StrokeSetResult {
+    pub vertex_count: i64 => required("vertexCount");
+    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
+    pub polyline_count: i64 => required("polylineCount");
+    pub polyline_lengths: Option<Vec<i64>> => omitted("polylineLengths", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStyleChangedEvent is the payload of the [EventStyleAdded] / [EventStyleChanged] /\n[EventStyleDeleted] push events: the style that changed and its kind (\"color\" / \"lighting\").\n```"]
+pub struct StyleChangedEvent {
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStyleLibrariesResult is the response of [MethodStylesListLibraries]: the loaded libraries in\ncascade order.\n```"]
+pub struct StyleLibrariesResult {
+    pub libraries: Option<Vec<crate::wire::StyleLibraryInfo>> => required("libraries");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStyleLibraryInfo is one entry of [StyleLibrariesResult]: a loaded style library and its\ncascade position (lower Order shadows higher Order for a same-named style).\n```"]
+pub struct StyleLibraryInfo {
+    pub name: String => required("name");
+    pub path: String => required("path");
+    pub order: i64 => required("order");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSubmitCommandLineArgs is the request of [MethodCommandLineSubmit]: one line of Command\nWindow input — a command word (\"EXTRUDE\"), an alias (\"E\"), a coordinate/value/keyword for\nthe active command's current step (\"10,5\", \"25\", \"Close\"), or \"\" to finish/repeat. The\nhost drives the same command-line REPL the UI uses, so an add-in or MCP tool can model\nheadlessly: submit \"LINE\", then \"0,0\", then \"10,0\".\n```"]
+pub struct SubmitCommandLineArgs {
+    pub line: String => required("line");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSubstituteComponentsArgs is the request of [MethodAssemblySubstitute]: suppress the\nSource occurrences (by session id) and add one occurrence, named Name at Transform, that\ninstances the simplified component held by the open Document (by document id) — the\n\"substitute representation\" of the sources.\n```"]
+pub struct SubstituteComponentsArgs {
+    pub sources: Option<Vec<u64>> => required("sources");
+    pub document: u64 => required("document");
+    pub name: String => required("name");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
 }

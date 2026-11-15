@@ -3,438 +3,462 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nCustomPropertyFormatInfo is the JSON shape of how a parameter value is\nformatted when exposed as a custom document property. PropertyType and\nPrecision carry the wire spellings of types.CustomPropertyType and\ntypes.CustomPropertyPrecision; Units empty means the document display unit.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct CustomPropertyFormatInfo {
-    #[serde(
-        rename = "propertyType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub property_type: String,
-    #[serde(
-        rename = "units",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub units: String,
-    #[serde(rename = "precision", deserialize_with = "crate::json::null_default")]
-    pub precision: String,
-    #[serde(
-        rename = "showLeadingZeros",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_leading_zeros: bool,
-    #[serde(
-        rename = "showTrailingZeros",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_trailing_zeros: bool,
-    #[serde(
-        rename = "showUnitsString",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub show_units_string: bool,
-}
+pub const METHOD_ERRORS_CLEAR: &str = "errors.clear";
 
-#[doc = "```text\nDSDOFInfo is one degree of freedom of a DS joint: whether it is translational or\nrotational, how its motion is imposed (free/driven/locked), and its current value\n(cm or radians).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSDOFInfo {
-    #[serde(rename = "rotational", deserialize_with = "crate::json::null_default")]
-    pub rotational: bool,
-    #[serde(
-        rename = "imposedMotion",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub imposed_motion: String,
-    #[serde(
-        rename = "value",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub value: f64,
-}
+pub const METHOD_ERRORS_END_SECTION: &str = "errors.endSection";
 
-#[doc = "```text\nDSJointInfo is one row of the DS-joint set: its id, kind, name, and per-DOF imposed-motion\nbreakdown — the kinematic (degrees-of-freedom) view of a joint that motion/simulation\nconsumers read.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointInfo {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "type", deserialize_with = "crate::json::null_default")]
-    pub type_: String,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "a", deserialize_with = "crate::json::null_default")]
-    pub a: crate::wire::ConstraintGeomRef,
-    #[serde(rename = "b", deserialize_with = "crate::json::null_default")]
-    pub b: crate::wire::ConstraintGeomRef,
-    #[serde(
-        rename = "degreesOfFreedom",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub degrees_of_freedom: Option<Vec<crate::wire::DSDOFInfo>>,
-}
+pub const METHOD_ERRORS_LIST: &str = "errors.list";
 
-#[doc = "```text\nDSJointResult is the reply of the single DS-joint operations.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointResult {
-    #[serde(rename = "joint", deserialize_with = "crate::json::null_default")]
-    pub joint: crate::wire::DSJointInfo,
-}
+pub const METHOD_ERRORS_SHOW: &str = "errors.show";
 
-#[doc = "```text\nDSJointsResult is the reply of [MethodDSJointsList]: the DS-joint set.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DSJointsResult {
-    #[serde(rename = "joints", deserialize_with = "crate::json::null_default")]
-    pub joints: Option<Vec<crate::wire::DSJointInfo>>,
-}
+pub const METHOD_EXPORT_DXF: &str = "export.dxf";
 
-#[doc = "```text\nDatabaseUnitsResult is the evaluated database-unit value of an expression and\nthe category it resolved to (response of\n[MethodUnitsGetDatabaseUnitsFromExpression]).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DatabaseUnitsResult {
-    #[serde(
-        rename = "value",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub value: f64,
-    #[serde(rename = "unitsType", deserialize_with = "crate::json::null_default")]
-    pub units_type: String,
-}
+pub const METHOD_FACE_CALCULATE_FACETS: &str = "face.calculateFacets";
 
-#[doc = "```text\nDefineSheetFormatArgs is the request of [MethodDrawingDefineSheetFormat]: register a reusable sheet\nformat under Name — a size/orientation, an optional zoned border (HZones×VZones, 0 ⇒ plain) and a\ntitle-block corner — that [MethodDrawingAddSheetUsingFormat] stamps new sheets from (#1989).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DefineSheetFormatArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(
-        rename = "size",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub size: String,
-    #[serde(
-        rename = "orientation",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub orientation: String,
-    #[serde(
-        rename = "widthMm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub width_mm: f64,
-    #[serde(
-        rename = "heightMm",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub height_mm: f64,
-    #[serde(
-        rename = "hZones",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub h_zones: i64,
-    #[serde(
-        rename = "vZones",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub v_zones: i64,
-    #[serde(
-        rename = "hLabelMode",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub h_label_mode: String,
-    #[serde(
-        rename = "vLabelMode",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub v_label_mode: String,
-    #[serde(
-        rename = "titleBlockLocation",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub title_block_location: String,
-}
+pub const METHOD_FACE_CALCULATE_STROKES: &str = "face.calculateStrokes";
 
-#[doc = "```text\nDeleteAnnotationArgs is the request of [MethodDrawingAnnotationsDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteAnnotationArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-}
+pub const METHOD_FEATURES_ADD: &str = "features.add";
 
-#[doc = "```text\nDeleteAssemblyConstraintArgs is the request of [MethodAssemblyConstraintsDelete]: remove\nthe constraint with id ID from the active assembly.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteAssemblyConstraintArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-}
+pub const METHOD_FEATURES_DELETE: &str = "features.delete";
 
-#[doc = "```text\nDeleteAttributeArgs is the request of [MethodAttributesDelete]: remove the named attribute in the\nset, or the whole set when Name is empty, on the target (empty = the document itself).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteAttributeArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(rename = "set", deserialize_with = "crate::json::null_default")]
-    pub set: String,
-    #[serde(
-        rename = "name",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub name: String,
-    #[serde(
-        rename = "target",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub target: String,
-}
+pub const METHOD_FEATURES_EDIT: &str = "features.edit";
 
-#[doc = "```text\nDeleteAttributeResult is the response of [MethodAttributesDelete]: how many attributes were\nremoved (0 when nothing matched).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteAttributeResult {
-    #[serde(rename = "removed", deserialize_with = "crate::json::null_default")]
-    pub removed: i64,
-}
+pub const METHOD_FEATURES_GET: &str = "features.get";
 
-#[doc = "```text\nDeleteBlockDefinitionArgs is the request of [MethodSketchBlockDefinitionDelete].\nA definition that still has instances cannot be deleted; the error names the\nblock and the sketches consuming it.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteBlockDefinitionArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-}
+pub const METHOD_FEATURES_LIST: &str = "features.list";
 
-#[doc = "```text\nDeleteBrowserPaneArgs is the request of [MethodBrowserDeletePane].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteBrowserPaneArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-}
+pub const METHOD_FEATURES_RENAME: &str = "features.rename";
 
-#[doc = "```text\nDeleteCenterlineArgs removes the cosmetic centerline at Index.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteCenterlineArgs {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-}
+pub const METHOD_FEATURES_REORDER: &str = "features.reorder";
 
-#[doc = "```text\nDeleteClientGraphicsArgs is the request of [MethodClientGraphicsDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteClientGraphicsArgs {
-    #[serde(rename = "clientId", deserialize_with = "crate::json::null_default")]
-    pub client_id: String,
-}
+pub const METHOD_FEATURES_SET_SUPPRESSED: &str = "features.setSuppressed";
 
-#[doc = "```text\nDeleteConstraintArgs is the request of [MethodSketchDeleteConstraint]: which sketch and\nthe index of the geometric constraint to remove (as listed by [MethodSketchConstraints]).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteConstraintArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(
-        rename = "constraintIndex",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub constraint_index: i64,
-}
+pub const METHOD_FILES_GET: &str = "files.get";
 
-#[doc = "```text\nDeleteDSJointArgs is the request of [MethodDSJointsDelete]: remove the DS joint with id ID.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteDSJointArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-}
+pub const METHOD_FILES_LIST_REFERENCES: &str = "files.listReferences";
 
-#[doc = "```text\nDeleteDimensionArgs is the request of [MethodDrawingDimensionsDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteDimensionArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-}
+pub const METHOD_FILES_REPLACE_REFERENCE: &str = "files.replaceReference";
 
-#[doc = "```text\nDeleteDockableWindowArgs is the request of [MethodDockableWindowsDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteDockableWindowArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: String,
-}
+pub const METHOD_FLAT_PATTERN_ACTIVATE_ORIENTATION: &str = "flatPattern.activateOrientation";
 
-#[doc = "```text\nDeleteFeatureResult is the response of [MethodFeaturesDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteFeatureResult {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-    #[serde(rename = "deleted", deserialize_with = "crate::json::null_default")]
-    pub deleted: bool,
-}
+pub const METHOD_FLAT_PATTERN_ADD_CENTERLINE: &str = "flatPattern.addCenterline";
 
-#[doc = "```text\nDeleteJointArgs is the request of [MethodAssemblyJointsDelete]: remove the joint with id ID.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteJointArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-}
+pub const METHOD_FLAT_PATTERN_ADD_ORIENTATION: &str = "flatPattern.addOrientation";
 
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteOrientationArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-}
+pub const METHOD_FLAT_PATTERN_DELETE_CENTERLINE: &str = "flatPattern.deleteCenterline";
 
-#[doc = "```text\nDeletePatternArgs is the request of [MethodAssemblyPatternDelete]: delete the whole pattern\n(by id) and remove the occurrences it generated (the seed component stays).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeletePatternArgs {
-    #[serde(rename = "pattern", deserialize_with = "crate::json::null_default")]
-    pub pattern: u64,
-}
+pub const METHOD_FLAT_PATTERN_DELETE_ORIENTATION: &str = "flatPattern.deleteOrientation";
 
-#[doc = "```text\nDeletePatternResult is the reply of [MethodAssemblyPatternDelete]: the id of the deleted pattern.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeletePatternResult {
-    #[serde(rename = "deleted", deserialize_with = "crate::json::null_default")]
-    pub deleted: u64,
-}
+pub const METHOD_FLAT_PATTERN_EDGES_OF_TYPE: &str = "flatPattern.edgesOfType";
 
-#[doc = "```text\nDeletePointCloudCropResult is the response of [MethodPointCloudsDeleteCrop].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeletePointCloudCropResult {
-    #[serde(rename = "crop", deserialize_with = "crate::json::null_default")]
-    pub crop: String,
-    #[serde(rename = "deleted", deserialize_with = "crate::json::null_default")]
-    pub deleted: bool,
-}
+pub const METHOD_FLAT_PATTERN_FACES: &str = "flatPattern.faces";
 
-#[doc = "```text\nDeletePointCloudResult is the response of [MethodPointCloudsDelete].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeletePointCloudResult {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "deleted", deserialize_with = "crate::json::null_default")]
-    pub deleted: bool,
-}
+pub const METHOD_FLAT_PATTERN_GET_SETTINGS: &str = "flatPattern.getSettings";
 
-#[doc = "```text\nDeleteSketch3DConstraintArgs is the request of [MethodSketch3DDeleteConstraint]: which\nsketch and which geometric constraint (by index) to remove.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteSketch3DConstraintArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(
-        rename = "constraintIndex",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub constraint_index: i64,
-}
+pub const METHOD_FLAT_PATTERN_LIST_BEND_ORDER: &str = "flatPattern.listBendOrder";
 
-#[doc = "```text\nDeleteSketchDimensionArgs is the request of [MethodSketchDeleteDimension]: which dimension, by its\nindex in the sketch's dimensional-constraint collection, to remove. Deleting a dimension frees\nthe degree of freedom it held and drops its backing parameter with it, so any expression\nreferring to that parameter must be rewritten first. #2017.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteSketchDimensionArgs {
-    #[serde(rename = "sketchIndex", deserialize_with = "crate::json::null_default")]
-    pub sketch_index: i64,
-    #[serde(
-        rename = "dimensionIndex",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dimension_index: i64,
-}
+pub const METHOD_FLAT_PATTERN_LIST_CENTERLINES: &str = "flatPattern.listCenterlines";
 
-#[doc = "```text\nDeleteSketchDimensionResult is the response of [MethodSketchDeleteDimension]: the sketch's degrees of\nfreedom after the removal, so a caller can confirm the constraint it dropped was the one holding\nthe DOF it meant to free.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteSketchDimensionResult {
-    #[serde(rename = "dof", deserialize_with = "crate::json::null_default")]
-    pub dof: i64,
-}
+pub const METHOD_FLAT_PATTERN_LIST_ORIENTATIONS: &str = "flatPattern.listOrientations";
 
-#[doc = "```text\nDeleteViewArgs is the request of [MethodDrawingViewsDelete]: the view to remove (deleting a\nbase view also removes the views projected from it).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteViewArgs {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-}
+pub const METHOD_FLAT_PATTERN_LIST_PLATES: &str = "flatPattern.listPlates";
 
-#[doc = "```text\nDeleteWorkFeatureArgs is the request of [MethodWorkFeaturesDelete]: remove the user datum work\nfeature (plane, axis, or point) named by Ref (a \"plane/N\" / \"axis/N\" / \"point/N\" reference).\n\nRetainDependents mirrors the reference CAD API's WorkFeature.Delete(RetainDependents): when false (the reference CAD API's\ndefault) every user work feature that references the datum, directly or transitively, is deleted\nwith it; when true those dependents are left in place and go unhealthy, since their reference no\nlonger resolves. Deleting an origin / coordinate-system datum, an unknown ref, or an\nalready-deleted datum fails with a reason. #1855.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteWorkFeatureArgs {
-    #[serde(rename = "ref", deserialize_with = "crate::json::null_default")]
-    pub ref_: String,
-    #[serde(
-        rename = "retainDependents",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub retain_dependents: bool,
-}
+pub const METHOD_FLAT_PATTERN_LIST_PUNCHES: &str = "flatPattern.listPunches";
 
-#[doc = "```text\nDeleteWorkFeatureResult is the response of [MethodWorkFeaturesDelete]: the references of every\ndatum the call removed — the named datum plus, when RetainDependents was false, its cascaded\ndependents. Deletion is a tombstone: the datum's slot is kept so surviving datums keep their\nstable \"plane/N\" / \"axis/N\" / \"point/N\" references, but a deleted datum no longer appears in any\nlist and no longer resolves as a reference. #1855.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeleteWorkFeatureResult {
-    #[serde(rename = "deleted", deserialize_with = "crate::json::null_default")]
-    pub deleted: Option<Vec<String>>,
-}
+pub const METHOD_FLAT_PATTERN_MAP_ENTITY: &str = "flatPattern.mapEntity";
 
-#[doc = "```text\nDeriveBreakLinkArgs is the request of [MethodAssemblyDeriveBreakLink]: freeze and\nsever the source link of the derived-assembly or shrinkwrap feature with this id\n(from model.tree), so the part keeps the current geometry without further updates.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeriveBreakLinkArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-}
+pub const METHOD_FLAT_PATTERN_SET_BEND_ORDER: &str = "flatPattern.setBendOrder";
 
-#[doc = "```text\nDeriveCreateArgs is the request of [MethodAssemblyDeriveCreate]: derive the open\nassembly document Source into the active part as a base body, merging every\ncomponent (the include-all derive). Source is a document session id from\ndocuments.list; it must name an open assembly document.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeriveCreateArgs {
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: u64,
-}
+pub const METHOD_FLAT_PATTERN_SET_SETTINGS: &str = "flatPattern.setSettings";
 
-#[doc = "```text\nDeriveStatusArgs is the request of [MethodAssemblyDeriveStatus] and\n[MethodAssemblyDeriveUpdate]: address a derive-family feature (derived-assembly,\nderived-part, or shrinkwrap) by its id (from model.tree).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct DeriveStatusArgs {
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
-}
+pub const METHOD_FONTS_LIST: &str = "fonts.list";
+
+pub const METHOD_FREEFORM_CREASE_EDGES: &str = "freeform.creaseEdges";
+
+pub const METHOD_FREEFORM_MOVE_VERTICES: &str = "freeform.moveVertices";
+
+pub const METHOD_FREEFORM_SET_LEVEL: &str = "freeform.setLevel";
+
+pub const METHOD_GRAPHICS_NODE_SET_SELECTABLE: &str = "graphicsNode.setSelectable";
+
+pub const METHOD_GRAPHICS_NODE_SET_TRANSFORM: &str = "graphicsNode.setTransform";
+
+pub const METHOD_GRAPHICS_NODE_SET_VISIBLE: &str = "graphicsNode.setVisible";
+
+pub const METHOD_HELP_DISPLAY: &str = "help.display";
+
+pub const METHOD_HELP_PATH: &str = "help.path";
+
+pub const METHOD_HELP_REGISTER_CONTEXT: &str = "help.registerContext";
+
+pub const METHOD_IMPORT_DWG: &str = "import.dwg";
+
+pub const METHOD_IMPORT_DXF: &str = "import.dxf";
+
+pub const METHOD_IMPORT_PDF: &str = "import.pdf";
+
+pub const METHOD_INTERACTION_GRAPHICS_CLEAR: &str = "interactionGraphics.clear";
+
+pub const METHOD_INTERACTION_GRAPHICS_UPDATE: &str = "interactionGraphics.update";
+
+pub const METHOD_INTERACTION_SET_NOTICE: &str = "interaction.setNotice";
+
+pub const METHOD_INTERACTION_STATE: &str = "interaction.state";
+
+pub const METHOD_INTERFERENCE_ANALYZE: &str = "interference.analyze";
+
+pub const METHOD_KEYMAP_EXPORT: &str = "keymap.export";
+
+pub const METHOD_KEYMAP_IMPORT: &str = "keymap.import";
+
+pub const METHOD_KEYMAP_LIST: &str = "keymap.list";
+
+pub const METHOD_KEYMAP_RESET: &str = "keymap.reset";
+
+pub const METHOD_KEYMAP_RESET_ALL: &str = "keymap.resetAll";
+
+pub const METHOD_KEYMAP_SET_ALIAS: &str = "keymap.setAlias";
+
+pub const METHOD_KEYMAP_SET_CHORD: &str = "keymap.setChord";
+
+pub const METHOD_LOD_REPS_ACTIVATE: &str = "lodReps.activate";
+
+pub const METHOD_LOD_REPS_CAPTURE: &str = "lodReps.capture";
+
+pub const METHOD_LOD_REPS_DELETE: &str = "lodReps.delete";
+
+pub const METHOD_LOD_REPS_LIST: &str = "lodReps.list";
+
+pub const METHOD_LOD_REPS_SET_SUPPRESSED: &str = "lodReps.setSuppressed";
+
+pub const METHOD_LANGUAGE_INFO: &str = "language.info";
+
+pub const METHOD_LIGHTING_ADD_LIGHT: &str = "lighting.addLight";
+
+pub const METHOD_LIGHTING_GET_STYLE: &str = "lighting.getStyle";
+
+pub const METHOD_LIGHTING_LIST_LIGHTS: &str = "lighting.listLights";
+
+pub const METHOD_LIGHTING_LIST_STYLES: &str = "lighting.listStyles";
+
+pub const METHOD_LIGHTING_SET_LIGHT: &str = "lighting.setLight";
+
+pub const METHOD_LIGHTING_SET_STYLE: &str = "lighting.setStyle";
+
+pub const METHOD_LOGS_TAIL: &str = "logs.tail";
+
+pub const METHOD_MANIPULATORS_REMOVE: &str = "manipulators.remove";
+
+pub const METHOD_MANIPULATORS_SET: &str = "manipulators.set";
+
+pub const METHOD_MATERIALS_CREATE: &str = "materials.create";
+
+pub const METHOD_MATERIALS_GET: &str = "materials.get";
+
+pub const METHOD_MATERIALS_LIST: &str = "materials.list";
+
+pub const METHOD_MATERIALS_UPDATE: &str = "materials.update";
+
+pub const METHOD_MINI_TOOLBAR_LIST: &str = "miniToolbar.list";
+
+pub const METHOD_MINI_TOOLBAR_REMOVE: &str = "miniToolbar.remove";
+
+pub const METHOD_MINI_TOOLBAR_SET: &str = "miniToolbar.set";
+
+pub const METHOD_MINI_TOOLBAR_UPDATE: &str = "miniToolbar.update";
+
+pub const METHOD_MODEL_ASSIGN_APPEARANCE: &str = "model.assignAppearance";
+
+pub const METHOD_MODEL_ASSIGN_MATERIAL: &str = "model.assignMaterial";
+
+pub const METHOD_MODEL_CLEAR_SELECTION: &str = "model.clearSelection";
+
+pub const METHOD_MODEL_DESELECT: &str = "model.deselect";
+
+pub const METHOD_MODEL_HIGHLIGHT_SET_ADD_ITEMS: &str = "model.highlightSets.addItems";
+
+pub const METHOD_MODEL_HIGHLIGHT_SET_CREATE: &str = "model.highlightSets.create";
+
+pub const METHOD_MODEL_HIGHLIGHT_SET_DELETE: &str = "model.highlightSets.delete";
+
+pub const METHOD_MODEL_HIGHLIGHT_SET_LIST: &str = "model.highlightSets.list";
+
+pub const METHOD_MODEL_HIGHLIGHT_SET_SET_COLOR: &str = "model.highlightSets.setColor";
+
+pub const METHOD_MODEL_PHYSICAL_PROPERTIES: &str = "model.physicalProperties";
+
+pub const METHOD_MODEL_REFERENCE_KEYS: &str = "model.referenceKeys";
+
+pub const METHOD_MODEL_SELECT: &str = "model.select";
+
+pub const METHOD_MODEL_SELECTION: &str = "model.selection";
+
+pub const METHOD_MODEL_STATES_ACTIVATE: &str = "modelStates.activate";
+
+pub const METHOD_MODEL_STATES_COPY: &str = "modelStates.copy";
+
+pub const METHOD_MODEL_STATES_CREATE: &str = "modelStates.create";
+
+pub const METHOD_MODEL_STATES_DELETE: &str = "modelStates.delete";
+
+pub const METHOD_MODEL_STATES_LIST: &str = "modelStates.list";
+
+pub const METHOD_MODEL_STATES_RENAME: &str = "modelStates.rename";
+
+pub const METHOD_MODEL_TREE: &str = "model.tree";
+
+pub const METHOD_OPTIONS_GET_GROUP: &str = "options.getGroup";
+
+pub const METHOD_OPTIONS_LIST_GROUPS: &str = "options.listGroups";
+
+pub const METHOD_OPTIONS_SET_GROUP: &str = "options.setGroup";
+
+pub const METHOD_PARAMETERS_ADD: &str = "parameters.add";
+
+pub const METHOD_PARAMETERS_CONVERT: &str = "parameters.convert";
+
+pub const METHOD_PARAMETERS_DELETE: &str = "parameters.delete";
+
+pub const METHOD_PARAMETERS_DEPENDENTS: &str = "parameters.dependents";
+
+pub const METHOD_PARAMETERS_DERIVED_TABLES_ADD: &str = "parameters.derivedTables.add";
+
+pub const METHOD_PARAMETERS_DERIVED_TABLES_DELETE: &str = "parameters.derivedTables.delete";
+
+pub const METHOD_PARAMETERS_DERIVED_TABLES_LIST: &str = "parameters.derivedTables.list";
+
+pub const METHOD_PARAMETERS_DERIVED_TABLES_SET_LINKED: &str = "parameters.derivedTables.setLinked";
+
+pub const METHOD_PARAMETERS_DRIVEN_BY: &str = "parameters.drivenBy";
+
+pub const METHOD_PARAMETERS_EXPORT: &str = "parameters.export";
+
+pub const METHOD_PARAMETERS_GET: &str = "parameters.get";
+
+pub const METHOD_PARAMETERS_GET_DETAIL: &str = "parameters.getDetail";
+
+pub const METHOD_PARAMETERS_GET_SETTINGS: &str = "parameters.getSettings";
+
+pub const METHOD_PARAMETERS_GROUPS_ADD: &str = "parameters.groups.add";
+
+pub const METHOD_PARAMETERS_GROUPS_ADD_MEMBER: &str = "parameters.groups.addMember";
+
+pub const METHOD_PARAMETERS_GROUPS_DELETE: &str = "parameters.groups.delete";
+
+pub const METHOD_PARAMETERS_GROUPS_LIST: &str = "parameters.groups.list";
+
+pub const METHOD_PARAMETERS_GROUPS_REMOVE_MEMBER: &str = "parameters.groups.removeMember";
+
+pub const METHOD_PARAMETERS_GROUPS_SET_DISPLAY_NAME: &str = "parameters.groups.setDisplayName";
+
+pub const METHOD_PARAMETERS_IMPORT: &str = "parameters.import";
+
+pub const METHOD_PARAMETERS_LIST: &str = "parameters.list";
+
+pub const METHOD_PARAMETERS_RENAME: &str = "parameters.rename";
+
+pub const METHOD_PARAMETERS_SET: &str = "parameters.set";
+
+pub const METHOD_PARAMETERS_SET_ALL_MODEL_VALUE_TYPE: &str = "parameters.setAllModelValueType";
+
+pub const METHOD_PARAMETERS_SET_EXPRESSION_LIST: &str = "parameters.setExpressionList";
+
+pub const METHOD_PARAMETERS_SET_SETTINGS: &str = "parameters.setSettings";
+
+pub const METHOD_PARAMETERS_SET_TOLERANCE: &str = "parameters.setTolerance";
+
+pub const METHOD_PARAMETERS_UPDATE: &str = "parameters.update";
+
+pub const METHOD_POINT_CLOUDS_ADD_CROP: &str = "pointClouds.addCrop";
+
+pub const METHOD_POINT_CLOUDS_ATTACH: &str = "pointClouds.attach";
+
+pub const METHOD_POINT_CLOUDS_DELETE: &str = "pointClouds.delete";
+
+pub const METHOD_POINT_CLOUDS_DELETE_CROP: &str = "pointClouds.deleteCrop";
+
+pub const METHOD_POINT_CLOUDS_FIT_PLANE: &str = "pointClouds.fitPlane";
+
+pub const METHOD_POINT_CLOUDS_FROM_MODEL_SPACE: &str = "pointClouds.fromModelSpace";
+
+pub const METHOD_POINT_CLOUDS_GET: &str = "pointClouds.get";
+
+pub const METHOD_POINT_CLOUDS_LIST: &str = "pointClouds.list";
+
+pub const METHOD_POINT_CLOUDS_LIST_CROPS: &str = "pointClouds.listCrops";
+
+pub const METHOD_POINT_CLOUDS_NEAREST_POINT: &str = "pointClouds.nearestPoint";
+
+pub const METHOD_POINT_CLOUDS_SET_CROP_ACTIVE: &str = "pointClouds.setCropActive";
+
+pub const METHOD_POINT_CLOUDS_SET_DENSITY: &str = "pointClouds.setDensity";
+
+pub const METHOD_POINT_CLOUDS_SET_DISPLAY_MODE: &str = "pointClouds.setDisplayMode";
+
+pub const METHOD_POINT_CLOUDS_SET_SCALE: &str = "pointClouds.setScale";
+
+pub const METHOD_POINT_CLOUDS_SET_TRANSFORM: &str = "pointClouds.setTransform";
+
+pub const METHOD_POINT_CLOUDS_SET_VISIBLE: &str = "pointClouds.setVisible";
+
+pub const METHOD_POINT_CLOUDS_TO_MODEL_SPACE: &str = "pointClouds.toModelSpace";
+
+pub const METHOD_POSITIONAL_REPS_ACTIVATE: &str = "positionalReps.activate";
+
+pub const METHOD_POSITIONAL_REPS_CAPTURE: &str = "positionalReps.capture";
+
+pub const METHOD_POSITIONAL_REPS_DELETE: &str = "positionalReps.delete";
+
+pub const METHOD_POSITIONAL_REPS_LIST: &str = "positionalReps.list";
+
+pub const METHOD_POSITIONAL_REPS_SET_FLEXIBLE: &str = "positionalReps.setFlexible";
+
+pub const METHOD_POSITIONAL_REPS_SET_OVERRIDE: &str = "positionalReps.setOverride";
+
+pub const METHOD_PROGRESS_BEGIN: &str = "progress.begin";
+
+pub const METHOD_PROGRESS_END: &str = "progress.end";
+
+pub const METHOD_PROGRESS_UPDATE: &str = "progress.update";
+
+pub const METHOD_PROMPTS_SHOW: &str = "prompts.show";
+
+pub const METHOD_RIBBON_LIST: &str = "ribbon.list";
+
+pub const METHOD_SCRIPT_RUN: &str = "scripts.run";
+
+pub const METHOD_SHEET_METAL_BEND_ALLOWANCE: &str = "sheetMetal.bendAllowance";
+
+pub const METHOD_SHEET_METAL_BENDS: &str = "sheetMetal.bends";
+
+pub const METHOD_SHEET_METAL_GET_STYLE: &str = "sheetMetal.getStyle";
+
+pub const METHOD_SHEET_METAL_SET_STYLE: &str = "sheetMetal.setStyle";
+
+pub const METHOD_SHEET_METAL_UNFOLD: &str = "sheetMetal.unfold";
+
+pub const METHOD_SKETCH3_D_ADD_CONSTRAINT: &str = "sketch3d.addConstraint";
+
+pub const METHOD_SKETCH3_D_ADD_DIMENSION: &str = "sketch3d.addDimension";
+
+pub const METHOD_SKETCH3_D_ADD_ENTITY: &str = "sketch3d.addEntity";
+
+pub const METHOD_SKETCH3_D_ADD_SURFACE_CURVE: &str = "sketch3d.addSurfaceCurve";
+
+pub const METHOD_SKETCH3_D_CONSTRAINT_STATUS: &str = "sketch3d.constraintStatus";
+
+pub const METHOD_SKETCH3_D_CONSTRAINTS: &str = "sketch3d.constraints";
+
+pub const METHOD_SKETCH3_D_CREATE: &str = "sketch3d.create";
+
+pub const METHOD_SKETCH3_D_DELETE: &str = "sketch3d.delete";
+
+pub const METHOD_SKETCH3_D_DELETE_CONSTRAINT: &str = "sketch3d.deleteConstraint";
+
+pub const METHOD_SKETCH3_D_DIMENSIONS: &str = "sketch3d.dimensions";
+
+pub const METHOD_SKETCH3_D_DRIVE_DIMENSION: &str = "sketch3d.driveDimension";
+
+pub const METHOD_SKETCH3_D_EDIT: &str = "sketch3d.edit";
+
+pub const METHOD_SKETCH3_D_EDIT_HELIX: &str = "sketch3d.editHelix";
+
+pub const METHOD_SKETCH3_D_ENTITIES: &str = "sketch3d.entities";
+
+pub const METHOD_SKETCH3_D_EXIT_EDIT: &str = "sketch3d.exitEdit";
+
+pub const METHOD_SKETCH3_D_GET: &str = "sketch3d.get";
+
+pub const METHOD_SKETCH3_D_INCLUDE: &str = "sketch3d.include";
+
+pub const METHOD_SKETCH3_D_INCLUDE_SKETCH: &str = "sketch3d.includeSketch";
+
+pub const METHOD_SKETCH3_D_LIST: &str = "sketch3d.list";
+
+pub const METHOD_SKETCH3_D_PATHS: &str = "sketch3d.paths";
+
+pub const METHOD_SKETCH3_D_PROFILES: &str = "sketch3d.profiles";
+
+pub const METHOD_SKETCH3_D_REFERENCE_KEY: &str = "sketch3d.referenceKey";
+
+pub const METHOD_SKETCH3_D_REGION_PROPERTIES: &str = "sketch3d.regionProperties";
+
+pub const METHOD_SKETCH3_D_SET_PROPERTY: &str = "sketch3d.setProperty";
+
+pub const METHOD_SKETCH3_D_SET_SPLINE_HANDLE: &str = "sketch3d.setSplineHandle";
+
+pub const METHOD_SKETCH3_D_SOLVE: &str = "sketch3d.solve";
+
+pub const METHOD_SKETCH3_D_TRANSFORM: &str = "sketch3d.transform";
+
+pub const METHOD_SKETCH_ADD_BLOCK_INSTANCE: &str = "sketch.addBlockInstance";
+
+pub const METHOD_SKETCH_ADD_CONSTRAINT: &str = "sketch.addConstraint";
+
+pub const METHOD_SKETCH_ADD_DIMENSION: &str = "sketch.addDimension";
+
+pub const METHOD_SKETCH_ADD_ENTITY: &str = "sketch.addEntity";
+
+pub const METHOD_SKETCH_ADD_FILL_REGION: &str = "sketch.addFillRegion";
+
+pub const METHOD_SKETCH_ADD_IMAGE: &str = "sketch.addImage";
+
+pub const METHOD_SKETCH_ADD_PATTERN: &str = "sketch.addPattern";
+
+pub const METHOD_SKETCH_ADD_TEXT: &str = "sketch.addText";
+
+pub const METHOD_SKETCH_AUTO_DIMENSION: &str = "sketch.autoDimension";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_CREATE: &str = "sketch.blockDefinitions.create";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_DELETE: &str = "sketch.blockDefinitions.delete";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_LIST: &str = "sketch.blockDefinitions.list";
+
+pub const METHOD_SKETCH_CONSTRAINT_STATUS: &str = "sketch.constraintStatus";
+
+pub const METHOD_SKETCH_CONSTRAINTS: &str = "sketch.constraints";
+
+pub const METHOD_SKETCH_COPY_TO: &str = "sketch.copyTo";
+
+pub const METHOD_SKETCH_CREATE: &str = "sketch.create";
+
+pub const METHOD_SKETCH_DELETE: &str = "sketch.delete";
+
+pub const METHOD_SKETCH_DELETE_CONSTRAINT: &str = "sketch.deleteConstraint";
+
+pub const METHOD_SKETCH_DELETE_DIMENSION: &str = "sketch.deleteDimension";
+
+pub const METHOD_SKETCH_DEPENDENTS: &str = "sketch.dependents";
+
+pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
+
+pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";
+
+pub const METHOD_SKETCH_EDIT: &str = "sketch.edit";
+
+pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
+
+pub const METHOD_SKETCH_ENTITIES: &str = "sketch.entities";
+
+pub const METHOD_SKETCH_EXIT_EDIT: &str = "sketch.exitEdit";
+
+pub const METHOD_SKETCH_GET: &str = "sketch.get";
+
+pub const METHOD_SKETCH_GET_CUSTOM_LINE_TYPE: &str = "sketch.getCustomLineType";
+
+pub const METHOD_SKETCH_GET_ENTITY_FORMAT: &str = "sketch.getEntityFormat";
+
+pub const METHOD_SKETCH_GET_FORMAT_MODES: &str = "sketch.getFormatModes";
+
+pub const METHOD_SKETCH_GET_INFERENCE_OPTIONS: &str = "sketch.getInferenceOptions";
+
+pub const METHOD_SKETCH_GET_TEXT: &str = "sketch.getText";
+
+pub const METHOD_SKETCH_LIST: &str = "sketch.list";
+
+pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";
+
+pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";
+
+pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";
