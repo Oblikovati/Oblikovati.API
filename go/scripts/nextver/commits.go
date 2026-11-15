@@ -129,7 +129,7 @@ func notesGroups(messages []string) (added, changed, fixed []string) {
 		if subject == "" {
 			continue
 		}
-		switch classifyOne(m) {
+		switch noteScope(m) {
 		case changeFeature:
 			added = append(added, subject)
 		case changePatch:
@@ -139,6 +139,20 @@ func notesGroups(messages []string) (added, changed, fixed []string) {
 		}
 	}
 	return added, changed, fixed
+}
+
+// noteScope keeps unknown commit subjects under Changed while preserving the
+// conservative patch floor used by the separate version classifier.
+func noteScope(message string) change {
+	match := headerRe.FindStringSubmatch(strings.TrimSpace(message))
+	if match == nil {
+		return changeBreaking
+	}
+	kind := strings.ToLower(match[1])
+	if !featureTypes[kind] && !patchTypes[kind] && !silentTypes[kind] {
+		return changeBreaking
+	}
+	return classifyOne(message)
 }
 
 func writeGroup(b *strings.Builder, heading string, items []string) {

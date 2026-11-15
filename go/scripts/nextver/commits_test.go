@@ -110,3 +110,14 @@ func TestReleaseScopeDoesNotRelabelCorrectionInNotes(t *testing.T) {
 		t.Fatalf("release notes %q: expected correction under Fixed", notes)
 	}
 }
+
+func TestUnconventionalSubjectsAreChangedInReleaseNotes(t *testing.T) {
+	messages := []string{"Define express assembly loading operations", "wire: extend save results"}
+	if got := classify(messages); got != changePatch {
+		t.Fatalf("version scope %s: expected conservative patch floor", got)
+	}
+	notes := releaseNotes(messages)
+	if !strings.Contains(notes, "### Changed\n\n- Define express assembly loading operations\n- wire: extend save results") || strings.Contains(notes, "### Fixed") {
+		t.Fatalf("release notes %q: expected both subjects under Changed", notes)
+	}
+}
