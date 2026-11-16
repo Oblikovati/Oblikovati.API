@@ -21,6 +21,9 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   plane. Hosts must reject unknown startup plane values and preserve omitted
   options on write.
 
+- A distinct associative sketch entity operation that older hosts reject
+  instead of silently discarding the parameter binding.
+
 ### Changed
 
 - Rust callers that construct `OpenDocumentArgs`, `DocumentInfo`,
@@ -29,6 +32,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   or use defaults.
   Go callers using unkeyed literals for the corresponding structs must update
   them. Existing wire payloads without the new fields retain their defaults.
+
+- Named parameter expressions in sketch entity size fields create driving
+  dimensions. Callers that previously added a separate dimension for the same
+  size must remove that duplicate to avoid overconstraining the sketch.
 
 ## [0.159.0] - 2026-11-07
 
