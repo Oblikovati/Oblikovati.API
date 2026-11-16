@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchSetEntityFormat(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetEntityFormat})
+	checkGoGroup(t, c, "Sketch", "SetEntityFormat")
+}
+
 func TestRustParitySketchSetFormatModes(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetFormatModes})
 	checkGoGroup(t, c, "Sketch", "SetFormatModes")
@@ -152,9 +157,4 @@ func TestRustParityTransactionsUndo(t *testing.T) {
 func TestRustParityTransientBRepCopy(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepCopy})
 	checkGoGroup(t, c, "TransientBRep", "Copy")
-}
-
-func TestRustParityTransientBRepCreateFromDefinition(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepCreateFromDefinition})
-	checkGoGroup(t, c, "TransientBRep", "CreateFromDefinition")
 }

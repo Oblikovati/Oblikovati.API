@@ -8,8 +8,18 @@ package wire
 // Variant selects the overload within that kind ("centerRadius" | "threePoint" |
 // "centerStartEnd"; empty ⇒ the kind's default). Points are the defining points, each
 // [x,y] in sketch-plane database units (cm), in the constructor's expected order. Radius
-// is a unit-bearing expression ("10 mm") for the center-radius circle. CCW orients a
-// center-start-end arc. Construction marks the entity as reference geometry.
+// is a unit-bearing expression ("10 mm") for the center-radius circle. A Radius,
+// Width, MajorRadius, MinorRadius or Distance2 expression that references a document
+// parameter passed to MethodSketchAddAssociativeEntity creates a persistent driving
+// association: a later parameter edit and recompute updates the geometry, including
+// after save and reopen. Creation and its associations form one undoable operation.
+// A host that cannot retain the association for the requested kind or variant must
+// reject the request without changing the sketch. MethodSketchAddEntity and older hosts can
+// evaluate these fields without retaining their association. Use the associative
+// method when the binding is required. Literal-only inputs retain their existing
+// construction behavior. Invalid expressions are errors, not a request to substitute
+// a literal. CCW orients a center-start-end arc.
+// Construction marks the entity as reference geometry.
 type AddSketchEntityArgs struct {
 	SketchIndex int         `json:"sketchIndex"`
 	Kind        string      `json:"kind"`
@@ -17,8 +27,8 @@ type AddSketchEntityArgs struct {
 	Points      [][]float64 `json:"points,omitempty"`
 	// PointExprs is the parameter-expression form of Points (#189): each entry is the
 	// defining point as ["x-expr","y-expr"], evaluated through the document's parameter
-	// engine ("bore_r + 2 mm") and yielding a length in cm — so generated line/arc/point
-	// geometry is parametric at construction, consistent with Radius/Width. When set it
+	// engine ("bore_r + 2 mm") and yielding a length in cm for initial placement.
+	// PointExprs alone does not establish a persistent dimensional association. When set it
 	// supersedes Points; a unitless literal ("12.5") is read as cm. The two forms may be
 	// mixed across a kind's points only via PointExprs (set every point as expressions).
 	PointExprs   [][]string `json:"pointExprs,omitempty"`

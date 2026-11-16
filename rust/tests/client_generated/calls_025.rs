@@ -16,6 +16,20 @@ fn sketch3_d_transform() {
 }
 
 #[test]
+fn sketch_add_associative_entity() {
+    let args: oblikovati_api::wire::AddSketchEntityArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.sketch().add_associative_entity(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn sketch_add_block_instance() {
     let args: oblikovati_api::wire::AddSketchBlockArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -248,15 +262,4 @@ fn sketch_dimensions() {
     );
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(client.sketch().dimensions(&args).unwrap_err().0, "recorded");
-}
-
-#[test]
-fn sketch_edit() {
-    let args: oblikovati_api::wire::SketchArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_EDIT,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.sketch().edit(&args).unwrap_err().0, "recorded");
 }

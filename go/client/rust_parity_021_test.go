@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityViewsRename(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewsRename})
+	checkGoGroup(t, c, "Views", "Rename")
+}
+
 func TestRustParityViewsRestoreNamed(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewsRestoreNamed})
 	checkGoGroup(t, c, "Views", "RestoreNamed")

@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchConstraints(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
+	checkGoGroup(t, c, "Sketch", "Constraints")
+}
+
 func TestRustParitySketchCopyTo(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchCopyTo})
 	checkGoGroup(t, c, "Sketch", "CopyTo")
@@ -152,9 +157,4 @@ func TestRustParitySketchResolveReference(t *testing.T) {
 func TestRustParitySketchSetCustomLineType(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetCustomLineType})
 	checkGoGroup(t, c, "Sketch", "SetCustomLineType")
-}
-
-func TestRustParitySketchSetEntityFormat(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchSetEntityFormat})
-	checkGoGroup(t, c, "Sketch", "SetEntityFormat")
 }

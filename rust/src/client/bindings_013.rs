@@ -12,6 +12,18 @@ impl<T: super::Caller> super::Client<T> {
     }
 }
 impl<T: super::Caller> Sketch<'_, T> {
+    /// Call `MethodSketchAddAssociativeEntity` with the canonical request and response types.
+    /// Example: `client.sketch().add_associative_entity(&args)`.
+    pub fn add_associative_entity(
+        &self,
+        args: &crate::wire::AddSketchEntityArgs,
+    ) -> Result<crate::wire::AddSketchEntityResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchAddBlockInstance` with the canonical request and response types.
     /// Example: `client.sketch().add_block_instance(&args)`.
     pub fn add_block_instance(
@@ -162,7 +174,9 @@ impl<T: super::Caller> Sketch<'_, T> {
     ) -> Result<crate::wire::OKResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_DELETE, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchBlockDefinitionDelete` with the canonical request and response types.
     /// Example: `client.sketch().delete_block_definition(&args)`.
     pub fn delete_block_definition(
@@ -174,9 +188,7 @@ impl<T: super::Caller> Sketch<'_, T> {
             Some(args),
         )
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchDependents` with the canonical request and response types.
     /// Example: `client.sketch().dependents(&args)`.
     pub fn dependents(
@@ -313,15 +325,5 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         args: &crate::wire::OffsetSketchArgs,
     ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
-    }
-
-    /// Call `MethodSketchProfiles` with the canonical request and response types.
-    /// Example: `client.sketch().profiles(&args)`.
-    pub fn profiles(
-        &self,
-        args: &crate::wire::SketchArgs,
-    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
     }
 }

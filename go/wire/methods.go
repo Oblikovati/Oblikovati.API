@@ -180,6 +180,10 @@ const (
 	MethodSketchDimensions  = "sketch.dimensions"
 	MethodSketchSetProperty = "sketch.setProperty"
 	MethodSketchAddEntity   = "sketch.addEntity"
+	// MethodSketchAddAssociativeEntity requires persistent parameter associations
+	// for referenced length expressions. It uses AddSketchEntityArgs and Result.
+	// Older hosts return an unknown-method error rather than silently baking values.
+	MethodSketchAddAssociativeEntity = "sketch.addAssociativeEntity"
 
 	// Custom line types loaded from industry-standard .lin definition files
 	// (issue Oblikovati#161).

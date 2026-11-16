@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
+	checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
+}
+
 func TestRustParityUnitsGetPreciseStringFromValue(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
 	checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
@@ -152,9 +157,4 @@ func TestRustParityViewsList(t *testing.T) {
 func TestRustParityViewsListNamed(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewsListNamed})
 	checkGoGroup(t, c, "Views", "ListNamed")
-}
-
-func TestRustParityViewsRename(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsRename})
-	checkGoGroup(t, c, "Views", "Rename")
 }

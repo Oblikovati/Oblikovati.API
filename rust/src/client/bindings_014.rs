@@ -4,6 +4,16 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 impl<T: super::Caller> super::Sketch<'_, T> {
+    /// Call `MethodSketchProfiles` with the canonical request and response types.
+    /// Example: `client.sketch().profiles(&args)`.
+    pub fn profiles(
+        &self,
+        args: &crate::wire::SketchArgs,
+    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
+    }
+
     /// Call `MethodSketchProject` with the canonical request and response types.
     /// Example: `client.sketch().project(&args)`.
     pub fn project(
@@ -152,7 +162,9 @@ impl<T: super::Caller> super::Sketch<'_, T> {
     ) -> Result<crate::wire::SolveSketchResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_SOLVE, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchTransform` with the canonical request and response types.
     /// Example: `client.sketch().transform(&args)`.
     pub fn transform(

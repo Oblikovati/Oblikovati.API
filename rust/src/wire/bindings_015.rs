@@ -3,6 +3,8 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";
+
 pub const METHOD_SKETCH_PROFILES: &str = "sketch.profiles";
 
 pub const METHOD_SKETCH_PROJECT: &str = "sketch.project";
