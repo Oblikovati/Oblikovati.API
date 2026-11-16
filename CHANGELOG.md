@@ -14,6 +14,15 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 - Typed nonfatal save warnings for single saves, batch saves, and save-on-close.
 
+### Changed
+
+- Rust callers that construct `OpenDocumentArgs`, `DocumentInfo`,
+  `SaveDocumentResult`, `CloseDocumentsResult`, `BatchSaveItemResult`, or
+  `PartOptionsView` with exhaustive struct literals must supply their new fields
+  or use defaults.
+  Go callers using unkeyed literals for the corresponding structs must update
+  them. Existing wire payloads without the new fields retain their defaults.
+
 ## [0.159.0] - 2026-11-07
 
 ### Added
