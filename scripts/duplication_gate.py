@@ -12,6 +12,20 @@ from typing import Callable, NoReturn
 
 MAX_BYTES = 1_000_000_000
 Scan = Callable[..., subprocess.CompletedProcess[str]]
+SCAN_FLAGS = (
+    "--no-gitignore",
+    "--max-size",
+    str(MAX_BYTES),
+    "--fail-on-empty",
+    "--min-lines",
+    "5",
+    "--min-tokens",
+    "50",
+    "--mode",
+    "mild",
+    "--reporters",
+    "json",
+)
 
 
 def scan_command(config: Path, output: Path) -> list[str]:
@@ -22,18 +36,7 @@ def scan_command(config: Path, output: Path) -> list[str]:
         "jscpd@5.4.1",
         "--config",
         str(config),
-        "--no-gitignore",
-        "--max-size",
-        str(MAX_BYTES),
-        "--fail-on-empty",
-        "--min-lines",
-        "5",
-        "--min-tokens",
-        "50",
-        "--mode",
-        "mild",
-        "--reporters",
-        "json",
+        *SCAN_FLAGS,
         "--output",
         str(output),
         "go",
@@ -76,29 +79,25 @@ def report_counts(report: object) -> tuple[int, int]:
     try:
         statistics = report["statistics"]
         total, formats = statistics["total"], statistics["formats"]
-        lines, duplicated, sources = (
-            total["lines"],
-            total["duplicatedLines"],
-            total["sources"],
-        )
-        counts = (
-            lines,
-            duplicated,
-            sources,
-            formats["go"]["sources"],
-            formats["rust"]["sources"],
-        )
-        if any(type(value) is not int for value in counts):
-            raise ValueError(f"scanner counts {counts!r}: expected integers")
-        if lines <= 0 or duplicated < 0 or duplicated > lines or min(counts[2:]) <= 0:
-            raise ValueError(
-                f"scanner counts {counts!r}: expected nonempty Go and Rust scans"
-            )
-        return lines, duplicated
+        counts = (total["lines"], total["duplicatedLines"], total["sources"])
+        counts += (formats["go"]["sources"], formats["rust"]["sources"])
+        return require_counts(counts)
     except (KeyError, TypeError) as error:
         raise ValueError(
             f"scanner report {report!r}: expected statistics for Go and Rust"
         ) from error
+
+
+def require_counts(counts: tuple[int, ...]) -> tuple[int, int]:
+    """Require a nonempty valid scan; example: require_counts((100, 1, 2, 1, 1))."""
+    if any(type(value) is not int for value in counts):
+        raise ValueError(f"scanner counts {counts!r}: expected integers")
+    lines, duplicated = counts[:2]
+    if lines <= 0 or duplicated < 0 or duplicated > lines or min(counts[2:]) <= 0:
+        raise ValueError(
+            f"scanner counts {counts!r}: expected nonempty Go and Rust scans"
+        )
+    return lines, duplicated
 
 
 def check_report(report: object) -> tuple[int, int]:
@@ -122,15 +121,17 @@ def run_scan(root: Path, run: Scan = subprocess.run) -> tuple[int, int]:
             raise ValueError(
                 f"scanner {command[2]}: expected exit 0, got exit {result.returncode}: {result.stderr}"
             )
-        try:
-            report = json.loads(
-                (output / "jscpd-report.json").read_text(encoding="utf-8")
-            )
-        except (OSError, ValueError) as error:
-            raise ValueError(
-                f"scanner report in {output}: expected valid JSON: {error}"
-            ) from error
-        return check_report(report)
+        return check_report(read_report(output))
+
+
+def read_report(output: Path) -> object:
+    """Read the new scanner report; example: read_report(output)."""
+    try:
+        return json.loads((output / "jscpd-report.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        raise ValueError(
+            f"scanner report in {output}: expected valid JSON: {error}"
+        ) from error
 
 
 def main() -> int:
