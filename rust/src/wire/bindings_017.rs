@@ -63,6 +63,10 @@ generated_dto! {
 #[doc = "```text\nPartOptionsView is the \"part\" group: part-modeling defaults.\n```"]
 pub struct PartOptionsView {
     pub chamfer_flat_corners: bool => required("chamferFlatCorners");
+#[doc = "```text\nStartupSketchPlane selects the sketch created for a new part. Nil leaves\nthe current value unchanged on write and means unavailable on read.\n```"]
+    pub startup_sketch_plane: Option<Box<crate::types::StartupSketchPlane>> => omitted("startupSketchPlane", "Option::is_none");
+#[doc = "```text\nLookAtSketchPlane controls whether entering a sketch faces its support plane.\nNil means unavailable on read and leaves the current setting unchanged on write.\n```"]
+    pub look_at_sketch_plane: Option<Box<bool>> => omitted("lookAtSketchPlane", "Option::is_none");
 }
 }
 

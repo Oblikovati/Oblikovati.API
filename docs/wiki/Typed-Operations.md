@@ -24,6 +24,15 @@ For `assemblyCacheUnavailable`, the document was saved but its optional Express
 presentation could not be qualified. Inspect the warning detail before relying
 on a later Express open. A warning does not turn a successful save into an error.
 
+## Part sketch preferences
+
+Part options may carry `startupSketchPlane` (`none`, `xy`, `yz`, or `xz`) and
+`lookAtSketchPlane` (a Boolean). An omitted or null field leaves the existing
+preference unchanged on write and means unavailable on read. An explicit
+`false` remains distinct from omission. The typed write clients reject unknown
+startup-plane values before transport; hosts must also validate requests from
+all callers. JSON decoding retains unknown values for forward-compatible reads.
+
 ## Go
 
 <!-- example: go/examples/operations/operations.go -->

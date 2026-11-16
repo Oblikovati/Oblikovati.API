@@ -14,6 +14,7 @@ var fixtureGroup4 = []fixtureType{
 	{"types.SplineFitMethod", reflect.TypeFor[types.SplineFitMethod]()},
 	{"types.SplitType", reflect.TypeFor[types.SplitType]()},
 	{"types.StartupActionType", reflect.TypeFor[types.StartupActionType]()},
+	{"types.StartupSketchPlane", reflect.TypeFor[types.StartupSketchPlane]()},
 	{"types.StyleLocationEnum", reflect.TypeFor[types.StyleLocationEnum]()},
 	{"types.SurfaceContinuity", reflect.TypeFor[types.SurfaceContinuity]()},
 	{"types.SurfaceGeometryForm", reflect.TypeFor[types.SurfaceGeometryForm]()},
@@ -89,5 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddDatumFeatureArgs", reflect.TypeFor[wire.AddDatumFeatureArgs]()},
 	{"wire.AddDefaultBorderArgs", reflect.TypeFor[wire.AddDefaultBorderArgs]()},
 	{"wire.AddDetailViewArgs", reflect.TypeFor[wire.AddDetailViewArgs]()},
-	{"wire.AddDimensionArgs", reflect.TypeFor[wire.AddDimensionArgs]()},
 }

@@ -4,6 +4,24 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_scalar! { integer,
+#[doc = "```text\nViewTileTypeEnum is how a document's views are tiled when more than one is shown: a single\narrange, or a horizontal/vertical split. Frozen ids 117761–117764. (This is the typed\ncounterpart of the numeric [ViewLayout] used by the views collection.)\n```"]
+pub struct ViewTileTypeEnum(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
+pub struct ViewTypeEnum(pub i32);
+}
+
+pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
+
+pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
+
+pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
+
+pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);
+
+generated_scalar! { integer,
 #[doc = "```text\nWindowState is a view frame's window state — the WindowsSizeEnum equivalent\n(M05-F10, #617).\n```"]
 pub struct WindowState(pub u8);
 }

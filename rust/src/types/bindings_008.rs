@@ -332,6 +332,23 @@ pub const STARTUP_EMPTY_WORKSPACE: crate::types::StartupActionType =
 
 pub const STARTUP_NEW_PART: crate::types::StartupActionType = crate::types::StartupActionType(0);
 
+pub const STARTUP_SKETCH_NONE: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("none"));
+
+generated_scalar! { string,
+#[doc = "```text\nStartupSketchPlane chooses the initial sketch for a newly created part.\nFor example, StartupSketchXY starts a sketch on the XY origin plane.\nHosts must reject values outside these constants.\n```"]
+pub struct StartupSketchPlane(pub std::borrow::Cow<'static, str>);
+}
+
+pub const STARTUP_SKETCH_XY: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xy"));
+
+pub const STARTUP_SKETCH_XZ: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xz"));
+
+pub const STARTUP_SKETCH_YZ: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("yz"));
+
 pub const STRAIGHT_LINE_BEND_TRANSITION: crate::types::BendTransition =
     crate::types::BendTransition(2);
 
@@ -443,21 +460,3 @@ pub const TEXT_ALIGN_RIGHT: crate::types::TextHorizontalAlign =
 
 pub const TEXT_ALIGN_UPPER: crate::types::TextVerticalAlign =
     crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("upper"));
-
-generated_scalar! { string,
-#[doc = "```text\nTextHorizontalAlign is how sketch text is positioned horizontally about its anchor\npoint (left/center/right, the standard MCAD horizontal text alignments). String values\nare frozen — they appear in the .obk document and on the wire.\n```"]
-pub struct TextHorizontalAlign(pub std::borrow::Cow<'static, str>);
-}
-
-pub const TEXT_ONLY_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(0);
-
-generated_scalar! { string,
-#[doc = "```text\nTextVerticalAlign is how sketch text is positioned vertically about its anchor point\n(baseline/lower/middle/upper, the standard MCAD vertical text alignments). Baseline\nkeeps the text's baseline on the anchor; the others measure from the text's cap box.\nString values are frozen.\n```"]
-pub struct TextVerticalAlign(pub std::borrow::Cow<'static, str>);
-}
-
-pub const THEME_CUSTOM: crate::types::ThemeKind =
-    crate::types::ThemeKind(std::borrow::Cow::Borrowed("custom"));
-
-pub const THEME_DARK: crate::types::ThemeKind =
-    crate::types::ThemeKind(std::borrow::Cow::Borrowed("dark"));

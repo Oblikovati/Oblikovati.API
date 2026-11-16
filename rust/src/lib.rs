@@ -18,6 +18,7 @@ pub mod contract;
 mod error;
 pub mod ffi;
 pub mod json;
+mod startup_sketch_plane;
 pub mod types;
 pub mod wire;
 pub use error::Error;

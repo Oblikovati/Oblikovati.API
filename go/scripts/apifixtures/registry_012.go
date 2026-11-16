@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup12 = []fixtureType{
+	{"wire.ModelTreeResult", reflect.TypeFor[wire.ModelTreeResult]()},
 	{"wire.MoveFreeformVerticesArgs", reflect.TypeFor[wire.MoveFreeformVerticesArgs]()},
 	{"wire.MoveSketchDimensionArgs", reflect.TypeFor[wire.MoveSketchDimensionArgs]()},
 	{"wire.NameValueEntry", reflect.TypeFor[wire.NameValueEntry]()},
@@ -88,5 +89,4 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.PressKeyResult", reflect.TypeFor[wire.PressKeyResult]()},
 	{"wire.ProblemEntityInfo", reflect.TypeFor[wire.ProblemEntityInfo]()},
 	{"wire.Profile3DInfo", reflect.TypeFor[wire.Profile3DInfo]()},
-	{"wire.ProfileInfo", reflect.TypeFor[wire.ProfileInfo]()},
 }

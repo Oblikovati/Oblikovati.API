@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup5 = []fixtureType{
+	{"wire.AddDimensionArgs", reflect.TypeFor[wire.AddDimensionArgs]()},
 	{"wire.AddDimensionResult", reflect.TypeFor[wire.AddDimensionResult]()},
 	{"wire.AddDimensionSetArgs", reflect.TypeFor[wire.AddDimensionSetArgs]()},
 	{"wire.AddDocumentInterestArgs", reflect.TypeFor[wire.AddDocumentInterestArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup5 = []fixtureType{
 	{"wire.AssemblyFeatureHealth", reflect.TypeFor[wire.AssemblyFeatureHealth]()},
 	{"wire.AssemblyFeatureInfo", reflect.TypeFor[wire.AssemblyFeatureInfo]()},
 	{"wire.AssemblyFeatureResult", reflect.TypeFor[wire.AssemblyFeatureResult]()},
-	{"wire.AssemblyFeaturesChangedEvent", reflect.TypeFor[wire.AssemblyFeaturesChangedEvent]()},
 }

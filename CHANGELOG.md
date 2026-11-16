@@ -14,6 +14,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 - Typed nonfatal save warnings for single saves, batch saves, and save-on-close.
 
+- Optional Part options for sketch-facing behavior and the startup sketch
+  plane. Hosts must reject unknown startup plane values and preserve omitted
+  options on write.
+
 ### Changed
 
 - Rust callers that construct `OpenDocumentArgs`, `DocumentInfo`,

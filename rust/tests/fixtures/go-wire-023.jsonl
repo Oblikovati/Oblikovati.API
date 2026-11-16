@@ -1,3 +1,6 @@
+{"Name":"wire.SetFlexibleChildArgs","Case":"zero","Payload":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
+{"Name":"wire.SetFlexibleChildArgs","Case":"filled","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
+{"Name":"wire.SetFlexibleChildArgs","Case":"empty","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SetTextFontResult","Case":"zero","Payload":{"resource":"","family":""},"Canonical":{"resource":"","family":""},"Error":""}
 {"Name":"wire.SetTextFontResult","Case":"filled","Payload":{"resource":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語"},"Canonical":{"resource":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetTextFontResult","Case":"empty","Payload":{"resource":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語"},"Canonical":{"resource":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetTitleBlockArgs","Case":"zero","Payload":{},"Canonical":{},"Error":""}
-{"Name":"wire.SetTitleBlockArgs","Case":"filled","Payload":{"sheet":"example \u003c\u0026\u003e 日本語","location":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sheet":"example \u003c\u0026\u003e 日本語","location":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetTitleBlockArgs","Case":"empty","Payload":{"sheet":"example \u003c\u0026\u003e 日本語","location":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sheet":"example \u003c\u0026\u003e 日本語","location":"example \u003c\u0026\u003e 日本語"},"Error":""}
