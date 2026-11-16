@@ -210,6 +210,25 @@ mod tests;
 ```
 <!-- /example -->
 
+## Sketch length expressions
+
+`Sketch.AddEntity` and its size helpers accept parameter expressions in the
+`radius`, `width`, `majorRadius`, `minorRadius`, and `distance2` fields. A
+conforming host creates a driving dimension when an expression references a
+document parameter. The dimension and entity share one creation transaction;
+their association survives recompute, Undo, Redo, save, and reopen. Literal-only
+inputs keep their previous construction behavior. If the requested association
+cannot be retained, creation fails without changing the sketch.
+
+This changes the behavior of existing named-expression calls without changing
+their source signatures or JSON fields. Code that previously added a separate
+driving dimension for the same size must remove that duplicate dimension to
+avoid overconstraining the sketch. Older hosts can accept the existing method
+and silently use a parameter's current value. Call `Sketch.AddAssociativeEntity`
+when the host version is unknown: an older host rejects its distinct method
+instead. `pointExprs` supplies initial coordinates; it does not itself bind a
+coordinate to a parameter.
+
 ## Events and identifiers
 
 The C host sends events through `ObkAddInNotify`. Decode the event with the

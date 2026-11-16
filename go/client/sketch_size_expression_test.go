@@ -82,6 +82,25 @@ func TestCircleHelperPreservesExpression(t *testing.T) {
 		return err
 	}, map[string]string{"radius": "bore_r + 2 mm"})
 }
+
+func TestCircleHelperPreservesLiteralRequest(t *testing.T) {
+	checkSketchSizeRequest(t, func(s Sketch) error {
+		_, err := s.AddCircleByCenterRadius(0, []float64{0, 0}, "10 mm", false)
+		return err
+	}, map[string]string{"radius": "10 mm"})
+}
+
+func TestCircleLiteralWireShapeRemainsCompatible(t *testing.T) {
+	host := &fakeTransport{reply: []byte(`{"entityId":1,"kind":"circle","pointIds":[]}`)}
+	_, err := New(host).Sketch().AddCircleByCenterRadius(0, []float64{0, 0}, "10 mm", false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const expected = `{"sketchIndex":0,"kind":"circle","variant":"centerRadius","points":[[0,0]],"radius":"10 mm"}`
+	if string(host.gotReq) != expected {
+		t.Fatalf("request %s: expected %s", host.gotReq, expected)
+	}
+}
 func TestEllipseHelperPreservesExpressions(t *testing.T) {
 	checkSketchSizeRequest(t, func(s Sketch) error {
 		_, err := s.AddEllipse(0, []float64{0, 0}, []float64{1, 0}, "major_r", "minor_r", false)

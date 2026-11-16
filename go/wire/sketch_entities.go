@@ -10,15 +10,16 @@ package wire
 // [x,y] in sketch-plane database units (cm), in the constructor's expected order. Radius
 // is a unit-bearing expression ("10 mm") for the center-radius circle. A Radius,
 // Width, MajorRadius, MinorRadius or Distance2 expression that references a document
-// parameter passed to MethodSketchAddAssociativeEntity creates a persistent driving
-// association: a later parameter edit and recompute updates the geometry, including
-// after save and reopen. Creation and its associations form one undoable operation.
+// parameter creates a persistent driving dimension when passed to MethodSketchAddEntity
+// or MethodSketchAddAssociativeEntity. A later parameter edit and recompute updates
+// the geometry, including after save and reopen. Creation and its dimensions form
+// one undoable operation.
 // A host that cannot retain the association for the requested kind or variant must
-// reject the request without changing the sketch. MethodSketchAddEntity and older hosts can
-// evaluate these fields without retaining their association. Use the associative
-// method when the binding is required. Literal-only inputs retain their existing
-// construction behavior. Invalid expressions are errors, not a request to substitute
-// a literal. CCW orients a center-start-end arc.
+// reject the request without changing the sketch. Older hosts can evaluate expressions
+// passed to MethodSketchAddEntity without retaining a dimension; use the associative
+// method to reject those hosts. Literal-only inputs retain their existing construction
+// behavior. Invalid expressions are errors, not a request to substitute a literal.
+// CCW orients a center-start-end arc.
 // Construction marks the entity as reference geometry.
 type AddSketchEntityArgs struct {
 	SketchIndex int         `json:"sketchIndex"`
