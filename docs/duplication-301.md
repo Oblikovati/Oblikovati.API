@@ -1,5 +1,29 @@
 # API duplication check for issue 301
 
+`make gate` runs `make duplication`. The check invokes the exact npm package
+`jscpd@5.4.1` and requires Node.js and npm. It scans both `go` and `rust/src`,
+including generated source, Go tests, and ignored paths. It uses mild detection
+with a five-line and 50-token minimum, so shorter fragments do not contribute
+to clone counts. Supported file formats are detected by jscpd; this includes
+Go, Rust, and the C header under `go`. No source directories or patterns are
+excluded. The check refuses links and files larger than its explicit 1 GB
+scanner limit, rather than silently skipping them.
+
+The scanner uses an isolated empty configuration and writes a fresh JSON
+report outside the tree. The gate validates the scanner exit status, report,
+and nonempty Go and Rust counts. It compares integer duplicated-line and
+total-line counts and fails when the ratio is 3% or higher, even if a rounded
+percentage would appear to pass. A missing scanner or invalid report fails the
+gate. To run this check alone, use `make duplication`.
+
+On 2026-11-16 the full configured scan at `276a401` reported 833 duplicated
+lines of 81,273 total lines (1.0249%). `GOWORK=off go test ./... -cover`
+reported 80.2% to 100% statement coverage for each Go package with executable
+statements; `contract` and `wire` report no statements. These coverage values
+are separate from duplication and do not establish coverage for another tree.
+`cargo llvm-cov --manifest-path rust/Cargo.toml --locked --summary-only`
+reported 97.86% total Rust line coverage on the same API sources.
+
 The Rust generator shares the common scalar representation and DTO field
 serialization rules through macros in `rust/src`. Each named Go scalar still
 produces a distinct public Rust tuple struct. Each Go DTO still produces a
