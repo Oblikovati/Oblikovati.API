@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Enforce the API's duplication limit over all Go and Rust source trees."""
+"""Enforce the API's duplication limit over its source and test trees."""
 
 import json
 import os
@@ -12,6 +12,23 @@ from typing import Callable, NoReturn
 
 MAX_BYTES = 1_000_000_000
 Scan = Callable[..., subprocess.CompletedProcess[str]]
+SOURCE_TREES = (
+    "go",
+    "rust/src",
+    "rust/tests",
+    "rust/examples",
+    "scripts",
+    "include",
+    "tests",
+    ".github",
+)
+SOURCE_FILES = (
+    "Makefile",
+    "rust/Cargo.toml",
+    "rust-toolchain.toml",
+    ".markdownlint-cli2.jsonc",
+)
+REQUIRED_FORMATS = ("go", "rust", "python", "bash", "c", "c-header", "yaml", "toml")
 SCAN_FLAGS = (
     "--no-gitignore",
     "--max-size",
@@ -39,8 +56,8 @@ def scan_command(config: Path, output: Path) -> list[str]:
         *SCAN_FLAGS,
         "--output",
         str(output),
-        "go",
-        "rust/src",
+        *SOURCE_TREES,
+        *SOURCE_FILES,
     ]
 
 
@@ -51,7 +68,9 @@ def raise_scan_error(error: OSError) -> NoReturn:
 
 def check_scope(root: Path) -> None:
     """Refuse inputs the scanner would silently skip; example: check_scope(repo)."""
-    for name in ("go", "rust/src"):
+    if (root / "rust").is_symlink():
+        raise ValueError(f"scan directory {root / 'rust'}: expected a real directory")
+    for name in SOURCE_TREES:
         directory = root / name
         if directory.is_symlink() or not directory.is_dir():
             raise ValueError(f"scan directory {directory}: expected a real directory")
@@ -59,6 +78,9 @@ def check_scope(root: Path) -> None:
             directory, followlinks=False, onerror=raise_scan_error
         ):
             check_entries(Path(parent), dirs, files)
+    for name in SOURCE_FILES:
+        path = root / name
+        check_entries(path.parent, [], [path.name])
 
 
 def check_entries(parent: Path, directories: list[str], files: list[str]) -> None:
@@ -80,11 +102,11 @@ def report_counts(report: object) -> tuple[int, int]:
         statistics = report["statistics"]
         total, formats = statistics["total"], statistics["formats"]
         counts = (total["lines"], total["duplicatedLines"], total["sources"])
-        counts += (formats["go"]["sources"], formats["rust"]["sources"])
+        counts += tuple(formats[name]["sources"] for name in REQUIRED_FORMATS)
         return require_counts(counts)
     except (KeyError, TypeError) as error:
         raise ValueError(
-            f"scanner report {report!r}: expected statistics for Go and Rust"
+            f"scanner report {report!r}: expected statistics for {REQUIRED_FORMATS!r}"
         ) from error
 
 
@@ -95,7 +117,7 @@ def require_counts(counts: tuple[int, ...]) -> tuple[int, int]:
     lines, duplicated = counts[:2]
     if lines <= 0 or duplicated < 0 or duplicated > lines or min(counts[2:]) <= 0:
         raise ValueError(
-            f"scanner counts {counts!r}: expected nonempty Go and Rust scans"
+            f"scanner counts {counts!r}: expected nonempty scans for every required format"
         )
     return lines, duplicated
 

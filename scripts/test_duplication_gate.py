@@ -8,15 +8,53 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from duplication_gate import check_report, check_scope, run_scan
+from duplication_gate import (
+    REQUIRED_FORMATS,
+    SOURCE_FILES,
+    SOURCE_TREES,
+    check_report,
+    check_scope,
+    run_scan,
+)
+
+SOURCE_EXTENSIONS = (
+    ".go",
+    ".rs",
+    ".py",
+    ".sh",
+    ".bash",
+    ".ps1",
+    ".c",
+    ".h",
+    ".cc",
+    ".cpp",
+    ".hpp",
+    ".js",
+    ".mjs",
+    ".ts",
+    ".tsx",
+    ".json",
+    ".jsonc",
+    ".toml",
+    ".yml",
+    ".yaml",
+    ".java",
+    ".kt",
+    ".rb",
+    ".swift",
+)
 
 
 def scan_report(lines: int, duplicated: int) -> dict[str, object]:
     """Create a scanner report; example: scan_report(100, 2)."""
     return {
         "statistics": {
-            "total": {"lines": lines, "duplicatedLines": duplicated, "sources": 2},
-            "formats": {"go": {"sources": 1}, "rust": {"sources": 1}},
+            "total": {
+                "lines": lines,
+                "duplicatedLines": duplicated,
+                "sources": len(REQUIRED_FORMATS),
+            },
+            "formats": {name: {"sources": 1} for name in REQUIRED_FORMATS},
         }
     }
 
@@ -61,8 +99,10 @@ class FakeMalformedReportScanner:
 
 def create_scan_roots(root: Path) -> None:
     """Create a minimal tree; example: create_scan_roots(Path('/tmp/fixture'))."""
-    (root / "go").mkdir()
-    (root / "rust/src").mkdir(parents=True)
+    for name in SOURCE_TREES:
+        (root / name).mkdir(parents=True, exist_ok=True)
+    for name in SOURCE_FILES:
+        (root / name).write_text("fixture", encoding="utf-8")
 
 
 class DuplicationGateTests(unittest.TestCase):
@@ -113,7 +153,17 @@ class DuplicationGateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "no symlinks"):
                 check_scope(root)
 
-    def test_run_scans_both_trees_without_gitignore_or_silent_empty_output(
+    @unittest.skipUnless(os.name == "posix", "requires unprivileged symbolic links")
+    def test_linked_rust_parent_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            create_scan_roots(root)
+            (root / "rust").rename(root / "actual-rust")
+            (root / "rust").symlink_to(root / "actual-rust", target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "expected a real directory"):
+                check_scope(root)
+
+    def test_run_scans_all_trees_without_gitignore_or_silent_empty_output(
         self,
     ) -> None:
         scanner = FakeDuplicationScanner(scan_report(100, 1))
@@ -122,7 +172,29 @@ class DuplicationGateTests(unittest.TestCase):
             self.assertEqual(run_scan(Path(folder), scanner), (100, 1))
         self.assertIn("--no-gitignore", scanner.command)
         self.assertIn("--fail-on-empty", scanner.command)
-        self.assertEqual(scanner.command[-2:], ["go", "rust/src"])
+        paths = list(SOURCE_TREES + SOURCE_FILES)
+        self.assertEqual(scanner.command[-len(paths) :], paths)
+
+    def test_missing_source_format_is_rejected(self) -> None:
+        report = scan_report(100, 1)
+        del report["statistics"]["formats"]["python"]
+        with self.assertRaisesRegex(ValueError, "expected statistics"):
+            check_report(report)
+
+    def test_tracked_source_files_are_inside_the_scan_scope(self) -> None:
+        root = Path(__file__).resolve().parent.parent
+        result = subprocess.check_output(["git", "ls-files", "-z"], cwd=root)
+        for entry in filter(None, result.split(b"\0")):
+            name = os.fsdecode(entry)
+            if not name.endswith(SOURCE_EXTENSIONS) and Path(name).name != "Makefile":
+                continue
+            with self.subTest(source=name):
+                inside = name in SOURCE_FILES or any(
+                    name.startswith(f"{tree}/") for tree in SOURCE_TREES
+                )
+                self.assertTrue(
+                    inside, f"tracked source {name!r} is outside duplication scope"
+                )
 
 
 if __name__ == "__main__":
