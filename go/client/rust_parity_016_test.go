@@ -104,6 +104,11 @@ func TestRustParitySketch3DTransform(t *testing.T) {
 	checkGoGroup(t, c, "Sketch3D", "Transform")
 }
 
+func TestRustParitySketchAddAssociativeEntity(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddAssociativeEntity})
+	checkGoGroup(t, c, "Sketch", "AddAssociativeEntity")
+}
+
 func TestRustParitySketchAddBlockInstance(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchAddBlockInstance})
 	checkGoGroup(t, c, "Sketch", "AddBlockInstance")
@@ -152,9 +157,4 @@ func TestRustParitySketchBlockInstances(t *testing.T) {
 func TestRustParitySketchCommitMove(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchCommitMove})
 	checkGoGroup(t, c, "Sketch", "CommitMove")
-}
-
-func TestRustParitySketchConstraintStatus(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
-	checkGoGroup(t, c, "Sketch", "ConstraintStatus")
 }

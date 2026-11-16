@@ -391,6 +391,8 @@ pub const METHOD_SKETCH3_D_SOLVE: &str = "sketch3d.solve";
 
 pub const METHOD_SKETCH3_D_TRANSFORM: &str = "sketch3d.transform";
 
+pub const METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY: &str = "sketch.addAssociativeEntity";
+
 pub const METHOD_SKETCH_ADD_BLOCK_INSTANCE: &str = "sketch.addBlockInstance";
 
 pub const METHOD_SKETCH_ADD_CONSTRAINT: &str = "sketch.addConstraint";
@@ -460,5 +462,3 @@ pub const METHOD_SKETCH_GET_TEXT: &str = "sketch.getText";
 pub const METHOD_SKETCH_LIST: &str = "sketch.list";
 
 pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";
-
-pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";

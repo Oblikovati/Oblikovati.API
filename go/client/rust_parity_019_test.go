@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityTransactionsUndo(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTransactionUndo})
+	checkGoGroup(t, c, "Transactions", "Undo")
+}
+
 func TestRustParityTransientBRepCopy(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepCopy})
 	checkGoGroup(t, c, "TransientBRep", "Copy")
@@ -152,9 +157,4 @@ func TestRustParityUnitsCompatibleUnits(t *testing.T) {
 func TestRustParityUnitsConvert(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsConvert})
 	checkGoGroup(t, c, "Units", "Convert")
-}
-
-func TestRustParityUnitsGetDatabaseUnitsFromExpression(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
-	checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
 }

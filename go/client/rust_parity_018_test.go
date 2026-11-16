@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchResolveReference(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchResolveReference})
+	checkGoGroup(t, c, "Sketch", "ResolveReference")
+}
+
 func TestRustParitySketchSetCustomLineType(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetCustomLineType})
 	checkGoGroup(t, c, "Sketch", "SetCustomLineType")
@@ -152,9 +157,4 @@ func TestRustParityTransactionsRedo(t *testing.T) {
 func TestRustParityTransactionsState(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodTransactionState})
 	checkGoGroup(t, c, "Transactions", "State")
-}
-
-func TestRustParityTransactionsUndo(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodTransactionUndo})
-	checkGoGroup(t, c, "Transactions", "Undo")
 }

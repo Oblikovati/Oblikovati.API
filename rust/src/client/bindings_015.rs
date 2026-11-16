@@ -3,6 +3,115 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+impl<T: super::Caller> super::Sketch3D<'_, T> {
+    /// Call `MethodSketch3DInclude` with the canonical request and response types.
+    /// Example: `client.sketch3_d().include(&args)`.
+    pub fn include(
+        &self,
+        args: &crate::wire::IncludeSketch3DArgs,
+    ) -> Result<crate::wire::IncludeSketch3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_INCLUDE, Some(args))
+    }
+
+    /// Call `MethodSketch3DIncludeSketch` with the canonical request and response types.
+    /// Example: `client.sketch3_d().include_sketch(&args)`.
+    pub fn include_sketch(
+        &self,
+        args: &crate::wire::IncludeSketch2DArgs,
+    ) -> Result<crate::wire::IncludeSketch3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_INCLUDE_SKETCH, Some(args))
+    }
+
+    /// Call `MethodSketch3DList` with the canonical request and response types.
+    /// Example: `client.sketch3_d().list()`.
+    pub fn list(&self) -> Result<crate::wire::ListSketches3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_LIST, None::<&()>)
+    }
+
+    /// Call `MethodSketch3DPaths` with the canonical request and response types.
+    /// Example: `client.sketch3_d().paths(&args)`.
+    pub fn paths(
+        &self,
+        args: &crate::wire::Sketch3DArgs,
+    ) -> Result<crate::wire::ListPaths3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_PATHS, Some(args))
+    }
+
+    /// Call `MethodSketch3DProfiles` with the canonical request and response types.
+    /// Example: `client.sketch3_d().profiles(&args)`.
+    pub fn profiles(
+        &self,
+        args: &crate::wire::Sketch3DArgs,
+    ) -> Result<crate::wire::ListProfiles3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_PROFILES, Some(args))
+    }
+
+    /// Call `MethodSketch3DReferenceKey` with the canonical request and response types.
+    /// Example: `client.sketch3_d().reference_key(&args)`.
+    pub fn reference_key(
+        &self,
+        args: &crate::wire::Sketch3DArgs,
+    ) -> Result<crate::wire::SketchReferenceKeyResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_REFERENCE_KEY, Some(args))
+    }
+
+    /// Call `MethodSketch3DRegionProperties` with the canonical request and response types.
+    /// Example: `client.sketch3_d().region_properties(&args)`.
+    pub fn region_properties(
+        &self,
+        args: &crate::wire::RegionPropertiesArgs,
+    ) -> Result<crate::wire::RegionPropertiesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_REGION_PROPERTIES, Some(args))
+    }
+
+    /// Call `MethodSketch3DSetProperty` with the canonical request and response types.
+    /// Example: `client.sketch3_d().set_property(&args)`.
+    pub fn set_property(
+        &self,
+        args: &crate::wire::SetSketch3DPropertyArgs,
+    ) -> Result<crate::wire::Sketch3DInfo, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_SET_PROPERTY, Some(args))
+    }
+
+    /// Call `MethodSketch3DSetSplineHandle` with the canonical request and response types.
+    /// Example: `client.sketch3_d().set_spline_handle(&args)`.
+    pub fn set_spline_handle(
+        &self,
+        args: &crate::wire::SetSplineHandleArgs,
+    ) -> Result<crate::wire::SplineHandleInfo, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_SET_SPLINE_HANDLE, Some(args))
+    }
+
+    /// Call `MethodSketch3DSolve` with the canonical request and response types.
+    /// Example: `client.sketch3_d().solve(&args)`.
+    pub fn solve(
+        &self,
+        args: &crate::wire::Sketch3DArgs,
+    ) -> Result<crate::wire::SolveSketch3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_SOLVE, Some(args))
+    }
+
+    /// Call `MethodSketch3DTransform` with the canonical request and response types.
+    /// Example: `client.sketch3_d().transform(&args)`.
+    pub fn transform(
+        &self,
+        args: &crate::wire::Transform3DArgs,
+    ) -> Result<crate::wire::Transform3DResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH3_D_TRANSFORM, Some(args))
+    }
+}
+
 /// Typed `Status` calls over the shared API transport.
 pub struct Status<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {
@@ -244,199 +353,5 @@ impl<T: super::Caller> Transactions<'_, T> {
     pub fn undo(&self) -> Result<crate::wire::UndoState, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_TRANSACTION_UNDO, None::<&()>)
-    }
-}
-
-/// Typed `TransientBRep` calls over the shared API transport.
-pub struct TransientBRep<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `TransientBRep` API. Example: `client.transient_b_rep()`.
-    pub fn transient_b_rep(&self) -> TransientBRep<'_, T> {
-        TransientBRep(self)
-    }
-}
-impl<T: super::Caller> TransientBRep<'_, T> {
-    /// Call `MethodBrepCopy` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().copy(&args)`.
-    pub fn copy(
-        &self,
-        args: &crate::wire::BrepCopyArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_COPY, Some(args))
-    }
-
-    /// Call `MethodBrepCreateFromDefinition` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().create_from_definition(&args)`.
-    pub fn create_from_definition(
-        &self,
-        args: &crate::wire::BrepCreateFromDefinitionArgs,
-    ) -> Result<crate::wire::BrepCreateFromDefinitionResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_CREATE_FROM_DEFINITION, Some(args))
-    }
-
-    /// Call `MethodBrepSectionWithPlane` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().create_intersection_with_plane(&args)`.
-    pub fn create_intersection_with_plane(
-        &self,
-        args: &crate::wire::BrepSectionArgs,
-    ) -> Result<crate::wire::BrepWiresResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_SECTION_WITH_PLANE, Some(args))
-    }
-
-    /// Call `MethodBrepCreatePrimitive` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().create_primitive(&args)`.
-    pub fn create_primitive(
-        &self,
-        args: &crate::wire::CreatePrimitiveArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_CREATE_PRIMITIVE, Some(args))
-    }
-
-    /// Call `MethodBrepRuledSurface` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().create_ruled_surface(&args)`.
-    pub fn create_ruled_surface(
-        &self,
-        args: &crate::wire::BrepRuledSurfaceArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_RULED_SURFACE, Some(args))
-    }
-
-    /// Call `MethodBrepSilhouette` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().create_silhouette_curve(&args)`.
-    pub fn create_silhouette_curve(
-        &self,
-        args: &crate::wire::BrepSilhouetteArgs,
-    ) -> Result<crate::wire::BrepWiresResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_SILHOUETTE, Some(args))
-    }
-
-    /// Call `MethodBrepDelete` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().delete(&args)`.
-    pub fn delete(
-        &self,
-        args: &crate::wire::BrepHandleArgs,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_DELETE, Some(args))
-    }
-
-    /// Call `MethodBrepDeleteFaces` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().delete_faces(&args)`.
-    pub fn delete_faces(
-        &self,
-        args: &crate::wire::BrepDeleteFacesArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_DELETE_FACES, Some(args))
-    }
-
-    /// Call `MethodBrepDescribe` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().describe(&args)`.
-    pub fn describe(
-        &self,
-        args: &crate::wire::BrepHandleArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_DESCRIBE, Some(args))
-    }
-
-    /// Call `MethodBrepBoolean` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().do_boolean(&args)`.
-    pub fn do_boolean(
-        &self,
-        args: &crate::wire::BrepBooleanArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_BOOLEAN, Some(args))
-    }
-
-    /// Call `MethodBrepIdenticalBodies` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().get_identical_bodies(&args)`.
-    pub fn get_identical_bodies(
-        &self,
-        args: &crate::wire::BrepIdenticalBodiesArgs,
-    ) -> Result<crate::wire::BrepIdenticalBodiesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_IDENTICAL_BODIES, Some(args))
-    }
-
-    /// Call `MethodBrepImprint` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().imprint_bodies(&args)`.
-    pub fn imprint_bodies(
-        &self,
-        args: &crate::wire::BrepImprintArgs,
-    ) -> Result<crate::wire::BrepImprintResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_IMPRINT, Some(args))
-    }
-
-    /// Call `MethodBrepList` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().list(&args)`.
-    pub fn list(
-        &self,
-        args: &crate::json::EmptyObject,
-    ) -> Result<crate::wire::BrepListResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_BREP_LIST, Some(args))
-    }
-
-    /// Call `MethodBrepOffsetFaces` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().offset_faces(&args)`.
-    pub fn offset_faces(
-        &self,
-        args: &crate::wire::BrepOffsetFacesArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_OFFSET_FACES, Some(args))
-    }
-
-    /// Call `MethodBrepTransform` with the canonical request and response types.
-    /// Example: `client.transient_b_rep().transform(&args)`.
-    pub fn transform(
-        &self,
-        args: &crate::wire::BrepTransformArgs,
-    ) -> Result<crate::wire::BrepHandleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_BREP_TRANSFORM, Some(args))
-    }
-}
-
-/// Typed `Triad` calls over the shared API transport.
-pub struct Triad<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `Triad` API. Example: `client.triad()`.
-    pub fn triad(&self) -> Triad<'_, T> {
-        Triad(self)
-    }
-}
-impl<T: super::Caller> Triad<'_, T> {
-    /// Call `MethodTriadGet` with the canonical request and response types.
-    /// Example: `client.triad().get()`.
-    pub fn get(&self) -> Result<crate::wire::TriadSpec, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_TRIAD_GET, None::<&()>)
-    }
-
-    /// Call `MethodTriadHide` with the canonical request and response types.
-    /// Example: `client.triad().hide()`.
-    pub fn hide(&self) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_TRIAD_HIDE, None::<&()>)
-    }
-
-    /// Call `MethodTriadShow` with the canonical request and response types.
-    /// Example: `client.triad().show(&args)`.
-    pub fn show(
-        &self,
-        args: &crate::wire::ShowTriadArgs,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_TRIAD_SHOW, Some(args))
-    }
-
-    /// Call `MethodTriadUpdate` with the canonical request and response types.
-    /// Example: `client.triad().update(&args)`.
-    pub fn update(
-        &self,
-        args: &crate::wire::ShowTriadArgs,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_TRIAD_UPDATE, Some(args))
     }
 }

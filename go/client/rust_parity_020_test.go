@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityUnitsGetDatabaseUnitsFromExpression(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
+	checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
+}
+
 func TestRustParityUnitsGetDrivingParameters(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetDrivingParameters})
 	checkGoGroup(t, c, "Units", "GetDrivingParameters")
@@ -152,9 +157,4 @@ func TestRustParityViewsDeleteNamed(t *testing.T) {
 func TestRustParityViewsLayout(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewsGetLayout})
 	checkGoGroup(t, c, "Views", "Layout")
-}
-
-func TestRustParityViewsList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsList})
-	checkGoGroup(t, c, "Views", "List")
 }

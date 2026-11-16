@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityViewsList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewsList})
+	checkGoGroup(t, c, "Views", "List")
+}
+
 func TestRustParityViewsListNamed(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewsListNamed})
 	checkGoGroup(t, c, "Views", "ListNamed")

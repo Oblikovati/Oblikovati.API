@@ -3,6 +3,153 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+/// Typed `View` calls over the shared API transport.
+pub struct View<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `View` API. Example: `client.view()`.
+    pub fn view(&self) -> View<'_, T> {
+        View(self)
+    }
+}
+impl<T: super::Caller> View<'_, T> {
+    /// Call `MethodViewGetCamera` with the canonical request and response types.
+    /// Example: `client.view().camera()`.
+    pub fn camera(&self) -> Result<crate::wire::CameraView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_GET_CAMERA, None::<&()>)
+    }
+
+    /// Call `MethodViewportCapture` with the canonical request and response types.
+    /// Example: `client.view().capture(&args)`.
+    pub fn capture(
+        &self,
+        args: &crate::wire::CaptureViewportArgs,
+    ) -> Result<crate::wire::CaptureViewportResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_CAPTURE, Some(args))
+    }
+
+    /// Call `MethodViewportCaptureWindow` with the canonical request and response types.
+    /// Example: `client.view().capture_window(&args)`.
+    pub fn capture_window(
+        &self,
+        args: &crate::wire::CaptureWindowArgs,
+    ) -> Result<crate::wire::CaptureWindowResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_CAPTURE_WINDOW, Some(args))
+    }
+
+    /// Call `MethodViewportClick` with the canonical request and response types.
+    /// Example: `client.view().click(&args)`.
+    pub fn click(
+        &self,
+        args: &crate::wire::ClickViewportArgs,
+    ) -> Result<crate::wire::ClickViewportResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_CLICK, Some(args))
+    }
+
+    /// Call `MethodViewGetDisplayMode` with the canonical request and response types.
+    /// Example: `client.view().display_mode()`.
+    pub fn display_mode(&self) -> Result<crate::wire::DisplayModeView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_GET_DISPLAY_MODE, None::<&()>)
+    }
+
+    /// Call `MethodViewListDisplayModes` with the canonical request and response types.
+    /// Example: `client.view().list_display_modes()`.
+    pub fn list_display_modes(&self) -> Result<crate::wire::ListDisplayModesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_LIST_DISPLAY_MODES, None::<&()>)
+    }
+
+    /// Call `MethodViewportKey` with the canonical request and response types.
+    /// Example: `client.view().press_key(&args)`.
+    pub fn press_key(
+        &self,
+        args: &crate::wire::PressKeyArgs,
+    ) -> Result<crate::wire::PressKeyResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_VIEWPORT_KEY, Some(args))
+    }
+
+    /// Call `MethodViewportScroll` with the canonical request and response types.
+    /// Example: `client.view().scroll(&args)`.
+    pub fn scroll(
+        &self,
+        args: &crate::wire::ScrollViewportArgs,
+    ) -> Result<crate::wire::ScrollViewportResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_SCROLL, Some(args))
+    }
+
+    /// Call `MethodViewSetCamera` with the canonical request and response types.
+    /// Example: `client.view().set_camera(&args)`.
+    pub fn set_camera(
+        &self,
+        args: &crate::wire::SetCameraArgs,
+    ) -> Result<crate::wire::CameraView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_SET_CAMERA, Some(args))
+    }
+
+    /// Call `MethodViewSetDisplayMode` with the canonical request and response types.
+    /// Example: `client.view().set_display_mode(&args)`.
+    pub fn set_display_mode(
+        &self,
+        args: &crate::wire::SetDisplayModeArgs,
+    ) -> Result<crate::wire::DisplayModeView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_SET_DISPLAY_MODE, Some(args))
+    }
+
+    /// Call `MethodViewportSetMeshColors` with the canonical request and response types.
+    /// Example: `client.view().set_mesh_colors(&args)`.
+    pub fn set_mesh_colors(
+        &self,
+        args: &crate::wire::SetMeshColorsArgs,
+    ) -> Result<crate::wire::MeshColorsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_SET_MESH_COLORS, Some(args))
+    }
+
+    /// Call `MethodViewportSetNormalDebug` with the canonical request and response types.
+    /// Example: `client.view().set_normal_debug(&args)`.
+    pub fn set_normal_debug(
+        &self,
+        args: &crate::wire::SetNormalDebugArgs,
+    ) -> Result<crate::wire::NormalDebugResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEWPORT_SET_NORMAL_DEBUG, Some(args))
+    }
+
+    /// Call `MethodViewSetOrientation` with the canonical request and response types.
+    /// Example: `client.view().set_orientation(&args)`.
+    pub fn set_orientation(
+        &self,
+        args: &crate::wire::SetOrientationArgs,
+    ) -> Result<crate::wire::CameraView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_SET_ORIENTATION, Some(args))
+    }
+
+    /// Call `MethodViewSetShadows` with the canonical request and response types.
+    /// Example: `client.view().set_shadows(&args)`.
+    pub fn set_shadows(
+        &self,
+        args: &crate::wire::ShadowSettings,
+    ) -> Result<crate::wire::ShadowSettings, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_SET_SHADOWS, Some(args))
+    }
+
+    /// Call `MethodViewGetShadows` with the canonical request and response types.
+    /// Example: `client.view().shadows()`.
+    pub fn shadows(&self) -> Result<crate::wire::ShadowSettings, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_VIEW_GET_SHADOWS, None::<&()>)
+    }
+}
+
 /// Typed `Views` calls over the shared API transport.
 pub struct Views<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {
@@ -284,89 +431,5 @@ impl<T: super::Caller> WorkPlanes<'_, T> {
     ) -> Result<crate::wire::RedefineWorkPlaneResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_WORK_PLANES_REDEFINE, Some(args))
-    }
-}
-
-/// Typed `WorkPoints` calls over the shared API transport.
-pub struct WorkPoints<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `WorkPoints` API. Example: `client.work_points()`.
-    pub fn work_points(&self) -> WorkPoints<'_, T> {
-        WorkPoints(self)
-    }
-}
-impl<T: super::Caller> WorkPoints<'_, T> {
-    /// Call `MethodWorkPointsCreate` with the canonical request and response types.
-    /// Example: `client.work_points().create(&args)`.
-    pub fn create(
-        &self,
-        args: &crate::wire::CreateWorkPointArgs,
-    ) -> Result<crate::wire::CreateWorkPointResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_POINTS_CREATE, Some(args))
-    }
-
-    /// Call `MethodWorkPointsList` with the canonical request and response types.
-    /// Example: `client.work_points().list()`.
-    pub fn list(&self) -> Result<crate::wire::ListWorkPointsResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_POINTS_LIST, None::<&()>)
-    }
-
-    /// Call `MethodWorkPointsList` with the canonical request and response types.
-    /// Example: `client.work_points().list_with_options(&args)`.
-    pub fn list_with_options(
-        &self,
-        args: &crate::wire::ListWorkPointsArgs,
-    ) -> Result<crate::wire::ListWorkPointsResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_POINTS_LIST, Some(args))
-    }
-}
-
-/// Typed `WorkSurfaces` calls over the shared API transport.
-pub struct WorkSurfaces<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `WorkSurfaces` API. Example: `client.work_surfaces()`.
-    pub fn work_surfaces(&self) -> WorkSurfaces<'_, T> {
-        WorkSurfaces(self)
-    }
-}
-impl<T: super::Caller> WorkSurfaces<'_, T> {
-    /// Call `MethodWorkSurfacesGet` with the canonical request and response types.
-    /// Example: `client.work_surfaces().get(&args)`.
-    pub fn get(
-        &self,
-        args: &crate::wire::WorkSurfaceRefArgs,
-    ) -> Result<crate::wire::WorkSurfaceDetailResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_SURFACES_GET, Some(args))
-    }
-
-    /// Call `MethodWorkSurfacesList` with the canonical request and response types.
-    /// Example: `client.work_surfaces().list()`.
-    pub fn list(&self) -> Result<crate::wire::ListWorkSurfacesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_SURFACES_LIST, None::<&()>)
-    }
-
-    /// Call `MethodWorkSurfacesRename` with the canonical request and response types.
-    /// Example: `client.work_surfaces().rename(&args)`.
-    pub fn rename(
-        &self,
-        args: &crate::wire::RenameWorkSurfaceArgs,
-    ) -> Result<crate::wire::WorkSurfaceDetailResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_SURFACES_RENAME, Some(args))
-    }
-
-    /// Call `MethodWorkSurfacesSetVisible` with the canonical request and response types.
-    /// Example: `client.work_surfaces().set_visible(&args)`.
-    pub fn set_visible(
-        &self,
-        args: &crate::wire::SetWorkSurfaceVisibleArgs,
-    ) -> Result<crate::wire::WorkSurfaceDetailResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_WORK_SURFACES_SET_VISIBLE, Some(args))
     }
 }

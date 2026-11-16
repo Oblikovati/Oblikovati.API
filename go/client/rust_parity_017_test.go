@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchConstraintStatus(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
+	checkGoGroup(t, c, "Sketch", "ConstraintStatus")
+}
+
 func TestRustParitySketchConstraints(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
 	checkGoGroup(t, c, "Sketch", "Constraints")
@@ -152,9 +157,4 @@ func TestRustParitySketchReferenceKey(t *testing.T) {
 func TestRustParitySketchRegionProperties(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchRegionProperties})
 	checkGoGroup(t, c, "Sketch", "RegionProperties")
-}
-
-func TestRustParitySketchResolveReference(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchResolveReference})
-	checkGoGroup(t, c, "Sketch", "ResolveReference")
 }

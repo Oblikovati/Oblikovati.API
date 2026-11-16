@@ -3,6 +3,8 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";
+
 pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";
 
 pub const METHOD_SKETCH_PLAN_MOVE: &str = "sketch.planMove";
