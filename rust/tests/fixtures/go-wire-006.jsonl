@@ -70,6 +70,9 @@
 {"Name":"types.StartupActionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.StartupActionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.StartupActionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.StartupSketchPlane","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.StartupSketchPlane","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.StartupSketchPlane","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.StyleLocationEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.StyleLocationEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.StyleLocationEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"types.UnitsType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.UnitsType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.UnitsType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ValueType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"empty","Payload":7,"Canonical":7,"Error":""}

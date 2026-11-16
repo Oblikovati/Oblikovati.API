@@ -124,6 +124,11 @@ fn types_startup_action_type() {
 }
 
 #[test]
+fn types_startup_sketch_plane() {
+    super::check::<oblikovati_api::types::StartupSketchPlane>("types.StartupSketchPlane");
+}
+
+#[test]
 fn types_style_location_enum() {
     super::check::<oblikovati_api::types::StyleLocationEnum>("types.StyleLocationEnum");
 }
@@ -296,9 +301,4 @@ fn types_view_tile_type_enum() {
 #[test]
 fn types_view_type_enum() {
     super::check::<oblikovati_api::types::ViewTypeEnum>("types.ViewTypeEnum");
-}
-
-#[test]
-fn types_window_state() {
-    super::check::<oblikovati_api::types::WindowState>("types.WindowState");
 }

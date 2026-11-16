@@ -103,6 +103,9 @@ func (o Options) Part() (wire.PartOptionsView, error) {
 // mcp:tool options_set_group
 // mcp:summary Writes the display options.
 func (o Options) SetPart(v wire.PartOptionsView) (wire.OKResult, error) {
+	if v.StartupSketchPlane != nil && !v.StartupSketchPlane.IsValid() {
+		return wire.OKResult{}, fmt.Errorf("startup sketch plane %q: expected none, xy, yz, or xz", *v.StartupSketchPlane)
+	}
 	args := wire.OptionGroupView{Group: wire.OptionGroupPart, Part: &v}
 	return call[wire.OKResult](o.c, wire.MethodOptionsSetGroup, args)
 }

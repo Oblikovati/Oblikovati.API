@@ -55,6 +55,29 @@ impl<T: Caller> Client<T> {
                 ))
             })?
             .unwrap_or_default();
+        validate_options_request(method, &bytes)?;
         self.transport.call(method, &bytes)
     }
+}
+
+fn validate_options_request(method: &str, bytes: &[u8]) -> Result<(), crate::Error> {
+    if method != crate::wire::METHOD_OPTIONS_SET_GROUP || bytes.is_empty() {
+        return Ok(());
+    }
+    let group: crate::wire::OptionGroupView = serde_json::from_slice(bytes).map_err(|error| {
+        crate::Error(format!(
+            "method {method:?}: expected valid option group JSON: {error}"
+        ))
+    })?;
+    let plane = group
+        .part
+        .as_ref()
+        .and_then(|part| part.startup_sketch_plane.as_ref());
+    if let Some(plane) = plane.filter(|plane| !plane.is_valid()) {
+        return Err(crate::Error(format!(
+            "startup sketch plane {:?}: expected none, xy, yz, or xz",
+            plane.0
+        )));
+    }
+    Ok(())
 }
