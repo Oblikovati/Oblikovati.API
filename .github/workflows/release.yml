@@ -3,10 +3,8 @@
 # The version is no longer hand-edited: this workflow derives the next Semantic Version
 # from the SCOPE of the conventional-commit messages merged since the last tag (feat →
 # minor, fix → patch, "!"/BREAKING CHANGE → major; while 0.x both feat and breaking move
-# minor — see RELEASING.md), via go/scripts/nextver. It then rewrites go/version.go +
-# CHANGELOG.md, synchronizes Rust, gates both languages, and atomically pushes both tags.
-# It commits the version with [skip ci] and publishes
-# the GitHub release. A merge whose commits are docs/chore/ci-only releases nothing.
+# minor — see RELEASING.md), via go/scripts/nextver. It commits a release candidate,
+# dispatches the full CI matrix on that exact SHA, then atomically promotes and tags it.
 name: release
 
 on:
@@ -15,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # Serialize releases so two merges can't race to bump/tag the same version.
 concurrency:
@@ -27,6 +26,7 @@ jobs:
     # already skips the run for [skip ci] push events).
     if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
@@ -65,29 +65,62 @@ jobs:
           echo "next=$next" >> "$GITHUB_OUTPUT"
           echo "tag=v$next" >> "$GITHUB_OUTPUT"
 
-      - name: Validate the bumped version (semver + handshake invariants)
-        if: ${{ steps.bump.outputs.next }}
-        run: |
-          make generate
-          make gate
-          cargo package --manifest-path rust/Cargo.toml --locked --allow-dirty
-          python3 scripts/release_checks.py
-
-      - name: Commit the bump, tag, and publish
+      - name: Create a unique committed release candidate
+        id: candidate
         if: ${{ steps.bump.outputs.next }}
         env:
-          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.bump.outputs.tag }}
         run: |
-          tag='${{ steps.bump.outputs.tag }}'
-          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-            echo "$tag already exists; nothing to do."
-            exit 0
-          fi
+          set -euo pipefail
+          make generate
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add go/version.go CHANGELOG.md rust/Cargo.toml rust/Cargo.lock rust/src/version.rs
-          git commit -m "chore(release): $tag [skip ci]"
-          git tag "$tag"
-          git tag "go/$tag"
-          git push --atomic origin "HEAD:develop" "refs/tags/$tag" "refs/tags/go/$tag"
-          gh release create "$tag" "rust/target/package/oblikovati-api-${{ steps.bump.outputs.next }}.crate" --title "$tag" --notes-file "$RUNNER_TEMP/notes.md"
+          git diff --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
+          git commit -m "chore(release): $RELEASE_TAG [skip ci]"
+          test "$(git rev-parse HEAD^)" = "$GITHUB_SHA"
+          candidate="api-release-candidate/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          sha=$(git rev-parse HEAD)
+          echo "branch=$candidate" >> "$GITHUB_OUTPUT"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          python3 scripts/push_release_candidate.py "$GITHUB_SHA" "$sha" "$candidate"
+          echo "owned=true" >> "$GITHUB_OUTPUT"
+
+      - name: Verify release package and import metadata
+        if: ${{ steps.bump.outputs.next }}
+        run: |
+          set -euo pipefail
+          cargo package --manifest-path rust/Cargo.toml --locked
+          python3 scripts/release_checks.py
+
+      - name: Require the hosted matrix on the candidate commit
+        if: ${{ steps.bump.outputs.next }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_BRANCH: ${{ steps.candidate.outputs.branch }}
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        run: |
+          python3 scripts/release_ci.py "$GITHUB_REPOSITORY" "$CANDIDATE_BRANCH" "$CANDIDATE_SHA"
+
+      - name: Promote the tested commit and publish
+        if: ${{ steps.bump.outputs.next }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.bump.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.bump.outputs.next }}
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        run: |
+          set -euo pipefail
+          python3 scripts/promote_release.py "$GITHUB_SHA" "$CANDIDATE_SHA" "$RELEASE_TAG"
+          python3 scripts/publish_release.py "$GITHUB_REPOSITORY" "$CANDIDATE_SHA" \
+            "$RELEASE_TAG" "rust/target/package/oblikovati-api-$RELEASE_VERSION.crate" "$RUNNER_TEMP/notes.md"
+
+      - name: Remove the owned candidate branch
+        if: ${{ always() && steps.candidate.outputs.owned == 'true' }}
+        env:
+          CANDIDATE_BRANCH: ${{ steps.candidate.outputs.branch }}
+          CANDIDATE_SHA: ${{ steps.candidate.outputs.sha }}
+        run: |
+          git push --force-with-lease="refs/heads/$CANDIDATE_BRANCH:$CANDIDATE_SHA" \
+            origin ":refs/heads/$CANDIDATE_BRANCH"
