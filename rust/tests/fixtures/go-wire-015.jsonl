@@ -1,3 +1,15 @@
+{"Name":"wire.ExpressionArgs","Case":"zero","Payload":{"expression":""},"Canonical":{"expression":""},"Error":""}
+{"Name":"wire.ExpressionArgs","Case":"filled","Payload":{"expression":"example \u003c\u0026\u003e 日本語"},"Canonical":{"expression":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ExpressionArgs","Case":"empty","Payload":{"expression":"example \u003c\u0026\u003e 日本語"},"Canonical":{"expression":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ExpressionListInfo","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"wire.ExpressionListInfo","Case":"filled","Payload":{"expressions":["example \u003c\u0026\u003e 日本語"],"allowCustomValues":true,"customOrder":true},"Canonical":{"expressions":["example \u003c\u0026\u003e 日本語"],"allowCustomValues":true,"customOrder":true},"Error":""}
+{"Name":"wire.ExpressionListInfo","Case":"empty","Payload":{"allowCustomValues":true,"customOrder":true},"Canonical":{"allowCustomValues":true,"customOrder":true},"Error":""}
+{"Name":"wire.ExpressionValidResult","Case":"zero","Payload":{"valid":false},"Canonical":{"valid":false},"Error":""}
+{"Name":"wire.ExpressionValidResult","Case":"filled","Payload":{"valid":true,"error":"example \u003c\u0026\u003e 日本語"},"Canonical":{"valid":true,"error":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ExpressionValidResult","Case":"empty","Payload":{"valid":true,"error":"example \u003c\u0026\u003e 日本語"},"Canonical":{"valid":true,"error":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ExpressionWithTypeArgs","Case":"zero","Payload":{"expression":"","unitsType":""},"Canonical":{"expression":"","unitsType":""},"Error":""}
+{"Name":"wire.ExpressionWithTypeArgs","Case":"filled","Payload":{"expression":"example \u003c\u0026\u003e 日本語","unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"expression":"example \u003c\u0026\u003e 日本語","unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ExpressionWithTypeArgs","Case":"empty","Payload":{"expression":"example \u003c\u0026\u003e 日本語","unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"expression":"example \u003c\u0026\u003e 日本語","unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.FaceEvaluateArgs","Case":"zero","Payload":{"bodyIndex":0,"faceKey":"","mode":""},"Canonical":{"bodyIndex":0,"faceKey":"","mode":""},"Error":""}
 {"Name":"wire.FaceEvaluateArgs","Case":"filled","Payload":{"bodyIndex":7,"faceKey":"example \u003c\u0026\u003e 日本語","mode":"example \u003c\u0026\u003e 日本語","inputs":[1.25]},"Canonical":{"bodyIndex":7,"faceKey":"example \u003c\u0026\u003e 日本語","mode":"example \u003c\u0026\u003e 日本語","inputs":[1.25]},"Error":""}
 {"Name":"wire.FaceEvaluateArgs","Case":"empty","Payload":{"bodyIndex":7,"faceKey":"example \u003c\u0026\u003e 日本語","mode":"example \u003c\u0026\u003e 日本語"},"Canonical":{"bodyIndex":7,"faceKey":"example \u003c\u0026\u003e 日本語","mode":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -136,15 +148,3 @@
 {"Name":"wire.GetFileArgs","Case":"zero","Payload":{"fullFileName":""},"Canonical":{"fullFileName":""},"Error":""}
 {"Name":"wire.GetFileArgs","Case":"filled","Payload":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.GetFileArgs","Case":"empty","Payload":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.GetMarkingMenuArgs","Case":"zero","Payload":{"environment":0},"Canonical":{"environment":0},"Error":""}
-{"Name":"wire.GetMarkingMenuArgs","Case":"filled","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
-{"Name":"wire.GetMarkingMenuArgs","Case":"empty","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
-{"Name":"wire.GetOptionGroupArgs","Case":"zero","Payload":{"group":""},"Canonical":{"group":""},"Error":""}
-{"Name":"wire.GetOptionGroupArgs","Case":"filled","Payload":{"group":"example \u003c\u0026\u003e 日本語"},"Canonical":{"group":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.GetOptionGroupArgs","Case":"empty","Payload":{"group":"example \u003c\u0026\u003e 日本語"},"Canonical":{"group":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.GetPropertyArgs","Case":"zero","Payload":{"document":0,"set":"","name":""},"Canonical":{"document":0,"set":"","name":""},"Error":""}
-{"Name":"wire.GetPropertyArgs","Case":"filled","Payload":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.GetPropertyArgs","Case":"empty","Payload":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.GetSketchSettingsArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
-{"Name":"wire.GetSketchSettingsArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
-{"Name":"wire.GetSketchSettingsArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}

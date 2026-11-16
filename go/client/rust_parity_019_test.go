@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepCopy(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepCopy})
+	checkGoGroup(t, c, "TransientBRep", "Copy")
+}
+
+func TestRustParityTransientBRepCreateFromDefinition(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepCreateFromDefinition})
+	checkGoGroup(t, c, "TransientBRep", "CreateFromDefinition")
+}
+
 func TestRustParityTransientBRepCreateIntersectionWithPlane(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepSectionWithPlane})
 	checkGoGroup(t, c, "TransientBRep", "CreateIntersectionWithPlane")
@@ -147,14 +157,4 @@ func TestRustParityUnitsConvert(t *testing.T) {
 func TestRustParityUnitsGetDatabaseUnitsFromExpression(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
 	checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
-}
-
-func TestRustParityUnitsGetDrivingParameters(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetDrivingParameters})
-	checkGoGroup(t, c, "Units", "GetDrivingParameters")
-}
-
-func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
-	checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
 }

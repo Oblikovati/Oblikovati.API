@@ -4,6 +4,30 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nViewCurvesArgs is the request of [MethodDrawingViewsCurves]: the view whose drawing curves\nto return.\n```"]
+pub struct ViewCurvesArgs {
+    pub view: String => required("view");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nViewCurvesResult is the response of [MethodDrawingViewsCurves]: the view's drawing curves.\n```"]
+pub struct ViewCurvesResult {
+    pub segments: Option<Vec<crate::wire::DrawingCurveSegment>> => required("segments");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nViewFrameInfo is one top-level frame: its caption, window state and pixel size.\n```"]
+pub struct ViewFrameInfo {
+    pub caption: String => required("caption");
+    pub state: crate::types::WindowState => omitted("state", "crate::json::is_zero");
+    pub width: i64 => omitted("width", "crate::json::is_zero");
+    pub height: i64 => omitted("height", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nViewInfo is the JSON shape of one view: its index in the document's collection, its\nname, whether it is the active view, its kind, its camera frame, and the display mode it\nrenders in (the camera + display-mode pair a client view carries).\n```"]
 pub struct ViewInfo {
     pub index: i64 => required("index");

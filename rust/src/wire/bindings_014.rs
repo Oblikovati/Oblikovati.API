@@ -415,6 +415,8 @@ pub const METHOD_SKETCH_BLOCK_DEFINITION_DELETE: &str = "sketch.blockDefinitions
 
 pub const METHOD_SKETCH_BLOCK_DEFINITION_LIST: &str = "sketch.blockDefinitions.list";
 
+pub const METHOD_SKETCH_COMMIT_MOVE: &str = "sketch.commitMove";
+
 pub const METHOD_SKETCH_CONSTRAINT_STATUS: &str = "sketch.constraintStatus";
 
 pub const METHOD_SKETCH_CONSTRAINTS: &str = "sketch.constraints";
@@ -460,5 +462,3 @@ pub const METHOD_SKETCH_LIST: &str = "sketch.list";
 pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";
 
 pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";
-
-pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";

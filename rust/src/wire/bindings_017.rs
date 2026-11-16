@@ -140,6 +140,26 @@ pub struct PlaceOccurrenceArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nPlanSketchMoveArgs requests a read-only move plan for entities in the active document.\nSketchIndex is the sketch index; Entities is a nonempty set of unique session\nIDs in that sketch; Vector is exactly two finite values in cm.\nBoth policies are required. Empty, unknown or unsupported policies are errors.\nThe host must not substitute the legacy sketch.transform operation.\n```"]
+pub struct PlanSketchMoveArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub entities: Option<Vec<u64>> => required("entities");
+    pub vector: Option<Vec<f64>> => finite("vector");
+    pub dimension_policy: crate::types::SketchMoveDimensionPolicy => required("dimensionPolicy");
+    pub geometric_policy: crate::types::SketchMoveGeometricPolicy => required("geometricPolicy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPlanSketchMoveResult reports every proposed constraint change without editing.\nToken is nonempty, opaque, one-use, scoped to this session, document, sketch,\nrequest and exact document state, and expires within a bounded host lifetime.\nDimensions and Geometric list all proposed changes, including indirect effects;\neach index occurs at most once in its list. Hosts send empty arrays when there\nare none. Under a Prompt policy, each change of that kind requires approval.\nA Never policy cannot produce a change in its category. The result must satisfy all\nretained constraints. A host must refuse a plan it cannot describe, solve,\nor preserve; it must not move geometry or change history in planning.\n```"]
+pub struct PlanSketchMoveResult {
+    pub token: String => required("token");
+    pub dimensions: Option<Vec<crate::wire::SketchMoveDimensionChange>> => required("dimensions");
+    pub geometric: Option<Vec<crate::wire::SketchMoveGeometricChange>> => required("geometric");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPlateInfo is one developed flat plate — a connected flat region of a (possibly multi-body)\nsheet-metal part: its index, and its extents/area under the active orientation (database\nunits cm; cm²).\n```"]
 pub struct PlateInfo {
     pub index: i64 => required("index");
@@ -436,29 +456,5 @@ pub struct RegionPropertiesResult {
     pub rotation_angle: f64 => finite("rotationAngle");
     pub principal_axes: Option<Vec<Option<Vec<f64>>>> => finite("principalAxes");
     pub accuracy: String => required("accuracy");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRegisterBalloonTipArgs is the request of [MethodBalloonTipRegister]: declare a\nnamed notification balloon. Registration is separate from showing so the per-user\n\"don't show again\" suppression has a stable id to remember.\n```"]
-pub struct RegisterBalloonTipArgs {
-    pub id: String => required("id");
-    pub title: String => required("title");
-    pub text: String => required("text");
-    pub icon: String => omitted("icon", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRegisterClientApplicationArgs is the request of [MethodClientAppsRegister].\n```"]
-pub struct RegisterClientApplicationArgs {
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRegisterClientApplicationResult is the response of [MethodClientAppsRegister]: the\nsession-unique id the client passes to [MethodClientAppsUnregister] when it\ndisconnects.\n```"]
-pub struct RegisterClientApplicationResult {
-    pub id: i64 => required("id");
 }
 }

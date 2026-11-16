@@ -4,6 +4,32 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nFeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],\n[MethodFeaturesRename], [MethodFeaturesSetSuppressed], and [MethodFeaturesReorder]:\nthe feature's refreshed state after the call (post-recompute health included).\n```"]
+pub struct FeatureDetailResult {
+    pub feature: crate::wire::FeatureDetail => required("feature");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFeatureError is one feature that failed to evaluate during an update/rebuild: its stable id\n(from model.tree), display name, kind, and the reason it is sick.\n```"]
+pub struct FeatureError {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub message: String => omitted("message", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFeatureHealth is one feature's health on the wire: its Name, Status (\"ok\"/\"warning\"/\"sick\"/\n\"suppressed\", matching [oblikovati.org/api/types.HealthStatus]) and a Reason when not OK.\n```"]
+pub struct FeatureHealth {
+    pub name: String => required("name");
+    pub status: String => required("status");
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nFeatureInfo is the JSON shape of one feature in the model tree. Health is empty\nwhen the feature is healthy.\n```"]
 pub struct FeatureInfo {
     pub id: u64 => required("id");

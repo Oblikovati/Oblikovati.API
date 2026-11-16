@@ -3,6 +3,37 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const VERTICAL_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(2);
+
+pub const VERTICAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
+    crate::types::DrawingViewAlignment(2);
+
+pub const VERTICAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117764);
+
+generated_scalar! { integer,
+#[doc = "```text\nViewJustification is how a view centres itself on recompute (the reference CAD API's ViewJustificationEnum). The\nzero value is CenteredViewJustification.\n```"]
+pub struct ViewJustification(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewLayout is how a document's open views are tiled in the viewport — how many views\nare shown at once and in what arrangement. A document always has at least one view;\nthe layout decides how many of them render simultaneously (many MCAD apps show views\nin separate windows; we tile them in one viewport). This is the canonical Apache-2.0\ndefinition; the GPL implementation aliases it and maps it onto the tiled renderer.\n```"]
+pub struct ViewLayout(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewOperationTypeEnum is an interactive view manipulation: rotate (orbit), pan, or zoom.\nFrozen ids 30209–30211.\n```"]
+pub struct ViewOperationTypeEnum(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewOrientationTypeEnum names a standard camera orientation — the front/top/iso… presets a\nview cube or the named-view picker restores. The numeric ids are stable, frozen values\n(10753–10773).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
+pub struct ViewOrientationTypeEnum(pub i32);
+}
+
+pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52994);
+
 generated_scalar! { integer,
 #[doc = "```text\nViewTileTypeEnum is how a document's views are tiled when more than one is shown: a single\narrange, or a horizontal/vertical split. Frozen ids 117761–117764. (This is the typed\ncounterpart of the numeric [ViewLayout] used by the views collection.)\n```"]
 pub struct ViewTileTypeEnum(pub i32);

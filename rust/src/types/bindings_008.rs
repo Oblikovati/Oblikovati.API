@@ -182,6 +182,37 @@ generated_scalar! { string,
 pub struct SketchLineType(pub std::borrow::Cow<'static, str>);
 }
 
+pub const SKETCH_MOVE_DIMENSION_ALWAYS: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_DIMENSION_IF_NO_EQUATION: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("ifNoEquation"));
+
+pub const SKETCH_MOVE_DIMENSION_NEVER: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveDimensionPolicy controls whether a planned move may change dimensions.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveDimensionPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_DIMENSION_PROMPT: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("prompt"));
+
+pub const SKETCH_MOVE_GEOMETRIC_ALWAYS: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_GEOMETRIC_NEVER: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveGeometricPolicy controls whether a planned move may remove relations.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveGeometricPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_GEOMETRIC_PROMPT: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("prompt"));
+
 pub const SKETCH_PATTERN_CIRCULAR: crate::types::SketchPatternKind =
     crate::types::SketchPatternKind(std::borrow::Cow::Borrowed("circular"));
 
@@ -430,33 +461,3 @@ pub const SYMMETRIC_TOLERANCE: crate::types::DimensionToleranceType =
 pub const TABLE_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(5);
 
 pub const TANGENT_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(1);
-
-pub const TANGENT_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
-    crate::types::FlatPatternEdgeType(2);
-
-pub const TANGENTIALLY_CONNECTED_EDGES: crate::types::EdgeCollectionKind =
-    crate::types::EdgeCollectionKind(27649);
-
-pub const TECHNICAL_ILLUSTRATION_RENDERING: crate::types::DisplayModeEnum =
-    crate::types::DisplayModeEnum(8716);
-
-pub const TEXT_ALIGN_BASELINE: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("baseline"));
-
-pub const TEXT_ALIGN_CENTER: crate::types::TextHorizontalAlign =
-    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("center"));
-
-pub const TEXT_ALIGN_LEFT: crate::types::TextHorizontalAlign =
-    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("left"));
-
-pub const TEXT_ALIGN_LOWER: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("lower"));
-
-pub const TEXT_ALIGN_MIDDLE: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("middle"));
-
-pub const TEXT_ALIGN_RIGHT: crate::types::TextHorizontalAlign =
-    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("right"));
-
-pub const TEXT_ALIGN_UPPER: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("upper"));

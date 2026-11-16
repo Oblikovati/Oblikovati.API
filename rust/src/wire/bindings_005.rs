@@ -45,6 +45,22 @@ pub struct CommandStartedEvent {
 }
 
 generated_dto! {
+#[doc = "```text\nCommitSketchMoveArgs accepts a previously inspected plan. The caller sets each\napproval flag only after accepting all approval-required changes of that kind.\nTo cancel or decline, discard the token; do not call commit. A noninteractive\ncaller may choose a non-prompt policy or explicitly accept a described plan.\n```"]
+pub struct CommitSketchMoveArgs {
+    pub token: String => required("token");
+    pub approve_dimensions: bool => required("approveDimensions");
+    pub approve_geometric: bool => required("approveGeometric");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCommitSketchMoveResult confirms one atomic history edit was committed.\nMissing approvals, an expired, used, unknown or stale token, changed document\nstate, invalid geometry, or any unsupported policy must return an error without\nchanging geometry, constraints, dimensions, or history. The committed result\nmust match the described plan; it must not add effects after approval. Undo and\nRedo restore all effects of the accepted edit together. Committed must be true\non success. A caller must check Committed even when transport returned no error.\n```"]
+pub struct CommitSketchMoveResult {
+    pub committed: bool => required("committed");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nCompatibleUnitsResult reports whether an expression's resolved unit is\ndimensionally compatible with the target category (response of\n[MethodUnitsCompatibleUnits]).\n```"]
 pub struct CompatibleUnitsResult {
     pub compatible: bool => required("compatible");
@@ -432,25 +448,5 @@ pub struct CreateWorkAxisResult {
     pub healthy: bool => required("healthy");
 #[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
     pub reason: String => omitted("reason", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nCreateWorkPlaneArgs is the request of [MethodWorkPlanesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkPlaneKind] value) and its inputs.\n\n  - Refs are work-feature references the plane is built on — origin constants\n    (types.WorkRefXYPlane …), refs returned by [MethodWorkPlanesList], or a face\n    reference for the tangent kinds. Each kind expects a fixed count/order (e.g.\n    \"plane-offset\" wants one plane ref; \"three-points\" wants three point refs).\n  - Offset and Angle are unit-bearing expressions (\"10 mm\", \"45 deg\") for the\n    offset and line-plane-angle kinds.\n  - Origin, XAxis, YAxis give the AddFixed frame: the origin point [x,y,z] (model\n    units) and two in-plane axis direction components.\n  - Visible, when non-nil, sets the new plane's viewport visibility (nil ⇒ the model\n    default, visible). This toggles only viewport display — it is orthogonal to Construction.\n  - Construction, when true, creates the plane as a construction (hidden, consumer-tied) work\n    feature: excluded from the browser and with a lifecycle tied to its consuming feature\n    (the reference CAD API's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept\n    distinct from Visible; the two are independent (settable in any combination). #1849.\n  - Proximity is the solution-selection point [x,y,z] (cm) for the tangent kinds\n    (\"plane-tangent\", \"line-tangent\"): a surface has two tangent solutions and the plane lands on\n    whichever side is nearer this point. Quadrant is the same for \"two-planes\" — it picks which of\n    the two bisector solutions. Both are the reference CAD API's ProximityPoint/QuadrantPoint; the choice is\n    recorded on the definition so it survives recompute. Omitting them keeps a deterministic\n    default. #1844.\n```"]
-pub struct CreateWorkPlaneArgs {
-    pub kind: String => required("kind");
-    pub refs: Option<Vec<String>> => omitted("refs", "crate::json::slice_is_empty");
-    pub offset: String => omitted("offset", "crate::json::is_zero");
-    pub angle: String => omitted("angle", "crate::json::is_zero");
-    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
-    pub x_axis: Option<Vec<f64>> => omitted_finite("xaxis", "crate::json::slice_is_empty");
-    pub y_axis: Option<Vec<f64>> => omitted_finite("yaxis", "crate::json::slice_is_empty");
-    pub visible: Option<Box<bool>> => omitted("visible", "Option::is_none");
-#[doc = "```text\n#1849\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-#[doc = "```text\ntangent-kind solution point [x,y,z] cm (#1844)\n```"]
-    pub proximity: Option<Vec<f64>> => omitted_finite("proximity", "crate::json::slice_is_empty");
-#[doc = "```text\ntwo-planes bisector solution point [x,y,z] cm (#1844)\n```"]
-    pub quadrant: Option<Vec<f64>> => omitted_finite("quadrant", "crate::json::slice_is_empty");
 }
 }

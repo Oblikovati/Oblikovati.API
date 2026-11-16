@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup10 = []fixtureType{
+	{"wire.GetMarkingMenuArgs", reflect.TypeFor[wire.GetMarkingMenuArgs]()},
+	{"wire.GetOptionGroupArgs", reflect.TypeFor[wire.GetOptionGroupArgs]()},
+	{"wire.GetPropertyArgs", reflect.TypeFor[wire.GetPropertyArgs]()},
+	{"wire.GetSketchSettingsArgs", reflect.TypeFor[wire.GetSketchSettingsArgs]()},
 	{"wire.GetStyleArgs", reflect.TypeFor[wire.GetStyleArgs]()},
 	{"wire.GetTextArgs", reflect.TypeFor[wire.GetTextArgs]()},
 	{"wire.GraphicsColorMapper", reflect.TypeFor[wire.GraphicsColorMapper]()},
@@ -85,8 +89,4 @@ var fixtureGroup10 = []fixtureType{
 	{"wire.ListDockableWindowsResult", reflect.TypeFor[wire.ListDockableWindowsResult]()},
 	{"wire.ListDocumentFileReferencesArgs", reflect.TypeFor[wire.ListDocumentFileReferencesArgs]()},
 	{"wire.ListDocumentFileReferencesResult", reflect.TypeFor[wire.ListDocumentFileReferencesResult]()},
-	{"wire.ListDocumentInterestsArgs", reflect.TypeFor[wire.ListDocumentInterestsArgs]()},
-	{"wire.ListDocumentInterestsResult", reflect.TypeFor[wire.ListDocumentInterestsResult]()},
-	{"wire.ListDocumentSubTypesResult", reflect.TypeFor[wire.ListDocumentSubTypesResult]()},
-	{"wire.ListDocumentsResult", reflect.TypeFor[wire.ListDocumentsResult]()},
 }

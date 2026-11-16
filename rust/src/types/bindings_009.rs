@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TANGENT_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
+    crate::types::FlatPatternEdgeType(2);
+
+pub const TANGENTIALLY_CONNECTED_EDGES: crate::types::EdgeCollectionKind =
+    crate::types::EdgeCollectionKind(27649);
+
+pub const TECHNICAL_ILLUSTRATION_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8716);
+
+pub const TEXT_ALIGN_BASELINE: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("baseline"));
+
+pub const TEXT_ALIGN_CENTER: crate::types::TextHorizontalAlign =
+    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("center"));
+
+pub const TEXT_ALIGN_LEFT: crate::types::TextHorizontalAlign =
+    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("left"));
+
+pub const TEXT_ALIGN_LOWER: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("lower"));
+
+pub const TEXT_ALIGN_MIDDLE: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("middle"));
+
+pub const TEXT_ALIGN_RIGHT: crate::types::TextHorizontalAlign =
+    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("right"));
+
+pub const TEXT_ALIGN_UPPER: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("upper"));
+
 generated_scalar! { string,
 #[doc = "```text\nTextHorizontalAlign is how sketch text is positioned horizontally about its anchor\npoint (left/center/right, the standard MCAD horizontal text alignments). String values\nare frozen — they appear in the .obk document and on the wire.\n```"]
 pub struct TextHorizontalAlign(pub std::borrow::Cow<'static, str>);
@@ -426,34 +456,3 @@ pub struct ValueType(pub i32);
 }
 
 pub const VERTICAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(1);
-
-pub const VERTICAL_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(2);
-
-pub const VERTICAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
-    crate::types::DrawingViewAlignment(2);
-
-pub const VERTICAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
-    crate::types::ViewTileTypeEnum(117764);
-
-generated_scalar! { integer,
-#[doc = "```text\nViewJustification is how a view centres itself on recompute (the reference CAD API's ViewJustificationEnum). The\nzero value is CenteredViewJustification.\n```"]
-pub struct ViewJustification(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nViewLayout is how a document's open views are tiled in the viewport — how many views\nare shown at once and in what arrangement. A document always has at least one view;\nthe layout decides how many of them render simultaneously (many MCAD apps show views\nin separate windows; we tile them in one viewport). This is the canonical Apache-2.0\ndefinition; the GPL implementation aliases it and maps it onto the tiled renderer.\n```"]
-pub struct ViewLayout(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nViewOperationTypeEnum is an interactive view manipulation: rotate (orbit), pan, or zoom.\nFrozen ids 30209–30211.\n```"]
-pub struct ViewOperationTypeEnum(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nViewOrientationTypeEnum names a standard camera orientation — the front/top/iso… presets a\nview cube or the named-view picker restores. The numeric ids are stable, frozen values\n(10753–10773).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
-pub struct ViewOrientationTypeEnum(pub i32);
-}
-
-pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52994);

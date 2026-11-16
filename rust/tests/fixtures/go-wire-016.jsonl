@@ -1,3 +1,15 @@
+{"Name":"wire.GetMarkingMenuArgs","Case":"zero","Payload":{"environment":0},"Canonical":{"environment":0},"Error":""}
+{"Name":"wire.GetMarkingMenuArgs","Case":"filled","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
+{"Name":"wire.GetMarkingMenuArgs","Case":"empty","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
+{"Name":"wire.GetOptionGroupArgs","Case":"zero","Payload":{"group":""},"Canonical":{"group":""},"Error":""}
+{"Name":"wire.GetOptionGroupArgs","Case":"filled","Payload":{"group":"example \u003c\u0026\u003e 日本語"},"Canonical":{"group":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetOptionGroupArgs","Case":"empty","Payload":{"group":"example \u003c\u0026\u003e 日本語"},"Canonical":{"group":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetPropertyArgs","Case":"zero","Payload":{"document":0,"set":"","name":""},"Canonical":{"document":0,"set":"","name":""},"Error":""}
+{"Name":"wire.GetPropertyArgs","Case":"filled","Payload":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetPropertyArgs","Case":"empty","Payload":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetSketchSettingsArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
+{"Name":"wire.GetSketchSettingsArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.GetSketchSettingsArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
 {"Name":"wire.GetStyleArgs","Case":"zero","Payload":{"name":""},"Canonical":{"name":""},"Error":""}
 {"Name":"wire.GetStyleArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.GetStyleArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -136,15 +148,3 @@
 {"Name":"wire.LayoutResult","Case":"zero","Payload":{"layout":0},"Canonical":{"layout":0},"Error":""}
 {"Name":"wire.LayoutResult","Case":"filled","Payload":{"document":7,"layout":7},"Canonical":{"document":7,"layout":7},"Error":""}
 {"Name":"wire.LayoutResult","Case":"empty","Payload":{"document":7,"layout":7},"Canonical":{"document":7,"layout":7},"Error":""}
-{"Name":"wire.LightInfo","Case":"zero","Payload":{"index":0,"lightType":0,"definitionType":0,"on":false,"color":{"R":0,"G":0,"B":0,"A":0},"intensity":0,"direction":[0,0,0],"position":[0,0,0],"spotInnerAngle":0,"spotOuterAngle":0,"attenuation":[0,0,0]},"Canonical":{"index":0,"lightType":0,"definitionType":0,"on":false,"color":{"R":0,"G":0,"B":0,"A":0},"intensity":0,"direction":[0,0,0],"position":[0,0,0],"spotInnerAngle":0,"spotOuterAngle":0,"attenuation":[0,0,0]},"Error":""}
-{"Name":"wire.LightInfo","Case":"filled","Payload":{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]},"Canonical":{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.LightInfo","Case":"empty","Payload":{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]},"Canonical":{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.LightListResult","Case":"zero","Payload":{"lights":null},"Canonical":{"lights":null},"Error":""}
-{"Name":"wire.LightListResult","Case":"filled","Payload":{"lights":[{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]}]},"Canonical":{"lights":[{"index":7,"lightType":7,"definitionType":7,"on":true,"color":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"intensity":1.25,"direction":[1.25,1.25,1.25],"position":[1.25,1.25,1.25],"spotInnerAngle":1.25,"spotOuterAngle":1.25,"attenuation":[1.25,1.25,1.25]}]},"Error":""}
-{"Name":"wire.LightListResult","Case":"empty","Payload":{"lights":[]},"Canonical":{"lights":[]},"Error":""}
-{"Name":"wire.LightingStyleInfo","Case":"zero","Payload":{"name":"","active":false},"Canonical":{"name":"","active":false},"Error":""}
-{"Name":"wire.LightingStyleInfo","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
-{"Name":"wire.LightingStyleInfo","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"zero","Payload":{"styles":null},"Canonical":{"styles":null},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"filled","Payload":{"styles":[{"name":"example \u003c\u0026\u003e 日本語","active":true}]},"Canonical":{"styles":[{"name":"example \u003c\u0026\u003e 日本語","active":true}]},"Error":""}
-{"Name":"wire.LightingStyleListResult","Case":"empty","Payload":{"styles":[]},"Canonical":{"styles":[]},"Error":""}

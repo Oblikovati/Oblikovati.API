@@ -9,6 +9,12 @@ import (
 )
 
 var fixtureGroup13 = []fixtureType{
+	{"wire.PositionalResult", reflect.TypeFor[wire.PositionalResult]()},
+	{"wire.PositionalsResult", reflect.TypeFor[wire.PositionalsResult]()},
+	{"wire.PressKeyArgs", reflect.TypeFor[wire.PressKeyArgs]()},
+	{"wire.PressKeyResult", reflect.TypeFor[wire.PressKeyResult]()},
+	{"wire.ProblemEntityInfo", reflect.TypeFor[wire.ProblemEntityInfo]()},
+	{"wire.Profile3DInfo", reflect.TypeFor[wire.Profile3DInfo]()},
 	{"wire.ProfileInfo", reflect.TypeFor[wire.ProfileInfo]()},
 	{"wire.ProgressCancelledEvent", reflect.TypeFor[wire.ProgressCancelledEvent]()},
 	{"wire.ProjectCutEdgesArgs", reflect.TypeFor[wire.ProjectCutEdgesArgs]()},
@@ -83,10 +89,4 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.SelectionChangedEvent", reflect.TypeFor[wire.SelectionChangedEvent]()},
 	{"wire.SelectionResult", reflect.TypeFor[wire.SelectionResult]()},
 	{"wire.SetActiveSheetArgs", reflect.TypeFor[wire.SetActiveSheetArgs]()},
-	{"wire.SetAddInLoadBehaviorArgs", reflect.TypeFor[wire.SetAddInLoadBehaviorArgs]()},
-	{"wire.SetAliasArgs", reflect.TypeFor[wire.SetAliasArgs]()},
-	{"wire.SetAppearanceArgs", reflect.TypeFor[wire.SetAppearanceArgs]()},
-	{"wire.SetAssemblyFeaturesSuppressedArgs", reflect.TypeFor[wire.SetAssemblyFeaturesSuppressedArgs]()},
-	{"wire.SetAssemblyOptionsArgs", reflect.TypeFor[wire.SetAssemblyOptionsArgs]()},
-	{"wire.SetAssemblyParticipantPathsArgs", reflect.TypeFor[wire.SetAssemblyParticipantPathsArgs]()},
 }

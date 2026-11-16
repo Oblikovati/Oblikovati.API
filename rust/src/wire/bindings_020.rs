@@ -4,6 +4,21 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetMeshColorsArgs is the request of [MethodViewportSetMeshColors]: turn the mesh-debug-colors render\nOn or off — every B-rep face (or every TRIANGLE when PerTriangle) is painted a distinct, index-\nderived color, so a captured region maps back to a face/triangle index in the mesh data.\n```"]
+pub struct SetMeshColorsArgs {
+    pub on: bool => required("on");
+    pub per_triangle: bool => omitted("perTriangle", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetMiniToolbarArgs is the request of [MethodMiniToolbarSet]: create the toolbar\nor replace it entirely.\n```"]
+pub struct SetMiniToolbarArgs {
+    pub toolbar: crate::wire::MiniToolbarSpec => required("toolbar");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetModelReferenceArgs is the request of [MethodDrawingSetModelReference]: the full\ndocument name of the model the drawing documents (its title-block fields resolve\nagainst this model's iProperties). An empty name clears the reference.\n```"]
 pub struct SetModelReferenceArgs {
     pub full_document_name: String => required("fullDocumentName");
@@ -444,19 +459,5 @@ pub struct SheetMetalStyleInfo {
 #[doc = "```text\nBendTransition is how the material is shaped where a bend zone runs into the face beside it\n(#1959): \"none\" (default), \"intersection\", \"straightLine\", \"arc\" or \"trimToBend\".\nBendTransitionArcRadius sizes the arc form.\n```"]
     pub bend_transition: String => omitted("bendTransition", "crate::json::is_zero");
     pub bend_transition_arc_radius: String => omitted("bendTransitionArcRadius", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSheetMetalStyleResult is the reply of getStyle/setStyle: the active rule after the call.\n```"]
-pub struct SheetMetalStyleResult {
-    pub style: crate::wire::SheetMetalStyleInfo => required("style");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSheetResult is the response of [MethodDrawingAddSheet] / [MethodDrawingSetActiveSheet]:\nthe affected sheet.\n```"]
-pub struct SheetResult {
-    pub sheet: crate::wire::SheetInfo => required("sheet");
 }
 }

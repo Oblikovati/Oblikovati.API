@@ -10,6 +10,9 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Constraint-aware sketch Move planning and commit operations with explicit
+  policies, impact reporting, approval, and stale-plan refusal (#304).
+
 - Express assembly open state and a typed Load Full operation.
 
 - Typed nonfatal save warnings for single saves, batch saves, and save-on-close.

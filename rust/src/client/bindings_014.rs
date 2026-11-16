@@ -4,6 +4,26 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 impl<T: super::Caller> super::Sketch<'_, T> {
+    /// Call `MethodSketchPlanMove` with the canonical request and response types.
+    /// Example: `client.sketch().plan_move(&args)`.
+    pub fn plan_move(
+        &self,
+        args: &crate::wire::PlanSketchMoveArgs,
+    ) -> Result<crate::wire::PlanSketchMoveResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_PLAN_MOVE, Some(args))
+    }
+
+    /// Call `MethodSketchProfiles` with the canonical request and response types.
+    /// Example: `client.sketch().profiles(&args)`.
+    pub fn profiles(
+        &self,
+        args: &crate::wire::SketchArgs,
+    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
+    }
+
     /// Call `MethodSketchProject` with the canonical request and response types.
     /// Example: `client.sketch().project(&args)`.
     pub fn project(
@@ -143,7 +163,9 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_TEXT_FONT, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSolve` with the canonical request and response types.
     /// Example: `client.sketch().solve(&args)`.
     pub fn solve(

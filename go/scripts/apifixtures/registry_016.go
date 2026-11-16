@@ -9,6 +9,14 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.TitleBlockFieldsArgs", reflect.TypeFor[wire.TitleBlockFieldsArgs]()},
+	{"wire.TitleBlockFieldsResult", reflect.TypeFor[wire.TitleBlockFieldsResult]()},
+	{"wire.ToleranceInfo", reflect.TypeFor[wire.ToleranceInfo]()},
+	{"wire.TopologyRef", reflect.TypeFor[wire.TopologyRef]()},
+	{"wire.TransactionBeginArgs", reflect.TypeFor[wire.TransactionBeginArgs]()},
+	{"wire.TransactionEventPayload", reflect.TypeFor[wire.TransactionEventPayload]()},
+	{"wire.TransactionHistory", reflect.TypeFor[wire.TransactionHistory]()},
+	{"wire.TransactionHistoryArgs", reflect.TypeFor[wire.TransactionHistoryArgs]()},
 	{"wire.TransactionHistoryEntry", reflect.TypeFor[wire.TransactionHistoryEntry]()},
 	{"wire.TransactionJumpToArgs", reflect.TypeFor[wire.TransactionJumpToArgs]()},
 	{"wire.Transform3DArgs", reflect.TypeFor[wire.Transform3DArgs]()},
