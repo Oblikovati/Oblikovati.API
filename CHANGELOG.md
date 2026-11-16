@@ -33,7 +33,7 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
   Go callers using unkeyed literals for the corresponding structs must update
   them. Existing wire payloads without the new fields retain their defaults.
 
-- Named parameter expressions in sketch entity size fields create driving
+- Named parameter expressions in sketch entity size fields now create driving
   dimensions. Callers that previously added a separate dimension for the same
   size must remove that duplicate to avoid overconstraining the sketch.
 
