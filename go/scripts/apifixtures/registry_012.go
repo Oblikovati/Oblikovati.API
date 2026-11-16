@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup12 = []fixtureType{
+	{"wire.ModelStateNameArgs", reflect.TypeFor[wire.ModelStateNameArgs]()},
+	{"wire.ModelStateResult", reflect.TypeFor[wire.ModelStateResult]()},
+	{"wire.ModelStatesResult", reflect.TypeFor[wire.ModelStatesResult]()},
+	{"wire.ModelTreeResult", reflect.TypeFor[wire.ModelTreeResult]()},
 	{"wire.MoveFreeformVerticesArgs", reflect.TypeFor[wire.MoveFreeformVerticesArgs]()},
 	{"wire.MoveSketchDimensionArgs", reflect.TypeFor[wire.MoveSketchDimensionArgs]()},
 	{"wire.NameValueEntry", reflect.TypeFor[wire.NameValueEntry]()},
@@ -73,6 +77,8 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.PlaceByDefinitionBatchArgs", reflect.TypeFor[wire.PlaceByDefinitionBatchArgs]()},
 	{"wire.PlaceByDefinitionBatchResult", reflect.TypeFor[wire.PlaceByDefinitionBatchResult]()},
 	{"wire.PlaceOccurrenceArgs", reflect.TypeFor[wire.PlaceOccurrenceArgs]()},
+	{"wire.PlanSketchMoveArgs", reflect.TypeFor[wire.PlanSketchMoveArgs]()},
+	{"wire.PlanSketchMoveResult", reflect.TypeFor[wire.PlanSketchMoveResult]()},
 	{"wire.PlateInfo", reflect.TypeFor[wire.PlateInfo]()},
 	{"wire.PlatesResult", reflect.TypeFor[wire.PlatesResult]()},
 	{"wire.PointCloudCropArgs", reflect.TypeFor[wire.PointCloudCropArgs]()},
@@ -83,10 +89,4 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.PointCloudSpaceResult", reflect.TypeFor[wire.PointCloudSpaceResult]()},
 	{"wire.PositionalInfo", reflect.TypeFor[wire.PositionalInfo]()},
 	{"wire.PositionalResult", reflect.TypeFor[wire.PositionalResult]()},
-	{"wire.PositionalsResult", reflect.TypeFor[wire.PositionalsResult]()},
-	{"wire.PressKeyArgs", reflect.TypeFor[wire.PressKeyArgs]()},
-	{"wire.PressKeyResult", reflect.TypeFor[wire.PressKeyResult]()},
-	{"wire.ProblemEntityInfo", reflect.TypeFor[wire.ProblemEntityInfo]()},
-	{"wire.Profile3DInfo", reflect.TypeFor[wire.Profile3DInfo]()},
-	{"wire.ProfileInfo", reflect.TypeFor[wire.ProfileInfo]()},
 }

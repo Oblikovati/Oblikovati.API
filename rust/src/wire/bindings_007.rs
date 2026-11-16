@@ -4,6 +4,20 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nDimensionResult is the response of [MethodDrawingDimensionsAddLinear]: the created dimension.\n```"]
+pub struct DimensionResult {
+    pub dimension: crate::wire::DrawingDimensionInfo => required("dimension");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nDimensionSetResult is the response of the dimension-set methods: the created dimensions.\n```"]
+pub struct DimensionSetResult {
+    pub dimensions: Option<Vec<crate::wire::DrawingDimensionInfo>> => required("dimensions");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nDimensionStyleInfo is the JSON shape of a dimension style.\n```"]
 pub struct DimensionStyleInfo {
     pub name: String => required("name");
@@ -431,30 +445,5 @@ pub struct EditFeatureArgs {
     pub id: u64 => required("id");
     pub scalars: Option<Vec<crate::wire::ScalarEdit>> => omitted("scalars", "crate::json::slice_is_empty");
     pub repick: Option<Vec<crate::wire::FeatureRepick>> => omitted("repick", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nEditHelixArgs is the request of [MethodSketch3DEditHelix]: redefine an\nexisting helical curve in place. Entity is the helix's session id. Mode,\nPitch, Height, Revolutions, Taper and Clockwise have the same meaning as in\n[AddSketch3DEntityArgs] and replace the constant-shape definition; a\nnon-empty Rows replaces the definition with a variable shape instead.\nStart/End set the end conditions (nil keeps the current ones). The curve is\nregenerated and dependents resolve against the new shape.\n```"]
-pub struct EditHelixArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub entity: u64 => required("entity");
-    pub mode: String => omitted("mode", "crate::json::is_zero");
-    pub pitch: String => omitted("pitch", "crate::json::is_zero");
-    pub height: String => omitted("height", "crate::json::is_zero");
-    pub revolutions: f64 => omitted_finite("revolutions", "crate::json::is_zero");
-    pub taper: String => omitted("taper", "crate::json::is_zero");
-    pub clockwise: bool => omitted("clockwise", "crate::json::is_zero");
-    pub rows: Option<Vec<crate::wire::HelixShapeRow>> => omitted("rows", "crate::json::slice_is_empty");
-    pub start: Option<Box<crate::wire::HelixEndCondition>> => omitted("start", "Option::is_none");
-    pub end: Option<Box<crate::wire::HelixEndCondition>> => omitted("end", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nEditSketch3DResult is the response of [MethodSketch3DEdit]/[MethodSketch3DExitEdit]:\nthe sketch index and its resulting edit state.\n```"]
-pub struct EditSketch3DResult {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub editing: bool => required("editing");
 }
 }

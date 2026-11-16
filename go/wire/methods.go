@@ -197,6 +197,8 @@ const (
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"
 	MethodSketchTransform        = "sketch.transform"
+	MethodSketchPlanMove         = "sketch.planMove"
+	MethodSketchCommitMove       = "sketch.commitMove"
 	MethodSketchCopyTo           = "sketch.copyTo"
 	MethodSketchAddPattern       = "sketch.addPattern"
 	MethodSketchOffset           = "sketch.offset"

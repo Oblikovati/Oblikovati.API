@@ -4,6 +4,24 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSelectionChangedEvent is the push event (type [EventSelectionChanged]) fired\nwhen the selection set changes — the app-level OnSelect/OnUnSelect observation.\n```"]
+pub struct SelectionChangedEvent {
+#[doc = "```text\nalways EventSelectionChanged\n```"]
+    pub type_: String => required("type");
+    pub count: i64 => required("count");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSelectionResult is the response of [MethodModelSelection]: how many entities are\nselected, their selection kinds, and — parallel to Kinds — each entity's work-feature\nreference for entities that have one, empty otherwise. A reference is one of:\n  - a datum plane/axis/point key (a work-feature key);\n  - \"face/<url-base64(key)>\"   — a picked B-rep face;\n  - \"vertex/<url-base64(key)>\" — a picked B-rep vertex;\n  - \"body/<url-base64(key)>\"   — a picked whole body, the same recompute-stable key as\n    [BodyInfo.Key] (#1492), so an add-in can tell which body was selected.\n\nA client reads Refs to feed a selected face/point/plane into [MethodWorkPlanesCreate], or a\nselected body into a body-scoped operation; all forms round-trip through [MethodModelSelect].\n```"]
+pub struct SelectionResult {
+    pub count: i64 => required("count");
+    pub kinds: Option<Vec<i64>> => required("kinds");
+    pub refs: Option<Vec<String>> => required("refs");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetActiveSheetArgs is the request of [MethodDrawingSetActiveSheet]: the sheet to\nmake active.\n```"]
 pub struct SetActiveSheetArgs {
     pub name: String => required("name");
@@ -440,20 +458,5 @@ generated_dto! {
 #[doc = "```text\nSetMarkingMenuArgs is the request of [MethodUISetMarkingMenu]: replace one\nenvironment's radial menu (the customization hook behind OnRadialMarkingMenu).\n```"]
 pub struct SetMarkingMenuArgs {
     pub menu: crate::wire::MarkingMenuView => required("menu");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetMeshColorsArgs is the request of [MethodViewportSetMeshColors]: turn the mesh-debug-colors render\nOn or off — every B-rep face (or every TRIANGLE when PerTriangle) is painted a distinct, index-\nderived color, so a captured region maps back to a face/triangle index in the mesh data.\n```"]
-pub struct SetMeshColorsArgs {
-    pub on: bool => required("on");
-    pub per_triangle: bool => omitted("perTriangle", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetMiniToolbarArgs is the request of [MethodMiniToolbarSet]: create the toolbar\nor replace it entirely.\n```"]
-pub struct SetMiniToolbarArgs {
-    pub toolbar: crate::wire::MiniToolbarSpec => required("toolbar");
 }
 }

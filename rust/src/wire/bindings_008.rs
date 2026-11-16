@@ -4,6 +4,31 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nEditHelixArgs is the request of [MethodSketch3DEditHelix]: redefine an\nexisting helical curve in place. Entity is the helix's session id. Mode,\nPitch, Height, Revolutions, Taper and Clockwise have the same meaning as in\n[AddSketch3DEntityArgs] and replace the constant-shape definition; a\nnon-empty Rows replaces the definition with a variable shape instead.\nStart/End set the end conditions (nil keeps the current ones). The curve is\nregenerated and dependents resolve against the new shape.\n```"]
+pub struct EditHelixArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub entity: u64 => required("entity");
+    pub mode: String => omitted("mode", "crate::json::is_zero");
+    pub pitch: String => omitted("pitch", "crate::json::is_zero");
+    pub height: String => omitted("height", "crate::json::is_zero");
+    pub revolutions: f64 => omitted_finite("revolutions", "crate::json::is_zero");
+    pub taper: String => omitted("taper", "crate::json::is_zero");
+    pub clockwise: bool => omitted("clockwise", "crate::json::is_zero");
+    pub rows: Option<Vec<crate::wire::HelixShapeRow>> => omitted("rows", "crate::json::slice_is_empty");
+    pub start: Option<Box<crate::wire::HelixEndCondition>> => omitted("start", "Option::is_none");
+    pub end: Option<Box<crate::wire::HelixEndCondition>> => omitted("end", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nEditSketch3DResult is the response of [MethodSketch3DEdit]/[MethodSketch3DExitEdit]:\nthe sketch index and its resulting edit state.\n```"]
+pub struct EditSketch3DResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub editing: bool => required("editing");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nEditSketchResult is the response of [MethodSketchEdit] / [MethodSketchExitEdit]:\nthe sketch index and its resulting edit state.\n```"]
 pub struct EditSketchResult {
     pub sketch_index: i64 => required("sketchIndex");
@@ -433,31 +458,5 @@ pub struct FeatureDetail {
     pub index: i64 => required("index");
     pub scalars: Option<Vec<crate::wire::FeatureScalar>> => omitted("scalars", "crate::json::slice_is_empty");
     pub slots: Option<Vec<crate::wire::FeatureSlot>> => omitted("slots", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],\n[MethodFeaturesRename], [MethodFeaturesSetSuppressed], and [MethodFeaturesReorder]:\nthe feature's refreshed state after the call (post-recompute health included).\n```"]
-pub struct FeatureDetailResult {
-    pub feature: crate::wire::FeatureDetail => required("feature");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFeatureError is one feature that failed to evaluate during an update/rebuild: its stable id\n(from model.tree), display name, kind, and the reason it is sick.\n```"]
-pub struct FeatureError {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-    pub message: String => omitted("message", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFeatureHealth is one feature's health on the wire: its Name, Status (\"ok\"/\"warning\"/\"sick\"/\n\"suppressed\", matching [oblikovati.org/api/types.HealthStatus]) and a Reason when not OK.\n```"]
-pub struct FeatureHealth {
-    pub name: String => required("name");
-    pub status: String => required("status");
-    pub reason: String => omitted("reason", "crate::json::is_zero");
 }
 }

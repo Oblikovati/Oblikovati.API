@@ -132,6 +132,20 @@ fn sketch_block_instances() {
 }
 
 #[test]
+fn sketch_commit_move() {
+    let args: oblikovati_api::wire::CommitSketchMoveArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_COMMIT_MOVE,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.sketch().commit_move(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn sketch_constraint_status() {
     let args: oblikovati_api::wire::SketchArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -248,15 +262,4 @@ fn sketch_dimensions() {
     );
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(client.sketch().dimensions(&args).unwrap_err().0, "recorded");
-}
-
-#[test]
-fn sketch_edit() {
-    let args: oblikovati_api::wire::SketchArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_EDIT,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.sketch().edit(&args).unwrap_err().0, "recorded");
 }

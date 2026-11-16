@@ -210,6 +210,42 @@ mod tests;
 ```
 <!-- /example -->
 
+## Planning a constraint-aware sketch move
+
+`Sketch.PlanMove` and `Sketch.CommitMove` are distinct from the legacy
+`sketch.transform` operation. An older host must return an unknown-method error;
+the client must not fall back to the legacy operation with policy fields that
+the host could ignore. These API methods describe a contract; a host that does
+not implement a policy must return an error.
+
+A plan request supplies a nonempty selection, a finite sketch-plane vector in
+centimetres, and both explicit policies. It does not alter the document. The
+reply identifies all proposed dimension-expression changes and geometric
+relation removals, including indirect effects, and marks the changes that need
+approval. The opaque token is bound to the exact plan and document state.
+
+The caller may inspect the effects and either discard the token or commit it.
+Commit requires approval for every marked effect, and must refuse a missing,
+expired, used or stale token, a changed document, unsupported policy, or any
+invalid result without changing the document or history. A successful commit
+is one undoable edit: Undo and Redo restore geometry, constraints and
+dimensions together. A noninteractive caller chooses explicit non-prompt
+policies or makes an explicit decision after reading the plan; the host does
+not infer permission to remove a constraint.
+
+`Never` preserves its constraint category. `If No Equation` preserves
+dimensions that depend on other dimensions; unknown dependencies are refused.
+Dimensional `Always` permits recomputing dimensions that cross the selection
+boundary, while retaining dimensions within the selection. Geometric `Always`
+permits removal of fixed constraints on selected geometry and constraints that
+cross the selection boundary, except parallel, perpendicular and equal.
+Relations inside the selection remain. The plan must enumerate those effects.
+`Prompt` requires
+approval for every proposed change in that category. The source scenarios do
+not establish every policy combination or GUI prompt time; this contract does
+not prescribe either. The [Inventor Move reference](https://help.autodesk.com/cloudhelp/2024/ENU/Inventor-Help/files/GUID-F8114270-18F7-4C7A-947E-AC489EDACFA9.htm)
+describes its selection-specific policy behavior and provides design context.
+
 ## Events and identifiers
 
 The C host sends events through `ObkAddInNotify`. Decode the event with the

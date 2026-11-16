@@ -4,6 +4,15 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nNearestPointResult is the response of [MethodPointCloudsNearestPoint]: the nearest scan point in\nmodel space and the distance to the query. Found is false only for an empty cloud.\n```"]
+pub struct NearestPointResult {
+    pub point: crate::types::Point => raw(rename = "point");
+    pub distance: f64 => finite("distance");
+    pub found: bool => required("found");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nNewOccurrencesResult is the reply of the additive replication ops (pattern, mirror,\ncopy): the occurrences they added, in element/source order.\n```"]
 pub struct NewOccurrencesResult {
     pub created: Option<Vec<crate::wire::OccurrenceInfo>> => required("created");

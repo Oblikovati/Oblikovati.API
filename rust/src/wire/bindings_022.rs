@@ -4,6 +4,39 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nStyleLibrariesResult is the response of [MethodStylesListLibraries]: the loaded libraries in\ncascade order.\n```"]
+pub struct StyleLibrariesResult {
+    pub libraries: Option<Vec<crate::wire::StyleLibraryInfo>> => required("libraries");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStyleLibraryInfo is one entry of [StyleLibrariesResult]: a loaded style library and its\ncascade position (lower Order shadows higher Order for a same-named style).\n```"]
+pub struct StyleLibraryInfo {
+    pub name: String => required("name");
+    pub path: String => required("path");
+    pub order: i64 => required("order");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSubmitCommandLineArgs is the request of [MethodCommandLineSubmit]: one line of Command\nWindow input — a command word (\"EXTRUDE\"), an alias (\"E\"), a coordinate/value/keyword for\nthe active command's current step (\"10,5\", \"25\", \"Close\"), or \"\" to finish/repeat. The\nhost drives the same command-line REPL the UI uses, so an add-in or MCP tool can model\nheadlessly: submit \"LINE\", then \"0,0\", then \"10,0\".\n```"]
+pub struct SubmitCommandLineArgs {
+    pub line: String => required("line");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSubstituteComponentsArgs is the request of [MethodAssemblySubstitute]: suppress the\nSource occurrences (by session id) and add one occurrence, named Name at Transform, that\ninstances the simplified component held by the open Document (by document id) — the\n\"substitute representation\" of the sources.\n```"]
+pub struct SubstituteComponentsArgs {
+    pub sources: Option<Vec<u64>> => required("sources");
+    pub document: u64 => required("document");
+    pub name: String => required("name");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSuppressOccurrenceArgs is the request of [MethodAssemblySuppress]: exclude\n(Suppressed=true) or restore the occurrence with id ID from/to the model.\n```"]
 pub struct SuppressOccurrenceArgs {
     pub id: u64 => required("id");
@@ -427,29 +460,5 @@ generated_dto! {
 #[doc = "```text\nValueResult is a single numeric value in database units (response of\n[MethodUnitsGetValueFromExpression]).\n```"]
 pub struct ValueResult {
     pub value: f64 => finite("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nViewCurvesArgs is the request of [MethodDrawingViewsCurves]: the view whose drawing curves\nto return.\n```"]
-pub struct ViewCurvesArgs {
-    pub view: String => required("view");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nViewCurvesResult is the response of [MethodDrawingViewsCurves]: the view's drawing curves.\n```"]
-pub struct ViewCurvesResult {
-    pub segments: Option<Vec<crate::wire::DrawingCurveSegment>> => required("segments");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nViewFrameInfo is one top-level frame: its caption, window state and pixel size.\n```"]
-pub struct ViewFrameInfo {
-    pub caption: String => required("caption");
-    pub state: crate::types::WindowState => omitted("state", "crate::json::is_zero");
-    pub width: i64 => omitted("width", "crate::json::is_zero");
-    pub height: i64 => omitted("height", "crate::json::is_zero");
 }
 }

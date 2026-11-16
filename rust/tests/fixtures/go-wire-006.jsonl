@@ -46,6 +46,12 @@
 {"Name":"types.SketchLineType","Case":"zero","Payload":"","Canonical":"","Error":""}
 {"Name":"types.SketchLineType","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchLineType","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchPatternKind","Case":"zero","Payload":"","Canonical":"","Error":""}
 {"Name":"types.SketchPatternKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchPatternKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
@@ -142,9 +148,3 @@
 {"Name":"types.UnitVector2d","Case":"zero","Payload":[0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0)"}
 {"Name":"types.UnitVector2d","Case":"filled","Payload":[1,0],"Canonical":[1,0],"Error":""}
 {"Name":"types.UnitVector2d","Case":"empty","Payload":[1,0],"Canonical":[1,0],"Error":""}
-{"Name":"types.UnitsType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.UnitsType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnitsType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ValueType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"empty","Payload":7,"Canonical":7,"Error":""}

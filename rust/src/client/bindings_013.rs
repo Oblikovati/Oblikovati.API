@@ -103,6 +103,16 @@ impl<T: super::Caller> Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_LIST_BLOCK_INSTANCES, Some(args))
     }
 
+    /// Call `MethodSketchCommitMove` with the canonical request and response types.
+    /// Example: `client.sketch().commit_move(&args)`.
+    pub fn commit_move(
+        &self,
+        args: &crate::wire::CommitSketchMoveArgs,
+    ) -> Result<crate::wire::CommitSketchMoveResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_COMMIT_MOVE, Some(args))
+    }
+
     /// Call `MethodSketchConstraintStatus` with the canonical request and response types.
     /// Example: `client.sketch().constraint_status(&args)`.
     pub fn constraint_status(
@@ -162,7 +172,9 @@ impl<T: super::Caller> Sketch<'_, T> {
     ) -> Result<crate::wire::OKResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_DELETE, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchBlockDefinitionDelete` with the canonical request and response types.
     /// Example: `client.sketch().delete_block_definition(&args)`.
     pub fn delete_block_definition(
@@ -174,9 +186,7 @@ impl<T: super::Caller> Sketch<'_, T> {
             Some(args),
         )
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchDependents` with the canonical request and response types.
     /// Example: `client.sketch().dependents(&args)`.
     pub fn dependents(
@@ -313,15 +323,5 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         args: &crate::wire::OffsetSketchArgs,
     ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
-    }
-
-    /// Call `MethodSketchProfiles` with the canonical request and response types.
-    /// Example: `client.sketch().profiles(&args)`.
-    pub fn profiles(
-        &self,
-        args: &crate::wire::SketchArgs,
-    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
     }
 }

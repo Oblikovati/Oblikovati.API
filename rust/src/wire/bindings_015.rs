@@ -3,6 +3,10 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";
+
+pub const METHOD_SKETCH_PLAN_MOVE: &str = "sketch.planMove";
+
 pub const METHOD_SKETCH_PROFILES: &str = "sketch.profiles";
 
 pub const METHOD_SKETCH_PROJECT: &str = "sketch.project";
@@ -450,14 +454,5 @@ generated_dto! {
 pub struct NearestPointArgs {
     pub cloud: String => required("cloud");
     pub point: crate::types::Point => raw(rename = "point");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nNearestPointResult is the response of [MethodPointCloudsNearestPoint]: the nearest scan point in\nmodel space and the distance to the query. Found is false only for an empty cloud.\n```"]
-pub struct NearestPointResult {
-    pub point: crate::types::Point => raw(rename = "point");
-    pub distance: f64 => finite("distance");
-    pub found: bool => required("found");
 }
 }

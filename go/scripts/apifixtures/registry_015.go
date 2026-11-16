@@ -9,6 +9,12 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetStandardArgs", reflect.TypeFor[wire.SetStandardArgs]()},
+	{"wire.SetStatusTextArgs", reflect.TypeFor[wire.SetStatusTextArgs]()},
+	{"wire.SetSuppressedArgs", reflect.TypeFor[wire.SetSuppressedArgs]()},
+	{"wire.SetTextFontArgs", reflect.TypeFor[wire.SetTextFontArgs]()},
+	{"wire.SetTextFontResult", reflect.TypeFor[wire.SetTextFontResult]()},
+	{"wire.SetTitleBlockArgs", reflect.TypeFor[wire.SetTitleBlockArgs]()},
 	{"wire.SetViewDisplayArgs", reflect.TypeFor[wire.SetViewDisplayArgs]()},
 	{"wire.SetViewLabelArgs", reflect.TypeFor[wire.SetViewLabelArgs]()},
 	{"wire.SetVisibilityArgs", reflect.TypeFor[wire.SetVisibilityArgs]()},
@@ -46,6 +52,8 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
 	{"wire.SketchInfo", reflect.TypeFor[wire.SketchInfo]()},
+	{"wire.SketchMoveDimensionChange", reflect.TypeFor[wire.SketchMoveDimensionChange]()},
+	{"wire.SketchMoveGeometricChange", reflect.TypeFor[wire.SketchMoveGeometricChange]()},
 	{"wire.SketchOptionsView", reflect.TypeFor[wire.SketchOptionsView]()},
 	{"wire.SketchOrientation", reflect.TypeFor[wire.SketchOrientation]()},
 	{"wire.SketchRectangleArgs", reflect.TypeFor[wire.SketchRectangleArgs]()},
@@ -81,12 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.ThreadTableQueryResult", reflect.TypeFor[wire.ThreadTableQueryResult]()},
 	{"wire.TitleBlockField", reflect.TypeFor[wire.TitleBlockField]()},
 	{"wire.TitleBlockFieldsArgs", reflect.TypeFor[wire.TitleBlockFieldsArgs]()},
-	{"wire.TitleBlockFieldsResult", reflect.TypeFor[wire.TitleBlockFieldsResult]()},
-	{"wire.ToleranceInfo", reflect.TypeFor[wire.ToleranceInfo]()},
-	{"wire.TopologyRef", reflect.TypeFor[wire.TopologyRef]()},
-	{"wire.TransactionBeginArgs", reflect.TypeFor[wire.TransactionBeginArgs]()},
-	{"wire.TransactionEventPayload", reflect.TypeFor[wire.TransactionEventPayload]()},
-	{"wire.TransactionHistory", reflect.TypeFor[wire.TransactionHistory]()},
-	{"wire.TransactionHistoryArgs", reflect.TypeFor[wire.TransactionHistoryArgs]()},
-	{"wire.TransactionHistoryEntry", reflect.TypeFor[wire.TransactionHistoryEntry]()},
 }

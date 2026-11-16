@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup7 = []fixtureType{
+	{"wire.CallAddInAutomationArgs", reflect.TypeFor[wire.CallAddInAutomationArgs]()},
+	{"wire.CallAddInAutomationResult", reflect.TypeFor[wire.CallAddInAutomationResult]()},
 	{"wire.CameraChangedEvent", reflect.TypeFor[wire.CameraChangedEvent]()},
 	{"wire.CameraView", reflect.TypeFor[wire.CameraView]()},
 	{"wire.CaptureNamedViewArgs", reflect.TypeFor[wire.CaptureNamedViewArgs]()},
@@ -42,6 +44,8 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CommandInfo", reflect.TypeFor[wire.CommandInfo]()},
 	{"wire.CommandLineResult", reflect.TypeFor[wire.CommandLineResult]()},
 	{"wire.CommandStartedEvent", reflect.TypeFor[wire.CommandStartedEvent]()},
+	{"wire.CommitSketchMoveArgs", reflect.TypeFor[wire.CommitSketchMoveArgs]()},
+	{"wire.CommitSketchMoveResult", reflect.TypeFor[wire.CommitSketchMoveResult]()},
 	{"wire.CompatibleUnitsResult", reflect.TypeFor[wire.CompatibleUnitsResult]()},
 	{"wire.Constraint3DInfo", reflect.TypeFor[wire.Constraint3DInfo]()},
 	{"wire.ConstraintEventPayload", reflect.TypeFor[wire.ConstraintEventPayload]()},
@@ -85,8 +89,4 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CreateWorkAxisArgs", reflect.TypeFor[wire.CreateWorkAxisArgs]()},
 	{"wire.CreateWorkAxisResult", reflect.TypeFor[wire.CreateWorkAxisResult]()},
 	{"wire.CreateWorkPlaneArgs", reflect.TypeFor[wire.CreateWorkPlaneArgs]()},
-	{"wire.CreateWorkPlaneResult", reflect.TypeFor[wire.CreateWorkPlaneResult]()},
-	{"wire.CreateWorkPointArgs", reflect.TypeFor[wire.CreateWorkPointArgs]()},
-	{"wire.CreateWorkPointResult", reflect.TypeFor[wire.CreateWorkPointResult]()},
-	{"wire.CustomPropertyFormatInfo", reflect.TypeFor[wire.CustomPropertyFormatInfo]()},
 }

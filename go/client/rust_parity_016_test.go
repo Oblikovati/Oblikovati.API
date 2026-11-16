@@ -149,12 +149,12 @@ func TestRustParitySketchBlockInstances(t *testing.T) {
 	checkGoGroup(t, c, "Sketch", "BlockInstances")
 }
 
+func TestRustParitySketchCommitMove(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchCommitMove})
+	checkGoGroup(t, c, "Sketch", "CommitMove")
+}
+
 func TestRustParitySketchConstraintStatus(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
 	checkGoGroup(t, c, "Sketch", "ConstraintStatus")
-}
-
-func TestRustParitySketchConstraints(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
-	checkGoGroup(t, c, "Sketch", "Constraints")
 }

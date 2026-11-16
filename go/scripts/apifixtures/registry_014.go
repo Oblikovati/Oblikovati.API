@@ -9,6 +9,12 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.SetAliasArgs", reflect.TypeFor[wire.SetAliasArgs]()},
+	{"wire.SetAppearanceArgs", reflect.TypeFor[wire.SetAppearanceArgs]()},
+	{"wire.SetAssemblyFeaturesSuppressedArgs", reflect.TypeFor[wire.SetAssemblyFeaturesSuppressedArgs]()},
+	{"wire.SetAssemblyOptionsArgs", reflect.TypeFor[wire.SetAssemblyOptionsArgs]()},
+	{"wire.SetAssemblyParticipantPathsArgs", reflect.TypeFor[wire.SetAssemblyParticipantPathsArgs]()},
+	{"wire.SetAssemblyParticipantsArgs", reflect.TypeFor[wire.SetAssemblyParticipantsArgs]()},
 	{"wire.SetAttributeArgs", reflect.TypeFor[wire.SetAttributeArgs]()},
 	{"wire.SetBOMStructureArgs", reflect.TypeFor[wire.SetBOMStructureArgs]()},
 	{"wire.SetBOMStructureResult", reflect.TypeFor[wire.SetBOMStructureResult]()},
@@ -83,10 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetSketchPropertyArgs", reflect.TypeFor[wire.SetSketchPropertyArgs]()},
 	{"wire.SetSketchSettingsArgs", reflect.TypeFor[wire.SetSketchSettingsArgs]()},
 	{"wire.SetSplineHandleArgs", reflect.TypeFor[wire.SetSplineHandleArgs]()},
-	{"wire.SetStandardArgs", reflect.TypeFor[wire.SetStandardArgs]()},
-	{"wire.SetStatusTextArgs", reflect.TypeFor[wire.SetStatusTextArgs]()},
-	{"wire.SetSuppressedArgs", reflect.TypeFor[wire.SetSuppressedArgs]()},
-	{"wire.SetTextFontArgs", reflect.TypeFor[wire.SetTextFontArgs]()},
-	{"wire.SetTextFontResult", reflect.TypeFor[wire.SetTextFontResult]()},
-	{"wire.SetTitleBlockArgs", reflect.TypeFor[wire.SetTitleBlockArgs]()},
 }

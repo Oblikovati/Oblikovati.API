@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup9 = []fixtureType{
+	{"wire.DuplicateAssetArgs", reflect.TypeFor[wire.DuplicateAssetArgs]()},
+	{"wire.EdgesOfTypeArgs", reflect.TypeFor[wire.EdgesOfTypeArgs]()},
+	{"wire.EdgesResult", reflect.TypeFor[wire.EdgesResult]()},
+	{"wire.EditAssemblyFeatureArgs", reflect.TypeFor[wire.EditAssemblyFeatureArgs]()},
 	{"wire.EditCommittedEvent", reflect.TypeFor[wire.EditCommittedEvent]()},
 	{"wire.EditFeatureArgs", reflect.TypeFor[wire.EditFeatureArgs]()},
 	{"wire.EditHelixArgs", reflect.TypeFor[wire.EditHelixArgs]()},
@@ -85,8 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.GetDisplaySettingsArgs", reflect.TypeFor[wire.GetDisplaySettingsArgs]()},
 	{"wire.GetFileArgs", reflect.TypeFor[wire.GetFileArgs]()},
 	{"wire.GetMarkingMenuArgs", reflect.TypeFor[wire.GetMarkingMenuArgs]()},
-	{"wire.GetOptionGroupArgs", reflect.TypeFor[wire.GetOptionGroupArgs]()},
-	{"wire.GetPropertyArgs", reflect.TypeFor[wire.GetPropertyArgs]()},
-	{"wire.GetSketchSettingsArgs", reflect.TypeFor[wire.GetSketchSettingsArgs]()},
-	{"wire.GetStyleArgs", reflect.TypeFor[wire.GetStyleArgs]()},
 }

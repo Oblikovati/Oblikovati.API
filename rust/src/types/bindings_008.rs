@@ -182,6 +182,37 @@ generated_scalar! { string,
 pub struct SketchLineType(pub std::borrow::Cow<'static, str>);
 }
 
+pub const SKETCH_MOVE_DIMENSION_ALWAYS: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_DIMENSION_IF_NO_EQUATION: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("ifNoEquation"));
+
+pub const SKETCH_MOVE_DIMENSION_NEVER: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveDimensionPolicy controls whether a planned move may change dimensions.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveDimensionPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_DIMENSION_PROMPT: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("prompt"));
+
+pub const SKETCH_MOVE_GEOMETRIC_ALWAYS: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_GEOMETRIC_NEVER: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveGeometricPolicy controls whether a planned move may remove relations.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveGeometricPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_GEOMETRIC_PROMPT: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("prompt"));
+
 pub const SKETCH_PATTERN_CIRCULAR: crate::types::SketchPatternKind =
     crate::types::SketchPatternKind(std::borrow::Cow::Borrowed("circular"));
 
@@ -431,33 +462,3 @@ pub const TEXT_ALIGN_CENTER: crate::types::TextHorizontalAlign =
 
 pub const TEXT_ALIGN_LEFT: crate::types::TextHorizontalAlign =
     crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("left"));
-
-pub const TEXT_ALIGN_LOWER: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("lower"));
-
-pub const TEXT_ALIGN_MIDDLE: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("middle"));
-
-pub const TEXT_ALIGN_RIGHT: crate::types::TextHorizontalAlign =
-    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("right"));
-
-pub const TEXT_ALIGN_UPPER: crate::types::TextVerticalAlign =
-    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("upper"));
-
-generated_scalar! { string,
-#[doc = "```text\nTextHorizontalAlign is how sketch text is positioned horizontally about its anchor\npoint (left/center/right, the standard MCAD horizontal text alignments). String values\nare frozen — they appear in the .obk document and on the wire.\n```"]
-pub struct TextHorizontalAlign(pub std::borrow::Cow<'static, str>);
-}
-
-pub const TEXT_ONLY_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(0);
-
-generated_scalar! { string,
-#[doc = "```text\nTextVerticalAlign is how sketch text is positioned vertically about its anchor point\n(baseline/lower/middle/upper, the standard MCAD vertical text alignments). Baseline\nkeeps the text's baseline on the anchor; the others measure from the text's cap box.\nString values are frozen.\n```"]
-pub struct TextVerticalAlign(pub std::borrow::Cow<'static, str>);
-}
-
-pub const THEME_CUSTOM: crate::types::ThemeKind =
-    crate::types::ThemeKind(std::borrow::Cow::Borrowed("custom"));
-
-pub const THEME_DARK: crate::types::ThemeKind =
-    crate::types::ThemeKind(std::borrow::Cow::Borrowed("dark"));

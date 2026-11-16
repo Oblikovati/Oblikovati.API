@@ -4,6 +4,30 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nRegisterBalloonTipArgs is the request of [MethodBalloonTipRegister]: declare a\nnamed notification balloon. Registration is separate from showing so the per-user\n\"don't show again\" suppression has a stable id to remember.\n```"]
+pub struct RegisterBalloonTipArgs {
+    pub id: String => required("id");
+    pub title: String => required("title");
+    pub text: String => required("text");
+    pub icon: String => omitted("icon", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRegisterClientApplicationArgs is the request of [MethodClientAppsRegister].\n```"]
+pub struct RegisterClientApplicationArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRegisterClientApplicationResult is the response of [MethodClientAppsRegister]: the\nsession-unique id the client passes to [MethodClientAppsUnregister] when it\ndisconnects.\n```"]
+pub struct RegisterClientApplicationResult {
+    pub id: i64 => required("id");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nRegisterColorMapperArgs is the request of [MethodClientGraphicsRegisterMapper]: store a named,\nreusable color mapper that primitives reference by Name (via GraphicsPrimitive.MapperName)\ninstead of carrying an inline copy of the legend.\n```"]
 pub struct RegisterColorMapperArgs {
     pub name: String => required("name");
@@ -437,23 +461,5 @@ generated_dto! {
 pub struct SelectArgs {
     pub refs: Option<Vec<String>> => required("refs");
     pub mode: String => omitted("mode", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSelectionChangedEvent is the push event (type [EventSelectionChanged]) fired\nwhen the selection set changes — the app-level OnSelect/OnUnSelect observation.\n```"]
-pub struct SelectionChangedEvent {
-#[doc = "```text\nalways EventSelectionChanged\n```"]
-    pub type_: String => required("type");
-    pub count: i64 => required("count");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSelectionResult is the response of [MethodModelSelection]: how many entities are\nselected, their selection kinds, and — parallel to Kinds — each entity's work-feature\nreference for entities that have one, empty otherwise. A reference is one of:\n  - a datum plane/axis/point key (a work-feature key);\n  - \"face/<url-base64(key)>\"   — a picked B-rep face;\n  - \"vertex/<url-base64(key)>\" — a picked B-rep vertex;\n  - \"body/<url-base64(key)>\"   — a picked whole body, the same recompute-stable key as\n    [BodyInfo.Key] (#1492), so an add-in can tell which body was selected.\n\nA client reads Refs to feed a selected face/point/plane into [MethodWorkPlanesCreate], or a\nselected body into a body-scoped operation; all forms round-trip through [MethodModelSelect].\n```"]
-pub struct SelectionResult {
-    pub count: i64 => required("count");
-    pub kinds: Option<Vec<i64>> => required("kinds");
-    pub refs: Option<Vec<String>> => required("refs");
 }
 }

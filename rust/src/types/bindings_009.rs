@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TEXT_ALIGN_LOWER: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("lower"));
+
+pub const TEXT_ALIGN_MIDDLE: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("middle"));
+
+pub const TEXT_ALIGN_RIGHT: crate::types::TextHorizontalAlign =
+    crate::types::TextHorizontalAlign(std::borrow::Cow::Borrowed("right"));
+
+pub const TEXT_ALIGN_UPPER: crate::types::TextVerticalAlign =
+    crate::types::TextVerticalAlign(std::borrow::Cow::Borrowed("upper"));
+
+generated_scalar! { string,
+#[doc = "```text\nTextHorizontalAlign is how sketch text is positioned horizontally about its anchor\npoint (left/center/right, the standard MCAD horizontal text alignments). String values\nare frozen — they appear in the .obk document and on the wire.\n```"]
+pub struct TextHorizontalAlign(pub std::borrow::Cow<'static, str>);
+}
+
+pub const TEXT_ONLY_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(0);
+
+generated_scalar! { string,
+#[doc = "```text\nTextVerticalAlign is how sketch text is positioned vertically about its anchor point\n(baseline/lower/middle/upper, the standard MCAD vertical text alignments). Baseline\nkeeps the text's baseline on the anchor; the others measure from the text's cap box.\nString values are frozen.\n```"]
+pub struct TextVerticalAlign(pub std::borrow::Cow<'static, str>);
+}
+
+pub const THEME_CUSTOM: crate::types::ThemeKind =
+    crate::types::ThemeKind(std::borrow::Cow::Borrowed("custom"));
+
+pub const THEME_DARK: crate::types::ThemeKind =
+    crate::types::ThemeKind(std::borrow::Cow::Borrowed("dark"));
+
 generated_scalar! { string,
 #[doc = "```text\nThemeKind classifies a theme as one of the two shipped built-ins or a user copy.\nIt picks the right default seed and tells the editor which themes are read-only\n(built-ins) versus editable (custom).\n```"]
 pub struct ThemeKind(pub std::borrow::Cow<'static, str>);
@@ -427,33 +457,3 @@ generated_scalar! { integer,
 #[doc = "```text\nViewLayout is how a document's open views are tiled in the viewport — how many views\nare shown at once and in what arrangement. A document always has at least one view;\nthe layout decides how many of them render simultaneously (many MCAD apps show views\nin separate windows; we tile them in one viewport). This is the canonical Apache-2.0\ndefinition; the GPL implementation aliases it and maps it onto the tiled renderer.\n```"]
 pub struct ViewLayout(pub i32);
 }
-
-generated_scalar! { integer,
-#[doc = "```text\nViewOperationTypeEnum is an interactive view manipulation: rotate (orbit), pan, or zoom.\nFrozen ids 30209–30211.\n```"]
-pub struct ViewOperationTypeEnum(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nViewOrientationTypeEnum names a standard camera orientation — the front/top/iso… presets a\nview cube or the named-view picker restores. The numeric ids are stable, frozen values\n(10753–10773).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
-pub struct ViewOrientationTypeEnum(pub i32);
-}
-
-pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52994);
-
-generated_scalar! { integer,
-#[doc = "```text\nViewTileTypeEnum is how a document's views are tiled when more than one is shown: a single\narrange, or a horizontal/vertical split. Frozen ids 117761–117764. (This is the typed\ncounterpart of the numeric [ViewLayout] used by the views collection.)\n```"]
-pub struct ViewTileTypeEnum(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
-pub struct ViewTypeEnum(pub i32);
-}
-
-pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
-
-pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
-
-pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
-
-pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);

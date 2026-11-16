@@ -4,6 +4,20 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSheetMetalStyleResult is the reply of getStyle/setStyle: the active rule after the call.\n```"]
+pub struct SheetMetalStyleResult {
+    pub style: crate::wire::SheetMetalStyleInfo => required("style");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSheetResult is the response of [MethodDrawingAddSheet] / [MethodDrawingSetActiveSheet]:\nthe affected sheet.\n```"]
+pub struct SheetResult {
+    pub sheet: crate::wire::SheetInfo => required("sheet");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nShowBalloonTipArgs is the request of [MethodBalloonTipShow].\n```"]
 pub struct ShowBalloonTipArgs {
     pub id: String => required("id");
@@ -255,6 +269,26 @@ pub struct SketchInfo {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchMoveDimensionChange describes a dimension in the exact planned revision.\nIndex is the index returned by sketch.dimensions for that same revision.\n```"]
+pub struct SketchMoveDimensionChange {
+    pub index: i64 => required("index");
+    pub before_expression: String => required("beforeExpression");
+    pub after_expression: String => required("afterExpression");
+    pub approval_required: bool => required("approvalRequired");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchMoveGeometricChange describes a relation proposed for removal.\nIndex is the index returned by sketch.constraints for that same revision.\n```"]
+pub struct SketchMoveGeometricChange {
+    pub index: i64 => required("index");
+    pub kind: String => required("kind");
+    pub entities: Option<Vec<u64>> => required("entities");
+    pub approval_required: bool => required("approvalRequired");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketchOptionsView is the \"sketch\" group: the grid and click snapping. Spacing is\nin model/database units (cm) — unit-independent, like the stored preference.\n\nA setGroup write replaces only the fields carried here; the sketch options the host\nkeeps but does not expose (the heads-up display flags) survive it unchanged.\n```"]
 pub struct SketchOptionsView {
     pub grid_spacing_cm: f64 => finite("gridSpacingCm");
@@ -423,38 +457,5 @@ generated_dto! {
 pub struct StyleChangedEvent {
     pub name: String => required("name");
     pub kind: String => required("kind");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStyleLibrariesResult is the response of [MethodStylesListLibraries]: the loaded libraries in\ncascade order.\n```"]
-pub struct StyleLibrariesResult {
-    pub libraries: Option<Vec<crate::wire::StyleLibraryInfo>> => required("libraries");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStyleLibraryInfo is one entry of [StyleLibrariesResult]: a loaded style library and its\ncascade position (lower Order shadows higher Order for a same-named style).\n```"]
-pub struct StyleLibraryInfo {
-    pub name: String => required("name");
-    pub path: String => required("path");
-    pub order: i64 => required("order");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSubmitCommandLineArgs is the request of [MethodCommandLineSubmit]: one line of Command\nWindow input — a command word (\"EXTRUDE\"), an alias (\"E\"), a coordinate/value/keyword for\nthe active command's current step (\"10,5\", \"25\", \"Close\"), or \"\" to finish/repeat. The\nhost drives the same command-line REPL the UI uses, so an add-in or MCP tool can model\nheadlessly: submit \"LINE\", then \"0,0\", then \"10,0\".\n```"]
-pub struct SubmitCommandLineArgs {
-    pub line: String => required("line");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSubstituteComponentsArgs is the request of [MethodAssemblySubstitute]: suppress the\nSource occurrences (by session id) and add one occurrence, named Name at Transform, that\ninstances the simplified component held by the open Document (by document id) — the\n\"substitute representation\" of the sources.\n```"]
-pub struct SubstituteComponentsArgs {
-    pub sources: Option<Vec<u64>> => required("sources");
-    pub document: u64 => required("document");
-    pub name: String => required("name");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
 }
 }
