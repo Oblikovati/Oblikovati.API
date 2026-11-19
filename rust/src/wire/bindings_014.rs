@@ -269,6 +269,24 @@ pub const METHOD_PARAMETERS_SET_TOLERANCE: &str = "parameters.setTolerance";
 
 pub const METHOD_PARAMETERS_UPDATE: &str = "parameters.update";
 
+pub const METHOD_PART_DESIGN_VIEWS_ACTIVATE: &str = "partDesignViews.activate";
+
+pub const METHOD_PART_DESIGN_VIEWS_CAPTURE_CAMERA: &str = "partDesignViews.captureCamera";
+
+pub const METHOD_PART_DESIGN_VIEWS_COPY: &str = "partDesignViews.copy";
+
+pub const METHOD_PART_DESIGN_VIEWS_DELETE: &str = "partDesignViews.delete";
+
+pub const METHOD_PART_DESIGN_VIEWS_GET_CAMERA: &str = "partDesignViews.getCamera";
+
+pub const METHOD_PART_DESIGN_VIEWS_LIST: &str = "partDesignViews.list";
+
+pub const METHOD_PART_DESIGN_VIEWS_RENAME: &str = "partDesignViews.rename";
+
+pub const METHOD_PART_DESIGN_VIEWS_SET_BODY_VISIBILITY: &str = "partDesignViews.setBodyVisibility";
+
+pub const METHOD_PART_DESIGN_VIEWS_SET_OPTIONS: &str = "partDesignViews.setOptions";
+
 pub const METHOD_POINT_CLOUDS_ADD_CROP: &str = "pointClouds.addCrop";
 
 pub const METHOD_POINT_CLOUDS_ATTACH: &str = "pointClouds.attach";
@@ -444,21 +462,3 @@ pub const METHOD_SKETCH_EDIT: &str = "sketch.edit";
 pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
 
 pub const METHOD_SKETCH_ENTITIES: &str = "sketch.entities";
-
-pub const METHOD_SKETCH_EXIT_EDIT: &str = "sketch.exitEdit";
-
-pub const METHOD_SKETCH_GET: &str = "sketch.get";
-
-pub const METHOD_SKETCH_GET_CUSTOM_LINE_TYPE: &str = "sketch.getCustomLineType";
-
-pub const METHOD_SKETCH_GET_ENTITY_FORMAT: &str = "sketch.getEntityFormat";
-
-pub const METHOD_SKETCH_GET_FORMAT_MODES: &str = "sketch.getFormatModes";
-
-pub const METHOD_SKETCH_GET_INFERENCE_OPTIONS: &str = "sketch.getInferenceOptions";
-
-pub const METHOD_SKETCH_GET_INFERENCE_SCOPE: &str = "sketch.getInferenceScope";
-
-pub const METHOD_SKETCH_GET_TEXT: &str = "sketch.getText";
-
-pub const METHOD_SKETCH_LIST: &str = "sketch.list";

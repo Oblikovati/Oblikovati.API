@@ -4,6 +4,43 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_scalar! { integer,
+#[doc = "```text\nUnitsType is the dimension category of a measured value (parity:\nValueUnitsTypeEnum) — the kind of quantity a unit name belongs to, as opposed\nto the unit name itself (\"mm\", \"in\"). It is carried on the wire by its\nspelling (UnitsType.String()); the numeric ids are stable and must never be\nrenumbered.\n\nThis is the canonical, Apache-2.0 definition. The host's parameter engine has\nits own richer internal category type (which also models non-arithmetic flag/\ntext values); it maps to and from these spellings at the wire boundary.\n```"]
+pub struct UnitsType(pub i32);
+}
+
+pub const UNITS_UNITLESS: crate::types::UnitsType = crate::types::UnitsType(0);
+
+pub const UNITS_VOLUME: crate::types::UnitsType = crate::types::UnitsType(4);
+
+pub const UNKNOWN_CONTAINMENT: crate::types::Containment = crate::types::Containment(30977);
+
+pub const UNKNOWN_CURVE: crate::types::CurveType = crate::types::CurveType(5121);
+
+pub const UNKNOWN_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5249);
+
+pub const UNKNOWN_DOCUMENT_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("UnknownDocument"));
+
+pub const UNKNOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(0);
+
+pub const UNKNOWN_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
+    crate::types::FlatPatternFaceType(0);
+
+pub const UNKNOWN_SOLUTION_NATURE: crate::types::SolutionNature = crate::types::SolutionNature(0);
+
+pub const UNKNOWN_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5889);
+
+pub const UNKNOWN_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117761);
+
+pub const UNKNOWN_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9217);
+
+pub const UP_TO_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103171);
+
+pub const USER_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(2);
+
+generated_scalar! { integer,
 #[doc = "```text\nValueType is the type tag of a [Variant]. Numeric values are FROZEN to the\nreference ValueTypeEnum — clients and saved automations depend on them.\n```"]
 pub struct ValueType(pub i32);
 }

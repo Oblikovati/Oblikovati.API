@@ -3,158 +3,154 @@
 
 package client_test
 
-import (
-	"oblikovati.org/api/client"
-	"oblikovati.org/api/wire"
-	"testing"
-)
+import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
 
 func TestRustParityDisplaySetSettings(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentSetDisplaySettings})
-	checkGoGroup(t, c, "Display", "SetSettings")
+ c := client.New(parityCaller{t, wire.MethodDocumentSetDisplaySettings})
+ checkGoGroup(t, c, "Display", "SetSettings")
 }
 
 func TestRustParityDisplaySettings(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentGetDisplaySettings})
-	checkGoGroup(t, c, "Display", "Settings")
+ c := client.New(parityCaller{t, wire.MethodDocumentGetDisplaySettings})
+ checkGoGroup(t, c, "Display", "Settings")
 }
 
 func TestRustParityDockableWindowsDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsDelete})
-	checkGoGroup(t, c, "DockableWindows", "Delete")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsDelete})
+ checkGoGroup(t, c, "DockableWindows", "Delete")
 }
 
 func TestRustParityDockableWindowsList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsList})
-	checkGoGroup(t, c, "DockableWindows", "List")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsList})
+ checkGoGroup(t, c, "DockableWindows", "List")
 }
 
 func TestRustParityDockableWindowsSet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsSet})
-	checkGoGroup(t, c, "DockableWindows", "Set")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsSet})
+ checkGoGroup(t, c, "DockableWindows", "Set")
 }
 
 func TestRustParityDockableWindowsSetReferences(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsSetReferences})
-	checkGoGroup(t, c, "DockableWindows", "SetReferences")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsSetReferences})
+ checkGoGroup(t, c, "DockableWindows", "SetReferences")
 }
 
 func TestRustParityDockableWindowsSetValue(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsSetValue})
-	checkGoGroup(t, c, "DockableWindows", "SetValue")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsSetValue})
+ checkGoGroup(t, c, "DockableWindows", "SetValue")
 }
 
 func TestRustParityDockableWindowsSetVisible(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDockableWindowsSetVisible})
-	checkGoGroup(t, c, "DockableWindows", "SetVisible")
+ c := client.New(parityCaller{t, wire.MethodDockableWindowsSetVisible})
+ checkGoGroup(t, c, "DockableWindows", "SetVisible")
 }
 
 func TestRustParityDocumentsActivate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsActivate})
-	checkGoGroup(t, c, "Documents", "Activate")
+ c := client.New(parityCaller{t, wire.MethodDocumentsActivate})
+ checkGoGroup(t, c, "Documents", "Activate")
 }
 
 func TestRustParityDocumentsAddAttachment(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsAddAttachment})
-	checkGoGroup(t, c, "Documents", "AddAttachment")
+ c := client.New(parityCaller{t, wire.MethodDocumentsAddAttachment})
+ checkGoGroup(t, c, "Documents", "AddAttachment")
 }
 
 func TestRustParityDocumentsAddInterest(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsAddInterest})
-	checkGoGroup(t, c, "Documents", "AddInterest")
+ c := client.New(parityCaller{t, wire.MethodDocumentsAddInterest})
+ checkGoGroup(t, c, "Documents", "AddInterest")
 }
 
 func TestRustParityDocumentsAttachments(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsListAttachments})
-	checkGoGroup(t, c, "Documents", "Attachments")
+ c := client.New(parityCaller{t, wire.MethodDocumentsListAttachments})
+ checkGoGroup(t, c, "Documents", "Attachments")
 }
 
 func TestRustParityDocumentsBatchSave(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsBatchSave})
-	checkGoGroup(t, c, "Documents", "BatchSave")
+ c := client.New(parityCaller{t, wire.MethodDocumentsBatchSave})
+ checkGoGroup(t, c, "Documents", "BatchSave")
 }
 
 func TestRustParityDocumentsClose(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsClose})
-	checkGoGroup(t, c, "Documents", "Close")
+ c := client.New(parityCaller{t, wire.MethodDocumentsClose})
+ checkGoGroup(t, c, "Documents", "Close")
 }
 
 func TestRustParityDocumentsCloseAll(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsCloseAll})
-	checkGoGroup(t, c, "Documents", "CloseAll")
+ c := client.New(parityCaller{t, wire.MethodDocumentsCloseAll})
+ checkGoGroup(t, c, "Documents", "CloseAll")
 }
 
 func TestRustParityDocumentsCreate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsCreate})
-	checkGoGroup(t, c, "Documents", "Create")
+ c := client.New(parityCaller{t, wire.MethodDocumentsCreate})
+ checkGoGroup(t, c, "Documents", "Create")
 }
 
 func TestRustParityDocumentsExport(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsExport})
-	checkGoGroup(t, c, "Documents", "Export")
+ c := client.New(parityCaller{t, wire.MethodDocumentsExport})
+ checkGoGroup(t, c, "Documents", "Export")
 }
 
 func TestRustParityDocumentsFileReferences(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsListFileReferences})
-	checkGoGroup(t, c, "Documents", "FileReferences")
+ c := client.New(parityCaller{t, wire.MethodDocumentsListFileReferences})
+ checkGoGroup(t, c, "Documents", "FileReferences")
 }
 
 func TestRustParityDocumentsGetEndOfPart(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentGetEndOfPart})
-	checkGoGroup(t, c, "Documents", "GetEndOfPart")
+ c := client.New(parityCaller{t, wire.MethodDocumentGetEndOfPart})
+ checkGoGroup(t, c, "Documents", "GetEndOfPart")
 }
 
 func TestRustParityDocumentsGetProperty(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsGetProperty})
-	checkGoGroup(t, c, "Documents", "GetProperty")
+ c := client.New(parityCaller{t, wire.MethodDocumentsGetProperty})
+ checkGoGroup(t, c, "Documents", "GetProperty")
 }
 
 func TestRustParityDocumentsGetSketchSettings(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentGetSketchSettings})
-	checkGoGroup(t, c, "Documents", "GetSketchSettings")
+ c := client.New(parityCaller{t, wire.MethodDocumentGetSketchSettings})
+ checkGoGroup(t, c, "Documents", "GetSketchSettings")
 }
 
 func TestRustParityDocumentsGetUnits(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsGetUnits})
-	checkGoGroup(t, c, "Documents", "GetUnits")
+ c := client.New(parityCaller{t, wire.MethodDocumentsGetUnits})
+ checkGoGroup(t, c, "Documents", "GetUnits")
 }
 
 func TestRustParityDocumentsHasInterest(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsHasInterest})
-	checkGoGroup(t, c, "Documents", "HasInterest")
+ c := client.New(parityCaller{t, wire.MethodDocumentsHasInterest})
+ checkGoGroup(t, c, "Documents", "HasInterest")
 }
 
 func TestRustParityDocumentsImport(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsImport})
-	checkGoGroup(t, c, "Documents", "Import")
+ c := client.New(parityCaller{t, wire.MethodDocumentsImport})
+ checkGoGroup(t, c, "Documents", "Import")
 }
 
 func TestRustParityDocumentsInterests(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsListInterests})
-	checkGoGroup(t, c, "Documents", "Interests")
+ c := client.New(parityCaller{t, wire.MethodDocumentsListInterests})
+ checkGoGroup(t, c, "Documents", "Interests")
 }
 
 func TestRustParityDocumentsList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsList})
-	checkGoGroup(t, c, "Documents", "List")
+ c := client.New(parityCaller{t, wire.MethodDocumentsList})
+ checkGoGroup(t, c, "Documents", "List")
 }
 
 func TestRustParityDocumentsListProperties(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsListProperties})
-	checkGoGroup(t, c, "Documents", "ListProperties")
+ c := client.New(parityCaller{t, wire.MethodDocumentsListProperties})
+ checkGoGroup(t, c, "Documents", "ListProperties")
 }
 
 func TestRustParityDocumentsLoadFull(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsLoadFull})
-	checkGoGroup(t, c, "Documents", "LoadFull")
+ c := client.New(parityCaller{t, wire.MethodDocumentsLoadFull})
+ checkGoGroup(t, c, "Documents", "LoadFull")
 }
 
 func TestRustParityDocumentsOpen(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsOpen})
-	checkGoGroup(t, c, "Documents", "Open")
+ c := client.New(parityCaller{t, wire.MethodDocumentsOpen})
+ checkGoGroup(t, c, "Documents", "Open")
 }
 
 func TestRustParityDocumentsRebuild(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsRebuild})
-	checkGoGroup(t, c, "Documents", "Rebuild")
+ c := client.New(parityCaller{t, wire.MethodDocumentsRebuild})
+ checkGoGroup(t, c, "Documents", "Rebuild")
 }

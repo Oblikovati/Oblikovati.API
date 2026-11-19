@@ -245,26 +245,29 @@ fn parameters_update() {
 }
 
 #[test]
-fn pattern_circular() {
-    let args: oblikovati_api::wire::AddSketchPatternArgs = Default::default();
+fn part_design_views_activate() {
+    let args: oblikovati_api::wire::PartDesignViewRef = Default::default();
     let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_ADD_PATTERN,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.pattern().circular(&args).unwrap_err().0, "recorded");
-}
-
-#[test]
-fn pattern_rectangular() {
-    let args: oblikovati_api::wire::AddSketchPatternArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_ADD_PATTERN,
+        oblikovati_api::wire::METHOD_PART_DESIGN_VIEWS_ACTIVATE,
         serde_json::to_vec(&args).unwrap(),
     );
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(
-        client.pattern().rectangular(&args).unwrap_err().0,
+        client.part_design_views().activate(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
+fn part_design_views_camera() {
+    let args: oblikovati_api::wire::PartDesignViewRef = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_PART_DESIGN_VIEWS_GET_CAMERA,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.part_design_views().camera(&args).unwrap_err().0,
         "recorded"
     );
 }

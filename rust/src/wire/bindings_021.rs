@@ -4,6 +4,99 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetWorkFeatureVisibleArgs is the request of [MethodWorkFeaturesSetVisible]: show or hide the\ndatum work plane, axis, or point named by Ref (a \"plane/N\" / \"axis/N\" / \"point/N\" reference, or\nan origin-frame ref like \"origin/plane/xy\"). Visible=false hides it in the viewport. #1856.\n```"]
+pub struct SetWorkFeatureVisibleArgs {
+    pub ref_: String => required("ref");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetWorkSurfaceVisibleArgs is the request of [MethodWorkSurfacesSetVisible]: set (not\ntoggle) the surface's visibility, so the call is idempotent for replication.\n```"]
+pub struct SetWorkSurfaceVisibleArgs {
+    pub index: i64 => required("index");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSettingsResult is the reply of getSettings/setSettings: the settings after the call.\n```"]
+pub struct SettingsResult {
+    pub settings: crate::wire::FlatPatternSettings => required("settings");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nShadedDisplayModeOptionsView is the JSON shape of the shaded-mode sub-options — a member of\n[DisplayModeOptionsView].\n```"]
+pub struct ShadedDisplayModeOptionsView {
+    pub edge_display: bool => required("edgeDisplay");
+    pub edge_color: crate::types::Color => required("edgeColor");
+    pub silhouettes: bool => required("silhouettes");
+    pub transparency_type: crate::types::TransparencyTypeEnum => required("transparencyType");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nShadowSettings is the JSON shape of the View's shadow toggles — the response of\n[MethodViewGetShadows] / [MethodViewSetShadows] and the request of the latter.\nDensity and Softness are in [0,1]. GroundShadow selects the ground-shadow style.\n```"]
+pub struct ShadowSettings {
+    pub ground_shadow: crate::types::GroundShadowEnum => required("groundShadow");
+    pub object_shadows: bool => required("objectShadows");
+    pub ambient_shadows: bool => required("ambientShadows");
+    pub density: f64 => finite("density");
+    pub softness: f64 => finite("softness");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSheetInfo is the JSON shape of one drawing sheet.\n```"]
+pub struct SheetInfo {
+    pub name: String => required("name");
+#[doc = "```text\ntypes.SheetSize spelling (\"a3\", \"custom\")\n```"]
+    pub size: String => required("size");
+#[doc = "```text\ntypes.SheetOrientation spelling\n```"]
+    pub orientation: String => required("orientation");
+#[doc = "```text\nlaid-out width (orientation applied)\n```"]
+    pub width_mm: f64 => finite("widthMm");
+#[doc = "```text\nlaid-out height\n```"]
+    pub height_mm: f64 => finite("heightMm");
+    pub active: bool => required("active");
+    pub has_border: bool => required("hasBorder");
+    pub has_title_block: bool => required("hasTitleBlock");
+#[doc = "```text\nSheet authoring (#1989). Revision is the sheet's revision string; BorderHZones/VZones report a\nzoned border's grid (0 ⇒ plain); TitleBlockLocation is the title block's corner.\n```"]
+    pub revision: String => omitted("revision", "crate::json::is_zero");
+    pub border_h_zones: i64 => omitted("borderHZones", "crate::json::is_zero");
+    pub border_v_zones: i64 => omitted("borderVZones", "crate::json::is_zero");
+    pub title_block_location: String => omitted("titleBlockLocation", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalStyleInfo is the active sheet-metal rule, as reported by getStyle and accepted\n(field-by-field, omitempty = leave unchanged) by setStyle. Lengths are unit expressions\n(\"0.8 mm\", \"t*1.5\") so they stay parameter-backed end to end; KFactor is the neutral-axis\nratio used by the K-factor unfold method.\n```"]
+pub struct SheetMetalStyleInfo {
+    pub name: String => required("name");
+    pub thickness: String => required("thickness");
+    pub bend_radius: String => required("bendRadius");
+    pub relief_shape: String => required("reliefShape");
+    pub relief_width: String => required("reliefWidth");
+    pub relief_depth: String => required("reliefDepth");
+    pub mind_gap: String => required("minimumGap");
+    pub unfold_method: String => required("unfoldMethod");
+    pub k_factor: f64 => finite("kFactor");
+#[doc = "```text\nreported convenience; not an input\n```"]
+    pub bend_allowance: f64 => omitted_finite("bendAllowance", "crate::json::is_zero");
+#[doc = "```text\nThe CORNER relief is a separate property from the bend relief above: it is the cut made\nwhere two flanges meet, with its own shape, size and placement, plus a distinct shape and\nsize for the three-bend corner (#1960). The reference CAD API's Default style trims the corner to the\nbend at four times the thickness, and rounds a three-bend corner at the bend radius.\n```"]
+    pub corner_relief_shape: String => omitted("cornerReliefShape", "crate::json::is_zero");
+    pub corner_relief_size: String => omitted("cornerReliefSize", "crate::json::is_zero");
+    pub corner_relief_placement: String => omitted("cornerReliefPlacement", "crate::json::is_zero");
+    pub three_bend_relief_shape: String => omitted("threeBendReliefShape", "crate::json::is_zero");
+    pub three_bend_relief_size: String => omitted("threeBendReliefSize", "crate::json::is_zero");
+#[doc = "```text\nBendTransition is how the material is shaped where a bend zone runs into the face beside it\n(#1959): \"none\" (default), \"intersection\", \"straightLine\", \"arc\" or \"trimToBend\".\nBendTransitionArcRadius sizes the arc form.\n```"]
+    pub bend_transition: String => omitted("bendTransition", "crate::json::is_zero");
+    pub bend_transition_arc_radius: String => omitted("bendTransitionArcRadius", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSheetMetalStyleResult is the reply of getStyle/setStyle: the active rule after the call.\n```"]
 pub struct SheetMetalStyleResult {
     pub style: crate::wire::SheetMetalStyleInfo => required("style");
@@ -367,93 +460,5 @@ generated_dto! {
 pub struct SketchTextResult {
     pub entity_id: u64 => required("entityId");
     pub style: crate::types::SketchTextStyle => required("style");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSlotRepick re-points the work plane's reference Slot at a new reference Ref — an origin\nconstant (types.WorkRefXYPlane …), a ref returned by List, or a face key. Slot is the\n[WorkPlaneRefSlot] index.\n```"]
-pub struct SlotRepick {
-    pub slot: i64 => required("slot");
-    pub ref_: String => required("ref");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSnapConstraintArgs is the request of [MethodAssemblyConstraintsSnap]: \"grip snap\" — pick a\ngeometry A on the component to move and a target geometry B on another component, and the host\nINFERS the assembly constraint that snaps A onto B (planar faces → mate or flush; cylinder axes →\ninsert; an axis pair → mate; plane + cylinder → tangent; a point → coincident mate), creates it at\noffset 0, and re-solves so the part jumps into place. Prefer overrides the inference with an\n[types.AssemblyConstraintType] wire spelling (\"mate\"|\"flush\"|\"insert\"|\"tangent\"); \"\" ⇒ auto. The\nreply is the usual [ConstraintResult]; its Constraint.Type is the inferred (or preferred) kind.\n```"]
-pub struct SnapConstraintArgs {
-    pub a: crate::wire::ConstraintGeomRef => required("a");
-    pub b: crate::wire::ConstraintGeomRef => required("b");
-    pub prefer: String => omitted("prefer", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSolveSketch3DResult is the response of [MethodSketch3DSolve]: remaining DOF, a status\nstring (\"well\" | \"under\" | \"over\"), whether the Newton/LM iteration converged, and\nthe resulting health.\n```"]
-pub struct SolveSketch3DResult {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub dof: i64 => required("dof");
-    pub status: String => required("status");
-    pub converged: bool => required("converged");
-    pub healthy: bool => required("healthy");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSolveSketchResult is the response of [MethodSketchSolve]: the solve outcome —\nremaining DOF, a status string (\"well\" | \"under\" | \"over\"), whether the Newton/LM\niteration converged, and the resulting health.\n```"]
-pub struct SolveSketchResult {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub dof: i64 => required("dof");
-    pub status: String => required("status");
-    pub converged: bool => required("converged");
-    pub healthy: bool => required("healthy");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSplineHandleInfo is the response of [MethodSketchSetSplineHandle] and\n[MethodSketch3DSetSplineHandle]: the handle's session id (0 when the call\ndeactivated it), its current tangent direction and weight.\n```"]
-pub struct SplineHandleInfo {
-    pub handle_id: u64 => omitted("handleId", "crate::json::is_zero");
-    pub tangent: Option<Vec<f64>> => omitted_finite("tangent", "crate::json::slice_is_empty");
-    pub weight: f64 => omitted_finite("weight", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStandardStyleInfo is one drafting standard's complete style preset.\n```"]
-pub struct StandardStyleInfo {
-#[doc = "```text\ntypes.DraftingStandard spelling\n```"]
-    pub standard: String => required("standard");
-    pub dimension: crate::wire::DimensionStyleInfo => required("dimension");
-    pub text: crate::wire::TextStyleInfo => required("text");
-    pub line: crate::wire::LineStyleInfo => required("line");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStandardStyleResult is the response of [MethodDrawingStylesGetActiveStyle] /\n[MethodDrawingStylesSetStandard]: the active standard's resolved style preset.\n```"]
-pub struct StandardStyleResult {
-    pub style: crate::wire::StandardStyleInfo => required("style");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStatusTextResult is the response of [MethodStatusGetText].\n```"]
-pub struct StatusTextResult {
-    pub text: String => required("text");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStringFromValueArgs is the request of [MethodUnitsGetStringFromValue] and\n[MethodUnitsGetPreciseStringFromValue]: a Value in database units of the\ngiven UnitsType (a types.UnitsType spelling), formatted in the document's\ndisplay unit — honoring display precision (GetStringFromValue) or at full\nprecision (GetPreciseStringFromValue).\n```"]
-pub struct StringFromValueArgs {
-    pub value: f64 => finite("value");
-    pub units_type: String => required("unitsType");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStringResult is a single formatted/normalized string (response of the\nvalue-formatting and locale/type-name methods).\n```"]
-pub struct StringResult {
-    pub value: String => required("value");
 }
 }

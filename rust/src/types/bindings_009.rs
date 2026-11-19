@@ -3,6 +3,42 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SURFACE_FORM_PROCEDURAL_TO_NURBS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(16);
+
+generated_scalar! { integer,
+#[doc = "```text\nSurfaceGeometryForm is the surface representation classification (flag values,\nfrozen to the reference).\n```"]
+pub struct SurfaceGeometryForm(pub i32);
+}
+
+pub const SURFACE_TEXTURE_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(6);
+
+generated_scalar! { integer,
+#[doc = "```text\nSurfaceType identifies a transient surface's concrete kind.\n```"]
+pub struct SurfaceType(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSweepDefinitionType discriminates the sweep definition union.\n```"]
+pub struct SweepDefinitionType(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSweepProfileOrientation controls how the profile rides the path.\n```"]
+pub struct SweepProfileOrientation(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSweepProfileScaling controls how a guide rail scales the profile.\n```"]
+pub struct SweepProfileScaling(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSweepType is the placed feature's sweep kind (the SweepFeature property\nmirroring its definition type).\n```"]
+pub struct SweepType(pub i32);
+}
+
 pub const SYMMETRIC_DIMENSION: crate::types::DrawingDimensionType =
     crate::types::DrawingDimensionType(9);
 
@@ -422,40 +458,3 @@ pub const UNITS_LENGTH: crate::types::UnitsType = crate::types::UnitsType(1);
 pub const UNITS_MASS: crate::types::UnitsType = crate::types::UnitsType(5);
 
 pub const UNITS_TIME: crate::types::UnitsType = crate::types::UnitsType(6);
-
-generated_scalar! { integer,
-#[doc = "```text\nUnitsType is the dimension category of a measured value (parity:\nValueUnitsTypeEnum) — the kind of quantity a unit name belongs to, as opposed\nto the unit name itself (\"mm\", \"in\"). It is carried on the wire by its\nspelling (UnitsType.String()); the numeric ids are stable and must never be\nrenumbered.\n\nThis is the canonical, Apache-2.0 definition. The host's parameter engine has\nits own richer internal category type (which also models non-arithmetic flag/\ntext values); it maps to and from these spellings at the wire boundary.\n```"]
-pub struct UnitsType(pub i32);
-}
-
-pub const UNITS_UNITLESS: crate::types::UnitsType = crate::types::UnitsType(0);
-
-pub const UNITS_VOLUME: crate::types::UnitsType = crate::types::UnitsType(4);
-
-pub const UNKNOWN_CONTAINMENT: crate::types::Containment = crate::types::Containment(30977);
-
-pub const UNKNOWN_CURVE: crate::types::CurveType = crate::types::CurveType(5121);
-
-pub const UNKNOWN_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5249);
-
-pub const UNKNOWN_DOCUMENT_RIBBON: crate::types::RibbonKey =
-    crate::types::RibbonKey(std::borrow::Cow::Borrowed("UnknownDocument"));
-
-pub const UNKNOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(0);
-
-pub const UNKNOWN_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(0);
-
-pub const UNKNOWN_SOLUTION_NATURE: crate::types::SolutionNature = crate::types::SolutionNature(0);
-
-pub const UNKNOWN_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5889);
-
-pub const UNKNOWN_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
-    crate::types::ViewTileTypeEnum(117761);
-
-pub const UNKNOWN_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9217);
-
-pub const UP_TO_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
-    crate::types::CachedGraphicsStatusEnum(103171);
-
-pub const USER_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(2);

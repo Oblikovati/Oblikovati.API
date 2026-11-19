@@ -4,6 +4,71 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nRectangularPatternFeatureArgs is the args object for a [FeatureKindPatternRectangular]\n[MethodFeaturesAdd] call: replicate SourceFeatures on a grid. CountX/CountY are the per-\ndirection counts; CountXExpr/CountYExpr are their parameter-expression forms (when set,\nthey supersede the numeric counts) (#189). StepX/StepY are the per-direction spacing\nvectors [x,y,z] in cm (StepY optional for a 1-D pattern).\n```"]
+pub struct RectangularPatternFeatureArgs {
+    pub source_features: Option<Vec<String>> => required("sourceFeatures");
+    pub count_x: i64 => omitted("countX", "crate::json::is_zero");
+    pub count_y: i64 => omitted("countY", "crate::json::is_zero");
+    pub count_x_expr: String => omitted("countXExpr", "crate::json::is_zero");
+    pub count_y_expr: String => omitted("countYExpr", "crate::json::is_zero");
+    pub step_x: Option<Vec<f64>> => omitted_finite("stepX", "crate::json::slice_is_empty");
+    pub step_y: Option<Vec<f64>> => omitted_finite("stepY", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRedefineWorkPlaneArgs is the request of [MethodWorkPlanesRedefine]: edit a placed user work\nplane in place. Index selects the plane (its position in List). Scalars sets editable\ndistances/angles; Repick re-points reference slots at new geometry. AutoResize and Grounded, when\nnon-nil, set those display/associativity flags; Size, when set, fixes the displayed rectangle\nextents (two corners [x,y,z] cm). All are optional and applied together, then the part recomputes\n(#1851).\n```"]
+pub struct RedefineWorkPlaneArgs {
+    pub index: i64 => required("index");
+    pub scalars: Option<Vec<crate::wire::ScalarEdit>> => omitted("scalars", "crate::json::slice_is_empty");
+    pub repick: Option<Vec<crate::wire::SlotRepick>> => omitted("repick", "crate::json::slice_is_empty");
+#[doc = "```text\n#1851\n```"]
+    pub auto_resize: Option<Box<bool>> => omitted("autoResize", "Option::is_none");
+#[doc = "```text\n#1851\n```"]
+    pub grounded: Option<Box<bool>> => omitted("grounded", "Option::is_none");
+#[doc = "```text\ntwo corners [x,y,z] cm (#1851)\n```"]
+    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRedefineWorkPlaneResult is the response of [MethodWorkPlanesRedefine]: the plane's refreshed\ninfo (new geometry/health and its still-editable scalars/slots). An unsatisfiable edit\nreports healthy=false rather than failing the call.\n```"]
+pub struct RedefineWorkPlaneResult {
+    pub plane: crate::wire::WorkPlaneInfo => required("plane");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nReferenceKeysResult is the response of [MethodModelReferenceKeys]: the active part's\ntopology per body, each entity carrying the persistent reference key consumed by the key\nconsumers (include, addSurfaceCurve, project geometry, attributes). It is how an add-in\nobtains a face/edge/vertex key without a viewport pick.\n```"]
+pub struct ReferenceKeysResult {
+    pub bodies: Option<Vec<crate::wire::BodyTopology>> => required("bodies");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRegionPropertiesArgs is the request of [MethodSketchRegionProperties] and\n[MethodSketch3DRegionProperties]: which sketch, which profile (the index\nfrom [MethodSketchProfiles] / [MethodSketch3DProfiles]; the profile must be\nclosed — and planar, for the 3D method), and the desired computational\naccuracy ([oblikovati.org/api/types.Accuracy] wire spelling; empty ⇒ \"high\").\n```"]
+pub struct RegionPropertiesArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub accuracy: String => omitted("accuracy", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRegionPropertiesResult is the response of [MethodSketchRegionProperties] and\n[MethodSketch3DRegionProperties]. All values are in database units (cm) on\nthe profile's plane, about the sketch origin unless stated otherwise:\n  - Area (cm², holes subtracted) and Perimeter (cm, holes' rims included);\n  - Centroid [x,y] (cm, in sketch-plane coordinates);\n  - MomentsOfInertia [Ixx, Iyy, Ixy] (cm⁴) about the centroid;\n  - PrincipalMoments [I1, I2] (cm⁴) and RotationAngle (radians CCW from the\n    sketch X axis to the first principal axis);\n  - PrincipalAxes the two unit axes [[x1,y1],[x2,y2]];\n  - Accuracy the wire spelling actually used.\n```"]
+pub struct RegionPropertiesResult {
+    pub area: f64 => finite("area");
+    pub perimeter: f64 => finite("perimeter");
+    pub centroid: Option<Vec<f64>> => finite("centroid");
+    pub moments_of_inertia: Option<Vec<f64>> => finite("momentsOfInertia");
+    pub principal_moments: Option<Vec<f64>> => finite("principalMoments");
+    pub rotation_angle: f64 => finite("rotationAngle");
+    pub principal_axes: Option<Vec<Option<Vec<f64>>>> => finite("principalAxes");
+    pub accuracy: String => required("accuracy");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nRegisterBalloonTipArgs is the request of [MethodBalloonTipRegister]: declare a\nnamed notification balloon. Registration is separate from showing so the per-user\n\"don't show again\" suppression has a stable id to remember.\n```"]
 pub struct RegisterBalloonTipArgs {
     pub id: String => required("id");
@@ -115,6 +180,14 @@ pub struct RemoveViewCropArgs {
 generated_dto! {
 #[doc = "```text\nRenameFeatureArgs is the request of [MethodFeaturesRename]. The id is stable\nacross renames; the new name must be non-empty and unique within the part.\n```"]
 pub struct RenameFeatureArgs {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nRenamePartDesignViewArgs changes an authored view's name while retaining ID.\nHosts decline renames of built-in views until their behavior is established.\nA duplicate or invalid name leaves state unchanged.\nExample: `args := wire.RenamePartDesignViewArgs{ID: 2, Name: \"Review\"}`.\n```"]
+pub struct RenamePartDesignViewArgs {
     pub id: u64 => required("id");
     pub name: String => required("name");
 }
@@ -387,79 +460,5 @@ pub struct SaveWarning {
     pub document: u64 => required("document");
     pub code: String => required("code");
     pub detail: String => required("detail");
-}
-}
-
-pub const SAVE_WARNING_ASSEMBLY_CACHE_UNAVAILABLE: &str = "assemblyCacheUnavailable";
-
-generated_dto! {
-#[doc = "```text\nScalarEdit sets the work plane's scalar at slot Index to a unit-bearing Value (\"30 mm\",\n\"60 deg\") — the index comes from [WorkPlaneScalar].\n```"]
-pub struct ScalarEdit {
-    pub index: i64 => required("index");
-    pub value: String => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nScriptRunArgs is the request of [MethodScriptRun]: a whole Lua program to run against\nthe live model in one call, instead of issuing N separate method calls. The host runs\nit in the same sandboxed runtime the GUI Script Console and the CLI use (ADR-0028), so\nthe script reaches the model only through this same wire surface.\n\nAn MCP/LLM client uses this to submit a complete automation program (build a sketch,\nextrude it, set parameters) atomically from its side, reading the script's print()\noutput and any error back in [ScriptRunResult].\n\nWallMs is an optional per-run wall-clock budget in milliseconds (0 ⇒ the host default);\nthe host caps it so a runaway script can never hang the session.\n```"]
-pub struct ScriptRunArgs {
-    pub source: String => required("source");
-    pub wall_ms: i64 => omitted("wallMs", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nScriptRunResult is the response of [MethodScriptRun]. The method succeeds at the\ntransport level even when the *script* fails: a syntax/runtime error, quota breach, or\ncancellation is reported in Error (empty on success) alongside whatever Output the\nscript printed before it stopped — so a caller always gets both the output and the\nfailure reason rather than an opaque transport error.\n```"]
-pub struct ScriptRunResult {
-#[doc = "```text\ncaptured print() output\n```"]
-    pub output: String => required("output");
-#[doc = "```text\nscript failure message; empty on success\n```"]
-    pub error: String => omitted("error", "crate::json::is_zero");
-#[doc = "```text\nwall-clock spent running\n```"]
-    pub duration_ms: i64 => required("durationMs");
-#[doc = "```text\nopcodes executed (best-effort; metrics)\n```"]
-    pub ops: u64 => omitted("ops", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nScrollViewportArgs is the request of [MethodViewportScroll]: a mouse-wheel tick at a viewport\npixel, in notches (a wheel detent is one notch; fractional for high-resolution wheels). DY is the\nvertical axis (positive scrolls up — the zoom-in direction the host has always used). DX is the\nhorizontal axis a two-axis wheel or thumbwheel reports (#1822); it is delivered but carries no\ndefault binding, so it changes nothing until a tool or add-in reads it. X/Y locate the cursor so\nthe host can zoom toward it, defaulting to the viewport centre when omitted.\n```"]
-pub struct ScrollViewportArgs {
-    pub dx: f64 => omitted_finite("dx", "crate::json::is_zero");
-    pub dy: f64 => omitted_finite("dy", "crate::json::is_zero");
-    pub x: f64 => omitted_finite("x", "crate::json::is_zero");
-    pub y: f64 => omitted_finite("y", "crate::json::is_zero");
-    pub shift: bool => omitted("shift", "crate::json::is_zero");
-    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
-    pub alt: bool => omitted("alt", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nScrollViewportResult is the response of [MethodViewportScroll]: the command still running after\nthe scroll (empty once none is), mirroring the click/key results.\n```"]
-pub struct ScrollViewportResult {
-    pub active_tool: String => required("activeTool");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSearchCommandsArgs is the request of [MethodUISearch]: find registered commands\nwhose display name, id, or alias matches the query (case-insensitive substring).\n```"]
-pub struct SearchCommandsArgs {
-    pub query: String => required("query");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSearchCommandsResult is the response of [MethodUISearch].\n```"]
-pub struct SearchCommandsResult {
-    pub commands: Option<Vec<crate::wire::CommandInfo>> => required("commands");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSelectArgs is the request of [MethodModelSelect] (#157): select the entities named by Refs —\nreference strings as returned in a [SelectionResult] (face/vertex/body, #1492). Mode \"add\"\nextends the current selection; any other value (or empty) replaces it. The reply is the new\nselection.\n```"]
-pub struct SelectArgs {
-    pub refs: Option<Vec<String>> => required("refs");
-    pub mode: String => omitted("mode", "crate::json::is_zero");
 }
 }

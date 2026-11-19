@@ -295,6 +295,112 @@ impl<T: super::Caller> super::Parameters<'_, T> {
     }
 }
 
+/// Typed `PartDesignViews` calls over the shared API transport.
+pub struct PartDesignViews<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `PartDesignViews` API. Example: `client.part_design_views()`.
+    pub fn part_design_views(&self) -> PartDesignViews<'_, T> {
+        PartDesignViews(self)
+    }
+}
+impl<T: super::Caller> PartDesignViews<'_, T> {
+    /// Call `MethodPartDesignViewsActivate` with the canonical request and response types.
+    /// Example: `client.part_design_views().activate(&args)`.
+    pub fn activate(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_ACTIVATE, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsGetCamera` with the canonical request and response types.
+    /// Example: `client.part_design_views().camera(&args)`.
+    pub fn camera(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::types::PartDesignViewCamera, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_GET_CAMERA, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsCaptureCamera` with the canonical request and response types.
+    /// Example: `client.part_design_views().capture_camera(&args)`.
+    pub fn capture_camera(
+        &self,
+        args: &crate::wire::CapturePartDesignViewCameraArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_CAPTURE_CAMERA,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodPartDesignViewsCopy` with the canonical request and response types.
+    /// Example: `client.part_design_views().copy(&args)`.
+    pub fn copy(
+        &self,
+        args: &crate::wire::CopyPartDesignViewArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_COPY, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsDelete` with the canonical request and response types.
+    /// Example: `client.part_design_views().delete(&args)`.
+    pub fn delete(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::wire::PartDesignViewsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_DELETE, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsList` with the canonical request and response types.
+    /// Example: `client.part_design_views().list(&args)`.
+    pub fn list(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::PartDesignViewsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_LIST, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsRename` with the canonical request and response types.
+    /// Example: `client.part_design_views().rename(&args)`.
+    pub fn rename(
+        &self,
+        args: &crate::wire::RenamePartDesignViewArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_RENAME, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsSetBodyVisibility` with the canonical request and response types.
+    /// Example: `client.part_design_views().set_body_visibility(&args)`.
+    pub fn set_body_visibility(
+        &self,
+        args: &crate::wire::SetPartDesignViewBodyVisibilityArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_SET_BODY_VISIBILITY,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodPartDesignViewsSetOptions` with the canonical request and response types.
+    /// Example: `client.part_design_views().set_options(&args)`.
+    pub fn set_options(
+        &self,
+        args: &crate::wire::SetPartDesignViewOptionsArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_SET_OPTIONS,
+            Some(args),
+        )
+    }
+}
+
 /// Typed `Pattern` calls over the shared API transport.
 pub struct Pattern<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {

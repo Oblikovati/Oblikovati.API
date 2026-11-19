@@ -3,158 +3,154 @@
 
 package client_test
 
-import (
-	"oblikovati.org/api/client"
-	"oblikovati.org/api/wire"
-	"testing"
-)
+import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
 
 func TestRustParityModelHighlightSets(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
-	checkGoGroup(t, c, "Model", "HighlightSets")
+ c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
+ checkGoGroup(t, c, "Model", "HighlightSets")
 }
 
 func TestRustParityModelReferenceKeys(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelReferenceKeys})
-	checkGoGroup(t, c, "Model", "ReferenceKeys")
+ c := client.New(parityCaller{t, wire.MethodModelReferenceKeys})
+ checkGoGroup(t, c, "Model", "ReferenceKeys")
 }
 
 func TestRustParityModelSelect(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelSelect})
-	checkGoGroup(t, c, "Model", "Select")
+ c := client.New(parityCaller{t, wire.MethodModelSelect})
+ checkGoGroup(t, c, "Model", "Select")
 }
 
 func TestRustParityModelSelection(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelSelection})
-	checkGoGroup(t, c, "Model", "Selection")
+ c := client.New(parityCaller{t, wire.MethodModelSelection})
+ checkGoGroup(t, c, "Model", "Selection")
 }
 
 func TestRustParityModelSetHighlightSetColor(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetSetColor})
-	checkGoGroup(t, c, "Model", "SetHighlightSetColor")
+ c := client.New(parityCaller{t, wire.MethodModelHighlightSetSetColor})
+ checkGoGroup(t, c, "Model", "SetHighlightSetColor")
 }
 
 func TestRustParityModelStatesActivate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesActivate})
-	checkGoGroup(t, c, "ModelStates", "Activate")
+ c := client.New(parityCaller{t, wire.MethodModelStatesActivate})
+ checkGoGroup(t, c, "ModelStates", "Activate")
 }
 
 func TestRustParityModelStatesCopy(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesCopy})
-	checkGoGroup(t, c, "ModelStates", "Copy")
+ c := client.New(parityCaller{t, wire.MethodModelStatesCopy})
+ checkGoGroup(t, c, "ModelStates", "Copy")
 }
 
 func TestRustParityModelStatesCreate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesCreate})
-	checkGoGroup(t, c, "ModelStates", "Create")
+ c := client.New(parityCaller{t, wire.MethodModelStatesCreate})
+ checkGoGroup(t, c, "ModelStates", "Create")
 }
 
 func TestRustParityModelStatesDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesDelete})
-	checkGoGroup(t, c, "ModelStates", "Delete")
+ c := client.New(parityCaller{t, wire.MethodModelStatesDelete})
+ checkGoGroup(t, c, "ModelStates", "Delete")
 }
 
 func TestRustParityModelStatesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesList})
-	checkGoGroup(t, c, "ModelStates", "List")
+ c := client.New(parityCaller{t, wire.MethodModelStatesList})
+ checkGoGroup(t, c, "ModelStates", "List")
 }
 
 func TestRustParityModelStatesRename(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesRename})
-	checkGoGroup(t, c, "ModelStates", "Rename")
+ c := client.New(parityCaller{t, wire.MethodModelStatesRename})
+ checkGoGroup(t, c, "ModelStates", "Rename")
 }
 
 func TestRustParityModelTree(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelTree})
-	checkGoGroup(t, c, "Model", "Tree")
+ c := client.New(parityCaller{t, wire.MethodModelTree})
+ checkGoGroup(t, c, "Model", "Tree")
 }
 
 func TestRustParityOptionsGroups(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsListGroups})
-	checkGoGroup(t, c, "Options", "Groups")
+ c := client.New(parityCaller{t, wire.MethodOptionsListGroups})
+ checkGoGroup(t, c, "Options", "Groups")
 }
 
 func TestRustParityOptionsSetDisplay(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
-	checkGoGroup(t, c, "Options", "SetDisplay")
+ c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
+ checkGoGroup(t, c, "Options", "SetDisplay")
 }
 
 func TestRustParityOptionsSetGeneral(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
-	checkGoGroup(t, c, "Options", "SetGeneral")
+ c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
+ checkGoGroup(t, c, "Options", "SetGeneral")
 }
 
 func TestRustParityOptionsSetPart(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
-	checkGoGroup(t, c, "Options", "SetPart")
+ c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
+ checkGoGroup(t, c, "Options", "SetPart")
 }
 
 func TestRustParityOptionsSetSave(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
-	checkGoGroup(t, c, "Options", "SetSave")
+ c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
+ checkGoGroup(t, c, "Options", "SetSave")
 }
 
 func TestRustParityOptionsSetSketch(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
-	checkGoGroup(t, c, "Options", "SetSketch")
+ c := client.New(parityCaller{t, wire.MethodOptionsSetGroup})
+ checkGoGroup(t, c, "Options", "SetSketch")
 }
 
 func TestRustParityParametersAdd(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersAdd})
-	checkGoGroup(t, c, "Parameters", "Add")
+ c := client.New(parityCaller{t, wire.MethodParametersAdd})
+ checkGoGroup(t, c, "Parameters", "Add")
 }
 
 func TestRustParityParametersAddDerivedTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesAdd})
-	checkGoGroup(t, c, "Parameters", "AddDerivedTable")
+ c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesAdd})
+ checkGoGroup(t, c, "Parameters", "AddDerivedTable")
 }
 
 func TestRustParityParametersAddGroup(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGroupsAdd})
-	checkGoGroup(t, c, "Parameters", "AddGroup")
+ c := client.New(parityCaller{t, wire.MethodParametersGroupsAdd})
+ checkGoGroup(t, c, "Parameters", "AddGroup")
 }
 
 func TestRustParityParametersAddGroupMember(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGroupsAddMember})
-	checkGoGroup(t, c, "Parameters", "AddGroupMember")
+ c := client.New(parityCaller{t, wire.MethodParametersGroupsAddMember})
+ checkGoGroup(t, c, "Parameters", "AddGroupMember")
 }
 
 func TestRustParityParametersConvert(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersConvert})
-	checkGoGroup(t, c, "Parameters", "Convert")
+ c := client.New(parityCaller{t, wire.MethodParametersConvert})
+ checkGoGroup(t, c, "Parameters", "Convert")
 }
 
 func TestRustParityParametersDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDelete})
-	checkGoGroup(t, c, "Parameters", "Delete")
+ c := client.New(parityCaller{t, wire.MethodParametersDelete})
+ checkGoGroup(t, c, "Parameters", "Delete")
 }
 
 func TestRustParityParametersDeleteDerivedTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesDelete})
-	checkGoGroup(t, c, "Parameters", "DeleteDerivedTable")
+ c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesDelete})
+ checkGoGroup(t, c, "Parameters", "DeleteDerivedTable")
 }
 
 func TestRustParityParametersDeleteGroup(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
-	checkGoGroup(t, c, "Parameters", "DeleteGroup")
+ c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
+ checkGoGroup(t, c, "Parameters", "DeleteGroup")
 }
 
 func TestRustParityParametersDependents(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDependents})
-	checkGoGroup(t, c, "Parameters", "Dependents")
+ c := client.New(parityCaller{t, wire.MethodParametersDependents})
+ checkGoGroup(t, c, "Parameters", "Dependents")
 }
 
 func TestRustParityParametersDrivenBy(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDrivenBy})
-	checkGoGroup(t, c, "Parameters", "DrivenBy")
+ c := client.New(parityCaller{t, wire.MethodParametersDrivenBy})
+ checkGoGroup(t, c, "Parameters", "DrivenBy")
 }
 
 func TestRustParityParametersExport(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersExport})
-	checkGoGroup(t, c, "Parameters", "Export")
+ c := client.New(parityCaller{t, wire.MethodParametersExport})
+ checkGoGroup(t, c, "Parameters", "Export")
 }
 
 func TestRustParityParametersGet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGet})
-	checkGoGroup(t, c, "Parameters", "Get")
+ c := client.New(parityCaller{t, wire.MethodParametersGet})
+ checkGoGroup(t, c, "Parameters", "Get")
 }

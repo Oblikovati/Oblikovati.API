@@ -4,6 +4,92 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nUnitsTypeArgs is the request of [MethodUnitsGetStringFromType]: a category\nwhose document-preferred unit name is wanted.\n```"]
+pub struct UnitsTypeArgs {
+    pub units_type: String => required("unitsType");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUnitsTypeResult is a single category spelling (response of\n[MethodUnitsGetTypeFromString]).\n```"]
+pub struct UnitsTypeResult {
+    pub units_type: String => required("unitsType");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUnregisterClientApplicationArgs is the request of [MethodClientAppsUnregister].\n```"]
+pub struct UnregisterClientApplicationArgs {
+    pub id: i64 => required("id");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateAppearanceArgs replaces the display name and every group of an existing,\neditable appearance ([MethodAppearancesUpdate]).\n```"]
+pub struct UpdateAppearanceArgs {
+    pub id: String => required("id");
+    pub display_name: String => required("displayName");
+    pub base: crate::types::OpenPBRBase => required("base");
+    pub specular: crate::types::OpenPBRSpecular => required("specular");
+    pub transmission: crate::types::OpenPBRTransmission => required("transmission");
+    pub subsurface: crate::types::OpenPBRSubsurface => required("subsurface");
+    pub coat: crate::types::OpenPBRCoat => required("coat");
+    pub fuzz: crate::types::OpenPBRFuzz => required("fuzz");
+    pub thin_film: crate::types::OpenPBRThinFilm => required("thinFilm");
+    pub emission: crate::types::OpenPBREmission => required("emission");
+    pub geometry: crate::types::OpenPBRGeometry => required("geometry");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateDocumentArgs is the request of [MethodDocumentsUpdate] and [MethodDocumentsRebuild].\nAcceptErrorsAndContinue mirrors Update2/Rebuild2: when true the call succeeds and reports any\nsick features in [UpdateDocumentResult.Errors]; when false (the default) a sick feature makes\nthe call fail instead.\n```"]
+pub struct UpdateDocumentArgs {
+    pub accept_errors_and_continue: bool => omitted("acceptErrorsAndContinue", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateDocumentResult is the response of [MethodDocumentsUpdate] and [MethodDocumentsRebuild]:\nwhether the document still requires an update (false after a successful recompute) and the\nfeatures that ended up sick (only populated when AcceptErrorsAndContinue was set).\n```"]
+pub struct UpdateDocumentResult {
+    pub requires_update: bool => required("requiresUpdate");
+    pub errors: Option<Vec<crate::wire::FeatureError>> => omitted("errors", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateInteractionGraphicsArgs is the request of [MethodInteractionGraphicsUpdate]: it\nreplaces the transient nodes of one interaction lane (overlay or preview) — the\nrubber-band/manipulator update path that runs on mouse move. Lane is a\ntypes.GraphicsLane (\"overlay\" or \"preview\").\n```"]
+pub struct UpdateInteractionGraphicsArgs {
+    pub lane: String => required("lane");
+    pub nodes: Option<Vec<crate::wire::GraphicsNode>> => required("nodes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateMiniToolbarArgs is the request of [MethodMiniToolbarUpdate]: merge the\ngiven controls' values into the toolbar by control id (cheaper than a full\nre-set while a command streams state).\n```"]
+pub struct UpdateMiniToolbarArgs {
+    pub id: String => required("id");
+    pub controls: Option<Vec<crate::wire::MiniToolbarControlSpec>> => required("controls");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateProgressArgs is the request of [MethodProgressUpdate]: advance a bar to Step\n(of its Steps), optionally replacing its message.\n```"]
+pub struct UpdateProgressArgs {
+    pub id: i64 => required("id");
+    pub step: i64 => required("step");
+    pub message: String => omitted("message", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUpdateProgressResult is the response of [MethodProgressUpdate]. Cancelled reports\nthe user pressed the bar's cancel control — the polling complement of the\n[ProgressCancelledEvent] push, so a step loop can stop without event plumbing.\n```"]
+pub struct UpdateProgressResult {
+    pub ok: bool => required("ok");
+    pub cancelled: bool => omitted("cancelled", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nValidateBodyArgs is the request of [MethodBodyValidate]. CheckLevel 1 runs\nthe topology checks (manifold/orientation/closure); 2 adds the face\nself-intersection scan. 0 means 1.\n```"]
 pub struct ValidateBodyArgs {
     pub body_index: i64 => required("bodyIndex");

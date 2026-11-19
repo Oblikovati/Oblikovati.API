@@ -1,3 +1,12 @@
+{"Name":"types.TriadMoveType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.TriadMoveType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TriadMoveType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TriadSegment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.TriadSegment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TriadSegment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.UnfoldMethodType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.UnfoldMethodType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.UnfoldMethodType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.UnitVector","Case":"zero","Payload":[0,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0, 0)"}
 {"Name":"types.UnitVector","Case":"filled","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
 {"Name":"types.UnitVector","Case":"empty","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
@@ -139,12 +148,3 @@
 {"Name":"wire.AddConstraintResult","Case":"zero","Payload":{"index":0,"kind":"","dof":0},"Canonical":{"index":0,"kind":"","dof":0},"Error":""}
 {"Name":"wire.AddConstraintResult","Case":"filled","Payload":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Canonical":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Error":""}
 {"Name":"wire.AddConstraintResult","Case":"empty","Payload":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Canonical":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Error":""}
-{"Name":"wire.AddCustomArgs","Case":"zero","Payload":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"kind":""},"Canonical":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"kind":""},"Error":""}
-{"Name":"wire.AddCustomArgs","Case":"filled","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"kind":"example \u003c\u0026\u003e 日本語","params":[1.25]},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"kind":"example \u003c\u0026\u003e 日本語","params":[1.25]},"Error":""}
-{"Name":"wire.AddCustomArgs","Case":"empty","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"kind":"example \u003c\u0026\u003e 日本語"},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"kind":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddCustomTableArgs","Case":"zero","Payload":{"xmm":0,"ymm":0,"headers":null},"Canonical":{"xmm":0,"ymm":0,"headers":null},"Error":""}
-{"Name":"wire.AddCustomTableArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"headers":["example \u003c\u0026\u003e 日本語"],"rows":[["example \u003c\u0026\u003e 日本語"]]},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"headers":["example \u003c\u0026\u003e 日本語"],"rows":[["example \u003c\u0026\u003e 日本語"]]},"Error":""}
-{"Name":"wire.AddCustomTableArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"headers":[]},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"headers":[]},"Error":""}
-{"Name":"wire.AddDSJointArgs","Case":"zero","Payload":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"type":""},"Canonical":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"type":""},"Error":""}
-{"Name":"wire.AddDSJointArgs","Case":"filled","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddDSJointArgs","Case":"empty","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Error":""}

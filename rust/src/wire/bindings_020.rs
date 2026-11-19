@@ -4,6 +4,78 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetJointLimitsArgs is the request of [MethodAssemblyJointsSetLimits]: set the linear/angular\nbounds of the joint with id ID.\n```"]
+pub struct SetJointLimitsArgs {
+    pub id: u64 => required("id");
+    pub limits: crate::wire::JointLimits => required("limits");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetJointOriginArgs is the request of [MethodAssemblyJointsSetOrigin]: define one of a joint's two\norigins (#1973). Which is 1 or 2 (origin one or two). Mode is the types.AssemblyJointOriginMode\nspelling: \"infer\" (on the picked geometry), \"offset\" (shift by XOffset/YOffset in the frame's\nplane), or \"betweenTwoFaces\" (project to the midplane between FaceA and FaceB).\n```"]
+pub struct SetJointOriginArgs {
+    pub id: u64 => required("id");
+    pub which: i64 => required("which");
+    pub mode: String => required("mode");
+    pub x_offset: f64 => omitted_finite("xOffset", "crate::json::is_zero");
+    pub y_offset: f64 => omitted_finite("yOffset", "crate::json::is_zero");
+    pub face_a: crate::wire::ConstraintGeomRef => required("faceA");
+    pub face_b: crate::wire::ConstraintGeomRef => required("faceB");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetJointStateArgs is the request of [MethodAssemblyJointsSetState]: change any subset of the\njoint's seating and state (#1970/#1974). Each pointer field is applied only when present.\n```"]
+pub struct SetJointStateArgs {
+    pub id: u64 => required("id");
+    pub gap: Option<Box<f64>> => omitted_finite("gap", "Option::is_none");
+    pub linear_position: Option<Box<f64>> => omitted_finite("linearPosition", "Option::is_none");
+    pub angular_position: Option<Box<f64>> => omitted_finite("angularPosition", "Option::is_none");
+    pub locked: Option<Box<bool>> => omitted("locked", "Option::is_none");
+    pub protected: Option<Box<bool>> => omitted("protected", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetLayoutArgs is the request of [MethodViewsSetLayout]: how to tile the document's views.\n```"]
+pub struct SetLayoutArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub layout: crate::types::ViewLayout => required("layout");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetLightArgs is the request of [MethodLightingSetLight]: the index of the light to update\nand its new full state.\n```"]
+pub struct SetLightArgs {
+    pub index: i64 => required("index");
+    pub light: crate::wire::LightInfo => required("light");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetLightingStyleArgs is the request of [MethodLightingSetStyle]: the style to activate, by\nname (lighting styles are identified by name, not by an enum).\n```"]
+pub struct SetLightingStyleArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetManipulatorsArgs is the request of [MethodManipulatorsSet]: replace one\nadd-in gizmo's handle set (the declared-bulk precedent).\n```"]
+pub struct SetManipulatorsArgs {
+    pub id: String => required("id");
+    pub handles: Option<Vec<crate::wire::ManipulatorHandleSpec>> => required("handles");
+    pub command: String => omitted("command", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetMarkingMenuArgs is the request of [MethodUISetMarkingMenu]: replace one\nenvironment's radial menu (the customization hook behind OnRadialMarkingMenu).\n```"]
+pub struct SetMarkingMenuArgs {
+    pub menu: crate::wire::MarkingMenuView => required("menu");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetMeshColorsArgs is the request of [MethodViewportSetMeshColors]: turn the mesh-debug-colors render\nOn or off — every B-rep face (or every TRIANGLE when PerTriangle) is painted a distinct, index-\nderived color, so a captured region maps back to a face/triangle index in the mesh data.\n```"]
 pub struct SetMeshColorsArgs {
     pub on: bool => required("on");
@@ -99,6 +171,26 @@ pub struct SetOrientationArgs {
     pub document: u64 => omitted("document", "crate::json::is_zero");
     pub orientation: crate::types::ViewOrientationTypeEnum => required("orientation");
     pub fit: bool => omitted("fit", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPartDesignViewBodyVisibilityArgs changes current body visibility in the\nactive view. BodyKeys are distinct, nonempty hexadecimal persistent body\nreference keys. An empty list means all current bodies; no origin datum is\nincluded. Unknown or ambiguous keys leave state unchanged. If the view is\nlocked, the current display changes transiently but the stored view is not\nchanged; otherwise the stored visibility changes with the display.\nExample: `args := wire.SetPartDesignViewBodyVisibilityArgs{ID: 2, Visible: false}`.\n```"]
+pub struct SetPartDesignViewBodyVisibilityArgs {
+    pub id: u64 => required("id");
+    pub body_keys: Option<Vec<String>> => required("bodyKeys");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPartDesignViewOptionsArgs changes only the supplied options atomically.\nA locked view retains its stored camera and body visibility when the active\ndisplay is changed; reactivation restores the stored state. Unlocking does not\nsilently replace that stored state. Annotation scale\napplies to the active view; changing an inactive view's scale is refused. Invalid options leave all state\nunchanged. Omitted fields preserve their existing values.\nExample: `args := wire.SetPartDesignViewOptionsArgs{ID: 2, Locked: new(bool)}`.\n```"]
+pub struct SetPartDesignViewOptionsArgs {
+    pub id: u64 => required("id");
+    pub locked: Option<Box<bool>> => omitted("locked", "Option::is_none");
+    pub published: Option<Box<bool>> => omitted("published", "Option::is_none");
+    pub autosave_camera: Option<Box<bool>> => omitted("autosaveCamera", "Option::is_none");
+    pub annotation_scale: Option<Box<crate::types::PartAnnotationScale>> => omitted("annotationScale", "Option::is_none");
 }
 }
 
@@ -366,98 +458,5 @@ generated_dto! {
 pub struct SetVisibleOccurrenceArgs {
     pub id: u64 => required("id");
     pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetWorkFeatureVisibleArgs is the request of [MethodWorkFeaturesSetVisible]: show or hide the\ndatum work plane, axis, or point named by Ref (a \"plane/N\" / \"axis/N\" / \"point/N\" reference, or\nan origin-frame ref like \"origin/plane/xy\"). Visible=false hides it in the viewport. #1856.\n```"]
-pub struct SetWorkFeatureVisibleArgs {
-    pub ref_: String => required("ref");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetWorkSurfaceVisibleArgs is the request of [MethodWorkSurfacesSetVisible]: set (not\ntoggle) the surface's visibility, so the call is idempotent for replication.\n```"]
-pub struct SetWorkSurfaceVisibleArgs {
-    pub index: i64 => required("index");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSettingsResult is the reply of getSettings/setSettings: the settings after the call.\n```"]
-pub struct SettingsResult {
-    pub settings: crate::wire::FlatPatternSettings => required("settings");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nShadedDisplayModeOptionsView is the JSON shape of the shaded-mode sub-options — a member of\n[DisplayModeOptionsView].\n```"]
-pub struct ShadedDisplayModeOptionsView {
-    pub edge_display: bool => required("edgeDisplay");
-    pub edge_color: crate::types::Color => required("edgeColor");
-    pub silhouettes: bool => required("silhouettes");
-    pub transparency_type: crate::types::TransparencyTypeEnum => required("transparencyType");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nShadowSettings is the JSON shape of the View's shadow toggles — the response of\n[MethodViewGetShadows] / [MethodViewSetShadows] and the request of the latter.\nDensity and Softness are in [0,1]. GroundShadow selects the ground-shadow style.\n```"]
-pub struct ShadowSettings {
-    pub ground_shadow: crate::types::GroundShadowEnum => required("groundShadow");
-    pub object_shadows: bool => required("objectShadows");
-    pub ambient_shadows: bool => required("ambientShadows");
-    pub density: f64 => finite("density");
-    pub softness: f64 => finite("softness");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSheetInfo is the JSON shape of one drawing sheet.\n```"]
-pub struct SheetInfo {
-    pub name: String => required("name");
-#[doc = "```text\ntypes.SheetSize spelling (\"a3\", \"custom\")\n```"]
-    pub size: String => required("size");
-#[doc = "```text\ntypes.SheetOrientation spelling\n```"]
-    pub orientation: String => required("orientation");
-#[doc = "```text\nlaid-out width (orientation applied)\n```"]
-    pub width_mm: f64 => finite("widthMm");
-#[doc = "```text\nlaid-out height\n```"]
-    pub height_mm: f64 => finite("heightMm");
-    pub active: bool => required("active");
-    pub has_border: bool => required("hasBorder");
-    pub has_title_block: bool => required("hasTitleBlock");
-#[doc = "```text\nSheet authoring (#1989). Revision is the sheet's revision string; BorderHZones/VZones report a\nzoned border's grid (0 ⇒ plain); TitleBlockLocation is the title block's corner.\n```"]
-    pub revision: String => omitted("revision", "crate::json::is_zero");
-    pub border_h_zones: i64 => omitted("borderHZones", "crate::json::is_zero");
-    pub border_v_zones: i64 => omitted("borderVZones", "crate::json::is_zero");
-    pub title_block_location: String => omitted("titleBlockLocation", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSheetMetalStyleInfo is the active sheet-metal rule, as reported by getStyle and accepted\n(field-by-field, omitempty = leave unchanged) by setStyle. Lengths are unit expressions\n(\"0.8 mm\", \"t*1.5\") so they stay parameter-backed end to end; KFactor is the neutral-axis\nratio used by the K-factor unfold method.\n```"]
-pub struct SheetMetalStyleInfo {
-    pub name: String => required("name");
-    pub thickness: String => required("thickness");
-    pub bend_radius: String => required("bendRadius");
-    pub relief_shape: String => required("reliefShape");
-    pub relief_width: String => required("reliefWidth");
-    pub relief_depth: String => required("reliefDepth");
-    pub mind_gap: String => required("minimumGap");
-    pub unfold_method: String => required("unfoldMethod");
-    pub k_factor: f64 => finite("kFactor");
-#[doc = "```text\nreported convenience; not an input\n```"]
-    pub bend_allowance: f64 => omitted_finite("bendAllowance", "crate::json::is_zero");
-#[doc = "```text\nThe CORNER relief is a separate property from the bend relief above: it is the cut made\nwhere two flanges meet, with its own shape, size and placement, plus a distinct shape and\nsize for the three-bend corner (#1960). The reference CAD API's Default style trims the corner to the\nbend at four times the thickness, and rounds a three-bend corner at the bend radius.\n```"]
-    pub corner_relief_shape: String => omitted("cornerReliefShape", "crate::json::is_zero");
-    pub corner_relief_size: String => omitted("cornerReliefSize", "crate::json::is_zero");
-    pub corner_relief_placement: String => omitted("cornerReliefPlacement", "crate::json::is_zero");
-    pub three_bend_relief_shape: String => omitted("threeBendReliefShape", "crate::json::is_zero");
-    pub three_bend_relief_size: String => omitted("threeBendReliefSize", "crate::json::is_zero");
-#[doc = "```text\nBendTransition is how the material is shaped where a bend zone runs into the face beside it\n(#1959): \"none\" (default), \"intersection\", \"straightLine\", \"arc\" or \"trimToBend\".\nBendTransitionArcRadius sizes the arc form.\n```"]
-    pub bend_transition: String => omitted("bendTransition", "crate::json::is_zero");
-    pub bend_transition_arc_radius: String => omitted("bendTransitionArcRadius", "crate::json::is_zero");
 }
 }

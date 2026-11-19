@@ -3,6 +3,43 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const POINT_CLOUD_DISPLAY_MODE_INTENSITY: crate::types::PointCloudDisplayMode =
+    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("intensity"));
+
+pub const POINT_CLOUD_DISPLAY_MODE_RGB: crate::types::PointCloudDisplayMode =
+    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("rgb"));
+
+generated_scalar! { integer,
+#[doc = "```text\nPointInferenceKind is the snap a drag landed on — the PointInferenceEnum\nequivalent, narrowed to what the host infers today (work/datum points; the\nsketch-internal kinds stay in the sketch domain).\n```"]
+pub struct PointInferenceKind(pub u8);
+}
+impl From<u8> for PointInferenceKind {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<PointInferenceKind> for u8 {
+    fn from(value: PointInferenceKind) -> Self {
+        value.0
+    }
+}
+
+pub const POINT_LIGHT: crate::types::LightDefinitionTypeEnum =
+    crate::types::LightDefinitionTypeEnum(53250);
+
+generated_scalar! { integer,
+#[doc = "```text\nPointRenderStyleEnum is the glyph a point primitive draws (the full reference set; the\ncompact [GraphicsPointStyle] strings are the bulk-transport subset). Frozen ids 20225–20235.\n```"]
+pub struct PointRenderStyleEnum(pub i32);
+}
+
+pub const POINT_TO_POINT_RIP: crate::types::RipType = crate::types::RipType(0);
+
+pub const POLYLINE_CURVE: crate::types::CurveType = crate::types::CurveType(5129);
+
+pub const POLYLINE_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5257);
+
+pub const POPUP_CONTROL: crate::types::ControlKind = crate::types::ControlKind(4);
+
 pub const POSITION_FITTED: crate::types::PatternPositioningMethod =
     crate::types::PatternPositioningMethod(113409);
 
@@ -425,39 +462,3 @@ pub struct ShrinkwrapRemoveStyle(pub i32);
 }
 
 pub const SINGLE_POINT_RIP: crate::types::RipType = crate::types::RipType(1);
-
-pub const SKETCH2_D_AND_CENTERMARK_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(4);
-
-pub const SKETCH2_D_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(2);
-
-pub const SKETCH3_D_ENTITY_ARC: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("arc"));
-
-pub const SKETCH3_D_ENTITY_BEND: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("bend"));
-
-pub const SKETCH3_D_ENTITY_CIRCLE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("circle"));
-
-pub const SKETCH3_D_ENTITY_CONTROL_POINT_SPLINE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("controlPointSpline"));
-
-pub const SKETCH3_D_ENTITY_ELLIPSE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipse"));
-
-pub const SKETCH3_D_ENTITY_ELLIPTICAL_ARC: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipticalArc"));
-
-pub const SKETCH3_D_ENTITY_EQUATION_CURVE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("equationCurve"));
-
-pub const SKETCH3_D_ENTITY_FIXED_SPLINE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("fixedSpline"));
-
-pub const SKETCH3_D_ENTITY_HELICAL: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("helical"));
-
-pub const SKETCH3_D_ENTITY_INCLUDED_CURVE: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedCurve"));

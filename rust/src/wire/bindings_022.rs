@@ -4,6 +4,94 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSlotRepick re-points the work plane's reference Slot at a new reference Ref — an origin\nconstant (types.WorkRefXYPlane …), a ref returned by List, or a face key. Slot is the\n[WorkPlaneRefSlot] index.\n```"]
+pub struct SlotRepick {
+    pub slot: i64 => required("slot");
+    pub ref_: String => required("ref");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSnapConstraintArgs is the request of [MethodAssemblyConstraintsSnap]: \"grip snap\" — pick a\ngeometry A on the component to move and a target geometry B on another component, and the host\nINFERS the assembly constraint that snaps A onto B (planar faces → mate or flush; cylinder axes →\ninsert; an axis pair → mate; plane + cylinder → tangent; a point → coincident mate), creates it at\noffset 0, and re-solves so the part jumps into place. Prefer overrides the inference with an\n[types.AssemblyConstraintType] wire spelling (\"mate\"|\"flush\"|\"insert\"|\"tangent\"); \"\" ⇒ auto. The\nreply is the usual [ConstraintResult]; its Constraint.Type is the inferred (or preferred) kind.\n```"]
+pub struct SnapConstraintArgs {
+    pub a: crate::wire::ConstraintGeomRef => required("a");
+    pub b: crate::wire::ConstraintGeomRef => required("b");
+    pub prefer: String => omitted("prefer", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSolveSketch3DResult is the response of [MethodSketch3DSolve]: remaining DOF, a status\nstring (\"well\" | \"under\" | \"over\"), whether the Newton/LM iteration converged, and\nthe resulting health.\n```"]
+pub struct SolveSketch3DResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub dof: i64 => required("dof");
+    pub status: String => required("status");
+    pub converged: bool => required("converged");
+    pub healthy: bool => required("healthy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSolveSketchResult is the response of [MethodSketchSolve]: the solve outcome —\nremaining DOF, a status string (\"well\" | \"under\" | \"over\"), whether the Newton/LM\niteration converged, and the resulting health.\n```"]
+pub struct SolveSketchResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub dof: i64 => required("dof");
+    pub status: String => required("status");
+    pub converged: bool => required("converged");
+    pub healthy: bool => required("healthy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSplineHandleInfo is the response of [MethodSketchSetSplineHandle] and\n[MethodSketch3DSetSplineHandle]: the handle's session id (0 when the call\ndeactivated it), its current tangent direction and weight.\n```"]
+pub struct SplineHandleInfo {
+    pub handle_id: u64 => omitted("handleId", "crate::json::is_zero");
+    pub tangent: Option<Vec<f64>> => omitted_finite("tangent", "crate::json::slice_is_empty");
+    pub weight: f64 => omitted_finite("weight", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStandardStyleInfo is one drafting standard's complete style preset.\n```"]
+pub struct StandardStyleInfo {
+#[doc = "```text\ntypes.DraftingStandard spelling\n```"]
+    pub standard: String => required("standard");
+    pub dimension: crate::wire::DimensionStyleInfo => required("dimension");
+    pub text: crate::wire::TextStyleInfo => required("text");
+    pub line: crate::wire::LineStyleInfo => required("line");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStandardStyleResult is the response of [MethodDrawingStylesGetActiveStyle] /\n[MethodDrawingStylesSetStandard]: the active standard's resolved style preset.\n```"]
+pub struct StandardStyleResult {
+    pub style: crate::wire::StandardStyleInfo => required("style");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStatusTextResult is the response of [MethodStatusGetText].\n```"]
+pub struct StatusTextResult {
+    pub text: String => required("text");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStringFromValueArgs is the request of [MethodUnitsGetStringFromValue] and\n[MethodUnitsGetPreciseStringFromValue]: a Value in database units of the\ngiven UnitsType (a types.UnitsType spelling), formatted in the document's\ndisplay unit — honoring display precision (GetStringFromValue) or at full\nprecision (GetPreciseStringFromValue).\n```"]
+pub struct StringFromValueArgs {
+    pub value: f64 => finite("value");
+    pub units_type: String => required("unitsType");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStringResult is a single formatted/normalized string (response of the\nvalue-formatting and locale/type-name methods).\n```"]
+pub struct StringResult {
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nStrokeSetResult is the wireframe payload: every edge sampled into a\npolyline; PolylineLengths gives each polyline's point count, in order,\nover the shared VertexCoordinates.\n```"]
 pub struct StrokeSetResult {
     pub vertex_count: i64 => required("vertexCount");
@@ -369,91 +457,5 @@ generated_dto! {
 #[doc = "```text\nUnitStringArgs is the request of [MethodUnitsGetTypeFromString]: a unit-name\nspelling (\"mm\") whose category is wanted.\n```"]
 pub struct UnitStringArgs {
     pub unit_string: String => required("unitString");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUnitsTypeArgs is the request of [MethodUnitsGetStringFromType]: a category\nwhose document-preferred unit name is wanted.\n```"]
-pub struct UnitsTypeArgs {
-    pub units_type: String => required("unitsType");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUnitsTypeResult is a single category spelling (response of\n[MethodUnitsGetTypeFromString]).\n```"]
-pub struct UnitsTypeResult {
-    pub units_type: String => required("unitsType");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUnregisterClientApplicationArgs is the request of [MethodClientAppsUnregister].\n```"]
-pub struct UnregisterClientApplicationArgs {
-    pub id: i64 => required("id");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateAppearanceArgs replaces the display name and every group of an existing,\neditable appearance ([MethodAppearancesUpdate]).\n```"]
-pub struct UpdateAppearanceArgs {
-    pub id: String => required("id");
-    pub display_name: String => required("displayName");
-    pub base: crate::types::OpenPBRBase => required("base");
-    pub specular: crate::types::OpenPBRSpecular => required("specular");
-    pub transmission: crate::types::OpenPBRTransmission => required("transmission");
-    pub subsurface: crate::types::OpenPBRSubsurface => required("subsurface");
-    pub coat: crate::types::OpenPBRCoat => required("coat");
-    pub fuzz: crate::types::OpenPBRFuzz => required("fuzz");
-    pub thin_film: crate::types::OpenPBRThinFilm => required("thinFilm");
-    pub emission: crate::types::OpenPBREmission => required("emission");
-    pub geometry: crate::types::OpenPBRGeometry => required("geometry");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateDocumentArgs is the request of [MethodDocumentsUpdate] and [MethodDocumentsRebuild].\nAcceptErrorsAndContinue mirrors Update2/Rebuild2: when true the call succeeds and reports any\nsick features in [UpdateDocumentResult.Errors]; when false (the default) a sick feature makes\nthe call fail instead.\n```"]
-pub struct UpdateDocumentArgs {
-    pub accept_errors_and_continue: bool => omitted("acceptErrorsAndContinue", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateDocumentResult is the response of [MethodDocumentsUpdate] and [MethodDocumentsRebuild]:\nwhether the document still requires an update (false after a successful recompute) and the\nfeatures that ended up sick (only populated when AcceptErrorsAndContinue was set).\n```"]
-pub struct UpdateDocumentResult {
-    pub requires_update: bool => required("requiresUpdate");
-    pub errors: Option<Vec<crate::wire::FeatureError>> => omitted("errors", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateInteractionGraphicsArgs is the request of [MethodInteractionGraphicsUpdate]: it\nreplaces the transient nodes of one interaction lane (overlay or preview) — the\nrubber-band/manipulator update path that runs on mouse move. Lane is a\ntypes.GraphicsLane (\"overlay\" or \"preview\").\n```"]
-pub struct UpdateInteractionGraphicsArgs {
-    pub lane: String => required("lane");
-    pub nodes: Option<Vec<crate::wire::GraphicsNode>> => required("nodes");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateMiniToolbarArgs is the request of [MethodMiniToolbarUpdate]: merge the\ngiven controls' values into the toolbar by control id (cheaper than a full\nre-set while a command streams state).\n```"]
-pub struct UpdateMiniToolbarArgs {
-    pub id: String => required("id");
-    pub controls: Option<Vec<crate::wire::MiniToolbarControlSpec>> => required("controls");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateProgressArgs is the request of [MethodProgressUpdate]: advance a bar to Step\n(of its Steps), optionally replacing its message.\n```"]
-pub struct UpdateProgressArgs {
-    pub id: i64 => required("id");
-    pub step: i64 => required("step");
-    pub message: String => omitted("message", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nUpdateProgressResult is the response of [MethodProgressUpdate]. Cancelled reports\nthe user pressed the bar's cancel control — the polling complement of the\n[ProgressCancelledEvent] push, so a step loop can stop without event plumbing.\n```"]
-pub struct UpdateProgressResult {
-    pub ok: bool => required("ok");
-    pub cancelled: bool => omitted("cancelled", "crate::json::is_zero");
 }
 }

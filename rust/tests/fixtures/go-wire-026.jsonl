@@ -1,3 +1,39 @@
+{"Name":"wire.TransactionEventPayload","Case":"zero","Payload":{"type":"","document":0},"Canonical":{"type":"","document":0},"Error":""}
+{"Name":"wire.TransactionEventPayload","Case":"filled","Payload":{"type":"example \u003c\u0026\u003e 日本語","document":7,"label":"example \u003c\u0026\u003e 日本語","point":7},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","document":7,"label":"example \u003c\u0026\u003e 日本語","point":7},"Error":""}
+{"Name":"wire.TransactionEventPayload","Case":"empty","Payload":{"type":"example \u003c\u0026\u003e 日本語","document":7,"label":"example \u003c\u0026\u003e 日本語","point":7},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","document":7,"label":"example \u003c\u0026\u003e 日本語","point":7},"Error":""}
+{"Name":"wire.TransactionHistory","Case":"zero","Payload":{"document":0,"name":"","position":0,"entries":null},"Canonical":{"document":0,"name":"","position":0,"entries":null},"Error":""}
+{"Name":"wire.TransactionHistory","Case":"filled","Payload":{"document":7,"name":"example \u003c\u0026\u003e 日本語","position":7,"entries":[{"label":"example \u003c\u0026\u003e 日本語","saved":true}]},"Canonical":{"document":7,"name":"example \u003c\u0026\u003e 日本語","position":7,"entries":[{"label":"example \u003c\u0026\u003e 日本語","saved":true}]},"Error":""}
+{"Name":"wire.TransactionHistory","Case":"empty","Payload":{"document":7,"name":"example \u003c\u0026\u003e 日本語","position":7,"entries":[]},"Canonical":{"document":7,"name":"example \u003c\u0026\u003e 日本語","position":7,"entries":[]},"Error":""}
+{"Name":"wire.TransactionHistoryArgs","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"wire.TransactionHistoryArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.TransactionHistoryArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.TransactionHistoryEntry","Case":"zero","Payload":{"label":""},"Canonical":{"label":""},"Error":""}
+{"Name":"wire.TransactionHistoryEntry","Case":"filled","Payload":{"label":"example \u003c\u0026\u003e 日本語","saved":true},"Canonical":{"label":"example \u003c\u0026\u003e 日本語","saved":true},"Error":""}
+{"Name":"wire.TransactionHistoryEntry","Case":"empty","Payload":{"label":"example \u003c\u0026\u003e 日本語","saved":true},"Canonical":{"label":"example \u003c\u0026\u003e 日本語","saved":true},"Error":""}
+{"Name":"wire.TransactionJumpToArgs","Case":"zero","Payload":{"position":0},"Canonical":{"position":0},"Error":""}
+{"Name":"wire.TransactionJumpToArgs","Case":"filled","Payload":{"document":7,"position":7},"Canonical":{"document":7,"position":7},"Error":""}
+{"Name":"wire.TransactionJumpToArgs","Case":"empty","Payload":{"document":7,"position":7},"Canonical":{"document":7,"position":7},"Error":""}
+{"Name":"wire.Transform3DArgs","Case":"zero","Payload":{"sketchIndex":0,"op":"","entities":null},"Canonical":{"sketchIndex":0,"op":"","entities":null},"Error":""}
+{"Name":"wire.Transform3DArgs","Case":"filled","Payload":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[7],"vector":[1.25],"center":[1.25],"axis":[1.25],"angle":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[7],"vector":[1.25],"center":[1.25],"axis":[1.25],"angle":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.Transform3DArgs","Case":"empty","Payload":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[],"angle":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[],"angle":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.Transform3DResult","Case":"zero","Payload":{"entityCount":0},"Canonical":{"entityCount":0},"Error":""}
+{"Name":"wire.Transform3DResult","Case":"filled","Payload":{"created":[7],"entityCount":7},"Canonical":{"created":[7],"entityCount":7},"Error":""}
+{"Name":"wire.Transform3DResult","Case":"empty","Payload":{"entityCount":7},"Canonical":{"entityCount":7},"Error":""}
+{"Name":"wire.TransformOccurrenceArgs","Case":"zero","Payload":{"id":0,"transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"id":0,"transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
+{"Name":"wire.TransformOccurrenceArgs","Case":"filled","Payload":{"id":7,"transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"id":7,"transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
+{"Name":"wire.TransformOccurrenceArgs","Case":"empty","Payload":{"id":7,"transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"id":7,"transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
+{"Name":"wire.TransformSketchArgs","Case":"zero","Payload":{"sketchIndex":0,"op":"","entities":null},"Canonical":{"sketchIndex":0,"op":"","entities":null},"Error":""}
+{"Name":"wire.TransformSketchArgs","Case":"filled","Payload":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[7],"vector":[1.25],"center":[1.25],"angle":"example \u003c\u0026\u003e 日本語","mirrorLine":7},"Canonical":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[7],"vector":[1.25],"center":[1.25],"angle":"example \u003c\u0026\u003e 日本語","mirrorLine":7},"Error":""}
+{"Name":"wire.TransformSketchArgs","Case":"empty","Payload":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[],"angle":"example \u003c\u0026\u003e 日本語","mirrorLine":7},"Canonical":{"sketchIndex":7,"op":"example \u003c\u0026\u003e 日本語","entities":[],"angle":"example \u003c\u0026\u003e 日本語","mirrorLine":7},"Error":""}
+{"Name":"wire.TransformSketchResult","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"wire.TransformSketchResult","Case":"filled","Payload":{"created":[7]},"Canonical":{"created":[7]},"Error":""}
+{"Name":"wire.TransformSketchResult","Case":"empty","Payload":{},"Canonical":{},"Error":""}
+{"Name":"wire.TreeNode","Case":"zero","Payload":{"id":"","label":""},"Canonical":{"id":"","label":""},"Error":""}
+{"Name":"wire.TreeNode","Case":"filled","Payload":{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"","label":""}],"expanded":true}],"expanded":true}],"expanded":true},"Canonical":{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","children":[{"id":"","label":""}],"expanded":true}],"expanded":true}],"expanded":true},"Error":""}
+{"Name":"wire.TreeNode","Case":"empty","Payload":{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","expanded":true},"Canonical":{"id":"example \u003c\u0026\u003e 日本語","label":"example \u003c\u0026\u003e 日本語","expanded":true},"Error":""}
+{"Name":"wire.TriadDragEvent","Case":"zero","Payload":{"type":"","phase":"","segment":0,"moveType":0,"delta":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"context":{"start":[0,0,0],"rayOrigin":[0,0,0],"rayDir":[0,0,0]}},"Canonical":{"type":"","phase":"","segment":0,"moveType":0,"delta":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"context":{"start":[0,0,0],"rayOrigin":[0,0,0],"rayDir":[0,0,0]}},"Error":""}
+{"Name":"wire.TriadDragEvent","Case":"filled","Payload":{"type":"example \u003c\u0026\u003e 日本語","phase":"example \u003c\u0026\u003e 日本語","segment":7,"moveType":7,"delta":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"context":{"start":[1.25,1.25,1.25],"rayOrigin":[1.25,1.25,1.25],"rayDir":[1.25,1.25,1.25],"shift":true,"ctrl":true,"inference":7}},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","phase":"example \u003c\u0026\u003e 日本語","segment":7,"moveType":7,"delta":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"context":{"start":[1.25,1.25,1.25],"rayOrigin":[1.25,1.25,1.25],"rayDir":[1.25,1.25,1.25],"shift":true,"ctrl":true,"inference":7}},"Error":""}
+{"Name":"wire.TriadDragEvent","Case":"empty","Payload":{"type":"example \u003c\u0026\u003e 日本語","phase":"example \u003c\u0026\u003e 日本語","segment":7,"moveType":7,"delta":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"context":{"start":[1.25,1.25,1.25],"rayOrigin":[1.25,1.25,1.25],"rayDir":[1.25,1.25,1.25],"shift":true,"ctrl":true,"inference":7}},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","phase":"example \u003c\u0026\u003e 日本語","segment":7,"moveType":7,"delta":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25],"context":{"start":[1.25,1.25,1.25],"rayOrigin":[1.25,1.25,1.25],"rayDir":[1.25,1.25,1.25],"shift":true,"ctrl":true,"inference":7}},"Error":""}
 {"Name":"wire.TriadSegmentEvent","Case":"zero","Payload":{"type":"","segment":0,"hovered":false},"Canonical":{"type":"","segment":0,"hovered":false},"Error":""}
 {"Name":"wire.TriadSegmentEvent","Case":"filled","Payload":{"type":"example \u003c\u0026\u003e 日本語","segment":7,"hovered":true},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","segment":7,"hovered":true},"Error":""}
 {"Name":"wire.TriadSegmentEvent","Case":"empty","Payload":{"type":"example \u003c\u0026\u003e 日本語","segment":7,"hovered":true},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","segment":7,"hovered":true},"Error":""}
@@ -112,25 +148,3 @@
 {"Name":"std.Bytes","Case":"edge-0","Payload":"AB==","Canonical":"AA==","Error":""}
 {"Name":"std.Bytes","Case":"edge-1","Payload":"AA\r\nH/","Canonical":"AAH/","Error":""}
 {"Name":"std.Bytes","Case":"edge-2","Payload":[0,255],"Canonical":"AP8=","Error":""}
-{"Name":"std.Bytes","Case":"edge-3","Payload":null,"Canonical":null,"Error":""}
-{"Name":"std.Bytes","Case":"edge-4","Payload":"","Canonical":"","Error":""}
-{"Name":"std.Bytes","Case":"edge-5","Payload":"?","Canonical":null,"Error":"json: cannot unmarshal string into Go value of type []uint8: illegal base64 data at input byte 0"}
-{"Name":"std.Bytes","Case":"edge-6","Payload":[256],"Canonical":null,"Error":"json: cannot unmarshal number 256 into .0 of type uint8"}
-{"Name":"std.Time","Case":"edge-0","Payload":"2016-12-31T23:59:60Z","Canonical":null,"Error":"parsing time \"2016-12-31T23:59:60Z\": second out of range"}
-{"Name":"std.Time","Case":"edge-1","Payload":"2026-10-10T12:30:00.1000Z","Canonical":"2026-10-10T12:30:00.1Z","Error":""}
-{"Name":"std.Time","Case":"edge-2","Payload":"2026-10-10T12:30:00+02:00","Canonical":"2026-10-10T12:30:00+02:00","Error":""}
-{"Name":"std.Time","Case":"edge-3","Payload":null,"Canonical":"0001-01-01T00:00:00Z","Error":""}
-{"Name":"std.Time","Case":"edge-4","Payload":"bad","Canonical":null,"Error":"parsing time \"bad\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"bad\" as \"2006\""}
-{"Name":"types.Point","Case":"edge-0","Payload":[null,1,2],"Canonical":[0,1,2],"Error":""}
-{"Name":"types.Point","Case":"edge-1","Payload":[1,2],"Canonical":null,"Error":"types: Point expects 3 numbers, got 2 in [1,2]"}
-{"Name":"types.Point","Case":"edge-2","Payload":[1,2,3,4],"Canonical":null,"Error":"types: Point expects 3 numbers, got 4 in [1,2,3,4]"}
-{"Name":"types.Point","Case":"edge-3","Payload":null,"Canonical":null,"Error":"types: Point expects 3 numbers, got 0 in null"}
-{"Name":"types.UnitVector","Case":"edge-0","Payload":[null,3,4],"Canonical":[0,0.6,0.8],"Error":""}
-{"Name":"types.UnitVector","Case":"edge-1","Payload":[0,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0, 0)"}
-{"Name":"types.UnitVector","Case":"edge-2","Payload":[1e-12,0,0],"Canonical":[1,0,0],"Error":""}
-{"Name":"types.UnitVector","Case":"edge-3","Payload":[1e-13,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (1e-13, 0, 0)"}
-{"Name":"types.Variant","Case":"edge-0","Payload":{"type":"integer","value":9223372036854775807},"Canonical":{"type":"integer","value":9223372036854775807},"Error":""}
-{"Name":"types.Variant","Case":"edge-1","Payload":{"type":"integer","value":null},"Canonical":{"type":"integer","value":0},"Error":""}
-{"Name":"types.Variant","Case":"edge-2","Payload":{"type":"integer"},"Canonical":null,"Error":"types: Variant integer value null: unexpected end of JSON input"}
-{"Name":"types.Variant","Case":"edge-3","Payload":{"type":"bytes","value":"AB=="},"Canonical":{"type":"bytes","value":"AA=="},"Error":""}
-{"Name":"types.Variant","Case":"edge-4","Payload":{"type":"unknown","value":1},"Canonical":null,"Error":"types: Variant type \"unknown\" is not one of integer|double|string|bytes|boolean"}

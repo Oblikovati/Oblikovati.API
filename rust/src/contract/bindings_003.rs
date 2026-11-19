@@ -281,6 +281,20 @@ pub trait Parameter {
     fn unit_name(&self) -> String;
 }
 
+#[doc = "```text\nPartDesignView is a document-owned design representation. Its ID remains stable\nacross save and reopen; it does not identify an assembly representation.\nExample: `if view.Active() { _ = view.AnnotationScale() }`.\n```"]
+pub trait PartDesignView {
+    fn active(&self) -> bool;
+    fn annotation_scale(&self) -> crate::types::PartAnnotationScale;
+    fn autosave_camera(&self) -> bool;
+    fn built_in(&self) -> bool;
+    fn id(&self) -> u64;
+    fn locked(&self) -> bool;
+    fn name(&self) -> String;
+    fn primary(&self) -> bool;
+    fn published(&self) -> bool;
+    fn standard_orientation(&self) -> crate::types::ViewOrientationTypeEnum;
+}
+
 #[doc = "```text\nPlane is an unbounded planar surface with an orthonormal in-plane basis.\n```"]
 pub trait Plane: crate::contract::Surface {
     fn plane_normal(&self) -> crate::types::UnitVector;
@@ -441,16 +455,4 @@ pub trait SaveOptions {
     fn set_thumbnail(&self, option: crate::types::ThumbnailSaveOption) -> Result<(), crate::Error>;
     #[doc = "```text\nThumbnail returns how a preview thumbnail is captured on save.\n```"]
     fn thumbnail(&self) -> crate::types::ThumbnailSaveOption;
-}
-
-#[doc = "```text\nSectionDrawingView is a view cut from a parent view by a section line: the model is sliced by\nthe plane through that line (perpendicular to the parent), the near half removed, the cut\noutline drawn bold and the exposed faces hatched. The reference contracts give section views a\ndistinct interface (unlike auxiliary/projected, which are a plain DrawingView + a type tag).\n```"]
-pub trait SectionDrawingView: crate::contract::DrawingView {
-    #[doc = "```text\nSectionDepthMM is the retained-slab depth in model millimetres, or 0 for a full through-cut\n(#1982).\n```"]
-    fn section_depth_mm(&self) -> f64;
-    #[doc = "```text\nSectionLineMM is the cut line on the parent view, in sheet millimetres.\n```"]
-    fn section_line_mm(&self) -> (f64, f64, f64, f64);
-    #[doc = "```text\nSectionReverse reports whether the far half is kept instead of the near half (#1982).\n```"]
-    fn section_reverse(&self) -> bool;
-    #[doc = "```text\nSectionType is the partial-cut kind (none/quarter/half/threeQuarter, #1982).\n```"]
-    fn section_type(&self) -> crate::types::SectionViewType;
 }

@@ -320,6 +320,42 @@ impl From<ParameterKind> for u8 {
     }
 }
 
+generated_dto! {
+#[doc = "```text\nPartAnnotationScale is Auto or a positive finite ratio of drawing to model units.\nAuto has numerator and denominator zero; Fixed and Custom require both positive.\nEquivalent ratios retain the mode and values chosen by the caller.\nExample: `scale := types.PartAnnotationScale{Mode: types.PartAnnotationScaleCustom, Numerator: 3, Denominator: 2}`.\n```"]
+pub struct PartAnnotationScale {
+    pub mode: crate::types::PartAnnotationScaleMode => required("mode");
+    pub numerator: u32 => required("numerator");
+    pub denominator: u32 => required("denominator");
+}
+}
+
+pub const PART_ANNOTATION_SCALE_AUTO: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("auto"));
+
+pub const PART_ANNOTATION_SCALE_CUSTOM: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("custom"));
+
+pub const PART_ANNOTATION_SCALE_FIXED: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("fixed"));
+
+generated_scalar! { string,
+#[doc = "```text\nPartAnnotationScaleMode identifies an automatic, fixed-ratio, or custom ratio scale.\nExample: `mode := types.PartAnnotationScaleAuto`.\n```"]
+pub struct PartAnnotationScaleMode(pub std::borrow::Cow<'static, str>);
+}
+
+generated_dto! {
+#[doc = "```text\nPartDesignViewCamera is the complete viewport camera stored by a part view.\nScale is the view height at Target. Near and Far are positive clipping distances.\nEye, Target and Up form a usable finite camera frame. Projection selects the\nprojection mode; a host declines projection modes it cannot represent.\nExample: `camera := types.PartDesignViewCamera{Scale: 20, Near: 1, Far: 100}`.\n```"]
+pub struct PartDesignViewCamera {
+    pub eye: crate::types::Point => raw(rename = "eye");
+    pub target: crate::types::Point => raw(rename = "target");
+    pub up: crate::types::Vector => raw(rename = "up");
+    pub scale: f64 => finite("scale");
+    pub near: f64 => finite("near");
+    pub far: f64 => finite("far");
+    pub projection: crate::types::ProjectionTypeEnum => required("projection");
+}
+}
+
 pub const PART_FILE_EXTENSION: &str = ".opd";
 
 pub const PART_RIBBON: crate::types::RibbonKey =
@@ -424,40 +460,3 @@ pub struct PointCloudDisplayMode(pub std::borrow::Cow<'static, str>);
 
 pub const POINT_CLOUD_DISPLAY_MODE_DEFAULT: crate::types::PointCloudDisplayMode =
     crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("default"));
-
-pub const POINT_CLOUD_DISPLAY_MODE_INTENSITY: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("intensity"));
-
-pub const POINT_CLOUD_DISPLAY_MODE_RGB: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("rgb"));
-
-generated_scalar! { integer,
-#[doc = "```text\nPointInferenceKind is the snap a drag landed on — the PointInferenceEnum\nequivalent, narrowed to what the host infers today (work/datum points; the\nsketch-internal kinds stay in the sketch domain).\n```"]
-pub struct PointInferenceKind(pub u8);
-}
-impl From<u8> for PointInferenceKind {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<PointInferenceKind> for u8 {
-    fn from(value: PointInferenceKind) -> Self {
-        value.0
-    }
-}
-
-pub const POINT_LIGHT: crate::types::LightDefinitionTypeEnum =
-    crate::types::LightDefinitionTypeEnum(53250);
-
-generated_scalar! { integer,
-#[doc = "```text\nPointRenderStyleEnum is the glyph a point primitive draws (the full reference set; the\ncompact [GraphicsPointStyle] strings are the bulk-transport subset). Frozen ids 20225–20235.\n```"]
-pub struct PointRenderStyleEnum(pub i32);
-}
-
-pub const POINT_TO_POINT_RIP: crate::types::RipType = crate::types::RipType(0);
-
-pub const POLYLINE_CURVE: crate::types::CurveType = crate::types::CurveType(5129);
-
-pub const POLYLINE_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5257);
-
-pub const POPUP_CONTROL: crate::types::ControlKind = crate::types::ControlKind(4);

@@ -211,6 +211,14 @@ pub struct CaptureNamedViewArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nCapturePartDesignViewCameraArgs stores a camera for an unlocked view.\nThe camera must be finite and usable. A locked or unknown view is refused.\nExample: `args := wire.CapturePartDesignViewCameraArgs{ID: 2, Camera: camera}`.\n```"]
+pub struct CapturePartDesignViewCameraArgs {
+    pub id: u64 => required("id");
+    pub camera: crate::types::PartDesignViewCamera => required("camera");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nCaptureRepArgs captures the current scene state into a new representation of its family.\n```"]
 pub struct CaptureRepArgs {
     pub name: String => required("name");

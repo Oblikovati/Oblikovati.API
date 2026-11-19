@@ -4,6 +4,30 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nParameterSetArgs is the request of [MethodParametersAdd] / [MethodParametersSet]:\na parameter name and a unit-bearing expression (e.g. \"4 cm\").\n\nValueType and Kind apply to Add only (Set edits an existing parameter's expression and\nignores them), covering the reference CAD API's non-numeric and non-user parameter creation (#1845):\n  - ValueType: \"numeric\" (default) — Expression is a unit-bearing expression; \"text\" —\n    Expression is the literal string value; \"boolean\" — Expression is \"true\" or \"false\".\n  - Kind: \"user\" (default) or \"model\" — the parameter table it is added to. Text and boolean\n    parameters are always user parameters (Kind is ignored for them).\n```"]
+pub struct ParameterSetArgs {
+    pub name: String => required("name");
+    pub expression: String => required("expression");
+    pub value_type: String => omitted("valueType", "crate::json::is_zero");
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterSettingsInfo is the JSON shape of the document's parameter\nsettings (response of [MethodParametersGetSettings] and of\n[MethodParametersSetSettings]). The standard tolerances are unit-bearing\nexpressions applied to dimensions without an explicit tolerance when\nUseStandardTolerances is on; the precisions are decimal places for linear\nand angular dimension display; DimensionDisplayType carries the wire\nspelling of types.DimensionDisplayType.\n```"]
+pub struct ParameterSettingsInfo {
+    pub linear_standard_tolerance: String => omitted("linearStandardTolerance", "crate::json::is_zero");
+    pub angular_standard_tolerance: String => omitted("angularStandardTolerance", "crate::json::is_zero");
+    pub use_standard_tolerances: bool => omitted("useStandardTolerances", "crate::json::is_zero");
+    pub export_standard_tolerances: bool => omitted("exportStandardTolerances", "crate::json::is_zero");
+    pub linear_dimension_precision: i64 => required("linearDimensionPrecision");
+    pub angular_dimension_precision: i64 => required("angularDimensionPrecision");
+    pub dimension_display_type: String => required("dimensionDisplayType");
+    pub display_parameter_as_expression: bool => omitted("displayParameterAsExpression", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nParameterSettingsUpdateArgs is the request of [MethodParametersSetSettings].\nNil fields are left unchanged (pointer fields distinguish unchanged from\nzero); DimensionDisplayType takes a wire spelling.\n```"]
 pub struct ParameterSettingsUpdateArgs {
     pub linear_standard_tolerance: Option<Box<String>> => omitted("linearStandardTolerance", "Option::is_none");
@@ -56,6 +80,45 @@ pub struct ParameterUpdateArgs {
     pub model_value_type: Option<Box<String>> => omitted("modelValueType", "Option::is_none");
     pub disabled_action_types: Option<Box<Option<Vec<String>>>> => omitted("disabledActionTypes", "Option::is_none");
     pub custom_property_format: Option<Box<crate::wire::CustomPropertyFormatInfo>> => omitted("customPropertyFormat", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPartDesignViewInfo describes one persisted part view. IDs are nonzero, unique\nwithin the part and stable across save and reopen. Primary is the built-in view\nand remains present. A new part lists Primary, Isometric, Front, Top and Right\nin that order. BuiltIn marks those initial entries. Exactly one view is active.\nNames are nonempty, contain no NUL, and are unique by exact spelling within the part; case differences remain\ndistinct. Camera is absent until one is captured. Body visibility is addressed\nby sorted, distinct persistent body keys; an empty set is encoded as an empty\narray. Origin datum visibility is not a body override.\nStandardOrientation identifies a standard orientation when no camera has been\ncaptured; zero means no standard orientation. A captured camera takes precedence.\nActivating a view applies its stored camera and body visibility together; an\nunresolved reference is an error and does not change the active view.\nExample: `view := wire.PartDesignViewInfo{ID: 1, Name: \"Primary\", Primary: true, Active: true}`.\n```"]
+pub struct PartDesignViewInfo {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub built_in: bool => required("builtIn");
+    pub primary: bool => required("primary");
+    pub active: bool => required("active");
+    pub locked: bool => required("locked");
+    pub published: bool => required("published");
+    pub autosave_camera: bool => required("autosaveCamera");
+    pub annotation_scale: crate::types::PartAnnotationScale => required("annotationScale");
+    pub standard_orientation: crate::types::ViewOrientationTypeEnum => omitted("standardOrientation", "crate::json::is_zero");
+    pub camera: Option<Box<crate::types::PartDesignViewCamera>> => omitted("camera", "Option::is_none");
+    pub hidden_body_keys: Option<Vec<String>> => required("hiddenBodyKeys");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPartDesignViewRef selects one view in the active part document.\nExample: `ref := wire.PartDesignViewRef{ID: 1}`.\n```"]
+pub struct PartDesignViewRef {
+    pub id: u64 => required("id");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPartDesignViewResult returns one view after an operation.\nExample: `result := wire.PartDesignViewResult{View: wire.PartDesignViewInfo{ID: 1}}`.\n```"]
+pub struct PartDesignViewResult {
+    pub view: crate::wire::PartDesignViewInfo => required("view");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPartDesignViewsResult lists the views in creation order.\nExample: `result := wire.PartDesignViewsResult{Views: []wire.PartDesignViewInfo{}}`.\n```"]
+pub struct PartDesignViewsResult {
+    pub views: Option<Vec<crate::wire::PartDesignViewInfo>> => required("views");
 }
 }
 
@@ -391,70 +454,5 @@ generated_dto! {
 #[doc = "```text\nPunchesResult is the reply of listPunches: every punch instance developed into the flat.\n```"]
 pub struct PunchesResult {
     pub punches: Option<Vec<crate::wire::FlatPunchInfo>> => required("punches");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRectangularPatternFeatureArgs is the args object for a [FeatureKindPatternRectangular]\n[MethodFeaturesAdd] call: replicate SourceFeatures on a grid. CountX/CountY are the per-\ndirection counts; CountXExpr/CountYExpr are their parameter-expression forms (when set,\nthey supersede the numeric counts) (#189). StepX/StepY are the per-direction spacing\nvectors [x,y,z] in cm (StepY optional for a 1-D pattern).\n```"]
-pub struct RectangularPatternFeatureArgs {
-    pub source_features: Option<Vec<String>> => required("sourceFeatures");
-    pub count_x: i64 => omitted("countX", "crate::json::is_zero");
-    pub count_y: i64 => omitted("countY", "crate::json::is_zero");
-    pub count_x_expr: String => omitted("countXExpr", "crate::json::is_zero");
-    pub count_y_expr: String => omitted("countYExpr", "crate::json::is_zero");
-    pub step_x: Option<Vec<f64>> => omitted_finite("stepX", "crate::json::slice_is_empty");
-    pub step_y: Option<Vec<f64>> => omitted_finite("stepY", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRedefineWorkPlaneArgs is the request of [MethodWorkPlanesRedefine]: edit a placed user work\nplane in place. Index selects the plane (its position in List). Scalars sets editable\ndistances/angles; Repick re-points reference slots at new geometry. AutoResize and Grounded, when\nnon-nil, set those display/associativity flags; Size, when set, fixes the displayed rectangle\nextents (two corners [x,y,z] cm). All are optional and applied together, then the part recomputes\n(#1851).\n```"]
-pub struct RedefineWorkPlaneArgs {
-    pub index: i64 => required("index");
-    pub scalars: Option<Vec<crate::wire::ScalarEdit>> => omitted("scalars", "crate::json::slice_is_empty");
-    pub repick: Option<Vec<crate::wire::SlotRepick>> => omitted("repick", "crate::json::slice_is_empty");
-#[doc = "```text\n#1851\n```"]
-    pub auto_resize: Option<Box<bool>> => omitted("autoResize", "Option::is_none");
-#[doc = "```text\n#1851\n```"]
-    pub grounded: Option<Box<bool>> => omitted("grounded", "Option::is_none");
-#[doc = "```text\ntwo corners [x,y,z] cm (#1851)\n```"]
-    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRedefineWorkPlaneResult is the response of [MethodWorkPlanesRedefine]: the plane's refreshed\ninfo (new geometry/health and its still-editable scalars/slots). An unsatisfiable edit\nreports healthy=false rather than failing the call.\n```"]
-pub struct RedefineWorkPlaneResult {
-    pub plane: crate::wire::WorkPlaneInfo => required("plane");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nReferenceKeysResult is the response of [MethodModelReferenceKeys]: the active part's\ntopology per body, each entity carrying the persistent reference key consumed by the key\nconsumers (include, addSurfaceCurve, project geometry, attributes). It is how an add-in\nobtains a face/edge/vertex key without a viewport pick.\n```"]
-pub struct ReferenceKeysResult {
-    pub bodies: Option<Vec<crate::wire::BodyTopology>> => required("bodies");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRegionPropertiesArgs is the request of [MethodSketchRegionProperties] and\n[MethodSketch3DRegionProperties]: which sketch, which profile (the index\nfrom [MethodSketchProfiles] / [MethodSketch3DProfiles]; the profile must be\nclosed — and planar, for the 3D method), and the desired computational\naccuracy ([oblikovati.org/api/types.Accuracy] wire spelling; empty ⇒ \"high\").\n```"]
-pub struct RegionPropertiesArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub profile_index: i64 => required("profileIndex");
-    pub accuracy: String => omitted("accuracy", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRegionPropertiesResult is the response of [MethodSketchRegionProperties] and\n[MethodSketch3DRegionProperties]. All values are in database units (cm) on\nthe profile's plane, about the sketch origin unless stated otherwise:\n  - Area (cm², holes subtracted) and Perimeter (cm, holes' rims included);\n  - Centroid [x,y] (cm, in sketch-plane coordinates);\n  - MomentsOfInertia [Ixx, Iyy, Ixy] (cm⁴) about the centroid;\n  - PrincipalMoments [I1, I2] (cm⁴) and RotationAngle (radians CCW from the\n    sketch X axis to the first principal axis);\n  - PrincipalAxes the two unit axes [[x1,y1],[x2,y2]];\n  - Accuracy the wire spelling actually used.\n```"]
-pub struct RegionPropertiesResult {
-    pub area: f64 => finite("area");
-    pub perimeter: f64 => finite("perimeter");
-    pub centroid: Option<Vec<f64>> => finite("centroid");
-    pub moments_of_inertia: Option<Vec<f64>> => finite("momentsOfInertia");
-    pub principal_moments: Option<Vec<f64>> => finite("principalMoments");
-    pub rotation_angle: f64 => finite("rotationAngle");
-    pub principal_axes: Option<Vec<Option<Vec<f64>>>> => finite("principalAxes");
-    pub accuracy: String => required("accuracy");
 }
 }

@@ -3,6 +3,24 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_EXIT_EDIT: &str = "sketch.exitEdit";
+
+pub const METHOD_SKETCH_GET: &str = "sketch.get";
+
+pub const METHOD_SKETCH_GET_CUSTOM_LINE_TYPE: &str = "sketch.getCustomLineType";
+
+pub const METHOD_SKETCH_GET_ENTITY_FORMAT: &str = "sketch.getEntityFormat";
+
+pub const METHOD_SKETCH_GET_FORMAT_MODES: &str = "sketch.getFormatModes";
+
+pub const METHOD_SKETCH_GET_INFERENCE_OPTIONS: &str = "sketch.getInferenceOptions";
+
+pub const METHOD_SKETCH_GET_INFERENCE_SCOPE: &str = "sketch.getInferenceScope";
+
+pub const METHOD_SKETCH_GET_TEXT: &str = "sketch.getText";
+
+pub const METHOD_SKETCH_LIST: &str = "sketch.list";
+
 pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";
 
 pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";
@@ -437,28 +455,5 @@ generated_dto! {
 pub struct NamedViewInfo {
     pub name: String => required("name");
     pub camera: crate::wire::CameraView => required("camera");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nNamedViewRefArgs is the request of [MethodViewsRestoreNamed] / [MethodViewsDeleteNamed]:\nthe named view to restore (its camera is applied to the active view, animated) or delete.\n```"]
-pub struct NamedViewRefArgs {
-    pub document: u64 => omitted("document", "crate::json::is_zero");
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nNamedViewsResult is the response of [MethodViewsListNamed]: every saved named view of a\ndocument.\n```"]
-pub struct NamedViewsResult {
-    pub views: Option<Vec<crate::wire::NamedViewInfo>> => required("views");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nNearestPointArgs is the request of [MethodPointCloudsNearestPoint]: snap the model-space query\nPoint onto the named cloud — find its scan point nearest the query. The whole cloud is searched\n(placement-transformed but not crop-limited), so a snap finds a point even outside an active crop.\n```"]
-pub struct NearestPointArgs {
-    pub cloud: String => required("cloud");
-    pub point: crate::types::Point => raw(rename = "point");
 }
 }

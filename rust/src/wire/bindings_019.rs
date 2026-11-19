@@ -3,6 +3,80 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SAVE_WARNING_ASSEMBLY_CACHE_UNAVAILABLE: &str = "assemblyCacheUnavailable";
+
+generated_dto! {
+#[doc = "```text\nScalarEdit sets the work plane's scalar at slot Index to a unit-bearing Value (\"30 mm\",\n\"60 deg\") — the index comes from [WorkPlaneScalar].\n```"]
+pub struct ScalarEdit {
+    pub index: i64 => required("index");
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nScriptRunArgs is the request of [MethodScriptRun]: a whole Lua program to run against\nthe live model in one call, instead of issuing N separate method calls. The host runs\nit in the same sandboxed runtime the GUI Script Console and the CLI use (ADR-0028), so\nthe script reaches the model only through this same wire surface.\n\nAn MCP/LLM client uses this to submit a complete automation program (build a sketch,\nextrude it, set parameters) atomically from its side, reading the script's print()\noutput and any error back in [ScriptRunResult].\n\nWallMs is an optional per-run wall-clock budget in milliseconds (0 ⇒ the host default);\nthe host caps it so a runaway script can never hang the session.\n```"]
+pub struct ScriptRunArgs {
+    pub source: String => required("source");
+    pub wall_ms: i64 => omitted("wallMs", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nScriptRunResult is the response of [MethodScriptRun]. The method succeeds at the\ntransport level even when the *script* fails: a syntax/runtime error, quota breach, or\ncancellation is reported in Error (empty on success) alongside whatever Output the\nscript printed before it stopped — so a caller always gets both the output and the\nfailure reason rather than an opaque transport error.\n```"]
+pub struct ScriptRunResult {
+#[doc = "```text\ncaptured print() output\n```"]
+    pub output: String => required("output");
+#[doc = "```text\nscript failure message; empty on success\n```"]
+    pub error: String => omitted("error", "crate::json::is_zero");
+#[doc = "```text\nwall-clock spent running\n```"]
+    pub duration_ms: i64 => required("durationMs");
+#[doc = "```text\nopcodes executed (best-effort; metrics)\n```"]
+    pub ops: u64 => omitted("ops", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nScrollViewportArgs is the request of [MethodViewportScroll]: a mouse-wheel tick at a viewport\npixel, in notches (a wheel detent is one notch; fractional for high-resolution wheels). DY is the\nvertical axis (positive scrolls up — the zoom-in direction the host has always used). DX is the\nhorizontal axis a two-axis wheel or thumbwheel reports (#1822); it is delivered but carries no\ndefault binding, so it changes nothing until a tool or add-in reads it. X/Y locate the cursor so\nthe host can zoom toward it, defaulting to the viewport centre when omitted.\n```"]
+pub struct ScrollViewportArgs {
+    pub dx: f64 => omitted_finite("dx", "crate::json::is_zero");
+    pub dy: f64 => omitted_finite("dy", "crate::json::is_zero");
+    pub x: f64 => omitted_finite("x", "crate::json::is_zero");
+    pub y: f64 => omitted_finite("y", "crate::json::is_zero");
+    pub shift: bool => omitted("shift", "crate::json::is_zero");
+    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
+    pub alt: bool => omitted("alt", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nScrollViewportResult is the response of [MethodViewportScroll]: the command still running after\nthe scroll (empty once none is), mirroring the click/key results.\n```"]
+pub struct ScrollViewportResult {
+    pub active_tool: String => required("activeTool");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSearchCommandsArgs is the request of [MethodUISearch]: find registered commands\nwhose display name, id, or alias matches the query (case-insensitive substring).\n```"]
+pub struct SearchCommandsArgs {
+    pub query: String => required("query");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSearchCommandsResult is the response of [MethodUISearch].\n```"]
+pub struct SearchCommandsResult {
+    pub commands: Option<Vec<crate::wire::CommandInfo>> => required("commands");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSelectArgs is the request of [MethodModelSelect] (#157): select the entities named by Refs —\nreference strings as returned in a [SelectionResult] (face/vertex/body, #1492). Mode \"add\"\nextends the current selection; any other value (or empty) replaces it. The reply is the new\nselection.\n```"]
+pub struct SelectArgs {
+    pub refs: Option<Vec<String>> => required("refs");
+    pub mode: String => omitted("mode", "crate::json::is_zero");
+}
+}
+
 generated_dto! {
 #[doc = "```text\nSelectionChangedEvent is the push event (type [EventSelectionChanged]) fired\nwhen the selection set changes — the app-level OnSelect/OnUnSelect observation.\n```"]
 pub struct SelectionChangedEvent {
@@ -386,77 +460,5 @@ generated_dto! {
 pub struct SetJointFlipArgs {
     pub id: u64 => required("id");
     pub flip: bool => required("flip");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetJointLimitsArgs is the request of [MethodAssemblyJointsSetLimits]: set the linear/angular\nbounds of the joint with id ID.\n```"]
-pub struct SetJointLimitsArgs {
-    pub id: u64 => required("id");
-    pub limits: crate::wire::JointLimits => required("limits");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetJointOriginArgs is the request of [MethodAssemblyJointsSetOrigin]: define one of a joint's two\norigins (#1973). Which is 1 or 2 (origin one or two). Mode is the types.AssemblyJointOriginMode\nspelling: \"infer\" (on the picked geometry), \"offset\" (shift by XOffset/YOffset in the frame's\nplane), or \"betweenTwoFaces\" (project to the midplane between FaceA and FaceB).\n```"]
-pub struct SetJointOriginArgs {
-    pub id: u64 => required("id");
-    pub which: i64 => required("which");
-    pub mode: String => required("mode");
-    pub x_offset: f64 => omitted_finite("xOffset", "crate::json::is_zero");
-    pub y_offset: f64 => omitted_finite("yOffset", "crate::json::is_zero");
-    pub face_a: crate::wire::ConstraintGeomRef => required("faceA");
-    pub face_b: crate::wire::ConstraintGeomRef => required("faceB");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetJointStateArgs is the request of [MethodAssemblyJointsSetState]: change any subset of the\njoint's seating and state (#1970/#1974). Each pointer field is applied only when present.\n```"]
-pub struct SetJointStateArgs {
-    pub id: u64 => required("id");
-    pub gap: Option<Box<f64>> => omitted_finite("gap", "Option::is_none");
-    pub linear_position: Option<Box<f64>> => omitted_finite("linearPosition", "Option::is_none");
-    pub angular_position: Option<Box<f64>> => omitted_finite("angularPosition", "Option::is_none");
-    pub locked: Option<Box<bool>> => omitted("locked", "Option::is_none");
-    pub protected: Option<Box<bool>> => omitted("protected", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetLayoutArgs is the request of [MethodViewsSetLayout]: how to tile the document's views.\n```"]
-pub struct SetLayoutArgs {
-    pub document: u64 => omitted("document", "crate::json::is_zero");
-    pub layout: crate::types::ViewLayout => required("layout");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetLightArgs is the request of [MethodLightingSetLight]: the index of the light to update\nand its new full state.\n```"]
-pub struct SetLightArgs {
-    pub index: i64 => required("index");
-    pub light: crate::wire::LightInfo => required("light");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetLightingStyleArgs is the request of [MethodLightingSetStyle]: the style to activate, by\nname (lighting styles are identified by name, not by an enum).\n```"]
-pub struct SetLightingStyleArgs {
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetManipulatorsArgs is the request of [MethodManipulatorsSet]: replace one\nadd-in gizmo's handle set (the declared-bulk precedent).\n```"]
-pub struct SetManipulatorsArgs {
-    pub id: String => required("id");
-    pub handles: Option<Vec<crate::wire::ManipulatorHandleSpec>> => required("handles");
-    pub command: String => omitted("command", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetMarkingMenuArgs is the request of [MethodUISetMarkingMenu]: replace one\nenvironment's radial menu (the customization hook behind OnRadialMarkingMenu).\n```"]
-pub struct SetMarkingMenuArgs {
-    pub menu: crate::wire::MarkingMenuView => required("menu");
 }
 }

@@ -1,3 +1,12 @@
+{"Name":"types.ReferenceStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ReferenceStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReferenceStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReliefShape","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ReliefShape","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReliefShape","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RepresentationKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.RepresentationKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RepresentationKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.Rgba","Case":"zero","Payload":{"R":0,"G":0,"B":0,"A":0},"Canonical":{"R":0,"G":0,"B":0,"A":0},"Error":""}
 {"Name":"types.Rgba","Case":"filled","Payload":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Canonical":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Error":""}
 {"Name":"types.Rgba","Case":"empty","Payload":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Canonical":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Error":""}
@@ -139,12 +148,3 @@
 {"Name":"types.TransparencyTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.TransparencyTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TransparencyTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadMoveType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TriadMoveType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadMoveType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadSegment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TriadSegment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadSegment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"empty","Payload":7,"Canonical":7,"Error":""}

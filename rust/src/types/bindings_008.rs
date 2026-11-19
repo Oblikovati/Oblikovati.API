@@ -3,6 +3,42 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SKETCH2_D_AND_CENTERMARK_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(4);
+
+pub const SKETCH2_D_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(2);
+
+pub const SKETCH3_D_ENTITY_ARC: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("arc"));
+
+pub const SKETCH3_D_ENTITY_BEND: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("bend"));
+
+pub const SKETCH3_D_ENTITY_CIRCLE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("circle"));
+
+pub const SKETCH3_D_ENTITY_CONTROL_POINT_SPLINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("controlPointSpline"));
+
+pub const SKETCH3_D_ENTITY_ELLIPSE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipse"));
+
+pub const SKETCH3_D_ENTITY_ELLIPTICAL_ARC: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipticalArc"));
+
+pub const SKETCH3_D_ENTITY_EQUATION_CURVE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("equationCurve"));
+
+pub const SKETCH3_D_ENTITY_FIXED_SPLINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("fixedSpline"));
+
+pub const SKETCH3_D_ENTITY_HELICAL: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("helical"));
+
+pub const SKETCH3_D_ENTITY_INCLUDED_CURVE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedCurve"));
+
 pub const SKETCH3_D_ENTITY_INCLUDED_POINT: crate::types::Sketch3DEntityKind =
     crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedPoint"));
 
@@ -426,39 +462,3 @@ pub const SURFACE_FORM_NOT_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
 
 pub const SURFACE_FORM_NOT_NURBS: crate::types::SurfaceGeometryForm =
     crate::types::SurfaceGeometryForm(8);
-
-pub const SURFACE_FORM_PROCEDURAL_TO_NURBS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(16);
-
-generated_scalar! { integer,
-#[doc = "```text\nSurfaceGeometryForm is the surface representation classification (flag values,\nfrozen to the reference).\n```"]
-pub struct SurfaceGeometryForm(pub i32);
-}
-
-pub const SURFACE_TEXTURE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(6);
-
-generated_scalar! { integer,
-#[doc = "```text\nSurfaceType identifies a transient surface's concrete kind.\n```"]
-pub struct SurfaceType(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nSweepDefinitionType discriminates the sweep definition union.\n```"]
-pub struct SweepDefinitionType(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nSweepProfileOrientation controls how the profile rides the path.\n```"]
-pub struct SweepProfileOrientation(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nSweepProfileScaling controls how a guide rail scales the profile.\n```"]
-pub struct SweepProfileScaling(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nSweepType is the placed feature's sweep kind (the SweepFeature property\nmirroring its definition type).\n```"]
-pub struct SweepType(pub i32);
-}

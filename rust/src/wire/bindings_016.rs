@@ -4,6 +4,29 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nNamedViewRefArgs is the request of [MethodViewsRestoreNamed] / [MethodViewsDeleteNamed]:\nthe named view to restore (its camera is applied to the active view, animated) or delete.\n```"]
+pub struct NamedViewRefArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nNamedViewsResult is the response of [MethodViewsListNamed]: every saved named view of a\ndocument.\n```"]
+pub struct NamedViewsResult {
+    pub views: Option<Vec<crate::wire::NamedViewInfo>> => required("views");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nNearestPointArgs is the request of [MethodPointCloudsNearestPoint]: snap the model-space query\nPoint onto the named cloud — find its scan point nearest the query. The whole cloud is searched\n(placement-transformed but not crop-limited), so a snap finds a point even outside an active crop.\n```"]
+pub struct NearestPointArgs {
+    pub cloud: String => required("cloud");
+    pub point: crate::types::Point => raw(rename = "point");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nNearestPointResult is the response of [MethodPointCloudsNearestPoint]: the nearest scan point in\nmodel space and the distance to the query. Found is false only for an empty cloud.\n```"]
 pub struct NearestPointResult {
     pub point: crate::types::Point => raw(rename = "point");
@@ -436,29 +459,5 @@ generated_dto! {
 pub struct ParameterRenameArgs {
     pub name: String => required("name");
     pub new_name: String => required("newName");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterSetArgs is the request of [MethodParametersAdd] / [MethodParametersSet]:\na parameter name and a unit-bearing expression (e.g. \"4 cm\").\n\nValueType and Kind apply to Add only (Set edits an existing parameter's expression and\nignores them), covering the reference CAD API's non-numeric and non-user parameter creation (#1845):\n  - ValueType: \"numeric\" (default) — Expression is a unit-bearing expression; \"text\" —\n    Expression is the literal string value; \"boolean\" — Expression is \"true\" or \"false\".\n  - Kind: \"user\" (default) or \"model\" — the parameter table it is added to. Text and boolean\n    parameters are always user parameters (Kind is ignored for them).\n```"]
-pub struct ParameterSetArgs {
-    pub name: String => required("name");
-    pub expression: String => required("expression");
-    pub value_type: String => omitted("valueType", "crate::json::is_zero");
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterSettingsInfo is the JSON shape of the document's parameter\nsettings (response of [MethodParametersGetSettings] and of\n[MethodParametersSetSettings]). The standard tolerances are unit-bearing\nexpressions applied to dimensions without an explicit tolerance when\nUseStandardTolerances is on; the precisions are decimal places for linear\nand angular dimension display; DimensionDisplayType carries the wire\nspelling of types.DimensionDisplayType.\n```"]
-pub struct ParameterSettingsInfo {
-    pub linear_standard_tolerance: String => omitted("linearStandardTolerance", "crate::json::is_zero");
-    pub angular_standard_tolerance: String => omitted("angularStandardTolerance", "crate::json::is_zero");
-    pub use_standard_tolerances: bool => omitted("useStandardTolerances", "crate::json::is_zero");
-    pub export_standard_tolerances: bool => omitted("exportStandardTolerances", "crate::json::is_zero");
-    pub linear_dimension_precision: i64 => required("linearDimensionPrecision");
-    pub angular_dimension_precision: i64 => required("angularDimensionPrecision");
-    pub dimension_display_type: String => required("dimensionDisplayType");
-    pub display_parameter_as_expression: bool => omitted("displayParameterAsExpression", "crate::json::is_zero");
 }
 }

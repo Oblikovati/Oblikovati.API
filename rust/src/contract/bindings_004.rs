@@ -3,6 +3,18 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nSectionDrawingView is a view cut from a parent view by a section line: the model is sliced by\nthe plane through that line (perpendicular to the parent), the near half removed, the cut\noutline drawn bold and the exposed faces hatched. The reference contracts give section views a\ndistinct interface (unlike auxiliary/projected, which are a plain DrawingView + a type tag).\n```"]
+pub trait SectionDrawingView: crate::contract::DrawingView {
+    #[doc = "```text\nSectionDepthMM is the retained-slab depth in model millimetres, or 0 for a full through-cut\n(#1982).\n```"]
+    fn section_depth_mm(&self) -> f64;
+    #[doc = "```text\nSectionLineMM is the cut line on the parent view, in sheet millimetres.\n```"]
+    fn section_line_mm(&self) -> (f64, f64, f64, f64);
+    #[doc = "```text\nSectionReverse reports whether the far half is kept instead of the near half (#1982).\n```"]
+    fn section_reverse(&self) -> bool;
+    #[doc = "```text\nSectionType is the partial-cut kind (none/quarter/half/threeQuarter, #1982).\n```"]
+    fn section_type(&self) -> crate::types::SectionViewType;
+}
+
 #[doc = "```text\nShadedDisplayOptions is the in-process contract for the shaded-mode display sub-options\n(edge overlay, transparency rendering). The GPL app satisfies it.\n```"]
 pub trait ShadedDisplayOptions {
     #[doc = "```text\nEdgeColor is the overlaid edge color.\n```"]

@@ -250,6 +250,14 @@ pub struct CopyComponentsArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nCopyPartDesignViewArgs copies all authored settings of SourceID into a new,\ninactive view. Empty Name requests a unique generated name; an explicit name\nmust be unique. The operation does not change the active view or viewport.\nExample: `args := wire.CopyPartDesignViewArgs{SourceID: 1, Name: \"Review\"}`.\n```"]
+pub struct CopyPartDesignViewArgs {
+    pub source_id: u64 => required("sourceId");
+    pub name: String => omitted("name", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nCopySketchArgs is the request of [MethodSketchCopyTo]. SourceIndex/TargetIndex are the\nsketches' indices. EntityIDs selects the source entities to copy (from sketch.entities);\nempty copies the whole sketch's contents. Position (target-plane [x, y] in cm) offsets the\ncopies; absent (nil) copies in place.\n```"]
 pub struct CopySketchArgs {
     pub source_index: i64 => required("sourceIndex");
