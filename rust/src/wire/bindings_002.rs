@@ -242,6 +242,14 @@ pub struct AlignViewArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nAllConstraintGlyphsVisibilityArgs changes every geometric-constraint glyph\nin the sketch. Showing all clears individual hidden overrides; hiding all\ndoes not change geometry, dimensions, or constraint enforcement. Example:\nAllConstraintGlyphsVisibilityArgs{SketchIndex: 0, Visible: true}.\n```"]
+pub struct AllConstraintGlyphsVisibilityArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nAnalyzeInterferenceArgs requests a static interference analysis. Occurrences optionally\nrestricts the analysis to a subset (by id); empty analyses every pair in the active assembly.\n```"]
 pub struct AnalyzeInterferenceArgs {
     pub occurrences: Option<Vec<u64>> => omitted("occurrences", "crate::json::slice_is_empty");
@@ -452,13 +460,5 @@ generated_dto! {
 pub struct AssignMaterialArgs {
     pub body_key: String => omitted("bodyKey", "crate::json::is_zero");
     pub material_id: String => required("materialId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nAttachPointCloudArgs is the request of [MethodPointCloudsAttach]: read the scan file at\nFullFileName and attach it to the active part. Name is the unique cloud name; when empty the\nhost mints one (Cloud1, Cloud2, …).\n```"]
-pub struct AttachPointCloudArgs {
-    pub name: String => omitted("name", "crate::json::is_zero");
-    pub full_file_name: String => required("fullFileName");
 }
 }

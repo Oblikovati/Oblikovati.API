@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup6 = []fixtureType{
+	{"wire.AnnotationResult", reflect.TypeFor[wire.AnnotationResult]()},
 	{"wire.AppearanceInfo", reflect.TypeFor[wire.AppearanceInfo]()},
 	{"wire.ApplicationApiVersionResult", reflect.TypeFor[wire.ApplicationApiVersionResult]()},
 	{"wire.AppliedConstraintInference", reflect.TypeFor[wire.AppliedConstraintInference]()},
@@ -88,5 +89,4 @@ var fixtureGroup6 = []fixtureType{
 	{"wire.BrepOffsetFacesArgs", reflect.TypeFor[wire.BrepOffsetFacesArgs]()},
 	{"wire.BrepRuledSurfaceArgs", reflect.TypeFor[wire.BrepRuledSurfaceArgs]()},
 	{"wire.BrepSectionArgs", reflect.TypeFor[wire.BrepSectionArgs]()},
-	{"wire.BrepSilhouetteArgs", reflect.TypeFor[wire.BrepSilhouetteArgs]()},
 }

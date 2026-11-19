@@ -190,8 +190,11 @@ const (
 	MethodSketchGetCustomLineType = "sketch.getCustomLineType"
 	MethodSketchSetCustomLineType = "sketch.setCustomLineType"
 
-	MethodSketchAddConstraint    = "sketch.addConstraint"
-	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
+	MethodSketchAddConstraint                    = "sketch.addConstraint"
+	MethodSketchDeleteConstraint                 = "sketch.deleteConstraint"
+	MethodSketchConstraintGlyphVisibility        = "sketch.constraintGlyphVisibility"
+	MethodSketchSetConstraintGlyphVisibility     = "sketch.setConstraintGlyphVisibility"
+	MethodSketchSetAllConstraintGlyphsVisibility = "sketch.setAllConstraintGlyphsVisibility"
 
 	MethodSketchAddDimension    = "sketch.addDimension"
 	MethodSketchDriveDimension  = "sketch.driveDimension"

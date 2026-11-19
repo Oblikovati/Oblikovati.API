@@ -1,3 +1,6 @@
+{"Name":"wire.AssignMaterialArgs","Case":"zero","Payload":{"materialId":""},"Canonical":{"materialId":""},"Error":""}
+{"Name":"wire.AssignMaterialArgs","Case":"filled","Payload":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.AssignMaterialArgs","Case":"empty","Payload":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AttachPointCloudArgs","Case":"zero","Payload":{"fullFileName":""},"Canonical":{"fullFileName":""},"Error":""}
 {"Name":"wire.AttachPointCloudArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AttachPointCloudArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.BrepDeleteFacesArgs","Case":"zero","Payload":{"handle":0,"faceKeys":null},"Canonical":{"handle":0,"faceKeys":null},"Error":""}
 {"Name":"wire.BrepDeleteFacesArgs","Case":"filled","Payload":{"handle":7,"faceKeys":["example \u003c\u0026\u003e 日本語"],"keepInstead":true},"Canonical":{"handle":7,"faceKeys":["example \u003c\u0026\u003e 日本語"],"keepInstead":true},"Error":""}
 {"Name":"wire.BrepDeleteFacesArgs","Case":"empty","Payload":{"handle":7,"faceKeys":[],"keepInstead":true},"Canonical":{"handle":7,"faceKeys":[],"keepInstead":true},"Error":""}
-{"Name":"wire.BrepHandleArgs","Case":"zero","Payload":{"handle":0},"Canonical":{"handle":0},"Error":""}
-{"Name":"wire.BrepHandleArgs","Case":"filled","Payload":{"handle":7},"Canonical":{"handle":7},"Error":""}
-{"Name":"wire.BrepHandleArgs","Case":"empty","Payload":{"handle":7},"Canonical":{"handle":7},"Error":""}

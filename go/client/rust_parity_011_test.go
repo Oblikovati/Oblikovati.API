@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityFreeformSetLevel(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodFreeformSetLevel})
+	checkGoGroup(t, c, "Freeform", "SetLevel")
+}
+
+func TestRustParityGraphicsColorMappers(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodClientGraphicsListMappers})
+	checkGoGroup(t, c, "Graphics", "ColorMappers")
+}
+
+func TestRustParityGraphicsDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodClientGraphicsDelete})
+	checkGoGroup(t, c, "Graphics", "Delete")
+}
+
 func TestRustParityGraphicsList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodClientGraphicsList})
 	checkGoGroup(t, c, "Graphics", "List")
@@ -142,19 +157,4 @@ func TestRustParityLODRepsDelete(t *testing.T) {
 func TestRustParityLODRepsList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodLODRepsList})
 	checkGoGroup(t, c, "LODReps", "List")
-}
-
-func TestRustParityLODRepsSetSuppressed(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodLODRepsSetSuppressed})
-	checkGoGroup(t, c, "LODReps", "SetSuppressed")
-}
-
-func TestRustParityLightingAddLight(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodLightingAddLight})
-	checkGoGroup(t, c, "Lighting", "AddLight")
-}
-
-func TestRustParityLightingLights(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodLightingListLights})
-	checkGoGroup(t, c, "Lighting", "Lights")
 }

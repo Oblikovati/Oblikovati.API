@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParitySketch3DSetProperty(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DSetProperty})
+	checkGoGroup(t, c, "Sketch3D", "SetProperty")
+}
+
+func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
+	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
+}
+
+func TestRustParitySketch3DSolve(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
+	checkGoGroup(t, c, "Sketch3D", "Solve")
+}
+
 func TestRustParitySketch3DTransform(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DTransform})
 	checkGoGroup(t, c, "Sketch3D", "Transform")
@@ -142,19 +157,4 @@ func TestRustParitySketchExitEdit(t *testing.T) {
 func TestRustParitySketchExplodeBlockInstance(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchExplodeBlockInstance})
 	checkGoGroup(t, c, "Sketch", "ExplodeBlockInstance")
-}
-
-func TestRustParitySketchFormatModes(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetFormatModes})
-	checkGoGroup(t, c, "Sketch", "FormatModes")
-}
-
-func TestRustParitySketchGet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGet})
-	checkGoGroup(t, c, "Sketch", "Get")
-}
-
-func TestRustParitySketchGetCustomLineType(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
-	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
 }

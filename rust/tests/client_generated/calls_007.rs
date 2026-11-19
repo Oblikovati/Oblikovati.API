@@ -130,6 +130,52 @@ fn constrain_delete() {
 }
 
 #[test]
+fn constrain_glyph_visibility() {
+    let args: oblikovati_api::wire::ConstraintGlyphsVisibilityArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_CONSTRAINT_GLYPH_VISIBILITY,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.constrain().glyph_visibility(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
+fn constrain_set_all_glyphs_visible() {
+    let args: oblikovati_api::wire::AllConstraintGlyphsVisibilityArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_SET_ALL_CONSTRAINT_GLYPHS_VISIBILITY,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client
+            .constrain()
+            .set_all_glyphs_visible(&args)
+            .unwrap_err()
+            .0,
+        "recorded"
+    );
+}
+
+#[test]
+fn constrain_set_glyph_visible() {
+    let args: oblikovati_api::wire::ConstraintGlyphVisibilityArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_SET_CONSTRAINT_GLYPH_VISIBILITY,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.constrain().set_glyph_visible(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn contact_sets_add_member() {
     let args: oblikovati_api::wire::ContactMemberArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -208,40 +254,4 @@ fn contact_solver_set_enabled() {
         client.contact_solver().set_enabled(&args).unwrap_err().0,
         "recorded"
     );
-}
-
-#[test]
-fn contact_solver_status() {
-    let args: oblikovati_api::json::EmptyObject = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_CONTACT_SOLVER_STATUS,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(
-        client.contact_solver().status(&args).unwrap_err().0,
-        "recorded"
-    );
-}
-
-#[test]
-fn ds_joints_add() {
-    let args: oblikovati_api::wire::AddDSJointArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_DS_JOINTS_ADD,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.ds_joints().add(&args).unwrap_err().0, "recorded");
-}
-
-#[test]
-fn ds_joints_delete() {
-    let args: oblikovati_api::wire::DeleteDSJointArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_DS_JOINTS_DELETE,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.ds_joints().delete(&args).unwrap_err().0, "recorded");
 }

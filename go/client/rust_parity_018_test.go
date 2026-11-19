@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchFormatModes(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetFormatModes})
+	checkGoGroup(t, c, "Sketch", "FormatModes")
+}
+
+func TestRustParitySketchGet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGet})
+	checkGoGroup(t, c, "Sketch", "Get")
+}
+
+func TestRustParitySketchGetCustomLineType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
+	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
+}
+
 func TestRustParitySketchGetText(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGetText})
 	checkGoGroup(t, c, "Sketch", "GetText")
@@ -142,19 +157,4 @@ func TestRustParitySketchSolve(t *testing.T) {
 func TestRustParityStatusSetText(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStatusSetText})
 	checkGoGroup(t, c, "Status", "SetText")
-}
-
-func TestRustParityStatusText(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStatusGetText})
-	checkGoGroup(t, c, "Status", "Text")
-}
-
-func TestRustParityStylesDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesDelete})
-	checkGoGroup(t, c, "Styles", "Delete")
-}
-
-func TestRustParityStylesGet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesGet})
-	checkGoGroup(t, c, "Styles", "Get")
 }

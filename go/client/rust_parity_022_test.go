@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityWorkAxesList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
+	checkGoGroup(t, c, "WorkAxes", "List")
+}
+
+func TestRustParityWorkAxesListWithOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
+	checkGoGroup(t, c, "WorkAxes", "ListWithOptions")
+}
+
+func TestRustParityWorkFeaturesDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkFeaturesDelete})
+	checkGoGroup(t, c, "WorkFeatures", "Delete")
+}
+
 func TestRustParityWorkFeaturesSetVisible(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkFeaturesSetVisible})
 	checkGoGroup(t, c, "WorkFeatures", "SetVisible")

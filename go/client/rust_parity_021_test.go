@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityViewCapture(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportCapture})
+	checkGoGroup(t, c, "View", "Capture")
+}
+
+func TestRustParityViewCaptureWindow(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportCaptureWindow})
+	checkGoGroup(t, c, "View", "CaptureWindow")
+}
+
+func TestRustParityViewClick(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportClick})
+	checkGoGroup(t, c, "View", "Click")
+}
+
 func TestRustParityViewDisplayMode(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
 	checkGoGroup(t, c, "View", "DisplayMode")
@@ -142,19 +157,4 @@ func TestRustParityWindowsTabs(t *testing.T) {
 func TestRustParityWorkAxesCreate(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkAxesCreate})
 	checkGoGroup(t, c, "WorkAxes", "Create")
-}
-
-func TestRustParityWorkAxesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
-	checkGoGroup(t, c, "WorkAxes", "List")
-}
-
-func TestRustParityWorkAxesListWithOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
-	checkGoGroup(t, c, "WorkAxes", "ListWithOptions")
-}
-
-func TestRustParityWorkFeaturesDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkFeaturesDelete})
-	checkGoGroup(t, c, "WorkFeatures", "Delete")
 }

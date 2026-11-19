@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.SketchDependent", reflect.TypeFor[wire.SketchDependent]()},
+	{"wire.SketchDependentsResult", reflect.TypeFor[wire.SketchDependentsResult]()},
+	{"wire.SketchEditEvent", reflect.TypeFor[wire.SketchEditEvent]()},
+	{"wire.SketchEntityFormatArgs", reflect.TypeFor[wire.SketchEntityFormatArgs]()},
 	{"wire.SketchEntityFormatView", reflect.TypeFor[wire.SketchEntityFormatView]()},
 	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
@@ -85,8 +89,4 @@ var fixtureGroup16 = []fixtureType{
 	{"wire.UpdateProgressResult", reflect.TypeFor[wire.UpdateProgressResult]()},
 	{"wire.ValidateBodyArgs", reflect.TypeFor[wire.ValidateBodyArgs]()},
 	{"wire.ValidateBodyResult", reflect.TypeFor[wire.ValidateBodyResult]()},
-	{"wire.ValueResult", reflect.TypeFor[wire.ValueResult]()},
-	{"wire.ViewCurvesArgs", reflect.TypeFor[wire.ViewCurvesArgs]()},
-	{"wire.ViewCurvesResult", reflect.TypeFor[wire.ViewCurvesResult]()},
-	{"wire.ViewFrameInfo", reflect.TypeFor[wire.ViewFrameInfo]()},
 }

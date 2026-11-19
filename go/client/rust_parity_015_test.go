@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityPartDesignViewsSetOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPartDesignViewsSetOptions})
+	checkGoGroup(t, c, "PartDesignViews", "SetOptions")
+}
+
+func TestRustParityPatternCircular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Circular")
+}
+
+func TestRustParityPatternRectangular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Rectangular")
+}
+
 func TestRustParityPointCloudsAddCrop(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsAddCrop})
 	checkGoGroup(t, c, "PointClouds", "AddCrop")
@@ -142,19 +157,4 @@ func TestRustParityProgressUpdate(t *testing.T) {
 func TestRustParityRibbonEnvironments(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUIListEnvironments})
 	checkGoGroup(t, c, "Ribbon", "Environments")
-}
-
-func TestRustParityRibbonList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodRibbonList})
-	checkGoGroup(t, c, "Ribbon", "List")
-}
-
-func TestRustParityScriptsRun(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodScriptRun})
-	checkGoGroup(t, c, "Scripts", "Run")
-}
-
-func TestRustParitySheetMetalBendAllowance(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
-	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
 }

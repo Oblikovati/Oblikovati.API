@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nReplaceOccurrenceArgs is the request of [MethodAssemblyReplace]: swap the component of the\noccurrence with id ID for the one held by the open Document (by document id), keeping the\noccurrence's id, name, transform, and state — the \"replace component\" operation.\n```"]
+pub struct ReplaceOccurrenceArgs {
+    pub id: u64 => required("id");
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nRepositionPatternElementArgs is the request of [MethodAssemblyPatternElementReposition]: move\none element (by index) of the pattern (by id) to an explicit placement, off the regular grid.\n```"]
 pub struct RepositionPatternElementArgs {
     pub pattern: u64 => required("pattern");
@@ -448,13 +456,5 @@ pub struct SetCameraArgs {
     pub fov: f64 => finite("fov");
 #[doc = "```text\nProjection changes how the view projects. Omit (0) to leave it as it is — a caller moving\nthe camera should not have to restate the projection to keep it.\n```"]
     pub projection: crate::types::ProjectionTypeEnum => omitted("projection", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetChordArgs is the request of [MethodKeymapSetChord]: rebind one action's keyboard\nshortcut. Chord is the canonical chord string; an empty Chord clears the binding. The\nhost rejects a chord already bound to another action.\n```"]
-pub struct SetChordArgs {
-    pub action_id: String => required("actionId");
-    pub chord: String => required("chord");
 }
 }

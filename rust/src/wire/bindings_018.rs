@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPlatesResult is the reply of listPlates: the developed flat's plates (one per connected\nregion).\n```"]
+pub struct PlatesResult {
+    pub plates: Option<Vec<crate::wire::PlateInfo>> => required("plates");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].\n```"]
 pub struct PointCloudCropArgs {
     pub cloud: String => required("cloud");
@@ -449,13 +456,5 @@ pub struct ReplaceFileReferenceArgs {
     pub full_file_name: String => required("fullFileName");
     pub requested_name: String => required("requestedName");
     pub new_file_name: String => required("newFileName");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nReplaceOccurrenceArgs is the request of [MethodAssemblyReplace]: swap the component of the\noccurrence with id ID for the one held by the open Document (by document id), keeping the\noccurrence's id, name, transform, and state — the \"replace component\" operation.\n```"]
-pub struct ReplaceOccurrenceArgs {
-    pub id: u64 => required("id");
-    pub document: u64 => required("document");
 }
 }

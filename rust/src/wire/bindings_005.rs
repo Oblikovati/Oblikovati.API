@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nColorStylesResult is the response of [MethodStylesList]: every color style in the document.\n```"]
+pub struct ColorStylesResult {
+    pub styles: Option<Vec<crate::wire::ColorStyleView>> => required("styles");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nCommandInfo is the JSON shape of a registered command (its control-definition\nmetadata) plus its current enabled state.\n```"]
 pub struct CommandInfo {
     pub id: String => required("id");
@@ -91,6 +98,31 @@ generated_dto! {
 pub struct ConstraintGeomRef {
     pub occurrence: u64 => required("occurrence");
     pub entity: String => required("entity");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nConstraintGlyphVisibilityArgs identifies one geometric constraint by its\nstable relation ID and changes only its glyph visibility. The host\nrejects stale or invalid IDs without modifying the sketch. Example:\nConstraintGlyphVisibilityArgs{SketchIndex: 0, ConstraintID: 1, Visible: false}.\n```"]
+pub struct ConstraintGlyphVisibilityArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub constraint_id: u64 => required("constraintId");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nConstraintGlyphsVisibilityArgs selects a sketch for a visibility query.\nExample: ConstraintGlyphsVisibilityArgs{SketchIndex: 0}.\n```"]
+pub struct ConstraintGlyphsVisibilityArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nConstraintGlyphsVisibilityResult reports the global display switch and the\nstable geometric relation IDs and those hidden individually, in ascending\norder. The IDs belong to the specified sketch. Example:\nConstraintGlyphsVisibilityResult{Shown: true, RelationIDs: []uint64{1}, HiddenIDs: []uint64{1}}.\n```"]
+pub struct ConstraintGlyphsVisibilityResult {
+    pub shown: bool => required("shown");
+    pub relation_i_ds: Option<Vec<u64>> => required("relationIds");
+    pub hidden_i_ds: Option<Vec<u64>> => required("hiddenIds");
 }
 }
 
@@ -424,37 +456,5 @@ pub struct CreateSketchArgs {
     pub plane: String => omitted("plane", "crate::json::is_zero");
     pub work_plane_index: Option<Box<i64>> => omitted("workPlaneIndex", "Option::is_none");
     pub orientation: Option<Box<crate::wire::SketchOrientation>> => omitted("orientation", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nCreateSketchResult is the response of [MethodSketchCreate]: the new sketch's index\n(for sketch.rectangle / features.add) and the normalized plane label.\n```"]
-pub struct CreateSketchResult {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub plane: String => required("plane");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nCreateWorkAxisArgs is the request of [MethodWorkAxesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkAxisKind] value) and its inputs.\n\n  - Origin and Direction give the grounded \"line\" axis: the origin point [x,y,z]\n    and the axis direction [dx,dy,dz], both in database units (centimetres; Direction\n    is a direction, so only its orientation matters). This is the raw axis a revolve\n    or sweep spins about when the axis is not one of the origin axes.\n  - Refs are work-feature references for the reference-model kinds — refs returned by\n    [MethodWorkPointsCreate] / [MethodWorkPlanesList] or origin constants\n    (types.WorkRefCenter, types.WorkRefXYPlane …). Each kind expects a fixed count/order:\n    \"two-points\" wants two point refs; \"plane-intersection\" wants two plane refs.\n  - Construction, when true, creates the axis as a construction (hidden, consumer-tied) work\n    feature — the reference CAD API's WorkAxes.Add* Construction parameter; excluded from the browser and\n    auto-deleted with its last consumer. #1849.\n```"]
-pub struct CreateWorkAxisArgs {
-    pub kind: String => required("kind");
-    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
-    pub direction: Option<Vec<f64>> => omitted_finite("direction", "crate::json::slice_is_empty");
-    pub refs: Option<Vec<String>> => omitted("refs", "crate::json::slice_is_empty");
-#[doc = "```text\n#1849\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nCreateWorkAxisResult is the response of [MethodWorkAxesCreate]: the new axis's index\nin the work-axes collection, its stable reference (for building further datums — a\ntwo-plane bisector, a normal-to-curve plane, or a revolve axis), its name, and whether\nit resolved (an unsatisfiable definition reports healthy=false, with Reason, rather\nthan failing the call).\n```"]
-pub struct CreateWorkAxisResult {
-    pub index: i64 => required("index");
-    pub ref_: String => required("ref");
-    pub name: String => required("name");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
 }
 }

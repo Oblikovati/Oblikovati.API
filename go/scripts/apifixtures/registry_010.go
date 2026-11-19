@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup10 = []fixtureType{
+	{"wire.FitPointCloudPlaneResult", reflect.TypeFor[wire.FitPointCloudPlaneResult]()},
+	{"wire.FlatBendLineInfo", reflect.TypeFor[wire.FlatBendLineInfo]()},
+	{"wire.FlatEdgeInfo", reflect.TypeFor[wire.FlatEdgeInfo]()},
+	{"wire.FlatFaceInfo", reflect.TypeFor[wire.FlatFaceInfo]()},
 	{"wire.FlatPatternInfo", reflect.TypeFor[wire.FlatPatternInfo]()},
 	{"wire.FlatPatternOrientationInfo", reflect.TypeFor[wire.FlatPatternOrientationInfo]()},
 	{"wire.FlatPatternSettings", reflect.TypeFor[wire.FlatPatternSettings]()},
@@ -85,8 +89,4 @@ var fixtureGroup10 = []fixtureType{
 	{"wire.ListAttributeSetsResult", reflect.TypeFor[wire.ListAttributeSetsResult]()},
 	{"wire.ListAttributesArgs", reflect.TypeFor[wire.ListAttributesArgs]()},
 	{"wire.ListAttributesResult", reflect.TypeFor[wire.ListAttributesResult]()},
-	{"wire.ListBindingsResult", reflect.TypeFor[wire.ListBindingsResult]()},
-	{"wire.ListBlockDefinitionsResult", reflect.TypeFor[wire.ListBlockDefinitionsResult]()},
-	{"wire.ListBlockInstancesResult", reflect.TypeFor[wire.ListBlockInstancesResult]()},
-	{"wire.ListBrowserPanesResult", reflect.TypeFor[wire.ListBrowserPanesResult]()},
 }

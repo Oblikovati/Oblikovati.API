@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListBindingsResult", reflect.TypeFor[wire.ListBindingsResult]()},
+	{"wire.ListBlockDefinitionsResult", reflect.TypeFor[wire.ListBlockDefinitionsResult]()},
+	{"wire.ListBlockInstancesResult", reflect.TypeFor[wire.ListBlockInstancesResult]()},
+	{"wire.ListBrowserPanesResult", reflect.TypeFor[wire.ListBrowserPanesResult]()},
 	{"wire.ListClientApplicationsResult", reflect.TypeFor[wire.ListClientApplicationsResult]()},
 	{"wire.ListClientGraphicsResult", reflect.TypeFor[wire.ListClientGraphicsResult]()},
 	{"wire.ListCommandsResult", reflect.TypeFor[wire.ListCommandsResult]()},
@@ -85,8 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.MassPropertiesResult", reflect.TypeFor[wire.MassPropertiesResult]()},
 	{"wire.MaterialInfo", reflect.TypeFor[wire.MaterialInfo]()},
 	{"wire.MeasureArgs", reflect.TypeFor[wire.MeasureArgs]()},
-	{"wire.MeasureResult", reflect.TypeFor[wire.MeasureResult]()},
-	{"wire.MeshColorsResult", reflect.TypeFor[wire.MeshColorsResult]()},
-	{"wire.MessageEntry", reflect.TypeFor[wire.MessageEntry]()},
-	{"wire.MessageSectionView", reflect.TypeFor[wire.MessageSectionView]()},
 }

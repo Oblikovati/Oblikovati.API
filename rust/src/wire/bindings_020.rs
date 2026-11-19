@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetChordArgs is the request of [MethodKeymapSetChord]: rebind one action's keyboard\nshortcut. Chord is the canonical chord string; an empty Chord clears the binding. The\nhost rejects a chord already bound to another action.\n```"]
+pub struct SetChordArgs {
+    pub action_id: String => required("actionId");
+    pub chord: String => required("chord");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetClientGraphicsArgs is the request of [MethodClientGraphicsSet]: submit or replace\nthe whole graphics group named ClientId. Lane selects the display lane (a\ntypes.GraphicsLane; empty = \"persistent\"). Visible nil means visible. Re-sending the\nsame ClientId replaces the previous group (idempotent).\n```"]
 pub struct SetClientGraphicsArgs {
     pub client_id: String => required("clientId");
@@ -445,14 +453,5 @@ pub struct SetPartDesignViewOptionsArgs {
     pub published: Option<Box<bool>> => omitted("published", "Option::is_none");
     pub autosave_camera: Option<Box<bool>> => omitted("autosaveCamera", "Option::is_none");
     pub annotation_scale: Option<Box<crate::types::PartAnnotationScale>> => omitted("annotationScale", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPatternElementSuppressedArgs is the request of [MethodAssemblyPatternElementSetSuppressed]:\nsuppress or unsuppress one element (by index) of the pattern (by id).\n```"]
-pub struct SetPatternElementSuppressedArgs {
-    pub pattern: u64 => required("pattern");
-    pub element: i64 => required("element");
-    pub suppressed: bool => required("suppressed");
 }
 }

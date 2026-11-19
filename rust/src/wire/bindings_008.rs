@@ -4,6 +4,26 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nEditCommittedEvent is the JSON shape of an [EventEditCommitted] push event: a model\nmutation that was committed on a document, expressed as the very [wire] request that\nproduced it. The host delivers it to an add-in's Notify entry point (ADR-0016); there\nis no request/response method and no client call — an add-in matches on Type.\n\nIt is the basis for operational replication in a collaboration session\n(oblikovati-meeting ADR-0004): a remote add-in can replay the edit by dispatching\nMethod with Args through its own client, since the payload is the same frozen contract.\n\nMethod is a method-name constant from this package (e.g. [MethodParametersSet]); Args\nis that method's request DTO, left raw so the receiver decodes it with the matching\ntype. Document is the affected document's id.\n\nNOTE (v1 scope): only edits that arrive through the host's method router are emitted.\nEdits performed directly in the host UI are not yet captured — a known gap tracked in\noblikovati-meeting ADR-0004.\n```"]
+pub struct EditCommittedEvent {
+#[doc = "```text\nalways EventEditCommitted\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub method: String => required("method");
+    pub args: crate::json::JsonValue => raw(rename = "args", skip_serializing_if = "crate::json::JsonValue::is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nEditFeatureArgs is the request of [MethodFeaturesEdit]: edit the feature in place — set\neditable scalars AND/OR re-pick its geometric references. Every edit (scalar parse, slot\nresolution) is validated before ANY is applied, so a failed batch (bad value, unbindable\nkey, wrong slot kind) leaves the definition untouched; then the part recomputes once.\nScalar indices come from [FeatureDetail.Scalars]; Repick slot indices from\n[FeatureDetail.Slots].\n```"]
+pub struct EditFeatureArgs {
+    pub id: u64 => required("id");
+    pub scalars: Option<Vec<crate::wire::ScalarEdit>> => omitted("scalars", "crate::json::slice_is_empty");
+    pub repick: Option<Vec<crate::wire::FeatureRepick>> => omitted("repick", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nEditHelixArgs is the request of [MethodSketch3DEditHelix]: redefine an\nexisting helical curve in place. Entity is the helix's session id. Mode,\nPitch, Height, Revolutions, Taper and Clockwise have the same meaning as in\n[AddSketch3DEntityArgs] and replace the constant-shape definition; a\nnon-empty Rows replaces the definition with a variable shape instead.\nStart/End set the end conditions (nil keeps the current ones). The curve is\nregenerated and dependents resolve against the new shape.\n```"]
 pub struct EditHelixArgs {
     pub sketch_index: i64 => required("sketchIndex");
@@ -436,25 +456,5 @@ pub struct FaceShellInfo {
 #[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
     pub key: String => required("key");
     pub transient_key: u64 => required("transientKey");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFacesResult is the reply of faces: the developed flat's classified faces (front and back).\n```"]
-pub struct FacesResult {
-    pub faces: Option<Vec<crate::wire::FlatFaceInfo>> => required("faces");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFacetSetResult is the facet payload: triangle mesh plus the per-face\ntriangle-index counts (in body face order; one entry for a face-level set).\n```"]
-pub struct FacetSetResult {
-    pub vertex_count: i64 => required("vertexCount");
-    pub facet_count: i64 => required("facetCount");
-    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
-    pub normal_vectors: Option<Vec<f64>> => omitted_finite("normalVectors", "crate::json::slice_is_empty");
-    pub vertex_indices: Option<Vec<i64>> => omitted("vertexIndices", "crate::json::slice_is_empty");
-    pub texture_coordinates: Option<Vec<f64>> => omitted_finite("textureCoordinates", "crate::json::slice_is_empty");
-    pub index_count_per_face: Option<Vec<i64>> => omitted("indexCountPerFace", "crate::json::slice_is_empty");
 }
 }

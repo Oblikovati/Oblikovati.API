@@ -82,6 +82,9 @@
 {"Name":"wire.AlignViewArgs","Case":"zero","Payload":{"name":"","alignment":""},"Canonical":{"name":"","alignment":""},"Error":""}
 {"Name":"wire.AlignViewArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","anchorView":"example \u003c\u0026\u003e 日本語","alignment":"example \u003c\u0026\u003e 日本語","justification":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","anchorView":"example \u003c\u0026\u003e 日本語","alignment":"example \u003c\u0026\u003e 日本語","justification":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AlignViewArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","anchorView":"example \u003c\u0026\u003e 日本語","alignment":"example \u003c\u0026\u003e 日本語","justification":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","anchorView":"example \u003c\u0026\u003e 日本語","alignment":"example \u003c\u0026\u003e 日本語","justification":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.AllConstraintGlyphsVisibilityArgs","Case":"zero","Payload":{"sketchIndex":0,"visible":false},"Canonical":{"sketchIndex":0,"visible":false},"Error":""}
+{"Name":"wire.AllConstraintGlyphsVisibilityArgs","Case":"filled","Payload":{"sketchIndex":7,"visible":true},"Canonical":{"sketchIndex":7,"visible":true},"Error":""}
+{"Name":"wire.AllConstraintGlyphsVisibilityArgs","Case":"empty","Payload":{"sketchIndex":7,"visible":true},"Canonical":{"sketchIndex":7,"visible":true},"Error":""}
 {"Name":"wire.AnalyzeInterferenceArgs","Case":"zero","Payload":{},"Canonical":{},"Error":""}
 {"Name":"wire.AnalyzeInterferenceArgs","Case":"filled","Payload":{"occurrences":[7]},"Canonical":{"occurrences":[7]},"Error":""}
 {"Name":"wire.AnalyzeInterferenceArgs","Case":"empty","Payload":{},"Canonical":{},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.AssignAppearanceArgs","Case":"zero","Payload":{"scope":"","appearanceId":""},"Canonical":{"scope":"","appearanceId":""},"Error":""}
 {"Name":"wire.AssignAppearanceArgs","Case":"filled","Payload":{"scope":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","appearanceId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"scope":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","appearanceId":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AssignAppearanceArgs","Case":"empty","Payload":{"scope":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","appearanceId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"scope":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","appearanceId":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AssignMaterialArgs","Case":"zero","Payload":{"materialId":""},"Canonical":{"materialId":""},"Error":""}
-{"Name":"wire.AssignMaterialArgs","Case":"filled","Payload":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AssignMaterialArgs","Case":"empty","Payload":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"bodyKey":"example \u003c\u0026\u003e 日本語","materialId":"example \u003c\u0026\u003e 日本語"},"Error":""}

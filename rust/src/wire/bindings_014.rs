@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_DRAWING_VIEWS_ADD_BREAK: &str = "drawingViews.addBreak";
+
+pub const METHOD_DRAWING_VIEWS_ADD_BREAKOUT: &str = "drawingViews.addBreakout";
+
+pub const METHOD_DRAWING_VIEWS_ADD_CROP: &str = "drawingViews.addCrop";
+
+pub const METHOD_DRAWING_VIEWS_ADD_DETAIL: &str = "drawingViews.addDetail";
+
+pub const METHOD_DRAWING_VIEWS_ADD_DRAFT: &str = "drawingViews.addDraft";
+
+pub const METHOD_DRAWING_VIEWS_ADD_PROJECTED: &str = "drawingViews.addProjected";
+
+pub const METHOD_DRAWING_VIEWS_ADD_SECTION: &str = "drawingViews.addSection";
+
+pub const METHOD_DRAWING_VIEWS_ADD_SLICE: &str = "drawingViews.addSlice";
+
+pub const METHOD_DRAWING_VIEWS_ALIGN: &str = "drawingViews.align";
+
+pub const METHOD_DRAWING_VIEWS_CURVES: &str = "drawingViews.curves";
+
+pub const METHOD_DRAWING_VIEWS_DELETE: &str = "drawingViews.delete";
+
+pub const METHOD_DRAWING_VIEWS_LIST: &str = "drawingViews.list";
+
+pub const METHOD_DRAWING_VIEWS_REMOVE_CROP: &str = "drawingViews.removeCrop";
+
+pub const METHOD_DRAWING_VIEWS_ROTATE: &str = "drawingViews.rotate";
+
+pub const METHOD_DRAWING_VIEWS_SET_DISPLAY: &str = "drawingViews.setDisplay";
+
 pub const METHOD_DRAWING_VIEWS_SET_LABEL: &str = "drawingViews.setLabel";
 
 pub const METHOD_ENVIRONMENT_GET: &str = "environment.get";
@@ -432,33 +462,3 @@ pub const METHOD_SKETCH3_D_TRANSFORM: &str = "sketch3d.transform";
 pub const METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY: &str = "sketch.addAssociativeEntity";
 
 pub const METHOD_SKETCH_ADD_BLOCK_INSTANCE: &str = "sketch.addBlockInstance";
-
-pub const METHOD_SKETCH_ADD_CONSTRAINT: &str = "sketch.addConstraint";
-
-pub const METHOD_SKETCH_ADD_DIMENSION: &str = "sketch.addDimension";
-
-pub const METHOD_SKETCH_ADD_ENTITY: &str = "sketch.addEntity";
-
-pub const METHOD_SKETCH_ADD_FILL_REGION: &str = "sketch.addFillRegion";
-
-pub const METHOD_SKETCH_ADD_IMAGE: &str = "sketch.addImage";
-
-pub const METHOD_SKETCH_ADD_PATTERN: &str = "sketch.addPattern";
-
-pub const METHOD_SKETCH_ADD_TEXT: &str = "sketch.addText";
-
-pub const METHOD_SKETCH_AUTO_DIMENSION: &str = "sketch.autoDimension";
-
-pub const METHOD_SKETCH_BLOCK_DEFINITION_CREATE: &str = "sketch.blockDefinitions.create";
-
-pub const METHOD_SKETCH_BLOCK_DEFINITION_DELETE: &str = "sketch.blockDefinitions.delete";
-
-pub const METHOD_SKETCH_BLOCK_DEFINITION_LIST: &str = "sketch.blockDefinitions.list";
-
-pub const METHOD_SKETCH_COMMIT_MOVE: &str = "sketch.commitMove";
-
-pub const METHOD_SKETCH_CONSTRAINT_STATUS: &str = "sketch.constraintStatus";
-
-pub const METHOD_SKETCH_CONSTRAINTS: &str = "sketch.constraints";
-
-pub const METHOD_SKETCH_COPY_TO: &str = "sketch.copyTo";

@@ -417,6 +417,18 @@ pub trait Cone: crate::contract::Surface {
     fn half_angle(&self) -> f64;
 }
 
+#[doc = "```text\nConstraintGlyphVisibility is a sketch's geometric-constraint display state.\nRelation IDs are stable within their owning sketch.\nExample: `shown := visibility.ConstraintGlyphsShown()`.\n```"]
+pub trait ConstraintGlyphVisibility {
+    #[doc = "```text\nConstraintGlyphVisible reports whether a current relation's glyph is visible.\n```"]
+    fn constraint_glyph_visible(&self, id: u64) -> Result<bool, crate::Error>;
+    #[doc = "```text\nConstraintGlyphsShown reports whether the global display switch is on.\n```"]
+    fn constraint_glyphs_shown(&self) -> bool;
+    #[doc = "```text\nSetAllConstraintGlyphsVisible shows or hides every relation's glyph.\nShowing all clears individual hidden overrides.\n```"]
+    fn set_all_constraint_glyphs_visible(&self, visible: bool) -> Result<(), crate::Error>;
+    #[doc = "```text\nSetConstraintGlyphVisible changes one relation's display override.\n```"]
+    fn set_constraint_glyph_visible(&self, id: u64, visible: bool) -> Result<(), crate::Error>;
+}
+
 #[doc = "```text\nConstraintLimits bounds a constraint's driven value. Each bound is independently\noptional; an absent bound does not clamp.\n```"]
 pub trait ConstraintLimits {
     #[doc = "```text\nMaximum returns the upper bound and whether it is set.\n```"]
@@ -445,12 +457,4 @@ pub trait ContactSets:
 impl<T: crate::contract::Enumerable<std::sync::Arc<dyn crate::contract::ContactSet>> + ?Sized>
     ContactSets for T
 {
-}
-
-#[doc = "```text\nContactSolver reports whether contact enforcement is enabled and how many sets it governs —\nthe reference API's ActiveContactSolver toggle.\n```"]
-pub trait ContactSolver {
-    #[doc = "```text\nEnabled reports whether contact is enforced during a drag.\n```"]
-    fn enabled(&self) -> bool;
-    #[doc = "```text\nSetCount returns the number of contact sets the solver governs.\n```"]
-    fn set_count(&self) -> i64;
 }

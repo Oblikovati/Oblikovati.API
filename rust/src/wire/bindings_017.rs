@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nOrientationsResult is the reply of listOrientations: every orientation in creation order\n(the active one flagged).\n```"]
+pub struct OrientationsResult {
+    pub orientations: Option<Vec<crate::wire::FlatPatternOrientationInfo>> => required("orientations");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPanelControlSpec is one declarative control of a dockable window's content. A\nPanelButton executes CommandID when clicked, so the add-in observes it through\nthe ordinary command-ended event — no separate click plumbing. Text is the\nlabel/button caption (or the field label for editable controls); ID names the\ncontrol. Editable controls (textBox/valueEditor/checkBox/dropdown/comboBox/slider)\ncarry their current Value; dropdown/comboBox list their choices in Options; slider\nand valueEditor bound the input with Min/Max/Step. When the user edits an editable\ncontrol the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.\n\nContainer kinds (grid/group/tabs, ADR-0019) nest: they own Children and are laid out\nrather than drawn. A grid declares its column tracks in Columns with ColumnGap/RowGap\nspacing, and each child may carry a Cell placement (nil = auto-flow). A group is a\ntitled vertical stack (Title is its caption). Tabs treats each child as one tab whose\nTitle is the caption. All these fields are omitempty, so a leaf control marshals exactly\nas before — older hosts ignore the unknown fields and degrade an unknown kind to its Text.\n```"]
 pub struct PanelControlSpec {
     pub kind: crate::types::PanelControlKind => omitted("kind", "crate::json::is_zero");
@@ -453,12 +460,5 @@ pub struct PlateInfo {
     pub length: f64 => finite("length");
     pub width: f64 => finite("width");
     pub area: f64 => finite("area");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPlatesResult is the reply of listPlates: the developed flat's plates (one per connected\nregion).\n```"]
-pub struct PlatesResult {
-    pub plates: Option<Vec<crate::wire::PlateInfo>> => required("plates");
 }
 }

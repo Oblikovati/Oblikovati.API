@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityModelCreateHighlightSet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelHighlightSetCreate})
+	checkGoGroup(t, c, "Model", "CreateHighlightSet")
+}
+
+func TestRustParityModelDeleteHighlightSet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelHighlightSetDelete})
+	checkGoGroup(t, c, "Model", "DeleteHighlightSet")
+}
+
+func TestRustParityModelDeselect(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodModelDeselect})
+	checkGoGroup(t, c, "Model", "Deselect")
+}
+
 func TestRustParityModelHighlightSets(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
 	checkGoGroup(t, c, "Model", "HighlightSets")
@@ -142,19 +157,4 @@ func TestRustParityParametersConvert(t *testing.T) {
 func TestRustParityParametersDelete(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersDelete})
 	checkGoGroup(t, c, "Parameters", "Delete")
-}
-
-func TestRustParityParametersDeleteDerivedTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesDelete})
-	checkGoGroup(t, c, "Parameters", "DeleteDerivedTable")
-}
-
-func TestRustParityParametersDeleteGroup(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
-	checkGoGroup(t, c, "Parameters", "DeleteGroup")
-}
-
-func TestRustParityParametersDependents(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDependents})
-	checkGoGroup(t, c, "Parameters", "Dependents")
 }

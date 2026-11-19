@@ -3,6 +3,38 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_ADD_CONSTRAINT: &str = "sketch.addConstraint";
+
+pub const METHOD_SKETCH_ADD_DIMENSION: &str = "sketch.addDimension";
+
+pub const METHOD_SKETCH_ADD_ENTITY: &str = "sketch.addEntity";
+
+pub const METHOD_SKETCH_ADD_FILL_REGION: &str = "sketch.addFillRegion";
+
+pub const METHOD_SKETCH_ADD_IMAGE: &str = "sketch.addImage";
+
+pub const METHOD_SKETCH_ADD_PATTERN: &str = "sketch.addPattern";
+
+pub const METHOD_SKETCH_ADD_TEXT: &str = "sketch.addText";
+
+pub const METHOD_SKETCH_AUTO_DIMENSION: &str = "sketch.autoDimension";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_CREATE: &str = "sketch.blockDefinitions.create";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_DELETE: &str = "sketch.blockDefinitions.delete";
+
+pub const METHOD_SKETCH_BLOCK_DEFINITION_LIST: &str = "sketch.blockDefinitions.list";
+
+pub const METHOD_SKETCH_COMMIT_MOVE: &str = "sketch.commitMove";
+
+pub const METHOD_SKETCH_CONSTRAINT_GLYPH_VISIBILITY: &str = "sketch.constraintGlyphVisibility";
+
+pub const METHOD_SKETCH_CONSTRAINT_STATUS: &str = "sketch.constraintStatus";
+
+pub const METHOD_SKETCH_CONSTRAINTS: &str = "sketch.constraints";
+
+pub const METHOD_SKETCH_COPY_TO: &str = "sketch.copyTo";
+
 pub const METHOD_SKETCH_CREATE: &str = "sketch.create";
 
 pub const METHOD_SKETCH_DELETE: &str = "sketch.delete";
@@ -67,9 +99,15 @@ pub const METHOD_SKETCH_REGION_PROPERTIES: &str = "sketch.regionProperties";
 
 pub const METHOD_SKETCH_RESOLVE_REFERENCE: &str = "sketch.resolveReference";
 
+pub const METHOD_SKETCH_SET_ALL_CONSTRAINT_GLYPHS_VISIBILITY: &str =
+    "sketch.setAllConstraintGlyphsVisibility";
+
 pub const METHOD_SKETCH_SET_BLOCK_DEFINITION_COLOR: &str = "sketch.blockDefinitions.setColor";
 
 pub const METHOD_SKETCH_SET_BLOCK_INSTANCE_COLOR: &str = "sketch.blockInstances.setColor";
+
+pub const METHOD_SKETCH_SET_CONSTRAINT_GLYPH_VISIBILITY: &str =
+    "sketch.setConstraintGlyphVisibility";
 
 pub const METHOD_SKETCH_SET_CUSTOM_LINE_TYPE: &str = "sketch.setCustomLineType";
 
@@ -419,40 +457,5 @@ generated_dto! {
 pub struct ModelStateNameArgs {
     pub id: u64 => required("id");
     pub name: String => omitted("name", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResult envelopes.\n```"]
-pub struct ModelStateResult {
-    pub model_state: crate::wire::ModelStateInfo => required("modelState");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateTableColumnRef identifies one visible column. Exactly one identity\nmust match Kind. Example: `wire.ModelStateTableColumnRef{Kind: types.ModelStateTableSuppressionColumn, FeatureID: 1}`.\n```"]
-pub struct ModelStateTableColumnRef {
-    pub kind: crate::types::ModelStateTableColumnKind => required("kind");
-    pub property: Option<Box<crate::types::ModelStatePropertyKey>> => omitted("property", "Option::is_none");
-    pub feature_id: u64 => omitted("featureId", "crate::json::is_zero");
-    pub parameter_id: u64 => omitted("parameterId", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateTableCreatedRow maps a client draft key to its reserved member ID.\nExample: `wire.ModelStateTableCreatedRow{DraftKey: \"new-1\", MemberID: 7}`.\n```"]
-pub struct ModelStateTableCreatedRow {
-    pub draft_key: String => required("draftKey");
-    pub member_id: u64 => required("memberId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateTableDiagnostic identifies a rejected table cell or a table-wide error.\nA nil Row and zero ParameterID identify an error that is not specific to a cell.\nExample: `wire.ModelStateTableDiagnostic{Row: &row, ParameterID: 3, Message: \"unknown name\"}`.\n```"]
-pub struct ModelStateTableDiagnostic {
-    pub row: Option<Box<crate::wire::ModelStateTableRowRef>> => required("row");
-    pub parameter_id: u64 => required("parameterId");
-    pub expression: String => required("expression");
-    pub message: String => required("message");
 }
 }

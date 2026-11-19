@@ -3,6 +3,35 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+impl<T: super::Caller> super::Documents<'_, T> {
+    /// Call `MethodDocumentsSetUnits` with the canonical request and response types.
+    /// Example: `client.documents().set_units(&args)`.
+    pub fn set_units(
+        &self,
+        args: &crate::wire::SetDocumentUnitsArgs,
+    ) -> Result<crate::wire::DocumentUnitsInfo, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DOCUMENTS_SET_UNITS, Some(args))
+    }
+
+    /// Call `MethodDocumentsListSubTypes` with the canonical request and response types.
+    /// Example: `client.documents().sub_types()`.
+    pub fn sub_types(&self) -> Result<crate::wire::ListDocumentSubTypesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DOCUMENTS_LIST_SUB_TYPES, None::<&()>)
+    }
+
+    /// Call `MethodDocumentsUpdate` with the canonical request and response types.
+    /// Example: `client.documents().update(&args)`.
+    pub fn update(
+        &self,
+        args: &crate::wire::UpdateDocumentArgs,
+    ) -> Result<crate::wire::UpdateDocumentResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DOCUMENTS_UPDATE, Some(args))
+    }
+}
+
 /// Typed `Drawing` calls over the shared API transport.
 pub struct Drawing<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {

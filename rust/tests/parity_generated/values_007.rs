@@ -308,11 +308,13 @@ fn wire_align_view_args() {
 }
 
 #[test]
-fn wire_analyze_interference_args() {
-    super::check::<oblikovati_api::wire::AnalyzeInterferenceArgs>("wire.AnalyzeInterferenceArgs");
+fn wire_all_constraint_glyphs_visibility_args() {
+    super::check::<oblikovati_api::wire::AllConstraintGlyphsVisibilityArgs>(
+        "wire.AllConstraintGlyphsVisibilityArgs",
+    );
 }
 
 #[test]
-fn wire_annotation_result() {
-    super::check::<oblikovati_api::wire::AnnotationResult>("wire.AnnotationResult");
+fn wire_analyze_interference_args() {
+    super::check::<oblikovati_api::wire::AnalyzeInterferenceArgs>("wire.AnalyzeInterferenceArgs");
 }

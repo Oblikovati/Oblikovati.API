@@ -4,6 +4,15 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetPatternElementSuppressedArgs is the request of [MethodAssemblyPatternElementSetSuppressed]:\nsuppress or unsuppress one element (by index) of the pattern (by id).\n```"]
+pub struct SetPatternElementSuppressedArgs {
+    pub pattern: u64 => required("pattern");
+    pub element: i64 => required("element");
+    pub suppressed: bool => required("suppressed");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetPatternSuppressedArgs is the request of [MethodAssemblyPatternSetSuppressed]: suppress or\nunsuppress the whole pattern (by id), moving every element together.\n```"]
 pub struct SetPatternSuppressedArgs {
     pub pattern: u64 => required("pattern");

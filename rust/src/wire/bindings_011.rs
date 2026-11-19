@@ -4,6 +4,30 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nLightInfo is the JSON shape of one scene light — the element of [LightListResult] and the\npayload of [MethodLightingAddLight] / [MethodLightingSetLight]. Direction/Position are\nworld-space (cm); Color is the light color and Intensity scales it.\n```"]
+pub struct LightInfo {
+    pub index: i64 => required("index");
+    pub light_type: crate::types::LightTypeEnum => required("lightType");
+    pub light_definition_type: crate::types::LightDefinitionTypeEnum => required("definitionType");
+    pub on: bool => required("on");
+    pub color: crate::types::Rgba => required("color");
+    pub intensity: f64 => finite("intensity");
+    pub direction: crate::types::Vector => raw(rename = "direction");
+    pub position: crate::types::Point => raw(rename = "position");
+    pub spot_inner_angle: f64 => finite("spotInnerAngle");
+    pub spot_outer_angle: f64 => finite("spotOuterAngle");
+    pub attenuation: [f64; 3] => finite("attenuation");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nLightListResult is the response of [MethodLightingListLights].\n```"]
+pub struct LightListResult {
+    pub lights: Option<Vec<crate::wire::LightInfo>> => required("lights");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nLightingStyleInfo is one entry of [LightingStyleListResult]: a selectable style and whether\nit is the active one.\n```"]
 pub struct LightingStyleInfo {
     pub name: String => required("name");
@@ -432,34 +456,5 @@ generated_dto! {
 #[doc = "```text\nListSketches3DResult is the response of [MethodSketch3DList].\n```"]
 pub struct ListSketches3DResult {
     pub sketches: Option<Vec<crate::wire::Sketch3DInfo>> => required("sketches");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListSketchesResult is the response of [MethodSketchList].\n```"]
-pub struct ListSketchesResult {
-    pub sketches: Option<Vec<crate::wire::SketchInfo>> => required("sketches");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListStandardsResult is the response of [MethodDrawingStylesListStandards]: the available\ndrafting standards and the active one.\n```"]
-pub struct ListStandardsResult {
-    pub standards: Option<Vec<String>> => required("standards");
-    pub active: String => required("active");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListThemesResult is the response of [MethodThemeList].\n```"]
-pub struct ListThemesResult {
-    pub themes: Option<Vec<crate::wire::ThemeSummary>> => required("themes");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListViewFramesResult is the response of [MethodWindowsListFrames].\n```"]
-pub struct ListViewFramesResult {
-    pub frames: Option<Vec<crate::wire::ViewFrameInfo>> => required("frames");
 }
 }

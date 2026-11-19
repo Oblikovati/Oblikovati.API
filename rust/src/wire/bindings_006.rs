@@ -4,6 +4,38 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nCreateSketchResult is the response of [MethodSketchCreate]: the new sketch's index\n(for sketch.rectangle / features.add) and the normalized plane label.\n```"]
+pub struct CreateSketchResult {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub plane: String => required("plane");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCreateWorkAxisArgs is the request of [MethodWorkAxesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkAxisKind] value) and its inputs.\n\n  - Origin and Direction give the grounded \"line\" axis: the origin point [x,y,z]\n    and the axis direction [dx,dy,dz], both in database units (centimetres; Direction\n    is a direction, so only its orientation matters). This is the raw axis a revolve\n    or sweep spins about when the axis is not one of the origin axes.\n  - Refs are work-feature references for the reference-model kinds — refs returned by\n    [MethodWorkPointsCreate] / [MethodWorkPlanesList] or origin constants\n    (types.WorkRefCenter, types.WorkRefXYPlane …). Each kind expects a fixed count/order:\n    \"two-points\" wants two point refs; \"plane-intersection\" wants two plane refs.\n  - Construction, when true, creates the axis as a construction (hidden, consumer-tied) work\n    feature — the reference CAD API's WorkAxes.Add* Construction parameter; excluded from the browser and\n    auto-deleted with its last consumer. #1849.\n```"]
+pub struct CreateWorkAxisArgs {
+    pub kind: String => required("kind");
+    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
+    pub direction: Option<Vec<f64>> => omitted_finite("direction", "crate::json::slice_is_empty");
+    pub refs: Option<Vec<String>> => omitted("refs", "crate::json::slice_is_empty");
+#[doc = "```text\n#1849\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nCreateWorkAxisResult is the response of [MethodWorkAxesCreate]: the new axis's index\nin the work-axes collection, its stable reference (for building further datums — a\ntwo-plane bisector, a normal-to-curve plane, or a revolve axis), its name, and whether\nit resolved (an unsatisfiable definition reports healthy=false, with Reason, rather\nthan failing the call).\n```"]
+pub struct CreateWorkAxisResult {
+    pub index: i64 => required("index");
+    pub ref_: String => required("ref");
+    pub name: String => required("name");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nCreateWorkPlaneArgs is the request of [MethodWorkPlanesCreate]: which constructor\n(Kind, a [oblikovati.org/api/types.WorkPlaneKind] value) and its inputs.\n\n  - Refs are work-feature references the plane is built on — origin constants\n    (types.WorkRefXYPlane …), refs returned by [MethodWorkPlanesList], or a face\n    reference for the tangent kinds. Each kind expects a fixed count/order (e.g.\n    \"plane-offset\" wants one plane ref; \"three-points\" wants three point refs).\n  - Offset and Angle are unit-bearing expressions (\"10 mm\", \"45 deg\") for the\n    offset and line-plane-angle kinds.\n  - Origin, XAxis, YAxis give the AddFixed frame: the origin point [x,y,z] (model\n    units) and two in-plane axis direction components.\n  - Visible, when non-nil, sets the new plane's viewport visibility (nil ⇒ the model\n    default, visible). This toggles only viewport display — it is orthogonal to Construction.\n  - Construction, when true, creates the plane as a construction (hidden, consumer-tied) work\n    feature: excluded from the browser and with a lifecycle tied to its consuming feature\n    (the reference CAD API's WorkPlanes.Add* Construction parameter). It is a lifecycle/browser concept\n    distinct from Visible; the two are independent (settable in any combination). #1849.\n  - Proximity is the solution-selection point [x,y,z] (cm) for the tangent kinds\n    (\"plane-tangent\", \"line-tangent\"): a surface has two tangent solutions and the plane lands on\n    whichever side is nearer this point. Quadrant is the same for \"two-planes\" — it picks which of\n    the two bisector solutions. Both are the reference CAD API's ProximityPoint/QuadrantPoint; the choice is\n    recorded on the definition so it survives recompute. Omitting them keeps a deterministic\n    default. #1844.\n```"]
 pub struct CreateWorkPlaneArgs {
     pub kind: String => required("kind");
@@ -426,35 +458,5 @@ generated_dto! {
 #[doc = "```text\nResult envelopes.\n```"]
 pub struct DesignViewsResult {
     pub representations: Option<Vec<crate::wire::DesignViewInfo>> => required("representations");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nDimension3DInfo is one enumerated dimensional constraint from\n[MethodSketch3DDimensions]: its index, kind\n([oblikovati.org/api/types.Dimension3DConstraintKind]), backing parameter name\n+ expression, current model value (cm/rad), and whether it is driven (reports) rather\nthan driving (constrains).\n```"]
-pub struct Dimension3DInfo {
-    pub index: i64 => required("index");
-    pub kind: String => required("kind");
-    pub name: String => required("name");
-    pub expression: String => required("expression");
-    pub value: f64 => finite("value");
-    pub driven: bool => required("driven");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nDimensionInfo is one enumerated dimensional constraint from [MethodSketchDimensions]:\nits index, kind ([oblikovati.org/api/types.DimensionConstraintKind]), backing\nparameter name + expression, current model value (cm/rad), and whether it is driven\n(reports) rather than driving (constrains).\n```"]
-pub struct DimensionInfo {
-    pub index: i64 => required("index");
-    pub kind: String => required("kind");
-    pub name: String => required("name");
-    pub expression: String => required("expression");
-    pub value: f64 => finite("value");
-    pub driven: bool => required("driven");
-#[doc = "```text\nOrientation is what a \"distance\" dimension measures — \"horizontal\" or \"vertical\" for an\naxis-aligned linear dim, absent for the default aligned (Euclidean) distance and every\nother kind. #1869.\n```"]
-    pub orientation: String => omitted("orientation", "crate::json::is_zero");
-#[doc = "```text\nTextPoint is the [x,y] sketch-plane placement (cm) of the dimension's annotation text,\nabsent when the dimension has no stored text placement. #1875.\n```"]
-    pub text_point: Option<Vec<f64>> => omitted_finite("textPoint", "crate::json::slice_is_empty");
-#[doc = "```text\nLinearDiameter reports whether an offset/tangent-distance dimension reads as a diameter\n(value = 2× the linear distance); absent for every other kind. #1875.\n```"]
-    pub linear_diameter: bool => omitted("linearDiameter", "crate::json::is_zero");
 }
 }

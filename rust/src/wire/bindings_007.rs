@@ -4,6 +4,36 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nDimension3DInfo is one enumerated dimensional constraint from\n[MethodSketch3DDimensions]: its index, kind\n([oblikovati.org/api/types.Dimension3DConstraintKind]), backing parameter name\n+ expression, current model value (cm/rad), and whether it is driven (reports) rather\nthan driving (constrains).\n```"]
+pub struct Dimension3DInfo {
+    pub index: i64 => required("index");
+    pub kind: String => required("kind");
+    pub name: String => required("name");
+    pub expression: String => required("expression");
+    pub value: f64 => finite("value");
+    pub driven: bool => required("driven");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nDimensionInfo is one enumerated dimensional constraint from [MethodSketchDimensions]:\nits index, kind ([oblikovati.org/api/types.DimensionConstraintKind]), backing\nparameter name + expression, current model value (cm/rad), and whether it is driven\n(reports) rather than driving (constrains).\n```"]
+pub struct DimensionInfo {
+    pub index: i64 => required("index");
+    pub kind: String => required("kind");
+    pub name: String => required("name");
+    pub expression: String => required("expression");
+    pub value: f64 => finite("value");
+    pub driven: bool => required("driven");
+#[doc = "```text\nOrientation is what a \"distance\" dimension measures — \"horizontal\" or \"vertical\" for an\naxis-aligned linear dim, absent for the default aligned (Euclidean) distance and every\nother kind. #1869.\n```"]
+    pub orientation: String => omitted("orientation", "crate::json::is_zero");
+#[doc = "```text\nTextPoint is the [x,y] sketch-plane placement (cm) of the dimension's annotation text,\nabsent when the dimension has no stored text placement. #1875.\n```"]
+    pub text_point: Option<Vec<f64>> => omitted_finite("textPoint", "crate::json::slice_is_empty");
+#[doc = "```text\nLinearDiameter reports whether an offset/tangent-distance dimension reads as a diameter\n(value = 2× the linear distance); absent for every other kind. #1875.\n```"]
+    pub linear_diameter: bool => omitted("linearDiameter", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nDimensionResult is the response of [MethodDrawingDimensionsAddLinear]: the created dimension.\n```"]
 pub struct DimensionResult {
     pub dimension: crate::wire::DrawingDimensionInfo => required("dimension");
@@ -425,25 +455,5 @@ generated_dto! {
 pub struct EditAssemblyFeatureArgs {
     pub id: u64 => required("id");
     pub scalars: Option<Vec<crate::wire::ScalarEdit>> => required("scalars");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nEditCommittedEvent is the JSON shape of an [EventEditCommitted] push event: a model\nmutation that was committed on a document, expressed as the very [wire] request that\nproduced it. The host delivers it to an add-in's Notify entry point (ADR-0016); there\nis no request/response method and no client call — an add-in matches on Type.\n\nIt is the basis for operational replication in a collaboration session\n(oblikovati-meeting ADR-0004): a remote add-in can replay the edit by dispatching\nMethod with Args through its own client, since the payload is the same frozen contract.\n\nMethod is a method-name constant from this package (e.g. [MethodParametersSet]); Args\nis that method's request DTO, left raw so the receiver decodes it with the matching\ntype. Document is the affected document's id.\n\nNOTE (v1 scope): only edits that arrive through the host's method router are emitted.\nEdits performed directly in the host UI are not yet captured — a known gap tracked in\noblikovati-meeting ADR-0004.\n```"]
-pub struct EditCommittedEvent {
-#[doc = "```text\nalways EventEditCommitted\n```"]
-    pub type_: String => required("type");
-    pub document: u64 => required("document");
-    pub method: String => required("method");
-    pub args: crate::json::JsonValue => raw(rename = "args", skip_serializing_if = "crate::json::JsonValue::is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nEditFeatureArgs is the request of [MethodFeaturesEdit]: edit the feature in place — set\neditable scalars AND/OR re-pick its geometric references. Every edit (scalar parse, slot\nresolution) is validated before ANY is applied, so a failed batch (bad value, unbindable\nkey, wrong slot kind) leaves the definition untouched; then the part recomputes once.\nScalar indices come from [FeatureDetail.Scalars]; Repick slot indices from\n[FeatureDetail.Slots].\n```"]
-pub struct EditFeatureArgs {
-    pub id: u64 => required("id");
-    pub scalars: Option<Vec<crate::wire::ScalarEdit>> => omitted("scalars", "crate::json::slice_is_empty");
-    pub repick: Option<Vec<crate::wire::FeatureRepick>> => omitted("repick", "crate::json::slice_is_empty");
 }
 }

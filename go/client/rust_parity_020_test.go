@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepDoBoolean(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepBoolean})
+	checkGoGroup(t, c, "TransientBRep", "DoBoolean")
+}
+
+func TestRustParityTransientBRepGetIdenticalBodies(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepIdenticalBodies})
+	checkGoGroup(t, c, "TransientBRep", "GetIdenticalBodies")
+}
+
+func TestRustParityTransientBRepImprintBodies(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepImprint})
+	checkGoGroup(t, c, "TransientBRep", "ImprintBodies")
+}
+
 func TestRustParityTransientBRepList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepList})
 	checkGoGroup(t, c, "TransientBRep", "List")
@@ -142,19 +157,4 @@ func TestRustParityUnitsIsExpressionValid(t *testing.T) {
 func TestRustParityViewCamera(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewGetCamera})
 	checkGoGroup(t, c, "View", "Camera")
-}
-
-func TestRustParityViewCapture(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportCapture})
-	checkGoGroup(t, c, "View", "Capture")
-}
-
-func TestRustParityViewCaptureWindow(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportCaptureWindow})
-	checkGoGroup(t, c, "View", "CaptureWindow")
-}
-
-func TestRustParityViewClick(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportClick})
-	checkGoGroup(t, c, "View", "Click")
 }

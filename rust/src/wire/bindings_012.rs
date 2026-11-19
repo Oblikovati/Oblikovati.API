@@ -4,6 +4,35 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nListSketchesResult is the response of [MethodSketchList].\n```"]
+pub struct ListSketchesResult {
+    pub sketches: Option<Vec<crate::wire::SketchInfo>> => required("sketches");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListStandardsResult is the response of [MethodDrawingStylesListStandards]: the available\ndrafting standards and the active one.\n```"]
+pub struct ListStandardsResult {
+    pub standards: Option<Vec<String>> => required("standards");
+    pub active: String => required("active");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListThemesResult is the response of [MethodThemeList].\n```"]
+pub struct ListThemesResult {
+    pub themes: Option<Vec<crate::wire::ThemeSummary>> => required("themes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListViewFramesResult is the response of [MethodWindowsListFrames].\n```"]
+pub struct ListViewFramesResult {
+    pub frames: Option<Vec<crate::wire::ViewFrameInfo>> => required("frames");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nListViewTabsResult is the response of [MethodWindowsListTabs], in strip order.\n```"]
 pub struct ListViewTabsResult {
     pub tabs: Option<Vec<crate::wire::ViewTabInfo>> => required("tabs");
@@ -432,34 +461,3 @@ pub const METHOD_ASSEMBLY_FEATURES_ADD_SWEEP: &str = "assemblyFeatures.addSweep"
 pub const METHOD_ASSEMBLY_FEATURES_EDIT: &str = "assemblyFeatures.edit";
 
 pub const METHOD_ASSEMBLY_FEATURES_LIST: &str = "assemblyFeatures.list";
-
-pub const METHOD_ASSEMBLY_FEATURES_SET_PARTICIPANT_PATHS: &str =
-    "assemblyFeatures.setParticipantPaths";
-
-pub const METHOD_ASSEMBLY_FEATURES_SET_PARTICIPANTS: &str = "assemblyFeatures.setParticipants";
-
-pub const METHOD_ASSEMBLY_FEATURES_SET_SUPPRESSED: &str = "assemblyFeatures.setSuppressed";
-
-pub const METHOD_ASSEMBLY_GET_END_OF_FEATURES: &str = "assembly.getEndOfFeatures";
-
-pub const METHOD_ASSEMBLY_GROUND: &str = "assembly.ground";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_BALL: &str = "assemblyJoints.addBall";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_CYLINDRICAL: &str = "assemblyJoints.addCylindrical";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_PLANAR: &str = "assemblyJoints.addPlanar";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_RIGID: &str = "assemblyJoints.addRigid";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_ROTATIONAL: &str = "assemblyJoints.addRotational";
-
-pub const METHOD_ASSEMBLY_JOINTS_ADD_SLIDER: &str = "assemblyJoints.addSlider";
-
-pub const METHOD_ASSEMBLY_JOINTS_DELETE: &str = "assemblyJoints.delete";
-
-pub const METHOD_ASSEMBLY_JOINTS_LIST: &str = "assemblyJoints.list";
-
-pub const METHOD_ASSEMBLY_JOINTS_SET_FLIP: &str = "assemblyJoints.setFlip";
-
-pub const METHOD_ASSEMBLY_JOINTS_SET_LIMITS: &str = "assemblyJoints.setLimits";

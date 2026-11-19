@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityDrawingSketchesAdd(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAdd})
+	checkGoGroup(t, c, "DrawingSketches", "Add")
+}
+
+func TestRustParityDrawingSketchesAddEntity(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAddEntity})
+	checkGoGroup(t, c, "DrawingSketches", "AddEntity")
+}
+
+func TestRustParityDrawingSketchesAddHatchRegion(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAddHatch})
+	checkGoGroup(t, c, "DrawingSketches", "AddHatchRegion")
+}
+
 func TestRustParityDrawingSketchesList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingSketchesList})
 	checkGoGroup(t, c, "DrawingSketches", "List")
@@ -142,19 +157,4 @@ func TestRustParityEnvironmentLoadImage(t *testing.T) {
 func TestRustParityEnvironmentSet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodEnvironmentSet})
 	checkGoGroup(t, c, "Environment", "Set")
-}
-
-func TestRustParityFeaturesAdd(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodFeaturesAdd})
-	checkGoGroup(t, c, "Features", "Add")
-}
-
-func TestRustParityFeaturesDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodFeaturesDelete})
-	checkGoGroup(t, c, "Features", "Delete")
-}
-
-func TestRustParityFeaturesEdit(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodFeaturesEdit})
-	checkGoGroup(t, c, "Features", "Edit")
 }

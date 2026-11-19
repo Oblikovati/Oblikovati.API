@@ -4,6 +4,18 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nBrepIdenticalBodiesArgs is the request of [MethodBrepIdenticalBodies].\n```"]
+pub struct BrepIdenticalBodiesArgs {
+    pub sources: Option<Vec<crate::wire::BrepBodyRef>> => required("sources");
+#[doc = "```text\nTolerance is relative (0 → 1e-6, the reference default).\n```"]
+    pub tolerance: f64 => omitted_finite("tolerance", "crate::json::is_zero");
+    pub match_topology: bool => omitted("matchTopology", "crate::json::is_zero");
+#[doc = "```text\nMatchReflection defaults TRUE (mirrored bodies match) per the\nreference; the pointer distinguishes \"unset\" from explicit false.\n```"]
+    pub match_reflection: Option<Box<bool>> => omitted("matchReflection", "Option::is_none");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nBrepIdenticalBodiesResult groups indices into Sources; identical bodies\nshare a group.\n```"]
 pub struct BrepIdenticalBodiesResult {
     pub groups: Option<Vec<Option<Vec<i64>>>> => omitted("groups", "crate::json::slice_is_empty");
@@ -448,12 +460,5 @@ pub struct ColorStyleView {
     pub shininess: f64 => finite("shininess");
     pub opacity: f64 => finite("opacity");
     pub location: crate::types::StyleLocationEnum => required("location");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nColorStylesResult is the response of [MethodStylesList]: every color style in the document.\n```"]
-pub struct ColorStylesResult {
-    pub styles: Option<Vec<crate::wire::ColorStyleView>> => required("styles");
 }
 }

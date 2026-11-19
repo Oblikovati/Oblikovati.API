@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nAttachPointCloudArgs is the request of [MethodPointCloudsAttach]: read the scan file at\nFullFileName and attach it to the active part. Name is the unique cloud name; when empty the\nhost mints one (Cloud1, Cloud2, …).\n```"]
+pub struct AttachPointCloudArgs {
+    pub name: String => omitted("name", "crate::json::is_zero");
+    pub full_file_name: String => required("fullFileName");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nAttachmentInfo is one attachment record: the unique name other objects bind\nto, the kind, the linked path (resolved through the project search paths)\nor the embedded resource id, and the freshness state. LastKnownFileTime is\nRFC 3339; for linked attachments a newer on-disk time reports outOfDate.\n```"]
 pub struct AttachmentInfo {
     pub name: String => required("name");
@@ -445,17 +453,5 @@ generated_dto! {
 pub struct BrepHandleResult {
     pub handle: i64 => required("handle");
     pub stats: crate::wire::BrepBodyStats => required("stats");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nBrepIdenticalBodiesArgs is the request of [MethodBrepIdenticalBodies].\n```"]
-pub struct BrepIdenticalBodiesArgs {
-    pub sources: Option<Vec<crate::wire::BrepBodyRef>> => required("sources");
-#[doc = "```text\nTolerance is relative (0 → 1e-6, the reference default).\n```"]
-    pub tolerance: f64 => omitted_finite("tolerance", "crate::json::is_zero");
-    pub match_topology: bool => omitted("matchTopology", "crate::json::is_zero");
-#[doc = "```text\nMatchReflection defaults TRUE (mirrored bodies match) per the\nreference; the pointer distinguishes \"unset\" from explicit false.\n```"]
-    pub match_reflection: Option<Box<bool>> => omitted("matchReflection", "Option::is_none");
 }
 }

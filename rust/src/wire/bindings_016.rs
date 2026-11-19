@@ -4,6 +4,41 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nResult envelopes.\n```"]
+pub struct ModelStateResult {
+    pub model_state: crate::wire::ModelStateInfo => required("modelState");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableColumnRef identifies one visible column. Exactly one identity\nmust match Kind. Example: `wire.ModelStateTableColumnRef{Kind: types.ModelStateTableSuppressionColumn, FeatureID: 1}`.\n```"]
+pub struct ModelStateTableColumnRef {
+    pub kind: crate::types::ModelStateTableColumnKind => required("kind");
+    pub property: Option<Box<crate::types::ModelStatePropertyKey>> => omitted("property", "Option::is_none");
+    pub feature_id: u64 => omitted("featureId", "crate::json::is_zero");
+    pub parameter_id: u64 => omitted("parameterId", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableCreatedRow maps a client draft key to its reserved member ID.\nExample: `wire.ModelStateTableCreatedRow{DraftKey: \"new-1\", MemberID: 7}`.\n```"]
+pub struct ModelStateTableCreatedRow {
+    pub draft_key: String => required("draftKey");
+    pub member_id: u64 => required("memberId");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableDiagnostic identifies a rejected table cell or a table-wide error.\nA nil Row and zero ParameterID identify an error that is not specific to a cell.\nExample: `wire.ModelStateTableDiagnostic{Row: &row, ParameterID: 3, Message: \"unknown name\"}`.\n```"]
+pub struct ModelStateTableDiagnostic {
+    pub row: Option<Box<crate::wire::ModelStateTableRowRef>> => required("row");
+    pub parameter_id: u64 => required("parameterId");
+    pub expression: String => required("expression");
+    pub message: String => required("message");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nModelStateTableEvaluation describes a read-only evaluated parameter cell.\nFailure is empty for a healthy value. Example:\n`wire.ModelStateTableEvaluation{ParameterID: 1, Row: row, Value: \"10 mm\"}`.\n```"]
 pub struct ModelStateTableEvaluation {
     pub parameter_id: u64 => required("parameterId");
@@ -422,12 +457,5 @@ generated_dto! {
 #[doc = "```text\nOrientationResult is the reply of addOrientation/activateOrientation: the affected\norientation after the call.\n```"]
 pub struct OrientationResult {
     pub orientation: crate::wire::FlatPatternOrientationInfo => required("orientation");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nOrientationsResult is the reply of listOrientations: every orientation in creation order\n(the active one flagged).\n```"]
-pub struct OrientationsResult {
-    pub orientations: Option<Vec<crate::wire::FlatPatternOrientationInfo>> => required("orientations");
 }
 }

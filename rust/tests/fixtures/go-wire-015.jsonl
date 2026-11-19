@@ -1,3 +1,15 @@
+{"Name":"wire.EnumerateEntitiesResult","Case":"zero","Payload":{"entities":null},"Canonical":{"entities":null},"Error":""}
+{"Name":"wire.EnumerateEntitiesResult","Case":"filled","Payload":{"entities":[{"index":7,"id":7,"kind":"example \u003c\u0026\u003e 日本語","construction":true,"reference":true,"points":[[1.25]],"radius":1.25,"referenceKey":"example \u003c\u0026\u003e 日本語","moveableStatus":"example \u003c\u0026\u003e 日本語","fitMethod":"example \u003c\u0026\u003e 日本語"}]},"Canonical":{"entities":[{"index":7,"id":7,"kind":"example \u003c\u0026\u003e 日本語","construction":true,"reference":true,"points":[[1.25]],"radius":1.25,"referenceKey":"example \u003c\u0026\u003e 日本語","moveableStatus":"example \u003c\u0026\u003e 日本語","fitMethod":"example \u003c\u0026\u003e 日本語"}]},"Error":""}
+{"Name":"wire.EnumerateEntitiesResult","Case":"empty","Payload":{"entities":[]},"Canonical":{"entities":[]},"Error":""}
+{"Name":"wire.EnumeratorPage","Case":"zero","Payload":{},"Canonical":{},"Error":""}
+{"Name":"wire.EnumeratorPage","Case":"filled","Payload":{"nextCursor":7,"done":true},"Canonical":{"nextCursor":7,"done":true},"Error":""}
+{"Name":"wire.EnumeratorPage","Case":"empty","Payload":{"nextCursor":7,"done":true},"Canonical":{"nextCursor":7,"done":true},"Error":""}
+{"Name":"wire.EnvironmentChangedEvent","Case":"zero","Payload":{"type":"","environment":0},"Canonical":{"type":"","environment":0},"Error":""}
+{"Name":"wire.EnvironmentChangedEvent","Case":"filled","Payload":{"type":"example \u003c\u0026\u003e 日本語","environment":7},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","environment":7},"Error":""}
+{"Name":"wire.EnvironmentChangedEvent","Case":"empty","Payload":{"type":"example \u003c\u0026\u003e 日本語","environment":7},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","environment":7},"Error":""}
+{"Name":"wire.EnvironmentInfo","Case":"zero","Payload":{"environment":0,"name":"","active":false},"Canonical":{"environment":0,"name":"","active":false},"Error":""}
+{"Name":"wire.EnvironmentInfo","Case":"filled","Payload":{"environment":7,"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"environment":7,"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
+{"Name":"wire.EnvironmentInfo","Case":"empty","Payload":{"environment":7,"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"environment":7,"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
 {"Name":"wire.EnvironmentPresetInfo","Case":"zero","Payload":{"name":"","active":false},"Canonical":{"name":"","active":false},"Error":""}
 {"Name":"wire.EnvironmentPresetInfo","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
 {"Name":"wire.EnvironmentPresetInfo","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","active":true},"Error":""}
@@ -136,15 +148,3 @@
 {"Name":"wire.FitPointCloudPlaneArgs","Case":"zero","Payload":{"cloud":""},"Canonical":{"cloud":""},"Error":""}
 {"Name":"wire.FitPointCloudPlaneArgs","Case":"filled","Payload":{"cloud":"example \u003c\u0026\u003e 日本語"},"Canonical":{"cloud":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.FitPointCloudPlaneArgs","Case":"empty","Payload":{"cloud":"example \u003c\u0026\u003e 日本語"},"Canonical":{"cloud":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.FitPointCloudPlaneResult","Case":"zero","Payload":{"workPlane":"","origin":[0,0,0],"normal":[0,0,0]},"Canonical":{"workPlane":"","origin":[0,0,0],"normal":[0,0,0]},"Error":""}
-{"Name":"wire.FitPointCloudPlaneResult","Case":"filled","Payload":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.FitPointCloudPlaneResult","Case":"empty","Payload":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.FlatBendLineInfo","Case":"zero","Payload":{"start":[0,0],"end":[0,0],"angle":0},"Canonical":{"start":[0,0],"end":[0,0],"angle":0},"Error":""}
-{"Name":"wire.FlatBendLineInfo","Case":"filled","Payload":{"start":[1.25,1.25],"end":[1.25,1.25],"angle":1.25},"Canonical":{"start":[1.25,1.25],"end":[1.25,1.25],"angle":1.25},"Error":""}
-{"Name":"wire.FlatBendLineInfo","Case":"empty","Payload":{"start":[1.25,1.25],"end":[1.25,1.25],"angle":1.25},"Canonical":{"start":[1.25,1.25],"end":[1.25,1.25],"angle":1.25},"Error":""}
-{"Name":"wire.FlatEdgeInfo","Case":"zero","Payload":{"start":[0,0],"end":[0,0],"type":""},"Canonical":{"start":[0,0],"end":[0,0],"type":""},"Error":""}
-{"Name":"wire.FlatEdgeInfo","Case":"filled","Payload":{"start":[1.25,1.25],"end":[1.25,1.25],"type":"example \u003c\u0026\u003e 日本語","angle":1.25},"Canonical":{"start":[1.25,1.25],"end":[1.25,1.25],"type":"example \u003c\u0026\u003e 日本語","angle":1.25},"Error":""}
-{"Name":"wire.FlatEdgeInfo","Case":"empty","Payload":{"start":[1.25,1.25],"end":[1.25,1.25],"type":"example \u003c\u0026\u003e 日本語","angle":1.25},"Canonical":{"start":[1.25,1.25],"end":[1.25,1.25],"type":"example \u003c\u0026\u003e 日本語","angle":1.25},"Error":""}
-{"Name":"wire.FlatFaceInfo","Case":"zero","Payload":{"type":"","area":0},"Canonical":{"type":"","area":0},"Error":""}
-{"Name":"wire.FlatFaceInfo","Case":"filled","Payload":{"type":"example \u003c\u0026\u003e 日本語","area":1.25},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","area":1.25},"Error":""}
-{"Name":"wire.FlatFaceInfo","Case":"empty","Payload":{"type":"example \u003c\u0026\u003e 日本語","area":1.25},"Canonical":{"type":"example \u003c\u0026\u003e 日本語","area":1.25},"Error":""}

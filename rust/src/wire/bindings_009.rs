@@ -4,6 +4,26 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nFacesResult is the reply of faces: the developed flat's classified faces (front and back).\n```"]
+pub struct FacesResult {
+    pub faces: Option<Vec<crate::wire::FlatFaceInfo>> => required("faces");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFacetSetResult is the facet payload: triangle mesh plus the per-face\ntriangle-index counts (in body face order; one entry for a face-level set).\n```"]
+pub struct FacetSetResult {
+    pub vertex_count: i64 => required("vertexCount");
+    pub facet_count: i64 => required("facetCount");
+    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
+    pub normal_vectors: Option<Vec<f64>> => omitted_finite("normalVectors", "crate::json::slice_is_empty");
+    pub vertex_indices: Option<Vec<i64>> => omitted("vertexIndices", "crate::json::slice_is_empty");
+    pub texture_coordinates: Option<Vec<f64>> => omitted_finite("textureCoordinates", "crate::json::slice_is_empty");
+    pub index_count_per_face: Option<Vec<i64>> => omitted("indexCountPerFace", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nFacetTolerancesResult is the response of [MethodBodyFacetTolerances] and\n[MethodBodyStrokeTolerances]: the tolerances cached sets exist at, ascending.\n```"]
 pub struct FacetTolerancesResult {
     pub tolerances: Option<Vec<f64>> => omitted_finite("tolerances", "crate::json::slice_is_empty");
@@ -434,21 +454,5 @@ generated_dto! {
 #[doc = "```text\nGetStyleArgs is the request of [MethodStylesGet] / [MethodStylesDelete]: the style by name.\n```"]
 pub struct GetStyleArgs {
     pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nGetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text\nentity EntityID in sketch SketchIndex.\n```"]
-pub struct GetTextArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub entity_id: u64 => required("entityId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nGraphicsColorMapper maps scalar vertex values to colors — the heatmap legend. Values is\nan ascending list of scalar stops; Colors is the rgba quad for each stop (len(Colors)\n== 4*len(Values)). The host interpolates piecewise-linearly between stops and clamps\noutside the range. A primitive carrying both Scalars and ColorMapper resolves per-vertex\ncolors from them.\n```"]
-pub struct GraphicsColorMapper {
-    pub values: Option<Vec<f64>> => finite("values");
-    pub colors: Option<Vec<f32>> => finite("colors");
 }
 }

@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityFeaturesAdd(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodFeaturesAdd})
+	checkGoGroup(t, c, "Features", "Add")
+}
+
+func TestRustParityFeaturesDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodFeaturesDelete})
+	checkGoGroup(t, c, "Features", "Delete")
+}
+
+func TestRustParityFeaturesEdit(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodFeaturesEdit})
+	checkGoGroup(t, c, "Features", "Edit")
+}
+
 func TestRustParityFeaturesGet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodFeaturesGet})
 	checkGoGroup(t, c, "Features", "Get")
@@ -142,19 +157,4 @@ func TestRustParityFreeformCreaseEdges(t *testing.T) {
 func TestRustParityFreeformMoveVertices(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodFreeformMoveVertices})
 	checkGoGroup(t, c, "Freeform", "MoveVertices")
-}
-
-func TestRustParityFreeformSetLevel(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodFreeformSetLevel})
-	checkGoGroup(t, c, "Freeform", "SetLevel")
-}
-
-func TestRustParityGraphicsColorMappers(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodClientGraphicsListMappers})
-	checkGoGroup(t, c, "Graphics", "ColorMappers")
-}
-
-func TestRustParityGraphicsDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodClientGraphicsDelete})
-	checkGoGroup(t, c, "Graphics", "Delete")
 }

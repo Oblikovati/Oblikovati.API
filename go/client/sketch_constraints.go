@@ -154,3 +154,24 @@ func (g Constrain) Delete(constraintIndex int) (wire.OKResult, error) {
 	args := wire.DeleteConstraintArgs{SketchIndex: g.index, ConstraintIndex: constraintIndex}
 	return call[wire.OKResult](g.c, wire.MethodSketchDeleteConstraint, args)
 }
+
+// GlyphVisibility reads the global glyph switch and individually hidden relations.
+// Example: `view, err := sketch.Constrain(0).GlyphVisibility()`.
+func (g Constrain) GlyphVisibility() (wire.ConstraintGlyphsVisibilityResult, error) {
+	args := wire.ConstraintGlyphsVisibilityArgs{SketchIndex: g.index}
+	return call[wire.ConstraintGlyphsVisibilityResult](g.c, wire.MethodSketchConstraintGlyphVisibility, args)
+}
+
+// SetGlyphVisible changes the display of one current geometric constraint.
+// Example: `_, err := sketch.Constrain(0).SetGlyphVisible(1, false)`.
+func (g Constrain) SetGlyphVisible(constraintID uint64, visible bool) (wire.OKResult, error) {
+	args := wire.ConstraintGlyphVisibilityArgs{SketchIndex: g.index, ConstraintID: constraintID, Visible: visible}
+	return call[wire.OKResult](g.c, wire.MethodSketchSetConstraintGlyphVisibility, args)
+}
+
+// SetAllGlyphsVisible changes the global glyph switch; showing clears hidden overrides.
+// Example: `_, err := sketch.Constrain(0).SetAllGlyphsVisible(true)`.
+func (g Constrain) SetAllGlyphsVisible(visible bool) (wire.OKResult, error) {
+	args := wire.AllConstraintGlyphsVisibilityArgs{SketchIndex: g.index, Visible: visible}
+	return call[wire.OKResult](g.c, wire.MethodSketchSetAllConstraintGlyphsVisibility, args)
+}

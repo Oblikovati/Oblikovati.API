@@ -4,6 +4,22 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nGetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text\nentity EntityID in sketch SketchIndex.\n```"]
+pub struct GetTextArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub entity_id: u64 => required("entityId");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGraphicsColorMapper maps scalar vertex values to colors — the heatmap legend. Values is\nan ascending list of scalar stops; Colors is the rgba quad for each stop (len(Colors)\n== 4*len(Values)). The host interpolates piecewise-linearly between stops and clamps\noutside the range. A primitive carrying both Scalars and ColorMapper resolves per-vertex\ncolors from them.\n```"]
+pub struct GraphicsColorMapper {
+    pub values: Option<Vec<f64>> => finite("values");
+    pub colors: Option<Vec<f32>> => finite("colors");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nGraphicsNode groups primitives under one transform and visibility/opacity.\nTransform (optional 16-element row-major matrix) places the node's\ngeometry; Visible nil means \"inherit the group's visibility\".\n```"]
 pub struct GraphicsNode {
     pub id: String => omitted("id", "crate::json::is_zero");
@@ -436,29 +452,5 @@ generated_dto! {
 pub struct LayoutResult {
     pub document: u64 => omitted("document", "crate::json::is_zero");
     pub layout: crate::types::ViewLayout => required("layout");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nLightInfo is the JSON shape of one scene light — the element of [LightListResult] and the\npayload of [MethodLightingAddLight] / [MethodLightingSetLight]. Direction/Position are\nworld-space (cm); Color is the light color and Intensity scales it.\n```"]
-pub struct LightInfo {
-    pub index: i64 => required("index");
-    pub light_type: crate::types::LightTypeEnum => required("lightType");
-    pub light_definition_type: crate::types::LightDefinitionTypeEnum => required("definitionType");
-    pub on: bool => required("on");
-    pub color: crate::types::Rgba => required("color");
-    pub intensity: f64 => finite("intensity");
-    pub direction: crate::types::Vector => raw(rename = "direction");
-    pub position: crate::types::Point => raw(rename = "position");
-    pub spot_inner_angle: f64 => finite("spotInnerAngle");
-    pub spot_outer_angle: f64 => finite("spotOuterAngle");
-    pub attenuation: [f64; 3] => finite("attenuation");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nLightListResult is the response of [MethodLightingListLights].\n```"]
-pub struct LightListResult {
-    pub lights: Option<Vec<crate::wire::LightInfo>> => required("lights");
 }
 }

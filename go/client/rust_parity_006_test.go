@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityDimensionMove(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchMoveDimension})
+	checkGoGroup(t, c, "Dimension", "Move")
+}
+
+func TestRustParityDisplayOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDisplayGetOptions})
+	checkGoGroup(t, c, "Display", "Options")
+}
+
+func TestRustParityDisplaySetOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDisplaySetOptions})
+	checkGoGroup(t, c, "Display", "SetOptions")
+}
+
 func TestRustParityDisplaySetSettings(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentSetDisplaySettings})
 	checkGoGroup(t, c, "Display", "SetSettings")
@@ -142,19 +157,4 @@ func TestRustParityDocumentsList(t *testing.T) {
 func TestRustParityDocumentsListProperties(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentsListProperties})
 	checkGoGroup(t, c, "Documents", "ListProperties")
-}
-
-func TestRustParityDocumentsLoadFull(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsLoadFull})
-	checkGoGroup(t, c, "Documents", "LoadFull")
-}
-
-func TestRustParityDocumentsOpen(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsOpen})
-	checkGoGroup(t, c, "Documents", "Open")
-}
-
-func TestRustParityDocumentsRebuild(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDocumentsRebuild})
-	checkGoGroup(t, c, "Documents", "Rebuild")
 }

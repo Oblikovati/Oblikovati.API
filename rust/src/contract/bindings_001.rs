@@ -3,6 +3,14 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nContactSolver reports whether contact enforcement is enabled and how many sets it governs —\nthe reference API's ActiveContactSolver toggle.\n```"]
+pub trait ContactSolver {
+    #[doc = "```text\nEnabled reports whether contact is enforced during a drag.\n```"]
+    fn enabled(&self) -> bool;
+    #[doc = "```text\nSetCount returns the number of contact sets the solver governs.\n```"]
+    fn set_count(&self) -> i64;
+}
+
 #[doc = "```text\nCurve is the umbrella every 3D transient curve satisfies.\n```"]
 pub trait Curve {
     #[doc = "```text\nCurveType identifies the concrete kind (frozen reference values).\n```"]

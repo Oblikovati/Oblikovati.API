@@ -10,6 +10,9 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Typed sketch constraint glyph visibility queries and edits, including Show All
+  and per-constraint Hide (Oblikovati/Oblikovati#4166).
+
 - Optional per-type sketch inference and Relax Mode selections. The default
   configuration retains the host legacy policy (#312).
 

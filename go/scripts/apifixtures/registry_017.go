@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup17 = []fixtureType{
+	{"wire.ValueResult", reflect.TypeFor[wire.ValueResult]()},
+	{"wire.ViewCurvesArgs", reflect.TypeFor[wire.ViewCurvesArgs]()},
+	{"wire.ViewCurvesResult", reflect.TypeFor[wire.ViewCurvesResult]()},
+	{"wire.ViewFrameInfo", reflect.TypeFor[wire.ViewFrameInfo]()},
 	{"wire.ViewInfo", reflect.TypeFor[wire.ViewInfo]()},
 	{"wire.ViewResult", reflect.TypeFor[wire.ViewResult]()},
 	{"wire.ViewTabInfo", reflect.TypeFor[wire.ViewTabInfo]()},

@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityStatusText(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodStatusGetText})
+	checkGoGroup(t, c, "Status", "Text")
+}
+
+func TestRustParityStylesDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodStylesDelete})
+	checkGoGroup(t, c, "Styles", "Delete")
+}
+
+func TestRustParityStylesGet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodStylesGet})
+	checkGoGroup(t, c, "Styles", "Get")
+}
+
 func TestRustParityStylesImportLibrary(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStylesImportLibrary})
 	checkGoGroup(t, c, "Styles", "ImportLibrary")
@@ -142,19 +157,4 @@ func TestRustParityTransientBRepDeleteFaces(t *testing.T) {
 func TestRustParityTransientBRepDescribe(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepDescribe})
 	checkGoGroup(t, c, "TransientBRep", "Describe")
-}
-
-func TestRustParityTransientBRepDoBoolean(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepBoolean})
-	checkGoGroup(t, c, "TransientBRep", "DoBoolean")
-}
-
-func TestRustParityTransientBRepGetIdenticalBodies(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepIdenticalBodies})
-	checkGoGroup(t, c, "TransientBRep", "GetIdenticalBodies")
-}
-
-func TestRustParityTransientBRepImprintBodies(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepImprint})
-	checkGoGroup(t, c, "TransientBRep", "ImprintBodies")
 }

@@ -9,6 +9,21 @@ import (
 	"testing"
 )
 
+func TestRustParityRibbonList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodRibbonList})
+	checkGoGroup(t, c, "Ribbon", "List")
+}
+
+func TestRustParityScriptsRun(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodScriptRun})
+	checkGoGroup(t, c, "Scripts", "Run")
+}
+
+func TestRustParitySheetMetalBendAllowance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
+	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
+}
+
 func TestRustParitySheetMetalBends(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSheetMetalBends})
 	checkGoGroup(t, c, "SheetMetal", "Bends")
@@ -142,19 +157,4 @@ func TestRustParitySketch3DReferenceKey(t *testing.T) {
 func TestRustParitySketch3DRegionProperties(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DRegionProperties})
 	checkGoGroup(t, c, "Sketch3D", "RegionProperties")
-}
-
-func TestRustParitySketch3DSetProperty(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetProperty})
-	checkGoGroup(t, c, "Sketch3D", "SetProperty")
-}
-
-func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
-	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
-}
-
-func TestRustParitySketch3DSolve(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
-	checkGoGroup(t, c, "Sketch3D", "Solve")
 }

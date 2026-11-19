@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup7 = []fixtureType{
+	{"wire.BrepSilhouetteArgs", reflect.TypeFor[wire.BrepSilhouetteArgs]()},
 	{"wire.BrepTransformArgs", reflect.TypeFor[wire.BrepTransformArgs]()},
 	{"wire.BrepWireRef", reflect.TypeFor[wire.BrepWireRef]()},
 	{"wire.BrepWiresResult", reflect.TypeFor[wire.BrepWiresResult]()},
@@ -60,6 +61,9 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.Constraint3DInfo", reflect.TypeFor[wire.Constraint3DInfo]()},
 	{"wire.ConstraintEventPayload", reflect.TypeFor[wire.ConstraintEventPayload]()},
 	{"wire.ConstraintGeomRef", reflect.TypeFor[wire.ConstraintGeomRef]()},
+	{"wire.ConstraintGlyphVisibilityArgs", reflect.TypeFor[wire.ConstraintGlyphVisibilityArgs]()},
+	{"wire.ConstraintGlyphsVisibilityArgs", reflect.TypeFor[wire.ConstraintGlyphsVisibilityArgs]()},
+	{"wire.ConstraintGlyphsVisibilityResult", reflect.TypeFor[wire.ConstraintGlyphsVisibilityResult]()},
 	{"wire.ConstraintInfo", reflect.TypeFor[wire.ConstraintInfo]()},
 	{"wire.ConstraintLimits", reflect.TypeFor[wire.ConstraintLimits]()},
 	{"wire.ConstraintResult", reflect.TypeFor[wire.ConstraintResult]()},
@@ -85,8 +89,4 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CreaseFreeformEdgesArgs", reflect.TypeFor[wire.CreaseFreeformEdgesArgs]()},
 	{"wire.CreateAppearanceArgs", reflect.TypeFor[wire.CreateAppearanceArgs]()},
 	{"wire.CreateBlockDefinitionArgs", reflect.TypeFor[wire.CreateBlockDefinitionArgs]()},
-	{"wire.CreateCommandArgs", reflect.TypeFor[wire.CreateCommandArgs]()},
-	{"wire.CreateContactSetArgs", reflect.TypeFor[wire.CreateContactSetArgs]()},
-	{"wire.CreateDocumentArgs", reflect.TypeFor[wire.CreateDocumentArgs]()},
-	{"wire.CreateHighlightSetArgs", reflect.TypeFor[wire.CreateHighlightSetArgs]()},
 }

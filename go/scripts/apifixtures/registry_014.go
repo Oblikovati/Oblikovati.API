@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.RepRef", reflect.TypeFor[wire.RepRef]()},
+	{"wire.ReplaceFileReferenceArgs", reflect.TypeFor[wire.ReplaceFileReferenceArgs]()},
+	{"wire.ReplaceOccurrenceArgs", reflect.TypeFor[wire.ReplaceOccurrenceArgs]()},
+	{"wire.RepositionPatternElementArgs", reflect.TypeFor[wire.RepositionPatternElementArgs]()},
 	{"wire.RepresentationEventPayload", reflect.TypeFor[wire.RepresentationEventPayload]()},
 	{"wire.RepresentationInfo", reflect.TypeFor[wire.RepresentationInfo]()},
 	{"wire.RequiresUpdateResult", reflect.TypeFor[wire.RequiresUpdateResult]()},
@@ -85,8 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetFlexibleChildArgs", reflect.TypeFor[wire.SetFlexibleChildArgs]()},
 	{"wire.SetFlexibleOccurrenceArgs", reflect.TypeFor[wire.SetFlexibleOccurrenceArgs]()},
 	{"wire.SetFreeformLevelArgs", reflect.TypeFor[wire.SetFreeformLevelArgs]()},
-	{"wire.SetHighlightSetColorArgs", reflect.TypeFor[wire.SetHighlightSetColorArgs]()},
-	{"wire.SetImposedMotionArgs", reflect.TypeFor[wire.SetImposedMotionArgs]()},
-	{"wire.SetJointFlipArgs", reflect.TypeFor[wire.SetJointFlipArgs]()},
-	{"wire.SetJointLimitsArgs", reflect.TypeFor[wire.SetJointLimitsArgs]()},
 }

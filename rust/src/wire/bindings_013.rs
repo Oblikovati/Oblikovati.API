@@ -3,6 +3,37 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_ASSEMBLY_FEATURES_SET_PARTICIPANT_PATHS: &str =
+    "assemblyFeatures.setParticipantPaths";
+
+pub const METHOD_ASSEMBLY_FEATURES_SET_PARTICIPANTS: &str = "assemblyFeatures.setParticipants";
+
+pub const METHOD_ASSEMBLY_FEATURES_SET_SUPPRESSED: &str = "assemblyFeatures.setSuppressed";
+
+pub const METHOD_ASSEMBLY_GET_END_OF_FEATURES: &str = "assembly.getEndOfFeatures";
+
+pub const METHOD_ASSEMBLY_GROUND: &str = "assembly.ground";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_BALL: &str = "assemblyJoints.addBall";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_CYLINDRICAL: &str = "assemblyJoints.addCylindrical";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_PLANAR: &str = "assemblyJoints.addPlanar";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_RIGID: &str = "assemblyJoints.addRigid";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_ROTATIONAL: &str = "assemblyJoints.addRotational";
+
+pub const METHOD_ASSEMBLY_JOINTS_ADD_SLIDER: &str = "assemblyJoints.addSlider";
+
+pub const METHOD_ASSEMBLY_JOINTS_DELETE: &str = "assemblyJoints.delete";
+
+pub const METHOD_ASSEMBLY_JOINTS_LIST: &str = "assemblyJoints.list";
+
+pub const METHOD_ASSEMBLY_JOINTS_SET_FLIP: &str = "assemblyJoints.setFlip";
+
+pub const METHOD_ASSEMBLY_JOINTS_SET_LIMITS: &str = "assemblyJoints.setLimits";
+
 pub const METHOD_ASSEMBLY_JOINTS_SET_ORIGIN: &str = "assemblyJoints.setOrigin";
 
 pub const METHOD_ASSEMBLY_JOINTS_SET_STATE: &str = "assemblyJoints.setState";
@@ -432,33 +463,3 @@ pub const METHOD_DRAWING_TITLE_BLOCK_FIELDS: &str = "drawing.titleBlockFields";
 pub const METHOD_DRAWING_VIEWS_ADD_AUXILIARY: &str = "drawingViews.addAuxiliary";
 
 pub const METHOD_DRAWING_VIEWS_ADD_BASE: &str = "drawingViews.addBase";
-
-pub const METHOD_DRAWING_VIEWS_ADD_BREAK: &str = "drawingViews.addBreak";
-
-pub const METHOD_DRAWING_VIEWS_ADD_BREAKOUT: &str = "drawingViews.addBreakout";
-
-pub const METHOD_DRAWING_VIEWS_ADD_CROP: &str = "drawingViews.addCrop";
-
-pub const METHOD_DRAWING_VIEWS_ADD_DETAIL: &str = "drawingViews.addDetail";
-
-pub const METHOD_DRAWING_VIEWS_ADD_DRAFT: &str = "drawingViews.addDraft";
-
-pub const METHOD_DRAWING_VIEWS_ADD_PROJECTED: &str = "drawingViews.addProjected";
-
-pub const METHOD_DRAWING_VIEWS_ADD_SECTION: &str = "drawingViews.addSection";
-
-pub const METHOD_DRAWING_VIEWS_ADD_SLICE: &str = "drawingViews.addSlice";
-
-pub const METHOD_DRAWING_VIEWS_ALIGN: &str = "drawingViews.align";
-
-pub const METHOD_DRAWING_VIEWS_CURVES: &str = "drawingViews.curves";
-
-pub const METHOD_DRAWING_VIEWS_DELETE: &str = "drawingViews.delete";
-
-pub const METHOD_DRAWING_VIEWS_LIST: &str = "drawingViews.list";
-
-pub const METHOD_DRAWING_VIEWS_REMOVE_CROP: &str = "drawingViews.removeCrop";
-
-pub const METHOD_DRAWING_VIEWS_ROTATE: &str = "drawingViews.rotate";
-
-pub const METHOD_DRAWING_VIEWS_SET_DISPLAY: &str = "drawingViews.setDisplay";

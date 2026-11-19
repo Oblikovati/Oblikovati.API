@@ -9,6 +9,10 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetHighlightSetColorArgs", reflect.TypeFor[wire.SetHighlightSetColorArgs]()},
+	{"wire.SetImposedMotionArgs", reflect.TypeFor[wire.SetImposedMotionArgs]()},
+	{"wire.SetJointFlipArgs", reflect.TypeFor[wire.SetJointFlipArgs]()},
+	{"wire.SetJointLimitsArgs", reflect.TypeFor[wire.SetJointLimitsArgs]()},
 	{"wire.SetJointOriginArgs", reflect.TypeFor[wire.SetJointOriginArgs]()},
 	{"wire.SetJointStateArgs", reflect.TypeFor[wire.SetJointStateArgs]()},
 	{"wire.SetLayoutArgs", reflect.TypeFor[wire.SetLayoutArgs]()},
@@ -85,8 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchBlockDefinitionInfo", reflect.TypeFor[wire.SketchBlockDefinitionInfo]()},
 	{"wire.SketchBlockInfo", reflect.TypeFor[wire.SketchBlockInfo]()},
 	{"wire.SketchCustomLineTypeResult", reflect.TypeFor[wire.SketchCustomLineTypeResult]()},
-	{"wire.SketchDependent", reflect.TypeFor[wire.SketchDependent]()},
-	{"wire.SketchDependentsResult", reflect.TypeFor[wire.SketchDependentsResult]()},
-	{"wire.SketchEditEvent", reflect.TypeFor[wire.SketchEditEvent]()},
-	{"wire.SketchEntityFormatArgs", reflect.TypeFor[wire.SketchEntityFormatArgs]()},
 }
