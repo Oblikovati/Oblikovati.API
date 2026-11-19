@@ -356,18 +356,6 @@ impl<T: super::Caller> ModelStates<'_, T> {
             .invoke(crate::wire::METHOD_MODEL_STATES_DELETE, Some(args))
     }
 
-    /// Call `MethodModelStatesGetPropertyTable` with the canonical request and response types.
-    /// Example: `client.model_states().get_property_table(&args)`.
-    pub fn get_property_table(
-        &self,
-        args: &crate::json::EmptyObject,
-    ) -> Result<crate::wire::ModelStatePropertyTableView, crate::Error> {
-        self.0.invoke(
-            crate::wire::METHOD_MODEL_STATES_GET_PROPERTY_TABLE,
-            Some(args),
-        )
-    }
-
     /// Call `MethodModelStatesGetTable` with the canonical request and response types.
     /// Example: `client.model_states().get_table(&args)`.
     pub fn get_table(
@@ -396,18 +384,6 @@ impl<T: super::Caller> ModelStates<'_, T> {
     ) -> Result<crate::wire::ModelStateResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_MODEL_STATES_RENAME, Some(args))
-    }
-
-    /// Call `MethodModelStatesSetPropertyTable` with the canonical request and response types.
-    /// Example: `client.model_states().set_property_table(&args)`.
-    pub fn set_property_table(
-        &self,
-        args: &crate::wire::SetModelStatePropertyTableArgs,
-    ) -> Result<crate::wire::ModelStatePropertyTableView, crate::Error> {
-        self.0.invoke(
-            crate::wire::METHOD_MODEL_STATES_SET_PROPERTY_TABLE,
-            Some(args),
-        )
     }
 
     /// Call `MethodModelStatesSetTable` with the canonical request and response types.

@@ -9,9 +9,6 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
-	{"wire.RepresentationInfo", reflect.TypeFor[wire.RepresentationInfo]()},
-	{"wire.RequiresUpdateResult", reflect.TypeFor[wire.RequiresUpdateResult]()},
-	{"wire.ResetBindingArgs", reflect.TypeFor[wire.ResetBindingArgs]()},
 	{"wire.ResolveSketchReferenceArgs", reflect.TypeFor[wire.ResolveSketchReferenceArgs]()},
 	{"wire.ResolveSketchReferenceResult", reflect.TypeFor[wire.ResolveSketchReferenceResult]()},
 	{"wire.ResolveThreadArgs", reflect.TypeFor[wire.ResolveThreadArgs]()},
@@ -89,4 +86,7 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetJointOriginArgs", reflect.TypeFor[wire.SetJointOriginArgs]()},
 	{"wire.SetJointStateArgs", reflect.TypeFor[wire.SetJointStateArgs]()},
 	{"wire.SetLayoutArgs", reflect.TypeFor[wire.SetLayoutArgs]()},
+	{"wire.SetLightArgs", reflect.TypeFor[wire.SetLightArgs]()},
+	{"wire.SetLightingStyleArgs", reflect.TypeFor[wire.SetLightingStyleArgs]()},
+	{"wire.SetManipulatorsArgs", reflect.TypeFor[wire.SetManipulatorsArgs]()},
 }

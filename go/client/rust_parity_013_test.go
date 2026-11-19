@@ -54,11 +54,6 @@ func TestRustParityModelStatesDelete(t *testing.T) {
 	checkGoGroup(t, c, "ModelStates", "Delete")
 }
 
-func TestRustParityModelStatesGetPropertyTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesGetPropertyTable})
-	checkGoGroup(t, c, "ModelStates", "GetPropertyTable")
-}
-
 func TestRustParityModelStatesGetTable(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelStatesGetTable})
 	checkGoGroup(t, c, "ModelStates", "GetTable")
@@ -72,11 +67,6 @@ func TestRustParityModelStatesList(t *testing.T) {
 func TestRustParityModelStatesRename(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelStatesRename})
 	checkGoGroup(t, c, "ModelStates", "Rename")
-}
-
-func TestRustParityModelStatesSetPropertyTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelStatesSetPropertyTable})
-	checkGoGroup(t, c, "ModelStates", "SetPropertyTable")
 }
 
 func TestRustParityModelStatesSetTable(t *testing.T) {
@@ -157,4 +147,14 @@ func TestRustParityParametersDelete(t *testing.T) {
 func TestRustParityParametersDeleteDerivedTable(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersDerivedTablesDelete})
 	checkGoGroup(t, c, "Parameters", "DeleteDerivedTable")
+}
+
+func TestRustParityParametersDeleteGroup(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
+	checkGoGroup(t, c, "Parameters", "DeleteGroup")
+}
+
+func TestRustParityParametersDependents(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersDependents})
+	checkGoGroup(t, c, "Parameters", "Dependents")
 }

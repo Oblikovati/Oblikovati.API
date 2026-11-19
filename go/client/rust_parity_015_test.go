@@ -9,16 +9,6 @@ import (
 	"testing"
 )
 
-func TestRustParityPatternCircular(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
-	checkGoGroup(t, c, "Pattern", "Circular")
-}
-
-func TestRustParityPatternRectangular(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
-	checkGoGroup(t, c, "Pattern", "Rectangular")
-}
-
 func TestRustParityPointCloudsAddCrop(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsAddCrop})
 	checkGoGroup(t, c, "PointClouds", "AddCrop")
@@ -157,4 +147,14 @@ func TestRustParityRibbonEnvironments(t *testing.T) {
 func TestRustParityRibbonList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodRibbonList})
 	checkGoGroup(t, c, "Ribbon", "List")
+}
+
+func TestRustParityScriptsRun(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodScriptRun})
+	checkGoGroup(t, c, "Scripts", "Run")
+}
+
+func TestRustParitySheetMetalBendAllowance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
+	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
 }

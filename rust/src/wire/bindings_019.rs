@@ -4,55 +4,6 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
-#[doc = "```text\nRepositionPatternElementArgs is the request of [MethodAssemblyPatternElementReposition]: move\none element (by index) of the pattern (by id) to an explicit placement, off the regular grid.\n```"]
-pub struct RepositionPatternElementArgs {
-    pub pattern: u64 => required("pattern");
-    pub element: i64 => required("element");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationEventPayload is the relayed body of a representation/model-state event: the\nkind (\"designView\"/\"positional\"/\"levelOfDetail\"/\"modelState\"), the id, and the name.\n```"]
-pub struct RepresentationEventPayload {
-    pub kind: String => required("kind");
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationInfo is the identity row common to every representation family.\n```"]
-pub struct RepresentationInfo {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-    pub active: bool => omitted("active", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRequiresUpdateResult is the response of [MethodDocumentsRequiresUpdate]: the read-only flag\ntelling a client the active document has out-of-date features a recompute would change.\n```"]
-pub struct RequiresUpdateResult {
-    pub requires_update: bool => required("requiresUpdate");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
-pub struct ResetBindingArgs {
-    pub action_id: String => required("actionId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResolveSketchReferenceArgs is the request of [MethodSketchResolveReference]: a previously\nobtained persistent key (a sketch's key or a sketch-entity's key).\n```"]
-pub struct ResolveSketchReferenceArgs {
-    pub reference_key: String => required("referenceKey");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nResolveSketchReferenceResult is the response of [MethodSketchResolveReference]. Found is\nfalse when no current sketch/entity matches the key (a legitimate, non-fatal outcome — the\nreferent was deleted). Kind is \"sketch\" / \"sketchEntity\" for a 2D sketch or its entity, or\n\"sketch3d\" / \"sketch3dEntity\" for a 3D sketch or its entity; SketchIndex locates the owning\nsketch within its own (2D or 3D) collection; EntityID is the matched entity's current\nsession id (0 when Kind names a sketch).\n```"]
 pub struct ResolveSketchReferenceResult {
     pub found: bool => required("found");
@@ -458,5 +409,55 @@ pub struct SetClientGraphicsResult {
     pub client_id: String => required("clientId");
     pub node_count: i64 => required("nodeCount");
     pub primitive_count: i64 => required("primitiveCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetClientGraphicsVisibleArgs is the request of [MethodClientGraphicsSetVisible].\n```"]
+pub struct SetClientGraphicsVisibleArgs {
+    pub client_id: String => required("clientId");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetColorSchemeArgs is the request of [MethodColorSchemesSetActive]: activate the scheme by\nname (schemes are identified by name).\n```"]
+pub struct SetColorSchemeArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of\nits own commands' live ribbon state. Active toggles the button's pressed/highlighted look\n(rendered in the accent color), so a stateful control like a presenter or follow toggle\nreads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.\n\"Presenter\" → \"Presenting\") — leave it empty to keep the current label. Enabled, when\nnon-nil, greys the button out (false) or restores it (true) — e.g. a collaboration add-in\ndisabling its presenter/follow controls until the user joins a session; nil leaves the\nenabled state unchanged.\n```"]
+pub struct SetCommandStateArgs {
+    pub id: String => required("id");
+    pub active: bool => required("active");
+    pub enabled: Option<Box<bool>> => omitted("enabled", "Option::is_none");
+    pub display_name: String => omitted("displayName", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetConstraintLimitsArgs is the request of [MethodAssemblyConstraintsSetLimits]: set (or\nclear) the driven-value Limits of the constraint with id ID.\n```"]
+pub struct SetConstraintLimitsArgs {
+    pub id: u64 => required("id");
+    pub limits: crate::wire::ConstraintLimits => required("limits");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetContextMenuArgs is the request of [MethodUISetContextMenu]: replace an\nadd-in's injected entries for one browser node kind (e.g. \"feature\", \"sketch\",\n\"body\"; \"\" injects into every node's menu) — the OnContextMenu equivalent,\ndeclarative so no round-trip happens while the menu is open.\n```"]
+pub struct SetContextMenuArgs {
+    pub add_in: String => required("addin");
+    pub kind: String => required("kind");
+    pub items: Option<Vec<crate::wire::ContextMenuItemSpec>> => required("items");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
+pub struct SetDimensionInspectionArgs {
+    pub name: String => required("name");
+    pub inspection: crate::types::InspectionDimension => required("inspection");
 }
 }

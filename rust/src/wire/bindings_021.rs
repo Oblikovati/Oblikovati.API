@@ -4,56 +4,6 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
-#[doc = "```text\nSetPointCloudDensityArgs is the request of [MethodPointCloudsSetDensity]: the display budget\n(MaximumPointCount); 0 shows every point.\n```"]
-pub struct SetPointCloudDensityArgs {
-    pub name: String => required("name");
-    pub maximum_point_count: i64 => required("maximumPointCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport\ncolouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.\n```"]
-pub struct SetPointCloudDisplayModeArgs {
-    pub name: String => required("name");
-    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudScaleArgs is the request of [MethodPointCloudsSetScale]: the new uniform\ncloud→model scale, which must be positive.\n```"]
-pub struct SetPointCloudScaleArgs {
-    pub name: String => required("name");
-    pub scale: f64 => finite("scale");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudTransformArgs is the request of [MethodPointCloudsSetTransform]: the new\ncloud→model placement.\n```"]
-pub struct SetPointCloudTransformArgs {
-    pub name: String => required("name");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudVisibleArgs is the request of [MethodPointCloudsSetVisible].\n```"]
-pub struct SetPointCloudVisibleArgs {
-    pub name: String => required("name");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPositionalOverrideArgs overrides a constraint's or joint's value within a positional\nrepresentation (IsJoint selects which relationship id space the id is in).\n```"]
-pub struct SetPositionalOverrideArgs {
-    pub rep: u64 => required("rep");
-    pub relationship: u64 => required("relationship");
-    pub is_joint: bool => omitted("isJoint", "crate::json::is_zero");
-    pub value: f64 => finite("value");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nSetPropertyArgs is the request of [MethodDocumentsSetProperty]: create or replace the named\nproperty in the set with the typed value (the set is created if it is a custom set name not\namong the standard sets). Address by document session id.\n```"]
 pub struct SetPropertyArgs {
     pub document: u64 => required("document");
@@ -451,5 +401,63 @@ pub struct Sketch3DEntityInfo {
     pub moveable_status: String => omitted("moveableStatus", "crate::json::is_zero");
 #[doc = "```text\nCoordinateSystem reports an equation curve's coordinate system (cylindrical/spherical),\nabsent for a Cartesian curve and every other kind, so a round-trip preserves it (#1846).\n```"]
     pub coordinate_system: String => omitted("coordinateSystem", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketch3DInfo is one row of [MethodSketch3DList] and the result of [MethodSketch3DGet]:\na 3D sketch's identity, visibility, entity count, remaining DOF, edit state, health,\nand the display/solve overrides (dimensions-visible, color, defer).\n```"]
+pub struct Sketch3DInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub visible: bool => required("visible");
+    pub dimensions_visible: bool => required("dimensionsVisible");
+    pub entity_count: i64 => required("entityCount");
+    pub dof: i64 => required("dof");
+    pub editing: bool => required("editing");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nShared reports the \"share sketch\" flag. (A 3D sketch's consumed/ownedBy state\nawaits the 3D path→sketch dependency link; see the 2D [SketchInfo] for those notions.)\n```"]
+    pub shared: bool => omitted("shared", "crate::json::is_zero");
+    pub color: String => omitted("color", "crate::json::is_zero");
+    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchArgs is the request of the per-sketch methods that take only a target:\n[MethodSketchGet], [MethodSketchEdit], [MethodSketchExitEdit], [MethodSketchSolve],\n[MethodSketchDelete], [MethodSketchEntities], [MethodSketchConstraints],\n[MethodSketchDimensions]. SketchIndex is the sketch's index in the active part's\nsketch collection (as returned by [MethodSketchCreate] / [MethodSketchList]).\n```"]
+pub struct SketchArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchBlockDefinitionInfo is one row of [MethodSketchBlockDefinitionList] and\nthe result of [MethodSketchBlockDefinitionCreate]: the definition's identity\nplus how much geometry it holds and how widely it is instanced.\n```"]
+pub struct SketchBlockDefinitionInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub entity_count: i64 => required("entityCount");
+    pub instance_count: i64 => required("instanceCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchBlockInfo is one row of [MethodSketchListBlockInstances]: a placed\nblock instance — its session id, the definition it instances, its placement\n(insertion point in sketch cm, rotation in radians CCW, uniform scale), and\nthe live entity count of its definition.\n```"]
+pub struct SketchBlockInfo {
+    pub index: i64 => required("index");
+    pub id: u64 => required("id");
+    pub definition: String => required("definition");
+    pub position: Option<Vec<f64>> => finite("position");
+    pub rotation: f64 => finite("rotation");
+    pub scale: f64 => finite("scale");
+    pub entity_count: i64 => required("entityCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchCustomLineTypeResult is the response of [MethodSketchSetCustomLineType] and\n[MethodSketchGetCustomLineType]. Loaded reports whether the sketch holds a custom\ndefinition; Pattern is the .lin dash sequence (>0 dash, <0 gap, 0 dot), lengths\nin cm.\n```"]
+pub struct SketchCustomLineTypeResult {
+    pub loaded: bool => required("loaded");
+    pub line_type_name: String => omitted("lineTypeName", "crate::json::is_zero");
+    pub full_file_name: String => omitted("fullFileName", "crate::json::is_zero");
+    pub pattern: Option<Vec<f64>> => omitted_finite("pattern", "crate::json::slice_is_empty");
 }
 }

@@ -201,15 +201,11 @@ pub const METHOD_MODEL_STATES_CREATE: &str = "modelStates.create";
 
 pub const METHOD_MODEL_STATES_DELETE: &str = "modelStates.delete";
 
-pub const METHOD_MODEL_STATES_GET_PROPERTY_TABLE: &str = "modelStates.getPropertyTable";
-
 pub const METHOD_MODEL_STATES_GET_TABLE: &str = "modelStates.getTable";
 
 pub const METHOD_MODEL_STATES_LIST: &str = "modelStates.list";
 
 pub const METHOD_MODEL_STATES_RENAME: &str = "modelStates.rename";
-
-pub const METHOD_MODEL_STATES_SET_PROPERTY_TABLE: &str = "modelStates.setPropertyTable";
 
 pub const METHOD_MODEL_STATES_SET_TABLE: &str = "modelStates.setTable";
 
@@ -462,3 +458,7 @@ pub const METHOD_SKETCH_DELETE_CONSTRAINT: &str = "sketch.deleteConstraint";
 pub const METHOD_SKETCH_DELETE_DIMENSION: &str = "sketch.deleteDimension";
 
 pub const METHOD_SKETCH_DEPENDENTS: &str = "sketch.dependents";
+
+pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
+
+pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";

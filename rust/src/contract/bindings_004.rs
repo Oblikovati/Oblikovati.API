@@ -3,22 +3,6 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nSaveOptions is the application-level save policy. Setters error when the\nhost does not implement the requested behavior (no dead settings).\n```"]
-pub trait SaveOptions {
-    #[doc = "```text\nOldVersionsToKeep returns how many prior versions a save retains in the\nOldVersions sibling directory; 0 disables retention.\n```"]
-    fn old_versions_to_keep(&self) -> i64;
-    #[doc = "```text\nSaveDependents reports whether saving a document also saves its dirty\nreferenced documents first.\n```"]
-    fn save_dependents(&self) -> bool;
-    #[doc = "```text\nSetOldVersionsToKeep sets the retention count, erroring on negatives.\n```"]
-    fn set_old_versions_to_keep(&self, count: i64) -> Result<(), crate::Error>;
-    #[doc = "```text\nSetSaveDependents toggles dependent saving.\n```"]
-    fn set_save_dependents(&self, save: bool) -> ();
-    #[doc = "```text\nSetThumbnail selects the capture mode, erroring on modes this host\ncannot perform.\n```"]
-    fn set_thumbnail(&self, option: crate::types::ThumbnailSaveOption) -> Result<(), crate::Error>;
-    #[doc = "```text\nThumbnail returns how a preview thumbnail is captured on save.\n```"]
-    fn thumbnail(&self) -> crate::types::ThumbnailSaveOption;
-}
-
 #[doc = "```text\nSectionDrawingView is a view cut from a parent view by a section line: the model is sliced by\nthe plane through that line (perpendicular to the parent), the near half removed, the cut\noutline drawn bold and the exposed faces hatched. The reference contracts give section views a\ndistinct interface (unlike auxiliary/projected, which are a plain DrawingView + a type tag).\n```"]
 pub trait SectionDrawingView: crate::contract::DrawingView {
     #[doc = "```text\nSectionDepthMM is the retained-slab depth in model millimetres, or 0 for a full through-cut\n(#1982).\n```"]
@@ -455,4 +439,19 @@ pub trait TransientGeometry:
     + crate::contract::TransientCurves2d
     + crate::contract::TransientSurfaces
 {
+}
+
+#[doc = "```text\nTransientObjects is the discoverable construction point for the utility\ncollections, mirroring the reference factory so add-in code ports naturally\n(geometry construction is [TransientGeometry]).\n```"]
+pub trait TransientObjects {
+    #[doc = "```text\nCreateNameValueMap returns an empty ordered options bag.\n```"]
+    fn create_name_value_map(&self) -> std::sync::Arc<dyn crate::contract::NameValueMap>;
+    #[doc = "```text\nCreateObjectCollection returns a collection seeded with refs, in order.\n```"]
+    fn create_object_collection(
+        &self,
+        refs: Option<Vec<crate::types::ObjectRef>>,
+    ) -> std::sync::Arc<dyn crate::contract::ObjectCollection>;
+    #[doc = "```text\nCreateObjectCollectionByVariant returns an empty keyed collection.\n```"]
+    fn create_object_collection_by_variant(
+        &self,
+    ) -> std::sync::Arc<dyn crate::contract::ObjectCollectionByVariant>;
 }

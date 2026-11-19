@@ -9,16 +9,6 @@ import (
 	"testing"
 )
 
-func TestRustParityParametersDeleteGroup(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
-	checkGoGroup(t, c, "Parameters", "DeleteGroup")
-}
-
-func TestRustParityParametersDependents(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodParametersDependents})
-	checkGoGroup(t, c, "Parameters", "Dependents")
-}
-
 func TestRustParityParametersDrivenBy(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersDrivenBy})
 	checkGoGroup(t, c, "Parameters", "DrivenBy")
@@ -157,4 +147,14 @@ func TestRustParityPartDesignViewsSetBodyVisibility(t *testing.T) {
 func TestRustParityPartDesignViewsSetOptions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPartDesignViewsSetOptions})
 	checkGoGroup(t, c, "PartDesignViews", "SetOptions")
+}
+
+func TestRustParityPatternCircular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Circular")
+}
+
+func TestRustParityPatternRectangular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Rectangular")
 }

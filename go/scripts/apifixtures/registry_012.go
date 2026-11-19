@@ -19,9 +19,6 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.ModelHealthResult", reflect.TypeFor[wire.ModelHealthResult]()},
 	{"wire.ModelStateInfo", reflect.TypeFor[wire.ModelStateInfo]()},
 	{"wire.ModelStateNameArgs", reflect.TypeFor[wire.ModelStateNameArgs]()},
-	{"wire.ModelStatePropertyCell", reflect.TypeFor[wire.ModelStatePropertyCell]()},
-	{"wire.ModelStatePropertyColumn", reflect.TypeFor[wire.ModelStatePropertyColumn]()},
-	{"wire.ModelStatePropertyTableView", reflect.TypeFor[wire.ModelStatePropertyTableView]()},
 	{"wire.ModelStateResult", reflect.TypeFor[wire.ModelStateResult]()},
 	{"wire.ModelStateTableColumnRef", reflect.TypeFor[wire.ModelStateTableColumnRef]()},
 	{"wire.ModelStateTableCreatedRow", reflect.TypeFor[wire.ModelStateTableCreatedRow]()},
@@ -89,4 +86,7 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.ParameterImportResult", reflect.TypeFor[wire.ParameterImportResult]()},
 	{"wire.ParameterInfo", reflect.TypeFor[wire.ParameterInfo]()},
 	{"wire.ParameterNameArgs", reflect.TypeFor[wire.ParameterNameArgs]()},
+	{"wire.ParameterNamesResult", reflect.TypeFor[wire.ParameterNamesResult]()},
+	{"wire.ParameterRenameArgs", reflect.TypeFor[wire.ParameterRenameArgs]()},
+	{"wire.ParameterSetArgs", reflect.TypeFor[wire.ParameterSetArgs]()},
 }

@@ -9,16 +9,6 @@ import (
 	"testing"
 )
 
-func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
-	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
-}
-
-func TestRustParitySketch3DSolve(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
-	checkGoGroup(t, c, "Sketch3D", "Solve")
-}
-
 func TestRustParitySketch3DTransform(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DTransform})
 	checkGoGroup(t, c, "Sketch3D", "Transform")
@@ -157,4 +147,14 @@ func TestRustParitySketchFormatModes(t *testing.T) {
 func TestRustParitySketchGet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGet})
 	checkGoGroup(t, c, "Sketch", "Get")
+}
+
+func TestRustParitySketchGetCustomLineType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
+	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
+}
+
+func TestRustParitySketchGetText(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetText})
+	checkGoGroup(t, c, "Sketch", "GetText")
 }

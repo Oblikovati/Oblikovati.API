@@ -4,56 +4,6 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
-#[doc = "```text\nSetClientGraphicsVisibleArgs is the request of [MethodClientGraphicsSetVisible].\n```"]
-pub struct SetClientGraphicsVisibleArgs {
-    pub client_id: String => required("clientId");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetColorSchemeArgs is the request of [MethodColorSchemesSetActive]: activate the scheme by\nname (schemes are identified by name).\n```"]
-pub struct SetColorSchemeArgs {
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of\nits own commands' live ribbon state. Active toggles the button's pressed/highlighted look\n(rendered in the accent color), so a stateful control like a presenter or follow toggle\nreads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.\n\"Presenter\" → \"Presenting\") — leave it empty to keep the current label. Enabled, when\nnon-nil, greys the button out (false) or restores it (true) — e.g. a collaboration add-in\ndisabling its presenter/follow controls until the user joins a session; nil leaves the\nenabled state unchanged.\n```"]
-pub struct SetCommandStateArgs {
-    pub id: String => required("id");
-    pub active: bool => required("active");
-    pub enabled: Option<Box<bool>> => omitted("enabled", "Option::is_none");
-    pub display_name: String => omitted("displayName", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetConstraintLimitsArgs is the request of [MethodAssemblyConstraintsSetLimits]: set (or\nclear) the driven-value Limits of the constraint with id ID.\n```"]
-pub struct SetConstraintLimitsArgs {
-    pub id: u64 => required("id");
-    pub limits: crate::wire::ConstraintLimits => required("limits");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetContextMenuArgs is the request of [MethodUISetContextMenu]: replace an\nadd-in's injected entries for one browser node kind (e.g. \"feature\", \"sketch\",\n\"body\"; \"\" injects into every node's menu) — the OnContextMenu equivalent,\ndeclarative so no round-trip happens while the menu is open.\n```"]
-pub struct SetContextMenuArgs {
-    pub add_in: String => required("addin");
-    pub kind: String => required("kind");
-    pub items: Option<Vec<crate::wire::ContextMenuItemSpec>> => required("items");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
-pub struct SetDimensionInspectionArgs {
-    pub name: String => required("name");
-    pub inspection: crate::types::InspectionDimension => required("inspection");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nSetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any\nsubset of the named dimension's text overrides (#1992/#1993). Each pointer field is applied only\nwhen present, so one call can set a prefix without clearing an override.\n```"]
 pub struct SetDimensionTextStyleArgs {
     pub name: String => required("name");
@@ -328,14 +278,6 @@ pub struct SetModelReferenceResult {
 }
 
 generated_dto! {
-#[doc = "```text\nSetModelStatePropertyTableArgs replaces the displayed property columns and\ntheir member values as one undoable document edit. If ExpectedGeneration is\nsupplied it must equal the current document generation. Duplicate columns,\nmissing or duplicate member cells, unknown properties, invalid typed values,\nstale generations, unit-bearing values, and altered default values are rejected\nwithout mutation. Values use the document-property types and carry no unit string.\nRemoving a displayed\ncolumn does not delete existing member property values. A canceled UI draft\nsends no set request. Example: `wire.SetModelStatePropertyTableArgs{Columns: columns}`.\n```"]
-pub struct SetModelStatePropertyTableArgs {
-    pub expected_generation: Option<Box<u64>> => omitted("expectedGeneration", "Option::is_none");
-    pub columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("columns");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nSetModelStateTableArgs is a complete staged table applied as one undoable\ntransaction. ExpectedGeneration must equal the sampled generation. Every\ncollection is required, including explicit empty collections. Visible column\nreferences are unique and point to typed records; retained hidden records are\nnot in Columns. Each record has exactly one cell per row in row order. The\nclient must echo unchanged bases. A stale generation, bad reference, invalid\nvalue or failed validation rejects the entire edit. The active member is\nretained unless its row is deleted, in which case Primary becomes active.\nExample: `wire.SetModelStateTableArgs{ExpectedGeneration: generation, Rows: rows}`.\n```"]
 pub struct SetModelStateTableArgs {
     pub expected_generation: u64 => required("expectedGeneration");
@@ -460,5 +402,55 @@ pub struct SetPointCloudCropActiveArgs {
     pub cloud: String => required("cloud");
     pub crop: String => required("crop");
     pub active: bool => required("active");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudDensityArgs is the request of [MethodPointCloudsSetDensity]: the display budget\n(MaximumPointCount); 0 shows every point.\n```"]
+pub struct SetPointCloudDensityArgs {
+    pub name: String => required("name");
+    pub maximum_point_count: i64 => required("maximumPointCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport\ncolouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.\n```"]
+pub struct SetPointCloudDisplayModeArgs {
+    pub name: String => required("name");
+    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudScaleArgs is the request of [MethodPointCloudsSetScale]: the new uniform\ncloud→model scale, which must be positive.\n```"]
+pub struct SetPointCloudScaleArgs {
+    pub name: String => required("name");
+    pub scale: f64 => finite("scale");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudTransformArgs is the request of [MethodPointCloudsSetTransform]: the new\ncloud→model placement.\n```"]
+pub struct SetPointCloudTransformArgs {
+    pub name: String => required("name");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudVisibleArgs is the request of [MethodPointCloudsSetVisible].\n```"]
+pub struct SetPointCloudVisibleArgs {
+    pub name: String => required("name");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPositionalOverrideArgs overrides a constraint's or joint's value within a positional\nrepresentation (IsJoint selects which relationship id space the id is in).\n```"]
+pub struct SetPositionalOverrideArgs {
+    pub rep: u64 => required("rep");
+    pub relationship: u64 => required("relationship");
+    pub is_joint: bool => omitted("isJoint", "crate::json::is_zero");
+    pub value: f64 => finite("value");
 }
 }

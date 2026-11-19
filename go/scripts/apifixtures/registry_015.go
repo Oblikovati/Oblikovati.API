@@ -9,15 +9,11 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
-	{"wire.SetLightArgs", reflect.TypeFor[wire.SetLightArgs]()},
-	{"wire.SetLightingStyleArgs", reflect.TypeFor[wire.SetLightingStyleArgs]()},
-	{"wire.SetManipulatorsArgs", reflect.TypeFor[wire.SetManipulatorsArgs]()},
 	{"wire.SetMarkingMenuArgs", reflect.TypeFor[wire.SetMarkingMenuArgs]()},
 	{"wire.SetMeshColorsArgs", reflect.TypeFor[wire.SetMeshColorsArgs]()},
 	{"wire.SetMiniToolbarArgs", reflect.TypeFor[wire.SetMiniToolbarArgs]()},
 	{"wire.SetModelReferenceArgs", reflect.TypeFor[wire.SetModelReferenceArgs]()},
 	{"wire.SetModelReferenceResult", reflect.TypeFor[wire.SetModelReferenceResult]()},
-	{"wire.SetModelStatePropertyTableArgs", reflect.TypeFor[wire.SetModelStatePropertyTableArgs]()},
 	{"wire.SetModelStateTableArgs", reflect.TypeFor[wire.SetModelStateTableArgs]()},
 	{"wire.SetNodeSelectableArgs", reflect.TypeFor[wire.SetNodeSelectableArgs]()},
 	{"wire.SetNodeTransformArgs", reflect.TypeFor[wire.SetNodeTransformArgs]()},
@@ -89,4 +85,8 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchEntityFormatArgs", reflect.TypeFor[wire.SketchEntityFormatArgs]()},
 	{"wire.SketchEntityFormatView", reflect.TypeFor[wire.SketchEntityFormatView]()},
 	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
+	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
+	{"wire.SketchInferenceScopeArgs", reflect.TypeFor[wire.SketchInferenceScopeArgs]()},
+	{"wire.SketchInferenceScopeView", reflect.TypeFor[wire.SketchInferenceScopeView]()},
+	{"wire.SketchInfo", reflect.TypeFor[wire.SketchInfo]()},
 }

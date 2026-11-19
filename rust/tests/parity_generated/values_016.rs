@@ -52,23 +52,6 @@ fn wire_model_state_name_args() {
 }
 
 #[test]
-fn wire_model_state_property_cell() {
-    super::check::<oblikovati_api::wire::ModelStatePropertyCell>("wire.ModelStatePropertyCell");
-}
-
-#[test]
-fn wire_model_state_property_column() {
-    super::check::<oblikovati_api::wire::ModelStatePropertyColumn>("wire.ModelStatePropertyColumn");
-}
-
-#[test]
-fn wire_model_state_property_table_view() {
-    super::check::<oblikovati_api::wire::ModelStatePropertyTableView>(
-        "wire.ModelStatePropertyTableView",
-    );
-}
-
-#[test]
 fn wire_model_state_result() {
     super::check::<oblikovati_api::wire::ModelStateResult>("wire.ModelStateResult");
 }
@@ -323,4 +306,19 @@ fn wire_open_document_args() {
 #[test]
 fn wire_option_group_view() {
     super::check::<oblikovati_api::wire::OptionGroupView>("wire.OptionGroupView");
+}
+
+#[test]
+fn wire_orientation_result() {
+    super::check::<oblikovati_api::wire::OrientationResult>("wire.OrientationResult");
+}
+
+#[test]
+fn wire_orientations_result() {
+    super::check::<oblikovati_api::wire::OrientationsResult>("wire.OrientationsResult");
+}
+
+#[test]
+fn wire_panel_control_spec() {
+    super::check::<oblikovati_api::wire::PanelControlSpec>("wire.PanelControlSpec");
 }

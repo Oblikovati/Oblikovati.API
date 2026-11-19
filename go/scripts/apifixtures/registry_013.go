@@ -9,9 +9,6 @@ import (
 )
 
 var fixtureGroup13 = []fixtureType{
-	{"wire.ParameterNamesResult", reflect.TypeFor[wire.ParameterNamesResult]()},
-	{"wire.ParameterRenameArgs", reflect.TypeFor[wire.ParameterRenameArgs]()},
-	{"wire.ParameterSetArgs", reflect.TypeFor[wire.ParameterSetArgs]()},
 	{"wire.ParameterSettingsInfo", reflect.TypeFor[wire.ParameterSettingsInfo]()},
 	{"wire.ParameterSettingsUpdateArgs", reflect.TypeFor[wire.ParameterSettingsUpdateArgs]()},
 	{"wire.ParameterSweepArgs", reflect.TypeFor[wire.ParameterSweepArgs]()},
@@ -89,4 +86,7 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.ReplaceOccurrenceArgs", reflect.TypeFor[wire.ReplaceOccurrenceArgs]()},
 	{"wire.RepositionPatternElementArgs", reflect.TypeFor[wire.RepositionPatternElementArgs]()},
 	{"wire.RepresentationEventPayload", reflect.TypeFor[wire.RepresentationEventPayload]()},
+	{"wire.RepresentationInfo", reflect.TypeFor[wire.RepresentationInfo]()},
+	{"wire.RequiresUpdateResult", reflect.TypeFor[wire.RequiresUpdateResult]()},
+	{"wire.ResetBindingArgs", reflect.TypeFor[wire.ResetBindingArgs]()},
 }

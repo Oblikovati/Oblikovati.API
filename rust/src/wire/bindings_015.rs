@@ -3,10 +3,6 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
-
-pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";
-
 pub const METHOD_SKETCH_EDIT: &str = "sketch.edit";
 
 pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
@@ -407,34 +403,6 @@ pub struct ModelStateNameArgs {
 }
 
 generated_dto! {
-#[doc = "```text\nModelStatePropertyCell is one member's authored value. A nil Value inherits\nthe column's DefaultValue; it is distinct from an empty string. MemberID must be\na nonzero member identity in the active part. Example:\n`wire.ModelStatePropertyCell{MemberID: 1, Value: nil}`.\n```"]
-pub struct ModelStatePropertyCell {
-    pub member_id: u64 => required("memberId");
-    pub value: Option<Box<crate::types::Variant>> => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStatePropertyColumn addresses a property and has exactly one cell per\ncurrent member, in member order. DefaultValue is the document value inherited\nby members without an override; nil means the underlying property is absent.\nColumns are ordered and have unique keys.\nExample: `wire.ModelStatePropertyColumn{Property: key, Cells: cells}`.\n```"]
-pub struct ModelStatePropertyColumn {
-    pub property: crate::types::ModelStatePropertyKey => required("property");
-    pub default_value: Option<Box<crate::types::Variant>> => required("defaultValue");
-    pub cells: Option<Vec<crate::wire::ModelStatePropertyCell>> => required("cells");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStatePropertyTableView is the active part's displayed property table.\nGeneration identifies the sampled document generation; Members are in table\norder, AvailableProperties lists properties that can be selected, and Columns\ncontains the displayed properties. RetainedColumns contains hidden properties\nwith their preserved defaults and member values. A cell without a value is not a blank\nstring. Example: `view, err := client.ModelStates().GetPropertyTable()`.\n```"]
-pub struct ModelStatePropertyTableView {
-    pub generation: u64 => required("generation");
-    pub members: Option<Vec<crate::wire::ModelStateInfo>> => required("members");
-    pub available_properties: Option<Vec<crate::types::ModelStatePropertyKey>> => required("availableProperties");
-    pub columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("columns");
-    pub retained_columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("retainedColumns");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nResult envelopes.\n```"]
 pub struct ModelStateResult {
     pub model_state: crate::wire::ModelStateInfo => required("modelState");
@@ -456,5 +424,34 @@ generated_dto! {
 pub struct ModelStateTableCreatedRow {
     pub draft_key: String => required("draftKey");
     pub member_id: u64 => required("memberId");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableDiagnostic identifies a rejected table cell or a table-wide error.\nA nil Row and zero ParameterID identify an error that is not specific to a cell.\nExample: `wire.ModelStateTableDiagnostic{Row: &row, ParameterID: 3, Message: \"unknown name\"}`.\n```"]
+pub struct ModelStateTableDiagnostic {
+    pub row: Option<Box<crate::wire::ModelStateTableRowRef>> => required("row");
+    pub parameter_id: u64 => required("parameterId");
+    pub expression: String => required("expression");
+    pub message: String => required("message");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableEvaluation describes a read-only evaluated parameter cell.\nFailure is empty for a healthy value. Example:\n`wire.ModelStateTableEvaluation{ParameterID: 1, Row: row, Value: \"10 mm\"}`.\n```"]
+pub struct ModelStateTableEvaluation {
+    pub parameter_id: u64 => required("parameterId");
+    pub row: crate::wire::ModelStateTableRowRef => required("row");
+    pub value: String => required("value");
+    pub failure: String => required("failure");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableFeatureChoice names a selectable authored feature.\nExample: `wire.ModelStateTableFeatureChoice{ID: 1, Name: \"Extrusion1\"}`.\n```"]
+pub struct ModelStateTableFeatureChoice {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub base_suppressed: bool => required("baseSuppressed");
 }
 }

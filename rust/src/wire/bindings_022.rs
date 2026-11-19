@@ -4,64 +4,6 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
-#[doc = "```text\nSketch3DInfo is one row of [MethodSketch3DList] and the result of [MethodSketch3DGet]:\na 3D sketch's identity, visibility, entity count, remaining DOF, edit state, health,\nand the display/solve overrides (dimensions-visible, color, defer).\n```"]
-pub struct Sketch3DInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub visible: bool => required("visible");
-    pub dimensions_visible: bool => required("dimensionsVisible");
-    pub entity_count: i64 => required("entityCount");
-    pub dof: i64 => required("dof");
-    pub editing: bool => required("editing");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nShared reports the \"share sketch\" flag. (A 3D sketch's consumed/ownedBy state\nawaits the 3D path→sketch dependency link; see the 2D [SketchInfo] for those notions.)\n```"]
-    pub shared: bool => omitted("shared", "crate::json::is_zero");
-    pub color: String => omitted("color", "crate::json::is_zero");
-    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchArgs is the request of the per-sketch methods that take only a target:\n[MethodSketchGet], [MethodSketchEdit], [MethodSketchExitEdit], [MethodSketchSolve],\n[MethodSketchDelete], [MethodSketchEntities], [MethodSketchConstraints],\n[MethodSketchDimensions]. SketchIndex is the sketch's index in the active part's\nsketch collection (as returned by [MethodSketchCreate] / [MethodSketchList]).\n```"]
-pub struct SketchArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchBlockDefinitionInfo is one row of [MethodSketchBlockDefinitionList] and\nthe result of [MethodSketchBlockDefinitionCreate]: the definition's identity\nplus how much geometry it holds and how widely it is instanced.\n```"]
-pub struct SketchBlockDefinitionInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub entity_count: i64 => required("entityCount");
-    pub instance_count: i64 => required("instanceCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchBlockInfo is one row of [MethodSketchListBlockInstances]: a placed\nblock instance — its session id, the definition it instances, its placement\n(insertion point in sketch cm, rotation in radians CCW, uniform scale), and\nthe live entity count of its definition.\n```"]
-pub struct SketchBlockInfo {
-    pub index: i64 => required("index");
-    pub id: u64 => required("id");
-    pub definition: String => required("definition");
-    pub position: Option<Vec<f64>> => finite("position");
-    pub rotation: f64 => finite("rotation");
-    pub scale: f64 => finite("scale");
-    pub entity_count: i64 => required("entityCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchCustomLineTypeResult is the response of [MethodSketchSetCustomLineType] and\n[MethodSketchGetCustomLineType]. Loaded reports whether the sketch holds a custom\ndefinition; Pattern is the .lin dash sequence (>0 dash, <0 gap, 0 dot), lengths\nin cm.\n```"]
-pub struct SketchCustomLineTypeResult {
-    pub loaded: bool => required("loaded");
-    pub line_type_name: String => omitted("lineTypeName", "crate::json::is_zero");
-    pub full_file_name: String => omitted("fullFileName", "crate::json::is_zero");
-    pub pattern: Option<Vec<f64>> => omitted_finite("pattern", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
 #[doc = "```text\nSketchDependent is one thing that depends on a sketch — today a feature that consumes it,\naddressed by its stable id (from model.tree), with its display name and kind.\n```"]
 pub struct SketchDependent {
     pub id: u64 => required("id");
@@ -455,5 +397,68 @@ pub struct ThemeView {
     pub name: String => required("name");
     pub kind: String => required("kind");
     pub colors: Option<std::collections::BTreeMap<String, String>> => required("colors");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadInfoResult is the response of [MethodThreadsResolve]: the resolved\nthread data. Diameters and pitch are millimetres. PitchDiameter is the ISO\nbasic pitch diameter; TapDrillDiameter the drill for a tapped hole of this\nthread (≈ the minor diameter).\n```"]
+pub struct ThreadInfoResult {
+    pub designation: String => required("designation");
+    pub thread_type: String => required("threadType");
+    pub nominal_size: String => required("nominalSize");
+    pub class: String => omitted("class", "crate::json::is_zero");
+    pub metric: bool => required("metric");
+    pub internal: bool => required("internal");
+    pub right_handed: bool => required("rightHanded");
+    pub tapered: bool => required("tapered");
+    pub pitch: f64 => finite("pitch");
+    pub major_diameter: f64 => finite("majorDiameter");
+    pub minor_diameter: f64 => finite("minorDiameter");
+    pub pitch_diameter: f64 => finite("pitchDiameter");
+    pub tap_drill_diameter: f64 => finite("tapDrillDiameter");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryArgs is the request of [MethodThreadsTableQuery]. The query\nis progressive: with no filters the result lists the thread types; given\nThreadType it also lists that type's nominal sizes; given NominalSize the\ndesignations; given Designation the classes. Internal narrows class\nlistings to the internal (nut) or external (bolt) side.\n```"]
+pub struct ThreadTableQueryArgs {
+    pub internal: bool => omitted("internal", "crate::json::is_zero");
+    pub thread_type: String => omitted("threadType", "crate::json::is_zero");
+    pub nominal_size: String => omitted("nominalSize", "crate::json::is_zero");
+    pub designation: String => omitted("designation", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryResult is the response of [MethodThreadsTableQuery]. Each\nlevel is filled when its prerequisite filter was given (ThreadTypes always).\n```"]
+pub struct ThreadTableQueryResult {
+    pub thread_types: Option<Vec<String>> => required("threadTypes");
+    pub nominal_sizes: Option<Vec<String>> => omitted("nominalSizes", "crate::json::slice_is_empty");
+    pub designations: Option<Vec<String>> => omitted("designations", "crate::json::slice_is_empty");
+    pub classes: Option<Vec<String>> => omitted("classes", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockField is one resolved title-block field: its name, the resolved text, and\nthe source it resolved from (a \"Set:Property\" iProperty token, or \"\" for static text).\n```"]
+pub struct TitleBlockField {
+    pub name: String => required("name");
+    pub value: String => required("value");
+    pub source: String => omitted("source", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsArgs is the request of [MethodDrawingTitleBlockFields]: the sheet\nwhose title-block fields to resolve. An empty Sheet uses the active sheet.\n```"]
+pub struct TitleBlockFieldsArgs {
+    pub sheet: String => omitted("sheet", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsResult is the response of [MethodDrawingTitleBlockFields]: the title\nblock's definition name and its resolved fields. Fields is empty when the sheet has\nno title block.\n```"]
+pub struct TitleBlockFieldsResult {
+    pub definition_name: String => required("definitionName");
+    pub fields: Option<Vec<crate::wire::TitleBlockField>> => required("fields");
 }
 }
