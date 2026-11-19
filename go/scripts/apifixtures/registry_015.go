@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetSketchSettingsArgs", reflect.TypeFor[wire.SetSketchSettingsArgs]()},
 	{"wire.SetSplineHandleArgs", reflect.TypeFor[wire.SetSplineHandleArgs]()},
 	{"wire.SetStandardArgs", reflect.TypeFor[wire.SetStandardArgs]()},
 	{"wire.SetStatusTextArgs", reflect.TypeFor[wire.SetStatusTextArgs]()},
@@ -52,6 +53,8 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchEntityFormatView", reflect.TypeFor[wire.SketchEntityFormatView]()},
 	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
+	{"wire.SketchInferenceScopeArgs", reflect.TypeFor[wire.SketchInferenceScopeArgs]()},
+	{"wire.SketchInferenceScopeView", reflect.TypeFor[wire.SketchInferenceScopeView]()},
 	{"wire.SketchInfo", reflect.TypeFor[wire.SketchInfo]()},
 	{"wire.SketchMoveDimensionChange", reflect.TypeFor[wire.SketchMoveDimensionChange]()},
 	{"wire.SketchMoveGeometricChange", reflect.TypeFor[wire.SketchMoveGeometricChange]()},
@@ -86,7 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.ThemeSummary", reflect.TypeFor[wire.ThemeSummary]()},
 	{"wire.ThemeView", reflect.TypeFor[wire.ThemeView]()},
 	{"wire.ThreadInfoResult", reflect.TypeFor[wire.ThreadInfoResult]()},
-	{"wire.ThreadTableQueryArgs", reflect.TypeFor[wire.ThreadTableQueryArgs]()},
-	{"wire.ThreadTableQueryResult", reflect.TypeFor[wire.ThreadTableQueryResult]()},
-	{"wire.TitleBlockField", reflect.TypeFor[wire.TitleBlockField]()},
 }

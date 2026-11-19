@@ -10,6 +10,7 @@ import (
 )
 
 var fixtureGroup4 = []fixtureType{
+	{"types.SketchPointInferenceKind", reflect.TypeFor[types.SketchPointInferenceKind]()},
 	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
 	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
 	{"types.SolutionNature", reflect.TypeFor[types.SolutionNature]()},
@@ -89,5 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddCustomArgs", reflect.TypeFor[wire.AddCustomArgs]()},
 	{"wire.AddCustomTableArgs", reflect.TypeFor[wire.AddCustomTableArgs]()},
 	{"wire.AddDSJointArgs", reflect.TypeFor[wire.AddDSJointArgs]()},
-	{"wire.AddDatumFeatureArgs", reflect.TypeFor[wire.AddDatumFeatureArgs]()},
 }

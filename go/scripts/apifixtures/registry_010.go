@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup10 = []fixtureType{
+	{"wire.GetFileArgs", reflect.TypeFor[wire.GetFileArgs]()},
 	{"wire.GetMarkingMenuArgs", reflect.TypeFor[wire.GetMarkingMenuArgs]()},
 	{"wire.GetOptionGroupArgs", reflect.TypeFor[wire.GetOptionGroupArgs]()},
 	{"wire.GetPropertyArgs", reflect.TypeFor[wire.GetPropertyArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup10 = []fixtureType{
 	{"wire.ListDisplayModesResult", reflect.TypeFor[wire.ListDisplayModesResult]()},
 	{"wire.ListDockableWindowsResult", reflect.TypeFor[wire.ListDockableWindowsResult]()},
 	{"wire.ListDocumentFileReferencesArgs", reflect.TypeFor[wire.ListDocumentFileReferencesArgs]()},
-	{"wire.ListDocumentFileReferencesResult", reflect.TypeFor[wire.ListDocumentFileReferencesResult]()},
 }

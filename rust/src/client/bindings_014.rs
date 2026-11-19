@@ -5,6 +5,15 @@
 
 impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchOffset` with the canonical request and response types.
+    /// Example: `client.sketch().offset(&args)`.
+    pub fn offset(
+        &self,
+        args: &crate::wire::OffsetSketchArgs,
+    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
+    }
+
+    /// Call `MethodSketchOffset` with the canonical request and response types.
     /// Example: `client.sketch().offset_chain(&args)`.
     pub fn offset_chain(
         &self,
@@ -143,6 +152,18 @@ impl<T: super::Caller> super::Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_OPTIONS, Some(args))
     }
 
+    /// Call `MethodSketchSetInferenceScope` with the canonical request and response types.
+    /// Example: `client.sketch().set_inference_scope(&args)`.
+    pub fn set_inference_scope(
+        &self,
+        args: &crate::wire::SketchInferenceScopeView,
+    ) -> Result<crate::wire::SketchInferenceScopeView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_SCOPE, Some(args))
+    }
+}
+
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetProperty` with the canonical request and response types.
     /// Example: `client.sketch().set_property(&args)`.
     pub fn set_property(
@@ -162,9 +183,7 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_SPLINE_HANDLE, Some(args))
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetTextFont` with the canonical request and response types.
     /// Example: `client.sketch().set_text_font(&args)`.
     pub fn set_text_font(

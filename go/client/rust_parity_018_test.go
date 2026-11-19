@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchRegionProperties(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchRegionProperties})
+	checkGoGroup(t, c, "Sketch", "RegionProperties")
+}
+
 func TestRustParitySketchResolveReference(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchResolveReference})
 	checkGoGroup(t, c, "Sketch", "ResolveReference")
@@ -32,6 +37,11 @@ func TestRustParitySketchSetFormatModes(t *testing.T) {
 func TestRustParitySketchSetInferenceOptions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetInferenceOptions})
 	checkGoGroup(t, c, "Sketch", "SetInferenceOptions")
+}
+
+func TestRustParitySketchSetInferenceScope(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetInferenceScope})
+	checkGoGroup(t, c, "Sketch", "SetInferenceScope")
 }
 
 func TestRustParitySketchSetProperty(t *testing.T) {
@@ -147,14 +157,4 @@ func TestRustParityTransactionsHistory(t *testing.T) {
 func TestRustParityTransactionsJumpTo(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodTransactionJumpTo})
 	checkGoGroup(t, c, "Transactions", "JumpTo")
-}
-
-func TestRustParityTransactionsRedo(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodTransactionRedo})
-	checkGoGroup(t, c, "Transactions", "Redo")
-}
-
-func TestRustParityTransactionsState(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodTransactionState})
-	checkGoGroup(t, c, "Transactions", "State")
 }

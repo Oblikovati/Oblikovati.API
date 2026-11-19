@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup13 = []fixtureType{
+	{"wire.PositionalInfo", reflect.TypeFor[wire.PositionalInfo]()},
 	{"wire.PositionalResult", reflect.TypeFor[wire.PositionalResult]()},
 	{"wire.PositionalsResult", reflect.TypeFor[wire.PositionalsResult]()},
 	{"wire.PressKeyArgs", reflect.TypeFor[wire.PressKeyArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.SelectArgs", reflect.TypeFor[wire.SelectArgs]()},
 	{"wire.SelectionChangedEvent", reflect.TypeFor[wire.SelectionChangedEvent]()},
 	{"wire.SelectionResult", reflect.TypeFor[wire.SelectionResult]()},
-	{"wire.SetActiveSheetArgs", reflect.TypeFor[wire.SetActiveSheetArgs]()},
 }

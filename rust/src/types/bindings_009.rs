@@ -3,6 +3,16 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SYMMETRIC_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(9);
+
+pub const SYMMETRIC_TOLERANCE: crate::types::DimensionToleranceType =
+    crate::types::DimensionToleranceType(1);
+
+pub const TABLE_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(5);
+
+pub const TANGENT_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(1);
+
 pub const TANGENT_FLAT_PATTERN_EDGE: crate::types::FlatPatternEdgeType =
     crate::types::FlatPatternEdgeType(2);
 
@@ -449,10 +459,3 @@ pub const UP_TO_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
     crate::types::CachedGraphicsStatusEnum(103171);
 
 pub const USER_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(2);
-
-generated_scalar! { integer,
-#[doc = "```text\nValueType is the type tag of a [Variant]. Numeric values are FROZEN to the\nreference ValueTypeEnum — clients and saved automations depend on them.\n```"]
-pub struct ValueType(pub i32);
-}
-
-pub const VERTICAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(1);

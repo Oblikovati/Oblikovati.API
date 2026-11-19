@@ -236,6 +236,9 @@ const (
 	// (M06-F10, #625).
 	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
 	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
+	// Candidate geometry for the currently edited 2D sketch (Oblikovati/Oblikovati#4107).
+	MethodSketchGetInferenceScope = "sketch.getInferenceScope"
+	MethodSketchSetInferenceScope = "sketch.setInferenceScope"
 
 	// The sketch Format panel (Oblikovati/Oblikovati#2015): per-entity line type, colour and
 	// stroke width, and the panel's armed creation modes.

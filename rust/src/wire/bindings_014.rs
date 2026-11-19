@@ -457,8 +457,8 @@ pub const METHOD_SKETCH_GET_FORMAT_MODES: &str = "sketch.getFormatModes";
 
 pub const METHOD_SKETCH_GET_INFERENCE_OPTIONS: &str = "sketch.getInferenceOptions";
 
+pub const METHOD_SKETCH_GET_INFERENCE_SCOPE: &str = "sketch.getInferenceScope";
+
 pub const METHOD_SKETCH_GET_TEXT: &str = "sketch.getText";
 
 pub const METHOD_SKETCH_LIST: &str = "sketch.list";
-
-pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";

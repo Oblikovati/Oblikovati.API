@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup9 = []fixtureType{
+	{"wire.DriveSketch3DDimensionArgs", reflect.TypeFor[wire.DriveSketch3DDimensionArgs]()},
 	{"wire.DrivingParametersResult", reflect.TypeFor[wire.DrivingParametersResult]()},
 	{"wire.DuplicateAssetArgs", reflect.TypeFor[wire.DuplicateAssetArgs]()},
 	{"wire.EdgesOfTypeArgs", reflect.TypeFor[wire.EdgesOfTypeArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.GetAttributeArgs", reflect.TypeFor[wire.GetAttributeArgs]()},
 	{"wire.GetCameraArgs", reflect.TypeFor[wire.GetCameraArgs]()},
 	{"wire.GetDisplaySettingsArgs", reflect.TypeFor[wire.GetDisplaySettingsArgs]()},
-	{"wire.GetFileArgs", reflect.TypeFor[wire.GetFileArgs]()},
 }

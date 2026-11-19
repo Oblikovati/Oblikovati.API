@@ -3,6 +3,14 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+generated_dto! {
+#[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
+pub struct ObjectRef {
+    pub kind: String => required("kind");
+    pub id: u64 => required("id");
+}
+}
+
 generated_scalar! { integer,
 #[doc = "```text\nOccurrenceDOFState classifies a single degree of freedom for \"show DOF\" purposes (the reference CAD API's\nOccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state\nvalue. The zero value is NoDegreeOfFreedomState.\n```"]
 pub struct OccurrenceDOFState(pub i32);
@@ -453,9 +461,3 @@ pub const POLYLINE_CURVE: crate::types::CurveType = crate::types::CurveType(5129
 pub const POLYLINE_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5257);
 
 pub const POPUP_CONTROL: crate::types::ControlKind = crate::types::ControlKind(4);
-
-pub const POSITION_FITTED: crate::types::PatternPositioningMethod =
-    crate::types::PatternPositioningMethod(113409);
-
-pub const POSITION_INCREMENTAL: crate::types::PatternPositioningMethod =
-    crate::types::PatternPositioningMethod(113410);

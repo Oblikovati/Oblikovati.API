@@ -3,6 +3,8 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_LIST_BLOCK_INSTANCES: &str = "sketch.blockInstances";
+
 pub const METHOD_SKETCH_MOVE_DIMENSION: &str = "sketch.moveDimension";
 
 pub const METHOD_SKETCH_OFFSET: &str = "sketch.offset";
@@ -32,6 +34,8 @@ pub const METHOD_SKETCH_SET_ENTITY_FORMAT: &str = "sketch.setEntityFormat";
 pub const METHOD_SKETCH_SET_FORMAT_MODES: &str = "sketch.setFormatModes";
 
 pub const METHOD_SKETCH_SET_INFERENCE_OPTIONS: &str = "sketch.setInferenceOptions";
+
+pub const METHOD_SKETCH_SET_INFERENCE_SCOPE: &str = "sketch.setInferenceScope";
 
 pub const METHOD_SKETCH_SET_PROPERTY: &str = "sketch.setProperty";
 

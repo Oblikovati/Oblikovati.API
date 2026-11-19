@@ -77,6 +77,11 @@ fn types_sketch_format_modes() {
 }
 
 #[test]
+fn types_sketch_inference_scope() {
+    super::check::<oblikovati_api::types::SketchInferenceScope>("types.SketchInferenceScope");
+}
+
+#[test]
 fn types_sketch_line_type() {
     super::check::<oblikovati_api::types::SketchLineType>("types.SketchLineType");
 }
@@ -300,9 +305,4 @@ fn types_view_layout() {
 #[test]
 fn types_view_operation_type_enum() {
     super::check::<oblikovati_api::types::ViewOperationTypeEnum>("types.ViewOperationTypeEnum");
-}
-
-#[test]
-fn types_view_orientation_type_enum() {
-    super::check::<oblikovati_api::types::ViewOrientationTypeEnum>("types.ViewOrientationTypeEnum");
 }

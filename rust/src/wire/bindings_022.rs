@@ -4,6 +4,24 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nStrokeSetResult is the wireframe payload: every edge sampled into a\npolyline; PolylineLengths gives each polyline's point count, in order,\nover the shared VertexCoordinates.\n```"]
+pub struct StrokeSetResult {
+    pub vertex_count: i64 => required("vertexCount");
+    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
+    pub polyline_count: i64 => required("polylineCount");
+    pub polyline_lengths: Option<Vec<i64>> => omitted("polylineLengths", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nStyleChangedEvent is the payload of the [EventStyleAdded] / [EventStyleChanged] /\n[EventStyleDeleted] push events: the style that changed and its kind (\"color\" / \"lighting\").\n```"]
+pub struct StyleChangedEvent {
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nStyleLibrariesResult is the response of [MethodStylesListLibraries]: the loaded libraries in\ncascade order.\n```"]
 pub struct StyleLibrariesResult {
     pub libraries: Option<Vec<crate::wire::StyleLibraryInfo>> => required("libraries");
@@ -437,28 +455,5 @@ generated_dto! {
 pub struct UpdateProgressResult {
     pub ok: bool => required("ok");
     pub cancelled: bool => omitted("cancelled", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nValidateBodyArgs is the request of [MethodBodyValidate]. CheckLevel 1 runs\nthe topology checks (manifold/orientation/closure); 2 adds the face\nself-intersection scan. 0 means 1.\n```"]
-pub struct ValidateBodyArgs {
-    pub body_index: i64 => required("bodyIndex");
-    pub check_level: i64 => omitted("checkLevel", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nValidateBodyResult is the response of [MethodBodyValidate].\n```"]
-pub struct ValidateBodyResult {
-    pub valid: bool => required("valid");
-    pub problems: Option<Vec<crate::wire::ProblemEntityInfo>> => omitted("problems", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nValueResult is a single numeric value in database units (response of\n[MethodUnitsGetValueFromExpression]).\n```"]
-pub struct ValueResult {
-    pub value: f64 => finite("value");
 }
 }

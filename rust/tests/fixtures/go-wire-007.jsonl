@@ -1,3 +1,6 @@
+{"Name":"types.UnitVector","Case":"zero","Payload":[0,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0, 0)"}
+{"Name":"types.UnitVector","Case":"filled","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
+{"Name":"types.UnitVector","Case":"empty","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
 {"Name":"types.UnitVector2d","Case":"zero","Payload":[0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0)"}
 {"Name":"types.UnitVector2d","Case":"filled","Payload":[1,0],"Canonical":[1,0],"Error":""}
 {"Name":"types.UnitVector2d","Case":"empty","Payload":[1,0],"Canonical":[1,0],"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.AddDSJointArgs","Case":"zero","Payload":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"type":""},"Canonical":{"a":{"occurrence":0,"entity":""},"b":{"occurrence":0,"entity":""},"type":""},"Error":""}
 {"Name":"wire.AddDSJointArgs","Case":"filled","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AddDSJointArgs","Case":"empty","Payload":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Canonical":{"a":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"b":{"occurrence":7,"entity":"example \u003c\u0026\u003e 日本語"},"type":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddDatumFeatureArgs","Case":"zero","Payload":{"xmm":0,"ymm":0,"letter":""},"Canonical":{"xmm":0,"ymm":0,"letter":""},"Error":""}
-{"Name":"wire.AddDatumFeatureArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"letter":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"letter":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddDatumFeatureArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"letter":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","xmm":1.25,"ymm":1.25,"letter":"example \u003c\u0026\u003e 日本語"},"Error":""}

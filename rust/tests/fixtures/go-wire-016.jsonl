@@ -1,3 +1,6 @@
+{"Name":"wire.GetFileArgs","Case":"zero","Payload":{"fullFileName":""},"Canonical":{"fullFileName":""},"Error":""}
+{"Name":"wire.GetFileArgs","Case":"filled","Payload":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.GetFileArgs","Case":"empty","Payload":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"fullFileName":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.GetMarkingMenuArgs","Case":"zero","Payload":{"environment":0},"Canonical":{"environment":0},"Error":""}
 {"Name":"wire.GetMarkingMenuArgs","Case":"filled","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
 {"Name":"wire.GetMarkingMenuArgs","Case":"empty","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.LanguageInfoResult","Case":"zero","Payload":{"locale":""},"Canonical":{"locale":""},"Error":""}
 {"Name":"wire.LanguageInfoResult","Case":"filled","Payload":{"locale":"example \u003c\u0026\u003e 日本語"},"Canonical":{"locale":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.LanguageInfoResult","Case":"empty","Payload":{"locale":"example \u003c\u0026\u003e 日本語"},"Canonical":{"locale":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.LayoutResult","Case":"zero","Payload":{"layout":0},"Canonical":{"layout":0},"Error":""}
-{"Name":"wire.LayoutResult","Case":"filled","Payload":{"document":7,"layout":7},"Canonical":{"document":7,"layout":7},"Error":""}
-{"Name":"wire.LayoutResult","Case":"empty","Payload":{"document":7,"layout":7},"Canonical":{"document":7,"layout":7},"Error":""}

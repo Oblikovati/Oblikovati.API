@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CreateWorkAxisResult", reflect.TypeFor[wire.CreateWorkAxisResult]()},
 	{"wire.CreateWorkPlaneArgs", reflect.TypeFor[wire.CreateWorkPlaneArgs]()},
 	{"wire.CreateWorkPlaneResult", reflect.TypeFor[wire.CreateWorkPlaneResult]()},
 	{"wire.CreateWorkPointArgs", reflect.TypeFor[wire.CreateWorkPointArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DrivePlacement", reflect.TypeFor[wire.DrivePlacement]()},
 	{"wire.DriveResult", reflect.TypeFor[wire.DriveResult]()},
 	{"wire.DriveSettingsDTO", reflect.TypeFor[wire.DriveSettingsDTO]()},
-	{"wire.DriveSketch3DDimensionArgs", reflect.TypeFor[wire.DriveSketch3DDimensionArgs]()},
 }

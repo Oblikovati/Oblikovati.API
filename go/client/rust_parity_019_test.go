@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityTransactionsRedo(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTransactionRedo})
+	checkGoGroup(t, c, "Transactions", "Redo")
+}
+
+func TestRustParityTransactionsState(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTransactionState})
+	checkGoGroup(t, c, "Transactions", "State")
+}
+
 func TestRustParityTransactionsUndo(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodTransactionUndo})
 	checkGoGroup(t, c, "Transactions", "Undo")
@@ -147,14 +157,4 @@ func TestRustParityUISetMarkingMenu(t *testing.T) {
 func TestRustParityUISetObjectVisibility(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUISetObjectVisibility})
 	checkGoGroup(t, c, "UI", "SetObjectVisibility")
-}
-
-func TestRustParityUnitsCompatibleUnits(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsCompatibleUnits})
-	checkGoGroup(t, c, "Units", "CompatibleUnits")
-}
-
-func TestRustParityUnitsConvert(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodUnitsConvert})
-	checkGoGroup(t, c, "Units", "Convert")
 }

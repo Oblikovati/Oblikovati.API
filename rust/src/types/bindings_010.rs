@@ -3,6 +3,13 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+generated_scalar! { integer,
+#[doc = "```text\nValueType is the type tag of a [Variant]. Numeric values are FROZEN to the\nreference ValueTypeEnum — clients and saved automations depend on them.\n```"]
+pub struct ValueType(pub i32);
+}
+
+pub const VERTICAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(1);
+
 pub const VERTICAL_DIMENSION: crate::types::DrawingDimensionType =
     crate::types::DrawingDimensionType(2);
 

@@ -43,6 +43,9 @@
 {"Name":"types.SketchFormatModes","Case":"zero","Payload":{"construction":false,"centerline":false,"centerPoint":false,"drivenDimension":false,"suppressFormatOverrides":false},"Canonical":{"construction":false,"centerline":false,"centerPoint":false,"drivenDimension":false,"suppressFormatOverrides":false},"Error":""}
 {"Name":"types.SketchFormatModes","Case":"filled","Payload":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Canonical":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Error":""}
 {"Name":"types.SketchFormatModes","Case":"empty","Payload":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Canonical":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Error":""}
+{"Name":"types.SketchInferenceScope","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchInferenceScope","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchInferenceScope","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchLineType","Case":"zero","Payload":"","Canonical":"","Error":""}
 {"Name":"types.SketchLineType","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchLineType","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
@@ -145,6 +148,3 @@
 {"Name":"types.UnfoldMethodType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.UnfoldMethodType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.UnfoldMethodType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnitVector","Case":"zero","Payload":[0,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0, 0)"}
-{"Name":"types.UnitVector","Case":"filled","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
-{"Name":"types.UnitVector","Case":"empty","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}

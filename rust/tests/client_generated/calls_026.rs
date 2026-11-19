@@ -130,6 +130,20 @@ fn sketch_inference_options() {
 }
 
 #[test]
+fn sketch_inference_scope() {
+    let args: oblikovati_api::wire::SketchInferenceScopeArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_GET_INFERENCE_SCOPE,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.sketch().inference_scope(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn sketch_list() {
     let fake =
         super::super::RecordingCaller::new(oblikovati_api::wire::METHOD_SKETCH_LIST, Vec::new());
@@ -221,15 +235,4 @@ fn sketch_project_silhouette() {
         client.sketch().project_silhouette(&args).unwrap_err().0,
         "recorded"
     );
-}
-
-#[test]
-fn sketch_rectangle() {
-    let args: oblikovati_api::wire::SketchRectangleArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_RECTANGLE,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.sketch().rectangle(&args).unwrap_err().0, "recorded");
 }

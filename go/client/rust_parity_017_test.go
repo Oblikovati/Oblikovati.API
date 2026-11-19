@@ -104,6 +104,11 @@ func TestRustParitySketchInferenceOptions(t *testing.T) {
 	checkGoGroup(t, c, "Sketch", "InferenceOptions")
 }
 
+func TestRustParitySketchInferenceScope(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceScope})
+	checkGoGroup(t, c, "Sketch", "InferenceScope")
+}
+
 func TestRustParitySketchList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchList})
 	checkGoGroup(t, c, "Sketch", "List")
@@ -152,9 +157,4 @@ func TestRustParitySketchRectangle(t *testing.T) {
 func TestRustParitySketchReferenceKey(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchReferenceKey})
 	checkGoGroup(t, c, "Sketch", "ReferenceKey")
-}
-
-func TestRustParitySketchRegionProperties(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchRegionProperties})
-	checkGoGroup(t, c, "Sketch", "RegionProperties")
 }

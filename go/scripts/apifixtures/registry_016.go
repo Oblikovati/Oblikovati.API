@@ -9,6 +9,9 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.ThreadTableQueryArgs", reflect.TypeFor[wire.ThreadTableQueryArgs]()},
+	{"wire.ThreadTableQueryResult", reflect.TypeFor[wire.ThreadTableQueryResult]()},
+	{"wire.TitleBlockField", reflect.TypeFor[wire.TitleBlockField]()},
 	{"wire.TitleBlockFieldsArgs", reflect.TypeFor[wire.TitleBlockFieldsArgs]()},
 	{"wire.TitleBlockFieldsResult", reflect.TypeFor[wire.TitleBlockFieldsResult]()},
 	{"wire.ToleranceInfo", reflect.TypeFor[wire.ToleranceInfo]()},

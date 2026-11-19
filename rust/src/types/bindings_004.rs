@@ -345,6 +345,15 @@ pub const INFERENCE_NONE: crate::types::PointInferenceKind = crate::types::Point
 
 pub const INFERENCE_POINT: crate::types::PointInferenceKind = crate::types::PointInferenceKind(1);
 
+pub const INFERENCE_SCOPE_ALL_GEOMETRY: crate::types::SketchInferenceScope =
+    crate::types::SketchInferenceScope(std::borrow::Cow::Borrowed("allGeometry"));
+
+pub const INFERENCE_SCOPE_CURRENT_COMMAND: crate::types::SketchInferenceScope =
+    crate::types::SketchInferenceScope(std::borrow::Cow::Borrowed("currentCommand"));
+
+pub const INFERENCE_SCOPE_SELECTED_GEOMETRY: crate::types::SketchInferenceScope =
+    crate::types::SketchInferenceScope(std::borrow::Cow::Borrowed("selectedGeometry"));
+
 pub const INFINITELY_MANY_SOLUTIONS: crate::types::SolutionNature = crate::types::SolutionNature(3);
 
 pub const INSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30978);
@@ -454,10 +463,3 @@ pub const LAYOUT_FOUR: crate::types::ViewLayout = crate::types::ViewLayout(4);
 pub const LAYOUT_SINGLE: crate::types::ViewLayout = crate::types::ViewLayout(0);
 
 pub const LAYOUT_THREE: crate::types::ViewLayout = crate::types::ViewLayout(3);
-
-pub const LAYOUT_TWO_H: crate::types::ViewLayout = crate::types::ViewLayout(1);
-
-pub const LAYOUT_TWO_V: crate::types::ViewLayout = crate::types::ViewLayout(2);
-
-pub const LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10758);

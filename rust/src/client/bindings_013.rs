@@ -313,18 +313,19 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         )
     }
 
+    /// Call `MethodSketchGetInferenceScope` with the canonical request and response types.
+    /// Example: `client.sketch().inference_scope(&args)`.
+    pub fn inference_scope(
+        &self,
+        args: &crate::wire::SketchInferenceScopeArgs,
+    ) -> Result<crate::wire::SketchInferenceScopeView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_GET_INFERENCE_SCOPE, Some(args))
+    }
+
     /// Call `MethodSketchList` with the canonical request and response types.
     /// Example: `client.sketch().list()`.
     pub fn list(&self) -> Result<crate::wire::ListSketchesResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH_LIST, None::<&()>)
-    }
-
-    /// Call `MethodSketchOffset` with the canonical request and response types.
-    /// Example: `client.sketch().offset(&args)`.
-    pub fn offset(
-        &self,
-        args: &crate::wire::OffsetSketchArgs,
-    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
     }
 }

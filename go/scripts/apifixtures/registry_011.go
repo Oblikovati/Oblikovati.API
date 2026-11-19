@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListDocumentFileReferencesResult", reflect.TypeFor[wire.ListDocumentFileReferencesResult]()},
 	{"wire.ListDocumentInterestsArgs", reflect.TypeFor[wire.ListDocumentInterestsArgs]()},
 	{"wire.ListDocumentInterestsResult", reflect.TypeFor[wire.ListDocumentInterestsResult]()},
 	{"wire.ListDocumentSubTypesResult", reflect.TypeFor[wire.ListDocumentSubTypesResult]()},
@@ -88,5 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.MirrorIntoPartArgs", reflect.TypeFor[wire.MirrorIntoPartArgs]()},
 	{"wire.ModelChangedEvent", reflect.TypeFor[wire.ModelChangedEvent]()},
 	{"wire.ModelHealthArgs", reflect.TypeFor[wire.ModelHealthArgs]()},
-	{"wire.ModelHealthResult", reflect.TypeFor[wire.ModelHealthResult]()},
 }

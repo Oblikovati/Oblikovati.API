@@ -57,6 +57,14 @@ pub trait SketchBlockDefinition {
     fn name(&self) -> String;
 }
 
+#[doc = "```text\nSketchInferenceScope is the scalar view of a 2D sketch's session inference scope.\nExample: `mode := scope.InferenceScope()`.\n```"]
+pub trait SketchInferenceScope {
+    #[doc = "```text\nInferenceScope reports the active candidate-geometry mode.\n```"]
+    fn inference_scope(&self) -> crate::types::SketchInferenceScope;
+    #[doc = "```text\nInferenceScopeEntityCount reports the number of selected candidates.\n```"]
+    fn inference_scope_entity_count(&self) -> i64;
+}
+
 #[doc = "```text\nSphere is a full sphere (u longitude, v latitude).\n```"]
 pub trait Sphere: crate::contract::Surface {
     fn center(&self) -> crate::types::Point;

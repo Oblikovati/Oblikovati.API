@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup6 = []fixtureType{
+	{"wire.AssemblyFeatureHealth", reflect.TypeFor[wire.AssemblyFeatureHealth]()},
 	{"wire.AssemblyFeatureInfo", reflect.TypeFor[wire.AssemblyFeatureInfo]()},
 	{"wire.AssemblyFeatureResult", reflect.TypeFor[wire.AssemblyFeatureResult]()},
 	{"wire.AssemblyFeaturesChangedEvent", reflect.TypeFor[wire.AssemblyFeaturesChangedEvent]()},
@@ -88,5 +89,4 @@ var fixtureGroup6 = []fixtureType{
 	{"wire.BrowserNodeEvent", reflect.TypeFor[wire.BrowserNodeEvent]()},
 	{"wire.BrowserNodeSpec", reflect.TypeFor[wire.BrowserNodeSpec]()},
 	{"wire.BrowserPaneSpec", reflect.TypeFor[wire.BrowserPaneSpec]()},
-	{"wire.CalculateFacetsArgs", reflect.TypeFor[wire.CalculateFacetsArgs]()},
 }

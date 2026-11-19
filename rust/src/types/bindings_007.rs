@@ -3,6 +3,12 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const POSITION_FITTED: crate::types::PatternPositioningMethod =
+    crate::types::PatternPositioningMethod(113409);
+
+pub const POSITION_INCREMENTAL: crate::types::PatternPositioningMethod =
+    crate::types::PatternPositioningMethod(113410);
+
 pub const PRECISION_DEGREES_ANGLE: crate::types::CustomPropertyPrecision =
     crate::types::CustomPropertyPrecision(85522);
 
@@ -455,9 +461,3 @@ pub const SKETCH3_D_ENTITY_HELICAL: crate::types::Sketch3DEntityKind =
 
 pub const SKETCH3_D_ENTITY_INCLUDED_CURVE: crate::types::Sketch3DEntityKind =
     crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedCurve"));
-
-pub const SKETCH3_D_ENTITY_INCLUDED_POINT: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedPoint"));
-
-pub const SKETCH3_D_ENTITY_INTERSECTION: crate::types::Sketch3DEntityKind =
-    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("intersection"));

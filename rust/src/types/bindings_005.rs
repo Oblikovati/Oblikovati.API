@@ -3,6 +3,13 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const LAYOUT_TWO_H: crate::types::ViewLayout = crate::types::ViewLayout(1);
+
+pub const LAYOUT_TWO_V: crate::types::ViewLayout = crate::types::ViewLayout(2);
+
+pub const LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10758);
+
 pub const LIBRARY_STYLE_LOCATION: crate::types::StyleLocationEnum =
     crate::types::StyleLocationEnum(51203);
 
@@ -452,11 +459,3 @@ pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
 
 pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
     crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));
-
-generated_dto! {
-#[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
-pub struct ObjectRef {
-    pub kind: String => required("kind");
-    pub id: u64 => required("id");
-}
-}

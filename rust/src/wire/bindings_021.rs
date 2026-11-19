@@ -247,6 +247,22 @@ pub struct SketchFormatModesView {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchInferenceScopeArgs identifies a 2D sketch by its zero-based index in\nthe current part. It is the request of\n[MethodSketchGetInferenceScope].\nExample: `args := wire.SketchInferenceScopeArgs{SketchIndex: 0}`.\n```"]
+pub struct SketchInferenceScopeArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchInferenceScopeView is the applied inference scope for a 2D sketch in\nthe current document session. Entities are nonzero, distinct entity IDs owned by that sketch and\nare valid for that sketch session. SelectedGeometry requires at least one\neligible entity; the other modes require an empty list. Selection is a set,\nand hosts return it in ascending ID order. A set request replaces the entire\nscope atomically; invalid references leave the prior scope unchanged.\nThe scope is retained during the active sketch session. No default, disk\npersistence, or cross-session retention is implied. Preview and commit use\nthe same applied scope. Canceling a UI draft does not set this value.\nExample: `wire.SketchInferenceScopeView{SketchIndex: 0, Scope: types.InferenceScopeAllGeometry}`.\n```"]
+pub struct SketchInferenceScopeView {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub scope: crate::types::SketchInferenceScope => required("scope");
+    pub entities: Option<Vec<u64>> => required("entities");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a\nsketch's identity, host plane label, visibility, entity count, remaining DOF, edit\nstate, health, and the display/solve overrides (color, line type/weight, defer).\n```"]
 pub struct SketchInfo {
     pub index: i64 => required("index");
@@ -439,23 +455,5 @@ generated_dto! {
 #[doc = "```text\nStringResult is a single formatted/normalized string (response of the\nvalue-formatting and locale/type-name methods).\n```"]
 pub struct StringResult {
     pub value: String => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStrokeSetResult is the wireframe payload: every edge sampled into a\npolyline; PolylineLengths gives each polyline's point count, in order,\nover the shared VertexCoordinates.\n```"]
-pub struct StrokeSetResult {
-    pub vertex_count: i64 => required("vertexCount");
-    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
-    pub polyline_count: i64 => required("polylineCount");
-    pub polyline_lengths: Option<Vec<i64>> => omitted("polylineLengths", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nStyleChangedEvent is the payload of the [EventStyleAdded] / [EventStyleChanged] /\n[EventStyleDeleted] push events: the style that changed and its kind (\"color\" / \"lighting\").\n```"]
-pub struct StyleChangedEvent {
-    pub name: String => required("name");
-    pub kind: String => required("kind");
 }
 }

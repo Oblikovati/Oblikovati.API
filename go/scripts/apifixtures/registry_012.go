@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup12 = []fixtureType{
+	{"wire.ModelHealthResult", reflect.TypeFor[wire.ModelHealthResult]()},
 	{"wire.ModelStateInfo", reflect.TypeFor[wire.ModelStateInfo]()},
 	{"wire.ModelStateNameArgs", reflect.TypeFor[wire.ModelStateNameArgs]()},
 	{"wire.ModelStateResult", reflect.TypeFor[wire.ModelStateResult]()},
@@ -88,5 +89,4 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.PointCloudNameArgs", reflect.TypeFor[wire.PointCloudNameArgs]()},
 	{"wire.PointCloudSpaceArgs", reflect.TypeFor[wire.PointCloudSpaceArgs]()},
 	{"wire.PointCloudSpaceResult", reflect.TypeFor[wire.PointCloudSpaceResult]()},
-	{"wire.PositionalInfo", reflect.TypeFor[wire.PositionalInfo]()},
 }

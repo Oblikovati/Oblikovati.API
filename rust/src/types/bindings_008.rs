@@ -3,6 +3,12 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SKETCH3_D_ENTITY_INCLUDED_POINT: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedPoint"));
+
+pub const SKETCH3_D_ENTITY_INTERSECTION: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("intersection"));
+
 generated_scalar! { string,
 #[doc = "```text\nSketch3DEntityKind discriminates the kind of a 3D (non-planar) sketch entity in the\nwire protocol — the value of\n[oblikovati.org/api/wire.AddSketch3DEntityArgs.Kind] and of each enumerated\n3D entity's Kind. The set is the full 3D-sketch geometry family; the string\nvalues are frozen. Members are wired in across M22 (F02 base curves, F03 conics/\nsplines, F04 helix, F11 surface-derived curves).\n```"]
 pub struct Sketch3DEntityKind(pub std::borrow::Cow<'static, str>);
@@ -155,6 +161,11 @@ pub const SKETCH_INFERENCE_ON_CURVE: crate::types::SketchPointInferenceKind =
 
 pub const SKETCH_INFERENCE_ON_POINT: crate::types::SketchPointInferenceKind =
     crate::types::SketchPointInferenceKind(22275);
+
+generated_scalar! { string,
+#[doc = "```text\nSketchInferenceScope identifies the geometry eligible for 2D sketch inference.\nExample: `scope := types.InferenceScopeAllGeometry`.\n```"]
+pub struct SketchInferenceScope(pub std::borrow::Cow<'static, str>);
+}
 
 pub const SKETCH_LINE_CENTER: crate::types::SketchLineType =
     crate::types::SketchLineType(std::borrow::Cow::Borrowed("center"));
@@ -451,13 +462,3 @@ generated_scalar! { integer,
 #[doc = "```text\nSweepType is the placed feature's sweep kind (the SweepFeature property\nmirroring its definition type).\n```"]
 pub struct SweepType(pub i32);
 }
-
-pub const SYMMETRIC_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(9);
-
-pub const SYMMETRIC_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(1);
-
-pub const TABLE_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(5);
-
-pub const TANGENT_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(1);
