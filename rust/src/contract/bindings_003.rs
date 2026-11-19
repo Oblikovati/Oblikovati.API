@@ -142,6 +142,18 @@ pub trait ModelState {
     fn positional_name(&self) -> String;
 }
 
+#[doc = "```text\nModelStatePropertyTable exposes the currently displayed property-column count.\nExample: `count := table.PropertyColumnCount()`.\n```"]
+pub trait ModelStatePropertyTable {
+    #[doc = "```text\nPropertyColumnCount reports the number of displayed property columns.\n```"]
+    fn property_column_count(&self) -> i64;
+}
+
+#[doc = "```text\nModelStateTable exposes the active document's ordered model-state table.\nExample: `count := table.ColumnCount()`.\n```"]
+pub trait ModelStateTable {
+    #[doc = "```text\nColumnCount reports the number of visible columns across all categories.\n```"]
+    fn column_count(&self) -> i64;
+}
+
 #[doc = "```text\nModelStates is a part or assembly's model-state collection in creation order.\n```"]
 pub trait ModelStates:
     crate::contract::Enumerable<std::sync::Arc<dyn crate::contract::ModelState>>
@@ -439,20 +451,4 @@ pub trait RotateRotateConstraint: crate::contract::AssemblyConstraint {
 pub trait RotateTranslateConstraint: crate::contract::AssemblyConstraint {
     #[doc = "```text\nDistance is the translation moved per revolution (cm).\n```"]
     fn distance(&self) -> f64;
-}
-
-#[doc = "```text\nSaveOptions is the application-level save policy. Setters error when the\nhost does not implement the requested behavior (no dead settings).\n```"]
-pub trait SaveOptions {
-    #[doc = "```text\nOldVersionsToKeep returns how many prior versions a save retains in the\nOldVersions sibling directory; 0 disables retention.\n```"]
-    fn old_versions_to_keep(&self) -> i64;
-    #[doc = "```text\nSaveDependents reports whether saving a document also saves its dirty\nreferenced documents first.\n```"]
-    fn save_dependents(&self) -> bool;
-    #[doc = "```text\nSetOldVersionsToKeep sets the retention count, erroring on negatives.\n```"]
-    fn set_old_versions_to_keep(&self, count: i64) -> Result<(), crate::Error>;
-    #[doc = "```text\nSetSaveDependents toggles dependent saving.\n```"]
-    fn set_save_dependents(&self, save: bool) -> ();
-    #[doc = "```text\nSetThumbnail selects the capture mode, erroring on modes this host\ncannot perform.\n```"]
-    fn set_thumbnail(&self, option: crate::types::ThumbnailSaveOption) -> Result<(), crate::Error>;
-    #[doc = "```text\nThumbnail returns how a preview thumbnail is captured on save.\n```"]
-    fn thumbnail(&self) -> crate::types::ThumbnailSaveOption;
 }

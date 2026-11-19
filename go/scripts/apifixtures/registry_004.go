@@ -10,6 +10,8 @@ import (
 )
 
 var fixtureGroup4 = []fixtureType{
+	{"types.SketchInferenceScope", reflect.TypeFor[types.SketchInferenceScope]()},
+	{"types.SketchLineType", reflect.TypeFor[types.SketchLineType]()},
 	{"types.SketchMoveDimensionPolicy", reflect.TypeFor[types.SketchMoveDimensionPolicy]()},
 	{"types.SketchMoveGeometricPolicy", reflect.TypeFor[types.SketchMoveGeometricPolicy]()},
 	{"types.SketchPatternKind", reflect.TypeFor[types.SketchPatternKind]()},
@@ -88,6 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddCenterlinesArgs", reflect.TypeFor[wire.AddCenterlinesArgs]()},
 	{"wire.AddChamferNoteArgs", reflect.TypeFor[wire.AddChamferNoteArgs]()},
 	{"wire.AddCoGMarkerArgs", reflect.TypeFor[wire.AddCoGMarkerArgs]()},
-	{"wire.AddConstraintArgs", reflect.TypeFor[wire.AddConstraintArgs]()},
-	{"wire.AddConstraintResult", reflect.TypeFor[wire.AddConstraintResult]()},
 }

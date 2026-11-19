@@ -316,6 +316,28 @@ pub const MODEL_SPACE: crate::types::LineDefinitionSpaceEnum =
 
 pub const MODEL_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52993);
 
+generated_dto! {
+#[doc = "```text\nModelStatePropertyKey names a document property without depending on a display label.\nExample: `types.ModelStatePropertyKey{Set: \"Summary Information\", Name: \"Category\"}`.\n```"]
+pub struct ModelStatePropertyKey {
+    pub set: String => required("set");
+    pub name: String => required("name");
+}
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nModelStateTableColumnKind selects the owner of a model-state table column.\nExample: `types.ModelStateTablePropertyColumn` identifies a property column.\n```"]
+pub struct ModelStateTableColumnKind(pub i32);
+}
+
+pub const MODEL_STATE_TABLE_PARAMETER_COLUMN: crate::types::ModelStateTableColumnKind =
+    crate::types::ModelStateTableColumnKind(3);
+
+pub const MODEL_STATE_TABLE_PROPERTY_COLUMN: crate::types::ModelStateTableColumnKind =
+    crate::types::ModelStateTableColumnKind(1);
+
+pub const MODEL_STATE_TABLE_SUPPRESSION_COLUMN: crate::types::ModelStateTableColumnKind =
+    crate::types::ModelStateTableColumnKind(2);
+
 pub const MODEL_VALUE_LOWER: crate::types::ModelValueType = crate::types::ModelValueType(31490);
 
 pub const MODEL_VALUE_MEDIAN: crate::types::ModelValueType = crate::types::ModelValueType(31492);
@@ -439,23 +461,3 @@ pub const NORMAL_TO_PATH: crate::types::SweepProfileOrientation =
 pub const NOTE_BOOK_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9220);
 
 pub const NUMERIC_BORDER_LABEL: crate::types::BorderLabelMode = crate::types::BorderLabelMode(1);
-
-generated_scalar! { string,
-#[doc = "```text\nObjectKind identifies the kind of document object a metadata-mutation event concerns\n(Oblikovati/Oblikovati#1644): a body, sketch, feature, occurrence, or the document itself. It is\nthe discriminator carried by object.renamed and property.changed so ONE generic event serves\nevery rename / property change instead of a bespoke event per mutation — an add-in matches on\nKind to route the event to the right mirror of the document structure.\n```"]
-pub struct ObjectKind(pub std::borrow::Cow<'static, str>);
-}
-
-pub const OBJECT_KIND_BODY: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("body"));
-
-pub const OBJECT_KIND_DOCUMENT: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("document"));
-
-pub const OBJECT_KIND_FEATURE: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("feature"));
-
-pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("occurrence"));
-
-pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));

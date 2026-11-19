@@ -3,6 +3,85 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+/// Typed `Scripts` calls over the shared API transport.
+pub struct Scripts<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `Scripts` API. Example: `client.scripts()`.
+    pub fn scripts(&self) -> Scripts<'_, T> {
+        Scripts(self)
+    }
+}
+impl<T: super::Caller> Scripts<'_, T> {
+    /// Call `MethodScriptRun` with the canonical request and response types.
+    /// Example: `client.scripts().run(&args)`.
+    pub fn run(
+        &self,
+        args: &crate::wire::ScriptRunArgs,
+    ) -> Result<crate::wire::ScriptRunResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SCRIPT_RUN, Some(args))
+    }
+}
+
+/// Typed `SheetMetal` calls over the shared API transport.
+pub struct SheetMetal<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `SheetMetal` API. Example: `client.sheet_metal()`.
+    pub fn sheet_metal(&self) -> SheetMetal<'_, T> {
+        SheetMetal(self)
+    }
+}
+impl<T: super::Caller> SheetMetal<'_, T> {
+    /// Call `MethodSheetMetalBendAllowance` with the canonical request and response types.
+    /// Example: `client.sheet_metal().bend_allowance(&args)`.
+    pub fn bend_allowance(
+        &self,
+        args: &crate::wire::BendAllowanceArgs,
+    ) -> Result<crate::wire::BendAllowanceResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_BEND_ALLOWANCE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalBends` with the canonical request and response types.
+    /// Example: `client.sheet_metal().bends(&args)`.
+    pub fn bends(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::BendsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_BENDS, Some(args))
+    }
+
+    /// Call `MethodSheetMetalGetStyle` with the canonical request and response types.
+    /// Example: `client.sheet_metal().get_style(&args)`.
+    pub fn get_style(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_GET_STYLE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalSetStyle` with the canonical request and response types.
+    /// Example: `client.sheet_metal().set_style(&args)`.
+    pub fn set_style(
+        &self,
+        args: &crate::wire::SetSheetMetalStyleArgs,
+    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_SET_STYLE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalUnfold` with the canonical request and response types.
+    /// Example: `client.sheet_metal().unfold(&args)`.
+    pub fn unfold(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::UnfoldResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_UNFOLD, Some(args))
+    }
+}
+
 /// Typed `Sketch` calls over the shared API transport.
 pub struct Sketch<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {

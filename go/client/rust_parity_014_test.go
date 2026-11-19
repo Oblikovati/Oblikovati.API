@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityParametersDeleteGroup(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersGroupsDelete})
+	checkGoGroup(t, c, "Parameters", "DeleteGroup")
+}
+
+func TestRustParityParametersDependents(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersDependents})
+	checkGoGroup(t, c, "Parameters", "Dependents")
+}
+
+func TestRustParityParametersDrivenBy(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersDrivenBy})
+	checkGoGroup(t, c, "Parameters", "DrivenBy")
+}
+
+func TestRustParityParametersExport(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersExport})
+	checkGoGroup(t, c, "Parameters", "Export")
+}
+
+func TestRustParityParametersGet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodParametersGet})
+	checkGoGroup(t, c, "Parameters", "Get")
+}
+
 func TestRustParityParametersGetDetail(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodParametersGetDetail})
 	checkGoGroup(t, c, "Parameters", "GetDetail")
@@ -132,29 +157,4 @@ func TestRustParityPartDesignViewsSetBodyVisibility(t *testing.T) {
 func TestRustParityPartDesignViewsSetOptions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPartDesignViewsSetOptions})
 	checkGoGroup(t, c, "PartDesignViews", "SetOptions")
-}
-
-func TestRustParityPatternCircular(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
-	checkGoGroup(t, c, "Pattern", "Circular")
-}
-
-func TestRustParityPatternRectangular(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
-	checkGoGroup(t, c, "Pattern", "Rectangular")
-}
-
-func TestRustParityPointCloudsAddCrop(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodPointCloudsAddCrop})
-	checkGoGroup(t, c, "PointClouds", "AddCrop")
-}
-
-func TestRustParityPointCloudsAttach(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodPointCloudsAttach})
-	checkGoGroup(t, c, "PointClouds", "Attach")
-}
-
-func TestRustParityPointCloudsDelete(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodPointCloudsDelete})
-	checkGoGroup(t, c, "PointClouds", "Delete")
 }

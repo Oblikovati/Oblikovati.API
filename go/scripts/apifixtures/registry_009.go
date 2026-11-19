@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup9 = []fixtureType{
+	{"wire.DrawingViewInfo", reflect.TypeFor[wire.DrawingViewInfo]()},
+	{"wire.DriveDimensionArgs", reflect.TypeFor[wire.DriveDimensionArgs]()},
 	{"wire.DriveFrame", reflect.TypeFor[wire.DriveFrame]()},
 	{"wire.DriveJointArgs", reflect.TypeFor[wire.DriveJointArgs]()},
 	{"wire.DrivePlacement", reflect.TypeFor[wire.DrivePlacement]()},
@@ -87,6 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.FlatPatternOrientationInfo", reflect.TypeFor[wire.FlatPatternOrientationInfo]()},
 	{"wire.FlatPatternSettings", reflect.TypeFor[wire.FlatPatternSettings]()},
 	{"wire.FlatPunchInfo", reflect.TypeFor[wire.FlatPunchInfo]()},
-	{"wire.FlipWorkPlaneArgs", reflect.TypeFor[wire.FlipWorkPlaneArgs]()},
-	{"wire.FlipWorkPlaneResult", reflect.TypeFor[wire.FlipWorkPlaneResult]()},
 }

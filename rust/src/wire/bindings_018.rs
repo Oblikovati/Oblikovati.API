@@ -4,6 +4,224 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].\n```"]
+pub struct PointCloudCropArgs {
+    pub cloud: String => required("cloud");
+    pub crop: String => required("crop");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudCropInfo is one crop volume: the owning cloud, the crop name, whether it is active,\nand its model-space box corners.\n```"]
+pub struct PointCloudCropInfo {
+    pub cloud: String => required("cloud");
+    pub crop: String => required("crop");
+    pub active: bool => required("active");
+    pub min: crate::types::Point => raw(rename = "min");
+    pub max: crate::types::Point => raw(rename = "max");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudInfo is one attached cloud's state. Transform is the cloud→model placement; Scale is\nthe uniform cloud→model factor. TotalPointCount is the scan's size; DisplayedPointCount is how\nmany render after MaximumPointCount is applied (0 = unbounded). DisplayMode is how the cloud is\ncoloured in the viewport (#645).\n```"]
+pub struct PointCloudInfo {
+    pub name: String => required("name");
+    pub source: String => omitted("source", "crate::json::is_zero");
+    pub visible: bool => required("visible");
+    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
+    pub scale: f64 => finite("scale");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+    pub total_point_count: i64 => required("totalPointCount");
+    pub displayed_point_count: i64 => required("displayedPointCount");
+    pub maximum_point_count: i64 => omitted("maximumPointCount", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudNameArgs names a single cloud — the request of [MethodPointCloudsGet] and\n[MethodPointCloudsDelete].\n```"]
+pub struct PointCloudNameArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /\n[MethodPointCloudsFromModelSpace]: a point to map between cloud and model space.\n```"]
+pub struct PointCloudSpaceArgs {
+    pub name: String => required("name");
+    pub point: crate::types::Point => raw(rename = "point");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudSpaceResult is the response of the space-conversion methods: the mapped point. OK is\nfalse from fromModelSpace when the cloud's placement is non-invertible.\n```"]
+pub struct PointCloudSpaceResult {
+    pub point: crate::types::Point => raw(rename = "point");
+    pub ok: bool => required("ok");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPositionalInfo is one positional representation: its identity and the count of constraint/\njoint value overrides it carries.\n```"]
+pub struct PositionalInfo {
+    pub representation_info: crate::wire::RepresentationInfo => raw(flatten, deserialize_with = "crate::json::null_default");
+    pub override_count: i64 => omitted("overrideCount", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nResult envelopes.\n```"]
+pub struct PositionalResult {
+    pub representation: crate::wire::PositionalInfo => required("representation");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nResult envelopes.\n```"]
+pub struct PositionalsResult {
+    pub representations: Option<Vec<crate::wire::PositionalInfo>> => required("representations");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPressKeyArgs is the request of [MethodViewportKey]: a key to deliver to the running command.\n\nKey is the key's name — \"Escape\", \"Enter\", \"Delete\" — matching what the host's own input layer\nreports. Escape and Enter are the two that matter most: they are how a variable-length command\n(a continuous line chain, a spline) says it is finished.\n```"]
+pub struct PressKeyArgs {
+    pub key: String => required("key");
+    pub shift: bool => omitted("shift", "crate::json::is_zero");
+    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
+    pub alt: bool => omitted("alt", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPressKeyResult is the response of [MethodViewportKey]: the command still running after the key,\nempty when the key ended it.\n```"]
+pub struct PressKeyResult {
+    pub active_tool: String => required("activeTool");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProblemEntityInfo is one offending entity of a failed validity check.\n```"]
+pub struct ProblemEntityInfo {
+    pub kind: String => required("kind");
+    pub key: String => required("key");
+    pub transient_key: u64 => required("transientKey");
+    pub issue: String => required("issue");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProfile3DInfo is one enumerated profile from [MethodSketch3DProfiles]: a closed, planar\nloop of the 3D sketch. Index feeds a planar-section feature; Area is the enclosed area\n(model cm²); Normal is the loop plane's unit normal [x,y,z]; Vertices is the number of\nloop vertices.\n```"]
+pub struct Profile3DInfo {
+    pub index: i64 => required("index");
+    pub area: f64 => finite("area");
+    pub normal: Option<Vec<f64>> => finite("normal");
+    pub vertices: i64 => required("vertices");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProfileInfo is one enumerated profile from [MethodSketchProfiles]: its index, enclosed\narea (sketch-plane cm², holes subtracted), whether it is closed (a solid-extrudable\nregion), and the number of hole loops it contains. The Index feeds features.add's\nprofileIndex.\n```"]
+pub struct ProfileInfo {
+    pub index: i64 => required("index");
+    pub area: f64 => finite("area");
+    pub closed: bool => required("closed");
+    pub holes: i64 => required("holes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProgressCancelledEvent is the push event (type [EventProgressCancelled]) fired\nwhen the user cancels a progress bar.\n```"]
+pub struct ProgressCancelledEvent {
+#[doc = "```text\nalways EventProgressCancelled\n```"]
+    pub type_: String => required("type");
+    pub id: i64 => required("id");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProjectCutEdgesArgs is the request of [MethodSketchProjectCutEdges]: project the section\ncurves where the sketch plane cuts the part solid, as associative reference geometry — one\nprojected curve per section loop (the reference CAD API's PlanarSketch.ProjectedCuts, #1873).\n```"]
+pub struct ProjectCutEdgesArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProjectGeometryArgs is the request of [MethodSketchProject]: project the part topology\nreferenced by Refs (edge/vertex reference-key strings) onto the sketch plane. Mode is\n\"reference\" (associative reference geometry, default) or \"include\" (projected as\nordinary sketch geometry). Each ref becomes a projected point (vertex) or curve (edge).\n```"]
+pub struct ProjectGeometryArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub refs: Option<Vec<String>> => required("refs");
+    pub mode: String => omitted("mode", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProjectGeometryResult is the response of [MethodSketchProject]: the ids of the created\nprojected entities and whether every reference resolved. Shared by the cut-edge and\nsilhouette projection methods (#1873).\n```"]
+pub struct ProjectGeometryResult {
+    pub created: Option<Vec<u64>> => required("created");
+    pub healthy: bool => required("healthy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nProjectSilhouetteArgs is the request of [MethodSketchProjectSilhouette]: project the\nsilhouette of the face with reference key FaceRef onto the sketch plane, viewed along the\nplane normal (the reference CAD API's PlanarSketch.AddBySilhouette, #1873). ProximityPoint ([x,y,z] model\ncm) selects which silhouette loop when a face has several — the one nearest the point.\nIncludeBoundary keeps silhouette runs that coincide with the face's own edges.\n```"]
+pub struct ProjectSilhouetteArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub face_ref: String => required("faceRef");
+    pub proximity_point: Option<Vec<f64>> => finite("proximityPoint");
+    pub include_boundary: bool => omitted("includeBoundary", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPromptAnsweredEvent is the push event (type [EventPromptAnswered]) fired when the\nuser answers a pending prompt; Remembered reports they chose to keep the answer.\n```"]
+pub struct PromptAnsweredEvent {
+#[doc = "```text\nalways EventPromptAnswered\n```"]
+    pub type_: String => required("type");
+    pub id: String => required("id");
+    pub answer: String => required("answer");
+    pub remembered: bool => omitted("remembered", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPropertyChangedEvent is the JSON shape of the [EventPropertyChanged] push event: a document\nobject's property changed (e.g. suppression toggled, a sketch setting edited). Kind and Key\nidentify the object as in [ObjectRenamedEvent]; Property names the property (e.g. \"suppressed\");\nOldValue/NewValue are its prior and new values rendered as strings (a bool as \"true\"/\"false\"), so\none generic event carries any property without a bespoke DTO per setting.\n```"]
+pub struct PropertyChangedEvent {
+#[doc = "```text\nalways EventPropertyChanged\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub kind: crate::types::ObjectKind => required("kind");
+    pub key: String => omitted("key", "crate::json::is_zero");
+    pub property: String => required("property");
+    pub old_value: String => omitted("oldValue", "crate::json::is_zero");
+    pub new_value: String => omitted("newValue", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPropertyInfo is the JSON shape of one document property: its set, name, and typed value.\nFromParameter names the model parameter a property was exposed from (the iProperty bridge),\nempty for a directly authored property.\n```"]
+pub struct PropertyInfo {
+    pub set: String => required("set");
+    pub name: String => required("name");
+    pub value: crate::types::Variant => raw(rename = "value");
+    pub from_parameter: String => omitted("fromParameter", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPropertyResult is the response of [MethodDocumentsGetProperty] / [MethodDocumentsSetProperty]:\nthe addressed property's current state.\n```"]
+pub struct PropertyResult {
+    pub property: crate::wire::PropertyInfo => required("property");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPunchesResult is the reply of listPunches: every punch instance developed into the flat.\n```"]
+pub struct PunchesResult {
+    pub punches: Option<Vec<crate::wire::FlatPunchInfo>> => required("punches");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nRectangularPatternFeatureArgs is the args object for a [FeatureKindPatternRectangular]\n[MethodFeaturesAdd] call: replicate SourceFeatures on a grid. CountX/CountY are the per-\ndirection counts; CountXExpr/CountYExpr are their parameter-expression forms (when set,\nthey supersede the numeric counts) (#189). StepX/StepY are the per-direction spacing\nvectors [x,y,z] in cm (StepY optional for a 1-D pattern).\n```"]
 pub struct RectangularPatternFeatureArgs {
     pub source_features: Option<Vec<String>> => required("sourceFeatures");
@@ -239,226 +457,5 @@ generated_dto! {
 pub struct ReplaceOccurrenceArgs {
     pub id: u64 => required("id");
     pub document: u64 => required("document");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepositionPatternElementArgs is the request of [MethodAssemblyPatternElementReposition]: move\none element (by index) of the pattern (by id) to an explicit placement, off the regular grid.\n```"]
-pub struct RepositionPatternElementArgs {
-    pub pattern: u64 => required("pattern");
-    pub element: i64 => required("element");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationEventPayload is the relayed body of a representation/model-state event: the\nkind (\"designView\"/\"positional\"/\"levelOfDetail\"/\"modelState\"), the id, and the name.\n```"]
-pub struct RepresentationEventPayload {
-    pub kind: String => required("kind");
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationInfo is the identity row common to every representation family.\n```"]
-pub struct RepresentationInfo {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-    pub active: bool => omitted("active", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRequiresUpdateResult is the response of [MethodDocumentsRequiresUpdate]: the read-only flag\ntelling a client the active document has out-of-date features a recompute would change.\n```"]
-pub struct RequiresUpdateResult {
-    pub requires_update: bool => required("requiresUpdate");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
-pub struct ResetBindingArgs {
-    pub action_id: String => required("actionId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResolveSketchReferenceArgs is the request of [MethodSketchResolveReference]: a previously\nobtained persistent key (a sketch's key or a sketch-entity's key).\n```"]
-pub struct ResolveSketchReferenceArgs {
-    pub reference_key: String => required("referenceKey");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResolveSketchReferenceResult is the response of [MethodSketchResolveReference]. Found is\nfalse when no current sketch/entity matches the key (a legitimate, non-fatal outcome — the\nreferent was deleted). Kind is \"sketch\" / \"sketchEntity\" for a 2D sketch or its entity, or\n\"sketch3d\" / \"sketch3dEntity\" for a 3D sketch or its entity; SketchIndex locates the owning\nsketch within its own (2D or 3D) collection; EntityID is the matched entity's current\nsession id (0 when Kind names a sketch).\n```"]
-pub struct ResolveSketchReferenceResult {
-    pub found: bool => required("found");
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-    pub sketch_index: i64 => required("sketchIndex");
-    pub entity_id: u64 => omitted("entityId", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResolveThreadArgs is the request of [MethodThreadsResolve]: a designation\n(e.g. \"M8x1.25\", \"1/4-20\") with the optional tolerance class, handedness,\ninternal/external side, and the tapered (pipe thread) flag carried per the\nreference's StandardThreadInfo/TaperedThreadInfo split.\n```"]
-pub struct ResolveThreadArgs {
-    pub designation: String => required("designation");
-    pub class: String => omitted("class", "crate::json::is_zero");
-    pub internal: bool => omitted("internal", "crate::json::is_zero");
-    pub left_handed: bool => omitted("leftHanded", "crate::json::is_zero");
-    pub tapered: bool => omitted("tapered", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRetrievableDimensionInfo is one candidate model dimension a view can retrieve: its source parameter\nname, current value (mm) and the sheet position of its midpoint (#1991).\n```"]
-pub struct RetrievableDimensionInfo {
-    pub name: String => required("name");
-    pub value_mm: f64 => finite("valueMm");
-    pub sheet_x: f64 => finite("sheetX");
-    pub sheet_y: f64 => finite("sheetY");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRetrievableDimensionsResult is the reply of [MethodDrawingDimensionsListRetrievable]: the model's\nretrievable dimensions projected onto the view.\n```"]
-pub struct RetrievableDimensionsResult {
-    pub dimensions: Option<Vec<crate::wire::RetrievableDimensionInfo>> => required("dimensions");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRetrieveDimensionsArgs is the request of [MethodDrawingDimensionsRetrieve]: materialise the named\nmodel dimensions on the base view ViewName as retrieved drawing dimensions; an empty Names retrieves\nevery model dimension. OffsetMM stands the dimension lines off the geometry (#1991).\n```"]
-pub struct RetrieveDimensionsArgs {
-    pub view_name: String => required("viewName");
-    pub names: Option<Vec<String>> => omitted("names", "crate::json::slice_is_empty");
-    pub offset_mm: f64 => omitted_finite("offsetMm", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRetrievedDimensionsResult is the reply of [MethodDrawingDimensionsRetrieve]: the drawing dimensions\ncreated, each flagged Retrieved with its RetrievedFrom back-reference.\n```"]
-pub struct RetrievedDimensionsResult {
-    pub dimensions: Option<Vec<crate::wire::DrawingDimensionInfo>> => required("dimensions");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRevisionTableRow is one row of a revision table: a revision identifier, its date, and a\ndescription of the change.\n```"]
-pub struct RevisionTableRow {
-    pub revision: String => required("revision");
-    pub date: String => omitted("date", "crate::json::is_zero");
-    pub description: String => omitted("description", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRibbonControlInfo is one command control on a panel: the typed ribbon object\nmodel's leaf (M05-F03, #247). Beyond the command id and display name (the\noriginal discovery surface), it carries the control kind, look, and live state,\nso an add-in can mirror or extend the ribbon without guessing. Items holds a\nsplit button's variants or a popup control's menu entries.\n```"]
-pub struct RibbonControlInfo {
-    pub command_id: String => required("commandId");
-    pub display_name: String => required("displayName");
-    pub kind: crate::types::ControlKind => omitted("kind", "crate::json::is_zero");
-    pub button_style: crate::types::ButtonStyle => omitted("buttonStyle", "crate::json::is_zero");
-    pub icon: String => omitted("icon", "crate::json::is_zero");
-    pub tooltip: String => omitted("tooltip", "crate::json::is_zero");
-    pub alias: String => omitted("alias", "crate::json::is_zero");
-    pub enabled: bool => required("enabled");
-    pub active: bool => omitted("active", "crate::json::is_zero");
-    pub items: Option<Vec<crate::wire::RibbonItemInfo>> => omitted("items", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRibbonItemInfo is one entry of a control's dropdown — a split button's variant or\na popup control's menu item — with its live enabled state.\n```"]
-pub struct RibbonItemInfo {
-    pub command_id: String => required("commandId");
-    pub label: String => required("label");
-    pub tooltip: String => omitted("tooltip", "crate::json::is_zero");
-    pub enabled: bool => required("enabled");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRibbonPanelInfo is one panel within a tab and its controls. Selector is set\ninstead of Controls when the panel renders as a selection box.\n```"]
-pub struct RibbonPanelInfo {
-    pub name: String => required("name");
-    pub controls: Option<Vec<crate::wire::RibbonControlInfo>> => omitted("controls", "crate::json::slice_is_empty");
-    pub selector: Option<Box<crate::wire::RibbonSelectorInfo>> => omitted("selector", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRibbonSelectorInfo is a panel rendered as one drop-down selection box (a panel of\ncombo controls): its options and which is currently selected.\n```"]
-pub struct RibbonSelectorInfo {
-    pub options: Option<Vec<crate::wire::RibbonItemInfo>> => required("options");
-    pub selected_index: i64 => required("selectedIndex");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRibbonTabInfo is one tab within a ribbon and its panels.\n```"]
-pub struct RibbonTabInfo {
-    pub name: String => required("name");
-    pub panels: Option<Vec<crate::wire::RibbonPanelInfo>> => omitted("panels", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRotateViewArgs is the request of [MethodDrawingViewsRotate]: set the named view's rotation about its\ncentre to AngleDeg degrees (CCW positive), rotating its curves (#1988).\n```"]
-pub struct RotateViewArgs {
-    pub name: String => required("name");
-    pub angle_deg: f64 => finite("angleDeg");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveCopyAsArgs is the request of [MethodDocumentsSaveCopyAs]: write a copy\nto TargetFileName without retargeting the in-memory document (the export/\narchival workhorse — the document keeps its current file binding and dirty\nstate). Metadata, when set, customizes the minted copy.\n```"]
-pub struct SaveCopyAsArgs {
-    pub document: u64 => required("document");
-    pub target_file_name: String => required("targetFileName");
-    pub metadata: Option<Box<crate::types::NewFileMetadata>> => omitted("metadata", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveDocumentArgs is the request of [MethodDocumentsSave]: save the document\nat its current file binding.\n```"]
-pub struct SaveDocumentArgs {
-    pub document: u64 => required("document");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveDocumentAsArgs is the request of [MethodDocumentsSaveAs]: save under a\nnew full document name, which becomes the document's identity.\n```"]
-pub struct SaveDocumentAsArgs {
-    pub document: u64 => required("document");
-    pub new_full_document_name: String => required("newFullDocumentName");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveDocumentResult is the response of [MethodDocumentsSave],\n[MethodDocumentsSaveAs] and [MethodDocumentsSaveCopyAs]: where the bytes\nlanded. Warnings report nonfatal outcomes after a successful save.\n```"]
-pub struct SaveDocumentResult {
-    pub full_document_name: String => required("fullDocumentName");
-    pub warnings: Option<Vec<crate::wire::SaveWarning>> => omitted("warnings", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveOptionsView is the \"save\" option group (M03-F09): application-level\nsave policy. Thumbnail support is host-dependent — writing an unsupported\ncapture mode errors rather than persisting a dead setting. OldVersionsToKeep\nmoves the prior file into an OldVersions sibling directory on save, pruned\nto the configured count; 0 disables retention.\n```"]
-pub struct SaveOptionsView {
-    pub thumbnail: crate::types::ThumbnailSaveOption => required("thumbnail");
-    pub save_dependents: bool => required("saveDependents");
-    pub old_versions_to_keep: i64 => required("oldVersionsToKeep");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSaveWarning reports a nonfatal outcome for a successfully saved document.\nCode identifies the condition and Detail explains the specific cause.\nDocument identifies the session that was saved, including during close-all.\n```"]
-pub struct SaveWarning {
-    pub document: u64 => required("document");
-    pub code: String => required("code");
-    pub detail: String => required("detail");
 }
 }

@@ -10,6 +10,12 @@
 {"Name":"types.ModelDiameterFromThread","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ModelDiameterFromThread","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelDiameterFromThread","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"zero","Payload":{"set":"","name":""},"Canonical":{"set":"","name":""},"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"filled","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"empty","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelValueType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ModelValueType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelValueType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"types.PromptRestriction","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.PromptRestriction","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.PromptRestriction","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}

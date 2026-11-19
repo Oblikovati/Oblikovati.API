@@ -4,6 +4,247 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetPointCloudDensityArgs is the request of [MethodPointCloudsSetDensity]: the display budget\n(MaximumPointCount); 0 shows every point.\n```"]
+pub struct SetPointCloudDensityArgs {
+    pub name: String => required("name");
+    pub maximum_point_count: i64 => required("maximumPointCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport\ncolouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.\n```"]
+pub struct SetPointCloudDisplayModeArgs {
+    pub name: String => required("name");
+    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudScaleArgs is the request of [MethodPointCloudsSetScale]: the new uniform\ncloud→model scale, which must be positive.\n```"]
+pub struct SetPointCloudScaleArgs {
+    pub name: String => required("name");
+    pub scale: f64 => finite("scale");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudTransformArgs is the request of [MethodPointCloudsSetTransform]: the new\ncloud→model placement.\n```"]
+pub struct SetPointCloudTransformArgs {
+    pub name: String => required("name");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPointCloudVisibleArgs is the request of [MethodPointCloudsSetVisible].\n```"]
+pub struct SetPointCloudVisibleArgs {
+    pub name: String => required("name");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPositionalOverrideArgs overrides a constraint's or joint's value within a positional\nrepresentation (IsJoint selects which relationship id space the id is in).\n```"]
+pub struct SetPositionalOverrideArgs {
+    pub rep: u64 => required("rep");
+    pub relationship: u64 => required("relationship");
+    pub is_joint: bool => omitted("isJoint", "crate::json::is_zero");
+    pub value: f64 => finite("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetPropertyArgs is the request of [MethodDocumentsSetProperty]: create or replace the named\nproperty in the set with the typed value (the set is created if it is a custom set name not\namong the standard sets). Address by document session id.\n```"]
+pub struct SetPropertyArgs {
+    pub document: u64 => required("document");
+    pub set: String => required("set");
+    pub name: String => required("name");
+    pub value: crate::types::Variant => raw(rename = "value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSettingsArgs edits the flat-pattern settings.\n```"]
+pub struct SetSettingsArgs {
+    pub defer_update: bool => omitted("deferUpdate", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSheetMetalStyleArgs edits the active rule. Every field is optional: an empty length\nexpression (or zero KFactor) leaves that property unchanged, so a caller can nudge a\nsingle property without restating the whole rule.\n```"]
+pub struct SetSheetMetalStyleArgs {
+    pub thickness: String => omitted("thickness", "crate::json::is_zero");
+    pub bend_radius: String => omitted("bendRadius", "crate::json::is_zero");
+    pub relief_shape: String => omitted("reliefShape", "crate::json::is_zero");
+    pub relief_width: String => omitted("reliefWidth", "crate::json::is_zero");
+    pub relief_depth: String => omitted("reliefDepth", "crate::json::is_zero");
+    pub minimum_gap: String => omitted("minimumGap", "crate::json::is_zero");
+    pub unfold_method: String => omitted("unfoldMethod", "crate::json::is_zero");
+    pub k_factor: f64 => omitted_finite("kFactor", "crate::json::is_zero");
+#[doc = "```text\nThe corner-relief properties (#1960); empty leaves each unchanged, like the rest.\n```"]
+    pub corner_relief_shape: String => omitted("cornerReliefShape", "crate::json::is_zero");
+    pub corner_relief_size: String => omitted("cornerReliefSize", "crate::json::is_zero");
+    pub corner_relief_placement: String => omitted("cornerReliefPlacement", "crate::json::is_zero");
+    pub three_bend_relief_shape: String => omitted("threeBendReliefShape", "crate::json::is_zero");
+    pub three_bend_relief_size: String => omitted("threeBendReliefSize", "crate::json::is_zero");
+#[doc = "```text\nThe bend transition (#1959); empty leaves each unchanged, like the rest.\n```"]
+    pub bend_transition: String => omitted("bendTransition", "crate::json::is_zero");
+    pub bend_transition_arc_radius: String => omitted("bendTransitionArcRadius", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSheetRevisionArgs is the request of [MethodDrawingSetSheetRevision]: set a sheet's revision\nstring. Sheet names the target (\"\" ⇒ active) (#1989).\n```"]
+pub struct SetSheetRevisionArgs {
+    pub sheet: String => omitted("sheet", "crate::json::is_zero");
+    pub revision: String => required("revision");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSketch3DPropertyArgs is the request of [MethodSketch3DSetProperty]: which sketch,\nwhich property (\"name\" | \"visible\" | \"dimensionsVisible\" | \"color\" | \"deferUpdates\"),\nand the new value as a string (bools as \"true\"/\"false\"). The response is the updated\n[Sketch3DInfo].\n```"]
+pub struct SetSketch3DPropertyArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub property: String => required("property");
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSketchCustomLineTypeArgs is the request of [MethodSketchSetCustomLineType]:\nload LineTypeName from the .lin file at FullFileName onto the sketch.\nReplaceExisting replaces an already-loaded definition of the same name; when\nfalse, re-loading an existing name is an error.\n```"]
+pub struct SetSketchCustomLineTypeArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub full_file_name: String => required("fullFileName");
+    pub line_type_name: String => required("lineTypeName");
+    pub replace_existing: bool => omitted("replaceExisting", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSketchEntityFormatArgs sets one entity's formatting. A format that overrides nothing clears\nthe entity's overrides, so writing back a default is how a caller removes them. It is the\nrequest of [MethodSketchSetEntityFormat].\n```"]
+pub struct SetSketchEntityFormatArgs {
+    pub entity_id: u64 => required("entityId");
+    pub format: crate::types::SketchEntityFormat => required("format");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSketchPropertyArgs is the request of [MethodSketchSetProperty]: which sketch, which\nproperty (\"name\" | \"visible\" | \"color\" | \"lineType\" | \"lineWeight\" | \"deferUpdates\"),\nand the new value as a string (bools as \"true\"/\"false\", line weight as a unit-bearing\nlength like \"0.5 mm\"). The response is the updated [SketchInfo].\n```"]
+pub struct SetSketchPropertyArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub property: String => required("property");
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSketchSettingsArgs is the request of [MethodDocumentSetSketchSettings]: replace the document's\nsketch settings with the given values.\n```"]
+pub struct SetSketchSettingsArgs {
+    pub document: u64 => required("document");
+    pub settings: crate::types::SketchSettings => required("settings");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSplineHandleArgs is the request of [MethodSketchSetSplineHandle] and\n[MethodSketch3DSetSplineHandle]. Spline is the spline's session id and\nFitPointIndex which fit point's handle to address (0-based). Active\nactivates or deactivates the handle. Tangent is the handle direction —\n[x,y] in sketch-plane coordinates for the 2D method, [x,y,z] for the 3D one\n(empty keeps the current/natural direction). Weight scales the tangent\nmagnitude's pull on the curve (0 keeps the current weight).\n```"]
+pub struct SetSplineHandleArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub spline: u64 => required("spline");
+    pub fit_point_index: i64 => required("fitPointIndex");
+    pub active: bool => required("active");
+    pub tangent: Option<Vec<f64>> => omitted_finite("tangent", "crate::json::slice_is_empty");
+    pub weight: f64 => omitted_finite("weight", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetStandardArgs is the request of [MethodDrawingStylesSetStandard]: the drafting standard\nto make active (a types.DraftingStandard spelling, \"iso\"/\"ansi\").\n```"]
+pub struct SetStandardArgs {
+    pub standard: String => required("standard");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetStatusTextArgs is the request of [MethodStatusSetText]: put a transient message\nin the status bar (the same notice slot failed commits use). Empty clears it.\n```"]
+pub struct SetStatusTextArgs {
+    pub text: String => required("text");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetSuppressedArgs suppresses or restores an occurrence within a level-of-detail\nrepresentation.\n```"]
+pub struct SetSuppressedArgs {
+    pub rep: u64 => required("rep");
+    pub occurrence: u64 => required("occurrence");
+    pub suppressed: bool => required("suppressed");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetTextFontArgs is the request of [MethodSketchSetTextFont]: choose the font of the sketch\nTEXT entity EntityID in sketch SketchIndex. Provide Path for a host font (its bytes are\nembedded into the document) OR Family for a bundled face (recorded without bytes); if both\nare set, Path wins. The font becomes a document resource the text/emboss resolves by, so the\ndocument is self-contained (ADR-0031).\n```"]
+pub struct SetTextFontArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub entity_id: u64 => required("entityId");
+    pub family: String => omitted("family", "crate::json::is_zero");
+    pub path: String => omitted("path", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetTextFontResult reports the document resource UUID the text now cites and the resolved\nfamily name (for the picker's label).\n```"]
+pub struct SetTextFontResult {
+    pub resource: String => required("resource");
+    pub family: String => required("family");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetTitleBlockArgs is the request of [MethodDrawingSetTitleBlock]: move a sheet's title block to a\ncorner (types.TitleBlockLocation: \"bottomRight\"/\"bottomLeft\"/\"topLeft\"/\"topRight\"; \"\" ⇒ bottomRight),\nseeding the default block when the sheet has none. Sheet names the target (\"\" ⇒ active) (#1989).\n```"]
+pub struct SetTitleBlockArgs {
+    pub sheet: String => omitted("sheet", "crate::json::is_zero");
+    pub location: String => omitted("location", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetViewDisplayArgs is the request of [MethodDrawingViewsSetDisplay]: change a view's edge-display\ntoggles (#1984). Each pointer field is applied only when present. DisplayTangentEdges=false drops\nthe smooth tangent edges (fillet/blend transitions) from the projection.\n```"]
+pub struct SetViewDisplayArgs {
+    pub name: String => required("name");
+    pub display_tangent_edges: Option<Box<bool>> => omitted("displayTangentEdges", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named\nview's label (#1983). Each pointer field is applied only when present; Text=\"\" restores the\ndefault caption. LabelXMM and LabelYMM must both be set to reposition the caption.\n```"]
+pub struct SetViewLabelArgs {
+    pub name: String => required("name");
+    pub text: Option<Box<String>> => omitted("text", "Option::is_none");
+    pub show_label: Option<Box<bool>> => omitted("showLabel", "Option::is_none");
+    pub show_name: Option<Box<bool>> => omitted("showName", "Option::is_none");
+    pub show_scale: Option<Box<bool>> => omitted("showScale", "Option::is_none");
+    pub label_xmm: Option<Box<f64>> => omitted_finite("labelXmm", "Option::is_none");
+    pub label_ymm: Option<Box<f64>> => omitted_finite("labelYmm", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetVisibilityArgs hides or shows an occurrence within a design-view representation.\n```"]
+pub struct SetVisibilityArgs {
+    pub rep: u64 => required("rep");
+    pub occurrence: u64 => required("occurrence");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetVisibleOccurrenceArgs is the request of [MethodAssemblySetVisible]: show (Visible=true) or\nhide the occurrence with id ID — a display override independent of any representation (#1975).\n```"]
+pub struct SetVisibleOccurrenceArgs {
+    pub id: u64 => required("id");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetWorkFeatureVisibleArgs is the request of [MethodWorkFeaturesSetVisible]: show or hide the\ndatum work plane, axis, or point named by Ref (a \"plane/N\" / \"axis/N\" / \"point/N\" reference, or\nan origin-frame ref like \"origin/plane/xy\"). Visible=false hides it in the viewport. #1856.\n```"]
 pub struct SetWorkFeatureVisibleArgs {
     pub ref_: String => required("ref");
@@ -210,255 +451,5 @@ pub struct Sketch3DEntityInfo {
     pub moveable_status: String => omitted("moveableStatus", "crate::json::is_zero");
 #[doc = "```text\nCoordinateSystem reports an equation curve's coordinate system (cylindrical/spherical),\nabsent for a Cartesian curve and every other kind, so a round-trip preserves it (#1846).\n```"]
     pub coordinate_system: String => omitted("coordinateSystem", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketch3DInfo is one row of [MethodSketch3DList] and the result of [MethodSketch3DGet]:\na 3D sketch's identity, visibility, entity count, remaining DOF, edit state, health,\nand the display/solve overrides (dimensions-visible, color, defer).\n```"]
-pub struct Sketch3DInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub visible: bool => required("visible");
-    pub dimensions_visible: bool => required("dimensionsVisible");
-    pub entity_count: i64 => required("entityCount");
-    pub dof: i64 => required("dof");
-    pub editing: bool => required("editing");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nShared reports the \"share sketch\" flag. (A 3D sketch's consumed/ownedBy state\nawaits the 3D path→sketch dependency link; see the 2D [SketchInfo] for those notions.)\n```"]
-    pub shared: bool => omitted("shared", "crate::json::is_zero");
-    pub color: String => omitted("color", "crate::json::is_zero");
-    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchArgs is the request of the per-sketch methods that take only a target:\n[MethodSketchGet], [MethodSketchEdit], [MethodSketchExitEdit], [MethodSketchSolve],\n[MethodSketchDelete], [MethodSketchEntities], [MethodSketchConstraints],\n[MethodSketchDimensions]. SketchIndex is the sketch's index in the active part's\nsketch collection (as returned by [MethodSketchCreate] / [MethodSketchList]).\n```"]
-pub struct SketchArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchBlockDefinitionInfo is one row of [MethodSketchBlockDefinitionList] and\nthe result of [MethodSketchBlockDefinitionCreate]: the definition's identity\nplus how much geometry it holds and how widely it is instanced.\n```"]
-pub struct SketchBlockDefinitionInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub entity_count: i64 => required("entityCount");
-    pub instance_count: i64 => required("instanceCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchBlockInfo is one row of [MethodSketchListBlockInstances]: a placed\nblock instance — its session id, the definition it instances, its placement\n(insertion point in sketch cm, rotation in radians CCW, uniform scale), and\nthe live entity count of its definition.\n```"]
-pub struct SketchBlockInfo {
-    pub index: i64 => required("index");
-    pub id: u64 => required("id");
-    pub definition: String => required("definition");
-    pub position: Option<Vec<f64>> => finite("position");
-    pub rotation: f64 => finite("rotation");
-    pub scale: f64 => finite("scale");
-    pub entity_count: i64 => required("entityCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchCustomLineTypeResult is the response of [MethodSketchSetCustomLineType] and\n[MethodSketchGetCustomLineType]. Loaded reports whether the sketch holds a custom\ndefinition; Pattern is the .lin dash sequence (>0 dash, <0 gap, 0 dot), lengths\nin cm.\n```"]
-pub struct SketchCustomLineTypeResult {
-    pub loaded: bool => required("loaded");
-    pub line_type_name: String => omitted("lineTypeName", "crate::json::is_zero");
-    pub full_file_name: String => omitted("fullFileName", "crate::json::is_zero");
-    pub pattern: Option<Vec<f64>> => omitted_finite("pattern", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchDependent is one thing that depends on a sketch — today a feature that consumes it,\naddressed by its stable id (from model.tree), with its display name and kind.\n```"]
-pub struct SketchDependent {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchDependentsResult is the response of [MethodSketchDependents]: every dependent of the\nsketch addressed by [SketchArgs.SketchIndex], in history order (empty when nothing uses it).\n```"]
-pub struct SketchDependentsResult {
-    pub dependents: Option<Vec<crate::wire::SketchDependent>> => required("dependents");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchEditEvent is the JSON shape of the [EventSketchEditEntered] / [EventSketchEditExited] push\nevents (#148): the host entered or left the edit mode of a sketch — the SketchEvents surface. It\nis delivered to an add-in's Notify entry point (ADR-0016); an add-in matches on Type and reads\nthe sketch identity from the payload. On exit the Sketch id is the sketch just left. Fires for\nboth UI-driven and add-in-driven sketch-edit transitions.\n```"]
-pub struct SketchEditEvent {
-#[doc = "```text\nEventSketchEditEntered or EventSketchEditExited\n```"]
-    pub type_: String => required("type");
-    pub document: u64 => required("document");
-    pub sketch: u64 => required("sketch");
-    pub name: String => omitted("name", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchEntityFormatArgs addresses one sketch entity in the active sketch. It is the request of\n[MethodSketchGetEntityFormat].\n```"]
-pub struct SketchEntityFormatArgs {
-    pub entity_id: u64 => required("entityId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchEntityFormatView is one entity's formatting. HasFormat distinguishes an entity that\noverrides nothing from one whose overrides happen to be empty — without it a caller could not\ntell \"inherits everything\" from \"explicitly default\", which are the same picture but different\nstates to write back.\n```"]
-pub struct SketchEntityFormatView {
-    pub entity_id: u64 => required("entityId");
-    pub has_format: bool => required("hasFormat");
-    pub format: crate::types::SketchEntityFormat => required("format");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchEntityInfo is one enumerated entity from [MethodSketchEntities]: its index,\nsession id, kind ([oblikovati.org/api/types.SketchEntityKind]), construction and\nreference flags, the defining points (each [x,y] in sketch-plane cm), and a radius for\ncircular kinds (0 otherwise). MoveableStatus answers whether interactive tools may drag the\nentity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling — M06-F11,\nOblikovati/Oblikovati#626); FitMethod is the interpolation parameterization for the\nspline kind ([oblikovati.org/api/types.SplineFitMethod] wire spelling).\n```"]
-pub struct SketchEntityInfo {
-    pub index: i64 => required("index");
-    pub id: u64 => required("id");
-    pub kind: String => required("kind");
-    pub construction: bool => required("construction");
-#[doc = "```text\nReference marks projected/included reference geometry (ADR-0055): a curve driven by a model\nsource (a projected edge/face perimeter, a datum intersection). It enumerates under its\nconcrete Kind (line/circle/arc/…) — there is no distinct \"projectedCurve\" kind — and is\ngrounded (the solver holds it fixed) yet still bounds profiles, unlike Construction.\n```"]
-    pub reference: bool => omitted("reference", "crate::json::is_zero");
-    pub points: Option<Vec<Option<Vec<f64>>>> => finite("points");
-    pub radius: f64 => omitted_finite("radius", "crate::json::is_zero");
-#[doc = "```text\nReferenceKey is the entity's persistent reference key (Oblikovati/Oblikovati#153): a\ndocument-scoped UUID stable across save/load and edits, unlike the session ID. Store\nit to refer to this entity durably; rebind it with [MethodSketchResolveReference].\n```"]
-    pub reference_key: String => omitted("referenceKey", "crate::json::is_zero");
-    pub moveable_status: String => omitted("moveableStatus", "crate::json::is_zero");
-    pub fit_method: String => omitted("fitMethod", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchFormatModesView is the Format panel's armed creation state. It is the result of\n[MethodSketchGetFormatModes] and the request of [MethodSketchSetFormatModes]; a set replaces\nevery field, so read-modify-write to change one.\n```"]
-pub struct SketchFormatModesView {
-    pub modes: crate::types::SketchFormatModes => required("modes");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchInferenceScopeArgs identifies a 2D sketch by its zero-based index in\nthe current part. It is the request of\n[MethodSketchGetInferenceScope].\nExample: `args := wire.SketchInferenceScopeArgs{SketchIndex: 0}`.\n```"]
-pub struct SketchInferenceScopeArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchInferenceScopeView is the applied inference scope for a 2D sketch in\nthe current document session. Entities are nonzero, distinct entity IDs owned by that sketch and\nare valid for that sketch session. SelectedGeometry requires at least one\neligible entity; the other modes require an empty list. Selection is a set,\nand hosts return it in ascending ID order. A set request replaces the entire\nscope atomically; invalid references leave the prior scope unchanged.\nThe scope is retained during the active sketch session. No default, disk\npersistence, or cross-session retention is implied. Preview and commit use\nthe same applied scope. Canceling a UI draft does not set this value.\nExample: `wire.SketchInferenceScopeView{SketchIndex: 0, Scope: types.InferenceScopeAllGeometry}`.\n```"]
-pub struct SketchInferenceScopeView {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub scope: crate::types::SketchInferenceScope => required("scope");
-    pub entities: Option<Vec<u64>> => required("entities");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchInfo is one row of [MethodSketchList] and the result of [MethodSketchGet]: a\nsketch's identity, host plane label, visibility, entity count, remaining DOF, edit\nstate, health, and the display/solve overrides (color, line type/weight, defer).\n```"]
-pub struct SketchInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub plane: String => required("plane");
-    pub visible: bool => required("visible");
-    pub entity_count: i64 => required("entityCount");
-    pub dof: i64 => required("dof");
-    pub editing: bool => required("editing");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nConsumed reports whether a feature has consumed this sketch (drives browser nesting and\nthe delete guard); OwnedBy names the consuming feature (\"\" when not consumed); Shared\nreports the \"share sketch\" flag (a shared sketch stays top-level and reusable by\nseveral features). Enumerate the full dependent set with [MethodSketchDependents].\n```"]
-    pub consumed: bool => omitted("consumed", "crate::json::is_zero");
-    pub owned_by: String => omitted("ownedBy", "crate::json::is_zero");
-    pub shared: bool => omitted("shared", "crate::json::is_zero");
-    pub color: String => omitted("color", "crate::json::is_zero");
-    pub line_type: String => omitted("lineType", "crate::json::is_zero");
-    pub line_weight: f64 => omitted_finite("lineWeight", "crate::json::is_zero");
-    pub defer_updates: bool => omitted("deferUpdates", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchMoveDimensionChange describes a dimension in the exact planned revision.\nIndex is the index returned by sketch.dimensions for that same revision.\n```"]
-pub struct SketchMoveDimensionChange {
-    pub index: i64 => required("index");
-    pub before_expression: String => required("beforeExpression");
-    pub after_expression: String => required("afterExpression");
-    pub approval_required: bool => required("approvalRequired");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchMoveGeometricChange describes a relation proposed for removal.\nIndex is the index returned by sketch.constraints for that same revision.\n```"]
-pub struct SketchMoveGeometricChange {
-    pub index: i64 => required("index");
-    pub kind: String => required("kind");
-    pub entities: Option<Vec<u64>> => required("entities");
-    pub approval_required: bool => required("approvalRequired");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchOptionsView is the \"sketch\" group: the grid and click snapping. Spacing is\nin model/database units (cm) — unit-independent, like the stored preference.\n\nA setGroup write replaces only the fields carried here; the sketch options the host\nkeeps but does not expose (the heads-up display flags) survive it unchanged.\n```"]
-pub struct SketchOptionsView {
-    pub grid_spacing_cm: f64 => finite("gridSpacingCm");
-    pub grid_visible: bool => required("gridVisible");
-    pub grid_major_every: i64 => required("gridMajorEvery");
-    pub snap_to_points: bool => required("snapToPoints");
-    pub snap_to_grid: bool => required("snapToGrid");
-#[doc = "```text\nAutoProjectOrigin projects the part's origin centre point into every newly created\nsketch, giving it an anchor to constrain against at (0,0). On by default, so a client\nthat means to leave it alone must round-trip the value it read from getGroup rather\nthan send a zero SketchOptionsView (#2016).\n```"]
-    pub auto_project_origin: bool => required("autoProjectOrigin");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchOrientation fixes a new sketch's in-plane coordinate frame to a reference axis —\nthe reference CAD API's PlanarSketches.AddWithOrientation(AxisEntity, NaturalAxisDirection, AxisIsX,\nOrigin). Axis is the reference whose direction, projected into the sketch plane, becomes\none of the sketch axes; the other is the plane normal crossed with it (right-handed). The\nprojection must be non-degenerate — the axis may not be perpendicular to the plane.\n\nExample: to sketch a meridian on a plane built through the Z axis at an angle, set\nAxis:\"origin/axis/z\", AxisIsX:false — the sketch's Y then runs along +Z (axial) and X\nruns radially, so the same (radius, axial) profile drawn on XZ works unchanged.\n```"]
-pub struct SketchOrientation {
-#[doc = "```text\nAxis is the reference axis whose in-plane projection fixes a sketch axis: an origin\naxis constant (types.WorkRefZAxis …), a work-axis ref, or a linear-edge ref.\n```"]
-    pub axis: String => required("axis");
-#[doc = "```text\nAxisIsX selects which sketch axis the projected reference becomes: X (true) or Y\n(false). The reference CAD API's AxisIsX.\n```"]
-    pub axis_is_x: bool => omitted("axisIsX", "crate::json::is_zero");
-#[doc = "```text\nReverse uses the reference direction reversed (the reference CAD API's NaturalAxisDirection=false).\n```"]
-    pub reverse: bool => omitted("reverse", "crate::json::is_zero");
-#[doc = "```text\nOrigin optionally sets the sketch origin [x,y,z] in cm; empty keeps the plane origin.\n```"]
-    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchRectangleArgs is the request of [MethodSketchRectangle]: a closed rectangle\nfrom the sketch origin to (Width, Height), each a unit-bearing expression\n(e.g. \"40 mm\").\n```"]
-pub struct SketchRectangleArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub width: String => required("width");
-    pub height: String => required("height");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchRectangleResult is the response of [MethodSketchRectangle]: the sketch index\nand its resulting profile count.\n```"]
-pub struct SketchRectangleResult {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub profiles: i64 => required("profiles");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchReferenceKeyResult is the response of [MethodSketchReferenceKey]: the persistent\nreference key of the sketch addressed by [SketchArgs.SketchIndex].\n```"]
-pub struct SketchReferenceKeyResult {
-    pub reference_key: String => required("referenceKey");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchSettingsResult is the response of [MethodDocumentGetSketchSettings] and\n[MethodDocumentSetSketchSettings]: the document's current sketch settings.\n```"]
-pub struct SketchSettingsResult {
-    pub settings: crate::types::SketchSettings => required("settings");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):\nthe entity id plus its resolved text style.\n```"]
-pub struct SketchTextResult {
-    pub entity_id: u64 => required("entityId");
-    pub style: crate::types::SketchTextStyle => required("style");
 }
 }

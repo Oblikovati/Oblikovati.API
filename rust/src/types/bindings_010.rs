@@ -3,6 +3,33 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TRIAD_Z_RING: crate::types::TriadSegment = crate::types::TriadSegment(9);
+
+pub const TRIM_SOLID_SPLIT: crate::types::SplitType = crate::types::SplitType(32769);
+
+pub const TRIM_TO_BEND_BEND_TRANSITION: crate::types::BendTransition =
+    crate::types::BendTransition(4);
+
+pub const UNDEFINED_EDGE_COLLECTION: crate::types::EdgeCollectionKind =
+    crate::types::EdgeCollectionKind(27652);
+
+generated_scalar! { integer,
+#[doc = "```text\nUnfoldMethodType names how a bend's flat length (its bend allowance) is computed when\nthe part is developed into its flat pattern. The three methods are the industry\nstandard set: a single K-factor, a per-angle bend table, or a custom equation.\n```"]
+pub struct UnfoldMethodType(pub i32);
+}
+
+pub const UNIQUE_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(1);
+
+pub const UNITS_ANGLE: crate::types::UnitsType = crate::types::UnitsType(2);
+
+pub const UNITS_AREA: crate::types::UnitsType = crate::types::UnitsType(3);
+
+pub const UNITS_LENGTH: crate::types::UnitsType = crate::types::UnitsType(1);
+
+pub const UNITS_MASS: crate::types::UnitsType = crate::types::UnitsType(5);
+
+pub const UNITS_TIME: crate::types::UnitsType = crate::types::UnitsType(6);
+
 generated_scalar! { integer,
 #[doc = "```text\nUnitsType is the dimension category of a measured value (parity:\nValueUnitsTypeEnum) — the kind of quantity a unit name belongs to, as opposed\nto the unit name itself (\"mm\", \"in\"). It is carried on the wire by its\nspelling (UnitsType.String()); the numeric ids are stable and must never be\nrenumbered.\n\nThis is the canonical, Apache-2.0 definition. The host's parameter engine has\nits own richer internal category type (which also models non-arithmetic flag/\ntext values); it maps to and from these spellings at the wire boundary.\n```"]
 pub struct UnitsType(pub i32);

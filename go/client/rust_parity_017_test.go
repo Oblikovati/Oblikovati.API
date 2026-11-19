@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
+	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
+}
+
+func TestRustParitySketch3DSolve(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
+	checkGoGroup(t, c, "Sketch3D", "Solve")
+}
+
+func TestRustParitySketch3DTransform(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DTransform})
+	checkGoGroup(t, c, "Sketch3D", "Transform")
+}
+
+func TestRustParitySketchAddAssociativeEntity(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddAssociativeEntity})
+	checkGoGroup(t, c, "Sketch", "AddAssociativeEntity")
+}
+
+func TestRustParitySketchAddBlockInstance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddBlockInstance})
+	checkGoGroup(t, c, "Sketch", "AddBlockInstance")
+}
+
 func TestRustParitySketchAddEntity(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchAddEntity})
 	checkGoGroup(t, c, "Sketch", "AddEntity")
@@ -132,29 +157,4 @@ func TestRustParitySketchFormatModes(t *testing.T) {
 func TestRustParitySketchGet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGet})
 	checkGoGroup(t, c, "Sketch", "Get")
-}
-
-func TestRustParitySketchGetCustomLineType(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
-	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
-}
-
-func TestRustParitySketchGetText(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetText})
-	checkGoGroup(t, c, "Sketch", "GetText")
-}
-
-func TestRustParitySketchInferenceOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceOptions})
-	checkGoGroup(t, c, "Sketch", "InferenceOptions")
-}
-
-func TestRustParitySketchInferenceScope(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceScope})
-	checkGoGroup(t, c, "Sketch", "InferenceScope")
-}
-
-func TestRustParitySketchList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchList})
-	checkGoGroup(t, c, "Sketch", "List")
 }

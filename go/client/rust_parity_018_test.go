@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchGetCustomLineType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
+	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
+}
+
+func TestRustParitySketchGetText(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetText})
+	checkGoGroup(t, c, "Sketch", "GetText")
+}
+
+func TestRustParitySketchInferenceOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceOptions})
+	checkGoGroup(t, c, "Sketch", "InferenceOptions")
+}
+
+func TestRustParitySketchInferenceScope(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceScope})
+	checkGoGroup(t, c, "Sketch", "InferenceScope")
+}
+
+func TestRustParitySketchList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchList})
+	checkGoGroup(t, c, "Sketch", "List")
+}
+
 func TestRustParitySketchOffset(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchOffset})
 	checkGoGroup(t, c, "Sketch", "Offset")
@@ -132,29 +157,4 @@ func TestRustParityStylesGet(t *testing.T) {
 func TestRustParityStylesImportLibrary(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStylesImportLibrary})
 	checkGoGroup(t, c, "Styles", "ImportLibrary")
-}
-
-func TestRustParityStylesLibraries(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesListLibraries})
-	checkGoGroup(t, c, "Styles", "Libraries")
-}
-
-func TestRustParityStylesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesList})
-	checkGoGroup(t, c, "Styles", "List")
-}
-
-func TestRustParityStylesSet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesSet})
-	checkGoGroup(t, c, "Styles", "Set")
-}
-
-func TestRustParityTaskPanelsClose(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodTaskPanelClose})
-	checkGoGroup(t, c, "TaskPanels", "Close")
-}
-
-func TestRustParityTaskPanelsShow(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodTaskPanelShow})
-	checkGoGroup(t, c, "TaskPanels", "Show")
 }

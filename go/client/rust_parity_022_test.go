@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityWorkPlanesCreate(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesCreate})
+	checkGoGroup(t, c, "WorkPlanes", "Create")
+}
+
+func TestRustParityWorkPlanesFlipNormal(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
+	checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
+}
+
+func TestRustParityWorkPlanesList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
+	checkGoGroup(t, c, "WorkPlanes", "List")
+}
+
+func TestRustParityWorkPlanesListWithOptions(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
+	checkGoGroup(t, c, "WorkPlanes", "ListWithOptions")
+}
+
+func TestRustParityWorkPlanesRedefine(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesRedefine})
+	checkGoGroup(t, c, "WorkPlanes", "Redefine")
+}
+
 func TestRustParityWorkPointsCreate(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkPointsCreate})
 	checkGoGroup(t, c, "WorkPoints", "Create")

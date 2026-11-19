@@ -23,6 +23,8 @@ var fixtureGroup3 = []fixtureType{
 	{"types.MessageSeverity", reflect.TypeFor[types.MessageSeverity]()},
 	{"types.MiniToolbarControlKind", reflect.TypeFor[types.MiniToolbarControlKind]()},
 	{"types.ModelDiameterFromThread", reflect.TypeFor[types.ModelDiameterFromThread]()},
+	{"types.ModelStatePropertyKey", reflect.TypeFor[types.ModelStatePropertyKey]()},
+	{"types.ModelStateTableColumnKind", reflect.TypeFor[types.ModelStateTableColumnKind]()},
 	{"types.ModelValueType", reflect.TypeFor[types.ModelValueType]()},
 	{"types.MoveOperationType", reflect.TypeFor[types.MoveOperationType]()},
 	{"types.NewFileMetadata", reflect.TypeFor[types.NewFileMetadata]()},
@@ -87,6 +89,4 @@ var fixtureGroup3 = []fixtureType{
 	{"types.SketchEntityFormat", reflect.TypeFor[types.SketchEntityFormat]()},
 	{"types.SketchEntityKind", reflect.TypeFor[types.SketchEntityKind]()},
 	{"types.SketchFormatModes", reflect.TypeFor[types.SketchFormatModes]()},
-	{"types.SketchInferenceScope", reflect.TypeFor[types.SketchInferenceScope]()},
-	{"types.SketchLineType", reflect.TypeFor[types.SketchLineType]()},
 }

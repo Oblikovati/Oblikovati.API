@@ -51,4 +51,6 @@ mod bindings_022;
 pub use bindings_022::*;
 mod bindings_023;
 pub use bindings_023::*;
+mod bindings_024;
+pub use bindings_024::*;
 pub mod featureargs;

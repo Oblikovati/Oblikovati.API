@@ -4,6 +4,210 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nModelStateTableDiagnostic identifies a rejected table cell or a table-wide error.\nA nil Row and zero ParameterID identify an error that is not specific to a cell.\nExample: `wire.ModelStateTableDiagnostic{Row: &row, ParameterID: 3, Message: \"unknown name\"}`.\n```"]
+pub struct ModelStateTableDiagnostic {
+    pub row: Option<Box<crate::wire::ModelStateTableRowRef>> => required("row");
+    pub parameter_id: u64 => required("parameterId");
+    pub expression: String => required("expression");
+    pub message: String => required("message");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableEvaluation describes a read-only evaluated parameter cell.\nFailure is empty for a healthy value. Example:\n`wire.ModelStateTableEvaluation{ParameterID: 1, Row: row, Value: \"10 mm\"}`.\n```"]
+pub struct ModelStateTableEvaluation {
+    pub parameter_id: u64 => required("parameterId");
+    pub row: crate::wire::ModelStateTableRowRef => required("row");
+    pub value: String => required("value");
+    pub failure: String => required("failure");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableFeatureChoice names a selectable authored feature.\nExample: `wire.ModelStateTableFeatureChoice{ID: 1, Name: \"Extrusion1\"}`.\n```"]
+pub struct ModelStateTableFeatureChoice {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub base_suppressed: bool => required("baseSuppressed");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableParameter holds a parameter and one expression cell per row.\nBase is the inherited authored expression. Example:\n`wire.ModelStateTableParameter{ParameterID: 1, Base: \"10 mm\", Cells: cells}`.\n```"]
+pub struct ModelStateTableParameter {
+    pub parameter_id: u64 => required("parameterId");
+    pub base: String => required("base");
+    pub cells: Option<Vec<crate::wire::ModelStateTableParameterCell>> => required("cells");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableParameterCell holds an expression override; nil inherits Base.\nExpressions are authored text, not evaluated numbers. Example:\n`wire.ModelStateTableParameterCell{Row: wire.ModelStateTableRowRef{MemberID: 1}}`.\n```"]
+pub struct ModelStateTableParameterCell {
+    pub row: crate::wire::ModelStateTableRowRef => required("row");
+    pub expression: Option<Box<String>> => required("expression");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableParameterChoice names a selectable parameter and its feature,\nif any. Example: `wire.ModelStateTableParameterChoice{ID: 1, Name: \"d0\"}`.\n```"]
+pub struct ModelStateTableParameterChoice {
+    pub id: u64 => required("id");
+    pub feature_id: u64 => omitted("featureId", "crate::json::is_zero");
+    pub name: String => required("name");
+    pub unit: String => required("unit");
+    pub base_expression: String => required("baseExpression");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableProperty holds one visible or retained property and one cell per row.\nBase is the inherited document value, or nil when absent. Example:\n`wire.ModelStateTableProperty{Property: key, Cells: cells}`.\n```"]
+pub struct ModelStateTableProperty {
+    pub property: crate::types::ModelStatePropertyKey => required("property");
+    pub base: Option<Box<crate::types::Variant>> => required("base");
+    pub cells: Option<Vec<crate::wire::ModelStateTablePropertyCell>> => required("cells");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTablePropertyCell holds a property override; nil inherits the base.\nAn authored empty string is distinct from nil. Example:\n`wire.ModelStateTablePropertyCell{Row: wire.ModelStateTableRowRef{MemberID: 1}}`.\n```"]
+pub struct ModelStateTablePropertyCell {
+    pub row: crate::wire::ModelStateTableRowRef => required("row");
+    pub value: Option<Box<crate::types::Variant>> => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTablePropertyChoice names a selectable document property and its\ninherited base, or nil when the property is absent. Example:\n`wire.ModelStateTablePropertyChoice{Property: key}`.\n```"]
+pub struct ModelStateTablePropertyChoice {
+    pub property: crate::types::ModelStatePropertyKey => required("property");
+    pub base: Option<Box<crate::types::Variant>> => required("base");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableResult contains the adopted table and created-row identity map.\nExample: `result, err := client.ModelStates().SetTable(args)`.\n```"]
+pub struct ModelStateTableResult {
+    pub table: crate::wire::ModelStateTableView => required("table");
+    pub created_rows: Option<Vec<crate::wire::ModelStateTableCreatedRow>> => required("createdRows");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableRow is an ordered member row. New rows require Source to refer\nto an existing row or an earlier new row; existing rows require Source to be\nnil. The built-in Primary member stays first and cannot be renamed or removed. Example:\n`wire.ModelStateTableRow{Ref: wire.ModelStateTableRowRef{MemberID: 1}, Name: \"Primary\"}`.\n```"]
+pub struct ModelStateTableRow {
+    pub ref_: crate::wire::ModelStateTableRowRef => required("ref");
+    pub name: String => required("name");
+    pub source: Option<Box<crate::wire::ModelStateTableRowRef>> => omitted("source", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableRowRef identifies an existing member or a new draft row, never both.\nDraftKey is nonempty and unique within one set request; MemberID is nonzero for\nan existing member. Example: `wire.ModelStateTableRowRef{MemberID: 1}`.\n```"]
+pub struct ModelStateTableRowRef {
+    pub member_id: u64 => omitted("memberId", "crate::json::is_zero");
+    pub draft_key: String => omitted("draftKey", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableSuppression holds a feature and one suppression cell per row.\nBase is the authored feature suppression state. Example:\n`wire.ModelStateTableSuppression{FeatureID: 1, Cells: cells}`.\n```"]
+pub struct ModelStateTableSuppression {
+    pub feature_id: u64 => required("featureId");
+    pub base: bool => required("base");
+    pub cells: Option<Vec<crate::wire::ModelStateTableSuppressionCell>> => required("cells");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableSuppressionCell holds a feature suppression override; nil\ninherits the authored feature state. Example:\n`wire.ModelStateTableSuppressionCell{Row: wire.ModelStateTableRowRef{MemberID: 1}}`.\n```"]
+pub struct ModelStateTableSuppressionCell {
+    pub row: crate::wire::ModelStateTableRowRef => required("row");
+    pub suppressed: Option<Box<bool>> => required("suppressed");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableVerification reports candidate validation without publishing it.\nExample: `wire.ModelStateTableVerification{Valid: false, Diagnostics: errors}`.\n```"]
+pub struct ModelStateTableVerification {
+    pub valid: bool => required("valid");
+    pub diagnostics: Option<Vec<crate::wire::ModelStateTableDiagnostic>> => required("diagnostics");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStateTableView is the sampled complete table. Columns specifies visible\ngrid order; property, suppression and parameter collections also retain hidden\nvalues. ActiveMemberID is read-only. Evaluations are read-only results and are\nnever accepted as authored values. Example: `view, err := client.ModelStates().GetTable()`.\n```"]
+pub struct ModelStateTableView {
+    pub generation: u64 => required("generation");
+    pub active_member_id: u64 => required("activeMemberId");
+    pub rows: Option<Vec<crate::wire::ModelStateTableRow>> => required("rows");
+    pub columns: Option<Vec<crate::wire::ModelStateTableColumnRef>> => required("columns");
+    pub properties: Option<Vec<crate::wire::ModelStateTableProperty>> => required("properties");
+    pub suppressions: Option<Vec<crate::wire::ModelStateTableSuppression>> => required("suppressions");
+    pub parameters: Option<Vec<crate::wire::ModelStateTableParameter>> => required("parameters");
+    pub available_properties: Option<Vec<crate::wire::ModelStateTablePropertyChoice>> => required("availableProperties");
+    pub available_features: Option<Vec<crate::wire::ModelStateTableFeatureChoice>> => required("availableFeatures");
+    pub available_parameters: Option<Vec<crate::wire::ModelStateTableParameterChoice>> => required("availableParameters");
+    pub evaluations: Option<Vec<crate::wire::ModelStateTableEvaluation>> => required("evaluations");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nResult envelopes.\n```"]
+pub struct ModelStatesResult {
+    pub model_states: Option<Vec<crate::wire::ModelStateInfo>> => required("modelStates");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelTreeResult is the response of [MethodModelTree]: a read-only snapshot of the\nactive part's structure (parameter names, sketch count, feature program, body\ncount).\n```"]
+pub struct ModelTreeResult {
+    pub document: String => required("document");
+    pub parameters: Option<Vec<String>> => required("parameters");
+    pub sketches: i64 => required("sketches");
+    pub features: Option<Vec<crate::wire::FeatureInfo>> => required("features");
+    pub bodies: i64 => required("bodies");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nMoveFreeformVerticesArgs is the request of [MethodFreeformMoveVertices]:\ntranslate the selected cage vertices (by cage index) by [dx,dy,dz] in\ndocument units. Indices outside the cage are rejected with the offending\nindex and the cage size.\n```"]
+pub struct MoveFreeformVerticesArgs {
+    pub id: u64 => required("id");
+    pub vertices: Option<Vec<i64>> => required("vertices");
+    pub translation: [f64; 3] => finite("translation");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nMoveSketchDimensionArgs is the request of [MethodSketchMoveDimension]: where to place a dimension's\nannotation text, as an [x,y] sketch-plane point in centimetres. This is the same placement\n[AddDimensionArgs.TextPoint] sets at create time and that dragging the label in the sketch\neditor writes; it moves only the annotation, never the geometry being measured. #2017.\n```"]
+pub struct MoveSketchDimensionArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub dimension_index: i64 => required("dimensionIndex");
+    pub text_point: Option<Vec<f64>> => finite("textPoint");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nNameValueEntry is one named bag value: the canonical JSON shape of a\nNameValueMap element, {\"name\": …, \"value\": {\"type\": …, \"value\": …}}.\n```"]
+pub struct NameValueEntry {
+    pub name: String => required("name");
+    pub value: crate::types::Variant => raw(rename = "value");
+}
+}
+
+#[doc = "```text\nNameValueMap is the ordered options/context bag: entry order is meaningful\nand preserved (insert-before/after semantics live on the client collection).\n```"]
+pub type NameValueMap = Option<Vec<crate::wire::NameValueEntry>>;
+
+generated_dto! {
+#[doc = "```text\nNamedViewInfo is the JSON shape of one saved named view: its name and the camera frame it\nrestores. It is the element of [NamedViewsResult] and the response of\n[MethodViewsCaptureNamed].\n```"]
+pub struct NamedViewInfo {
+    pub name: String => required("name");
+    pub camera: crate::wire::CameraView => required("camera");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nNamedViewRefArgs is the request of [MethodViewsRestoreNamed] / [MethodViewsDeleteNamed]:\nthe named view to restore (its camera is applied to the active view, animated) or delete.\n```"]
 pub struct NamedViewRefArgs {
     pub document: u64 => omitted("document", "crate::json::is_zero");
@@ -235,229 +439,5 @@ generated_dto! {
 #[doc = "```text\nOrientationsResult is the reply of listOrientations: every orientation in creation order\n(the active one flagged).\n```"]
 pub struct OrientationsResult {
     pub orientations: Option<Vec<crate::wire::FlatPatternOrientationInfo>> => required("orientations");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPanelControlSpec is one declarative control of a dockable window's content. A\nPanelButton executes CommandID when clicked, so the add-in observes it through\nthe ordinary command-ended event — no separate click plumbing. Text is the\nlabel/button caption (or the field label for editable controls); ID names the\ncontrol. Editable controls (textBox/valueEditor/checkBox/dropdown/comboBox/slider)\ncarry their current Value; dropdown/comboBox list their choices in Options; slider\nand valueEditor bound the input with Min/Max/Step. When the user edits an editable\ncontrol the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.\n\nContainer kinds (grid/group/tabs, ADR-0019) nest: they own Children and are laid out\nrather than drawn. A grid declares its column tracks in Columns with ColumnGap/RowGap\nspacing, and each child may carry a Cell placement (nil = auto-flow). A group is a\ntitled vertical stack (Title is its caption). Tabs treats each child as one tab whose\nTitle is the caption. All these fields are omitempty, so a leaf control marshals exactly\nas before — older hosts ignore the unknown fields and degrade an unknown kind to its Text.\n```"]
-pub struct PanelControlSpec {
-    pub kind: crate::types::PanelControlKind => omitted("kind", "crate::json::is_zero");
-    pub id: String => omitted("id", "crate::json::is_zero");
-    pub text: String => omitted("text", "crate::json::is_zero");
-    pub command_id: String => omitted("commandId", "crate::json::is_zero");
-#[doc = "```text\ncurrent value of an editable control\n```"]
-    pub value: String => omitted("value", "crate::json::is_zero");
-#[doc = "```text\nchoices for dropdown/comboBox\n```"]
-    pub options: Option<Vec<String>> => omitted("options", "crate::json::slice_is_empty");
-#[doc = "```text\nslider/valueEditor lower bound\n```"]
-    pub min: f64 => omitted_finite("min", "crate::json::is_zero");
-#[doc = "```text\nslider/valueEditor upper bound\n```"]
-    pub max: f64 => omitted_finite("max", "crate::json::is_zero");
-#[doc = "```text\nslider/valueEditor increment\n```"]
-    pub step: f64 => omitted_finite("step", "crate::json::is_zero");
-#[doc = "```text\nContainer fields (grid/group/tabs only).\ngroup/tab caption\n```"]
-    pub title: String => omitted("title", "crate::json::is_zero");
-#[doc = "```text\nnested controls of a container\n```"]
-    pub children: Option<Vec<crate::wire::PanelControlSpec>> => omitted("children", "crate::json::slice_is_empty");
-#[doc = "```text\ngrid: column tracks (rows are auto-height)\n```"]
-    pub columns: Option<Vec<crate::types::GridTrack>> => omitted("columns", "crate::json::slice_is_empty");
-#[doc = "```text\ngrid: px gap between columns\n```"]
-    pub column_gap: f64 => omitted_finite("columnGap", "crate::json::is_zero");
-#[doc = "```text\ngrid: px gap between rows\n```"]
-    pub row_gap: f64 => omitted_finite("rowGap", "crate::json::is_zero");
-#[doc = "```text\nthis control's placement in its parent grid\n```"]
-    pub cell: Option<Box<crate::types::GridCell>> => omitted("cell", "Option::is_none");
-#[doc = "```text\nreferenceList: current picked refs\n```"]
-    pub rows: Option<Vec<crate::wire::PanelReferenceRow>> => omitted("rows", "crate::json::slice_is_empty");
-#[doc = "```text\nreferenceList: allowed kinds (\"face\"/\"edge\"/\"vertex\"); empty = any\n```"]
-    pub accepts: Option<Vec<String>> => omitted("accepts", "crate::json::slice_is_empty");
-#[doc = "```text\nPanelTree fields.\ntree: the root nodes\n```"]
-    pub nodes: Option<Vec<crate::wire::TreeNode>> => omitted("nodes", "crate::json::slice_is_empty");
-#[doc = "```text\nPanelTable fields (Columns is already []GridTrack and Rows []PanelReferenceRow, so the\ndata-grid header/body use distinct names).\ntable: header column names\n```"]
-    pub table_columns: Option<Vec<String>> => omitted("tableColumns", "crate::json::slice_is_empty");
-#[doc = "```text\ntable: data rows\n```"]
-    pub table_rows: Option<Vec<crate::wire::TableRow>> => omitted("tableRows", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPanelReferenceRow is one row of a referenceList control: a host geometry selection\nreference plus an optional display label (the host derives one, e.g. \"Face3\", when empty).\n```"]
-pub struct PanelReferenceRow {
-    pub ref_: String => required("ref");
-    pub label: String => omitted("label", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPanelReferencesChangedEvent is the push event (type [EventPanelReferencesChanged]) fired when a\nreferenceList control's rows change — by the user's Add-from-selection / per-row Remove or by\n[MethodDockableWindowsSetReferences]. Refs is the FULL new set (bulk-state, matching the rest of\nthe panel model); Action is \"add\"/\"remove\" for diagnostics only.\n```"]
-pub struct PanelReferencesChangedEvent {
-#[doc = "```text\nalways EventPanelReferencesChanged\n```"]
-    pub type_: String => required("type");
-    pub window_id: String => required("windowId");
-    pub control_id: String => required("controlId");
-    pub refs: Option<Vec<String>> => required("refs");
-    pub action: String => omitted("action", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPanelValueChangedEvent is the push event (type [EventPanelValueChanged]) fired when the\nuser edits an editable control of an add-in dockable window (M05-F03). It carries the\nowning window's id, the control's id, and the control's new Value — the add-in updates its\nmodel from it (and may re-Set the window to refresh derived labels). This is the editable-\npanel counterpart of CommandStartedEvent (which still observes button clicks).\n```"]
-pub struct PanelValueChangedEvent {
-#[doc = "```text\nalways EventPanelValueChanged\n```"]
-    pub type_: String => required("type");
-    pub window_id: String => required("windowId");
-    pub control_id: String => required("controlId");
-    pub value: String => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterChangedEvent is the JSON shape of an [EventParameterChanged] push event (#148): a\nparameter's expression/value changed on a document. Like the other push events it is delivered\nto an add-in's Notify entry point (ADR-0016) with no request/response method — an add-in matches\non Type and reads the parameter's new state from Parameter (so it need not re-query).\n```"]
-pub struct ParameterChangedEvent {
-#[doc = "```text\nalways EventParameterChanged\n```"]
-    pub type_: String => required("type");
-    pub document: u64 => required("document");
-    pub parameter: crate::wire::ParameterInfo => required("parameter");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterConvertArgs is the request of [MethodParametersConvert]: change the category of the\nparameter named Name to TargetKind — a [oblikovati.org/api/types.ParameterKind] spelling,\n\"user\" | \"model\" | \"reference\". The parameter keeps its identity (name, expression, value,\ntolerance, comment) and dependency edges; converting to \"reference\" makes it read-only. A\nbuilt-in/auto or derived parameter refuses conversion. #1850.\n```"]
-pub struct ParameterConvertArgs {
-    pub name: String => required("name");
-    pub target_kind: String => required("targetKind");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterDetail is the full member-level view of one parameter (response of\n[MethodParametersGetDetail] and of the parameter mutation methods). It embeds\n[ParameterInfo], adding units, presentation, tolerance, the multi-value list,\ncustom-property exposure and the dependency neighborhood. ModelValue is in\ndatabase units; DisplayFormat and ModelValueType carry the wire spellings of\ntypes.ParameterDisplayFormat and types.ModelValueType. Tolerance is nil for\ntext and true/false parameters.\n\nBuiltIn, Renamed and DisabledActionTypes are the read-only introspection\nmembers (#1853): BuiltIn is true for an auto-generated feature-dimension\nparameter (d0, d1, …) versus an API/user-created one — what a converter reads\nto decide whether a model parameter is worth exporting; Renamed is true when a\nmodel parameter was renamed from its generated name; DisabledActionTypes lists\nthe edit actions restricted on the parameter (types.ActionType.Names()).\n```"]
-pub struct ParameterDetail {
-    pub parameter_info: crate::wire::ParameterInfo => raw(flatten, deserialize_with = "crate::json::null_default");
-    pub units: String => omitted("units", "crate::json::is_zero");
-    pub comment: String => omitted("comment", "crate::json::is_zero");
-    pub is_key: bool => omitted("isKey", "crate::json::is_zero");
-    pub visible: bool => required("visible");
-    pub in_use: bool => omitted("inUse", "crate::json::is_zero");
-    pub precision: i64 => required("precision");
-    pub display_format: String => required("displayFormat");
-    pub exposed_as_property: bool => omitted("exposedAsProperty", "crate::json::is_zero");
-    pub built_in: bool => omitted("builtIn", "crate::json::is_zero");
-    pub renamed: bool => omitted("renamed", "crate::json::is_zero");
-    pub disabled_action_types: Option<Vec<String>> => omitted("disabledActionTypes", "crate::json::slice_is_empty");
-    pub model_value: f64 => finite("modelValue");
-    pub model_value_type: String => required("modelValueType");
-    pub tolerance: Option<Box<crate::wire::ToleranceInfo>> => omitted("tolerance", "Option::is_none");
-    pub expression_list: Option<Box<crate::wire::ExpressionListInfo>> => omitted("expressionList", "Option::is_none");
-    pub custom_property_format: Option<Box<crate::wire::CustomPropertyFormatInfo>> => omitted("customPropertyFormat", "Option::is_none");
-    pub driven_by: Option<Vec<String>> => omitted("drivenBy", "crate::json::slice_is_empty");
-    pub dependents: Option<Vec<String>> => omitted("dependents", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterExportResult is the response of [MethodParametersExport]: the\ndocument's user parameters as the documented parameter-set XML.\n```"]
-pub struct ParameterExportResult {
-    pub xml: String => required("xml");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterExpressionListArgs is the request of [MethodParametersSetExpressionList].\nAn empty Expressions clears the list, returning the parameter to single-valued.\n```"]
-pub struct ParameterExpressionListArgs {
-    pub name: String => required("name");
-    pub expressions: Option<Vec<String>> => omitted("expressions", "crate::json::slice_is_empty");
-    pub allow_custom_values: bool => omitted("allowCustomValues", "crate::json::is_zero");
-    pub custom_order: bool => omitted("customOrder", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterGroupAddArgs is the request of [MethodParametersGroupsAdd]. An empty\nDisplayName defaults to the internal name.\n```"]
-pub struct ParameterGroupAddArgs {
-    pub internal_name: String => required("internalName");
-    pub display_name: String => omitted("displayName", "crate::json::is_zero");
-    pub client_id: String => omitted("clientId", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterGroupDeleteArgs is the request of [MethodParametersGroupsDelete].\nDeleteParameters opts into the cascade that also deletes the member\nparameters; without it only the group goes, the members stay.\n```"]
-pub struct ParameterGroupDeleteArgs {
-    pub internal_name: String => required("internalName");
-    pub delete_parameters: bool => omitted("deleteParameters", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterGroupDisplayNameArgs is the request of\n[MethodParametersGroupsSetDisplayName]: the group's editable display name.\nThe internal name can never change.\n```"]
-pub struct ParameterGroupDisplayNameArgs {
-    pub internal_name: String => required("internalName");
-    pub display_name: String => required("displayName");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterGroupInfo is the JSON shape of one custom parameter group: the\nimmutable internal name that identifies it, the editable display name, the\nowning client id (add-in provenance, empty for user-created groups), and the\nmember parameter names in collection order.\n```"]
-pub struct ParameterGroupInfo {
-    pub internal_name: String => required("internalName");
-    pub display_name: String => required("displayName");
-    pub client_id: String => omitted("clientId", "crate::json::is_zero");
-    pub members: Option<Vec<String>> => omitted("members", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterGroupMemberArgs is the request of [MethodParametersGroupsAddMember]\n/ [MethodParametersGroupsRemoveMember]: one parameter (by name) and the group\nit joins or leaves.\n```"]
-pub struct ParameterGroupMemberArgs {
-    pub internal_name: String => required("internalName");
-    pub parameter: String => required("parameter");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterImportArgs is the request of [MethodParametersImport]: a\nparameter-set XML document. Import validates names, expressions, and units\nbefore touching the model and rejects the whole set naming the offending\nentry.\n```"]
-pub struct ParameterImportArgs {
-    pub xml: String => required("xml");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterImportResult reports what the import did: parameters newly created\nand existing parameters whose expression or metadata changed.\n```"]
-pub struct ParameterImportResult {
-    pub added: i64 => required("added");
-    pub updated: i64 => required("updated");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterInfo is the JSON shape of a parameter: its authored expression and its\nevaluated value formatted in the document's display units. Health is empty when\nthe parameter is healthy.\n```"]
-pub struct ParameterInfo {
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-    pub expression: String => required("expression");
-    pub value: String => required("value");
-    pub health: String => omitted("health", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterNameArgs identifies a parameter by name (request of [MethodParametersGet]).\n```"]
-pub struct ParameterNameArgs {
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterNamesResult is the response of [MethodParametersDrivenBy] /\n[MethodParametersDependents]: the names of the directly linked parameters.\n```"]
-pub struct ParameterNamesResult {
-    pub names: Option<Vec<String>> => omitted("names", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nParameterRenameArgs is the request of [MethodParametersRename]: rename the parameter\ncurrently called Name to NewName. The parameter keeps its identity and every expression\nreferencing it is rewritten to the new name. #1847.\n```"]
-pub struct ParameterRenameArgs {
-    pub name: String => required("name");
-    pub new_name: String => required("newName");
 }
 }

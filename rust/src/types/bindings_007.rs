@@ -3,6 +3,35 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+generated_dto! {
+#[doc = "```text\nPhysicalProperties is the computed mass/geometry summary of a body or part given its\nmaterial's density. Volume/area/centroid come from geometry; mass = density × volume.\nLengths are in database units (cm), so volume is cm³, area cm², and — with density in\ng/cm³ — mass is grams.\n```"]
+pub struct PhysicalProperties {
+#[doc = "```text\ng\n```"]
+    pub mass: f64 => finite("mass");
+#[doc = "```text\ncm³\n```"]
+    pub volume: f64 => finite("volume");
+#[doc = "```text\ncm²\n```"]
+    pub area: f64 => finite("area");
+#[doc = "```text\ng/cm³\n```"]
+    pub density: f64 => finite("density");
+#[doc = "```text\ncenter of mass (cm)\n```"]
+    pub centroid: [f64; 3] => finite("centroid");
+}
+}
+
+pub const PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
+    crate::types::DisplayTransformBehaviorEnum(26114);
+
+pub const PLANE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5890);
+
+generated_scalar! { string,
+#[doc = "```text\nPointCloudDisplayMode is how an attached point cloud is coloured in the viewport\n(Oblikovati/Oblikovati#645). Unlike the numeric-id enums, this is a lowercase string token so it\nis stable in the on-the-wire JSON and in the persisted `.obk` document without a lookup table:\n\n\tDefault   — the neutral marker colour (the pre-#645 look).\n\tRGB       — per-point colour decoded from the scan (LAS/PLY/E57), falling back to the marker\n\t            colour where a point carries none.\n\tIntensity — per-point greyscale mapped from the scan's intensity channel, normalised over the\n\t            cloud's decoded range, falling back to the marker colour when the cloud has no\n\t            usable intensity.\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(pointcloud.DisplayMode) and maps it onto the renderer.\n```"]
+pub struct PointCloudDisplayMode(pub std::borrow::Cow<'static, str>);
+}
+
+pub const POINT_CLOUD_DISPLAY_MODE_DEFAULT: crate::types::PointCloudDisplayMode =
+    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("default"));
+
 pub const POINT_CLOUD_DISPLAY_MODE_INTENSITY: crate::types::PointCloudDisplayMode =
     crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("intensity"));
 
@@ -432,33 +461,3 @@ pub struct SheetSize(pub i32);
 pub const SHEET_SIZE_A0: crate::types::SheetSize = crate::types::SheetSize(1);
 
 pub const SHEET_SIZE_A1: crate::types::SheetSize = crate::types::SheetSize(2);
-
-pub const SHEET_SIZE_A2: crate::types::SheetSize = crate::types::SheetSize(3);
-
-pub const SHEET_SIZE_A3: crate::types::SheetSize = crate::types::SheetSize(4);
-
-pub const SHEET_SIZE_A4: crate::types::SheetSize = crate::types::SheetSize(5);
-
-pub const SHEET_SIZE_ANSI_A: crate::types::SheetSize = crate::types::SheetSize(6);
-
-pub const SHEET_SIZE_ANSI_B: crate::types::SheetSize = crate::types::SheetSize(7);
-
-pub const SHEET_SIZE_ANSI_C: crate::types::SheetSize = crate::types::SheetSize(8);
-
-pub const SHEET_SIZE_ANSI_D: crate::types::SheetSize = crate::types::SheetSize(9);
-
-pub const SHEET_SIZE_ANSI_E: crate::types::SheetSize = crate::types::SheetSize(10);
-
-pub const SHEET_SIZE_CUSTOM: crate::types::SheetSize = crate::types::SheetSize(0);
-
-generated_scalar! { integer,
-#[doc = "```text\nShrinkwrapEnvelopeStyle selects how kept parts are replaced by simpler proxy\ngeometry — the reference API's envelopes-replace style. Envelopes erase internal\ndetail (and, by construction, holes) so the result is a lightweight closed solid.\n```"]
-pub struct ShrinkwrapEnvelopeStyle(pub i32);
-}
-
-generated_scalar! { integer,
-#[doc = "```text\nShrinkwrapRemoveStyle selects which source parts a shrinkwrap drops before merging —\nthe reference API's shrinkwrap remove style. Removal makes the result lighter by\ndiscarding parts a viewer never sees or that are too small to matter.\n```"]
-pub struct ShrinkwrapRemoveStyle(pub i32);
-}
-
-pub const SINGLE_POINT_RIP: crate::types::RipType = crate::types::RipType(1);

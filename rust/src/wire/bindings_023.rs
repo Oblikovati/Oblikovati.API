@@ -4,6 +4,258 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nThreadInfoResult is the response of [MethodThreadsResolve]: the resolved\nthread data. Diameters and pitch are millimetres. PitchDiameter is the ISO\nbasic pitch diameter; TapDrillDiameter the drill for a tapped hole of this\nthread (≈ the minor diameter).\n```"]
+pub struct ThreadInfoResult {
+    pub designation: String => required("designation");
+    pub thread_type: String => required("threadType");
+    pub nominal_size: String => required("nominalSize");
+    pub class: String => omitted("class", "crate::json::is_zero");
+    pub metric: bool => required("metric");
+    pub internal: bool => required("internal");
+    pub right_handed: bool => required("rightHanded");
+    pub tapered: bool => required("tapered");
+    pub pitch: f64 => finite("pitch");
+    pub major_diameter: f64 => finite("majorDiameter");
+    pub minor_diameter: f64 => finite("minorDiameter");
+    pub pitch_diameter: f64 => finite("pitchDiameter");
+    pub tap_drill_diameter: f64 => finite("tapDrillDiameter");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryArgs is the request of [MethodThreadsTableQuery]. The query\nis progressive: with no filters the result lists the thread types; given\nThreadType it also lists that type's nominal sizes; given NominalSize the\ndesignations; given Designation the classes. Internal narrows class\nlistings to the internal (nut) or external (bolt) side.\n```"]
+pub struct ThreadTableQueryArgs {
+    pub internal: bool => omitted("internal", "crate::json::is_zero");
+    pub thread_type: String => omitted("threadType", "crate::json::is_zero");
+    pub nominal_size: String => omitted("nominalSize", "crate::json::is_zero");
+    pub designation: String => omitted("designation", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryResult is the response of [MethodThreadsTableQuery]. Each\nlevel is filled when its prerequisite filter was given (ThreadTypes always).\n```"]
+pub struct ThreadTableQueryResult {
+    pub thread_types: Option<Vec<String>> => required("threadTypes");
+    pub nominal_sizes: Option<Vec<String>> => omitted("nominalSizes", "crate::json::slice_is_empty");
+    pub designations: Option<Vec<String>> => omitted("designations", "crate::json::slice_is_empty");
+    pub classes: Option<Vec<String>> => omitted("classes", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockField is one resolved title-block field: its name, the resolved text, and\nthe source it resolved from (a \"Set:Property\" iProperty token, or \"\" for static text).\n```"]
+pub struct TitleBlockField {
+    pub name: String => required("name");
+    pub value: String => required("value");
+    pub source: String => omitted("source", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsArgs is the request of [MethodDrawingTitleBlockFields]: the sheet\nwhose title-block fields to resolve. An empty Sheet uses the active sheet.\n```"]
+pub struct TitleBlockFieldsArgs {
+    pub sheet: String => omitted("sheet", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsResult is the response of [MethodDrawingTitleBlockFields]: the title\nblock's definition name and its resolved fields. Fields is empty when the sheet has\nno title block.\n```"]
+pub struct TitleBlockFieldsResult {
+    pub definition_name: String => required("definitionName");
+    pub fields: Option<Vec<crate::wire::TitleBlockField>> => required("fields");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nToleranceInfo is the JSON shape of a parameter's engineering tolerance: its\ntype spelling (types.ToleranceType.String()) and the deviation band from the\nnominal value, in database units. HoleTolerance/ShaftTolerance carry the ISO\nlimits-and-fits class strings (e.g. \"H7\"/\"g6\") for a fits tolerance, empty\notherwise (#1848).\n```"]
+pub struct ToleranceInfo {
+    pub type_: String => required("type");
+    pub upper: f64 => omitted_finite("upper", "crate::json::is_zero");
+    pub lower: f64 => omitted_finite("lower", "crate::json::is_zero");
+    pub hole_tolerance: String => omitted("holeTolerance", "crate::json::is_zero");
+    pub shaft_tolerance: String => omitted("shaftTolerance", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTopologyRef identifies one piece of part topology by its persistent reference key, with a\nrepresentative point [x,y,z] (a face's range-box centre, an edge's midpoint, a vertex's\nposition) so a caller can recognise which entity it is. Kind is the geometry classification\nfor faces — \"plane\" | \"cylinder\" | \"cone\" | \"sphere\" | \"torus\" | \"spline\" — so a caller can\npick, say, the cylindrical face to thread (empty for edges/vertices).\n```"]
+pub struct TopologyRef {
+    pub key: String => required("key");
+    pub point: Option<Vec<f64>> => finite("point");
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionBeginArgs is the request of [MethodTransactionBegin]: open a bounded\ntransaction that coalesces every edit recorded until the matching [MethodTransactionEnd]\ninto a single undo step. Label names that step (for the undo menu/tooltip). Begin/End\nnest; only the outermost End commits the group. Begin returns [OKResult]; End returns\nthe resulting [UndoState].\n\nA collaboration add-in drains its buffer of remote operations inside one Begin/End so\nthe whole batch is one team-shared undo step (oblikovati-meeting ADR-0005).\n```"]
+pub struct TransactionBeginArgs {
+    pub label: String => omitted("label", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionEventPayload is the JSON shape of the five transaction push events\n([EventTransactionCommitted], [EventTransactionUndone],\n[EventTransactionRedone], [EventTransactionAborted],\n[EventTransactionDeleted]). Document is the affected document's id, Label the\ndisplay name of the undo step acted on (\"\" when the event has no single step,\ne.g. a deleted stream), and Point locates that step relative to the stream's\ncursor: a commit acts on the current point, undo on the previous, redo on the\nnext, a deleted stream on no point at all.\n```"]
+pub struct TransactionEventPayload {
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub label: String => omitted("label", "crate::json::is_zero");
+    pub point: crate::types::TransactionPoint => omitted("point", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionHistory is the response of [MethodTransactionHistory] and [MethodTransactionJumpTo]:\none open document's whole undo stream for a history browser. Entries lists every committed\nstep oldest-first; Position is the cursor — how many steps are currently applied, so\nEntries[:Position] are undoable past and Entries[Position:] are redoable future, and\nPosition 0 is the document's open/baseline state. Saving does not truncate the stream, so a\nbrowser shows every event since the document was opened, with the save points flagged.\n```"]
+pub struct TransactionHistory {
+    pub document: u64 => required("document");
+    pub name: String => required("name");
+    pub position: i64 => required("position");
+    pub entries: Option<Vec<crate::wire::TransactionHistoryEntry>> => required("entries");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionHistoryArgs is the request of [MethodTransactionHistory]: read the full undo\nstream of one open document for a history browser. Document is the document's id (from\ndocuments.list); 0 (or omitted) means the active document. Reading another document's\nhistory does not activate it — a history browser can show several documents' timelines\nside by side.\n```"]
+pub struct TransactionHistoryArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionHistoryEntry is one committed step in a document's undo stream, oldest first.\nSaved marks the steps after which the document was written to disk (a save checkpoint), so\na browser can show which edits are persisted versus only in memory.\n```"]
+pub struct TransactionHistoryEntry {
+    pub label: String => required("label");
+    pub saved: bool => omitted("saved", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransactionJumpToArgs is the request of [MethodTransactionJumpTo]: move one document's undo\ncursor to an absolute Position (0 = open state, len(Entries) = latest), undoing or redoing\nas many steps as needed in one call — the click-to-jump a history browser needs for a long\nstream. Document is the document's id; 0 (or omitted) means the active document.\n```"]
+pub struct TransactionJumpToArgs {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub position: i64 => required("position");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransform3DArgs is the request of [MethodSketch3DTransform]: an editing operation over a\nselection of 3D entities. Op is \"move\" | \"copy\" (translate by Vector [x,y,z] cm),\n\"rotate\" (by the unit-bearing Angle about the axis through Center [x,y,z] in direction\nAxis [x,y,z], default +Z), or \"delete\" (remove the entities). Entities are the session\nids of the selection.\n```"]
+pub struct Transform3DArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub op: String => required("op");
+    pub entities: Option<Vec<u64>> => required("entities");
+    pub vector: Option<Vec<f64>> => omitted_finite("vector", "crate::json::slice_is_empty");
+    pub center: Option<Vec<f64>> => omitted_finite("center", "crate::json::slice_is_empty");
+    pub axis: Option<Vec<f64>> => omitted_finite("axis", "crate::json::slice_is_empty");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransform3DResult is the response of [MethodSketch3DTransform]: the session ids created\nby a copy (empty otherwise) and the sketch's resulting entity count.\n```"]
+pub struct Transform3DResult {
+    pub created: Option<Vec<u64>> => omitted("created", "crate::json::slice_is_empty");
+    pub entity_count: i64 => required("entityCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransformOccurrenceArgs is the request of [MethodAssemblyTransform]: reposition the\noccurrence with id ID to Transform (its placement in the assembly's space).\n```"]
+pub struct TransformOccurrenceArgs {
+    pub id: u64 => required("id");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransformSketchArgs is the request of [MethodSketchTransform] — the discriminated edit\noperation on a selection of entities. Op is \"move\" | \"rotate\" | \"copy\" | \"mirror\":\n\n  - move:   translate the selection in place by Vector ([dx,dy] cm).\n  - copy:   duplicate the selection, offset by Vector; the copies are returned.\n  - rotate: rotate the selection in place about Center ([x,y] cm) by Angle (a\n    unit-bearing expression like \"90 deg\").\n  - mirror: reflect the selection across the line MirrorLine (an entity id); the\n    mirrored copies are returned.\n```"]
+pub struct TransformSketchArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub op: String => required("op");
+    pub entities: Option<Vec<u64>> => required("entities");
+    pub vector: Option<Vec<f64>> => omitted_finite("vector", "crate::json::slice_is_empty");
+    pub center: Option<Vec<f64>> => omitted_finite("center", "crate::json::slice_is_empty");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub mirror_line: u64 => omitted("mirrorLine", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTransformSketchResult is the response of [MethodSketchTransform]: the ids of any newly\ncreated entities (the copies for \"copy\"/\"mirror\"; empty for the in-place \"move\"/\"rotate\").\n```"]
+pub struct TransformSketchResult {
+    pub created: Option<Vec<u64>> => omitted("created", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTreeNode is one node of a PanelTree (a category-browser hierarchy). ID is the stable key the\nhost echoes in a PanelValueChangedEvent when the node's label is clicked; Label is the display\ntext; Children nests sub-nodes (empty = a leaf). Expanded is a FIRST-RENDER hint only —\nafterwards the host owns expand/collapse (twirling a node does not notify the add-in), so a\nre-sent spec does not fight the user's open/closed state.\n```"]
+pub struct TreeNode {
+    pub id: String => required("id");
+    pub label: String => required("label");
+    pub children: Option<Vec<crate::wire::TreeNode>> => omitted("children", "crate::json::slice_is_empty");
+    pub expanded: bool => omitted("expanded", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTriadDragEvent is the push event (type [EventTriadDrag]) streaming a triad\ngesture: Phase is \"start\", \"move\" or \"end\"; Delta is the row-major 4×4 transform\naccumulated since the drag started (identity at start).\n```"]
+pub struct TriadDragEvent {
+#[doc = "```text\nalways EventTriadDrag\n```"]
+    pub type_: String => required("type");
+    pub phase: String => required("phase");
+    pub segment: crate::types::TriadSegment => required("segment");
+    pub move_type: crate::types::TriadMoveType => required("moveType");
+    pub delta: crate::types::Matrix => raw(rename = "delta");
+    pub context: crate::wire::DragContext => required("context");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTriadSegmentEvent is the push event (type [EventTriadSegment]) fired when the\nhovered/selected segment changes (OnSegmentSelectionChange).\n```"]
+pub struct TriadSegmentEvent {
+#[doc = "```text\nalways EventTriadSegment\n```"]
+    pub type_: String => required("type");
+    pub segment: crate::types::TriadSegment => required("segment");
+    pub hovered: bool => required("hovered");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTriadSpec places the triad: a position and an orientation (three column axes;\nidentity when omitted), with the allowed segments (empty ⇒ all). Command, when\nset, ties the triad's lifetime to that command like interaction graphics.\n```"]
+pub struct TriadSpec {
+    pub position: crate::types::Point => raw(rename = "position");
+    pub axis_x: Option<Box<crate::types::UnitVector>> => omitted("axisX", "Option::is_none");
+    pub axis_y: Option<Box<crate::types::UnitVector>> => omitted("axisY", "Option::is_none");
+    pub axis_z: Option<Box<crate::types::UnitVector>> => omitted("axisZ", "Option::is_none");
+    pub allowed: crate::json::ByteSlice<crate::types::TriadSegment> => omitted("allowed", "crate::json::ByteSlice::is_empty");
+    pub visible: bool => required("visible");
+    pub command: String => omitted("command", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUndoState is the JSON shape of the active document's transaction-stream cursor: what\nundo and redo can do next. It is the result of [MethodTransactionState] and of the\nmutating [MethodTransactionUndo] / [MethodTransactionRedo] (which return the state the\nmove produced, so a caller learns the new cursor position in one round trip). The\nNext* labels are the names of the steps undo/redo would act on, for a menu/tooltip;\nthey are empty when there is nothing to act on.\n```"]
+pub struct UndoState {
+    pub can_undo: bool => required("canUndo");
+    pub can_redo: bool => required("canRedo");
+    pub next_undo: String => omitted("nextUndo", "crate::json::is_zero");
+    pub next_redo: String => omitted("nextRedo", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUnfoldResult is the reply of unfold: the developed flat pattern of the active part.\n```"]
+pub struct UnfoldResult {
+    pub flat: crate::wire::FlatPatternInfo => required("flat");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nUnitStringArgs is the request of [MethodUnitsGetTypeFromString]: a unit-name\nspelling (\"mm\") whose category is wanted.\n```"]
+pub struct UnitStringArgs {
+    pub unit_string: String => required("unitString");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nUnitsTypeArgs is the request of [MethodUnitsGetStringFromType]: a category\nwhose document-preferred unit name is wanted.\n```"]
 pub struct UnitsTypeArgs {
     pub units_type: String => required("unitsType");
@@ -205,130 +457,5 @@ generated_dto! {
 pub struct WirePolyline {
     pub points: Option<Vec<f64>> => finite("points");
     pub closed: bool => omitted("closed", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
-pub struct WireframeDisplayModeOptionsView {
-    pub depth_dimming: bool => required("depthDimming");
-    pub silhouettes: bool => required("silhouettes");
-    pub dimmed_hidden_edges: bool => required("dimmedHiddenEdges");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkAxisInfo is one row of [MethodWorkAxesList]: a datum axis's identity and current\ngeometry (Origin point and unit Direction, in database units), whether it is one of the\norigin coordinate-system axes, its health, and its constructor Kind. Origin axes report\nIsOrigin=true.\n```"]
-pub struct WorkAxisInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-#[doc = "```text\na types.WorkAxisKind value\n```"]
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-    pub origin: Option<Vec<f64>> => finite("origin");
-    pub direction: Option<Vec<f64>> => finite("direction");
-    pub is_origin: bool => required("isOrigin");
-#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPlaneInfo is one row of [MethodWorkPlanesList]: a datum plane's identity and\ncurrent geometry (origin and unit normal, in model units), whether it is one of the\norigin coordinate-system planes, its health, its constructor Kind, and — for a user\nplane — the editable inputs [MethodWorkPlanesRedefine] accepts (its scalars and its\nre-pickable reference slots). Origin planes report no scalars/slots (not redefinable).\n```"]
-pub struct WorkPlaneInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-    pub origin: Option<Vec<f64>> => finite("origin");
-    pub normal: Option<Vec<f64>> => finite("normal");
-    pub is_origin: bool => required("isOrigin");
-    pub visible: bool => required("visible");
-#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-#[doc = "```text\ndisplayed size tracks the component box (#1851)\n```"]
-    pub auto_resize: bool => omitted("autoResize", "crate::json::is_zero");
-#[doc = "```text\ngrounded flag (#1851)\n```"]
-    pub grounded: bool => omitted("grounded", "crate::json::is_zero");
-#[doc = "```text\ndisplayed rectangle extents: two corners [x,y,z] cm (#1851)\n```"]
-    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
-#[doc = "```text\na types.WorkPlaneKind value\n```"]
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-#[doc = "```text\neditable distance/angle inputs\n```"]
-    pub scalars: Option<Vec<crate::wire::WorkPlaneScalar>> => omitted("scalars", "crate::json::slice_is_empty");
-#[doc = "```text\nre-pickable reference inputs\n```"]
-    pub slots: Option<Vec<crate::wire::WorkPlaneRefSlot>> => omitted("slots", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPlaneRefSlot describes one re-pickable reference of a work plane: its slot Index, Label,\nand Kind — \"plane\" | \"axis\" | \"point\" | \"face\" — so a client knows what reference string a\n[SlotRepick] for this slot accepts (an origin constant, a List ref, or a face key).\n```"]
-pub struct WorkPlaneRefSlot {
-    pub index: i64 => required("index");
-    pub label: String => required("label");
-    pub kind: String => required("kind");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPlaneScalar describes one editable scalar of a work plane (offset distance, line-plane\nangle): its slot Index, Label, the Unit its value is shown in (\"mm\", \"deg\", …), and the\ncurrent Value in that unit. A redefine sets it via [ScalarEdit] keyed on Index.\n```"]
-pub struct WorkPlaneScalar {
-    pub index: i64 => required("index");
-    pub label: String => required("label");
-    pub unit: String => omitted("unit", "crate::json::is_zero");
-    pub value: f64 => finite("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPointInfo is one row of [MethodWorkPointsList]: a datum point's identity, current position\n([x, y, z] in model units), whether it is the origin centre point, its visibility, health, and\nconstructor kind. #1842.\n```"]
-pub struct WorkPointInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-    pub position: Option<Vec<f64>> => finite("position");
-    pub is_origin: bool => required("isOrigin");
-    pub visible: bool => required("visible");
-#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
-#[doc = "```text\nthe point's constructor kind\n```"]
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkSurfaceDetailResult is the response of [MethodWorkSurfacesGet],\n[MethodWorkSurfacesSetVisible], and [MethodWorkSurfacesRename]: the surface's refreshed\nstate after the call.\n```"]
-pub struct WorkSurfaceDetailResult {
-    pub surface: crate::wire::WorkSurfaceInfo => required("surface");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkSurfaceInfo is one row of [MethodWorkSurfacesList] and the payload of\n[MethodWorkSurfacesGet]: a construction surface's identity, display state, the count of\nsurface bodies it wraps, the feature that produced it, and a stable reference for\nconsuming it as a feature input.\n```"]
-pub struct WorkSurfaceInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-    pub visible: bool => required("visible");
-    pub translucent: bool => required("translucent");
-#[doc = "```text\nnumber of surface bodies wrapped\n```"]
-    pub bodies: i64 => required("bodies");
-#[doc = "```text\nname of the feature that produced it\n```"]
-    pub source: String => omitted("source", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkSurfaceRefArgs is the request of [MethodWorkSurfacesGet]: one work surface by its\nIndex in the collection (from [MethodWorkSurfacesList]).\n```"]
-pub struct WorkSurfaceRefArgs {
-    pub index: i64 => required("index");
 }
 }

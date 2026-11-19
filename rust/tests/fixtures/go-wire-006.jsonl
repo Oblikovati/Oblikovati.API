@@ -1,3 +1,9 @@
+{"Name":"types.PunchRepresentationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.PunchRepresentationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.PunchRepresentationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ReferenceStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ReferenceStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ReferenceStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"types.ToleranceType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ToleranceType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ToleranceType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransactionPoint","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TransactionPoint","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransactionPoint","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}

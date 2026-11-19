@@ -4,6 +4,229 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetClientGraphicsVisibleArgs is the request of [MethodClientGraphicsSetVisible].\n```"]
+pub struct SetClientGraphicsVisibleArgs {
+    pub client_id: String => required("clientId");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetColorSchemeArgs is the request of [MethodColorSchemesSetActive]: activate the scheme by\nname (schemes are identified by name).\n```"]
+pub struct SetColorSchemeArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of\nits own commands' live ribbon state. Active toggles the button's pressed/highlighted look\n(rendered in the accent color), so a stateful control like a presenter or follow toggle\nreads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.\n\"Presenter\" → \"Presenting\") — leave it empty to keep the current label. Enabled, when\nnon-nil, greys the button out (false) or restores it (true) — e.g. a collaboration add-in\ndisabling its presenter/follow controls until the user joins a session; nil leaves the\nenabled state unchanged.\n```"]
+pub struct SetCommandStateArgs {
+    pub id: String => required("id");
+    pub active: bool => required("active");
+    pub enabled: Option<Box<bool>> => omitted("enabled", "Option::is_none");
+    pub display_name: String => omitted("displayName", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetConstraintLimitsArgs is the request of [MethodAssemblyConstraintsSetLimits]: set (or\nclear) the driven-value Limits of the constraint with id ID.\n```"]
+pub struct SetConstraintLimitsArgs {
+    pub id: u64 => required("id");
+    pub limits: crate::wire::ConstraintLimits => required("limits");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetContextMenuArgs is the request of [MethodUISetContextMenu]: replace an\nadd-in's injected entries for one browser node kind (e.g. \"feature\", \"sketch\",\n\"body\"; \"\" injects into every node's menu) — the OnContextMenu equivalent,\ndeclarative so no round-trip happens while the menu is open.\n```"]
+pub struct SetContextMenuArgs {
+    pub add_in: String => required("addin");
+    pub kind: String => required("kind");
+    pub items: Option<Vec<crate::wire::ContextMenuItemSpec>> => required("items");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
+pub struct SetDimensionInspectionArgs {
+    pub name: String => required("name");
+    pub inspection: crate::types::InspectionDimension => required("inspection");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any\nsubset of the named dimension's text overrides (#1992/#1993). Each pointer field is applied only\nwhen present, so one call can set a prefix without clearing an override.\n```"]
+pub struct SetDimensionTextStyleArgs {
+    pub name: String => required("name");
+    pub prefix: Option<Box<String>> => omitted("prefix", "Option::is_none");
+    pub suffix: Option<Box<String>> => omitted("suffix", "Option::is_none");
+    pub override_text: Option<Box<String>> => omitted("overrideText", "Option::is_none");
+    pub hide_value: Option<Box<bool>> => omitted("hideValue", "Option::is_none");
+    pub dual_unit: Option<Box<bool>> => omitted("dualUnit", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDimensionToleranceArgs is the request of [MethodDrawingDimensionsSetTolerance]: set the named\ndimension's engineering tolerance (#1990). A zero-value (none) Tolerance clears it.\n```"]
+pub struct SetDimensionToleranceArgs {
+    pub name: String => required("name");
+    pub tolerance: crate::types::DimensionTolerance => required("tolerance");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDisplayModeArgs is the request of [MethodViewSetDisplayMode]: the mode to switch the\nviewport to.\n```"]
+pub struct SetDisplayModeArgs {
+    pub mode: crate::types::DisplayModeEnum => required("mode");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDisplaySettingsArgs is the request of [MethodDocumentSetDisplaySettings]: the document to\nupdate and the settings to apply.\n```"]
+pub struct SetDisplaySettingsArgs {
+    pub document: String => omitted("document", "crate::json::is_zero");
+    pub settings: crate::wire::DisplaySettingsView => required("settings");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDockableWindowArgs is the request of [MethodDockableWindowsSet]: create the\nwindow or replace its title/content if it exists.\n```"]
+pub struct SetDockableWindowArgs {
+    pub window: crate::wire::DockableWindowSpec => required("window");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDockableWindowReferencesArgs is the request of [MethodDockableWindowsSetReferences]: it\nreplaces a referenceList control's rows exactly as an Add-from-selection would, and notifies\nthe owning add-in with a [PanelReferencesChangedEvent]. Refs is the full new set.\n```"]
+pub struct SetDockableWindowReferencesArgs {
+    pub window_id: String => required("windowId");
+    pub control_id: String => required("controlId");
+    pub refs: Option<Vec<String>> => required("refs");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDockableWindowValueArgs is the request of [MethodDockableWindowsSetValue]: it drives one\neditable control of an add-in dockable window to a value, exactly as a user edit would — the host\nupdates the stored control and notifies the owning add-in (which may react, e.g. re-render the\nwindow). Value is the control's string form: the option text for a dropdown/combo, \"true\"/\"false\"\nfor a checkbox, the number for a value editor/slider, the text for a text box.\n```"]
+pub struct SetDockableWindowValueArgs {
+    pub window_id: String => required("windowId");
+    pub control_id: String => required("controlId");
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDockableWindowVisibleArgs is the request of [MethodDockableWindowsSetVisible].\n```"]
+pub struct SetDockableWindowVisibleArgs {
+    pub id: String => required("id");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetDocumentUnitsArgs is the request of [MethodDocumentsSetUnits]: only the\nnon-nil fields are applied, so a caller can change one preference without\nrestating the rest. The response is the updated [DocumentUnitsInfo].\n```"]
+pub struct SetDocumentUnitsArgs {
+    pub length_unit: Option<Box<String>> => omitted("lengthUnit", "Option::is_none");
+    pub angle_unit: Option<Box<String>> => omitted("angleUnit", "Option::is_none");
+    pub mass_unit: Option<Box<String>> => omitted("massUnit", "Option::is_none");
+    pub time_unit: Option<Box<String>> => omitted("timeUnit", "Option::is_none");
+    pub length_display_precision: Option<Box<i64>> => omitted("lengthDisplayPrecision", "Option::is_none");
+    pub angle_display_precision: Option<Box<i64>> => omitted("angleDisplayPrecision", "Option::is_none");
+    pub length_display_format: Option<Box<String>> => omitted("lengthDisplayFormat", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetEndOfFeaturesArgs is the request of [MethodAssemblySetEndOfFeatures]: move the\nmarker to Position (negative restores it to the end, re-including every feature).\n```"]
+pub struct SetEndOfFeaturesArgs {
+    pub position: i64 => required("position");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetEndOfPartArgs is the request of [MethodDocumentSetEndOfPart]: move the marker to Position\n(a negative index restores it to the end, re-including every feature).\n```"]
+pub struct SetEndOfPartArgs {
+    pub position: i64 => required("position");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetEnvironmentArgs is the request of [MethodEnvironmentSet]: select a built-in preset by\nname and set its display parameters.\n```"]
+pub struct SetEnvironmentArgs {
+    pub preset: String => required("preset");
+    pub rotation: f64 => finite("rotation");
+    pub intensity: f64 => finite("intensity");
+    pub show_image: bool => required("showImage");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetFeatureSuppressedArgs is the request of [MethodFeaturesSetSuppressed]: set\n(not toggle) explicit suppression, so the call is idempotent for replication.\n```"]
+pub struct SetFeatureSuppressedArgs {
+    pub id: u64 => required("id");
+    pub suppressed: bool => required("suppressed");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetFlexibleArgs sets a subassembly occurrence's flexibility within a positional\nrepresentation.\n```"]
+pub struct SetFlexibleArgs {
+    pub rep: u64 => required("rep");
+    pub occurrence: u64 => required("occurrence");
+    pub flexible: bool => required("flexible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetFlexibleChildArgs is the request of [MethodAssemblySetFlexibleChild] (M12-F06): position\nthe child component named Child within the flexible subassembly occurrence Occurrence,\nindependently of the subassembly's other placements. Transform is the child's row-major 4×4\nplacement in the subassembly's space.\n```"]
+pub struct SetFlexibleChildArgs {
+    pub occurrence: u64 => required("occurrence");
+    pub child: String => required("child");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetFlexibleOccurrenceArgs is the request of [MethodAssemblySetFlexible] (M12-F06): mark the\nsubassembly occurrence with id ID flexible (Flexible=true) so it solves its components\nindependently per placement, or rigid. Mutually exclusive with adaptive; only a subassembly\noccurrence can be flexible.\n```"]
+pub struct SetFlexibleOccurrenceArgs {
+    pub id: u64 => required("id");
+    pub flexible: bool => required("flexible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetFreeformLevelArgs is the request of [MethodFreeformSetLevel]: change the\nCatmull–Clark subdivision level the cage is evaluated at (clamped at 0 by the\nhost — higher levels refine the limit-surface approximation).\n```"]
+pub struct SetFreeformLevelArgs {
+    pub id: u64 => required("id");
+    pub level: i64 => required("level");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetHighlightSetColorArgs is the request of [MethodModelHighlightSetSetColor]: re-colour the\nnamed set to a \"#rrggbb\" Color.\n```"]
+pub struct SetHighlightSetColorArgs {
+    pub name: String => required("name");
+    pub color: String => required("color");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetImposedMotionArgs is the request of [MethodDSJointsSetImposedMotion]: set the imposed\nmotion (free/driven/locked) and value of the DS joint's DOF at index DOFIndex.\n```"]
+pub struct SetImposedMotionArgs {
+    pub id: u64 => required("id");
+    pub dof_index: i64 => required("dofIndex");
+    pub imposed_motion: String => required("imposedMotion");
+    pub value: f64 => omitted_finite("value", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetJointFlipArgs is the request of [MethodAssemblyJointsSetFlip]: set the flip sense of the\njoint with id ID.\n```"]
+pub struct SetJointFlipArgs {
+    pub id: u64 => required("id");
+    pub flip: bool => required("flip");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetJointLimitsArgs is the request of [MethodAssemblyJointsSetLimits]: set the linear/angular\nbounds of the joint with id ID.\n```"]
 pub struct SetJointLimitsArgs {
     pub id: u64 => required("id");
@@ -101,6 +324,26 @@ generated_dto! {
 #[doc = "```text\nSetModelReferenceResult is the response of [MethodDrawingSetModelReference]: the\nreference as stored (empty when cleared).\n```"]
 pub struct SetModelReferenceResult {
     pub model_reference: String => required("modelReference");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetModelStatePropertyTableArgs replaces the displayed property columns and\ntheir member values as one undoable document edit. If ExpectedGeneration is\nsupplied it must equal the current document generation. Duplicate columns,\nmissing or duplicate member cells, unknown properties, invalid typed values,\nstale generations, unit-bearing values, and altered default values are rejected\nwithout mutation. Values use the document-property types and carry no unit string.\nRemoving a displayed\ncolumn does not delete existing member property values. A canceled UI draft\nsends no set request. Example: `wire.SetModelStatePropertyTableArgs{Columns: columns}`.\n```"]
+pub struct SetModelStatePropertyTableArgs {
+    pub expected_generation: Option<Box<u64>> => omitted("expectedGeneration", "Option::is_none");
+    pub columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("columns");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetModelStateTableArgs is a complete staged table applied as one undoable\ntransaction. ExpectedGeneration must equal the sampled generation. Every\ncollection is required, including explicit empty collections. Visible column\nreferences are unique and point to typed records; retained hidden records are\nnot in Columns. Each record has exactly one cell per row in row order. The\nclient must echo unchanged bases. A stale generation, bad reference, invalid\nvalue or failed validation rejects the entire edit. The active member is\nretained unless its row is deleted, in which case Primary becomes active.\nExample: `wire.SetModelStateTableArgs{ExpectedGeneration: generation, Rows: rows}`.\n```"]
+pub struct SetModelStateTableArgs {
+    pub expected_generation: u64 => required("expectedGeneration");
+    pub rows: Option<Vec<crate::wire::ModelStateTableRow>> => required("rows");
+    pub columns: Option<Vec<crate::wire::ModelStateTableColumnRef>> => required("columns");
+    pub properties: Option<Vec<crate::wire::ModelStateTableProperty>> => required("properties");
+    pub suppressions: Option<Vec<crate::wire::ModelStateTableSuppression>> => required("suppressions");
+    pub parameters: Option<Vec<crate::wire::ModelStateTableParameter>> => required("parameters");
 }
 }
 
@@ -217,246 +460,5 @@ pub struct SetPointCloudCropActiveArgs {
     pub cloud: String => required("cloud");
     pub crop: String => required("crop");
     pub active: bool => required("active");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudDensityArgs is the request of [MethodPointCloudsSetDensity]: the display budget\n(MaximumPointCount); 0 shows every point.\n```"]
-pub struct SetPointCloudDensityArgs {
-    pub name: String => required("name");
-    pub maximum_point_count: i64 => required("maximumPointCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport\ncolouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.\n```"]
-pub struct SetPointCloudDisplayModeArgs {
-    pub name: String => required("name");
-    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudScaleArgs is the request of [MethodPointCloudsSetScale]: the new uniform\ncloud→model scale, which must be positive.\n```"]
-pub struct SetPointCloudScaleArgs {
-    pub name: String => required("name");
-    pub scale: f64 => finite("scale");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudTransformArgs is the request of [MethodPointCloudsSetTransform]: the new\ncloud→model placement.\n```"]
-pub struct SetPointCloudTransformArgs {
-    pub name: String => required("name");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudVisibleArgs is the request of [MethodPointCloudsSetVisible].\n```"]
-pub struct SetPointCloudVisibleArgs {
-    pub name: String => required("name");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPositionalOverrideArgs overrides a constraint's or joint's value within a positional\nrepresentation (IsJoint selects which relationship id space the id is in).\n```"]
-pub struct SetPositionalOverrideArgs {
-    pub rep: u64 => required("rep");
-    pub relationship: u64 => required("relationship");
-    pub is_joint: bool => omitted("isJoint", "crate::json::is_zero");
-    pub value: f64 => finite("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPropertyArgs is the request of [MethodDocumentsSetProperty]: create or replace the named\nproperty in the set with the typed value (the set is created if it is a custom set name not\namong the standard sets). Address by document session id.\n```"]
-pub struct SetPropertyArgs {
-    pub document: u64 => required("document");
-    pub set: String => required("set");
-    pub name: String => required("name");
-    pub value: crate::types::Variant => raw(rename = "value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSettingsArgs edits the flat-pattern settings.\n```"]
-pub struct SetSettingsArgs {
-    pub defer_update: bool => omitted("deferUpdate", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSheetMetalStyleArgs edits the active rule. Every field is optional: an empty length\nexpression (or zero KFactor) leaves that property unchanged, so a caller can nudge a\nsingle property without restating the whole rule.\n```"]
-pub struct SetSheetMetalStyleArgs {
-    pub thickness: String => omitted("thickness", "crate::json::is_zero");
-    pub bend_radius: String => omitted("bendRadius", "crate::json::is_zero");
-    pub relief_shape: String => omitted("reliefShape", "crate::json::is_zero");
-    pub relief_width: String => omitted("reliefWidth", "crate::json::is_zero");
-    pub relief_depth: String => omitted("reliefDepth", "crate::json::is_zero");
-    pub minimum_gap: String => omitted("minimumGap", "crate::json::is_zero");
-    pub unfold_method: String => omitted("unfoldMethod", "crate::json::is_zero");
-    pub k_factor: f64 => omitted_finite("kFactor", "crate::json::is_zero");
-#[doc = "```text\nThe corner-relief properties (#1960); empty leaves each unchanged, like the rest.\n```"]
-    pub corner_relief_shape: String => omitted("cornerReliefShape", "crate::json::is_zero");
-    pub corner_relief_size: String => omitted("cornerReliefSize", "crate::json::is_zero");
-    pub corner_relief_placement: String => omitted("cornerReliefPlacement", "crate::json::is_zero");
-    pub three_bend_relief_shape: String => omitted("threeBendReliefShape", "crate::json::is_zero");
-    pub three_bend_relief_size: String => omitted("threeBendReliefSize", "crate::json::is_zero");
-#[doc = "```text\nThe bend transition (#1959); empty leaves each unchanged, like the rest.\n```"]
-    pub bend_transition: String => omitted("bendTransition", "crate::json::is_zero");
-    pub bend_transition_arc_radius: String => omitted("bendTransitionArcRadius", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSheetRevisionArgs is the request of [MethodDrawingSetSheetRevision]: set a sheet's revision\nstring. Sheet names the target (\"\" ⇒ active) (#1989).\n```"]
-pub struct SetSheetRevisionArgs {
-    pub sheet: String => omitted("sheet", "crate::json::is_zero");
-    pub revision: String => required("revision");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSketch3DPropertyArgs is the request of [MethodSketch3DSetProperty]: which sketch,\nwhich property (\"name\" | \"visible\" | \"dimensionsVisible\" | \"color\" | \"deferUpdates\"),\nand the new value as a string (bools as \"true\"/\"false\"). The response is the updated\n[Sketch3DInfo].\n```"]
-pub struct SetSketch3DPropertyArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub property: String => required("property");
-    pub value: String => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSketchCustomLineTypeArgs is the request of [MethodSketchSetCustomLineType]:\nload LineTypeName from the .lin file at FullFileName onto the sketch.\nReplaceExisting replaces an already-loaded definition of the same name; when\nfalse, re-loading an existing name is an error.\n```"]
-pub struct SetSketchCustomLineTypeArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub full_file_name: String => required("fullFileName");
-    pub line_type_name: String => required("lineTypeName");
-    pub replace_existing: bool => omitted("replaceExisting", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSketchEntityFormatArgs sets one entity's formatting. A format that overrides nothing clears\nthe entity's overrides, so writing back a default is how a caller removes them. It is the\nrequest of [MethodSketchSetEntityFormat].\n```"]
-pub struct SetSketchEntityFormatArgs {
-    pub entity_id: u64 => required("entityId");
-    pub format: crate::types::SketchEntityFormat => required("format");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSketchPropertyArgs is the request of [MethodSketchSetProperty]: which sketch, which\nproperty (\"name\" | \"visible\" | \"color\" | \"lineType\" | \"lineWeight\" | \"deferUpdates\"),\nand the new value as a string (bools as \"true\"/\"false\", line weight as a unit-bearing\nlength like \"0.5 mm\"). The response is the updated [SketchInfo].\n```"]
-pub struct SetSketchPropertyArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub property: String => required("property");
-    pub value: String => required("value");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSketchSettingsArgs is the request of [MethodDocumentSetSketchSettings]: replace the document's\nsketch settings with the given values.\n```"]
-pub struct SetSketchSettingsArgs {
-    pub document: u64 => required("document");
-    pub settings: crate::types::SketchSettings => required("settings");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSplineHandleArgs is the request of [MethodSketchSetSplineHandle] and\n[MethodSketch3DSetSplineHandle]. Spline is the spline's session id and\nFitPointIndex which fit point's handle to address (0-based). Active\nactivates or deactivates the handle. Tangent is the handle direction —\n[x,y] in sketch-plane coordinates for the 2D method, [x,y,z] for the 3D one\n(empty keeps the current/natural direction). Weight scales the tangent\nmagnitude's pull on the curve (0 keeps the current weight).\n```"]
-pub struct SetSplineHandleArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub spline: u64 => required("spline");
-    pub fit_point_index: i64 => required("fitPointIndex");
-    pub active: bool => required("active");
-    pub tangent: Option<Vec<f64>> => omitted_finite("tangent", "crate::json::slice_is_empty");
-    pub weight: f64 => omitted_finite("weight", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetStandardArgs is the request of [MethodDrawingStylesSetStandard]: the drafting standard\nto make active (a types.DraftingStandard spelling, \"iso\"/\"ansi\").\n```"]
-pub struct SetStandardArgs {
-    pub standard: String => required("standard");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetStatusTextArgs is the request of [MethodStatusSetText]: put a transient message\nin the status bar (the same notice slot failed commits use). Empty clears it.\n```"]
-pub struct SetStatusTextArgs {
-    pub text: String => required("text");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetSuppressedArgs suppresses or restores an occurrence within a level-of-detail\nrepresentation.\n```"]
-pub struct SetSuppressedArgs {
-    pub rep: u64 => required("rep");
-    pub occurrence: u64 => required("occurrence");
-    pub suppressed: bool => required("suppressed");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetTextFontArgs is the request of [MethodSketchSetTextFont]: choose the font of the sketch\nTEXT entity EntityID in sketch SketchIndex. Provide Path for a host font (its bytes are\nembedded into the document) OR Family for a bundled face (recorded without bytes); if both\nare set, Path wins. The font becomes a document resource the text/emboss resolves by, so the\ndocument is self-contained (ADR-0031).\n```"]
-pub struct SetTextFontArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub entity_id: u64 => required("entityId");
-    pub family: String => omitted("family", "crate::json::is_zero");
-    pub path: String => omitted("path", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetTextFontResult reports the document resource UUID the text now cites and the resolved\nfamily name (for the picker's label).\n```"]
-pub struct SetTextFontResult {
-    pub resource: String => required("resource");
-    pub family: String => required("family");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetTitleBlockArgs is the request of [MethodDrawingSetTitleBlock]: move a sheet's title block to a\ncorner (types.TitleBlockLocation: \"bottomRight\"/\"bottomLeft\"/\"topLeft\"/\"topRight\"; \"\" ⇒ bottomRight),\nseeding the default block when the sheet has none. Sheet names the target (\"\" ⇒ active) (#1989).\n```"]
-pub struct SetTitleBlockArgs {
-    pub sheet: String => omitted("sheet", "crate::json::is_zero");
-    pub location: String => omitted("location", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetViewDisplayArgs is the request of [MethodDrawingViewsSetDisplay]: change a view's edge-display\ntoggles (#1984). Each pointer field is applied only when present. DisplayTangentEdges=false drops\nthe smooth tangent edges (fillet/blend transitions) from the projection.\n```"]
-pub struct SetViewDisplayArgs {
-    pub name: String => required("name");
-    pub display_tangent_edges: Option<Box<bool>> => omitted("displayTangentEdges", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetViewLabelArgs is the request of [MethodDrawingViewsSetLabel]: change any subset of the named\nview's label (#1983). Each pointer field is applied only when present; Text=\"\" restores the\ndefault caption. LabelXMM and LabelYMM must both be set to reposition the caption.\n```"]
-pub struct SetViewLabelArgs {
-    pub name: String => required("name");
-    pub text: Option<Box<String>> => omitted("text", "Option::is_none");
-    pub show_label: Option<Box<bool>> => omitted("showLabel", "Option::is_none");
-    pub show_name: Option<Box<bool>> => omitted("showName", "Option::is_none");
-    pub show_scale: Option<Box<bool>> => omitted("showScale", "Option::is_none");
-    pub label_xmm: Option<Box<f64>> => omitted_finite("labelXmm", "Option::is_none");
-    pub label_ymm: Option<Box<f64>> => omitted_finite("labelYmm", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetVisibilityArgs hides or shows an occurrence within a design-view representation.\n```"]
-pub struct SetVisibilityArgs {
-    pub rep: u64 => required("rep");
-    pub occurrence: u64 => required("occurrence");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetVisibleOccurrenceArgs is the request of [MethodAssemblySetVisible]: show (Visible=true) or\nhide the occurrence with id ID — a display override independent of any representation (#1975).\n```"]
-pub struct SetVisibleOccurrenceArgs {
-    pub id: u64 => required("id");
-    pub visible: bool => required("visible");
 }
 }

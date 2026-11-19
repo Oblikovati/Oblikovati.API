@@ -3,6 +3,36 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SHEET_SIZE_A2: crate::types::SheetSize = crate::types::SheetSize(3);
+
+pub const SHEET_SIZE_A3: crate::types::SheetSize = crate::types::SheetSize(4);
+
+pub const SHEET_SIZE_A4: crate::types::SheetSize = crate::types::SheetSize(5);
+
+pub const SHEET_SIZE_ANSI_A: crate::types::SheetSize = crate::types::SheetSize(6);
+
+pub const SHEET_SIZE_ANSI_B: crate::types::SheetSize = crate::types::SheetSize(7);
+
+pub const SHEET_SIZE_ANSI_C: crate::types::SheetSize = crate::types::SheetSize(8);
+
+pub const SHEET_SIZE_ANSI_D: crate::types::SheetSize = crate::types::SheetSize(9);
+
+pub const SHEET_SIZE_ANSI_E: crate::types::SheetSize = crate::types::SheetSize(10);
+
+pub const SHEET_SIZE_CUSTOM: crate::types::SheetSize = crate::types::SheetSize(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nShrinkwrapEnvelopeStyle selects how kept parts are replaced by simpler proxy\ngeometry — the reference API's envelopes-replace style. Envelopes erase internal\ndetail (and, by construction, holes) so the result is a lightweight closed solid.\n```"]
+pub struct ShrinkwrapEnvelopeStyle(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nShrinkwrapRemoveStyle selects which source parts a shrinkwrap drops before merging —\nthe reference API's shrinkwrap remove style. Removal makes the result lighter by\ndiscarding parts a viewer never sees or that are too small to matter.\n```"]
+pub struct ShrinkwrapRemoveStyle(pub i32);
+}
+
+pub const SINGLE_POINT_RIP: crate::types::RipType = crate::types::RipType(1);
+
 pub const SKETCH2_D_AND_CENTERMARK_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
     crate::types::PunchRepresentationType(4);
 
@@ -431,34 +461,3 @@ pub const STRAIGHT_LINE_BEND_TRANSITION: crate::types::BendTransition =
     crate::types::BendTransition(2);
 
 pub const STRING_VALUE: crate::types::ValueType = crate::types::ValueType(14595);
-
-generated_scalar! { integer,
-#[doc = "```text\nStyleLocationEnum is where a style lives in the cascade: in both the document and the style\nlibrary, only locally in the document, or only in the library. A local style overrides the\nlibrary style of the same name. The numeric ids are stable, frozen values (51201–51203).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
-pub struct StyleLocationEnum(pub i32);
-}
-
-pub const SUB_TYPE_PLAIN: crate::types::DocumentSubTypeID =
-    crate::types::DocumentSubTypeID(std::borrow::Cow::Borrowed(""));
-
-pub const SUB_TYPE_SHEET_METAL_PART: crate::types::DocumentSubTypeID =
-    crate::types::DocumentSubTypeID(std::borrow::Cow::Borrowed("org.oblikovati.part.sheetMetal"));
-
-pub const SUM_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(10);
-
-generated_scalar! { string,
-#[doc = "```text\nSurfaceContinuity is the geometric-continuity order a Class-A surfacing operation holds to its\nneighbours across a seam: G0 (position), G1 (tangent), G2 (curvature), G3 (curvature-rate). It is\nthe public vocabulary for operations that take a continuity choice — the boundary fill (M36-F07),\nand reusable by match/extend. It is a string enum so it reads self-describingly on the wire; the\nkernel maps it to its internal derivative order via [SurfaceContinuity.Order].\n```"]
-pub struct SurfaceContinuity(pub std::borrow::Cow<'static, str>);
-}
-
-pub const SURFACE_FORM_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(1);
-
-pub const SURFACE_FORM_NURBS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(4);
-
-pub const SURFACE_FORM_NOT_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(2);
-
-pub const SURFACE_FORM_NOT_NURBS: crate::types::SurfaceGeometryForm =
-    crate::types::SurfaceGeometryForm(8);

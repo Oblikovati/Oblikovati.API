@@ -1,3 +1,9 @@
+{"Name":"types.TransactionPoint","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.TransactionPoint","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TransactionPoint","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TransparencyTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.TransparencyTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.TransparencyTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TriadMoveType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.TriadMoveType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TriadMoveType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.AddCoGMarkerArgs","Case":"zero","Payload":{"viewName":""},"Canonical":{"viewName":""},"Error":""}
 {"Name":"wire.AddCoGMarkerArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AddCoGMarkerArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddConstraintArgs","Case":"zero","Payload":{"sketchIndex":0,"kind":"","entities":null},"Canonical":{"sketchIndex":0,"kind":"","entities":null},"Error":""}
-{"Name":"wire.AddConstraintArgs","Case":"filled","Payload":{"sketchIndex":7,"kind":"example \u003c\u0026\u003e 日本語","entities":[7],"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","useEllipseMajorAxis":true,"useEllipseOneMajorAxis":true,"useEllipseTwoMajorAxis":true},"Canonical":{"sketchIndex":7,"kind":"example \u003c\u0026\u003e 日本語","entities":[7],"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","useEllipseMajorAxis":true,"useEllipseOneMajorAxis":true,"useEllipseTwoMajorAxis":true},"Error":""}
-{"Name":"wire.AddConstraintArgs","Case":"empty","Payload":{"sketchIndex":7,"kind":"example \u003c\u0026\u003e 日本語","entities":[],"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","useEllipseMajorAxis":true,"useEllipseOneMajorAxis":true,"useEllipseTwoMajorAxis":true},"Canonical":{"sketchIndex":7,"kind":"example \u003c\u0026\u003e 日本語","entities":[],"clientId":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","useEllipseMajorAxis":true,"useEllipseOneMajorAxis":true,"useEllipseTwoMajorAxis":true},"Error":""}
-{"Name":"wire.AddConstraintResult","Case":"zero","Payload":{"index":0,"kind":"","dof":0},"Canonical":{"index":0,"kind":"","dof":0},"Error":""}
-{"Name":"wire.AddConstraintResult","Case":"filled","Payload":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Canonical":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Error":""}
-{"Name":"wire.AddConstraintResult","Case":"empty","Payload":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Canonical":{"index":7,"kind":"example \u003c\u0026\u003e 日本語","dof":7},"Error":""}

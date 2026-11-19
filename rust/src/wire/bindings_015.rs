@@ -3,6 +3,16 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
+
+pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";
+
+pub const METHOD_SKETCH_EDIT: &str = "sketch.edit";
+
+pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
+
+pub const METHOD_SKETCH_ENTITIES: &str = "sketch.entities";
+
 pub const METHOD_SKETCH_EXIT_EDIT: &str = "sketch.exitEdit";
 
 pub const METHOD_SKETCH_GET: &str = "sketch.get";
@@ -397,6 +407,34 @@ pub struct ModelStateNameArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nModelStatePropertyCell is one member's authored value. A nil Value inherits\nthe column's DefaultValue; it is distinct from an empty string. MemberID must be\na nonzero member identity in the active part. Example:\n`wire.ModelStatePropertyCell{MemberID: 1, Value: nil}`.\n```"]
+pub struct ModelStatePropertyCell {
+    pub member_id: u64 => required("memberId");
+    pub value: Option<Box<crate::types::Variant>> => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStatePropertyColumn addresses a property and has exactly one cell per\ncurrent member, in member order. DefaultValue is the document value inherited\nby members without an override; nil means the underlying property is absent.\nColumns are ordered and have unique keys.\nExample: `wire.ModelStatePropertyColumn{Property: key, Cells: cells}`.\n```"]
+pub struct ModelStatePropertyColumn {
+    pub property: crate::types::ModelStatePropertyKey => required("property");
+    pub default_value: Option<Box<crate::types::Variant>> => required("defaultValue");
+    pub cells: Option<Vec<crate::wire::ModelStatePropertyCell>> => required("cells");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nModelStatePropertyTableView is the active part's displayed property table.\nGeneration identifies the sampled document generation; Members are in table\norder, AvailableProperties lists properties that can be selected, and Columns\ncontains the displayed properties. RetainedColumns contains hidden properties\nwith their preserved defaults and member values. A cell without a value is not a blank\nstring. Example: `view, err := client.ModelStates().GetPropertyTable()`.\n```"]
+pub struct ModelStatePropertyTableView {
+    pub generation: u64 => required("generation");
+    pub members: Option<Vec<crate::wire::ModelStateInfo>> => required("members");
+    pub available_properties: Option<Vec<crate::types::ModelStatePropertyKey>> => required("availableProperties");
+    pub columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("columns");
+    pub retained_columns: Option<Vec<crate::wire::ModelStatePropertyColumn>> => required("retainedColumns");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nResult envelopes.\n```"]
 pub struct ModelStateResult {
     pub model_state: crate::wire::ModelStateInfo => required("modelState");
@@ -404,56 +442,19 @@ pub struct ModelStateResult {
 }
 
 generated_dto! {
-#[doc = "```text\nResult envelopes.\n```"]
-pub struct ModelStatesResult {
-    pub model_states: Option<Vec<crate::wire::ModelStateInfo>> => required("modelStates");
+#[doc = "```text\nModelStateTableColumnRef identifies one visible column. Exactly one identity\nmust match Kind. Example: `wire.ModelStateTableColumnRef{Kind: types.ModelStateTableSuppressionColumn, FeatureID: 1}`.\n```"]
+pub struct ModelStateTableColumnRef {
+    pub kind: crate::types::ModelStateTableColumnKind => required("kind");
+    pub property: Option<Box<crate::types::ModelStatePropertyKey>> => omitted("property", "Option::is_none");
+    pub feature_id: u64 => omitted("featureId", "crate::json::is_zero");
+    pub parameter_id: u64 => omitted("parameterId", "crate::json::is_zero");
 }
 }
 
 generated_dto! {
-#[doc = "```text\nModelTreeResult is the response of [MethodModelTree]: a read-only snapshot of the\nactive part's structure (parameter names, sketch count, feature program, body\ncount).\n```"]
-pub struct ModelTreeResult {
-    pub document: String => required("document");
-    pub parameters: Option<Vec<String>> => required("parameters");
-    pub sketches: i64 => required("sketches");
-    pub features: Option<Vec<crate::wire::FeatureInfo>> => required("features");
-    pub bodies: i64 => required("bodies");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nMoveFreeformVerticesArgs is the request of [MethodFreeformMoveVertices]:\ntranslate the selected cage vertices (by cage index) by [dx,dy,dz] in\ndocument units. Indices outside the cage are rejected with the offending\nindex and the cage size.\n```"]
-pub struct MoveFreeformVerticesArgs {
-    pub id: u64 => required("id");
-    pub vertices: Option<Vec<i64>> => required("vertices");
-    pub translation: [f64; 3] => finite("translation");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nMoveSketchDimensionArgs is the request of [MethodSketchMoveDimension]: where to place a dimension's\nannotation text, as an [x,y] sketch-plane point in centimetres. This is the same placement\n[AddDimensionArgs.TextPoint] sets at create time and that dragging the label in the sketch\neditor writes; it moves only the annotation, never the geometry being measured. #2017.\n```"]
-pub struct MoveSketchDimensionArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub dimension_index: i64 => required("dimensionIndex");
-    pub text_point: Option<Vec<f64>> => finite("textPoint");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nNameValueEntry is one named bag value: the canonical JSON shape of a\nNameValueMap element, {\"name\": …, \"value\": {\"type\": …, \"value\": …}}.\n```"]
-pub struct NameValueEntry {
-    pub name: String => required("name");
-    pub value: crate::types::Variant => raw(rename = "value");
-}
-}
-
-#[doc = "```text\nNameValueMap is the ordered options/context bag: entry order is meaningful\nand preserved (insert-before/after semantics live on the client collection).\n```"]
-pub type NameValueMap = Option<Vec<crate::wire::NameValueEntry>>;
-
-generated_dto! {
-#[doc = "```text\nNamedViewInfo is the JSON shape of one saved named view: its name and the camera frame it\nrestores. It is the element of [NamedViewsResult] and the response of\n[MethodViewsCaptureNamed].\n```"]
-pub struct NamedViewInfo {
-    pub name: String => required("name");
-    pub camera: crate::wire::CameraView => required("camera");
+#[doc = "```text\nModelStateTableCreatedRow maps a client draft key to its reserved member ID.\nExample: `wire.ModelStateTableCreatedRow{DraftKey: \"new-1\", MemberID: 7}`.\n```"]
+pub struct ModelStateTableCreatedRow {
+    pub draft_key: String => required("draftKey");
+    pub member_id: u64 => required("memberId");
 }
 }

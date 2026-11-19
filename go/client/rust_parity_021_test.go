@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityViewListDisplayModes(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
+	checkGoGroup(t, c, "View", "ListDisplayModes")
+}
+
+func TestRustParityViewPressKey(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportKey})
+	checkGoGroup(t, c, "View", "PressKey")
+}
+
+func TestRustParityViewScroll(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportScroll})
+	checkGoGroup(t, c, "View", "Scroll")
+}
+
+func TestRustParityViewSetCamera(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewSetCamera})
+	checkGoGroup(t, c, "View", "SetCamera")
+}
+
+func TestRustParityViewSetDisplayMode(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewSetDisplayMode})
+	checkGoGroup(t, c, "View", "SetDisplayMode")
+}
+
 func TestRustParityViewSetMeshColors(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewportSetMeshColors})
 	checkGoGroup(t, c, "View", "SetMeshColors")
@@ -132,29 +157,4 @@ func TestRustParityWorkFeaturesDelete(t *testing.T) {
 func TestRustParityWorkFeaturesSetVisible(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkFeaturesSetVisible})
 	checkGoGroup(t, c, "WorkFeatures", "SetVisible")
-}
-
-func TestRustParityWorkPlanesCreate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesCreate})
-	checkGoGroup(t, c, "WorkPlanes", "Create")
-}
-
-func TestRustParityWorkPlanesFlipNormal(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
-	checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
-}
-
-func TestRustParityWorkPlanesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
-	checkGoGroup(t, c, "WorkPlanes", "List")
-}
-
-func TestRustParityWorkPlanesListWithOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
-	checkGoGroup(t, c, "WorkPlanes", "ListWithOptions")
-}
-
-func TestRustParityWorkPlanesRedefine(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesRedefine})
-	checkGoGroup(t, c, "WorkPlanes", "Redefine")
 }

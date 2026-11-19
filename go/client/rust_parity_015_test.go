@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityPatternCircular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Circular")
+}
+
+func TestRustParityPatternRectangular(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchAddPattern})
+	checkGoGroup(t, c, "Pattern", "Rectangular")
+}
+
+func TestRustParityPointCloudsAddCrop(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsAddCrop})
+	checkGoGroup(t, c, "PointClouds", "AddCrop")
+}
+
+func TestRustParityPointCloudsAttach(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsAttach})
+	checkGoGroup(t, c, "PointClouds", "Attach")
+}
+
+func TestRustParityPointCloudsDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodPointCloudsDelete})
+	checkGoGroup(t, c, "PointClouds", "Delete")
+}
+
 func TestRustParityPointCloudsDeleteCrop(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodPointCloudsDeleteCrop})
 	checkGoGroup(t, c, "PointClouds", "DeleteCrop")
@@ -132,29 +157,4 @@ func TestRustParityRibbonEnvironments(t *testing.T) {
 func TestRustParityRibbonList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodRibbonList})
 	checkGoGroup(t, c, "Ribbon", "List")
-}
-
-func TestRustParityScriptsRun(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodScriptRun})
-	checkGoGroup(t, c, "Scripts", "Run")
-}
-
-func TestRustParitySheetMetalBendAllowance(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
-	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
-}
-
-func TestRustParitySheetMetalBends(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSheetMetalBends})
-	checkGoGroup(t, c, "SheetMetal", "Bends")
-}
-
-func TestRustParitySheetMetalGetStyle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSheetMetalGetStyle})
-	checkGoGroup(t, c, "SheetMetal", "GetStyle")
-}
-
-func TestRustParitySheetMetalSetStyle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSheetMetalSetStyle})
-	checkGoGroup(t, c, "SheetMetal", "SetStyle")
 }

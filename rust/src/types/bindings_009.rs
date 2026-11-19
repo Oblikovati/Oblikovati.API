@@ -3,6 +3,37 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+generated_scalar! { integer,
+#[doc = "```text\nStyleLocationEnum is where a style lives in the cascade: in both the document and the style\nlibrary, only locally in the document, or only in the library. A local style overrides the\nlibrary style of the same name. The numeric ids are stable, frozen values (51201–51203).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
+pub struct StyleLocationEnum(pub i32);
+}
+
+pub const SUB_TYPE_PLAIN: crate::types::DocumentSubTypeID =
+    crate::types::DocumentSubTypeID(std::borrow::Cow::Borrowed(""));
+
+pub const SUB_TYPE_SHEET_METAL_PART: crate::types::DocumentSubTypeID =
+    crate::types::DocumentSubTypeID(std::borrow::Cow::Borrowed("org.oblikovati.part.sheetMetal"));
+
+pub const SUM_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(10);
+
+generated_scalar! { string,
+#[doc = "```text\nSurfaceContinuity is the geometric-continuity order a Class-A surfacing operation holds to its\nneighbours across a seam: G0 (position), G1 (tangent), G2 (curvature), G3 (curvature-rate). It is\nthe public vocabulary for operations that take a continuity choice — the boundary fill (M36-F07),\nand reusable by match/extend. It is a string enum so it reads self-describingly on the wire; the\nkernel maps it to its internal derivative order via [SurfaceContinuity.Order].\n```"]
+pub struct SurfaceContinuity(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SURFACE_FORM_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(1);
+
+pub const SURFACE_FORM_NURBS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(4);
+
+pub const SURFACE_FORM_NOT_CLOSED_UV_LOOPS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(2);
+
+pub const SURFACE_FORM_NOT_NURBS: crate::types::SurfaceGeometryForm =
+    crate::types::SurfaceGeometryForm(8);
+
 pub const SURFACE_FORM_PROCEDURAL_TO_NURBS: crate::types::SurfaceGeometryForm =
     crate::types::SurfaceGeometryForm(16);
 
@@ -431,30 +462,3 @@ pub const TRIAD_Y_RING: crate::types::TriadSegment = crate::types::TriadSegment(
 pub const TRIAD_YZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(5);
 
 pub const TRIAD_Z_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(3);
-
-pub const TRIAD_Z_RING: crate::types::TriadSegment = crate::types::TriadSegment(9);
-
-pub const TRIM_SOLID_SPLIT: crate::types::SplitType = crate::types::SplitType(32769);
-
-pub const TRIM_TO_BEND_BEND_TRANSITION: crate::types::BendTransition =
-    crate::types::BendTransition(4);
-
-pub const UNDEFINED_EDGE_COLLECTION: crate::types::EdgeCollectionKind =
-    crate::types::EdgeCollectionKind(27652);
-
-generated_scalar! { integer,
-#[doc = "```text\nUnfoldMethodType names how a bend's flat length (its bend allowance) is computed when\nthe part is developed into its flat pattern. The three methods are the industry\nstandard set: a single K-factor, a per-angle bend table, or a custom equation.\n```"]
-pub struct UnfoldMethodType(pub i32);
-}
-
-pub const UNIQUE_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(1);
-
-pub const UNITS_ANGLE: crate::types::UnitsType = crate::types::UnitsType(2);
-
-pub const UNITS_AREA: crate::types::UnitsType = crate::types::UnitsType(3);
-
-pub const UNITS_LENGTH: crate::types::UnitsType = crate::types::UnitsType(1);
-
-pub const UNITS_MASS: crate::types::UnitsType = crate::types::UnitsType(5);
-
-pub const UNITS_TIME: crate::types::UnitsType = crate::types::UnitsType(6);

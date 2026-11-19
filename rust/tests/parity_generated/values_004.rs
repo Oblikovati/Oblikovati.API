@@ -74,6 +74,18 @@ fn types_model_diameter_from_thread() {
 }
 
 #[test]
+fn types_model_state_property_key() {
+    super::check::<oblikovati_api::types::ModelStatePropertyKey>("types.ModelStatePropertyKey");
+}
+
+#[test]
+fn types_model_state_table_column_kind() {
+    super::check::<oblikovati_api::types::ModelStateTableColumnKind>(
+        "types.ModelStateTableColumnKind",
+    );
+}
+
+#[test]
 fn types_model_value_type() {
     super::check::<oblikovati_api::types::ModelValueType>("types.ModelValueType");
 }
@@ -301,14 +313,4 @@ fn types_projection_type_enum() {
 #[test]
 fn types_prompt_restriction() {
     super::check::<oblikovati_api::types::PromptRestriction>("types.PromptRestriction");
-}
-
-#[test]
-fn types_punch_representation_type() {
-    super::check::<oblikovati_api::types::PunchRepresentationType>("types.PunchRepresentationType");
-}
-
-#[test]
-fn types_ray_tracing_quality_enum() {
-    super::check::<oblikovati_api::types::RayTracingQualityEnum>("types.RayTracingQualityEnum");
 }

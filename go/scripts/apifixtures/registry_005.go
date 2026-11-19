@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup5 = []fixtureType{
+	{"wire.AddConstraintArgs", reflect.TypeFor[wire.AddConstraintArgs]()},
+	{"wire.AddConstraintResult", reflect.TypeFor[wire.AddConstraintResult]()},
 	{"wire.AddCustomArgs", reflect.TypeFor[wire.AddCustomArgs]()},
 	{"wire.AddCustomTableArgs", reflect.TypeFor[wire.AddCustomTableArgs]()},
 	{"wire.AddDSJointArgs", reflect.TypeFor[wire.AddDSJointArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup5 = []fixtureType{
 	{"wire.AnnotationResult", reflect.TypeFor[wire.AnnotationResult]()},
 	{"wire.AppearanceInfo", reflect.TypeFor[wire.AppearanceInfo]()},
 	{"wire.ApplicationApiVersionResult", reflect.TypeFor[wire.ApplicationApiVersionResult]()},
-	{"wire.AppliedConstraintInference", reflect.TypeFor[wire.AppliedConstraintInference]()},
-	{"wire.AppliedPointInference", reflect.TypeFor[wire.AppliedPointInference]()},
 }

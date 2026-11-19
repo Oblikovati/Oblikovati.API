@@ -4,6 +4,230 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPanelControlSpec is one declarative control of a dockable window's content. A\nPanelButton executes CommandID when clicked, so the add-in observes it through\nthe ordinary command-ended event — no separate click plumbing. Text is the\nlabel/button caption (or the field label for editable controls); ID names the\ncontrol. Editable controls (textBox/valueEditor/checkBox/dropdown/comboBox/slider)\ncarry their current Value; dropdown/comboBox list their choices in Options; slider\nand valueEditor bound the input with Min/Max/Step. When the user edits an editable\ncontrol the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.\n\nContainer kinds (grid/group/tabs, ADR-0019) nest: they own Children and are laid out\nrather than drawn. A grid declares its column tracks in Columns with ColumnGap/RowGap\nspacing, and each child may carry a Cell placement (nil = auto-flow). A group is a\ntitled vertical stack (Title is its caption). Tabs treats each child as one tab whose\nTitle is the caption. All these fields are omitempty, so a leaf control marshals exactly\nas before — older hosts ignore the unknown fields and degrade an unknown kind to its Text.\n```"]
+pub struct PanelControlSpec {
+    pub kind: crate::types::PanelControlKind => omitted("kind", "crate::json::is_zero");
+    pub id: String => omitted("id", "crate::json::is_zero");
+    pub text: String => omitted("text", "crate::json::is_zero");
+    pub command_id: String => omitted("commandId", "crate::json::is_zero");
+#[doc = "```text\ncurrent value of an editable control\n```"]
+    pub value: String => omitted("value", "crate::json::is_zero");
+#[doc = "```text\nchoices for dropdown/comboBox\n```"]
+    pub options: Option<Vec<String>> => omitted("options", "crate::json::slice_is_empty");
+#[doc = "```text\nslider/valueEditor lower bound\n```"]
+    pub min: f64 => omitted_finite("min", "crate::json::is_zero");
+#[doc = "```text\nslider/valueEditor upper bound\n```"]
+    pub max: f64 => omitted_finite("max", "crate::json::is_zero");
+#[doc = "```text\nslider/valueEditor increment\n```"]
+    pub step: f64 => omitted_finite("step", "crate::json::is_zero");
+#[doc = "```text\nContainer fields (grid/group/tabs only).\ngroup/tab caption\n```"]
+    pub title: String => omitted("title", "crate::json::is_zero");
+#[doc = "```text\nnested controls of a container\n```"]
+    pub children: Option<Vec<crate::wire::PanelControlSpec>> => omitted("children", "crate::json::slice_is_empty");
+#[doc = "```text\ngrid: column tracks (rows are auto-height)\n```"]
+    pub columns: Option<Vec<crate::types::GridTrack>> => omitted("columns", "crate::json::slice_is_empty");
+#[doc = "```text\ngrid: px gap between columns\n```"]
+    pub column_gap: f64 => omitted_finite("columnGap", "crate::json::is_zero");
+#[doc = "```text\ngrid: px gap between rows\n```"]
+    pub row_gap: f64 => omitted_finite("rowGap", "crate::json::is_zero");
+#[doc = "```text\nthis control's placement in its parent grid\n```"]
+    pub cell: Option<Box<crate::types::GridCell>> => omitted("cell", "Option::is_none");
+#[doc = "```text\nreferenceList: current picked refs\n```"]
+    pub rows: Option<Vec<crate::wire::PanelReferenceRow>> => omitted("rows", "crate::json::slice_is_empty");
+#[doc = "```text\nreferenceList: allowed kinds (\"face\"/\"edge\"/\"vertex\"); empty = any\n```"]
+    pub accepts: Option<Vec<String>> => omitted("accepts", "crate::json::slice_is_empty");
+#[doc = "```text\nPanelTree fields.\ntree: the root nodes\n```"]
+    pub nodes: Option<Vec<crate::wire::TreeNode>> => omitted("nodes", "crate::json::slice_is_empty");
+#[doc = "```text\nPanelTable fields (Columns is already []GridTrack and Rows []PanelReferenceRow, so the\ndata-grid header/body use distinct names).\ntable: header column names\n```"]
+    pub table_columns: Option<Vec<String>> => omitted("tableColumns", "crate::json::slice_is_empty");
+#[doc = "```text\ntable: data rows\n```"]
+    pub table_rows: Option<Vec<crate::wire::TableRow>> => omitted("tableRows", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPanelReferenceRow is one row of a referenceList control: a host geometry selection\nreference plus an optional display label (the host derives one, e.g. \"Face3\", when empty).\n```"]
+pub struct PanelReferenceRow {
+    pub ref_: String => required("ref");
+    pub label: String => omitted("label", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPanelReferencesChangedEvent is the push event (type [EventPanelReferencesChanged]) fired when a\nreferenceList control's rows change — by the user's Add-from-selection / per-row Remove or by\n[MethodDockableWindowsSetReferences]. Refs is the FULL new set (bulk-state, matching the rest of\nthe panel model); Action is \"add\"/\"remove\" for diagnostics only.\n```"]
+pub struct PanelReferencesChangedEvent {
+#[doc = "```text\nalways EventPanelReferencesChanged\n```"]
+    pub type_: String => required("type");
+    pub window_id: String => required("windowId");
+    pub control_id: String => required("controlId");
+    pub refs: Option<Vec<String>> => required("refs");
+    pub action: String => omitted("action", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPanelValueChangedEvent is the push event (type [EventPanelValueChanged]) fired when the\nuser edits an editable control of an add-in dockable window (M05-F03). It carries the\nowning window's id, the control's id, and the control's new Value — the add-in updates its\nmodel from it (and may re-Set the window to refresh derived labels). This is the editable-\npanel counterpart of CommandStartedEvent (which still observes button clicks).\n```"]
+pub struct PanelValueChangedEvent {
+#[doc = "```text\nalways EventPanelValueChanged\n```"]
+    pub type_: String => required("type");
+    pub window_id: String => required("windowId");
+    pub control_id: String => required("controlId");
+    pub value: String => required("value");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterChangedEvent is the JSON shape of an [EventParameterChanged] push event (#148): a\nparameter's expression/value changed on a document. Like the other push events it is delivered\nto an add-in's Notify entry point (ADR-0016) with no request/response method — an add-in matches\non Type and reads the parameter's new state from Parameter (so it need not re-query).\n```"]
+pub struct ParameterChangedEvent {
+#[doc = "```text\nalways EventParameterChanged\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub parameter: crate::wire::ParameterInfo => required("parameter");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterConvertArgs is the request of [MethodParametersConvert]: change the category of the\nparameter named Name to TargetKind — a [oblikovati.org/api/types.ParameterKind] spelling,\n\"user\" | \"model\" | \"reference\". The parameter keeps its identity (name, expression, value,\ntolerance, comment) and dependency edges; converting to \"reference\" makes it read-only. A\nbuilt-in/auto or derived parameter refuses conversion. #1850.\n```"]
+pub struct ParameterConvertArgs {
+    pub name: String => required("name");
+    pub target_kind: String => required("targetKind");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterDetail is the full member-level view of one parameter (response of\n[MethodParametersGetDetail] and of the parameter mutation methods). It embeds\n[ParameterInfo], adding units, presentation, tolerance, the multi-value list,\ncustom-property exposure and the dependency neighborhood. ModelValue is in\ndatabase units; DisplayFormat and ModelValueType carry the wire spellings of\ntypes.ParameterDisplayFormat and types.ModelValueType. Tolerance is nil for\ntext and true/false parameters.\n\nBuiltIn, Renamed and DisabledActionTypes are the read-only introspection\nmembers (#1853): BuiltIn is true for an auto-generated feature-dimension\nparameter (d0, d1, …) versus an API/user-created one — what a converter reads\nto decide whether a model parameter is worth exporting; Renamed is true when a\nmodel parameter was renamed from its generated name; DisabledActionTypes lists\nthe edit actions restricted on the parameter (types.ActionType.Names()).\n```"]
+pub struct ParameterDetail {
+    pub parameter_info: crate::wire::ParameterInfo => raw(flatten, deserialize_with = "crate::json::null_default");
+    pub units: String => omitted("units", "crate::json::is_zero");
+    pub comment: String => omitted("comment", "crate::json::is_zero");
+    pub is_key: bool => omitted("isKey", "crate::json::is_zero");
+    pub visible: bool => required("visible");
+    pub in_use: bool => omitted("inUse", "crate::json::is_zero");
+    pub precision: i64 => required("precision");
+    pub display_format: String => required("displayFormat");
+    pub exposed_as_property: bool => omitted("exposedAsProperty", "crate::json::is_zero");
+    pub built_in: bool => omitted("builtIn", "crate::json::is_zero");
+    pub renamed: bool => omitted("renamed", "crate::json::is_zero");
+    pub disabled_action_types: Option<Vec<String>> => omitted("disabledActionTypes", "crate::json::slice_is_empty");
+    pub model_value: f64 => finite("modelValue");
+    pub model_value_type: String => required("modelValueType");
+    pub tolerance: Option<Box<crate::wire::ToleranceInfo>> => omitted("tolerance", "Option::is_none");
+    pub expression_list: Option<Box<crate::wire::ExpressionListInfo>> => omitted("expressionList", "Option::is_none");
+    pub custom_property_format: Option<Box<crate::wire::CustomPropertyFormatInfo>> => omitted("customPropertyFormat", "Option::is_none");
+    pub driven_by: Option<Vec<String>> => omitted("drivenBy", "crate::json::slice_is_empty");
+    pub dependents: Option<Vec<String>> => omitted("dependents", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterExportResult is the response of [MethodParametersExport]: the\ndocument's user parameters as the documented parameter-set XML.\n```"]
+pub struct ParameterExportResult {
+    pub xml: String => required("xml");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterExpressionListArgs is the request of [MethodParametersSetExpressionList].\nAn empty Expressions clears the list, returning the parameter to single-valued.\n```"]
+pub struct ParameterExpressionListArgs {
+    pub name: String => required("name");
+    pub expressions: Option<Vec<String>> => omitted("expressions", "crate::json::slice_is_empty");
+    pub allow_custom_values: bool => omitted("allowCustomValues", "crate::json::is_zero");
+    pub custom_order: bool => omitted("customOrder", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterGroupAddArgs is the request of [MethodParametersGroupsAdd]. An empty\nDisplayName defaults to the internal name.\n```"]
+pub struct ParameterGroupAddArgs {
+    pub internal_name: String => required("internalName");
+    pub display_name: String => omitted("displayName", "crate::json::is_zero");
+    pub client_id: String => omitted("clientId", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterGroupDeleteArgs is the request of [MethodParametersGroupsDelete].\nDeleteParameters opts into the cascade that also deletes the member\nparameters; without it only the group goes, the members stay.\n```"]
+pub struct ParameterGroupDeleteArgs {
+    pub internal_name: String => required("internalName");
+    pub delete_parameters: bool => omitted("deleteParameters", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterGroupDisplayNameArgs is the request of\n[MethodParametersGroupsSetDisplayName]: the group's editable display name.\nThe internal name can never change.\n```"]
+pub struct ParameterGroupDisplayNameArgs {
+    pub internal_name: String => required("internalName");
+    pub display_name: String => required("displayName");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterGroupInfo is the JSON shape of one custom parameter group: the\nimmutable internal name that identifies it, the editable display name, the\nowning client id (add-in provenance, empty for user-created groups), and the\nmember parameter names in collection order.\n```"]
+pub struct ParameterGroupInfo {
+    pub internal_name: String => required("internalName");
+    pub display_name: String => required("displayName");
+    pub client_id: String => omitted("clientId", "crate::json::is_zero");
+    pub members: Option<Vec<String>> => omitted("members", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterGroupMemberArgs is the request of [MethodParametersGroupsAddMember]\n/ [MethodParametersGroupsRemoveMember]: one parameter (by name) and the group\nit joins or leaves.\n```"]
+pub struct ParameterGroupMemberArgs {
+    pub internal_name: String => required("internalName");
+    pub parameter: String => required("parameter");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterImportArgs is the request of [MethodParametersImport]: a\nparameter-set XML document. Import validates names, expressions, and units\nbefore touching the model and rejects the whole set naming the offending\nentry.\n```"]
+pub struct ParameterImportArgs {
+    pub xml: String => required("xml");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterImportResult reports what the import did: parameters newly created\nand existing parameters whose expression or metadata changed.\n```"]
+pub struct ParameterImportResult {
+    pub added: i64 => required("added");
+    pub updated: i64 => required("updated");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterInfo is the JSON shape of a parameter: its authored expression and its\nevaluated value formatted in the document's display units. Health is empty when\nthe parameter is healthy.\n```"]
+pub struct ParameterInfo {
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub expression: String => required("expression");
+    pub value: String => required("value");
+    pub health: String => omitted("health", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterNameArgs identifies a parameter by name (request of [MethodParametersGet]).\n```"]
+pub struct ParameterNameArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterNamesResult is the response of [MethodParametersDrivenBy] /\n[MethodParametersDependents]: the names of the directly linked parameters.\n```"]
+pub struct ParameterNamesResult {
+    pub names: Option<Vec<String>> => omitted("names", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nParameterRenameArgs is the request of [MethodParametersRename]: rename the parameter\ncurrently called Name to NewName. The parameter keeps its identity and every expression\nreferencing it is rewritten to the new name. #1847.\n```"]
+pub struct ParameterRenameArgs {
+    pub name: String => required("name");
+    pub new_name: String => required("newName");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nParameterSetArgs is the request of [MethodParametersAdd] / [MethodParametersSet]:\na parameter name and a unit-bearing expression (e.g. \"4 cm\").\n\nValueType and Kind apply to Add only (Set edits an existing parameter's expression and\nignores them), covering the reference CAD API's non-numeric and non-user parameter creation (#1845):\n  - ValueType: \"numeric\" (default) — Expression is a unit-bearing expression; \"text\" —\n    Expression is the literal string value; \"boolean\" — Expression is \"true\" or \"false\".\n  - Kind: \"user\" (default) or \"model\" — the parameter table it is added to. Text and boolean\n    parameters are always user parameters (Kind is ignored for them).\n```"]
 pub struct ParameterSetArgs {
     pub name: String => required("name");
@@ -236,223 +460,5 @@ generated_dto! {
 #[doc = "```text\nPlatesResult is the reply of listPlates: the developed flat's plates (one per connected\nregion).\n```"]
 pub struct PlatesResult {
     pub plates: Option<Vec<crate::wire::PlateInfo>> => required("plates");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].\n```"]
-pub struct PointCloudCropArgs {
-    pub cloud: String => required("cloud");
-    pub crop: String => required("crop");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudCropInfo is one crop volume: the owning cloud, the crop name, whether it is active,\nand its model-space box corners.\n```"]
-pub struct PointCloudCropInfo {
-    pub cloud: String => required("cloud");
-    pub crop: String => required("crop");
-    pub active: bool => required("active");
-    pub min: crate::types::Point => raw(rename = "min");
-    pub max: crate::types::Point => raw(rename = "max");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudInfo is one attached cloud's state. Transform is the cloud→model placement; Scale is\nthe uniform cloud→model factor. TotalPointCount is the scan's size; DisplayedPointCount is how\nmany render after MaximumPointCount is applied (0 = unbounded). DisplayMode is how the cloud is\ncoloured in the viewport (#645).\n```"]
-pub struct PointCloudInfo {
-    pub name: String => required("name");
-    pub source: String => omitted("source", "crate::json::is_zero");
-    pub visible: bool => required("visible");
-    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
-    pub scale: f64 => finite("scale");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-    pub total_point_count: i64 => required("totalPointCount");
-    pub displayed_point_count: i64 => required("displayedPointCount");
-    pub maximum_point_count: i64 => omitted("maximumPointCount", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudNameArgs names a single cloud — the request of [MethodPointCloudsGet] and\n[MethodPointCloudsDelete].\n```"]
-pub struct PointCloudNameArgs {
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /\n[MethodPointCloudsFromModelSpace]: a point to map between cloud and model space.\n```"]
-pub struct PointCloudSpaceArgs {
-    pub name: String => required("name");
-    pub point: crate::types::Point => raw(rename = "point");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudSpaceResult is the response of the space-conversion methods: the mapped point. OK is\nfalse from fromModelSpace when the cloud's placement is non-invertible.\n```"]
-pub struct PointCloudSpaceResult {
-    pub point: crate::types::Point => raw(rename = "point");
-    pub ok: bool => required("ok");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPositionalInfo is one positional representation: its identity and the count of constraint/\njoint value overrides it carries.\n```"]
-pub struct PositionalInfo {
-    pub representation_info: crate::wire::RepresentationInfo => raw(flatten, deserialize_with = "crate::json::null_default");
-    pub override_count: i64 => omitted("overrideCount", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResult envelopes.\n```"]
-pub struct PositionalResult {
-    pub representation: crate::wire::PositionalInfo => required("representation");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResult envelopes.\n```"]
-pub struct PositionalsResult {
-    pub representations: Option<Vec<crate::wire::PositionalInfo>> => required("representations");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPressKeyArgs is the request of [MethodViewportKey]: a key to deliver to the running command.\n\nKey is the key's name — \"Escape\", \"Enter\", \"Delete\" — matching what the host's own input layer\nreports. Escape and Enter are the two that matter most: they are how a variable-length command\n(a continuous line chain, a spline) says it is finished.\n```"]
-pub struct PressKeyArgs {
-    pub key: String => required("key");
-    pub shift: bool => omitted("shift", "crate::json::is_zero");
-    pub ctrl: bool => omitted("ctrl", "crate::json::is_zero");
-    pub alt: bool => omitted("alt", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPressKeyResult is the response of [MethodViewportKey]: the command still running after the key,\nempty when the key ended it.\n```"]
-pub struct PressKeyResult {
-    pub active_tool: String => required("activeTool");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProblemEntityInfo is one offending entity of a failed validity check.\n```"]
-pub struct ProblemEntityInfo {
-    pub kind: String => required("kind");
-    pub key: String => required("key");
-    pub transient_key: u64 => required("transientKey");
-    pub issue: String => required("issue");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProfile3DInfo is one enumerated profile from [MethodSketch3DProfiles]: a closed, planar\nloop of the 3D sketch. Index feeds a planar-section feature; Area is the enclosed area\n(model cm²); Normal is the loop plane's unit normal [x,y,z]; Vertices is the number of\nloop vertices.\n```"]
-pub struct Profile3DInfo {
-    pub index: i64 => required("index");
-    pub area: f64 => finite("area");
-    pub normal: Option<Vec<f64>> => finite("normal");
-    pub vertices: i64 => required("vertices");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProfileInfo is one enumerated profile from [MethodSketchProfiles]: its index, enclosed\narea (sketch-plane cm², holes subtracted), whether it is closed (a solid-extrudable\nregion), and the number of hole loops it contains. The Index feeds features.add's\nprofileIndex.\n```"]
-pub struct ProfileInfo {
-    pub index: i64 => required("index");
-    pub area: f64 => finite("area");
-    pub closed: bool => required("closed");
-    pub holes: i64 => required("holes");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProgressCancelledEvent is the push event (type [EventProgressCancelled]) fired\nwhen the user cancels a progress bar.\n```"]
-pub struct ProgressCancelledEvent {
-#[doc = "```text\nalways EventProgressCancelled\n```"]
-    pub type_: String => required("type");
-    pub id: i64 => required("id");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProjectCutEdgesArgs is the request of [MethodSketchProjectCutEdges]: project the section\ncurves where the sketch plane cuts the part solid, as associative reference geometry — one\nprojected curve per section loop (the reference CAD API's PlanarSketch.ProjectedCuts, #1873).\n```"]
-pub struct ProjectCutEdgesArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProjectGeometryArgs is the request of [MethodSketchProject]: project the part topology\nreferenced by Refs (edge/vertex reference-key strings) onto the sketch plane. Mode is\n\"reference\" (associative reference geometry, default) or \"include\" (projected as\nordinary sketch geometry). Each ref becomes a projected point (vertex) or curve (edge).\n```"]
-pub struct ProjectGeometryArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub refs: Option<Vec<String>> => required("refs");
-    pub mode: String => omitted("mode", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProjectGeometryResult is the response of [MethodSketchProject]: the ids of the created\nprojected entities and whether every reference resolved. Shared by the cut-edge and\nsilhouette projection methods (#1873).\n```"]
-pub struct ProjectGeometryResult {
-    pub created: Option<Vec<u64>> => required("created");
-    pub healthy: bool => required("healthy");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nProjectSilhouetteArgs is the request of [MethodSketchProjectSilhouette]: project the\nsilhouette of the face with reference key FaceRef onto the sketch plane, viewed along the\nplane normal (the reference CAD API's PlanarSketch.AddBySilhouette, #1873). ProximityPoint ([x,y,z] model\ncm) selects which silhouette loop when a face has several — the one nearest the point.\nIncludeBoundary keeps silhouette runs that coincide with the face's own edges.\n```"]
-pub struct ProjectSilhouetteArgs {
-    pub sketch_index: i64 => required("sketchIndex");
-    pub face_ref: String => required("faceRef");
-    pub proximity_point: Option<Vec<f64>> => finite("proximityPoint");
-    pub include_boundary: bool => omitted("includeBoundary", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPromptAnsweredEvent is the push event (type [EventPromptAnswered]) fired when the\nuser answers a pending prompt; Remembered reports they chose to keep the answer.\n```"]
-pub struct PromptAnsweredEvent {
-#[doc = "```text\nalways EventPromptAnswered\n```"]
-    pub type_: String => required("type");
-    pub id: String => required("id");
-    pub answer: String => required("answer");
-    pub remembered: bool => omitted("remembered", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPropertyChangedEvent is the JSON shape of the [EventPropertyChanged] push event: a document\nobject's property changed (e.g. suppression toggled, a sketch setting edited). Kind and Key\nidentify the object as in [ObjectRenamedEvent]; Property names the property (e.g. \"suppressed\");\nOldValue/NewValue are its prior and new values rendered as strings (a bool as \"true\"/\"false\"), so\none generic event carries any property without a bespoke DTO per setting.\n```"]
-pub struct PropertyChangedEvent {
-#[doc = "```text\nalways EventPropertyChanged\n```"]
-    pub type_: String => required("type");
-    pub document: u64 => required("document");
-    pub kind: crate::types::ObjectKind => required("kind");
-    pub key: String => omitted("key", "crate::json::is_zero");
-    pub property: String => required("property");
-    pub old_value: String => omitted("oldValue", "crate::json::is_zero");
-    pub new_value: String => omitted("newValue", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPropertyInfo is the JSON shape of one document property: its set, name, and typed value.\nFromParameter names the model parameter a property was exposed from (the iProperty bridge),\nempty for a directly authored property.\n```"]
-pub struct PropertyInfo {
-    pub set: String => required("set");
-    pub name: String => required("name");
-    pub value: crate::types::Variant => raw(rename = "value");
-    pub from_parameter: String => omitted("fromParameter", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPropertyResult is the response of [MethodDocumentsGetProperty] / [MethodDocumentsSetProperty]:\nthe addressed property's current state.\n```"]
-pub struct PropertyResult {
-    pub property: crate::wire::PropertyInfo => required("property");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPunchesResult is the reply of listPunches: every punch instance developed into the flat.\n```"]
-pub struct PunchesResult {
-    pub punches: Option<Vec<crate::wire::FlatPunchInfo>> => required("punches");
 }
 }

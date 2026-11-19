@@ -3,6 +3,142 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+/// Typed `PartDesignViews` calls over the shared API transport.
+pub struct PartDesignViews<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `PartDesignViews` API. Example: `client.part_design_views()`.
+    pub fn part_design_views(&self) -> PartDesignViews<'_, T> {
+        PartDesignViews(self)
+    }
+}
+impl<T: super::Caller> PartDesignViews<'_, T> {
+    /// Call `MethodPartDesignViewsActivate` with the canonical request and response types.
+    /// Example: `client.part_design_views().activate(&args)`.
+    pub fn activate(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_ACTIVATE, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsGetCamera` with the canonical request and response types.
+    /// Example: `client.part_design_views().camera(&args)`.
+    pub fn camera(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::types::PartDesignViewCamera, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_GET_CAMERA, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsCaptureCamera` with the canonical request and response types.
+    /// Example: `client.part_design_views().capture_camera(&args)`.
+    pub fn capture_camera(
+        &self,
+        args: &crate::wire::CapturePartDesignViewCameraArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_CAPTURE_CAMERA,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodPartDesignViewsCopy` with the canonical request and response types.
+    /// Example: `client.part_design_views().copy(&args)`.
+    pub fn copy(
+        &self,
+        args: &crate::wire::CopyPartDesignViewArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_COPY, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsDelete` with the canonical request and response types.
+    /// Example: `client.part_design_views().delete(&args)`.
+    pub fn delete(
+        &self,
+        args: &crate::wire::PartDesignViewRef,
+    ) -> Result<crate::wire::PartDesignViewsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_DELETE, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsList` with the canonical request and response types.
+    /// Example: `client.part_design_views().list(&args)`.
+    pub fn list(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::PartDesignViewsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_LIST, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsRename` with the canonical request and response types.
+    /// Example: `client.part_design_views().rename(&args)`.
+    pub fn rename(
+        &self,
+        args: &crate::wire::RenamePartDesignViewArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_PART_DESIGN_VIEWS_RENAME, Some(args))
+    }
+
+    /// Call `MethodPartDesignViewsSetBodyVisibility` with the canonical request and response types.
+    /// Example: `client.part_design_views().set_body_visibility(&args)`.
+    pub fn set_body_visibility(
+        &self,
+        args: &crate::wire::SetPartDesignViewBodyVisibilityArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_SET_BODY_VISIBILITY,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodPartDesignViewsSetOptions` with the canonical request and response types.
+    /// Example: `client.part_design_views().set_options(&args)`.
+    pub fn set_options(
+        &self,
+        args: &crate::wire::SetPartDesignViewOptionsArgs,
+    ) -> Result<crate::wire::PartDesignViewResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_PART_DESIGN_VIEWS_SET_OPTIONS,
+            Some(args),
+        )
+    }
+}
+
+/// Typed `Pattern` calls over the shared API transport.
+pub struct Pattern<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `Pattern` API. Example: `client.pattern()`.
+    pub fn pattern(&self) -> Pattern<'_, T> {
+        Pattern(self)
+    }
+}
+impl<T: super::Caller> Pattern<'_, T> {
+    /// Call `MethodSketchAddPattern` with the canonical request and response types.
+    /// Example: `client.pattern().circular(&args)`.
+    pub fn circular(
+        &self,
+        args: &crate::wire::AddSketchPatternArgs,
+    ) -> Result<crate::wire::AddSketchPatternResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_ADD_PATTERN, Some(args))
+    }
+
+    /// Call `MethodSketchAddPattern` with the canonical request and response types.
+    /// Example: `client.pattern().rectangular(&args)`.
+    pub fn rectangular(
+        &self,
+        args: &crate::wire::AddSketchPatternArgs,
+    ) -> Result<crate::wire::AddSketchPatternResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_ADD_PATTERN, Some(args))
+    }
+}
+
 /// Typed `PointClouds` calls over the shared API transport.
 pub struct PointClouds<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {
@@ -318,84 +454,5 @@ impl<T: super::Caller> Ribbon<'_, T> {
     /// Example: `client.ribbon().list()`.
     pub fn list(&self) -> Result<crate::wire::ListRibbonResult, crate::Error> {
         self.0.invoke(crate::wire::METHOD_RIBBON_LIST, None::<&()>)
-    }
-}
-
-/// Typed `Scripts` calls over the shared API transport.
-pub struct Scripts<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `Scripts` API. Example: `client.scripts()`.
-    pub fn scripts(&self) -> Scripts<'_, T> {
-        Scripts(self)
-    }
-}
-impl<T: super::Caller> Scripts<'_, T> {
-    /// Call `MethodScriptRun` with the canonical request and response types.
-    /// Example: `client.scripts().run(&args)`.
-    pub fn run(
-        &self,
-        args: &crate::wire::ScriptRunArgs,
-    ) -> Result<crate::wire::ScriptRunResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SCRIPT_RUN, Some(args))
-    }
-}
-
-/// Typed `SheetMetal` calls over the shared API transport.
-pub struct SheetMetal<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `SheetMetal` API. Example: `client.sheet_metal()`.
-    pub fn sheet_metal(&self) -> SheetMetal<'_, T> {
-        SheetMetal(self)
-    }
-}
-impl<T: super::Caller> SheetMetal<'_, T> {
-    /// Call `MethodSheetMetalBendAllowance` with the canonical request and response types.
-    /// Example: `client.sheet_metal().bend_allowance(&args)`.
-    pub fn bend_allowance(
-        &self,
-        args: &crate::wire::BendAllowanceArgs,
-    ) -> Result<crate::wire::BendAllowanceResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SHEET_METAL_BEND_ALLOWANCE, Some(args))
-    }
-
-    /// Call `MethodSheetMetalBends` with the canonical request and response types.
-    /// Example: `client.sheet_metal().bends(&args)`.
-    pub fn bends(
-        &self,
-        args: &crate::json::EmptyObject,
-    ) -> Result<crate::wire::BendsResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SHEET_METAL_BENDS, Some(args))
-    }
-
-    /// Call `MethodSheetMetalGetStyle` with the canonical request and response types.
-    /// Example: `client.sheet_metal().get_style(&args)`.
-    pub fn get_style(
-        &self,
-        args: &crate::json::EmptyObject,
-    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SHEET_METAL_GET_STYLE, Some(args))
-    }
-
-    /// Call `MethodSheetMetalSetStyle` with the canonical request and response types.
-    /// Example: `client.sheet_metal().set_style(&args)`.
-    pub fn set_style(
-        &self,
-        args: &crate::wire::SetSheetMetalStyleArgs,
-    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SHEET_METAL_SET_STYLE, Some(args))
-    }
-
-    /// Call `MethodSheetMetalUnfold` with the canonical request and response types.
-    /// Example: `client.sheet_metal().unfold(&args)`.
-    pub fn unfold(
-        &self,
-        args: &crate::json::EmptyObject,
-    ) -> Result<crate::wire::UnfoldResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SHEET_METAL_UNFOLD, Some(args))
     }
 }

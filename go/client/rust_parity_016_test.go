@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityScriptsRun(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodScriptRun})
+	checkGoGroup(t, c, "Scripts", "Run")
+}
+
+func TestRustParitySheetMetalBendAllowance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
+	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
+}
+
+func TestRustParitySheetMetalBends(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBends})
+	checkGoGroup(t, c, "SheetMetal", "Bends")
+}
+
+func TestRustParitySheetMetalGetStyle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalGetStyle})
+	checkGoGroup(t, c, "SheetMetal", "GetStyle")
+}
+
+func TestRustParitySheetMetalSetStyle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalSetStyle})
+	checkGoGroup(t, c, "SheetMetal", "SetStyle")
+}
+
 func TestRustParitySheetMetalUnfold(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSheetMetalUnfold})
 	checkGoGroup(t, c, "SheetMetal", "Unfold")
@@ -132,29 +157,4 @@ func TestRustParitySketch3DRegionProperties(t *testing.T) {
 func TestRustParitySketch3DSetProperty(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DSetProperty})
 	checkGoGroup(t, c, "Sketch3D", "SetProperty")
-}
-
-func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
-	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
-}
-
-func TestRustParitySketch3DSolve(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
-	checkGoGroup(t, c, "Sketch3D", "Solve")
-}
-
-func TestRustParitySketch3DTransform(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DTransform})
-	checkGoGroup(t, c, "Sketch3D", "Transform")
-}
-
-func TestRustParitySketchAddAssociativeEntity(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddAssociativeEntity})
-	checkGoGroup(t, c, "Sketch", "AddAssociativeEntity")
-}
-
-func TestRustParitySketchAddBlockInstance(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddBlockInstance})
-	checkGoGroup(t, c, "Sketch", "AddBlockInstance")
 }

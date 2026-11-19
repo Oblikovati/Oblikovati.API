@@ -9,6 +9,31 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepOffsetFaces(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepOffsetFaces})
+	checkGoGroup(t, c, "TransientBRep", "OffsetFaces")
+}
+
+func TestRustParityTransientBRepTransform(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepTransform})
+	checkGoGroup(t, c, "TransientBRep", "Transform")
+}
+
+func TestRustParityTriadGet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadGet})
+	checkGoGroup(t, c, "Triad", "Get")
+}
+
+func TestRustParityTriadHide(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadHide})
+	checkGoGroup(t, c, "Triad", "Hide")
+}
+
+func TestRustParityTriadShow(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadShow})
+	checkGoGroup(t, c, "Triad", "Show")
+}
+
 func TestRustParityTriadUpdate(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodTriadUpdate})
 	checkGoGroup(t, c, "Triad", "Update")
@@ -132,29 +157,4 @@ func TestRustParityViewClick(t *testing.T) {
 func TestRustParityViewDisplayMode(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
 	checkGoGroup(t, c, "View", "DisplayMode")
-}
-
-func TestRustParityViewListDisplayModes(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
-	checkGoGroup(t, c, "View", "ListDisplayModes")
-}
-
-func TestRustParityViewPressKey(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportKey})
-	checkGoGroup(t, c, "View", "PressKey")
-}
-
-func TestRustParityViewScroll(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportScroll})
-	checkGoGroup(t, c, "View", "Scroll")
-}
-
-func TestRustParityViewSetCamera(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetCamera})
-	checkGoGroup(t, c, "View", "SetCamera")
-}
-
-func TestRustParityViewSetDisplayMode(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetDisplayMode})
-	checkGoGroup(t, c, "View", "SetDisplayMode")
 }

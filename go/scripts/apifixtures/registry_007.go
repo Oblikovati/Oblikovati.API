@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup7 = []fixtureType{
+	{"wire.BrepWiresResult", reflect.TypeFor[wire.BrepWiresResult]()},
+	{"wire.BrowserMenuItem", reflect.TypeFor[wire.BrowserMenuItem]()},
 	{"wire.BrowserNodeEvent", reflect.TypeFor[wire.BrowserNodeEvent]()},
 	{"wire.BrowserNodeSpec", reflect.TypeFor[wire.BrowserNodeSpec]()},
 	{"wire.BrowserPaneSpec", reflect.TypeFor[wire.BrowserPaneSpec]()},
@@ -87,6 +89,4 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CreateHighlightSetArgs", reflect.TypeFor[wire.CreateHighlightSetArgs]()},
 	{"wire.CreateModelStateArgs", reflect.TypeFor[wire.CreateModelStateArgs]()},
 	{"wire.CreatePatternArgs", reflect.TypeFor[wire.CreatePatternArgs]()},
-	{"wire.CreatePatternResult", reflect.TypeFor[wire.CreatePatternResult]()},
-	{"wire.CreatePrimitiveArgs", reflect.TypeFor[wire.CreatePrimitiveArgs]()},
 }

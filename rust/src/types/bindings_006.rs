@@ -3,6 +3,26 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+generated_scalar! { string,
+#[doc = "```text\nObjectKind identifies the kind of document object a metadata-mutation event concerns\n(Oblikovati/Oblikovati#1644): a body, sketch, feature, occurrence, or the document itself. It is\nthe discriminator carried by object.renamed and property.changed so ONE generic event serves\nevery rename / property change instead of a bespoke event per mutation — an add-in matches on\nKind to route the event to the right mirror of the document structure.\n```"]
+pub struct ObjectKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const OBJECT_KIND_BODY: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("body"));
+
+pub const OBJECT_KIND_DOCUMENT: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("document"));
+
+pub const OBJECT_KIND_FEATURE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("feature"));
+
+pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("occurrence"));
+
+pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));
+
 generated_dto! {
 #[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
 pub struct ObjectRef {
@@ -431,32 +451,3 @@ pub const PERSPECTIVE_PROJECTION: crate::types::ProjectionTypeEnum =
 
 pub const PERSPECTIVE_WITH_ORTHO_FACES_PROJECTION: crate::types::ProjectionTypeEnum =
     crate::types::ProjectionTypeEnum(86275);
-
-generated_dto! {
-#[doc = "```text\nPhysicalProperties is the computed mass/geometry summary of a body or part given its\nmaterial's density. Volume/area/centroid come from geometry; mass = density × volume.\nLengths are in database units (cm), so volume is cm³, area cm², and — with density in\ng/cm³ — mass is grams.\n```"]
-pub struct PhysicalProperties {
-#[doc = "```text\ng\n```"]
-    pub mass: f64 => finite("mass");
-#[doc = "```text\ncm³\n```"]
-    pub volume: f64 => finite("volume");
-#[doc = "```text\ncm²\n```"]
-    pub area: f64 => finite("area");
-#[doc = "```text\ng/cm³\n```"]
-    pub density: f64 => finite("density");
-#[doc = "```text\ncenter of mass (cm)\n```"]
-    pub centroid: [f64; 3] => finite("centroid");
-}
-}
-
-pub const PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26114);
-
-pub const PLANE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5890);
-
-generated_scalar! { string,
-#[doc = "```text\nPointCloudDisplayMode is how an attached point cloud is coloured in the viewport\n(Oblikovati/Oblikovati#645). Unlike the numeric-id enums, this is a lowercase string token so it\nis stable in the on-the-wire JSON and in the persisted `.obk` document without a lookup table:\n\n\tDefault   — the neutral marker colour (the pre-#645 look).\n\tRGB       — per-point colour decoded from the scan (LAS/PLY/E57), falling back to the marker\n\t            colour where a point carries none.\n\tIntensity — per-point greyscale mapped from the scan's intensity channel, normalised over the\n\t            cloud's decoded range, falling back to the marker colour when the cloud has no\n\t            usable intensity.\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(pointcloud.DisplayMode) and maps it onto the renderer.\n```"]
-pub struct PointCloudDisplayMode(pub std::borrow::Cow<'static, str>);
-}
-
-pub const POINT_CLOUD_DISPLAY_MODE_DEFAULT: crate::types::PointCloudDisplayMode =
-    crate::types::PointCloudDisplayMode(std::borrow::Cow::Borrowed("default"));
