@@ -4,6 +4,47 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].\n```"]
+pub struct PointCloudCropArgs {
+    pub cloud: String => required("cloud");
+    pub crop: String => required("crop");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudCropInfo is one crop volume: the owning cloud, the crop name, whether it is active,\nand its model-space box corners.\n```"]
+pub struct PointCloudCropInfo {
+    pub cloud: String => required("cloud");
+    pub crop: String => required("crop");
+    pub active: bool => required("active");
+    pub min: crate::types::Point => raw(rename = "min");
+    pub max: crate::types::Point => raw(rename = "max");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudInfo is one attached cloud's state. Transform is the cloud→model placement; Scale is\nthe uniform cloud→model factor. TotalPointCount is the scan's size; DisplayedPointCount is how\nmany render after MaximumPointCount is applied (0 = unbounded). DisplayMode is how the cloud is\ncoloured in the viewport (#645).\n```"]
+pub struct PointCloudInfo {
+    pub name: String => required("name");
+    pub source: String => omitted("source", "crate::json::is_zero");
+    pub visible: bool => required("visible");
+    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
+    pub scale: f64 => finite("scale");
+    pub transform: crate::types::Matrix => raw(rename = "transform");
+    pub total_point_count: i64 => required("totalPointCount");
+    pub displayed_point_count: i64 => required("displayedPointCount");
+    pub maximum_point_count: i64 => omitted("maximumPointCount", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nPointCloudNameArgs names a single cloud — the request of [MethodPointCloudsGet] and\n[MethodPointCloudsDelete].\n```"]
+pub struct PointCloudNameArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /\n[MethodPointCloudsFromModelSpace]: a point to map between cloud and model space.\n```"]
 pub struct PointCloudSpaceArgs {
     pub name: String => required("name");
@@ -416,47 +457,5 @@ generated_dto! {
 pub struct ReplaceOccurrenceArgs {
     pub id: u64 => required("id");
     pub document: u64 => required("document");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepositionPatternElementArgs is the request of [MethodAssemblyPatternElementReposition]: move\none element (by index) of the pattern (by id) to an explicit placement, off the regular grid.\n```"]
-pub struct RepositionPatternElementArgs {
-    pub pattern: u64 => required("pattern");
-    pub element: i64 => required("element");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationEventPayload is the relayed body of a representation/model-state event: the\nkind (\"designView\"/\"positional\"/\"levelOfDetail\"/\"modelState\"), the id, and the name.\n```"]
-pub struct RepresentationEventPayload {
-    pub kind: String => required("kind");
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRepresentationInfo is the identity row common to every representation family.\n```"]
-pub struct RepresentationInfo {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub kind: String => required("kind");
-    pub active: bool => omitted("active", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nRequiresUpdateResult is the response of [MethodDocumentsRequiresUpdate]: the read-only flag\ntelling a client the active document has out-of-date features a recompute would change.\n```"]
-pub struct RequiresUpdateResult {
-    pub requires_update: bool => required("requiresUpdate");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
-pub struct ResetBindingArgs {
-    pub action_id: String => required("actionId");
 }
 }

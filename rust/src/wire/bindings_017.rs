@@ -4,6 +4,48 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPanelControlSpec is one declarative control of a dockable window's content. A\nPanelButton executes CommandID when clicked, so the add-in observes it through\nthe ordinary command-ended event — no separate click plumbing. Text is the\nlabel/button caption (or the field label for editable controls); ID names the\ncontrol. Editable controls (textBox/valueEditor/checkBox/dropdown/comboBox/slider)\ncarry their current Value; dropdown/comboBox list their choices in Options; slider\nand valueEditor bound the input with Min/Max/Step. When the user edits an editable\ncontrol the host pushes a [PanelValueChangedEvent] carrying the control's ID + new Value.\n\nContainer kinds (grid/group/tabs, ADR-0019) nest: they own Children and are laid out\nrather than drawn. A grid declares its column tracks in Columns with ColumnGap/RowGap\nspacing, and each child may carry a Cell placement (nil = auto-flow). A group is a\ntitled vertical stack (Title is its caption). Tabs treats each child as one tab whose\nTitle is the caption. All these fields are omitempty, so a leaf control marshals exactly\nas before — older hosts ignore the unknown fields and degrade an unknown kind to its Text.\n```"]
+pub struct PanelControlSpec {
+    pub kind: crate::types::PanelControlKind => omitted("kind", "crate::json::is_zero");
+    pub id: String => omitted("id", "crate::json::is_zero");
+    pub text: String => omitted("text", "crate::json::is_zero");
+    pub command_id: String => omitted("commandId", "crate::json::is_zero");
+#[doc = "```text\ncurrent value of an editable control\n```"]
+    pub value: String => omitted("value", "crate::json::is_zero");
+#[doc = "```text\nchoices for dropdown/comboBox\n```"]
+    pub options: Option<Vec<String>> => omitted("options", "crate::json::slice_is_empty");
+#[doc = "```text\nslider/valueEditor lower bound\n```"]
+    pub min: f64 => omitted_finite("min", "crate::json::is_zero");
+#[doc = "```text\nslider/valueEditor upper bound\n```"]
+    pub max: f64 => omitted_finite("max", "crate::json::is_zero");
+#[doc = "```text\nslider/valueEditor increment\n```"]
+    pub step: f64 => omitted_finite("step", "crate::json::is_zero");
+#[doc = "```text\nContainer fields (grid/group/tabs only).\ngroup/tab caption\n```"]
+    pub title: String => omitted("title", "crate::json::is_zero");
+#[doc = "```text\nnested controls of a container\n```"]
+    pub children: Option<Vec<crate::wire::PanelControlSpec>> => omitted("children", "crate::json::slice_is_empty");
+#[doc = "```text\ngrid: column tracks (rows are auto-height)\n```"]
+    pub columns: Option<Vec<crate::types::GridTrack>> => omitted("columns", "crate::json::slice_is_empty");
+#[doc = "```text\ngrid: px gap between columns\n```"]
+    pub column_gap: f64 => omitted_finite("columnGap", "crate::json::is_zero");
+#[doc = "```text\ngrid: px gap between rows\n```"]
+    pub row_gap: f64 => omitted_finite("rowGap", "crate::json::is_zero");
+#[doc = "```text\nthis control's placement in its parent grid\n```"]
+    pub cell: Option<Box<crate::types::GridCell>> => omitted("cell", "Option::is_none");
+#[doc = "```text\nreferenceList: current picked refs\n```"]
+    pub rows: Option<Vec<crate::wire::PanelReferenceRow>> => omitted("rows", "crate::json::slice_is_empty");
+#[doc = "```text\nreferenceList: allowed kinds (\"face\"/\"edge\"/\"vertex\"); empty = any\n```"]
+    pub accepts: Option<Vec<String>> => omitted("accepts", "crate::json::slice_is_empty");
+#[doc = "```text\nPanelTree fields.\ntree: the root nodes\n```"]
+    pub nodes: Option<Vec<crate::wire::TreeNode>> => omitted("nodes", "crate::json::slice_is_empty");
+#[doc = "```text\nPanelTable fields (Columns is already []GridTrack and Rows []PanelReferenceRow, so the\ndata-grid header/body use distinct names).\ntable: header column names\n```"]
+    pub table_columns: Option<Vec<String>> => omitted("tableColumns", "crate::json::slice_is_empty");
+#[doc = "```text\ntable: data rows\n```"]
+    pub table_rows: Option<Vec<crate::wire::TableRow>> => omitted("tableRows", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPanelReferenceRow is one row of a referenceList control: a host geometry selection\nreference plus an optional display label (the host derives one, e.g. \"Face3\", when empty).\n```"]
 pub struct PanelReferenceRow {
     pub ref_: String => required("ref");
@@ -418,46 +460,5 @@ generated_dto! {
 #[doc = "```text\nPlatesResult is the reply of listPlates: the developed flat's plates (one per connected\nregion).\n```"]
 pub struct PlatesResult {
     pub plates: Option<Vec<crate::wire::PlateInfo>> => required("plates");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudCropArgs names one crop on a cloud — the request of [MethodPointCloudsDeleteCrop].\n```"]
-pub struct PointCloudCropArgs {
-    pub cloud: String => required("cloud");
-    pub crop: String => required("crop");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudCropInfo is one crop volume: the owning cloud, the crop name, whether it is active,\nand its model-space box corners.\n```"]
-pub struct PointCloudCropInfo {
-    pub cloud: String => required("cloud");
-    pub crop: String => required("crop");
-    pub active: bool => required("active");
-    pub min: crate::types::Point => raw(rename = "min");
-    pub max: crate::types::Point => raw(rename = "max");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudInfo is one attached cloud's state. Transform is the cloud→model placement; Scale is\nthe uniform cloud→model factor. TotalPointCount is the scan's size; DisplayedPointCount is how\nmany render after MaximumPointCount is applied (0 = unbounded). DisplayMode is how the cloud is\ncoloured in the viewport (#645).\n```"]
-pub struct PointCloudInfo {
-    pub name: String => required("name");
-    pub source: String => omitted("source", "crate::json::is_zero");
-    pub visible: bool => required("visible");
-    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
-    pub scale: f64 => finite("scale");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-    pub total_point_count: i64 => required("totalPointCount");
-    pub displayed_point_count: i64 => required("displayedPointCount");
-    pub maximum_point_count: i64 => omitted("maximumPointCount", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudNameArgs names a single cloud — the request of [MethodPointCloudsGet] and\n[MethodPointCloudsDelete].\n```"]
-pub struct PointCloudNameArgs {
-    pub name: String => required("name");
 }
 }

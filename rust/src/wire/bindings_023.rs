@@ -4,6 +4,87 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nThemeSummary is the lightweight entry of [MethodThemeList]: enough to populate a\ntheme picker without sending every color.\n```"]
+pub struct ThemeSummary {
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub active: bool => required("active");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThemeView is the JSON shape of one theme: its name, kind (light/dark/custom), and\nevery semantic color as \"#RRGGBBAA\" hex keyed by the token string. Hex (not floats)\nkeeps the payload compact and human-readable, matching the on-disk theme files.\n```"]
+pub struct ThemeView {
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub colors: Option<std::collections::BTreeMap<String, String>> => required("colors");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadInfoResult is the response of [MethodThreadsResolve]: the resolved\nthread data. Diameters and pitch are millimetres. PitchDiameter is the ISO\nbasic pitch diameter; TapDrillDiameter the drill for a tapped hole of this\nthread (≈ the minor diameter).\n```"]
+pub struct ThreadInfoResult {
+    pub designation: String => required("designation");
+    pub thread_type: String => required("threadType");
+    pub nominal_size: String => required("nominalSize");
+    pub class: String => omitted("class", "crate::json::is_zero");
+    pub metric: bool => required("metric");
+    pub internal: bool => required("internal");
+    pub right_handed: bool => required("rightHanded");
+    pub tapered: bool => required("tapered");
+    pub pitch: f64 => finite("pitch");
+    pub major_diameter: f64 => finite("majorDiameter");
+    pub minor_diameter: f64 => finite("minorDiameter");
+    pub pitch_diameter: f64 => finite("pitchDiameter");
+    pub tap_drill_diameter: f64 => finite("tapDrillDiameter");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryArgs is the request of [MethodThreadsTableQuery]. The query\nis progressive: with no filters the result lists the thread types; given\nThreadType it also lists that type's nominal sizes; given NominalSize the\ndesignations; given Designation the classes. Internal narrows class\nlistings to the internal (nut) or external (bolt) side.\n```"]
+pub struct ThreadTableQueryArgs {
+    pub internal: bool => omitted("internal", "crate::json::is_zero");
+    pub thread_type: String => omitted("threadType", "crate::json::is_zero");
+    pub nominal_size: String => omitted("nominalSize", "crate::json::is_zero");
+    pub designation: String => omitted("designation", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThreadTableQueryResult is the response of [MethodThreadsTableQuery]. Each\nlevel is filled when its prerequisite filter was given (ThreadTypes always).\n```"]
+pub struct ThreadTableQueryResult {
+    pub thread_types: Option<Vec<String>> => required("threadTypes");
+    pub nominal_sizes: Option<Vec<String>> => omitted("nominalSizes", "crate::json::slice_is_empty");
+    pub designations: Option<Vec<String>> => omitted("designations", "crate::json::slice_is_empty");
+    pub classes: Option<Vec<String>> => omitted("classes", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockField is one resolved title-block field: its name, the resolved text, and\nthe source it resolved from (a \"Set:Property\" iProperty token, or \"\" for static text).\n```"]
+pub struct TitleBlockField {
+    pub name: String => required("name");
+    pub value: String => required("value");
+    pub source: String => omitted("source", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsArgs is the request of [MethodDrawingTitleBlockFields]: the sheet\nwhose title-block fields to resolve. An empty Sheet uses the active sheet.\n```"]
+pub struct TitleBlockFieldsArgs {
+    pub sheet: String => omitted("sheet", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTitleBlockFieldsResult is the response of [MethodDrawingTitleBlockFields]: the title\nblock's definition name and its resolved fields. Fields is empty when the sheet has\nno title block.\n```"]
+pub struct TitleBlockFieldsResult {
+    pub definition_name: String => required("definitionName");
+    pub fields: Option<Vec<crate::wire::TitleBlockField>> => required("fields");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nToleranceInfo is the JSON shape of a parameter's engineering tolerance: its\ntype spelling (types.ToleranceType.String()) and the deviation band from the\nnominal value, in database units. HoleTolerance/ShaftTolerance carry the ISO\nlimits-and-fits class strings (e.g. \"H7\"/\"g6\") for a fits tolerance, empty\notherwise (#1848).\n```"]
 pub struct ToleranceInfo {
     pub type_: String => required("type");
@@ -373,93 +454,5 @@ pub struct WebDialogSpec {
     pub modal: bool => omitted("modal", "crate::json::is_zero");
     pub dock: crate::types::DockingState => omitted("dock", "crate::json::is_zero");
     pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
-pub struct WireInfo {
-    pub index: i64 => required("index");
-    pub closed: bool => required("closed");
-    pub planar: bool => required("planar");
-    pub edges: i64 => required("edges");
-#[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
-    pub key: String => required("key");
-    pub transient_key: u64 => required("transientKey");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
-pub struct WirePolyline {
-    pub points: Option<Vec<f64>> => finite("points");
-    pub closed: bool => omitted("closed", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
-pub struct WireframeDisplayModeOptionsView {
-    pub depth_dimming: bool => required("depthDimming");
-    pub silhouettes: bool => required("silhouettes");
-    pub dimmed_hidden_edges: bool => required("dimmedHiddenEdges");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkAxisInfo is one row of [MethodWorkAxesList]: a datum axis's identity and current\ngeometry (Origin point and unit Direction, in database units), whether it is one of the\norigin coordinate-system axes, its health, and its constructor Kind. Origin axes report\nIsOrigin=true.\n```"]
-pub struct WorkAxisInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-#[doc = "```text\na types.WorkAxisKind value\n```"]
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-    pub origin: Option<Vec<f64>> => finite("origin");
-    pub direction: Option<Vec<f64>> => finite("direction");
-    pub is_origin: bool => required("isOrigin");
-#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPlaneInfo is one row of [MethodWorkPlanesList]: a datum plane's identity and\ncurrent geometry (origin and unit normal, in model units), whether it is one of the\norigin coordinate-system planes, its health, its constructor Kind, and — for a user\nplane — the editable inputs [MethodWorkPlanesRedefine] accepts (its scalars and its\nre-pickable reference slots). Origin planes report no scalars/slots (not redefinable).\n```"]
-pub struct WorkPlaneInfo {
-    pub index: i64 => required("index");
-    pub name: String => required("name");
-    pub ref_: String => required("ref");
-    pub origin: Option<Vec<f64>> => finite("origin");
-    pub normal: Option<Vec<f64>> => finite("normal");
-    pub is_origin: bool => required("isOrigin");
-    pub visible: bool => required("visible");
-#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
-    pub construction: bool => omitted("construction", "crate::json::is_zero");
-#[doc = "```text\ndisplayed size tracks the component box (#1851)\n```"]
-    pub auto_resize: bool => omitted("autoResize", "crate::json::is_zero");
-#[doc = "```text\ngrounded flag (#1851)\n```"]
-    pub grounded: bool => omitted("grounded", "crate::json::is_zero");
-#[doc = "```text\ndisplayed rectangle extents: two corners [x,y,z] cm (#1851)\n```"]
-    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
-    pub healthy: bool => required("healthy");
-#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
-    pub reason: String => omitted("reason", "crate::json::is_zero");
-#[doc = "```text\na types.WorkPlaneKind value\n```"]
-    pub kind: String => omitted("kind", "crate::json::is_zero");
-#[doc = "```text\neditable distance/angle inputs\n```"]
-    pub scalars: Option<Vec<crate::wire::WorkPlaneScalar>> => omitted("scalars", "crate::json::slice_is_empty");
-#[doc = "```text\nre-pickable reference inputs\n```"]
-    pub slots: Option<Vec<crate::wire::WorkPlaneRefSlot>> => omitted("slots", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWorkPlaneRefSlot describes one re-pickable reference of a work plane: its slot Index, Label,\nand Kind — \"plane\" | \"axis\" | \"point\" | \"face\" — so a client knows what reference string a\n[SlotRepick] for this slot accepts (an origin constant, a List ref, or a face key).\n```"]
-pub struct WorkPlaneRefSlot {
-    pub index: i64 => required("index");
-    pub label: String => required("label");
-    pub kind: String => required("kind");
 }
 }

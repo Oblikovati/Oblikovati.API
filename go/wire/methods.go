@@ -223,12 +223,14 @@ const (
 
 	// Sketch blocks: reusable entity groups instanced with a placement
 	// transform (M06-F07, Oblikovati/Oblikovati#622).
-	MethodSketchBlockDefinitionCreate = "sketch.blockDefinitions.create"
-	MethodSketchBlockDefinitionList   = "sketch.blockDefinitions.list"
-	MethodSketchBlockDefinitionDelete = "sketch.blockDefinitions.delete"
-	MethodSketchAddBlockInstance      = "sketch.addBlockInstance"
-	MethodSketchListBlockInstances    = "sketch.blockInstances"
-	MethodSketchExplodeBlockInstance  = "sketch.explodeBlockInstance"
+	MethodSketchBlockDefinitionCreate   = "sketch.blockDefinitions.create"
+	MethodSketchBlockDefinitionList     = "sketch.blockDefinitions.list"
+	MethodSketchBlockDefinitionDelete   = "sketch.blockDefinitions.delete"
+	MethodSketchAddBlockInstance        = "sketch.addBlockInstance"
+	MethodSketchListBlockInstances      = "sketch.blockInstances"
+	MethodSketchExplodeBlockInstance    = "sketch.explodeBlockInstance"
+	MethodSketchSetBlockDefinitionColor = "sketch.blockDefinitions.setColor"
+	MethodSketchSetBlockInstanceColor   = "sketch.blockInstances.setColor"
 
 	// Region properties of a closed profile (M06-F08, #623).
 	MethodSketchRegionProperties = "sketch.regionProperties"

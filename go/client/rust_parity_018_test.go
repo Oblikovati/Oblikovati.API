@@ -84,6 +84,16 @@ func TestRustParitySketchResolveReference(t *testing.T) {
 	checkGoGroup(t, c, "Sketch", "ResolveReference")
 }
 
+func TestRustParitySketchSetBlockDefinitionColor(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetBlockDefinitionColor})
+	checkGoGroup(t, c, "Sketch", "SetBlockDefinitionColor")
+}
+
+func TestRustParitySketchSetBlockInstanceColor(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetBlockInstanceColor})
+	checkGoGroup(t, c, "Sketch", "SetBlockInstanceColor")
+}
+
 func TestRustParitySketchSetCustomLineType(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchSetCustomLineType})
 	checkGoGroup(t, c, "Sketch", "SetCustomLineType")
@@ -147,14 +157,4 @@ func TestRustParityStylesDelete(t *testing.T) {
 func TestRustParityStylesGet(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStylesGet})
 	checkGoGroup(t, c, "Styles", "Get")
-}
-
-func TestRustParityStylesImportLibrary(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesImportLibrary})
-	checkGoGroup(t, c, "Styles", "ImportLibrary")
-}
-
-func TestRustParityStylesLibraries(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesListLibraries})
-	checkGoGroup(t, c, "Styles", "Libraries")
 }

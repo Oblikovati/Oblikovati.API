@@ -53,6 +53,8 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetBOMStructureArgs", reflect.TypeFor[wire.SetBOMStructureArgs]()},
 	{"wire.SetBOMStructureResult", reflect.TypeFor[wire.SetBOMStructureResult]()},
 	{"wire.SetBendOrderArgs", reflect.TypeFor[wire.SetBendOrderArgs]()},
+	{"wire.SetBlockDefinitionColorArgs", reflect.TypeFor[wire.SetBlockDefinitionColorArgs]()},
+	{"wire.SetBlockInstanceColorArgs", reflect.TypeFor[wire.SetBlockInstanceColorArgs]()},
 	{"wire.SetBrowserPaneArgs", reflect.TypeFor[wire.SetBrowserPaneArgs]()},
 	{"wire.SetCameraArgs", reflect.TypeFor[wire.SetCameraArgs]()},
 	{"wire.SetChordArgs", reflect.TypeFor[wire.SetChordArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetJointLimitsArgs", reflect.TypeFor[wire.SetJointLimitsArgs]()},
 	{"wire.SetJointOriginArgs", reflect.TypeFor[wire.SetJointOriginArgs]()},
 	{"wire.SetJointStateArgs", reflect.TypeFor[wire.SetJointStateArgs]()},
-	{"wire.SetLayoutArgs", reflect.TypeFor[wire.SetLayoutArgs]()},
-	{"wire.SetLightArgs", reflect.TypeFor[wire.SetLightArgs]()},
 }

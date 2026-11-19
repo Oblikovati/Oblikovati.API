@@ -10,6 +10,8 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Typed definition and placed-instance color overrides for sketch blocks (#311).
+
 - A typed sketch block Explode operation that returns the resulting entity
   references while retaining the definition and other instances (#310).
 

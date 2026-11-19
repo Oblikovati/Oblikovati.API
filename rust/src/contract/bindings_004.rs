@@ -59,6 +59,12 @@ pub trait SketchBlock {
     fn entity_count(&self) -> i64;
 }
 
+#[doc = "```text\nSketchBlockColor provides a placed instance's optional color override.\nFor example, SetColor(nil) restores inheritance from its definition.\n```"]
+pub trait SketchBlockColor {
+    fn color(&self) -> Option<Box<crate::types::Color>>;
+    fn set_color(&self, color: Option<Box<crate::types::Color>>) -> Result<(), crate::Error>;
+}
+
 #[doc = "```text\nSketchBlockDefinition is the scalar view of a reusable sketch entity group\nowned by a part's component definition (M06-F07,\nOblikovati/Oblikovati#622). The host's model/sketch.BlockDefinition\nsatisfies this via a compile-time assertion.\n```"]
 pub trait SketchBlockDefinition {
     #[doc = "```text\nEntityCount is the number of entities the definition holds.\n```"]
@@ -67,6 +73,12 @@ pub trait SketchBlockDefinition {
     fn instance_count(&self) -> i64;
     #[doc = "```text\nName is the definition's unique name within the part.\n```"]
     fn name(&self) -> String;
+}
+
+#[doc = "```text\nSketchBlockDefinitionColor provides a definition's optional color override.\nFor example, SetColor(nil) restores the owning sketch's default color.\n```"]
+pub trait SketchBlockDefinitionColor {
+    fn color(&self) -> Option<Box<crate::types::Color>>;
+    fn set_color(&self, color: Option<Box<crate::types::Color>>) -> Result<(), crate::Error>;
 }
 
 #[doc = "```text\nSketchBlockExploder separates one instance into independent sketch entities.\nFor example, ids, err := block.Explode() returns the new entity identities.\n```"]
@@ -445,19 +457,4 @@ pub trait TransientGeometry:
     + crate::contract::TransientCurves2d
     + crate::contract::TransientSurfaces
 {
-}
-
-#[doc = "```text\nTransientObjects is the discoverable construction point for the utility\ncollections, mirroring the reference factory so add-in code ports naturally\n(geometry construction is [TransientGeometry]).\n```"]
-pub trait TransientObjects {
-    #[doc = "```text\nCreateNameValueMap returns an empty ordered options bag.\n```"]
-    fn create_name_value_map(&self) -> std::sync::Arc<dyn crate::contract::NameValueMap>;
-    #[doc = "```text\nCreateObjectCollection returns a collection seeded with refs, in order.\n```"]
-    fn create_object_collection(
-        &self,
-        refs: Option<Vec<crate::types::ObjectRef>>,
-    ) -> std::sync::Arc<dyn crate::contract::ObjectCollection>;
-    #[doc = "```text\nCreateObjectCollectionByVariant returns an empty keyed collection.\n```"]
-    fn create_object_collection_by_variant(
-        &self,
-    ) -> std::sync::Arc<dyn crate::contract::ObjectCollectionByVariant>;
 }

@@ -128,6 +128,20 @@ fn wire_set_bend_order_args() {
 }
 
 #[test]
+fn wire_set_block_definition_color_args() {
+    super::check::<oblikovati_api::wire::SetBlockDefinitionColorArgs>(
+        "wire.SetBlockDefinitionColorArgs",
+    );
+}
+
+#[test]
+fn wire_set_block_instance_color_args() {
+    super::check::<oblikovati_api::wire::SetBlockInstanceColorArgs>(
+        "wire.SetBlockInstanceColorArgs",
+    );
+}
+
+#[test]
 fn wire_set_browser_pane_args() {
     super::check::<oblikovati_api::wire::SetBrowserPaneArgs>("wire.SetBrowserPaneArgs");
 }
@@ -311,14 +325,4 @@ fn wire_set_joint_origin_args() {
 #[test]
 fn wire_set_joint_state_args() {
     super::check::<oblikovati_api::wire::SetJointStateArgs>("wire.SetJointStateArgs");
-}
-
-#[test]
-fn wire_set_layout_args() {
-    super::check::<oblikovati_api::wire::SetLayoutArgs>("wire.SetLayoutArgs");
-}
-
-#[test]
-fn wire_set_light_args() {
-    super::check::<oblikovati_api::wire::SetLightArgs>("wire.SetLightArgs");
 }

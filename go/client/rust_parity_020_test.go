@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepList})
+	checkGoGroup(t, c, "TransientBRep", "List")
+}
+
+func TestRustParityTransientBRepOffsetFaces(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepOffsetFaces})
+	checkGoGroup(t, c, "TransientBRep", "OffsetFaces")
+}
+
 func TestRustParityTransientBRepTransform(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepTransform})
 	checkGoGroup(t, c, "TransientBRep", "Transform")
@@ -147,14 +157,4 @@ func TestRustParityViewCaptureWindow(t *testing.T) {
 func TestRustParityViewClick(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewportClick})
 	checkGoGroup(t, c, "View", "Click")
-}
-
-func TestRustParityViewDisplayMode(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
-	checkGoGroup(t, c, "View", "DisplayMode")
-}
-
-func TestRustParityViewListDisplayModes(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
-	checkGoGroup(t, c, "View", "ListDisplayModes")
 }

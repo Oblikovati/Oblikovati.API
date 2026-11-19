@@ -9,6 +9,16 @@ import (
 	"testing"
 )
 
+func TestRustParityStylesImportLibrary(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodStylesImportLibrary})
+	checkGoGroup(t, c, "Styles", "ImportLibrary")
+}
+
+func TestRustParityStylesLibraries(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodStylesListLibraries})
+	checkGoGroup(t, c, "Styles", "Libraries")
+}
+
 func TestRustParityStylesList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStylesList})
 	checkGoGroup(t, c, "Styles", "List")
@@ -147,14 +157,4 @@ func TestRustParityTransientBRepGetIdenticalBodies(t *testing.T) {
 func TestRustParityTransientBRepImprintBodies(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodBrepImprint})
 	checkGoGroup(t, c, "TransientBRep", "ImprintBodies")
-}
-
-func TestRustParityTransientBRepList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepList})
-	checkGoGroup(t, c, "TransientBRep", "List")
-}
-
-func TestRustParityTransientBRepOffsetFaces(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodBrepOffsetFaces})
-	checkGoGroup(t, c, "TransientBRep", "OffsetFaces")
 }

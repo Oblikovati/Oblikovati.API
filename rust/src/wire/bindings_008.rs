@@ -287,7 +287,7 @@ pub struct ExecuteCommandArgs {
 }
 
 generated_dto! {
-#[doc = "```text\nExplodeSketchBlockArgs identifies one placed instance in its owning sketch.\nThe host applies its placement to the independent geometry in one undoable\nedit. Failure must leave the sketch and instance unchanged.\nExample: ExplodeSketchBlockArgs{SketchIndex: 0, InstanceID: 42}.\n```"]
+#[doc = "```text\nExplodeSketchBlockArgs identifies one placed instance in its owning sketch.\nThe host applies its placement to the independent geometry in one undoable\nedit. Failure must leave the sketch and instance unchanged.\nThe instance color override is removed. Member overrides remain; a member\nwithout one retains the definition color when it has an override.\nExample: ExplodeSketchBlockArgs{SketchIndex: 0, InstanceID: 42}.\n```"]
 pub struct ExplodeSketchBlockArgs {
     pub sketch_index: i64 => required("sketchIndex");
     pub instance_id: u64 => required("instanceId");

@@ -4,6 +4,67 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetClientGraphicsArgs is the request of [MethodClientGraphicsSet]: submit or replace\nthe whole graphics group named ClientId. Lane selects the display lane (a\ntypes.GraphicsLane; empty = \"persistent\"). Visible nil means visible. Re-sending the\nsame ClientId replaces the previous group (idempotent).\n```"]
+pub struct SetClientGraphicsArgs {
+    pub client_id: String => required("clientId");
+    pub lane: String => omitted("lane", "crate::json::is_zero");
+    pub visible: Option<Box<bool>> => omitted("visible", "Option::is_none");
+    pub nodes: Option<Vec<crate::wire::GraphicsNode>> => required("nodes");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetClientGraphicsResult is the response of [MethodClientGraphicsSet].\n```"]
+pub struct SetClientGraphicsResult {
+    pub client_id: String => required("clientId");
+    pub node_count: i64 => required("nodeCount");
+    pub primitive_count: i64 => required("primitiveCount");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetClientGraphicsVisibleArgs is the request of [MethodClientGraphicsSetVisible].\n```"]
+pub struct SetClientGraphicsVisibleArgs {
+    pub client_id: String => required("clientId");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetColorSchemeArgs is the request of [MethodColorSchemesSetActive]: activate the scheme by\nname (schemes are identified by name).\n```"]
+pub struct SetColorSchemeArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetCommandStateArgs is the request of [MethodCommandsSetState]: an add-in updating one of\nits own commands' live ribbon state. Active toggles the button's pressed/highlighted look\n(rendered in the accent color), so a stateful control like a presenter or follow toggle\nreads on/off at a glance. DisplayName, when non-empty, relabels the button (e.g.\n\"Presenter\" → \"Presenting\") — leave it empty to keep the current label. Enabled, when\nnon-nil, greys the button out (false) or restores it (true) — e.g. a collaboration add-in\ndisabling its presenter/follow controls until the user joins a session; nil leaves the\nenabled state unchanged.\n```"]
+pub struct SetCommandStateArgs {
+    pub id: String => required("id");
+    pub active: bool => required("active");
+    pub enabled: Option<Box<bool>> => omitted("enabled", "Option::is_none");
+    pub display_name: String => omitted("displayName", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetConstraintLimitsArgs is the request of [MethodAssemblyConstraintsSetLimits]: set (or\nclear) the driven-value Limits of the constraint with id ID.\n```"]
+pub struct SetConstraintLimitsArgs {
+    pub id: u64 => required("id");
+    pub limits: crate::wire::ConstraintLimits => required("limits");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSetContextMenuArgs is the request of [MethodUISetContextMenu]: replace an\nadd-in's injected entries for one browser node kind (e.g. \"feature\", \"sketch\",\n\"body\"; \"\" injects into every node's menu) — the OnContextMenu equivalent,\ndeclarative so no round-trip happens while the menu is open.\n```"]
+pub struct SetContextMenuArgs {
+    pub add_in: String => required("addin");
+    pub kind: String => required("kind");
+    pub items: Option<Vec<crate::wire::ContextMenuItemSpec>> => required("items");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
 pub struct SetDimensionInspectionArgs {
     pub name: String => required("name");
@@ -393,72 +454,5 @@ pub struct SetPatternElementSuppressedArgs {
     pub pattern: u64 => required("pattern");
     pub element: i64 => required("element");
     pub suppressed: bool => required("suppressed");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPatternSuppressedArgs is the request of [MethodAssemblyPatternSetSuppressed]: suppress or\nunsuppress the whole pattern (by id), moving every element together.\n```"]
-pub struct SetPatternSuppressedArgs {
-    pub pattern: u64 => required("pattern");
-    pub suppressed: bool => required("suppressed");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudCropActiveArgs is the request of [MethodPointCloudsSetCropActive]: toggle whether a\nnamed crop limits the cloud's display.\n```"]
-pub struct SetPointCloudCropActiveArgs {
-    pub cloud: String => required("cloud");
-    pub crop: String => required("crop");
-    pub active: bool => required("active");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudDensityArgs is the request of [MethodPointCloudsSetDensity]: the display budget\n(MaximumPointCount); 0 shows every point.\n```"]
-pub struct SetPointCloudDensityArgs {
-    pub name: String => required("name");
-    pub maximum_point_count: i64 => required("maximumPointCount");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudDisplayModeArgs is the request of [MethodPointCloudsSetDisplayMode]: the viewport\ncolouring mode (default / rgb / intensity, #645). An unknown mode is rejected by the host.\n```"]
-pub struct SetPointCloudDisplayModeArgs {
-    pub name: String => required("name");
-    pub display_mode: crate::types::PointCloudDisplayMode => required("displayMode");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudScaleArgs is the request of [MethodPointCloudsSetScale]: the new uniform\ncloud→model scale, which must be positive.\n```"]
-pub struct SetPointCloudScaleArgs {
-    pub name: String => required("name");
-    pub scale: f64 => finite("scale");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudTransformArgs is the request of [MethodPointCloudsSetTransform]: the new\ncloud→model placement.\n```"]
-pub struct SetPointCloudTransformArgs {
-    pub name: String => required("name");
-    pub transform: crate::types::Matrix => raw(rename = "transform");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPointCloudVisibleArgs is the request of [MethodPointCloudsSetVisible].\n```"]
-pub struct SetPointCloudVisibleArgs {
-    pub name: String => required("name");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPositionalOverrideArgs overrides a constraint's or joint's value within a positional\nrepresentation (IsJoint selects which relationship id space the id is in).\n```"]
-pub struct SetPositionalOverrideArgs {
-    pub rep: u64 => required("rep");
-    pub relationship: u64 => required("relationship");
-    pub is_joint: bool => omitted("isJoint", "crate::json::is_zero");
-    pub value: f64 => finite("value");
 }
 }

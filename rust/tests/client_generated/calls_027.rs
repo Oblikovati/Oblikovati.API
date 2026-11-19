@@ -212,6 +212,42 @@ fn sketch_resolve_reference() {
 }
 
 #[test]
+fn sketch_set_block_definition_color() {
+    let args: oblikovati_api::wire::SetBlockDefinitionColorArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_SET_BLOCK_DEFINITION_COLOR,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client
+            .sketch()
+            .set_block_definition_color(&args)
+            .unwrap_err()
+            .0,
+        "recorded"
+    );
+}
+
+#[test]
+fn sketch_set_block_instance_color() {
+    let args: oblikovati_api::wire::SetBlockInstanceColorArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_SET_BLOCK_INSTANCE_COLOR,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client
+            .sketch()
+            .set_block_instance_color(&args)
+            .unwrap_err()
+            .0,
+        "recorded"
+    );
+}
+
+#[test]
 fn sketch_set_custom_line_type() {
     let args: oblikovati_api::wire::SetSketchCustomLineTypeArgs = Default::default();
     let fake = super::super::RecordingCaller::new(
@@ -221,34 +257,6 @@ fn sketch_set_custom_line_type() {
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(
         client.sketch().set_custom_line_type(&args).unwrap_err().0,
-        "recorded"
-    );
-}
-
-#[test]
-fn sketch_set_entity_format() {
-    let args: oblikovati_api::wire::SetSketchEntityFormatArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_SET_ENTITY_FORMAT,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(
-        client.sketch().set_entity_format(&args).unwrap_err().0,
-        "recorded"
-    );
-}
-
-#[test]
-fn sketch_set_format_modes() {
-    let args: oblikovati_api::wire::SketchFormatModesView = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_SET_FORMAT_MODES,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(
-        client.sketch().set_format_modes(&args).unwrap_err().0,
         "recorded"
     );
 }

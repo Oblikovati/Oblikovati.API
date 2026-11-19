@@ -67,6 +67,10 @@ pub const METHOD_SKETCH_REGION_PROPERTIES: &str = "sketch.regionProperties";
 
 pub const METHOD_SKETCH_RESOLVE_REFERENCE: &str = "sketch.resolveReference";
 
+pub const METHOD_SKETCH_SET_BLOCK_DEFINITION_COLOR: &str = "sketch.blockDefinitions.setColor";
+
+pub const METHOD_SKETCH_SET_BLOCK_INSTANCE_COLOR: &str = "sketch.blockInstances.setColor";
+
 pub const METHOD_SKETCH_SET_CUSTOM_LINE_TYPE: &str = "sketch.setCustomLineType";
 
 pub const METHOD_SKETCH_SET_ENTITY_FORMAT: &str = "sketch.setEntityFormat";
@@ -450,15 +454,5 @@ pub struct ModelStateTableDiagnostic {
     pub parameter_id: u64 => required("parameterId");
     pub expression: String => required("expression");
     pub message: String => required("message");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateTableEvaluation describes a read-only evaluated parameter cell.\nFailure is empty for a healthy value. Example:\n`wire.ModelStateTableEvaluation{ParameterID: 1, Row: row, Value: \"10 mm\"}`.\n```"]
-pub struct ModelStateTableEvaluation {
-    pub parameter_id: u64 => required("parameterId");
-    pub row: crate::wire::ModelStateTableRowRef => required("row");
-    pub value: String => required("value");
-    pub failure: String => required("failure");
 }
 }

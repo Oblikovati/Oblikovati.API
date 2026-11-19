@@ -118,6 +118,30 @@ impl<T: super::Caller> super::Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_RESOLVE_REFERENCE, Some(args))
     }
 
+    /// Call `MethodSketchSetBlockDefinitionColor` with the canonical request and response types.
+    /// Example: `client.sketch().set_block_definition_color(&args)`.
+    pub fn set_block_definition_color(
+        &self,
+        args: &crate::wire::SetBlockDefinitionColorArgs,
+    ) -> Result<crate::wire::SketchBlockDefinitionInfo, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_BLOCK_DEFINITION_COLOR,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodSketchSetBlockInstanceColor` with the canonical request and response types.
+    /// Example: `client.sketch().set_block_instance_color(&args)`.
+    pub fn set_block_instance_color(
+        &self,
+        args: &crate::wire::SetBlockInstanceColorArgs,
+    ) -> Result<crate::wire::SketchBlockInfo, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_BLOCK_INSTANCE_COLOR,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchSetCustomLineType` with the canonical request and response types.
     /// Example: `client.sketch().set_custom_line_type(&args)`.
     pub fn set_custom_line_type(
@@ -137,7 +161,9 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_ENTITY_FORMAT, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetFormatModes` with the canonical request and response types.
     /// Example: `client.sketch().set_format_modes(&args)`.
     pub fn set_format_modes(
@@ -157,9 +183,7 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_OPTIONS, Some(args))
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetInferenceScope` with the canonical request and response types.
     /// Example: `client.sketch().set_inference_scope(&args)`.
     pub fn set_inference_scope(
