@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityTriadUpdate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodTriadUpdate})
- checkGoGroup(t, c, "Triad", "Update")
+	c := client.New(parityCaller{t, wire.MethodTriadUpdate})
+	checkGoGroup(t, c, "Triad", "Update")
 }
 
 func TestRustParityUIActivateEnvironment(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUIActivateEnvironment})
- checkGoGroup(t, c, "UI", "ActivateEnvironment")
+	c := client.New(parityCaller{t, wire.MethodUIActivateEnvironment})
+	checkGoGroup(t, c, "UI", "ActivateEnvironment")
 }
 
 func TestRustParityUIMarkingMenu(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUIGetMarkingMenu})
- checkGoGroup(t, c, "UI", "MarkingMenu")
+	c := client.New(parityCaller{t, wire.MethodUIGetMarkingMenu})
+	checkGoGroup(t, c, "UI", "MarkingMenu")
 }
 
 func TestRustParityUIObjectVisibility(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUIGetObjectVisibility})
- checkGoGroup(t, c, "UI", "ObjectVisibility")
+	c := client.New(parityCaller{t, wire.MethodUIGetObjectVisibility})
+	checkGoGroup(t, c, "UI", "ObjectVisibility")
 }
 
 func TestRustParityUIRegisterEnvironment(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUIRegisterEnvironment})
- checkGoGroup(t, c, "UI", "RegisterEnvironment")
+	c := client.New(parityCaller{t, wire.MethodUIRegisterEnvironment})
+	checkGoGroup(t, c, "UI", "RegisterEnvironment")
 }
 
 func TestRustParityUISearch(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUISearch})
- checkGoGroup(t, c, "UI", "Search")
+	c := client.New(parityCaller{t, wire.MethodUISearch})
+	checkGoGroup(t, c, "UI", "Search")
 }
 
 func TestRustParityUISetContextMenu(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUISetContextMenu})
- checkGoGroup(t, c, "UI", "SetContextMenu")
+	c := client.New(parityCaller{t, wire.MethodUISetContextMenu})
+	checkGoGroup(t, c, "UI", "SetContextMenu")
 }
 
 func TestRustParityUISetMarkingMenu(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUISetMarkingMenu})
- checkGoGroup(t, c, "UI", "SetMarkingMenu")
+	c := client.New(parityCaller{t, wire.MethodUISetMarkingMenu})
+	checkGoGroup(t, c, "UI", "SetMarkingMenu")
 }
 
 func TestRustParityUISetObjectVisibility(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUISetObjectVisibility})
- checkGoGroup(t, c, "UI", "SetObjectVisibility")
+	c := client.New(parityCaller{t, wire.MethodUISetObjectVisibility})
+	checkGoGroup(t, c, "UI", "SetObjectVisibility")
 }
 
 func TestRustParityUnitsCompatibleUnits(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsCompatibleUnits})
- checkGoGroup(t, c, "Units", "CompatibleUnits")
+	c := client.New(parityCaller{t, wire.MethodUnitsCompatibleUnits})
+	checkGoGroup(t, c, "Units", "CompatibleUnits")
 }
 
 func TestRustParityUnitsConvert(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsConvert})
- checkGoGroup(t, c, "Units", "Convert")
+	c := client.New(parityCaller{t, wire.MethodUnitsConvert})
+	checkGoGroup(t, c, "Units", "Convert")
 }
 
 func TestRustParityUnitsGetDatabaseUnitsFromExpression(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
- checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
+	checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
 }
 
 func TestRustParityUnitsGetDrivingParameters(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetDrivingParameters})
- checkGoGroup(t, c, "Units", "GetDrivingParameters")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetDrivingParameters})
+	checkGoGroup(t, c, "Units", "GetDrivingParameters")
 }
 
 func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
- checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
+	checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
 }
 
 func TestRustParityUnitsGetPreciseStringFromValue(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
- checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
+	checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
 }
 
 func TestRustParityUnitsGetStringFromType(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromType})
- checkGoGroup(t, c, "Units", "GetStringFromType")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromType})
+	checkGoGroup(t, c, "Units", "GetStringFromType")
 }
 
 func TestRustParityUnitsGetStringFromValue(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromValue})
- checkGoGroup(t, c, "Units", "GetStringFromValue")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromValue})
+	checkGoGroup(t, c, "Units", "GetStringFromValue")
 }
 
 func TestRustParityUnitsGetTypeFromString(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetTypeFromString})
- checkGoGroup(t, c, "Units", "GetTypeFromString")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetTypeFromString})
+	checkGoGroup(t, c, "Units", "GetTypeFromString")
 }
 
 func TestRustParityUnitsGetValueFromExpression(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsGetValueFromExpression})
- checkGoGroup(t, c, "Units", "GetValueFromExpression")
+	c := client.New(parityCaller{t, wire.MethodUnitsGetValueFromExpression})
+	checkGoGroup(t, c, "Units", "GetValueFromExpression")
 }
 
 func TestRustParityUnitsIsExpressionValid(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodUnitsIsExpressionValid})
- checkGoGroup(t, c, "Units", "IsExpressionValid")
+	c := client.New(parityCaller{t, wire.MethodUnitsIsExpressionValid})
+	checkGoGroup(t, c, "Units", "IsExpressionValid")
 }
 
 func TestRustParityViewCamera(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewGetCamera})
- checkGoGroup(t, c, "View", "Camera")
+	c := client.New(parityCaller{t, wire.MethodViewGetCamera})
+	checkGoGroup(t, c, "View", "Camera")
 }
 
 func TestRustParityViewCapture(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportCapture})
- checkGoGroup(t, c, "View", "Capture")
+	c := client.New(parityCaller{t, wire.MethodViewportCapture})
+	checkGoGroup(t, c, "View", "Capture")
 }
 
 func TestRustParityViewCaptureWindow(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportCaptureWindow})
- checkGoGroup(t, c, "View", "CaptureWindow")
+	c := client.New(parityCaller{t, wire.MethodViewportCaptureWindow})
+	checkGoGroup(t, c, "View", "CaptureWindow")
 }
 
 func TestRustParityViewClick(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportClick})
- checkGoGroup(t, c, "View", "Click")
+	c := client.New(parityCaller{t, wire.MethodViewportClick})
+	checkGoGroup(t, c, "View", "Click")
 }
 
 func TestRustParityViewDisplayMode(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
- checkGoGroup(t, c, "View", "DisplayMode")
+	c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
+	checkGoGroup(t, c, "View", "DisplayMode")
 }
 
 func TestRustParityViewListDisplayModes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
- checkGoGroup(t, c, "View", "ListDisplayModes")
+	c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
+	checkGoGroup(t, c, "View", "ListDisplayModes")
 }
 
 func TestRustParityViewPressKey(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportKey})
- checkGoGroup(t, c, "View", "PressKey")
+	c := client.New(parityCaller{t, wire.MethodViewportKey})
+	checkGoGroup(t, c, "View", "PressKey")
 }
 
 func TestRustParityViewScroll(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportScroll})
- checkGoGroup(t, c, "View", "Scroll")
+	c := client.New(parityCaller{t, wire.MethodViewportScroll})
+	checkGoGroup(t, c, "View", "Scroll")
 }
 
 func TestRustParityViewSetCamera(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewSetCamera})
- checkGoGroup(t, c, "View", "SetCamera")
+	c := client.New(parityCaller{t, wire.MethodViewSetCamera})
+	checkGoGroup(t, c, "View", "SetCamera")
 }
 
 func TestRustParityViewSetDisplayMode(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewSetDisplayMode})
- checkGoGroup(t, c, "View", "SetDisplayMode")
+	c := client.New(parityCaller{t, wire.MethodViewSetDisplayMode})
+	checkGoGroup(t, c, "View", "SetDisplayMode")
 }

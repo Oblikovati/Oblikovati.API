@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityAssemblyConstraintsAddTranslateTranslate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsAddTranslateTranslate})
- checkGoGroup(t, c, "AssemblyConstraints", "AddTranslateTranslate")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsAddTranslateTranslate})
+	checkGoGroup(t, c, "AssemblyConstraints", "AddTranslateTranslate")
 }
 
 func TestRustParityAssemblyConstraintsDelete(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsDelete})
- checkGoGroup(t, c, "AssemblyConstraints", "Delete")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsDelete})
+	checkGoGroup(t, c, "AssemblyConstraints", "Delete")
 }
 
 func TestRustParityAssemblyConstraintsHealth(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsHealth})
- checkGoGroup(t, c, "AssemblyConstraints", "Health")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsHealth})
+	checkGoGroup(t, c, "AssemblyConstraints", "Health")
 }
 
 func TestRustParityAssemblyConstraintsList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsList})
- checkGoGroup(t, c, "AssemblyConstraints", "List")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsList})
+	checkGoGroup(t, c, "AssemblyConstraints", "List")
 }
 
 func TestRustParityAssemblyConstraintsSetLimits(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSetLimits})
- checkGoGroup(t, c, "AssemblyConstraints", "SetLimits")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSetLimits})
+	checkGoGroup(t, c, "AssemblyConstraints", "SetLimits")
 }
 
 func TestRustParityAssemblyConstraintsSnap(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSnap})
- checkGoGroup(t, c, "AssemblyConstraints", "Snap")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSnap})
+	checkGoGroup(t, c, "AssemblyConstraints", "Snap")
 }
 
 func TestRustParityAssemblyConstraintsSolve(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSolve})
- checkGoGroup(t, c, "AssemblyConstraints", "Solve")
+	c := client.New(parityCaller{t, wire.MethodAssemblyConstraintsSolve})
+	checkGoGroup(t, c, "AssemblyConstraints", "Solve")
 }
 
 func TestRustParityAssemblyCopy(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyCopy})
- checkGoGroup(t, c, "Assembly", "Copy")
+	c := client.New(parityCaller{t, wire.MethodAssemblyCopy})
+	checkGoGroup(t, c, "Assembly", "Copy")
 }
 
 func TestRustParityAssemblyDeriveBreakLink(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyDeriveBreakLink})
- checkGoGroup(t, c, "Assembly", "DeriveBreakLink")
+	c := client.New(parityCaller{t, wire.MethodAssemblyDeriveBreakLink})
+	checkGoGroup(t, c, "Assembly", "DeriveBreakLink")
 }
 
 func TestRustParityAssemblyDeriveCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyDeriveCreate})
- checkGoGroup(t, c, "Assembly", "DeriveCreate")
+	c := client.New(parityCaller{t, wire.MethodAssemblyDeriveCreate})
+	checkGoGroup(t, c, "Assembly", "DeriveCreate")
 }
 
 func TestRustParityAssemblyDeriveStatus(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyDeriveStatus})
- checkGoGroup(t, c, "Assembly", "DeriveStatus")
+	c := client.New(parityCaller{t, wire.MethodAssemblyDeriveStatus})
+	checkGoGroup(t, c, "Assembly", "DeriveStatus")
 }
 
 func TestRustParityAssemblyDeriveUpdate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyDeriveUpdate})
- checkGoGroup(t, c, "Assembly", "DeriveUpdate")
+	c := client.New(parityCaller{t, wire.MethodAssemblyDeriveUpdate})
+	checkGoGroup(t, c, "Assembly", "DeriveUpdate")
 }
 
 func TestRustParityAssemblyDrivePreview(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyDrivePreview})
- checkGoGroup(t, c, "AssemblyDrive", "Preview")
+	c := client.New(parityCaller{t, wire.MethodAssemblyDrivePreview})
+	checkGoGroup(t, c, "AssemblyDrive", "Preview")
 }
 
 func TestRustParityAssemblyFeaturesAdd(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAdd})
- checkGoGroup(t, c, "AssemblyFeatures", "Add")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAdd})
+	checkGoGroup(t, c, "AssemblyFeatures", "Add")
 }
 
 func TestRustParityAssemblyFeaturesAddChamfer(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddChamfer})
- checkGoGroup(t, c, "AssemblyFeatures", "AddChamfer")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddChamfer})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddChamfer")
 }
 
 func TestRustParityAssemblyFeaturesAddExtrude(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddExtrude})
- checkGoGroup(t, c, "AssemblyFeatures", "AddExtrude")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddExtrude})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddExtrude")
 }
 
 func TestRustParityAssemblyFeaturesAddFillet(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddFillet})
- checkGoGroup(t, c, "AssemblyFeatures", "AddFillet")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddFillet})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddFillet")
 }
 
 func TestRustParityAssemblyFeaturesAddHole(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddHole})
- checkGoGroup(t, c, "AssemblyFeatures", "AddHole")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddHole})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddHole")
 }
 
 func TestRustParityAssemblyFeaturesAddMoveFace(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddMoveFace})
- checkGoGroup(t, c, "AssemblyFeatures", "AddMoveFace")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddMoveFace})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddMoveFace")
 }
 
 func TestRustParityAssemblyFeaturesAddProxyCut(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddProxyCut})
- checkGoGroup(t, c, "AssemblyFeatures", "AddProxyCut")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddProxyCut})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddProxyCut")
 }
 
 func TestRustParityAssemblyFeaturesAddRevolve(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddRevolve})
- checkGoGroup(t, c, "AssemblyFeatures", "AddRevolve")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddRevolve})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddRevolve")
 }
 
 func TestRustParityAssemblyFeaturesAddSweep(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddSweep})
- checkGoGroup(t, c, "AssemblyFeatures", "AddSweep")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesAddSweep})
+	checkGoGroup(t, c, "AssemblyFeatures", "AddSweep")
 }
 
 func TestRustParityAssemblyFeaturesEdit(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesEdit})
- checkGoGroup(t, c, "AssemblyFeatures", "Edit")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesEdit})
+	checkGoGroup(t, c, "AssemblyFeatures", "Edit")
 }
 
 func TestRustParityAssemblyFeaturesGetEndOfFeatures(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyGetEndOfFeatures})
- checkGoGroup(t, c, "AssemblyFeatures", "GetEndOfFeatures")
+	c := client.New(parityCaller{t, wire.MethodAssemblyGetEndOfFeatures})
+	checkGoGroup(t, c, "AssemblyFeatures", "GetEndOfFeatures")
 }
 
 func TestRustParityAssemblyFeaturesList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesList})
- checkGoGroup(t, c, "AssemblyFeatures", "List")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesList})
+	checkGoGroup(t, c, "AssemblyFeatures", "List")
 }
 
 func TestRustParityAssemblyFeaturesSetEndOfFeatures(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblySetEndOfFeatures})
- checkGoGroup(t, c, "AssemblyFeatures", "SetEndOfFeatures")
+	c := client.New(parityCaller{t, wire.MethodAssemblySetEndOfFeatures})
+	checkGoGroup(t, c, "AssemblyFeatures", "SetEndOfFeatures")
 }
 
 func TestRustParityAssemblyFeaturesSetParticipantPaths(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetParticipantPaths})
- checkGoGroup(t, c, "AssemblyFeatures", "SetParticipantPaths")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetParticipantPaths})
+	checkGoGroup(t, c, "AssemblyFeatures", "SetParticipantPaths")
 }
 
 func TestRustParityAssemblyFeaturesSetParticipants(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetParticipants})
- checkGoGroup(t, c, "AssemblyFeatures", "SetParticipants")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetParticipants})
+	checkGoGroup(t, c, "AssemblyFeatures", "SetParticipants")
 }
 
 func TestRustParityAssemblyFeaturesSetSuppressed(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetSuppressed})
- checkGoGroup(t, c, "AssemblyFeatures", "SetSuppressed")
+	c := client.New(parityCaller{t, wire.MethodAssemblyFeaturesSetSuppressed})
+	checkGoGroup(t, c, "AssemblyFeatures", "SetSuppressed")
 }
 
 func TestRustParityAssemblyGround(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyGround})
- checkGoGroup(t, c, "Assembly", "Ground")
+	c := client.New(parityCaller{t, wire.MethodAssemblyGround})
+	checkGoGroup(t, c, "Assembly", "Ground")
 }

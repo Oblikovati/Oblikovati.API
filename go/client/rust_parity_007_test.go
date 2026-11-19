@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityDocumentsRegisterSubType(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsRegisterSubType})
- checkGoGroup(t, c, "Documents", "RegisterSubType")
+	c := client.New(parityCaller{t, wire.MethodDocumentsRegisterSubType})
+	checkGoGroup(t, c, "Documents", "RegisterSubType")
 }
 
 func TestRustParityDocumentsRemoveAttachment(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsRemoveAttachment})
- checkGoGroup(t, c, "Documents", "RemoveAttachment")
+	c := client.New(parityCaller{t, wire.MethodDocumentsRemoveAttachment})
+	checkGoGroup(t, c, "Documents", "RemoveAttachment")
 }
 
 func TestRustParityDocumentsRemoveInterest(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsRemoveInterest})
- checkGoGroup(t, c, "Documents", "RemoveInterest")
+	c := client.New(parityCaller{t, wire.MethodDocumentsRemoveInterest})
+	checkGoGroup(t, c, "Documents", "RemoveInterest")
 }
 
 func TestRustParityDocumentsRequiresUpdate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsRequiresUpdate})
- checkGoGroup(t, c, "Documents", "RequiresUpdate")
+	c := client.New(parityCaller{t, wire.MethodDocumentsRequiresUpdate})
+	checkGoGroup(t, c, "Documents", "RequiresUpdate")
 }
 
 func TestRustParityDocumentsSave(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsSave})
- checkGoGroup(t, c, "Documents", "Save")
+	c := client.New(parityCaller{t, wire.MethodDocumentsSave})
+	checkGoGroup(t, c, "Documents", "Save")
 }
 
 func TestRustParityDocumentsSaveAs(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsSaveAs})
- checkGoGroup(t, c, "Documents", "SaveAs")
+	c := client.New(parityCaller{t, wire.MethodDocumentsSaveAs})
+	checkGoGroup(t, c, "Documents", "SaveAs")
 }
 
 func TestRustParityDocumentsSaveCopyAs(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsSaveCopyAs})
- checkGoGroup(t, c, "Documents", "SaveCopyAs")
+	c := client.New(parityCaller{t, wire.MethodDocumentsSaveCopyAs})
+	checkGoGroup(t, c, "Documents", "SaveCopyAs")
 }
 
 func TestRustParityDocumentsSetEndOfPart(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentSetEndOfPart})
- checkGoGroup(t, c, "Documents", "SetEndOfPart")
+	c := client.New(parityCaller{t, wire.MethodDocumentSetEndOfPart})
+	checkGoGroup(t, c, "Documents", "SetEndOfPart")
 }
 
 func TestRustParityDocumentsSetProperty(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsSetProperty})
- checkGoGroup(t, c, "Documents", "SetProperty")
+	c := client.New(parityCaller{t, wire.MethodDocumentsSetProperty})
+	checkGoGroup(t, c, "Documents", "SetProperty")
 }
 
 func TestRustParityDocumentsSetSketchSettings(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentSetSketchSettings})
- checkGoGroup(t, c, "Documents", "SetSketchSettings")
+	c := client.New(parityCaller{t, wire.MethodDocumentSetSketchSettings})
+	checkGoGroup(t, c, "Documents", "SetSketchSettings")
 }
 
 func TestRustParityDocumentsSetUnits(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsSetUnits})
- checkGoGroup(t, c, "Documents", "SetUnits")
+	c := client.New(parityCaller{t, wire.MethodDocumentsSetUnits})
+	checkGoGroup(t, c, "Documents", "SetUnits")
 }
 
 func TestRustParityDocumentsSubTypes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsListSubTypes})
- checkGoGroup(t, c, "Documents", "SubTypes")
+	c := client.New(parityCaller{t, wire.MethodDocumentsListSubTypes})
+	checkGoGroup(t, c, "Documents", "SubTypes")
 }
 
 func TestRustParityDocumentsUpdate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDocumentsUpdate})
- checkGoGroup(t, c, "Documents", "Update")
+	c := client.New(parityCaller{t, wire.MethodDocumentsUpdate})
+	checkGoGroup(t, c, "Documents", "Update")
 }
 
 func TestRustParityDrawingAddDefaultBorder(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAddDefaultBorder})
- checkGoGroup(t, c, "Drawing", "AddDefaultBorder")
+	c := client.New(parityCaller{t, wire.MethodDrawingAddDefaultBorder})
+	checkGoGroup(t, c, "Drawing", "AddDefaultBorder")
 }
 
 func TestRustParityDrawingAddSheet(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAddSheet})
- checkGoGroup(t, c, "Drawing", "AddSheet")
+	c := client.New(parityCaller{t, wire.MethodDrawingAddSheet})
+	checkGoGroup(t, c, "Drawing", "AddSheet")
 }
 
 func TestRustParityDrawingAddSheetUsingFormat(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAddSheetUsingFormat})
- checkGoGroup(t, c, "Drawing", "AddSheetUsingFormat")
+	c := client.New(parityCaller{t, wire.MethodDrawingAddSheetUsingFormat})
+	checkGoGroup(t, c, "Drawing", "AddSheetUsingFormat")
 }
 
 func TestRustParityDrawingAnnotationsAddBalloon(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddBalloon})
- checkGoGroup(t, c, "DrawingAnnotations", "AddBalloon")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddBalloon})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddBalloon")
 }
 
 func TestRustParityDrawingAnnotationsAddBendNote(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddBendNote})
- checkGoGroup(t, c, "DrawingAnnotations", "AddBendNote")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddBendNote})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddBendNote")
 }
 
 func TestRustParityDrawingAnnotationsAddCenterMarks(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCenterMarks})
- checkGoGroup(t, c, "DrawingAnnotations", "AddCenterMarks")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCenterMarks})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddCenterMarks")
 }
 
 func TestRustParityDrawingAnnotationsAddCenterlines(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCenterlines})
- checkGoGroup(t, c, "DrawingAnnotations", "AddCenterlines")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCenterlines})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddCenterlines")
 }
 
 func TestRustParityDrawingAnnotationsAddChamferNote(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddChamferNote})
- checkGoGroup(t, c, "DrawingAnnotations", "AddChamferNote")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddChamferNote})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddChamferNote")
 }
 
 func TestRustParityDrawingAnnotationsAddCoGMarker(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCoG})
- checkGoGroup(t, c, "DrawingAnnotations", "AddCoGMarker")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCoG})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddCoGMarker")
 }
 
 func TestRustParityDrawingAnnotationsAddCustomTable(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCustomTable})
- checkGoGroup(t, c, "DrawingAnnotations", "AddCustomTable")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddCustomTable})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddCustomTable")
 }
 
 func TestRustParityDrawingAnnotationsAddDatumFeature(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddDatum})
- checkGoGroup(t, c, "DrawingAnnotations", "AddDatumFeature")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddDatum})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddDatumFeature")
 }
 
 func TestRustParityDrawingAnnotationsAddFeatureControlFrame(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddFCF})
- checkGoGroup(t, c, "DrawingAnnotations", "AddFeatureControlFrame")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddFCF})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddFeatureControlFrame")
 }
 
 func TestRustParityDrawingAnnotationsAddHoleNotes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddHoleNotes})
- checkGoGroup(t, c, "DrawingAnnotations", "AddHoleNotes")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddHoleNotes})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddHoleNotes")
 }
 
 func TestRustParityDrawingAnnotationsAddHoleTable(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddHoleTable})
- checkGoGroup(t, c, "DrawingAnnotations", "AddHoleTable")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddHoleTable})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddHoleTable")
 }
 
 func TestRustParityDrawingAnnotationsAddNote(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddNote})
- checkGoGroup(t, c, "DrawingAnnotations", "AddNote")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddNote})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddNote")
 }
 
 func TestRustParityDrawingAnnotationsAddPartsList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddPartsList})
- checkGoGroup(t, c, "DrawingAnnotations", "AddPartsList")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddPartsList})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddPartsList")
 }
 
 func TestRustParityDrawingAnnotationsAddRevisionCloud(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevisionCloud})
- checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionCloud")
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevisionCloud})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionCloud")
 }

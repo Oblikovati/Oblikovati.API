@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityAssemblySetOccurrenceState(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblySetOccurrenceState})
- checkGoGroup(t, c, "Assembly", "SetOccurrenceState")
+	c := client.New(parityCaller{t, wire.MethodAssemblySetOccurrenceState})
+	checkGoGroup(t, c, "Assembly", "SetOccurrenceState")
 }
 
 func TestRustParityAssemblySetOptions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyOptionsSet})
- checkGoGroup(t, c, "Assembly", "SetOptions")
+	c := client.New(parityCaller{t, wire.MethodAssemblyOptionsSet})
+	checkGoGroup(t, c, "Assembly", "SetOptions")
 }
 
 func TestRustParityAssemblySetVisible(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblySetVisible})
- checkGoGroup(t, c, "Assembly", "SetVisible")
+	c := client.New(parityCaller{t, wire.MethodAssemblySetVisible})
+	checkGoGroup(t, c, "Assembly", "SetVisible")
 }
 
 func TestRustParityAssemblyShrinkwrapCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyShrinkwrapCreate})
- checkGoGroup(t, c, "Assembly", "ShrinkwrapCreate")
+	c := client.New(parityCaller{t, wire.MethodAssemblyShrinkwrapCreate})
+	checkGoGroup(t, c, "Assembly", "ShrinkwrapCreate")
 }
 
 func TestRustParityAssemblySubstitute(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblySubstitute})
- checkGoGroup(t, c, "Assembly", "Substitute")
+	c := client.New(parityCaller{t, wire.MethodAssemblySubstitute})
+	checkGoGroup(t, c, "Assembly", "Substitute")
 }
 
 func TestRustParityAssemblySuppress(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblySuppress})
- checkGoGroup(t, c, "Assembly", "Suppress")
+	c := client.New(parityCaller{t, wire.MethodAssemblySuppress})
+	checkGoGroup(t, c, "Assembly", "Suppress")
 }
 
 func TestRustParityAssemblyTransform(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAssemblyTransform})
- checkGoGroup(t, c, "Assembly", "Transform")
+	c := client.New(parityCaller{t, wire.MethodAssemblyTransform})
+	checkGoGroup(t, c, "Assembly", "Transform")
 }
 
 func TestRustParityAttributesDeleteOn(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesDelete})
- checkGoGroup(t, c, "Attributes", "DeleteOn")
+	c := client.New(parityCaller{t, wire.MethodAttributesDelete})
+	checkGoGroup(t, c, "Attributes", "DeleteOn")
 }
 
 func TestRustParityAttributesFind(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesFind})
- checkGoGroup(t, c, "Attributes", "Find")
+	c := client.New(parityCaller{t, wire.MethodAttributesFind})
+	checkGoGroup(t, c, "Attributes", "Find")
 }
 
 func TestRustParityAttributesGetOn(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesGet})
- checkGoGroup(t, c, "Attributes", "GetOn")
+	c := client.New(parityCaller{t, wire.MethodAttributesGet})
+	checkGoGroup(t, c, "Attributes", "GetOn")
 }
 
 func TestRustParityAttributesList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesList})
- checkGoGroup(t, c, "Attributes", "List")
+	c := client.New(parityCaller{t, wire.MethodAttributesList})
+	checkGoGroup(t, c, "Attributes", "List")
 }
 
 func TestRustParityAttributesListAll(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesList})
- checkGoGroup(t, c, "Attributes", "ListAll")
+	c := client.New(parityCaller{t, wire.MethodAttributesList})
+	checkGoGroup(t, c, "Attributes", "ListAll")
 }
 
 func TestRustParityAttributesListOn(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesList})
- checkGoGroup(t, c, "Attributes", "ListOn")
+	c := client.New(parityCaller{t, wire.MethodAttributesList})
+	checkGoGroup(t, c, "Attributes", "ListOn")
 }
 
 func TestRustParityAttributesListSets(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesListSets})
- checkGoGroup(t, c, "Attributes", "ListSets")
+	c := client.New(parityCaller{t, wire.MethodAttributesListSets})
+	checkGoGroup(t, c, "Attributes", "ListSets")
 }
 
 func TestRustParityAttributesSetOn(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodAttributesSet})
- checkGoGroup(t, c, "Attributes", "SetOn")
+	c := client.New(parityCaller{t, wire.MethodAttributesSet})
+	checkGoGroup(t, c, "Attributes", "SetOn")
 }
 
 func TestRustParityBodyBindTransientKey(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyBindTransientKey})
- checkGoGroup(t, c, "Body", "BindTransientKey")
+	c := client.New(parityCaller{t, wire.MethodBodyBindTransientKey})
+	checkGoGroup(t, c, "Body", "BindTransientKey")
 }
 
 func TestRustParityBodyCalculateFacets(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyCalculateFacets})
- checkGoGroup(t, c, "Body", "CalculateFacets")
+	c := client.New(parityCaller{t, wire.MethodBodyCalculateFacets})
+	checkGoGroup(t, c, "Body", "CalculateFacets")
 }
 
 func TestRustParityBodyCalculateStrokes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyCalculateStrokes})
- checkGoGroup(t, c, "Body", "CalculateStrokes")
+	c := client.New(parityCaller{t, wire.MethodBodyCalculateStrokes})
+	checkGoGroup(t, c, "Body", "CalculateStrokes")
 }
 
 func TestRustParityBodyConvexityEdges(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyConvexityEdges})
- checkGoGroup(t, c, "Body", "ConvexityEdges")
+	c := client.New(parityCaller{t, wire.MethodBodyConvexityEdges})
+	checkGoGroup(t, c, "Body", "ConvexityEdges")
 }
 
 func TestRustParityBodyDelete(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyDelete})
- checkGoGroup(t, c, "Body", "Delete")
+	c := client.New(parityCaller{t, wire.MethodBodyDelete})
+	checkGoGroup(t, c, "Body", "Delete")
 }
 
 func TestRustParityBodyExistingFacets(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyExistingFacets})
- checkGoGroup(t, c, "Body", "ExistingFacets")
+	c := client.New(parityCaller{t, wire.MethodBodyExistingFacets})
+	checkGoGroup(t, c, "Body", "ExistingFacets")
 }
 
 func TestRustParityBodyExistingStrokes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyExistingStrokes})
- checkGoGroup(t, c, "Body", "ExistingStrokes")
+	c := client.New(parityCaller{t, wire.MethodBodyExistingStrokes})
+	checkGoGroup(t, c, "Body", "ExistingStrokes")
 }
 
 func TestRustParityBodyFaceCalculateFacets(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodFaceCalculateFacets})
- checkGoGroup(t, c, "Body", "FaceCalculateFacets")
+	c := client.New(parityCaller{t, wire.MethodFaceCalculateFacets})
+	checkGoGroup(t, c, "Body", "FaceCalculateFacets")
 }
 
 func TestRustParityBodyFaceCalculateStrokes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodFaceCalculateStrokes})
- checkGoGroup(t, c, "Body", "FaceCalculateStrokes")
+	c := client.New(parityCaller{t, wire.MethodFaceCalculateStrokes})
+	checkGoGroup(t, c, "Body", "FaceCalculateStrokes")
 }
 
 func TestRustParityBodyFaceEvaluate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyFaceEvaluate})
- checkGoGroup(t, c, "Body", "FaceEvaluate")
+	c := client.New(parityCaller{t, wire.MethodBodyFaceEvaluate})
+	checkGoGroup(t, c, "Body", "FaceEvaluate")
 }
 
 func TestRustParityBodyFacetTolerances(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyFacetTolerances})
- checkGoGroup(t, c, "Body", "FacetTolerances")
+	c := client.New(parityCaller{t, wire.MethodBodyFacetTolerances})
+	checkGoGroup(t, c, "Body", "FacetTolerances")
 }
 
 func TestRustParityBodyFindUsingRay(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyFindUsingRay})
- checkGoGroup(t, c, "Body", "FindUsingRay")
+	c := client.New(parityCaller{t, wire.MethodBodyFindUsingRay})
+	checkGoGroup(t, c, "Body", "FindUsingRay")
 }
 
 func TestRustParityBodyIsPointInside(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyIsPointInside})
- checkGoGroup(t, c, "Body", "IsPointInside")
+	c := client.New(parityCaller{t, wire.MethodBodyIsPointInside})
+	checkGoGroup(t, c, "Body", "IsPointInside")
 }
 
 func TestRustParityBodyList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyList})
- checkGoGroup(t, c, "Body", "List")
+	c := client.New(parityCaller{t, wire.MethodBodyList})
+	checkGoGroup(t, c, "Body", "List")
 }
 
 func TestRustParityBodyLocateUsingPoint(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodBodyLocateUsingPoint})
- checkGoGroup(t, c, "Body", "LocateUsingPoint")
+	c := client.New(parityCaller{t, wire.MethodBodyLocateUsingPoint})
+	checkGoGroup(t, c, "Body", "LocateUsingPoint")
 }

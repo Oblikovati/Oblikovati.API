@@ -3,39 +3,43 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityWorkPointsCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPointsCreate})
- checkGoGroup(t, c, "WorkPoints", "Create")
+	c := client.New(parityCaller{t, wire.MethodWorkPointsCreate})
+	checkGoGroup(t, c, "WorkPoints", "Create")
 }
 
 func TestRustParityWorkPointsList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPointsList})
- checkGoGroup(t, c, "WorkPoints", "List")
+	c := client.New(parityCaller{t, wire.MethodWorkPointsList})
+	checkGoGroup(t, c, "WorkPoints", "List")
 }
 
 func TestRustParityWorkPointsListWithOptions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPointsList})
- checkGoGroup(t, c, "WorkPoints", "ListWithOptions")
+	c := client.New(parityCaller{t, wire.MethodWorkPointsList})
+	checkGoGroup(t, c, "WorkPoints", "ListWithOptions")
 }
 
 func TestRustParityWorkSurfacesGet(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkSurfacesGet})
- checkGoGroup(t, c, "WorkSurfaces", "Get")
+	c := client.New(parityCaller{t, wire.MethodWorkSurfacesGet})
+	checkGoGroup(t, c, "WorkSurfaces", "Get")
 }
 
 func TestRustParityWorkSurfacesList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkSurfacesList})
- checkGoGroup(t, c, "WorkSurfaces", "List")
+	c := client.New(parityCaller{t, wire.MethodWorkSurfacesList})
+	checkGoGroup(t, c, "WorkSurfaces", "List")
 }
 
 func TestRustParityWorkSurfacesRename(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkSurfacesRename})
- checkGoGroup(t, c, "WorkSurfaces", "Rename")
+	c := client.New(parityCaller{t, wire.MethodWorkSurfacesRename})
+	checkGoGroup(t, c, "WorkSurfaces", "Rename")
 }
 
 func TestRustParityWorkSurfacesSetVisible(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkSurfacesSetVisible})
- checkGoGroup(t, c, "WorkSurfaces", "SetVisible")
+	c := client.New(parityCaller{t, wire.MethodWorkSurfacesSetVisible})
+	checkGoGroup(t, c, "WorkSurfaces", "SetVisible")
 }

@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParitySketchAddEntity(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAddEntity})
- checkGoGroup(t, c, "Sketch", "AddEntity")
+	c := client.New(parityCaller{t, wire.MethodSketchAddEntity})
+	checkGoGroup(t, c, "Sketch", "AddEntity")
 }
 
 func TestRustParitySketchAddFillRegion(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAddFillRegion})
- checkGoGroup(t, c, "Sketch", "AddFillRegion")
+	c := client.New(parityCaller{t, wire.MethodSketchAddFillRegion})
+	checkGoGroup(t, c, "Sketch", "AddFillRegion")
 }
 
 func TestRustParitySketchAddImage(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAddImage})
- checkGoGroup(t, c, "Sketch", "AddImage")
+	c := client.New(parityCaller{t, wire.MethodSketchAddImage})
+	checkGoGroup(t, c, "Sketch", "AddImage")
 }
 
 func TestRustParitySketchAddText(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAddText})
- checkGoGroup(t, c, "Sketch", "AddText")
+	c := client.New(parityCaller{t, wire.MethodSketchAddText})
+	checkGoGroup(t, c, "Sketch", "AddText")
 }
 
 func TestRustParitySketchAddTextWith(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAddText})
- checkGoGroup(t, c, "Sketch", "AddTextWith")
+	c := client.New(parityCaller{t, wire.MethodSketchAddText})
+	checkGoGroup(t, c, "Sketch", "AddTextWith")
 }
 
 func TestRustParitySketchAutoDimension(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchAutoDimension})
- checkGoGroup(t, c, "Sketch", "AutoDimension")
+	c := client.New(parityCaller{t, wire.MethodSketchAutoDimension})
+	checkGoGroup(t, c, "Sketch", "AutoDimension")
 }
 
 func TestRustParitySketchBlockDefinitions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionList})
- checkGoGroup(t, c, "Sketch", "BlockDefinitions")
+	c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionList})
+	checkGoGroup(t, c, "Sketch", "BlockDefinitions")
 }
 
 func TestRustParitySketchBlockInstances(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchListBlockInstances})
- checkGoGroup(t, c, "Sketch", "BlockInstances")
+	c := client.New(parityCaller{t, wire.MethodSketchListBlockInstances})
+	checkGoGroup(t, c, "Sketch", "BlockInstances")
 }
 
 func TestRustParitySketchCommitMove(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchCommitMove})
- checkGoGroup(t, c, "Sketch", "CommitMove")
+	c := client.New(parityCaller{t, wire.MethodSketchCommitMove})
+	checkGoGroup(t, c, "Sketch", "CommitMove")
 }
 
 func TestRustParitySketchConstraintStatus(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
- checkGoGroup(t, c, "Sketch", "ConstraintStatus")
+	c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
+	checkGoGroup(t, c, "Sketch", "ConstraintStatus")
 }
 
 func TestRustParitySketchConstraints(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchConstraints})
- checkGoGroup(t, c, "Sketch", "Constraints")
+	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
+	checkGoGroup(t, c, "Sketch", "Constraints")
 }
 
 func TestRustParitySketchCopyTo(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchCopyTo})
- checkGoGroup(t, c, "Sketch", "CopyTo")
+	c := client.New(parityCaller{t, wire.MethodSketchCopyTo})
+	checkGoGroup(t, c, "Sketch", "CopyTo")
 }
 
 func TestRustParitySketchCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchCreate})
- checkGoGroup(t, c, "Sketch", "Create")
+	c := client.New(parityCaller{t, wire.MethodSketchCreate})
+	checkGoGroup(t, c, "Sketch", "Create")
 }
 
 func TestRustParitySketchCreateBlockDefinition(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionCreate})
- checkGoGroup(t, c, "Sketch", "CreateBlockDefinition")
+	c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionCreate})
+	checkGoGroup(t, c, "Sketch", "CreateBlockDefinition")
 }
 
 func TestRustParitySketchDelete(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchDelete})
- checkGoGroup(t, c, "Sketch", "Delete")
+	c := client.New(parityCaller{t, wire.MethodSketchDelete})
+	checkGoGroup(t, c, "Sketch", "Delete")
 }
 
 func TestRustParitySketchDeleteBlockDefinition(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionDelete})
- checkGoGroup(t, c, "Sketch", "DeleteBlockDefinition")
+	c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionDelete})
+	checkGoGroup(t, c, "Sketch", "DeleteBlockDefinition")
 }
 
 func TestRustParitySketchDependents(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchDependents})
- checkGoGroup(t, c, "Sketch", "Dependents")
+	c := client.New(parityCaller{t, wire.MethodSketchDependents})
+	checkGoGroup(t, c, "Sketch", "Dependents")
 }
 
 func TestRustParitySketchDimensions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchDimensions})
- checkGoGroup(t, c, "Sketch", "Dimensions")
+	c := client.New(parityCaller{t, wire.MethodSketchDimensions})
+	checkGoGroup(t, c, "Sketch", "Dimensions")
 }
 
 func TestRustParitySketchEdit(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchEdit})
- checkGoGroup(t, c, "Sketch", "Edit")
+	c := client.New(parityCaller{t, wire.MethodSketchEdit})
+	checkGoGroup(t, c, "Sketch", "Edit")
 }
 
 func TestRustParitySketchEditText(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchEditText})
- checkGoGroup(t, c, "Sketch", "EditText")
+	c := client.New(parityCaller{t, wire.MethodSketchEditText})
+	checkGoGroup(t, c, "Sketch", "EditText")
 }
 
 func TestRustParitySketchEntities(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchEntities})
- checkGoGroup(t, c, "Sketch", "Entities")
+	c := client.New(parityCaller{t, wire.MethodSketchEntities})
+	checkGoGroup(t, c, "Sketch", "Entities")
 }
 
 func TestRustParitySketchEntityFormat(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetEntityFormat})
- checkGoGroup(t, c, "Sketch", "EntityFormat")
+	c := client.New(parityCaller{t, wire.MethodSketchGetEntityFormat})
+	checkGoGroup(t, c, "Sketch", "EntityFormat")
 }
 
 func TestRustParitySketchExitEdit(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchExitEdit})
- checkGoGroup(t, c, "Sketch", "ExitEdit")
+	c := client.New(parityCaller{t, wire.MethodSketchExitEdit})
+	checkGoGroup(t, c, "Sketch", "ExitEdit")
 }
 
 func TestRustParitySketchFormatModes(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetFormatModes})
- checkGoGroup(t, c, "Sketch", "FormatModes")
+	c := client.New(parityCaller{t, wire.MethodSketchGetFormatModes})
+	checkGoGroup(t, c, "Sketch", "FormatModes")
 }
 
 func TestRustParitySketchGet(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGet})
- checkGoGroup(t, c, "Sketch", "Get")
+	c := client.New(parityCaller{t, wire.MethodSketchGet})
+	checkGoGroup(t, c, "Sketch", "Get")
 }
 
 func TestRustParitySketchGetCustomLineType(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
- checkGoGroup(t, c, "Sketch", "GetCustomLineType")
+	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
+	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
 }
 
 func TestRustParitySketchGetText(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetText})
- checkGoGroup(t, c, "Sketch", "GetText")
+	c := client.New(parityCaller{t, wire.MethodSketchGetText})
+	checkGoGroup(t, c, "Sketch", "GetText")
 }
 
 func TestRustParitySketchInferenceOptions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetInferenceOptions})
- checkGoGroup(t, c, "Sketch", "InferenceOptions")
+	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceOptions})
+	checkGoGroup(t, c, "Sketch", "InferenceOptions")
 }
 
 func TestRustParitySketchInferenceScope(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchGetInferenceScope})
- checkGoGroup(t, c, "Sketch", "InferenceScope")
+	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceScope})
+	checkGoGroup(t, c, "Sketch", "InferenceScope")
 }
 
 func TestRustParitySketchList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodSketchList})
- checkGoGroup(t, c, "Sketch", "List")
+	c := client.New(parityCaller{t, wire.MethodSketchList})
+	checkGoGroup(t, c, "Sketch", "List")
 }

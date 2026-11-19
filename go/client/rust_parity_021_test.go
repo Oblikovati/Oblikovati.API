@@ -3,154 +3,158 @@
 
 package client_test
 
-import ("testing"; "oblikovati.org/api/client"; "oblikovati.org/api/wire")
+import (
+	"oblikovati.org/api/client"
+	"oblikovati.org/api/wire"
+	"testing"
+)
 
 func TestRustParityViewSetMeshColors(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportSetMeshColors})
- checkGoGroup(t, c, "View", "SetMeshColors")
+	c := client.New(parityCaller{t, wire.MethodViewportSetMeshColors})
+	checkGoGroup(t, c, "View", "SetMeshColors")
 }
 
 func TestRustParityViewSetNormalDebug(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewportSetNormalDebug})
- checkGoGroup(t, c, "View", "SetNormalDebug")
+	c := client.New(parityCaller{t, wire.MethodViewportSetNormalDebug})
+	checkGoGroup(t, c, "View", "SetNormalDebug")
 }
 
 func TestRustParityViewSetOrientation(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewSetOrientation})
- checkGoGroup(t, c, "View", "SetOrientation")
+	c := client.New(parityCaller{t, wire.MethodViewSetOrientation})
+	checkGoGroup(t, c, "View", "SetOrientation")
 }
 
 func TestRustParityViewSetShadows(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewSetShadows})
- checkGoGroup(t, c, "View", "SetShadows")
+	c := client.New(parityCaller{t, wire.MethodViewSetShadows})
+	checkGoGroup(t, c, "View", "SetShadows")
 }
 
 func TestRustParityViewShadows(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewGetShadows})
- checkGoGroup(t, c, "View", "Shadows")
+	c := client.New(parityCaller{t, wire.MethodViewGetShadows})
+	checkGoGroup(t, c, "View", "Shadows")
 }
 
 func TestRustParityViewsActivate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsActivate})
- checkGoGroup(t, c, "Views", "Activate")
+	c := client.New(parityCaller{t, wire.MethodViewsActivate})
+	checkGoGroup(t, c, "Views", "Activate")
 }
 
 func TestRustParityViewsAdd(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsAdd})
- checkGoGroup(t, c, "Views", "Add")
+	c := client.New(parityCaller{t, wire.MethodViewsAdd})
+	checkGoGroup(t, c, "Views", "Add")
 }
 
 func TestRustParityViewsCaptureNamed(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsCaptureNamed})
- checkGoGroup(t, c, "Views", "CaptureNamed")
+	c := client.New(parityCaller{t, wire.MethodViewsCaptureNamed})
+	checkGoGroup(t, c, "Views", "CaptureNamed")
 }
 
 func TestRustParityViewsClose(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsClose})
- checkGoGroup(t, c, "Views", "Close")
+	c := client.New(parityCaller{t, wire.MethodViewsClose})
+	checkGoGroup(t, c, "Views", "Close")
 }
 
 func TestRustParityViewsDeleteNamed(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsDeleteNamed})
- checkGoGroup(t, c, "Views", "DeleteNamed")
+	c := client.New(parityCaller{t, wire.MethodViewsDeleteNamed})
+	checkGoGroup(t, c, "Views", "DeleteNamed")
 }
 
 func TestRustParityViewsLayout(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsGetLayout})
- checkGoGroup(t, c, "Views", "Layout")
+	c := client.New(parityCaller{t, wire.MethodViewsGetLayout})
+	checkGoGroup(t, c, "Views", "Layout")
 }
 
 func TestRustParityViewsList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsList})
- checkGoGroup(t, c, "Views", "List")
+	c := client.New(parityCaller{t, wire.MethodViewsList})
+	checkGoGroup(t, c, "Views", "List")
 }
 
 func TestRustParityViewsListNamed(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsListNamed})
- checkGoGroup(t, c, "Views", "ListNamed")
+	c := client.New(parityCaller{t, wire.MethodViewsListNamed})
+	checkGoGroup(t, c, "Views", "ListNamed")
 }
 
 func TestRustParityViewsRename(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsRename})
- checkGoGroup(t, c, "Views", "Rename")
+	c := client.New(parityCaller{t, wire.MethodViewsRename})
+	checkGoGroup(t, c, "Views", "Rename")
 }
 
 func TestRustParityViewsRestoreNamed(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsRestoreNamed})
- checkGoGroup(t, c, "Views", "RestoreNamed")
+	c := client.New(parityCaller{t, wire.MethodViewsRestoreNamed})
+	checkGoGroup(t, c, "Views", "RestoreNamed")
 }
 
 func TestRustParityViewsSetLayout(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodViewsSetLayout})
- checkGoGroup(t, c, "Views", "SetLayout")
+	c := client.New(parityCaller{t, wire.MethodViewsSetLayout})
+	checkGoGroup(t, c, "Views", "SetLayout")
 }
 
 func TestRustParityWindowsActivateTab(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWindowsActivateTab})
- checkGoGroup(t, c, "Windows", "ActivateTab")
+	c := client.New(parityCaller{t, wire.MethodWindowsActivateTab})
+	checkGoGroup(t, c, "Windows", "ActivateTab")
 }
 
 func TestRustParityWindowsCloseTab(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWindowsCloseTab})
- checkGoGroup(t, c, "Windows", "CloseTab")
+	c := client.New(parityCaller{t, wire.MethodWindowsCloseTab})
+	checkGoGroup(t, c, "Windows", "CloseTab")
 }
 
 func TestRustParityWindowsFrames(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWindowsListFrames})
- checkGoGroup(t, c, "Windows", "Frames")
+	c := client.New(parityCaller{t, wire.MethodWindowsListFrames})
+	checkGoGroup(t, c, "Windows", "Frames")
 }
 
 func TestRustParityWindowsTabs(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWindowsListTabs})
- checkGoGroup(t, c, "Windows", "Tabs")
+	c := client.New(parityCaller{t, wire.MethodWindowsListTabs})
+	checkGoGroup(t, c, "Windows", "Tabs")
 }
 
 func TestRustParityWorkAxesCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkAxesCreate})
- checkGoGroup(t, c, "WorkAxes", "Create")
+	c := client.New(parityCaller{t, wire.MethodWorkAxesCreate})
+	checkGoGroup(t, c, "WorkAxes", "Create")
 }
 
 func TestRustParityWorkAxesList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkAxesList})
- checkGoGroup(t, c, "WorkAxes", "List")
+	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
+	checkGoGroup(t, c, "WorkAxes", "List")
 }
 
 func TestRustParityWorkAxesListWithOptions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkAxesList})
- checkGoGroup(t, c, "WorkAxes", "ListWithOptions")
+	c := client.New(parityCaller{t, wire.MethodWorkAxesList})
+	checkGoGroup(t, c, "WorkAxes", "ListWithOptions")
 }
 
 func TestRustParityWorkFeaturesDelete(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkFeaturesDelete})
- checkGoGroup(t, c, "WorkFeatures", "Delete")
+	c := client.New(parityCaller{t, wire.MethodWorkFeaturesDelete})
+	checkGoGroup(t, c, "WorkFeatures", "Delete")
 }
 
 func TestRustParityWorkFeaturesSetVisible(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkFeaturesSetVisible})
- checkGoGroup(t, c, "WorkFeatures", "SetVisible")
+	c := client.New(parityCaller{t, wire.MethodWorkFeaturesSetVisible})
+	checkGoGroup(t, c, "WorkFeatures", "SetVisible")
 }
 
 func TestRustParityWorkPlanesCreate(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPlanesCreate})
- checkGoGroup(t, c, "WorkPlanes", "Create")
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesCreate})
+	checkGoGroup(t, c, "WorkPlanes", "Create")
 }
 
 func TestRustParityWorkPlanesFlipNormal(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
- checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
+	checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
 }
 
 func TestRustParityWorkPlanesList(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
- checkGoGroup(t, c, "WorkPlanes", "List")
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
+	checkGoGroup(t, c, "WorkPlanes", "List")
 }
 
 func TestRustParityWorkPlanesListWithOptions(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
- checkGoGroup(t, c, "WorkPlanes", "ListWithOptions")
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
+	checkGoGroup(t, c, "WorkPlanes", "ListWithOptions")
 }
 
 func TestRustParityWorkPlanesRedefine(t *testing.T) {
- c := client.New(parityCaller{t, wire.MethodWorkPlanesRedefine})
- checkGoGroup(t, c, "WorkPlanes", "Redefine")
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesRedefine})
+	checkGoGroup(t, c, "WorkPlanes", "Redefine")
 }
