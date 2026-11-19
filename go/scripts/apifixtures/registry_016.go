@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.SketchEntityFormatView", reflect.TypeFor[wire.SketchEntityFormatView]()},
+	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 	{"wire.SketchFormatModesView", reflect.TypeFor[wire.SketchFormatModesView]()},
 	{"wire.SketchInferenceScopeArgs", reflect.TypeFor[wire.SketchInferenceScopeArgs]()},
 	{"wire.SketchInferenceScopeView", reflect.TypeFor[wire.SketchInferenceScopeView]()},
@@ -87,6 +89,4 @@ var fixtureGroup16 = []fixtureType{
 	{"wire.ViewCurvesArgs", reflect.TypeFor[wire.ViewCurvesArgs]()},
 	{"wire.ViewCurvesResult", reflect.TypeFor[wire.ViewCurvesResult]()},
 	{"wire.ViewFrameInfo", reflect.TypeFor[wire.ViewFrameInfo]()},
-	{"wire.ViewInfo", reflect.TypeFor[wire.ViewInfo]()},
-	{"wire.ViewResult", reflect.TypeFor[wire.ViewResult]()},
 }

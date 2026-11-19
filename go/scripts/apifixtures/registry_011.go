@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListClientApplicationsResult", reflect.TypeFor[wire.ListClientApplicationsResult]()},
+	{"wire.ListClientGraphicsResult", reflect.TypeFor[wire.ListClientGraphicsResult]()},
 	{"wire.ListCommandsResult", reflect.TypeFor[wire.ListCommandsResult]()},
 	{"wire.ListConstraints3DResult", reflect.TypeFor[wire.ListConstraints3DResult]()},
 	{"wire.ListConstraintsResult", reflect.TypeFor[wire.ListConstraintsResult]()},
@@ -87,6 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.MeshColorsResult", reflect.TypeFor[wire.MeshColorsResult]()},
 	{"wire.MessageEntry", reflect.TypeFor[wire.MessageEntry]()},
 	{"wire.MessageSectionView", reflect.TypeFor[wire.MessageSectionView]()},
-	{"wire.MiniToolbarChangedEvent", reflect.TypeFor[wire.MiniToolbarChangedEvent]()},
-	{"wire.MiniToolbarCommittedEvent", reflect.TypeFor[wire.MiniToolbarCommittedEvent]()},
 }

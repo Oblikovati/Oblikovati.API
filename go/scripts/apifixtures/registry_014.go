@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.RepresentationEventPayload", reflect.TypeFor[wire.RepresentationEventPayload]()},
+	{"wire.RepresentationInfo", reflect.TypeFor[wire.RepresentationInfo]()},
 	{"wire.RequiresUpdateResult", reflect.TypeFor[wire.RequiresUpdateResult]()},
 	{"wire.ResetBindingArgs", reflect.TypeFor[wire.ResetBindingArgs]()},
 	{"wire.ResolveSketchReferenceArgs", reflect.TypeFor[wire.ResolveSketchReferenceArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetImposedMotionArgs", reflect.TypeFor[wire.SetImposedMotionArgs]()},
 	{"wire.SetJointFlipArgs", reflect.TypeFor[wire.SetJointFlipArgs]()},
 	{"wire.SetJointLimitsArgs", reflect.TypeFor[wire.SetJointLimitsArgs]()},
-	{"wire.SetJointOriginArgs", reflect.TypeFor[wire.SetJointOriginArgs]()},
-	{"wire.SetJointStateArgs", reflect.TypeFor[wire.SetJointStateArgs]()},
 }

@@ -11,11 +11,13 @@ import (
 
 var fixtureGroup4 = []fixtureType{
 	{"types.SketchInferenceScope", reflect.TypeFor[types.SketchInferenceScope]()},
+	{"types.SketchInferenceTypes", reflect.TypeFor[types.SketchInferenceTypes]()},
 	{"types.SketchLineType", reflect.TypeFor[types.SketchLineType]()},
 	{"types.SketchMoveDimensionPolicy", reflect.TypeFor[types.SketchMoveDimensionPolicy]()},
 	{"types.SketchMoveGeometricPolicy", reflect.TypeFor[types.SketchMoveGeometricPolicy]()},
 	{"types.SketchPatternKind", reflect.TypeFor[types.SketchPatternKind]()},
 	{"types.SketchPointInferenceKind", reflect.TypeFor[types.SketchPointInferenceKind]()},
+	{"types.SketchRelaxTypes", reflect.TypeFor[types.SketchRelaxTypes]()},
 	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
 	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
 	{"types.SolutionNature", reflect.TypeFor[types.SolutionNature]()},
@@ -88,6 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddCenterMarksArgs", reflect.TypeFor[wire.AddCenterMarksArgs]()},
 	{"wire.AddCenterlineArgs", reflect.TypeFor[wire.AddCenterlineArgs]()},
 	{"wire.AddCenterlinesArgs", reflect.TypeFor[wire.AddCenterlinesArgs]()},
-	{"wire.AddChamferNoteArgs", reflect.TypeFor[wire.AddChamferNoteArgs]()},
-	{"wire.AddCoGMarkerArgs", reflect.TypeFor[wire.AddCoGMarkerArgs]()},
 }

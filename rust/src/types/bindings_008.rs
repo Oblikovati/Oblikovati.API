@@ -216,6 +216,33 @@ pub struct SketchFormatModes {
 }
 }
 
+pub const SKETCH_INFER_COINCIDENT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(256);
+
+pub const SKETCH_INFER_HORIZONTAL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(1);
+
+pub const SKETCH_INFER_INTERSECTION: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(16);
+
+pub const SKETCH_INFER_MIDPOINT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(32);
+
+pub const SKETCH_INFER_ON_CURVE: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(64);
+
+pub const SKETCH_INFER_PARALLEL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(4);
+
+pub const SKETCH_INFER_PERPENDICULAR: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(8);
+
+pub const SKETCH_INFER_TANGENT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(128);
+
+pub const SKETCH_INFER_VERTICAL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(2);
+
 pub const SKETCH_INFERENCE_AT_INTERSECTION: crate::types::SketchPointInferenceKind =
     crate::types::SketchPointInferenceKind(22273);
 
@@ -231,6 +258,11 @@ pub const SKETCH_INFERENCE_ON_POINT: crate::types::SketchPointInferenceKind =
 generated_scalar! { string,
 #[doc = "```text\nSketchInferenceScope identifies the geometry eligible for 2D sketch inference.\nExample: `scope := types.InferenceScopeAllGeometry`.\n```"]
 pub struct SketchInferenceScope(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSketchInferenceTypes is a bit set of selected inference relation types.\nCombine choices with bitwise OR; for example, SketchInferHorizontal | SketchInferVertical.\n```"]
+pub struct SketchInferenceTypes(pub u32);
 }
 
 pub const SKETCH_LINE_CENTER: crate::types::SketchLineType =
@@ -309,6 +341,43 @@ pub struct SketchPointInferenceKind(pub i32);
 pub const SKETCH_RECTANGLE_ENTITY: crate::types::DrawingSketchEntityKind =
     crate::types::DrawingSketchEntityKind(2);
 
+pub const SKETCH_RELAX_COINCIDENT: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(1);
+
+pub const SKETCH_RELAX_COLLINEAR: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(16);
+
+pub const SKETCH_RELAX_CONCENTRIC: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(32);
+
+pub const SKETCH_RELAX_EQUAL: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(1024);
+
+pub const SKETCH_RELAX_FIX: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(2048);
+
+pub const SKETCH_RELAX_HORIZONTAL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(64);
+
+pub const SKETCH_RELAX_PARALLEL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(256);
+
+pub const SKETCH_RELAX_PERPENDICULAR: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(512);
+
+pub const SKETCH_RELAX_SMOOTH: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(4);
+
+pub const SKETCH_RELAX_SYMMETRIC: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(8);
+
+pub const SKETCH_RELAX_TANGENT: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nSketchRelaxTypes is a bit set of selected relaxation relation types.\nCombine choices with bitwise OR; for example, SketchRelaxCoincident | SketchRelaxTangent.\n```"]
+pub struct SketchRelaxTypes(pub u32);
+}
+
+pub const SKETCH_RELAX_VERTICAL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(128);
+
 generated_dto! {
 #[doc = "```text\nSketchSettings is a part document's persisted sketch-authoring defaults (#147) — the per-document\nsurface of the Document Settings dialog's Sketch tab. It lifts the constraint-inference preferences\nthat were previously session-only into the document (persisted in the .obk), so each part keeps its\nown: whether inference snaps points and auto-applies constraints while sketching, and which\nconstraint family wins when two could apply. (3D-sketch and modeling settings are separate future\nobjects; this starts with the inference toggles the sketch tools already read.)\n```"]
 pub struct SketchSettings {
@@ -318,6 +387,9 @@ pub struct SketchSettings {
     pub auto_apply_constraints: bool => required("autoApplyConstraints");
 #[doc = "```text\nConstraintPriority picks the constraint family when the inference engine could apply either.\n```"]
     pub constraint_priority: crate::types::ConstraintInferencePriority => required("constraintPriority");
+#[doc = "```text\nCustomInferenceTypes selects InferenceTypes; false retains the legacy inference policy.\n```"]
+    pub custom_inference_types: bool => omitted("customInferenceTypes", "crate::json::is_zero");
+    pub inference_types: crate::types::SketchInferenceTypes => omitted("inferenceTypes", "crate::json::is_zero");
 #[doc = "```text\nSnap/grid defaults (the reference CAD API's SketchSettings, #1877). XSnapSpacing/YSnapSpacing are the grid\nsnap increments in cm; SnapsPerMinorGrid subdivides a minor grid cell and\nMinorLinesPerMajorGridLine sets how many minor lines fall between major grid lines.\n```"]
     pub x_snap_spacing: f64 => finite("xSnapSpacing");
     pub y_snap_spacing: f64 => finite("ySnapSpacing");
@@ -328,7 +400,10 @@ pub struct SketchSettings {
     pub display_constraints_on_creation: bool => required("displayConstraintsOnCreation");
     pub edit_dimensions_when_created: bool => required("editDimensionsWhenCreated");
     pub over_constrained_behavior: crate::types::OverConstrainedDimensionBehavior => required("overConstrainedBehavior");
-#[doc = "```text\nRelax-mode settings (the reference CAD API's SketchConstraintSettings, #1877): EnableRelaxMode lets dragging\ndrop conflicting constraints, and KeepDimensionsWithEquationInRelaxMode preserves dimensions\nwhose value is an equation while relaxing. The reference CAD API's GeometricConstraintsToRemoveInRelaxMode\n(a constraint-family bitmask selecting which relations relax may drop) is intentionally out of\nscope: Oblikovati's solver has no selective per-family relax pass to configure yet, and adding\na list field would also make this value struct non-comparable. #1877.\n```"]
+#[doc = "```text\nCustomRelaxTypes selects RelaxTypes; false retains the legacy removal policy.\nSelective removal was previously unavailable because the solver did not expose it (#1877).\n```"]
+    pub custom_relax_types: bool => omitted("customRelaxTypes", "crate::json::is_zero");
+    pub relax_types: crate::types::SketchRelaxTypes => omitted("relaxTypes", "crate::json::is_zero");
+#[doc = "```text\nEnableRelaxMode and KeepDimensionsWithEquationInRelaxMode control relaxation.\n```"]
     pub enable_relax_mode: bool => required("enableRelaxMode");
     pub keep_dimensions_with_equation_in_relax_mode: bool => required("keepDimensionsWithEquationInRelaxMode");
 }
@@ -387,77 +462,3 @@ pub const SPACING_FIT_TO_PATH_LENGTH: crate::types::PatternSpacingType =
 
 pub const SPACING_FITTED: crate::types::PatternSpacingType =
     crate::types::PatternSpacingType(33538);
-
-pub const SPHERE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5896);
-
-pub const SPINNER_CONTROL: crate::types::ControlKind = crate::types::ControlKind(3);
-
-pub const SPLINE_FIT_CHORD: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26371);
-
-generated_scalar! { integer,
-#[doc = "```text\nSplineFitMethod selects the parameterization an interpolation spline uses\nto fit its points (M06-F11, Oblikovati/Oblikovati#626). The default is\nSplineFitSmooth, which matches the behavior shipped before the field existed.\n\nThe values are a frozen block matching the reference API's spline-fit enum;\nnever renumber them.\n```"]
-pub struct SplineFitMethod(pub i32);
-}
-
-pub const SPLINE_FIT_SMOOTH: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26369);
-
-pub const SPLINE_FIT_SWEET: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26370);
-
-pub const SPLIT_BODY_SPLIT: crate::types::SplitType = crate::types::SplitType(32771);
-
-pub const SPLIT_FACES_SPLIT: crate::types::SplitType = crate::types::SplitType(32770);
-
-generated_scalar! { integer,
-#[doc = "```text\nSplitType is the kind of split a split feature performed: trim a solid to\none side of the tool, split its faces only (imprint), or split the body\ninto separate solids. The reference declares kSplitPart sharing id 32769\nwith kTrimSolid; \"trimSolid\" is the canonical spelling here.\n```"]
-pub struct SplitType(pub i32);
-}
-
-pub const SPOT_LIGHT: crate::types::LightDefinitionTypeEnum =
-    crate::types::LightDefinitionTypeEnum(53251);
-
-pub const STANDARD_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(0);
-
-pub const STANDARD_LIGHTING_STYLE: crate::types::LightingStyleTypeEnum =
-    crate::types::LightingStyleTypeEnum(50750977);
-
-generated_scalar! { integer,
-#[doc = "```text\nStartupActionType is what the application opens with — the StartupActionTypeEnum\nequivalent, narrowed to the actions the host implements (M05-F11, #618). The zero\nvalue preserves the historical behavior: a fresh part document ready to model in.\n```"]
-pub struct StartupActionType(pub u8);
-}
-impl From<u8> for StartupActionType {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<StartupActionType> for u8 {
-    fn from(value: StartupActionType) -> Self {
-        value.0
-    }
-}
-
-pub const STARTUP_EMPTY_WORKSPACE: crate::types::StartupActionType =
-    crate::types::StartupActionType(1);
-
-pub const STARTUP_NEW_PART: crate::types::StartupActionType = crate::types::StartupActionType(0);
-
-pub const STARTUP_SKETCH_NONE: crate::types::StartupSketchPlane =
-    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("none"));
-
-generated_scalar! { string,
-#[doc = "```text\nStartupSketchPlane chooses the initial sketch for a newly created part.\nFor example, StartupSketchXY starts a sketch on the XY origin plane.\nHosts must reject values outside these constants.\n```"]
-pub struct StartupSketchPlane(pub std::borrow::Cow<'static, str>);
-}
-
-pub const STARTUP_SKETCH_XY: crate::types::StartupSketchPlane =
-    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xy"));
-
-pub const STARTUP_SKETCH_XZ: crate::types::StartupSketchPlane =
-    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xz"));
-
-pub const STARTUP_SKETCH_YZ: crate::types::StartupSketchPlane =
-    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("yz"));
-
-pub const STRAIGHT_LINE_BEND_TRANSITION: crate::types::BendTransition =
-    crate::types::BendTransition(2);
-
-pub const STRING_VALUE: crate::types::ValueType = crate::types::ValueType(14595);

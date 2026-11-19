@@ -10,6 +10,9 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Optional per-type sketch inference and Relax Mode selections. The default
+  configuration retains the host legacy policy (#312).
+
 - Typed definition and placed-instance color overrides for sketch blocks (#311).
 
 - A typed sketch block Explode operation that returns the resulting entity
@@ -32,8 +35,8 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 ### Changed
 
 - Rust callers that construct `OpenDocumentArgs`, `DocumentInfo`,
-  `SaveDocumentResult`, `CloseDocumentsResult`, `BatchSaveItemResult`, or
-  `PartOptionsView` with exhaustive struct literals must supply their new fields
+  `SaveDocumentResult`, `CloseDocumentsResult`, `BatchSaveItemResult`,
+  `SketchSettings`, or `PartOptionsView` with exhaustive struct literals must supply their new fields
   or use defaults.
   Go callers using unkeyed literals for the corresponding structs must update
   them. Existing wire payloads without the new fields retain their defaults.

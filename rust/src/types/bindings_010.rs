@@ -3,6 +3,81 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TRANSACTION_POINT_UNKNOWN: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3585);
+
+pub const TRANSACTION_POINT_UP_TO_SPECIFIED: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3589);
+
+pub const TRANSIENT_CLIENT_GRAPHICS: crate::types::ClientGraphicsTypeEnum =
+    crate::types::ClientGraphicsTypeEnum(45313);
+
+pub const TRANSLATOR_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(1);
+
+generated_scalar! { integer,
+#[doc = "```text\nTransparencyTypeEnum is how transparency is rendered: per-pixel alpha blending or a\nscreen-door (stipple) approximation. Frozen ids 58625–58626.\n```"]
+pub struct TransparencyTypeEnum(pub i32);
+}
+
+pub const TRANSVERSELY_ISOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("transversely-isotropic"));
+
+pub const TRIAD_FREE: crate::types::TriadMoveType = crate::types::TriadMoveType(3);
+
+generated_scalar! { integer,
+#[doc = "```text\nTriadMoveType is the motion a drag produces — the TriadMoveTypeEnum equivalent.\n```"]
+pub struct TriadMoveType(pub u8);
+}
+impl From<u8> for TriadMoveType {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<TriadMoveType> for u8 {
+    fn from(value: TriadMoveType) -> Self {
+        value.0
+    }
+}
+
+pub const TRIAD_ORIGIN: crate::types::TriadSegment = crate::types::TriadSegment(0);
+
+pub const TRIAD_ROTATE: crate::types::TriadMoveType = crate::types::TriadMoveType(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nTriadSegment is the part of the move/rotate triad the user grabbed — the\nTriadSegmentEnum equivalent (M05-F13, #620).\n```"]
+pub struct TriadSegment(pub u8);
+}
+impl From<u8> for TriadSegment {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<TriadSegment> for u8 {
+    fn from(value: TriadSegment) -> Self {
+        value.0
+    }
+}
+
+pub const TRIAD_TRANSLATE: crate::types::TriadMoveType = crate::types::TriadMoveType(0);
+
+pub const TRIAD_TRANSLATE_PLANAR: crate::types::TriadMoveType = crate::types::TriadMoveType(1);
+
+pub const TRIAD_X_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(1);
+
+pub const TRIAD_X_RING: crate::types::TriadSegment = crate::types::TriadSegment(7);
+
+pub const TRIAD_XY_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(4);
+
+pub const TRIAD_XZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(6);
+
+pub const TRIAD_Y_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(2);
+
+pub const TRIAD_Y_RING: crate::types::TriadSegment = crate::types::TriadSegment(8);
+
+pub const TRIAD_YZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(5);
+
+pub const TRIAD_Z_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(3);
+
 pub const TRIAD_Z_RING: crate::types::TriadSegment = crate::types::TriadSegment(9);
 
 pub const TRIM_SOLID_SPLIT: crate::types::SplitType = crate::types::SplitType(32769);

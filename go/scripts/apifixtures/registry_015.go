@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetJointOriginArgs", reflect.TypeFor[wire.SetJointOriginArgs]()},
+	{"wire.SetJointStateArgs", reflect.TypeFor[wire.SetJointStateArgs]()},
 	{"wire.SetLayoutArgs", reflect.TypeFor[wire.SetLayoutArgs]()},
 	{"wire.SetLightArgs", reflect.TypeFor[wire.SetLightArgs]()},
 	{"wire.SetLightingStyleArgs", reflect.TypeFor[wire.SetLightingStyleArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.SketchDependentsResult", reflect.TypeFor[wire.SketchDependentsResult]()},
 	{"wire.SketchEditEvent", reflect.TypeFor[wire.SketchEditEvent]()},
 	{"wire.SketchEntityFormatArgs", reflect.TypeFor[wire.SketchEntityFormatArgs]()},
-	{"wire.SketchEntityFormatView", reflect.TypeFor[wire.SketchEntityFormatView]()},
-	{"wire.SketchEntityInfo", reflect.TypeFor[wire.SketchEntityInfo]()},
 }

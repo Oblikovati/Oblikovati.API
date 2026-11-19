@@ -107,6 +107,11 @@ fn types_sketch_inference_scope() {
 }
 
 #[test]
+fn types_sketch_inference_types() {
+    super::check::<oblikovati_api::types::SketchInferenceTypes>("types.SketchInferenceTypes");
+}
+
+#[test]
 fn types_sketch_line_type() {
     super::check::<oblikovati_api::types::SketchLineType>("types.SketchLineType");
 }
@@ -135,6 +140,11 @@ fn types_sketch_point_inference_kind() {
     super::check::<oblikovati_api::types::SketchPointInferenceKind>(
         "types.SketchPointInferenceKind",
     );
+}
+
+#[test]
+fn types_sketch_relax_types() {
+    super::check::<oblikovati_api::types::SketchRelaxTypes>("types.SketchRelaxTypes");
 }
 
 #[test]
@@ -295,14 +305,4 @@ fn types_unit_vector2d() {
 #[test]
 fn types_units_type() {
     super::check::<oblikovati_api::types::UnitsType>("types.UnitsType");
-}
-
-#[test]
-fn types_value_type() {
-    super::check::<oblikovati_api::types::ValueType>("types.ValueType");
-}
-
-#[test]
-fn types_variant() {
-    super::check::<oblikovati_api::types::Variant>("types.Variant");
 }

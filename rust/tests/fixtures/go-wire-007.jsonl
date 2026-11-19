@@ -1,3 +1,9 @@
+{"Name":"types.Tolerance","Case":"zero","Payload":{"Type":0,"Upper":0,"Lower":0,"HoleTolerance":"","ShaftTolerance":""},"Canonical":{"Type":0,"Upper":0,"Lower":0,"HoleTolerance":"","ShaftTolerance":""},"Error":""}
+{"Name":"types.Tolerance","Case":"filled","Payload":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Canonical":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.Tolerance","Case":"empty","Payload":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Canonical":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.ToleranceType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ToleranceType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ToleranceType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TransactionPoint","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.TransactionPoint","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TransactionPoint","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.AddCenterlinesArgs","Case":"zero","Payload":{"viewName":""},"Canonical":{"viewName":""},"Error":""}
 {"Name":"wire.AddCenterlinesArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.AddCenterlinesArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddChamferNoteArgs","Case":"zero","Payload":{"viewName":"","edgeA":"","edgeB":""},"Canonical":{"viewName":"","edgeA":"","edgeB":""},"Error":""}
-{"Name":"wire.AddChamferNoteArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語","edgeA":"example \u003c\u0026\u003e 日本語","edgeB":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語","edgeA":"example \u003c\u0026\u003e 日本語","edgeB":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddChamferNoteArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語","edgeA":"example \u003c\u0026\u003e 日本語","edgeB":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語","edgeA":"example \u003c\u0026\u003e 日本語","edgeB":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddCoGMarkerArgs","Case":"zero","Payload":{"viewName":""},"Canonical":{"viewName":""},"Error":""}
-{"Name":"wire.AddCoGMarkerArgs","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.AddCoGMarkerArgs","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","viewName":"example \u003c\u0026\u003e 日本語"},"Error":""}

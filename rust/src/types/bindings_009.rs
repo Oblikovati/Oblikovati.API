@@ -3,6 +3,80 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SPHERE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5896);
+
+pub const SPINNER_CONTROL: crate::types::ControlKind = crate::types::ControlKind(3);
+
+pub const SPLINE_FIT_CHORD: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26371);
+
+generated_scalar! { integer,
+#[doc = "```text\nSplineFitMethod selects the parameterization an interpolation spline uses\nto fit its points (M06-F11, Oblikovati/Oblikovati#626). The default is\nSplineFitSmooth, which matches the behavior shipped before the field existed.\n\nThe values are a frozen block matching the reference API's spline-fit enum;\nnever renumber them.\n```"]
+pub struct SplineFitMethod(pub i32);
+}
+
+pub const SPLINE_FIT_SMOOTH: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26369);
+
+pub const SPLINE_FIT_SWEET: crate::types::SplineFitMethod = crate::types::SplineFitMethod(26370);
+
+pub const SPLIT_BODY_SPLIT: crate::types::SplitType = crate::types::SplitType(32771);
+
+pub const SPLIT_FACES_SPLIT: crate::types::SplitType = crate::types::SplitType(32770);
+
+generated_scalar! { integer,
+#[doc = "```text\nSplitType is the kind of split a split feature performed: trim a solid to\none side of the tool, split its faces only (imprint), or split the body\ninto separate solids. The reference declares kSplitPart sharing id 32769\nwith kTrimSolid; \"trimSolid\" is the canonical spelling here.\n```"]
+pub struct SplitType(pub i32);
+}
+
+pub const SPOT_LIGHT: crate::types::LightDefinitionTypeEnum =
+    crate::types::LightDefinitionTypeEnum(53251);
+
+pub const STANDARD_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(0);
+
+pub const STANDARD_LIGHTING_STYLE: crate::types::LightingStyleTypeEnum =
+    crate::types::LightingStyleTypeEnum(50750977);
+
+generated_scalar! { integer,
+#[doc = "```text\nStartupActionType is what the application opens with — the StartupActionTypeEnum\nequivalent, narrowed to the actions the host implements (M05-F11, #618). The zero\nvalue preserves the historical behavior: a fresh part document ready to model in.\n```"]
+pub struct StartupActionType(pub u8);
+}
+impl From<u8> for StartupActionType {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<StartupActionType> for u8 {
+    fn from(value: StartupActionType) -> Self {
+        value.0
+    }
+}
+
+pub const STARTUP_EMPTY_WORKSPACE: crate::types::StartupActionType =
+    crate::types::StartupActionType(1);
+
+pub const STARTUP_NEW_PART: crate::types::StartupActionType = crate::types::StartupActionType(0);
+
+pub const STARTUP_SKETCH_NONE: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("none"));
+
+generated_scalar! { string,
+#[doc = "```text\nStartupSketchPlane chooses the initial sketch for a newly created part.\nFor example, StartupSketchXY starts a sketch on the XY origin plane.\nHosts must reject values outside these constants.\n```"]
+pub struct StartupSketchPlane(pub std::borrow::Cow<'static, str>);
+}
+
+pub const STARTUP_SKETCH_XY: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xy"));
+
+pub const STARTUP_SKETCH_XZ: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("xz"));
+
+pub const STARTUP_SKETCH_YZ: crate::types::StartupSketchPlane =
+    crate::types::StartupSketchPlane(std::borrow::Cow::Borrowed("yz"));
+
+pub const STRAIGHT_LINE_BEND_TRANSITION: crate::types::BendTransition =
+    crate::types::BendTransition(2);
+
+pub const STRING_VALUE: crate::types::ValueType = crate::types::ValueType(14595);
+
 generated_scalar! { integer,
 #[doc = "```text\nStyleLocationEnum is where a style lives in the cascade: in both the document and the style\nlibrary, only locally in the document, or only in the library. A local style overrides the\nlibrary style of the same name. The numeric ids are stable, frozen values (51201–51203).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
 pub struct StyleLocationEnum(pub i32);
@@ -387,78 +461,3 @@ pub const TRANSACTION_POINT_NEXT: crate::types::TransactionPoint =
 
 pub const TRANSACTION_POINT_PREVIOUS: crate::types::TransactionPoint =
     crate::types::TransactionPoint(3587);
-
-pub const TRANSACTION_POINT_UNKNOWN: crate::types::TransactionPoint =
-    crate::types::TransactionPoint(3585);
-
-pub const TRANSACTION_POINT_UP_TO_SPECIFIED: crate::types::TransactionPoint =
-    crate::types::TransactionPoint(3589);
-
-pub const TRANSIENT_CLIENT_GRAPHICS: crate::types::ClientGraphicsTypeEnum =
-    crate::types::ClientGraphicsTypeEnum(45313);
-
-pub const TRANSLATOR_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(1);
-
-generated_scalar! { integer,
-#[doc = "```text\nTransparencyTypeEnum is how transparency is rendered: per-pixel alpha blending or a\nscreen-door (stipple) approximation. Frozen ids 58625–58626.\n```"]
-pub struct TransparencyTypeEnum(pub i32);
-}
-
-pub const TRANSVERSELY_ISOTROPIC: crate::types::IsotropyClass =
-    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("transversely-isotropic"));
-
-pub const TRIAD_FREE: crate::types::TriadMoveType = crate::types::TriadMoveType(3);
-
-generated_scalar! { integer,
-#[doc = "```text\nTriadMoveType is the motion a drag produces — the TriadMoveTypeEnum equivalent.\n```"]
-pub struct TriadMoveType(pub u8);
-}
-impl From<u8> for TriadMoveType {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<TriadMoveType> for u8 {
-    fn from(value: TriadMoveType) -> Self {
-        value.0
-    }
-}
-
-pub const TRIAD_ORIGIN: crate::types::TriadSegment = crate::types::TriadSegment(0);
-
-pub const TRIAD_ROTATE: crate::types::TriadMoveType = crate::types::TriadMoveType(2);
-
-generated_scalar! { integer,
-#[doc = "```text\nTriadSegment is the part of the move/rotate triad the user grabbed — the\nTriadSegmentEnum equivalent (M05-F13, #620).\n```"]
-pub struct TriadSegment(pub u8);
-}
-impl From<u8> for TriadSegment {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<TriadSegment> for u8 {
-    fn from(value: TriadSegment) -> Self {
-        value.0
-    }
-}
-
-pub const TRIAD_TRANSLATE: crate::types::TriadMoveType = crate::types::TriadMoveType(0);
-
-pub const TRIAD_TRANSLATE_PLANAR: crate::types::TriadMoveType = crate::types::TriadMoveType(1);
-
-pub const TRIAD_X_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(1);
-
-pub const TRIAD_X_RING: crate::types::TriadSegment = crate::types::TriadSegment(7);
-
-pub const TRIAD_XY_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(4);
-
-pub const TRIAD_XZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(6);
-
-pub const TRIAD_Y_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(2);
-
-pub const TRIAD_Y_RING: crate::types::TriadSegment = crate::types::TriadSegment(8);
-
-pub const TRIAD_YZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(5);
-
-pub const TRIAD_Z_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(3);

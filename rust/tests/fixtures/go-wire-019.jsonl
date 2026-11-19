@@ -1,3 +1,9 @@
+{"Name":"wire.MarkingMenuItem","Case":"zero","Payload":{"quadrant":0,"commandId":""},"Canonical":{"quadrant":0,"commandId":""},"Error":""}
+{"Name":"wire.MarkingMenuItem","Case":"filled","Payload":{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.MarkingMenuItem","Case":"empty","Payload":{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"},"Canonical":{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.MarkingMenuView","Case":"zero","Payload":{"environment":0},"Canonical":{"environment":0},"Error":""}
+{"Name":"wire.MarkingMenuView","Case":"filled","Payload":{"environment":7,"quadrants":[{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"}],"overflow":["example \u003c\u0026\u003e 日本語"]},"Canonical":{"environment":7,"quadrants":[{"quadrant":7,"commandId":"example \u003c\u0026\u003e 日本語"}],"overflow":["example \u003c\u0026\u003e 日本語"]},"Error":""}
+{"Name":"wire.MarkingMenuView","Case":"empty","Payload":{"environment":7},"Canonical":{"environment":7},"Error":""}
 {"Name":"wire.MassPropertiesArgs","Case":"zero","Payload":{},"Canonical":{},"Error":""}
 {"Name":"wire.MassPropertiesArgs","Case":"filled","Payload":{"densityGCm3":1.25,"accuracy":"example \u003c\u0026\u003e 日本語"},"Canonical":{"densityGCm3":1.25,"accuracy":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.MassPropertiesArgs","Case":"empty","Payload":{"densityGCm3":1.25,"accuracy":"example \u003c\u0026\u003e 日本語"},"Canonical":{"densityGCm3":1.25,"accuracy":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.NamedViewInfo","Case":"zero","Payload":{"name":"","camera":{"eye":[0,0,0],"target":[0,0,0],"up":[0,0,0],"fov":0}},"Canonical":{"name":"","camera":{"eye":[0,0,0],"target":[0,0,0],"up":[0,0,0],"fov":0}},"Error":""}
 {"Name":"wire.NamedViewInfo","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}},"Error":""}
 {"Name":"wire.NamedViewInfo","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}},"Error":""}
-{"Name":"wire.NamedViewRefArgs","Case":"zero","Payload":{"name":""},"Canonical":{"name":""},"Error":""}
-{"Name":"wire.NamedViewRefArgs","Case":"filled","Payload":{"document":7,"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.NamedViewRefArgs","Case":"empty","Payload":{"document":7,"name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"name":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.NamedViewsResult","Case":"zero","Payload":{"views":null},"Canonical":{"views":null},"Error":""}
-{"Name":"wire.NamedViewsResult","Case":"filled","Payload":{"views":[{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}}]},"Canonical":{"views":[{"name":"example \u003c\u0026\u003e 日本語","camera":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"fov":1.25,"projection":7}}]},"Error":""}
-{"Name":"wire.NamedViewsResult","Case":"empty","Payload":{"views":[]},"Canonical":{"views":[]},"Error":""}

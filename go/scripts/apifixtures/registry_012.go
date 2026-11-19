@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup12 = []fixtureType{
+	{"wire.MiniToolbarChangedEvent", reflect.TypeFor[wire.MiniToolbarChangedEvent]()},
+	{"wire.MiniToolbarCommittedEvent", reflect.TypeFor[wire.MiniToolbarCommittedEvent]()},
 	{"wire.MiniToolbarControlSpec", reflect.TypeFor[wire.MiniToolbarControlSpec]()},
 	{"wire.MiniToolbarSpec", reflect.TypeFor[wire.MiniToolbarSpec]()},
 	{"wire.MinimumDistanceArgs", reflect.TypeFor[wire.MinimumDistanceArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.ParameterImportArgs", reflect.TypeFor[wire.ParameterImportArgs]()},
 	{"wire.ParameterImportResult", reflect.TypeFor[wire.ParameterImportResult]()},
 	{"wire.ParameterInfo", reflect.TypeFor[wire.ParameterInfo]()},
-	{"wire.ParameterNameArgs", reflect.TypeFor[wire.ParameterNameArgs]()},
-	{"wire.ParameterNamesResult", reflect.TypeFor[wire.ParameterNamesResult]()},
 }

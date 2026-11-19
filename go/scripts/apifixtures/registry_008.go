@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CreateModelStateArgs", reflect.TypeFor[wire.CreateModelStateArgs]()},
+	{"wire.CreatePatternArgs", reflect.TypeFor[wire.CreatePatternArgs]()},
 	{"wire.CreatePatternResult", reflect.TypeFor[wire.CreatePatternResult]()},
 	{"wire.CreatePrimitiveArgs", reflect.TypeFor[wire.CreatePrimitiveArgs]()},
 	{"wire.CreateSketch3DArgs", reflect.TypeFor[wire.CreateSketch3DArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DrawingAnnotationInfo", reflect.TypeFor[wire.DrawingAnnotationInfo]()},
 	{"wire.DrawingCurveSegment", reflect.TypeFor[wire.DrawingCurveSegment]()},
 	{"wire.DrawingDimensionInfo", reflect.TypeFor[wire.DrawingDimensionInfo]()},
-	{"wire.DrawingSketchInfo", reflect.TypeFor[wire.DrawingSketchInfo]()},
-	{"wire.DrawingSketchResult", reflect.TypeFor[wire.DrawingSketchResult]()},
 }
