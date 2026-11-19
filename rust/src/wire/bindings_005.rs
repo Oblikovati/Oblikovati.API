@@ -118,7 +118,7 @@ pub struct ConstraintGlyphsVisibilityArgs {
 }
 
 generated_dto! {
-#[doc = "```text\nConstraintGlyphsVisibilityResult reports the global display switch and the\nstable geometric relation IDs and those hidden individually, in ascending\norder. The IDs belong to the specified sketch. Example:\nConstraintGlyphsVisibilityResult{Shown: true, RelationIDs: []uint64{1}, HiddenIDs: []uint64{1}}.\n```"]
+#[doc = "```text\nConstraintGlyphsVisibilityResult reports the global display switch and the\nstable geometric relation IDs and those hidden individually, in ascending\norder. Shown false masks every relation; HiddenIDs still reports overrides.\nThe IDs belong to the specified sketch. Example:\nConstraintGlyphsVisibilityResult{Shown: true, RelationIDs: []uint64{1}, HiddenIDs: []uint64{1}}.\n```"]
 pub struct ConstraintGlyphsVisibilityResult {
     pub shown: bool => required("shown");
     pub relation_i_ds: Option<Vec<u64>> => required("relationIds");

@@ -10,9 +10,4 @@ type ConstraintGlyphVisibility interface {
 	ConstraintGlyphsShown() bool
 	// ConstraintGlyphVisible reports whether a current relation's glyph is visible.
 	ConstraintGlyphVisible(id uint64) (bool, error)
-	// SetConstraintGlyphVisible changes one relation's display override.
-	SetConstraintGlyphVisible(id uint64, visible bool) error
-	// SetAllConstraintGlyphsVisible shows or hides every relation's glyph.
-	// Showing all clears individual hidden overrides.
-	SetAllConstraintGlyphsVisible(visible bool) error
 }

@@ -29,7 +29,8 @@ type ConstraintGlyphsVisibilityArgs struct {
 
 // ConstraintGlyphsVisibilityResult reports the global display switch and the
 // stable geometric relation IDs and those hidden individually, in ascending
-// order. The IDs belong to the specified sketch. Example:
+// order. Shown false masks every relation; HiddenIDs still reports overrides.
+// The IDs belong to the specified sketch. Example:
 // ConstraintGlyphsVisibilityResult{Shown: true, RelationIDs: []uint64{1}, HiddenIDs: []uint64{1}}.
 type ConstraintGlyphsVisibilityResult struct {
 	Shown       bool     `json:"shown"`
