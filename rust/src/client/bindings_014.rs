@@ -4,6 +4,12 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 impl<T: super::Caller> super::Sketch<'_, T> {
+    /// Call `MethodSketchList` with the canonical request and response types.
+    /// Example: `client.sketch().list()`.
+    pub fn list(&self) -> Result<crate::wire::ListSketchesResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SKETCH_LIST, None::<&()>)
+    }
+
     /// Call `MethodSketchOffset` with the canonical request and response types.
     /// Example: `client.sketch().offset(&args)`.
     pub fn offset(
@@ -151,7 +157,9 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_OPTIONS, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetInferenceScope` with the canonical request and response types.
     /// Example: `client.sketch().set_inference_scope(&args)`.
     pub fn set_inference_scope(
@@ -161,9 +169,7 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_SCOPE, Some(args))
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetProperty` with the canonical request and response types.
     /// Example: `client.sketch().set_property(&args)`.
     pub fn set_property(

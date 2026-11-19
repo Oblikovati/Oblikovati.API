@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup17 = []fixtureType{
+	{"wire.WebDialogSpec", reflect.TypeFor[wire.WebDialogSpec]()},
+	{"wire.WireInfo", reflect.TypeFor[wire.WireInfo]()},
 	{"wire.WirePolyline", reflect.TypeFor[wire.WirePolyline]()},
 	{"wire.WireframeDisplayModeOptionsView", reflect.TypeFor[wire.WireframeDisplayModeOptionsView]()},
 	{"wire.WorkAxisInfo", reflect.TypeFor[wire.WorkAxisInfo]()},

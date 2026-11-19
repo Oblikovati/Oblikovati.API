@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParitySketchGetText(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchGetText})
+	checkGoGroup(t, c, "Sketch", "GetText")
+}
+
 func TestRustParitySketchInferenceOptions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGetInferenceOptions})
 	checkGoGroup(t, c, "Sketch", "InferenceOptions")
@@ -152,9 +157,4 @@ func TestRustParityStylesImportLibrary(t *testing.T) {
 func TestRustParityStylesLibraries(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodStylesListLibraries})
 	checkGoGroup(t, c, "Styles", "Libraries")
-}
-
-func TestRustParityStylesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodStylesList})
-	checkGoGroup(t, c, "Styles", "List")
 }

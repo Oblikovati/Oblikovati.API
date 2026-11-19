@@ -62,6 +62,22 @@ type AddSketchBlockResult struct {
 	EntityID uint64 `json:"entityId"`
 }
 
+// ExplodeSketchBlockArgs identifies one placed instance in its owning sketch.
+// The host applies its placement to the independent geometry in one undoable
+// edit. Failure must leave the sketch and instance unchanged.
+// Example: ExplodeSketchBlockArgs{SketchIndex: 0, InstanceID: 42}.
+type ExplodeSketchBlockArgs struct {
+	SketchIndex int    `json:"sketchIndex"`
+	InstanceID  uint64 `json:"instanceId"`
+}
+
+// ExplodeSketchBlockResult identifies the newly independent sketch entities in
+// creation order. The definition and other instances remain. Example:
+// ExplodeSketchBlockResult{EntityRefs: []uint64{7, 8}}.
+type ExplodeSketchBlockResult struct {
+	EntityRefs []uint64 `json:"entityRefs"`
+}
+
 // SketchBlockInfo is one row of [MethodSketchListBlockInstances]: a placed
 // block instance — its session id, the definition it instances, its placement
 // (insertion point in sketch cm, rotation in radians CCW, uniform scale), and

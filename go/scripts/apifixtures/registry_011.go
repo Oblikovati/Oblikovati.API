@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListCommandsResult", reflect.TypeFor[wire.ListCommandsResult]()},
+	{"wire.ListConstraints3DResult", reflect.TypeFor[wire.ListConstraints3DResult]()},
 	{"wire.ListConstraintsResult", reflect.TypeFor[wire.ListConstraintsResult]()},
 	{"wire.ListDerivedParameterTablesResult", reflect.TypeFor[wire.ListDerivedParameterTablesResult]()},
 	{"wire.ListDimensions3DResult", reflect.TypeFor[wire.ListDimensions3DResult]()},
@@ -87,6 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.MessageSectionView", reflect.TypeFor[wire.MessageSectionView]()},
 	{"wire.MiniToolbarChangedEvent", reflect.TypeFor[wire.MiniToolbarChangedEvent]()},
 	{"wire.MiniToolbarCommittedEvent", reflect.TypeFor[wire.MiniToolbarCommittedEvent]()},
-	{"wire.MiniToolbarControlSpec", reflect.TypeFor[wire.MiniToolbarControlSpec]()},
-	{"wire.MiniToolbarSpec", reflect.TypeFor[wire.MiniToolbarSpec]()},
 }

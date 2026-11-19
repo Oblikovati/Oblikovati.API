@@ -3,6 +3,20 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_DRAWING_VIEWS_SET_LABEL: &str = "drawingViews.setLabel";
+
+pub const METHOD_ENVIRONMENT_GET: &str = "environment.get";
+
+pub const METHOD_ENVIRONMENT_LIST_PRESETS: &str = "environment.listPresets";
+
+pub const METHOD_ENVIRONMENT_LOAD_IMAGE: &str = "environment.loadImage";
+
+pub const METHOD_ENVIRONMENT_SET: &str = "environment.set";
+
+pub const METHOD_ERRORS_ADD_MESSAGE: &str = "errors.addMessage";
+
+pub const METHOD_ERRORS_BEGIN_SECTION: &str = "errors.beginSection";
+
 pub const METHOD_ERRORS_CLEAR: &str = "errors.clear";
 
 pub const METHOD_ERRORS_END_SECTION: &str = "errors.endSection";
@@ -448,17 +462,3 @@ pub const METHOD_SKETCH_CONSTRAINT_STATUS: &str = "sketch.constraintStatus";
 pub const METHOD_SKETCH_CONSTRAINTS: &str = "sketch.constraints";
 
 pub const METHOD_SKETCH_COPY_TO: &str = "sketch.copyTo";
-
-pub const METHOD_SKETCH_CREATE: &str = "sketch.create";
-
-pub const METHOD_SKETCH_DELETE: &str = "sketch.delete";
-
-pub const METHOD_SKETCH_DELETE_CONSTRAINT: &str = "sketch.deleteConstraint";
-
-pub const METHOD_SKETCH_DELETE_DIMENSION: &str = "sketch.deleteDimension";
-
-pub const METHOD_SKETCH_DEPENDENTS: &str = "sketch.dependents";
-
-pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
-
-pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";

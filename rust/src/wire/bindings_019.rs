@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nResolveSketchReferenceArgs is the request of [MethodSketchResolveReference]: a previously\nobtained persistent key (a sketch's key or a sketch-entity's key).\n```"]
+pub struct ResolveSketchReferenceArgs {
+    pub reference_key: String => required("referenceKey");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nResolveSketchReferenceResult is the response of [MethodSketchResolveReference]. Found is\nfalse when no current sketch/entity matches the key (a legitimate, non-fatal outcome — the\nreferent was deleted). Kind is \"sketch\" / \"sketchEntity\" for a 2D sketch or its entity, or\n\"sketch3d\" / \"sketch3dEntity\" for a 3D sketch or its entity; SketchIndex locates the owning\nsketch within its own (2D or 3D) collection; EntityID is the matched entity's current\nsession id (0 when Kind names a sketch).\n```"]
 pub struct ResolveSketchReferenceResult {
     pub found: bool => required("found");
@@ -451,13 +458,5 @@ pub struct SetContextMenuArgs {
     pub add_in: String => required("addin");
     pub kind: String => required("kind");
     pub items: Option<Vec<crate::wire::ContextMenuItemSpec>> => required("items");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
-pub struct SetDimensionInspectionArgs {
-    pub name: String => required("name");
-    pub inspection: crate::types::InspectionDimension => required("inspection");
 }
 }

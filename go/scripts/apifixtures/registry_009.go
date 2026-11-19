@@ -41,6 +41,8 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.EnvironmentPresetListResult", reflect.TypeFor[wire.EnvironmentPresetListResult]()},
 	{"wire.EnvironmentView", reflect.TypeFor[wire.EnvironmentView]()},
 	{"wire.ExecuteCommandArgs", reflect.TypeFor[wire.ExecuteCommandArgs]()},
+	{"wire.ExplodeSketchBlockArgs", reflect.TypeFor[wire.ExplodeSketchBlockArgs]()},
+	{"wire.ExplodeSketchBlockResult", reflect.TypeFor[wire.ExplodeSketchBlockResult]()},
 	{"wire.ExportDXFArgs", reflect.TypeFor[wire.ExportDXFArgs]()},
 	{"wire.ExportDXFResult", reflect.TypeFor[wire.ExportDXFResult]()},
 	{"wire.ExportDrawingDXFArgs", reflect.TypeFor[wire.ExportDrawingDXFArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.FlatFaceInfo", reflect.TypeFor[wire.FlatFaceInfo]()},
 	{"wire.FlatPatternInfo", reflect.TypeFor[wire.FlatPatternInfo]()},
 	{"wire.FlatPatternOrientationInfo", reflect.TypeFor[wire.FlatPatternOrientationInfo]()},
-	{"wire.FlatPatternSettings", reflect.TypeFor[wire.FlatPatternSettings]()},
-	{"wire.FlatPunchInfo", reflect.TypeFor[wire.FlatPunchInfo]()},
 }

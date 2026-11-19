@@ -347,6 +347,18 @@ impl<T: super::Caller> super::Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_EXIT_EDIT, Some(args))
     }
 
+    /// Call `MethodSketchExplodeBlockInstance` with the canonical request and response types.
+    /// Example: `client.sketch().explode_block_instance(&args)`.
+    pub fn explode_block_instance(
+        &self,
+        args: &crate::wire::ExplodeSketchBlockArgs,
+    ) -> Result<crate::wire::ExplodeSketchBlockResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_EXPLODE_BLOCK_INSTANCE,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchGetFormatModes` with the canonical request and response types.
     /// Example: `client.sketch().format_modes()`.
     pub fn format_modes(&self) -> Result<crate::wire::SketchFormatModesView, crate::Error> {
@@ -400,11 +412,5 @@ impl<T: super::Caller> super::Sketch<'_, T> {
     ) -> Result<crate::wire::SketchInferenceScopeView, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_GET_INFERENCE_SCOPE, Some(args))
-    }
-
-    /// Call `MethodSketchList` with the canonical request and response types.
-    /// Example: `client.sketch().list()`.
-    pub fn list(&self) -> Result<crate::wire::ListSketchesResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SKETCH_LIST, None::<&()>)
     }
 }

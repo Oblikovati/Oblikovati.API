@@ -139,6 +139,11 @@ func TestRustParitySketchExitEdit(t *testing.T) {
 	checkGoGroup(t, c, "Sketch", "ExitEdit")
 }
 
+func TestRustParitySketchExplodeBlockInstance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchExplodeBlockInstance})
+	checkGoGroup(t, c, "Sketch", "ExplodeBlockInstance")
+}
+
 func TestRustParitySketchFormatModes(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGetFormatModes})
 	checkGoGroup(t, c, "Sketch", "FormatModes")
@@ -152,9 +157,4 @@ func TestRustParitySketchGet(t *testing.T) {
 func TestRustParitySketchGetCustomLineType(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchGetCustomLineType})
 	checkGoGroup(t, c, "Sketch", "GetCustomLineType")
-}
-
-func TestRustParitySketchGetText(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchGetText})
-	checkGoGroup(t, c, "Sketch", "GetText")
 }

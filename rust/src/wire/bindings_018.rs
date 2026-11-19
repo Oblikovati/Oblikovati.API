@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /\n[MethodPointCloudsFromModelSpace]: a point to map between cloud and model space.\n```"]
+pub struct PointCloudSpaceArgs {
+    pub name: String => required("name");
+    pub point: crate::types::Point => raw(rename = "point");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPointCloudSpaceResult is the response of the space-conversion methods: the mapped point. OK is\nfalse from fromModelSpace when the cloud's placement is non-invertible.\n```"]
 pub struct PointCloudSpaceResult {
     pub point: crate::types::Point => raw(rename = "point");
@@ -450,12 +458,5 @@ generated_dto! {
 #[doc = "```text\nResetBindingArgs is the request of [MethodKeymapReset]: restore one action's shortcut\nand alias to their defaults.\n```"]
 pub struct ResetBindingArgs {
     pub action_id: String => required("actionId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nResolveSketchReferenceArgs is the request of [MethodSketchResolveReference]: a previously\nobtained persistent key (a sketch's key or a sketch-entity's key).\n```"]
-pub struct ResolveSketchReferenceArgs {
-    pub reference_key: String => required("referenceKey");
 }
 }

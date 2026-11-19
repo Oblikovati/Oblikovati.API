@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityViewPressKey(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodViewportKey})
+	checkGoGroup(t, c, "View", "PressKey")
+}
+
 func TestRustParityViewScroll(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewportScroll})
 	checkGoGroup(t, c, "View", "Scroll")
@@ -152,9 +157,4 @@ func TestRustParityWorkFeaturesSetVisible(t *testing.T) {
 func TestRustParityWorkPlanesCreate(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkPlanesCreate})
 	checkGoGroup(t, c, "WorkPlanes", "Create")
-}
-
-func TestRustParityWorkPlanesFlipNormal(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
-	checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
 }

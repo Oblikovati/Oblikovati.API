@@ -3,6 +3,20 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH_CREATE: &str = "sketch.create";
+
+pub const METHOD_SKETCH_DELETE: &str = "sketch.delete";
+
+pub const METHOD_SKETCH_DELETE_CONSTRAINT: &str = "sketch.deleteConstraint";
+
+pub const METHOD_SKETCH_DELETE_DIMENSION: &str = "sketch.deleteDimension";
+
+pub const METHOD_SKETCH_DEPENDENTS: &str = "sketch.dependents";
+
+pub const METHOD_SKETCH_DIMENSIONS: &str = "sketch.dimensions";
+
+pub const METHOD_SKETCH_DRIVE_DIMENSION: &str = "sketch.driveDimension";
+
 pub const METHOD_SKETCH_EDIT: &str = "sketch.edit";
 
 pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
@@ -10,6 +24,8 @@ pub const METHOD_SKETCH_EDIT_TEXT: &str = "sketch.editText";
 pub const METHOD_SKETCH_ENTITIES: &str = "sketch.entities";
 
 pub const METHOD_SKETCH_EXIT_EDIT: &str = "sketch.exitEdit";
+
+pub const METHOD_SKETCH_EXPLODE_BLOCK_INSTANCE: &str = "sketch.explodeBlockInstance";
 
 pub const METHOD_SKETCH_GET: &str = "sketch.get";
 
@@ -444,14 +460,5 @@ pub struct ModelStateTableEvaluation {
     pub row: crate::wire::ModelStateTableRowRef => required("row");
     pub value: String => required("value");
     pub failure: String => required("failure");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateTableFeatureChoice names a selectable authored feature.\nExample: `wire.ModelStateTableFeatureChoice{ID: 1, Name: \"Extrusion1\"}`.\n```"]
-pub struct ModelStateTableFeatureChoice {
-    pub id: u64 => required("id");
-    pub name: String => required("name");
-    pub base_suppressed: bool => required("baseSuppressed");
 }
 }

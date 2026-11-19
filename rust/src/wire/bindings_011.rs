@@ -4,6 +4,21 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nLightingStyleInfo is one entry of [LightingStyleListResult]: a selectable style and whether\nit is the active one.\n```"]
+pub struct LightingStyleInfo {
+    pub name: String => required("name");
+    pub active: bool => required("active");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nLightingStyleListResult is the response of [MethodLightingListStyles].\n```"]
+pub struct LightingStyleListResult {
+    pub styles: Option<Vec<crate::wire::LightingStyleInfo>> => required("styles");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nLightingStyleView is the JSON shape of the active lighting style — the response of\n[MethodLightingGetStyle] and [MethodLightingSetStyle].\n```"]
 pub struct LightingStyleView {
     pub name: String => required("name");
@@ -446,20 +461,5 @@ generated_dto! {
 #[doc = "```text\nListViewFramesResult is the response of [MethodWindowsListFrames].\n```"]
 pub struct ListViewFramesResult {
     pub frames: Option<Vec<crate::wire::ViewFrameInfo>> => required("frames");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListViewTabsResult is the response of [MethodWindowsListTabs], in strip order.\n```"]
-pub struct ListViewTabsResult {
-    pub tabs: Option<Vec<crate::wire::ViewTabInfo>> => required("tabs");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListViewsArgs is the request of [MethodViewsList]: which document to enumerate.\n```"]
-pub struct ListViewsArgs {
-#[doc = "```text\n0 ⇒ active document\n```"]
-    pub document: u64 => omitted("document", "crate::json::is_zero");
 }
 }

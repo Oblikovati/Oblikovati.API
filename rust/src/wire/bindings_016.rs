@@ -4,6 +4,15 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nModelStateTableFeatureChoice names a selectable authored feature.\nExample: `wire.ModelStateTableFeatureChoice{ID: 1, Name: \"Extrusion1\"}`.\n```"]
+pub struct ModelStateTableFeatureChoice {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub base_suppressed: bool => required("baseSuppressed");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nModelStateTableParameter holds a parameter and one expression cell per row.\nBase is the inherited authored expression. Example:\n`wire.ModelStateTableParameter{ParameterID: 1, Base: \"10 mm\", Cells: cells}`.\n```"]
 pub struct ModelStateTableParameter {
     pub parameter_id: u64 => required("parameterId");
@@ -452,13 +461,5 @@ pub struct PanelControlSpec {
     pub table_columns: Option<Vec<String>> => omitted("tableColumns", "crate::json::slice_is_empty");
 #[doc = "```text\ntable: data rows\n```"]
     pub table_rows: Option<Vec<crate::wire::TableRow>> => omitted("tableRows", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPanelReferenceRow is one row of a referenceList control: a host geometry selection\nreference plus an optional display label (the host derives one, e.g. \"Face3\", when empty).\n```"]
-pub struct PanelReferenceRow {
-    pub ref_: String => required("ref");
-    pub label: String => omitted("label", "crate::json::is_zero");
 }
 }

@@ -1,3 +1,9 @@
+{"Name":"wire.ValidateBodyArgs","Case":"zero","Payload":{"bodyIndex":0},"Canonical":{"bodyIndex":0},"Error":""}
+{"Name":"wire.ValidateBodyArgs","Case":"filled","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}
+{"Name":"wire.ValidateBodyArgs","Case":"empty","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}
+{"Name":"wire.ValidateBodyResult","Case":"zero","Payload":{"valid":false},"Canonical":{"valid":false},"Error":""}
+{"Name":"wire.ValidateBodyResult","Case":"filled","Payload":{"valid":true,"problems":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"issue":"example \u003c\u0026\u003e 日本語"}]},"Canonical":{"valid":true,"problems":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"issue":"example \u003c\u0026\u003e 日本語"}]},"Error":""}
+{"Name":"wire.ValidateBodyResult","Case":"empty","Payload":{"valid":true},"Canonical":{"valid":true},"Error":""}
 {"Name":"wire.ValueResult","Case":"zero","Payload":{"value":0},"Canonical":{"value":0},"Error":""}
 {"Name":"wire.ValueResult","Case":"filled","Payload":{"value":1.25},"Canonical":{"value":1.25},"Error":""}
 {"Name":"wire.ValueResult","Case":"empty","Payload":{"value":1.25},"Canonical":{"value":1.25},"Error":""}

@@ -228,6 +228,7 @@ const (
 	MethodSketchBlockDefinitionDelete = "sketch.blockDefinitions.delete"
 	MethodSketchAddBlockInstance      = "sketch.addBlockInstance"
 	MethodSketchListBlockInstances    = "sketch.blockInstances"
+	MethodSketchExplodeBlockInstance  = "sketch.explodeBlockInstance"
 
 	// Region properties of a closed profile (M06-F08, #623).
 	MethodSketchRegionProperties = "sketch.regionProperties"

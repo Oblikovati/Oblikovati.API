@@ -4,6 +4,20 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nGraphicsNode groups primitives under one transform and visibility/opacity.\nTransform (optional 16-element row-major matrix) places the node's\ngeometry; Visible nil means \"inherit the group's visibility\".\n```"]
+pub struct GraphicsNode {
+    pub id: String => omitted("id", "crate::json::is_zero");
+    pub transform: Option<Vec<f64>> => omitted_finite("transform", "crate::json::slice_is_empty");
+    pub visible: Option<Box<bool>> => omitted("visible", "Option::is_none");
+    pub opacity: f32 => omitted_finite("opacity", "crate::json::is_zero");
+    pub primitives: Option<Vec<crate::wire::GraphicsPrimitive>> => required("primitives");
+#[doc = "```text\nSelectable makes the node's primitives pickable (default false: overlay graphics do not\nintercept picks). ComponentKey anchors the node to a component/feature by reference key so\nit transforms with that owner rather than the document root (the ComponentGraphics case).\n```"]
+    pub selectable: bool => omitted("selectable", "crate::json::is_zero");
+    pub component_key: String => omitted("componentKey", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nGraphicsPrimitive is one drawable primitive in a node (a line, point, triangle, or\ntext primitive). Geometry travels inline as flat arrays.\n\n  - Kind is a [oblikovati.org/api/types.GraphicsPrimitiveKind] value.\n  - Coordinates/Indices define the vertices and topology.\n  - Per-vertex color is resolved in priority order: Colors (rgba quads) if present;\n    else Scalars+ColorMapper; else the overall Color broadcast to every vertex.\n  - ColorBinding/NormalBinding are the binding modes (types.GraphicsColorBinding/…).\n  - Text/Anchor/FontSize apply to the \"text\" kind (Anchor is the xyz world anchor).\n  - OnTop draws the primitive ignoring the depth test (always visible, drawn through\n    occluders); Opacity 0..1 (0 = use the lane/node default, i.e. opaque).\n```"]
 pub struct GraphicsPrimitive {
     pub kind: String => required("kind");
@@ -446,20 +460,5 @@ generated_dto! {
 #[doc = "```text\nLightListResult is the response of [MethodLightingListLights].\n```"]
 pub struct LightListResult {
     pub lights: Option<Vec<crate::wire::LightInfo>> => required("lights");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nLightingStyleInfo is one entry of [LightingStyleListResult]: a selectable style and whether\nit is the active one.\n```"]
-pub struct LightingStyleInfo {
-    pub name: String => required("name");
-    pub active: bool => required("active");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nLightingStyleListResult is the response of [MethodLightingListStyles].\n```"]
-pub struct LightingStyleListResult {
-    pub styles: Option<Vec<crate::wire::LightingStyleInfo>> => required("styles");
 }
 }

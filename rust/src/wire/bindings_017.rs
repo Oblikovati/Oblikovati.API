@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPanelReferenceRow is one row of a referenceList control: a host geometry selection\nreference plus an optional display label (the host derives one, e.g. \"Face3\", when empty).\n```"]
+pub struct PanelReferenceRow {
+    pub ref_: String => required("ref");
+    pub label: String => omitted("label", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPanelReferencesChangedEvent is the push event (type [EventPanelReferencesChanged]) fired when a\nreferenceList control's rows change — by the user's Add-from-selection / per-row Remove or by\n[MethodDockableWindowsSetReferences]. Refs is the FULL new set (bulk-state, matching the rest of\nthe panel model); Action is \"add\"/\"remove\" for diagnostics only.\n```"]
 pub struct PanelReferencesChangedEvent {
 #[doc = "```text\nalways EventPanelReferencesChanged\n```"]
@@ -451,13 +459,5 @@ generated_dto! {
 #[doc = "```text\nPointCloudNameArgs names a single cloud — the request of [MethodPointCloudsGet] and\n[MethodPointCloudsDelete].\n```"]
 pub struct PointCloudNameArgs {
     pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPointCloudSpaceArgs is the request of [MethodPointCloudsToModelSpace] /\n[MethodPointCloudsFromModelSpace]: a point to map between cloud and model space.\n```"]
-pub struct PointCloudSpaceArgs {
-    pub name: String => required("name");
-    pub point: crate::types::Point => raw(rename = "point");
 }
 }

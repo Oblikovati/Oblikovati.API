@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetDimensionInspectionArgs is the request of [MethodDrawingDimensionsSetInspection]: flag the\nnamed dimension as an inspection dimension with a border shape, label and sampling rate (#1996).\nA NoInspectionBorder shape clears the inspection annotation.\n```"]
+pub struct SetDimensionInspectionArgs {
+    pub name: String => required("name");
+    pub inspection: crate::types::InspectionDimension => required("inspection");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetDimensionTextStyleArgs is the request of [MethodDrawingDimensionsSetTextStyle]: change any\nsubset of the named dimension's text overrides (#1992/#1993). Each pointer field is applied only\nwhen present, so one call can set a prefix without clearing an override.\n```"]
 pub struct SetDimensionTextStyleArgs {
     pub name: String => required("name");

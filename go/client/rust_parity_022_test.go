@@ -9,6 +9,11 @@ import (
 	"testing"
 )
 
+func TestRustParityWorkPlanesFlipNormal(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodWorkPlanesFlipNormal})
+	checkGoGroup(t, c, "WorkPlanes", "FlipNormal")
+}
+
 func TestRustParityWorkPlanesList(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodWorkPlanesList})
 	checkGoGroup(t, c, "WorkPlanes", "List")

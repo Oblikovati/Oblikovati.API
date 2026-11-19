@@ -23,3 +23,10 @@ type SketchBlock interface {
 	// EntityCount is the live entity count of the instanced definition.
 	EntityCount() int
 }
+
+// SketchBlockExploder separates one instance into independent sketch entities.
+// For example, ids, err := block.Explode() returns the new entity identities.
+type SketchBlockExploder interface {
+	// Explode deletes the instance and returns its newly created entity IDs.
+	Explode() ([]uint64, error)
+}

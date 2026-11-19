@@ -69,6 +69,12 @@ pub trait SketchBlockDefinition {
     fn name(&self) -> String;
 }
 
+#[doc = "```text\nSketchBlockExploder separates one instance into independent sketch entities.\nFor example, ids, err := block.Explode() returns the new entity identities.\n```"]
+pub trait SketchBlockExploder {
+    #[doc = "```text\nExplode deletes the instance and returns its newly created entity IDs.\n```"]
+    fn explode(&self) -> Result<Option<Vec<u64>>, crate::Error>;
+}
+
 #[doc = "```text\nSketchInferenceScope is the scalar view of a 2D sketch's session inference scope.\nExample: `mode := scope.InferenceScope()`.\n```"]
 pub trait SketchInferenceScope {
     #[doc = "```text\nInferenceScope reports the active candidate-geometry mode.\n```"]

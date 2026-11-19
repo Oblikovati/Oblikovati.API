@@ -4,6 +4,21 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nListViewTabsResult is the response of [MethodWindowsListTabs], in strip order.\n```"]
+pub struct ListViewTabsResult {
+    pub tabs: Option<Vec<crate::wire::ViewTabInfo>> => required("tabs");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nListViewsArgs is the request of [MethodViewsList]: which document to enumerate.\n```"]
+pub struct ListViewsArgs {
+#[doc = "```text\n0 ⇒ active document\n```"]
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nListViewsResult is the response of [MethodViewsList]: every view of a document, which\none is active, and the current tiling layout.\n```"]
 pub struct ListViewsResult {
     pub views: Option<Vec<crate::wire::ViewInfo>> => required("views");
@@ -448,17 +463,3 @@ pub const METHOD_ASSEMBLY_JOINTS_LIST: &str = "assemblyJoints.list";
 pub const METHOD_ASSEMBLY_JOINTS_SET_FLIP: &str = "assemblyJoints.setFlip";
 
 pub const METHOD_ASSEMBLY_JOINTS_SET_LIMITS: &str = "assemblyJoints.setLimits";
-
-pub const METHOD_ASSEMBLY_JOINTS_SET_ORIGIN: &str = "assemblyJoints.setOrigin";
-
-pub const METHOD_ASSEMBLY_JOINTS_SET_STATE: &str = "assemblyJoints.setState";
-
-pub const METHOD_ASSEMBLY_MIRROR: &str = "assembly.mirror";
-
-pub const METHOD_ASSEMBLY_MIRROR_INTO_PART: &str = "assembly.mirrorIntoPart";
-
-pub const METHOD_ASSEMBLY_OCCURRENCES: &str = "assembly.occurrences";
-
-pub const METHOD_ASSEMBLY_OPTIONS_GET: &str = "assembly.optionsGet";
-
-pub const METHOD_ASSEMBLY_OPTIONS_SET: &str = "assembly.optionsSet";

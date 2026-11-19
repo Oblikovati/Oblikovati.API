@@ -287,6 +287,21 @@ pub struct ExecuteCommandArgs {
 }
 
 generated_dto! {
+#[doc = "```text\nExplodeSketchBlockArgs identifies one placed instance in its owning sketch.\nThe host applies its placement to the independent geometry in one undoable\nedit. Failure must leave the sketch and instance unchanged.\nExample: ExplodeSketchBlockArgs{SketchIndex: 0, InstanceID: 42}.\n```"]
+pub struct ExplodeSketchBlockArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub instance_id: u64 => required("instanceId");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nExplodeSketchBlockResult identifies the newly independent sketch entities in\ncreation order. The definition and other instances remain. Example:\nExplodeSketchBlockResult{EntityRefs: []uint64{7, 8}}.\n```"]
+pub struct ExplodeSketchBlockResult {
+    pub entity_refs: Option<Vec<u64>> => required("entityRefs");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nExportDXFArgs is the request of [MethodExportDXF]: the host-side path to write and the DXF\nversion to target. The active 2D sketch is exported. Version is a types.DXFVersion string\n(\"r2000\" or \"r2018\"); empty defaults to r2000.\n```"]
 pub struct ExportDXFArgs {
     pub path: String => required("path");
@@ -441,22 +456,5 @@ pub struct FacetSetResult {
     pub vertex_indices: Option<Vec<i64>> => omitted("vertexIndices", "crate::json::slice_is_empty");
     pub texture_coordinates: Option<Vec<f64>> => omitted_finite("textureCoordinates", "crate::json::slice_is_empty");
     pub index_count_per_face: Option<Vec<i64>> => omitted("indexCountPerFace", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFacetTolerancesResult is the response of [MethodBodyFacetTolerances] and\n[MethodBodyStrokeTolerances]: the tolerances cached sets exist at, ascending.\n```"]
-pub struct FacetTolerancesResult {
-    pub tolerances: Option<Vec<f64>> => omitted_finite("tolerances", "crate::json::slice_is_empty");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nFeatureDetail is one placed feature with its history position and the editable inputs\n[MethodFeaturesEdit] accepts: scalar fields ([FeatureScalar]) and re-pickable geometry\nslots ([FeatureSlot]). Both are empty for features whose definition exposes nothing of\nthat kind (e.g. a cosmetic feature has neither).\n```"]
-pub struct FeatureDetail {
-    pub feature_info: crate::wire::FeatureInfo => raw(flatten, deserialize_with = "crate::json::null_default");
-    pub index: i64 => required("index");
-    pub scalars: Option<Vec<crate::wire::FeatureScalar>> => omitted("scalars", "crate::json::slice_is_empty");
-    pub slots: Option<Vec<crate::wire::FeatureSlot>> => omitted("slots", "crate::json::slice_is_empty");
 }
 }

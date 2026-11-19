@@ -1,3 +1,9 @@
+{"Name":"wire.StringResult","Case":"zero","Payload":{"value":""},"Canonical":{"value":""},"Error":""}
+{"Name":"wire.StringResult","Case":"filled","Payload":{"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.StringResult","Case":"empty","Payload":{"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.StrokeSetResult","Case":"zero","Payload":{"vertexCount":0,"polylineCount":0},"Canonical":{"vertexCount":0,"polylineCount":0},"Error":""}
+{"Name":"wire.StrokeSetResult","Case":"filled","Payload":{"vertexCount":7,"vertexCoordinates":[1.25],"polylineCount":7,"polylineLengths":[7]},"Canonical":{"vertexCount":7,"vertexCoordinates":[1.25],"polylineCount":7,"polylineLengths":[7]},"Error":""}
+{"Name":"wire.StrokeSetResult","Case":"empty","Payload":{"vertexCount":7,"polylineCount":7},"Canonical":{"vertexCount":7,"polylineCount":7},"Error":""}
 {"Name":"wire.StyleChangedEvent","Case":"zero","Payload":{"name":"","kind":""},"Canonical":{"name":"","kind":""},"Error":""}
 {"Name":"wire.StyleChangedEvent","Case":"filled","Payload":{"name":"example \u003c\u0026\u003e 日本語","kind":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","kind":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.StyleChangedEvent","Case":"empty","Payload":{"name":"example \u003c\u0026\u003e 日本語","kind":"example \u003c\u0026\u003e 日本語"},"Canonical":{"name":"example \u003c\u0026\u003e 日本語","kind":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.UpdateProgressResult","Case":"zero","Payload":{"ok":false},"Canonical":{"ok":false},"Error":""}
 {"Name":"wire.UpdateProgressResult","Case":"filled","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
 {"Name":"wire.UpdateProgressResult","Case":"empty","Payload":{"ok":true,"cancelled":true},"Canonical":{"ok":true,"cancelled":true},"Error":""}
-{"Name":"wire.ValidateBodyArgs","Case":"zero","Payload":{"bodyIndex":0},"Canonical":{"bodyIndex":0},"Error":""}
-{"Name":"wire.ValidateBodyArgs","Case":"filled","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}
-{"Name":"wire.ValidateBodyArgs","Case":"empty","Payload":{"bodyIndex":7,"checkLevel":7},"Canonical":{"bodyIndex":7,"checkLevel":7},"Error":""}
-{"Name":"wire.ValidateBodyResult","Case":"zero","Payload":{"valid":false},"Canonical":{"valid":false},"Error":""}
-{"Name":"wire.ValidateBodyResult","Case":"filled","Payload":{"valid":true,"problems":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"issue":"example \u003c\u0026\u003e 日本語"}]},"Canonical":{"valid":true,"problems":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"issue":"example \u003c\u0026\u003e 日本語"}]},"Error":""}
-{"Name":"wire.ValidateBodyResult","Case":"empty","Payload":{"valid":true},"Canonical":{"valid":true},"Error":""}

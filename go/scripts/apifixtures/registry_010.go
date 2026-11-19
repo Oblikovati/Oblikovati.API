@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup10 = []fixtureType{
+	{"wire.FlatPatternSettings", reflect.TypeFor[wire.FlatPatternSettings]()},
+	{"wire.FlatPunchInfo", reflect.TypeFor[wire.FlatPunchInfo]()},
 	{"wire.FlipWorkPlaneArgs", reflect.TypeFor[wire.FlipWorkPlaneArgs]()},
 	{"wire.FlipWorkPlaneResult", reflect.TypeFor[wire.FlipWorkPlaneResult]()},
 	{"wire.FontFace", reflect.TypeFor[wire.FontFace]()},
@@ -87,6 +89,4 @@ var fixtureGroup10 = []fixtureType{
 	{"wire.ListBrowserPanesResult", reflect.TypeFor[wire.ListBrowserPanesResult]()},
 	{"wire.ListClientApplicationsResult", reflect.TypeFor[wire.ListClientApplicationsResult]()},
 	{"wire.ListClientGraphicsResult", reflect.TypeFor[wire.ListClientGraphicsResult]()},
-	{"wire.ListCommandsResult", reflect.TypeFor[wire.ListCommandsResult]()},
-	{"wire.ListConstraints3DResult", reflect.TypeFor[wire.ListConstraints3DResult]()},
 }

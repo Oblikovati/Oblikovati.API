@@ -234,6 +234,20 @@ fn sketch_exit_edit() {
 }
 
 #[test]
+fn sketch_explode_block_instance() {
+    let args: oblikovati_api::wire::ExplodeSketchBlockArgs = Default::default();
+    let fake = super::super::RecordingCaller::new(
+        oblikovati_api::wire::METHOD_SKETCH_EXPLODE_BLOCK_INSTANCE,
+        serde_json::to_vec(&args).unwrap(),
+    );
+    let client = oblikovati_api::client::Client::new(fake);
+    assert_eq!(
+        client.sketch().explode_block_instance(&args).unwrap_err().0,
+        "recorded"
+    );
+}
+
+#[test]
 fn sketch_format_modes() {
     let fake = super::super::RecordingCaller::new(
         oblikovati_api::wire::METHOD_SKETCH_GET_FORMAT_MODES,
@@ -241,15 +255,4 @@ fn sketch_format_modes() {
     );
     let client = oblikovati_api::client::Client::new(fake);
     assert_eq!(client.sketch().format_modes().unwrap_err().0, "recorded");
-}
-
-#[test]
-fn sketch_get() {
-    let args: oblikovati_api::wire::SketchArgs = Default::default();
-    let fake = super::super::RecordingCaller::new(
-        oblikovati_api::wire::METHOD_SKETCH_GET,
-        serde_json::to_vec(&args).unwrap(),
-    );
-    let client = oblikovati_api::client::Client::new(fake);
-    assert_eq!(client.sketch().get(&args).unwrap_err().0, "recorded");
 }

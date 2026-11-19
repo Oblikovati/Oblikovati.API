@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.SketchInferenceScopeView", reflect.TypeFor[wire.SketchInferenceScopeView]()},
+	{"wire.SketchInfo", reflect.TypeFor[wire.SketchInfo]()},
 	{"wire.SketchMoveDimensionChange", reflect.TypeFor[wire.SketchMoveDimensionChange]()},
 	{"wire.SketchMoveGeometricChange", reflect.TypeFor[wire.SketchMoveGeometricChange]()},
 	{"wire.SketchOptionsView", reflect.TypeFor[wire.SketchOptionsView]()},
@@ -87,6 +89,4 @@ var fixtureGroup16 = []fixtureType{
 	{"wire.ViewResult", reflect.TypeFor[wire.ViewResult]()},
 	{"wire.ViewTabInfo", reflect.TypeFor[wire.ViewTabInfo]()},
 	{"wire.WebDialogChangedEvent", reflect.TypeFor[wire.WebDialogChangedEvent]()},
-	{"wire.WebDialogSpec", reflect.TypeFor[wire.WebDialogSpec]()},
-	{"wire.WireInfo", reflect.TypeFor[wire.WireInfo]()},
 }

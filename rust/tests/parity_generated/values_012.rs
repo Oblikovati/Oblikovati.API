@@ -168,6 +168,16 @@ fn wire_execute_command_args() {
 }
 
 #[test]
+fn wire_explode_sketch_block_args() {
+    super::check::<oblikovati_api::wire::ExplodeSketchBlockArgs>("wire.ExplodeSketchBlockArgs");
+}
+
+#[test]
+fn wire_explode_sketch_block_result() {
+    super::check::<oblikovati_api::wire::ExplodeSketchBlockResult>("wire.ExplodeSketchBlockResult");
+}
+
+#[test]
 fn wire_export_dxf_args() {
     super::check::<oblikovati_api::wire::ExportDXFArgs>("wire.ExportDXFArgs");
 }
@@ -295,14 +305,4 @@ fn wire_feature_ref_args() {
 #[test]
 fn wire_feature_repick() {
     super::check::<oblikovati_api::wire::FeatureRepick>("wire.FeatureRepick");
-}
-
-#[test]
-fn wire_feature_scalar() {
-    super::check::<oblikovati_api::wire::FeatureScalar>("wire.FeatureScalar");
-}
-
-#[test]
-fn wire_feature_slot() {
-    super::check::<oblikovati_api::wire::FeatureSlot>("wire.FeatureSlot");
 }

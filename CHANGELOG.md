@@ -10,6 +10,9 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- A typed sketch block Explode operation that returns the resulting entity
+  references while retaining the definition and other instances (#310).
+
 - Constraint-aware sketch Move planning and commit operations with explicit
   policies, impact reporting, approval, and stale-plan refusal (#304).
 

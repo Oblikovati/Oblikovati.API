@@ -4,6 +4,23 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nFacetTolerancesResult is the response of [MethodBodyFacetTolerances] and\n[MethodBodyStrokeTolerances]: the tolerances cached sets exist at, ascending.\n```"]
+pub struct FacetTolerancesResult {
+    pub tolerances: Option<Vec<f64>> => omitted_finite("tolerances", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFeatureDetail is one placed feature with its history position and the editable inputs\n[MethodFeaturesEdit] accepts: scalar fields ([FeatureScalar]) and re-pickable geometry\nslots ([FeatureSlot]). Both are empty for features whose definition exposes nothing of\nthat kind (e.g. a cosmetic feature has neither).\n```"]
+pub struct FeatureDetail {
+    pub feature_info: crate::wire::FeatureInfo => raw(flatten, deserialize_with = "crate::json::null_default");
+    pub index: i64 => required("index");
+    pub scalars: Option<Vec<crate::wire::FeatureScalar>> => omitted("scalars", "crate::json::slice_is_empty");
+    pub slots: Option<Vec<crate::wire::FeatureSlot>> => omitted("slots", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nFeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],\n[MethodFeaturesRename], [MethodFeaturesSetSuppressed], and [MethodFeaturesReorder]:\nthe feature's refreshed state after the call (post-recompute health included).\n```"]
 pub struct FeatureDetailResult {
     pub feature: crate::wire::FeatureDetail => required("feature");
@@ -433,19 +450,5 @@ generated_dto! {
 pub struct GraphicsColorMapper {
     pub values: Option<Vec<f64>> => finite("values");
     pub colors: Option<Vec<f32>> => finite("colors");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nGraphicsNode groups primitives under one transform and visibility/opacity.\nTransform (optional 16-element row-major matrix) places the node's\ngeometry; Visible nil means \"inherit the group's visibility\".\n```"]
-pub struct GraphicsNode {
-    pub id: String => omitted("id", "crate::json::is_zero");
-    pub transform: Option<Vec<f64>> => omitted_finite("transform", "crate::json::slice_is_empty");
-    pub visible: Option<Box<bool>> => omitted("visible", "Option::is_none");
-    pub opacity: f32 => omitted_finite("opacity", "crate::json::is_zero");
-    pub primitives: Option<Vec<crate::wire::GraphicsPrimitive>> => required("primitives");
-#[doc = "```text\nSelectable makes the node's primitives pickable (default false: overlay graphics do not\nintercept picks). ComponentKey anchors the node to a component/feature by reference key so\nit transforms with that owner rather than the document root (the ComponentGraphics case).\n```"]
-    pub selectable: bool => omitted("selectable", "crate::json::is_zero");
-    pub component_key: String => omitted("componentKey", "crate::json::is_zero");
 }
 }
