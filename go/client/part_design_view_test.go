@@ -61,7 +61,7 @@ func TestPartDesignViewMethodsUseTypedWireRequests(t *testing.T) {
 
 func TestPartViewCameraRoundTripKeepsScaleAndClipDistances(t *testing.T) {
 	want := types.PartDesignViewCamera{
-		Eye: types.Point{0, 0, 8}, Target: types.Point{0, 0, 0}, Up: types.Vector{0, 1, 0},
+		Eye: types.Point{Z: 8}, Target: types.Point{}, Up: types.Vector{Y: 1},
 		Scale: 12, Near: 0.5, Far: 250, Projection: types.OrthographicProjection,
 	}
 	reply, err := json.Marshal(want)
