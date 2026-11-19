@@ -236,7 +236,7 @@ const (
 	// (M06-F10, #625).
 	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
 	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
-	// Candidate geometry for the currently edited 2D sketch (Oblikovati/Oblikovati#4107).
+	// Candidate geometry for a named 2D sketch in the current document session (Oblikovati/Oblikovati#4107).
 	MethodSketchGetInferenceScope = "sketch.getInferenceScope"
 	MethodSketchSetInferenceScope = "sketch.setInferenceScope"
 
