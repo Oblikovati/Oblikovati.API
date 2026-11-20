@@ -9,6 +9,26 @@ import (
 	"testing"
 )
 
+func TestRustParityLODRepsSetSuppressed(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodLODRepsSetSuppressed})
+	checkGoGroup(t, c, "LODReps", "SetSuppressed")
+}
+
+func TestRustParityLightingAddLight(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodLightingAddLight})
+	checkGoGroup(t, c, "Lighting", "AddLight")
+}
+
+func TestRustParityLightingLights(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodLightingListLights})
+	checkGoGroup(t, c, "Lighting", "Lights")
+}
+
+func TestRustParityLightingListStyles(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodLightingListStyles})
+	checkGoGroup(t, c, "Lighting", "ListStyles")
+}
+
 func TestRustParityLightingSetLight(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodLightingSetLight})
 	checkGoGroup(t, c, "Lighting", "SetLight")
@@ -137,24 +157,4 @@ func TestRustParityModelAddHighlightItems(t *testing.T) {
 func TestRustParityModelClearSelection(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodModelClearSelection})
 	checkGoGroup(t, c, "Model", "ClearSelection")
-}
-
-func TestRustParityModelCreateHighlightSet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetCreate})
-	checkGoGroup(t, c, "Model", "CreateHighlightSet")
-}
-
-func TestRustParityModelDeleteHighlightSet(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetDelete})
-	checkGoGroup(t, c, "Model", "DeleteHighlightSet")
-}
-
-func TestRustParityModelDeselect(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelDeselect})
-	checkGoGroup(t, c, "Model", "Deselect")
-}
-
-func TestRustParityModelHighlightSets(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodModelHighlightSetList})
-	checkGoGroup(t, c, "Model", "HighlightSets")
 }

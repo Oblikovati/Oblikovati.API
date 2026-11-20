@@ -1,3 +1,18 @@
+{"Name":"types.PunchRepresentationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.PunchRepresentationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.PunchRepresentationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RayTracingQualityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReferenceStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ReferenceStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReferenceStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReliefShape","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ReliefShape","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ReliefShape","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RepresentationKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.RepresentationKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.RepresentationKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.Rgba","Case":"zero","Payload":{"R":0,"G":0,"B":0,"A":0},"Canonical":{"R":0,"G":0,"B":0,"A":0},"Error":""}
 {"Name":"types.Rgba","Case":"filled","Payload":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Canonical":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Error":""}
 {"Name":"types.Rgba","Case":"empty","Payload":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Canonical":{"R":1.25,"G":1.25,"B":1.25,"A":1.25},"Error":""}
@@ -43,18 +58,33 @@
 {"Name":"types.SketchFormatModes","Case":"zero","Payload":{"construction":false,"centerline":false,"centerPoint":false,"drivenDimension":false,"suppressFormatOverrides":false},"Canonical":{"construction":false,"centerline":false,"centerPoint":false,"drivenDimension":false,"suppressFormatOverrides":false},"Error":""}
 {"Name":"types.SketchFormatModes","Case":"filled","Payload":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Canonical":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Error":""}
 {"Name":"types.SketchFormatModes","Case":"empty","Payload":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Canonical":{"construction":true,"centerline":true,"centerPoint":true,"drivenDimension":true,"suppressFormatOverrides":true},"Error":""}
+{"Name":"types.SketchInferenceScope","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchInferenceScope","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchInferenceScope","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchInferenceTypes","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.SketchInferenceTypes","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.SketchInferenceTypes","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.SketchLineType","Case":"zero","Payload":"","Canonical":"","Error":""}
 {"Name":"types.SketchLineType","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchLineType","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveDimensionPolicy","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.SketchMoveGeometricPolicy","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchPatternKind","Case":"zero","Payload":"","Canonical":"","Error":""}
 {"Name":"types.SketchPatternKind","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchPatternKind","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.SketchPointInferenceKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.SketchPointInferenceKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.SketchPointInferenceKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.SketchRelaxTypes","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.SketchRelaxTypes","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.SketchRelaxTypes","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.SketchSettings","Case":"zero","Payload":{"inferConstraints":false,"autoApplyConstraints":false,"constraintPriority":0,"xSnapSpacing":0,"ySnapSpacing":0,"snapsPerMinorGrid":0,"minorLinesPerMajorGridLine":0,"persistInferredConstraints":false,"displayConstraintsOnCreation":false,"editDimensionsWhenCreated":false,"overConstrainedBehavior":0,"enableRelaxMode":false,"keepDimensionsWithEquationInRelaxMode":false},"Canonical":{"inferConstraints":false,"autoApplyConstraints":false,"constraintPriority":0,"xSnapSpacing":0,"ySnapSpacing":0,"snapsPerMinorGrid":0,"minorLinesPerMajorGridLine":0,"persistInferredConstraints":false,"displayConstraintsOnCreation":false,"editDimensionsWhenCreated":false,"overConstrainedBehavior":0,"enableRelaxMode":false,"keepDimensionsWithEquationInRelaxMode":false},"Error":""}
-{"Name":"types.SketchSettings","Case":"filled","Payload":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Canonical":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Error":""}
-{"Name":"types.SketchSettings","Case":"empty","Payload":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Canonical":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Error":""}
+{"Name":"types.SketchSettings","Case":"filled","Payload":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"customInferenceTypes":true,"inferenceTypes":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"customRelaxTypes":true,"relaxTypes":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Canonical":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"customInferenceTypes":true,"inferenceTypes":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"customRelaxTypes":true,"relaxTypes":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Error":""}
+{"Name":"types.SketchSettings","Case":"empty","Payload":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"customInferenceTypes":true,"inferenceTypes":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"customRelaxTypes":true,"relaxTypes":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Canonical":{"inferConstraints":true,"autoApplyConstraints":true,"constraintPriority":7,"customInferenceTypes":true,"inferenceTypes":7,"xSnapSpacing":1.25,"ySnapSpacing":1.25,"snapsPerMinorGrid":7,"minorLinesPerMajorGridLine":7,"persistInferredConstraints":true,"displayConstraintsOnCreation":true,"editDimensionsWhenCreated":true,"overConstrainedBehavior":7,"customRelaxTypes":true,"relaxTypes":7,"enableRelaxMode":true,"keepDimensionsWithEquationInRelaxMode":true},"Error":""}
 {"Name":"types.SketchTextStyle","Case":"zero","Payload":{"content":"","height":0},"Canonical":{"content":"","height":0},"Error":""}
 {"Name":"types.SketchTextStyle","Case":"filled","Payload":{"content":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語","fontSize":1.25,"height":1.25,"rotation":1.25,"hAlign":"example \u003c\u0026\u003e 日本語","vAlign":"example \u003c\u0026\u003e 日本語"},"Canonical":{"content":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語","fontSize":1.25,"height":1.25,"rotation":1.25,"hAlign":"example \u003c\u0026\u003e 日本語","vAlign":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"types.SketchTextStyle","Case":"empty","Payload":{"content":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語","fontSize":1.25,"height":1.25,"rotation":1.25,"hAlign":"example \u003c\u0026\u003e 日本語","vAlign":"example \u003c\u0026\u003e 日本語"},"Canonical":{"content":"example \u003c\u0026\u003e 日本語","family":"example \u003c\u0026\u003e 日本語","fontSize":1.25,"height":1.25,"rotation":1.25,"hAlign":"example \u003c\u0026\u003e 日本語","vAlign":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -70,6 +100,9 @@
 {"Name":"types.StartupActionType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.StartupActionType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.StartupActionType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.StartupSketchPlane","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.StartupSketchPlane","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.StartupSketchPlane","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
 {"Name":"types.StyleLocationEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.StyleLocationEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.StyleLocationEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -115,36 +148,3 @@
 {"Name":"types.TitleBlockLocation","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.TitleBlockLocation","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.TitleBlockLocation","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.Tolerance","Case":"zero","Payload":{"Type":0,"Upper":0,"Lower":0,"HoleTolerance":"","ShaftTolerance":""},"Canonical":{"Type":0,"Upper":0,"Lower":0,"HoleTolerance":"","ShaftTolerance":""},"Error":""}
-{"Name":"types.Tolerance","Case":"filled","Payload":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Canonical":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"types.Tolerance","Case":"empty","Payload":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Canonical":{"Type":7,"Upper":1.25,"Lower":1.25,"HoleTolerance":"example \u003c\u0026\u003e 日本語","ShaftTolerance":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"types.ToleranceType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ToleranceType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ToleranceType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransactionPoint","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TransactionPoint","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransactionPoint","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TransparencyTypeEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadMoveType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TriadMoveType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadMoveType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadSegment","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.TriadSegment","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.TriadSegment","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnfoldMethodType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnitVector","Case":"zero","Payload":[0,0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0, 0)"}
-{"Name":"types.UnitVector","Case":"filled","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
-{"Name":"types.UnitVector","Case":"empty","Payload":[1,0,0],"Canonical":[1,0,0],"Error":""}
-{"Name":"types.UnitVector2d","Case":"zero","Payload":[0,0],"Canonical":null,"Error":"types: cannot normalize the near-zero vector (0, 0)"}
-{"Name":"types.UnitVector2d","Case":"filled","Payload":[1,0],"Canonical":[1,0],"Error":""}
-{"Name":"types.UnitVector2d","Case":"empty","Payload":[1,0],"Canonical":[1,0],"Error":""}
-{"Name":"types.UnitsType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.UnitsType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.UnitsType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ValueType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ValueType","Case":"empty","Payload":7,"Canonical":7,"Error":""}

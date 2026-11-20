@@ -31,6 +31,64 @@ func TestRunAppliesBump(t *testing.T) {
 	assertFileContains(t, notesPath, "- feat(assembly): batch placement")
 }
 
+func TestRunPublishesTheCompleteRolledReleaseSection(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
+	manual := "### Changed\n\n- Existing callers must supply the new field.\n"
+	changelog := strings.Replace(sampleChangelog, "## [Unreleased]\n", "## [Unreleased]\n\n"+manual, 1)
+	writeFile(t, dir, "CHANGELOG.md", changelog)
+	notesPath := filepath.Join(dir, "notes.md")
+	if err := run(true, dir, "2026-06-15", notesPath, strings.NewReader("feat: add field"), &strings.Builder{}); err != nil {
+		t.Fatal(err)
+	}
+	notes, err := os.ReadFile(notesPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, value := range []string{"- feat: add field", "- Existing callers must supply the new field."} {
+		if strings.Count(string(notes), value) != 1 {
+			t.Errorf("notes %q: expected %q exactly once", notes, value)
+		}
+	}
+	if strings.Contains(string(notes), "First release.") || strings.Contains(string(notes), "[Unreleased]:") {
+		t.Errorf("notes %q: expected only the new release content", notes)
+	}
+	rolled, err := os.ReadFile(filepath.Join(dir, "CHANGELOG.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Count(string(rolled), "- Existing callers must supply the new field.") != 1 {
+		t.Errorf("rolled changelog %q: expected the manual note exactly once", rolled)
+	}
+	section, err := releaseSection(string(rolled), "0.1.0", "0.2.0", "2026-06-15")
+	if err != nil || strings.TrimSpace(string(notes)) != section {
+		t.Errorf("published notes %q do not match rolled section %q: %v", notes, section, err)
+	}
+}
+
+func TestRunRejectsMissingPreviousSectionBeforeEditingVersion(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
+	writeFile(t, dir, "CHANGELOG.md", strings.Replace(sampleChangelog, "## [0.1.0]", "## [0.0.9]", 1))
+	var out strings.Builder
+	err := run(true, dir, "2026-06-15", "", strings.NewReader("feat: add field"), &out)
+	if err == nil || !strings.Contains(err.Error(), "0.1.0") {
+		t.Fatalf("error %v: expected missing previous section", err)
+	}
+	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
+}
+
+func TestReleaseSectionRejectsAmbiguousOrOutOfOrderHeadings(t *testing.T) {
+	for _, changelog := range []string{
+		"## [0.2.0] - 2026-06-15\nNew\n## [0.1.0] - old\n## [0.1.0] - duplicate\n",
+		"## [0.1.0] - old\n## [0.2.0] - 2026-06-15\nNew\n",
+	} {
+		if section, err := releaseSection(changelog, "0.1.0", "0.2.0", "2026-06-15"); err == nil {
+			t.Errorf("changelog %q produced %q: expected a heading error", changelog, section)
+		}
+	}
+}
+
 // TestRunNoReleaseLeavesFiles: a docs/chore-only set bumps nothing and writes no output.
 func TestRunNoReleaseLeavesFiles(t *testing.T) {
 	dir := t.TempDir()
@@ -46,6 +104,21 @@ func TestRunNoReleaseLeavesFiles(t *testing.T) {
 		t.Fatalf("expected no stdout for a no-release set, got %q", out.String())
 	}
 	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
+}
+
+func TestRunRejectsInvalidScopeBeforeEditingFiles(t *testing.T) {
+	dir := t.TempDir()
+	writeFile(t, dir, "go/version.go", sampleVersionGo)
+	writeFile(t, dir, "CHANGELOG.md", sampleChangelog)
+	var out strings.Builder
+	err := run(true, dir, "2026-06-15", "", strings.NewReader("fix: x\n\nRelease-Scope: minor"), &out)
+	if err == nil || !strings.Contains(err.Error(), "Release-Scope: minor") {
+		t.Fatalf("error %v: expected invalid scope diagnostic", err)
+	}
+	assertFileContains(t, filepath.Join(dir, "go", "version.go"), `const Version = "0.1.0"`)
+	if out.String() != "" {
+		t.Fatalf("output %q: expected no version", out.String())
+	}
 }
 
 func writeFile(t *testing.T, dir, name, content string) {

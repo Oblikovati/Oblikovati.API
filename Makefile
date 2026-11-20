@@ -1,11 +1,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
-.PHONY: gate build test lint generate check-generated docs docs-lint abi-test go-package-test
+.PHONY: gate build test lint generate check-generated docs docs-lint abi-test go-package-test duplication
 export GOWORK := off
 # Keep rustc, rustdoc and rustfmt on the pinned toolchain when rustup is installed.
 export PATH := $(HOME)/.cargo/bin:$(PATH)
 
-gate: check-generated build test lint docs-lint docs abi-test go-package-test
+gate: check-generated build test lint docs-lint docs abi-test go-package-test duplication
+
+duplication:
+	python3 scripts/duplication_gate.py
 
 build:
 	cd go && go build ./...

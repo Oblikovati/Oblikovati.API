@@ -3,6 +3,30 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nLight is the in-process contract for one scene light, scoped to the\nproperties our renderer consumes. It is read-mostly here; mutation goes through the wire\nmethods / the app. The GPL app satisfies it (compile-time asserted there).\n\nDirection and Position are world-space [3]float64 (cm); Direction points from a lit surface\ntoward the light. Color is a [types.Rgba]; Intensity scales it. Spot and attenuation getters\nare meaningful only for the matching [types.LightDefinitionTypeEnum].\n```"]
+pub trait Light {
+    #[doc = "```text\nAttenuation is the (constant, linear, quadratic) distance falloff (point/spot).\n```"]
+    fn attenuation(&self) -> [f64; 3];
+    #[doc = "```text\nColor is the light's color.\n```"]
+    fn color(&self) -> crate::types::Rgba;
+    #[doc = "```text\nDirection is the unit vector from a lit surface toward the light (directional/spot).\n```"]
+    fn direction(&self) -> [f64; 3];
+    #[doc = "```text\nIntensity scales the color (≥ 0).\n```"]
+    fn intensity(&self) -> f64;
+    #[doc = "```text\nLightDefinitionType is the emission shape (directional/point/spot).\n```"]
+    fn light_definition_type(&self) -> crate::types::LightDefinitionTypeEnum;
+    #[doc = "```text\nLightType is the coordinate space the light lives in (model/view/ground-plane).\n```"]
+    fn light_type(&self) -> crate::types::LightTypeEnum;
+    #[doc = "```text\nOn reports whether the light contributes to the scene.\n```"]
+    fn on(&self) -> bool;
+    #[doc = "```text\nPosition is the light's world-space position (point/spot).\n```"]
+    fn position(&self) -> [f64; 3];
+    #[doc = "```text\nSpotInnerAngle is the spot cone's inner half-angle in radians (full intensity within).\n```"]
+    fn spot_inner_angle(&self) -> f64;
+    #[doc = "```text\nSpotOuterAngle is the spot cone's outer half-angle in radians (zero intensity beyond).\n```"]
+    fn spot_outer_angle(&self) -> f64;
+}
+
 #[doc = "```text\nLightingStyle is the in-process contract for a lighting rig,\nscoped to the global controls our renderer consumes plus the discrete [Light]s. The GPL app\nsatisfies it (compile-time asserted there).\n\nAmbience, Brightness and the IBL/shadow scalars are unit-free multipliers/intensities in\n[0,1] unless noted; Exposure is in stops. StyleType distinguishes a standard light rig from\nan image-based (HDR) one.\n```"]
 pub trait LightingStyle {
     #[doc = "```text\nAmbience is the global ambient fill in [0,1].\n```"]
@@ -116,6 +140,12 @@ pub trait ModelState {
     #[doc = "```text\nName is the model state's display name.\n```"]
     fn name(&self) -> String;
     fn positional_name(&self) -> String;
+}
+
+#[doc = "```text\nModelStateTable exposes the active document's ordered model-state table.\nExample: `count := table.ColumnCount()`.\n```"]
+pub trait ModelStateTable {
+    #[doc = "```text\nColumnCount reports the number of visible columns across all categories.\n```"]
+    fn column_count(&self) -> i64;
 }
 
 #[doc = "```text\nModelStates is a part or assembly's model-state collection in creation order.\n```"]
@@ -255,6 +285,20 @@ pub trait Parameter {
     fn tolerance(&self) -> crate::types::Tolerance;
     #[doc = "```text\nUnitName is the parameter's dimensional unit category (e.g. \"Length\", \"Angle\",\n\"Unitless\") — the reference API's Parameter.Units. It is the category, not the\ndocument's display unit; format a display string via the host where needed.\n```"]
     fn unit_name(&self) -> String;
+}
+
+#[doc = "```text\nPartDesignView is a document-owned design representation. Its ID remains stable\nacross save and reopen; it does not identify an assembly representation.\nExample: `if view.Active() { _ = view.AnnotationScale() }`.\n```"]
+pub trait PartDesignView {
+    fn active(&self) -> bool;
+    fn annotation_scale(&self) -> crate::types::PartAnnotationScale;
+    fn autosave_camera(&self) -> bool;
+    fn built_in(&self) -> bool;
+    fn id(&self) -> u64;
+    fn locked(&self) -> bool;
+    fn name(&self) -> String;
+    fn primary(&self) -> bool;
+    fn published(&self) -> bool;
+    fn standard_orientation(&self) -> crate::types::ViewOrientationTypeEnum;
 }
 
 #[doc = "```text\nPlane is an unbounded planar surface with an orthonormal in-plane basis.\n```"]
@@ -417,40 +461,4 @@ pub trait SaveOptions {
     fn set_thumbnail(&self, option: crate::types::ThumbnailSaveOption) -> Result<(), crate::Error>;
     #[doc = "```text\nThumbnail returns how a preview thumbnail is captured on save.\n```"]
     fn thumbnail(&self) -> crate::types::ThumbnailSaveOption;
-}
-
-#[doc = "```text\nSectionDrawingView is a view cut from a parent view by a section line: the model is sliced by\nthe plane through that line (perpendicular to the parent), the near half removed, the cut\noutline drawn bold and the exposed faces hatched. The reference contracts give section views a\ndistinct interface (unlike auxiliary/projected, which are a plain DrawingView + a type tag).\n```"]
-pub trait SectionDrawingView: crate::contract::DrawingView {
-    #[doc = "```text\nSectionDepthMM is the retained-slab depth in model millimetres, or 0 for a full through-cut\n(#1982).\n```"]
-    fn section_depth_mm(&self) -> f64;
-    #[doc = "```text\nSectionLineMM is the cut line on the parent view, in sheet millimetres.\n```"]
-    fn section_line_mm(&self) -> (f64, f64, f64, f64);
-    #[doc = "```text\nSectionReverse reports whether the far half is kept instead of the near half (#1982).\n```"]
-    fn section_reverse(&self) -> bool;
-    #[doc = "```text\nSectionType is the partial-cut kind (none/quarter/half/threeQuarter, #1982).\n```"]
-    fn section_type(&self) -> crate::types::SectionViewType;
-}
-
-#[doc = "```text\nShadedDisplayOptions is the in-process contract for the shaded-mode display sub-options\n(edge overlay, transparency rendering). The GPL app satisfies it.\n```"]
-pub trait ShadedDisplayOptions {
-    #[doc = "```text\nEdgeColor is the overlaid edge color.\n```"]
-    fn edge_color(&self) -> crate::types::Color;
-    #[doc = "```text\nEdgeDisplay reports whether edges overlay the shaded faces.\n```"]
-    fn edge_display(&self) -> bool;
-    #[doc = "```text\nSilhouettes reports whether silhouette edges are drawn.\n```"]
-    fn silhouettes(&self) -> bool;
-    #[doc = "```text\nTransparencyType is how transparency is rendered (blending / screen-door).\n```"]
-    fn transparency_type(&self) -> crate::types::TransparencyTypeEnum;
-}
-
-#[doc = "```text\nSketch is the scalar view of a 2D planar sketch: its identity, visibility, and the\nsolver's degree-of-freedom count. The host's model/sketch.Sketch satisfies this via\na compile-time assertion.\n```"]
-pub trait Sketch {
-    #[doc = "```text\nDegreesOfFreedom is the sketch's remaining free DOF (0 when fully constrained).\n```"]
-    fn degrees_of_freedom(&self) -> i64;
-    #[doc = "```text\nEntityCount is the number of geometry entities the sketch owns.\n```"]
-    fn entity_count(&self) -> i64;
-    #[doc = "```text\nName is the sketch's display name.\n```"]
-    fn name(&self) -> String;
-    #[doc = "```text\nVisible reports whether the sketch is shown.\n```"]
-    fn visible(&self) -> bool;
 }

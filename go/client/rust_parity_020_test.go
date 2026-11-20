@@ -9,6 +9,126 @@ import (
 	"testing"
 )
 
+func TestRustParityTransientBRepDoBoolean(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepBoolean})
+	checkGoGroup(t, c, "TransientBRep", "DoBoolean")
+}
+
+func TestRustParityTransientBRepGetIdenticalBodies(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepIdenticalBodies})
+	checkGoGroup(t, c, "TransientBRep", "GetIdenticalBodies")
+}
+
+func TestRustParityTransientBRepImprintBodies(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepImprint})
+	checkGoGroup(t, c, "TransientBRep", "ImprintBodies")
+}
+
+func TestRustParityTransientBRepList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepList})
+	checkGoGroup(t, c, "TransientBRep", "List")
+}
+
+func TestRustParityTransientBRepOffsetFaces(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepOffsetFaces})
+	checkGoGroup(t, c, "TransientBRep", "OffsetFaces")
+}
+
+func TestRustParityTransientBRepTransform(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodBrepTransform})
+	checkGoGroup(t, c, "TransientBRep", "Transform")
+}
+
+func TestRustParityTriadGet(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadGet})
+	checkGoGroup(t, c, "Triad", "Get")
+}
+
+func TestRustParityTriadHide(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadHide})
+	checkGoGroup(t, c, "Triad", "Hide")
+}
+
+func TestRustParityTriadShow(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadShow})
+	checkGoGroup(t, c, "Triad", "Show")
+}
+
+func TestRustParityTriadUpdate(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodTriadUpdate})
+	checkGoGroup(t, c, "Triad", "Update")
+}
+
+func TestRustParityUIActivateEnvironment(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUIActivateEnvironment})
+	checkGoGroup(t, c, "UI", "ActivateEnvironment")
+}
+
+func TestRustParityUIMarkingMenu(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUIGetMarkingMenu})
+	checkGoGroup(t, c, "UI", "MarkingMenu")
+}
+
+func TestRustParityUIObjectVisibility(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUIGetObjectVisibility})
+	checkGoGroup(t, c, "UI", "ObjectVisibility")
+}
+
+func TestRustParityUIRegisterEnvironment(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUIRegisterEnvironment})
+	checkGoGroup(t, c, "UI", "RegisterEnvironment")
+}
+
+func TestRustParityUISearch(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUISearch})
+	checkGoGroup(t, c, "UI", "Search")
+}
+
+func TestRustParityUISetContextMenu(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUISetContextMenu})
+	checkGoGroup(t, c, "UI", "SetContextMenu")
+}
+
+func TestRustParityUISetMarkingMenu(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUISetMarkingMenu})
+	checkGoGroup(t, c, "UI", "SetMarkingMenu")
+}
+
+func TestRustParityUISetObjectVisibility(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUISetObjectVisibility})
+	checkGoGroup(t, c, "UI", "SetObjectVisibility")
+}
+
+func TestRustParityUnitsCompatibleUnits(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsCompatibleUnits})
+	checkGoGroup(t, c, "Units", "CompatibleUnits")
+}
+
+func TestRustParityUnitsConvert(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsConvert})
+	checkGoGroup(t, c, "Units", "Convert")
+}
+
+func TestRustParityUnitsGetDatabaseUnitsFromExpression(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetDatabaseUnitsFromExpression})
+	checkGoGroup(t, c, "Units", "GetDatabaseUnitsFromExpression")
+}
+
+func TestRustParityUnitsGetDrivingParameters(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetDrivingParameters})
+	checkGoGroup(t, c, "Units", "GetDrivingParameters")
+}
+
+func TestRustParityUnitsGetLocaleCorrectedExpression(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetLocaleCorrectedExpression})
+	checkGoGroup(t, c, "Units", "GetLocaleCorrectedExpression")
+}
+
+func TestRustParityUnitsGetPreciseStringFromValue(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodUnitsGetPreciseStringFromValue})
+	checkGoGroup(t, c, "Units", "GetPreciseStringFromValue")
+}
+
 func TestRustParityUnitsGetStringFromType(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodUnitsGetStringFromType})
 	checkGoGroup(t, c, "Units", "GetStringFromType")
@@ -37,124 +157,4 @@ func TestRustParityUnitsIsExpressionValid(t *testing.T) {
 func TestRustParityViewCamera(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodViewGetCamera})
 	checkGoGroup(t, c, "View", "Camera")
-}
-
-func TestRustParityViewCapture(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportCapture})
-	checkGoGroup(t, c, "View", "Capture")
-}
-
-func TestRustParityViewCaptureWindow(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportCaptureWindow})
-	checkGoGroup(t, c, "View", "CaptureWindow")
-}
-
-func TestRustParityViewClick(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportClick})
-	checkGoGroup(t, c, "View", "Click")
-}
-
-func TestRustParityViewDisplayMode(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewGetDisplayMode})
-	checkGoGroup(t, c, "View", "DisplayMode")
-}
-
-func TestRustParityViewListDisplayModes(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewListDisplayModes})
-	checkGoGroup(t, c, "View", "ListDisplayModes")
-}
-
-func TestRustParityViewPressKey(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportKey})
-	checkGoGroup(t, c, "View", "PressKey")
-}
-
-func TestRustParityViewScroll(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportScroll})
-	checkGoGroup(t, c, "View", "Scroll")
-}
-
-func TestRustParityViewSetCamera(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetCamera})
-	checkGoGroup(t, c, "View", "SetCamera")
-}
-
-func TestRustParityViewSetDisplayMode(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetDisplayMode})
-	checkGoGroup(t, c, "View", "SetDisplayMode")
-}
-
-func TestRustParityViewSetMeshColors(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportSetMeshColors})
-	checkGoGroup(t, c, "View", "SetMeshColors")
-}
-
-func TestRustParityViewSetNormalDebug(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewportSetNormalDebug})
-	checkGoGroup(t, c, "View", "SetNormalDebug")
-}
-
-func TestRustParityViewSetOrientation(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetOrientation})
-	checkGoGroup(t, c, "View", "SetOrientation")
-}
-
-func TestRustParityViewSetShadows(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewSetShadows})
-	checkGoGroup(t, c, "View", "SetShadows")
-}
-
-func TestRustParityViewShadows(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewGetShadows})
-	checkGoGroup(t, c, "View", "Shadows")
-}
-
-func TestRustParityViewsActivate(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsActivate})
-	checkGoGroup(t, c, "Views", "Activate")
-}
-
-func TestRustParityViewsAdd(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsAdd})
-	checkGoGroup(t, c, "Views", "Add")
-}
-
-func TestRustParityViewsCaptureNamed(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsCaptureNamed})
-	checkGoGroup(t, c, "Views", "CaptureNamed")
-}
-
-func TestRustParityViewsClose(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsClose})
-	checkGoGroup(t, c, "Views", "Close")
-}
-
-func TestRustParityViewsDeleteNamed(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsDeleteNamed})
-	checkGoGroup(t, c, "Views", "DeleteNamed")
-}
-
-func TestRustParityViewsLayout(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsGetLayout})
-	checkGoGroup(t, c, "Views", "Layout")
-}
-
-func TestRustParityViewsList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsList})
-	checkGoGroup(t, c, "Views", "List")
-}
-
-func TestRustParityViewsListNamed(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsListNamed})
-	checkGoGroup(t, c, "Views", "ListNamed")
-}
-
-func TestRustParityViewsRename(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsRename})
-	checkGoGroup(t, c, "Views", "Rename")
-}
-
-func TestRustParityViewsRestoreNamed(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodViewsRestoreNamed})
-	checkGoGroup(t, c, "Views", "RestoreNamed")
 }

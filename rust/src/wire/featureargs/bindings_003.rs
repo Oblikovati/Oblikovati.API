@@ -3,426 +3,364 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nHole drills a hole into a picked face: drilled, counterbore, countersink, or tapped (KindHole).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Hole {
-    #[serde(rename = "faceRef", deserialize_with = "crate::json::null_default")]
-    pub face_ref: String,
-    #[doc = "```text\ndrilled (default) | counterbore | countersink | tapped\n```"]
-    #[serde(
-        rename = "type",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub type_: String,
-    #[serde(rename = "diameter", deserialize_with = "crate::json::null_default")]
-    pub diameter: String,
-    #[doc = "```text\nomit (drilled) => through-all\n```"]
-    #[serde(
-        rename = "depth",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub depth: String,
-    #[serde(
-        rename = "counterDiameter",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub counter_diameter: String,
-    #[serde(
-        rename = "counterDepth",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub counter_depth: String,
-    #[serde(
-        rename = "sinkDiameter",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub sink_diameter: String,
-    #[serde(
-        rename = "includedAngle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub included_angle: String,
-    #[serde(
-        rename = "designation",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub designation: String,
-    #[doc = "```text\nCenter is the drill point in model-space cm (matches the reference CAD API's Hole.Center);\nnil ⇒ the picked face's centroid. Needed to place more than one hole on a face.\n```"]
-    #[serde(
-        rename = "center",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center: Option<Vec<f64>>,
-    #[doc = "```text\nCenterExpr is the parameter-expression form of Center: each entry is the expression for\none coordinate (x, y, z), overriding the literal Center when present.\n```"]
-    #[serde(
-        rename = "centerExpr",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub center_expr: Option<Vec<String>>,
-    #[doc = "```text\nPlacementFaceGeom selects the placement face by GEOMETRY (centroid + normal) instead of a\nFaceRef key, so the binding survives the hole's own recompute — the way an external author\n(exporter) must reference a face it did not mint a key for. When set it supplies the face;\nFaceRef becomes optional. See [GeomFaceSel].\n```"]
-    #[serde(
-        rename = "placementFaceGeom",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub placement_face_geom: Option<Box<crate::wire::featureargs::GeomFaceSel>>,
-    #[doc = "```text\nDrillPoint sets a blind drilled/tapped hole's bottom (the reference CAD API's HoleDrillPointTypeEnum):\n\"flat\" (default) bottoms in a flat disc; \"angled\" bottoms in a cone of included angle\nTipAngle. Ignored for a through-all hole. #1863.\n```"]
-    #[serde(
-        rename = "drillPoint",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub drill_point: String,
-    #[doc = "```text\nTipAngle is the included angle of an \"angled\" drill point (unit-bearing, e.g. \"118 deg\");\ndefaults to 118 deg (the standard twist-drill point) when DrillPoint is \"angled\" and it is\nomitted. #1863.\n```"]
-    #[serde(
-        rename = "tipAngle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tip_angle: String,
-    #[doc = "```text\nTap is the hole's thread FUNCTION, orthogonal to Type (its seat) — the reference CAD API keeps the two on\nseparate axes, so a counterbored tapped hole is an ordinary thing (#1862). \"none\" (default),\n\"tapped\", or \"taperTapped\" for an NPT-style taper thread. Type \"tapped\" remains accepted as\nthe older spelling of a drilled hole with Tap \"tapped\".\n```"]
-    #[serde(
-        rename = "tap",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tap: String,
-    #[doc = "```text\nThreadClass is the fit class the tap is cut to, e.g. \"6H\" (metric) or \"2B\" (unified).\n```"]
-    #[serde(
-        rename = "threadClass",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub thread_class: String,
-    #[doc = "```text\nLeftHanded reverses the tap's thread sense; the default is the ordinary right-hand thread.\n```"]
-    #[serde(
-        rename = "leftHanded",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub left_handed: bool,
-    #[doc = "```text\nClearance sizes the bore from a fastener table instead of Diameter (#1862), so the FASTENER\nstays the authored thing and the hole follows when it changes.\n```"]
-    #[serde(
-        rename = "clearance",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub clearance: Option<Box<crate::wire::featureargs::HoleClearance>>,
-    #[doc = "```text\nPlacement is the rule LOCATING the bores, the reference CAD API's HolePlacementTypeEnum (#1861): \"sketch\"\n(one bore per centre point of PlacementSketchIndex), \"linear\" (offsets from two edges),\n\"concentric\" (on a circular edge's axis) or \"point\" (a work point along a work axis). Absent\n⇒ the single bore on FaceRef at Center, which is the face placement.\n```"]
-    #[serde(
-        rename = "placement",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub placement: String,
-    #[serde(
-        rename = "placementSketchIndex",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub placement_sketch_index: i64,
-    #[doc = "```text\nPlacementFlipped drills along the sketch normal / work axis instead of into it.\n```"]
-    #[serde(
-        rename = "placementFlipped",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub placement_flipped: bool,
-    #[doc = "```text\nConcentricRef is the circular edge whose axis a \"concentric\" placement centres on.\n```"]
-    #[serde(
-        rename = "concentricRef",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub concentric_ref: String,
-    #[doc = "```text\nEdge1Ref/Edge2Ref and Offset1/Offset2 locate a \"linear\" placement: two reference edges of the\nplacement face and the unit-bearing distances measured from each, INTO the face.\n```"]
-    #[serde(
-        rename = "edge1Ref",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub edge1_ref: String,
-    #[serde(
-        rename = "edge2Ref",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub edge2_ref: String,
-    #[serde(
-        rename = "offset1",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub offset1: String,
-    #[serde(
-        rename = "offset2",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub offset2: String,
-    #[doc = "```text\nPointRef and AxisRef locate a \"point\" placement: the work point to drill at and the work axis\nto drill along (e.g. \"point/0\", \"origin/axis/z\").\n```"]
-    #[serde(
-        rename = "pointRef",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub point_ref: String,
-    #[serde(
-        rename = "axisRef",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub axis_ref: String,
-    #[doc = "```text\nTermination is where the bore STOPS (#1863): \"distance\" (default — Depth from the placement\nface), \"through-all\", \"to-face\" (down to ToFace) or \"from-to\" (between FromFace and ToFace).\nA named terminator must be square to the drill axis, since a bore bottoms at one depth.\n```"]
-    #[serde(
-        rename = "termination",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub termination: String,
-    #[doc = "```text\nToFace/FromFace and their geometric selectors name the terminators, exactly as an extrude's\nextent does. See [Extrude.ToFace].\n```"]
-    #[serde(
-        rename = "toFace",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub to_face: String,
-    #[serde(
-        rename = "toFaceGeom",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub to_face_geom: Option<Box<crate::wire::featureargs::GeomFaceSel>>,
-    #[serde(
-        rename = "fromFace",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub from_face: String,
-    #[serde(
-        rename = "fromFaceGeom",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub from_face_geom: Option<Box<crate::wire::featureargs::GeomFaceSel>>,
+generated_dto! {
+#[doc = "```text\nSheetMetalHem folds a hem along an edge (KindSheetMetalHem) — the reference CAD API's four HemTypeEnum\nshapes. Two of them are driven by a curl rather than a leg, so which dimensions apply depends\non Type (#1956):\n\n  - \"single\" (default) and \"double\" take Length + Gap;\n  - \"rolled\" and \"teardrop\" take Radius + Angle, and a teardrop derives its closing tail from\n    them, which is why it takes no length.\n```"]
+pub struct SheetMetalHem {
+    pub edge: String => required("edge");
+#[doc = "```text\nLength is how far the folded-back leg runs; single and double hems only.\n```"]
+    pub length: String => omitted("length", "crate::json::is_zero");
+#[doc = "```text\nType is the hem shape: \"single\", \"double\", \"rolled\" or \"teardrop\". \"closed\" and \"open\" are\nthe spellings this feature shipped with and both mean a single hem — what set them apart was\nthe gap, which is still what says it.\n```"]
+    pub type_: String => omitted("type", "crate::json::is_zero");
+#[doc = "```text\nGap is the clear distance between the folded-back leg and the parent (the fold's inside\nradius is half of it). Absent ⇒ the hem folds tight at half the material thickness.\n```"]
+    pub gap: String => omitted("gap", "crate::json::is_zero");
+#[doc = "```text\nRadius and Angle drive the curled types: the roll's inside radius and how far it sweeps. A\nteardrop must sweep more than a half-turn and less than a full one for its tail to close.\n```"]
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
 }
-impl crate::wire::featureargs::Arg for Hole {
+}
+impl crate::wire::featureargs::Arg for SheetMetalHem {
     fn kind(&self) -> String {
-        "hole".into()
+        "sheetMetalHem".into()
     }
 }
 
-#[doc = "```text\nHoleClearance names the fastener a clearance hole is drilled for — the reference CAD API's HoleClearanceInfo.\nThe host sizes the bore from the published table every recompute, so changing the fastener\nresizes the hole; recording the resolved diameter instead would break that link.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct HoleClearance {
-    #[doc = "```text\nStandard is the table the fastener is drawn from; \"ISO 273\" is the one carried today.\n```"]
-    #[serde(
-        rename = "standard",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub standard: String,
-    #[doc = "```text\nFastener is the thread designation the hole must pass, e.g. \"M6\".\n```"]
-    #[serde(rename = "fastener", deserialize_with = "crate::json::null_default")]
-    pub fastener: String,
-    #[doc = "```text\nFit is \"close\", \"medium\" (default) or \"free\".\n```"]
-    #[serde(
-        rename = "fit",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub fit: String,
+generated_dto! {
+#[doc = "```text\nSheetMetalLip runs a lip along an edge (KindSheetMetalLip).\n```"]
+pub struct SheetMetalLip {
+    pub edge: String => required("edge");
+    pub height: String => required("height");
+    pub return_length: String => omitted("returnLength", "crate::json::is_zero");
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+    pub radius: String => omitted("radius", "crate::json::is_zero");
+    pub flip: bool => omitted("flip", "crate::json::is_zero");
 }
-
-#[doc = "```text\nHull convex-hulls the part's running solid bodies into one body (KindHull). It has no fields.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Hull {}
-impl crate::wire::featureargs::Arg for Hull {
+}
+impl crate::wire::featureargs::Arg for SheetMetalLip {
     fn kind(&self) -> String {
-        "hull".into()
+        "sheetMetalLip".into()
     }
 }
 
-pub const KIND_BEND_PART: &str = "bendPart";
-
-pub const KIND_BOSS: &str = "boss";
-
-pub const KIND_BOUNDARY_PATCH: &str = "boundaryPatch";
-
-pub const KIND_BRIDGE_SURFACE: &str = "bridgeSurface";
-
-pub const KIND_CHAMFER: &str = "chamfer";
-
-pub const KIND_COIL: &str = "coil";
-
-pub const KIND_COMBINE: &str = "combine";
-
-pub const KIND_CORE_CAVITY: &str = "coreCavity";
-
-pub const KIND_DELETE_FACE: &str = "deleteFace";
-
-pub const KIND_DIRECT_EDIT: &str = "directEdit";
-
-pub const KIND_DRAFT: &str = "draft";
-
-pub const KIND_EMBOSS: &str = "emboss";
-
-pub const KIND_EXTEND: &str = "extend";
-
-pub const KIND_EXTRUDE: &str = "extrude";
-
-pub const KIND_FACE_OFFSET: &str = "faceOffset";
-
-pub const KIND_FAIR_SURFACE: &str = "fairSurface";
-
-pub const KIND_FILL_SURFACE: &str = "fillSurface";
-
-pub const KIND_FILLET: &str = "fillet";
-
-pub const KIND_FIT_SURFACE: &str = "fitSurface";
-
-pub const KIND_FREEFORM_BOX: &str = "freeformBox";
-
-pub const KIND_FREEFORM_PLANE: &str = "freeformPlane";
-
-pub const KIND_FREEFORM_QUAD_BALL: &str = "freeformQuadBall";
-
-pub const KIND_FULL_ROUND_FILLET: &str = "fullRoundFillet";
-
-pub const KIND_GRILL: &str = "grill";
-
-pub const KIND_HOLE: &str = "hole";
-
-pub const KIND_HULL: &str = "hull";
-
-pub const KIND_LIP: &str = "lip";
-
-pub const KIND_LOFT: &str = "loft";
-
-pub const KIND_MESH: &str = "mesh";
-
-pub const KIND_MID_SURFACE: &str = "midSurface";
-
-pub const KIND_MIRROR: &str = "mirror";
-
-pub const KIND_MODEL_TOLERANCE: &str = "modelTolerance";
-
-pub const KIND_MOVE_BODY: &str = "moveBody";
-
-pub const KIND_MOVE_FACE: &str = "moveFace";
-
-pub const KIND_NETWORK_SURFACE: &str = "networkSurface";
-
-pub const KIND_PATTERN_CIRCULAR: &str = "patternCircular";
-
-pub const KIND_PATTERN_RECTANGULAR: &str = "patternRectangular";
-
-pub const KIND_PATTERN_SKETCH_DRIVEN: &str = "patternSketchDriven";
-
-pub const KIND_REPLACE_FACE: &str = "replaceFace";
-
-pub const KIND_REST: &str = "rest";
-
-pub const KIND_REVOLVE: &str = "revolve";
-
-pub const KIND_RIB: &str = "rib";
-
-pub const KIND_RULE_FILLET: &str = "ruleFillet";
-
-pub const KIND_RULED_SURFACE: &str = "ruledSurface";
-
-pub const KIND_SCULPT: &str = "sculpt";
-
-pub const KIND_SHEET_METAL_BEND: &str = "sheetMetalBend";
-
-pub const KIND_SHEET_METAL_CONTOUR_FLANGE: &str = "sheetMetalContourFlange";
-
-pub const KIND_SHEET_METAL_CONTOUR_ROLL: &str = "sheetMetalContourRoll";
-
-pub const KIND_SHEET_METAL_CORNER: &str = "sheetMetalCorner";
-
-pub const KIND_SHEET_METAL_CORNER_SEAM: &str = "sheetMetalCornerSeam";
-
-pub const KIND_SHEET_METAL_COSMETIC_BEND: &str = "sheetMetalCosmeticBend";
-
-pub const KIND_SHEET_METAL_CUT: &str = "sheetMetalCut";
-
-pub const KIND_SHEET_METAL_FACE: &str = "sheetMetalFace";
-
-pub const KIND_SHEET_METAL_FLANGE: &str = "sheetMetalFlange";
-
-pub const KIND_SHEET_METAL_FOLD: &str = "sheetMetalFold";
-
-pub const KIND_SHEET_METAL_HEM: &str = "sheetMetalHem";
-
-pub const KIND_SHEET_METAL_LIP: &str = "sheetMetalLip";
-
-pub const KIND_SHEET_METAL_LOFTED_FLANGE: &str = "sheetMetalLoftedFlange";
-
-pub const KIND_SHEET_METAL_PUNCH: &str = "sheetMetalPunch";
-
-pub const KIND_SHEET_METAL_REFOLD: &str = "sheetMetalRefold";
-
-pub const KIND_SHEET_METAL_RIP: &str = "sheetMetalRip";
-
-pub const KIND_SHEET_METAL_UNFOLD: &str = "sheetMetalUnfold";
-
-pub const KIND_SHELL: &str = "shell";
-
-pub const KIND_SIMPLIFY: &str = "simplify";
-
-pub const KIND_SNAP_FIT: &str = "snapFit";
-
-pub const KIND_SPLIT: &str = "split";
-
-pub const KIND_SPLIT_SOLID: &str = "splitSolid";
-
-pub const KIND_STITCH: &str = "stitch";
-
-pub const KIND_SURFACE_OFFSET: &str = "surfaceOffset";
-
-pub const KIND_SWEEP: &str = "sweep";
-
-pub const KIND_THICKEN: &str = "thicken";
-
-pub const KIND_THREAD: &str = "thread";
-
-pub const KIND_TRIM: &str = "trim";
-
-pub const KIND_UNWRAP: &str = "unwrap";
-
-#[doc = "```text\nLip runs a raised lip (or recessed groove, Groove=true) bead along picked edges (KindLip).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Lip {
-    #[serde(rename = "edgeRefs", deserialize_with = "crate::json::null_default")]
-    pub edge_refs: Option<Vec<String>>,
-    #[serde(rename = "width", deserialize_with = "crate::json::null_default")]
-    pub width: String,
-    #[serde(rename = "height", deserialize_with = "crate::json::null_default")]
-    pub height: String,
-    #[serde(
-        rename = "groove",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub groove: bool,
+generated_dto! {
+#[doc = "```text\nSheetMetalLoftedFlange lofts a flange between two profile sketches (KindSheetMetalLoftedFlange,\n#1966).\n```"]
+pub struct SheetMetalLoftedFlange {
+    pub profile_a: i64 => required("profileA");
+    pub profile_b: i64 => required("profileB");
+    pub operation: String => required("operation");
+#[doc = "```text\nOutputType is how the transition is calculated (LoftedFlangeOutputType): \"dieFormed\"\n(default, smooth) or one of the \"pressBrake…\" faceted modes. The press-brake modes read\nFacetTolerance, each measuring it differently (chord deviation / facet angle / facet width).\n```"]
+    pub output_type: String => omitted("outputType", "crate::json::is_zero");
+#[doc = "```text\nFacetTolerance bounds the facets for a press-brake output — a length for the chord/distance\nmodes (\"0.5 mm\") or an angle for the facet-angle mode (\"5 deg\"). Ignored for die-formed.\n```"]
+    pub facet_tolerance: String => omitted("facetTolerance", "crate::json::is_zero");
+#[doc = "```text\nConverge merges the wall's corners to a point rather than carrying them straight through.\n```"]
+    pub converge: bool => omitted("converge", "crate::json::is_zero");
+#[doc = "```text\nRadius rounds the transition's end bends; absent ⇒ the rule's BendRadius.\n```"]
+    pub radius: String => omitted("radius", "crate::json::is_zero");
 }
-impl crate::wire::featureargs::Arg for Lip {
+}
+impl crate::wire::featureargs::Arg for SheetMetalLoftedFlange {
     fn kind(&self) -> String {
-        "lip".into()
+        "sheetMetalLoftedFlange".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalPunch punches a sketch-driven tool into the wall to a depth (KindSheetMetalPunch,\n#1968).\n```"]
+pub struct SheetMetalPunch {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub depth: String => omitted("depth", "crate::json::is_zero");
+#[doc = "```text\nAngle rotates the punched profiles about their centroid (e.g. \"30 deg\") — the die's rotation.\n```"]
+    pub angle: String => omitted("angle", "crate::json::is_zero");
+#[doc = "```text\nAcrossBends lets the punch span a bent region; UnfoldInFlat controls whether it develops into\nthe flat pattern. RepresentationType and ToolID are die metadata carried into the flat/drawing.\n```"]
+    pub across_bends: bool => omitted("acrossBends", "crate::json::is_zero");
+    pub unfold_in_flat: bool => omitted("unfoldInFlat", "crate::json::is_zero");
+    pub representation_type: String => omitted("representationType", "crate::json::is_zero");
+    pub tool_id: String => omitted("toolId", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalPunch {
+    fn kind(&self) -> String {
+        "sheetMetalPunch".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalRefold re-folds the bends an earlier unfold flattened (KindSheetMetalRefold). It has\nno fields.\n```"]
+pub struct SheetMetalRefold {
+
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalRefold {
+    fn kind(&self) -> String {
+        "sheetMetalRefold".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalRip rips a wall open by a gap (KindSheetMetalRip, #1965). A rip has three forms —\nthe reference CAD API's RipTypeEnum — and they take different inputs:\n\n  - \"pointToPoint\" (default) rips between two points. Given a SketchIndex/LineIndex it rips\n    along that sketch line (the long-standing form); given FaceKey + Point + PointTwo it rips\n    between two vertices of that face.\n  - \"singlePoint\" rips the full extent of FaceKey through the one vertex Point.\n  - \"faceExtents\" rips the full extent of FaceKey and needs no point.\n\nGapSide places the removed material: \"symmetric\" (default) straddles the rip line, \"positive\"\n/ \"negative\" take it wholly to one side (the reference CAD API's PartFeatureExtentDirectionEnum).\n```"]
+pub struct SheetMetalRip {
+    pub sketch_index: i64 => omitted("sketchIndex", "crate::json::is_zero");
+    pub line_index: i64 => omitted("lineIndex", "crate::json::is_zero");
+    pub gap: String => omitted("gap", "crate::json::is_zero");
+#[doc = "```text\nType is the rip form: \"pointToPoint\" (default), \"singlePoint\" or \"faceExtents\" (RipType).\n```"]
+    pub type_: String => omitted("type", "crate::json::is_zero");
+#[doc = "```text\nFaceKey is the reference key of the face being ripped (the RipFace); required for the\nsinglePoint and faceExtents forms, and for a point-to-point rip defined by two face vertices.\n```"]
+    pub face_key: String => omitted("faceKey", "crate::json::is_zero");
+#[doc = "```text\nPoint / PointTwo are reference keys of the face vertices the rip runs through — Point for\nsinglePoint, both for a vertex-defined point-to-point rip.\n```"]
+    pub point: String => omitted("point", "crate::json::is_zero");
+    pub point_two: String => omitted("pointTwo", "crate::json::is_zero");
+#[doc = "```text\nGapSide is which side of the rip line the gap sits: \"positive\", \"negative\" or \"symmetric\"\n(default).\n```"]
+    pub gap_side: String => omitted("gapSide", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalRip {
+    fn kind(&self) -> String {
+        "sheetMetalRip".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSheetMetalUnfold flattens every bend of the active sheet-metal part (KindSheetMetalUnfold). It\nhas no fields — it acts on the part's recorded bends.\n```"]
+pub struct SheetMetalUnfold {
+
+}
+}
+impl crate::wire::featureargs::Arg for SheetMetalUnfold {
+    fn kind(&self) -> String {
+        "sheetMetalUnfold".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nShell hollows a body to a wall thickness, removing the picked faces (KindShell).\n```"]
+pub struct Shell {
+    pub face_refs: Option<Vec<String>> => required("faceRefs");
+    pub thickness: String => omitted("thickness", "crate::json::is_zero");
+#[doc = "```text\nFacesGeom selects the removed faces by GEOMETRY (centroid + normal) instead of FaceRefs keys,\nso the binding survives recompute (see [Fillet.EdgesGeom]). When set, FaceRefs is optional.\n```"]
+    pub faces_geom: Option<Vec<crate::wire::featureargs::GeomFaceSel>> => omitted("facesGeom", "crate::json::slice_is_empty");
+#[doc = "```text\nDirection is which side of the original faces the wall grows onto — the reference CAD API's\nShellDirectionEnum: \"inside\" (default; outer skin kept), \"outside\" (outer dimensions grow by\nthickness), or \"both\" (wall centred on the faces). Empty ⇒ inside. #1864.\n```"]
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+#[doc = "```text\nFaceThicknesses give named RETAINED faces their own wall thickness on top of Thickness —\nthe reference CAD API's SetFaceThickness (#1864). A thickened boss wall or a thin window in an otherwise\nuniform shell; a face that is being REMOVED is an opening and cannot carry one.\n```"]
+    pub face_thicknesses: Option<Vec<crate::wire::featureargs::ShellFaceThickness>> => omitted("faceThicknesses", "crate::json::slice_is_empty");
+}
+}
+impl crate::wire::featureargs::Arg for Shell {
+    fn kind(&self) -> String {
+        "shell".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nShellFaceThickness overrides the wall thickness on one retained face of a shell (#1864).\n```"]
+pub struct ShellFaceThickness {
+    pub face_ref: String => required("faceRef");
+#[doc = "```text\nThickness is that face's wall, a distance expression like \"3 mm\".\n```"]
+    pub thickness: String => required("thickness");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSimplify removes and heals selected faces and/or fills internal voids (KindSimplify).\n```"]
+pub struct Simplify {
+    pub face_refs: Option<Vec<String>> => omitted("faceRefs", "crate::json::slice_is_empty");
+    pub fill_voids: bool => omitted("fillVoids", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Simplify {
+    fn kind(&self) -> String {
+        "simplify".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSnapFit adds a cantilever snap-fit hook (a beam with a catch lip) to the part (KindSnapFit).\n```"]
+pub struct SnapFit {
+    pub length: String => required("length");
+    pub width: String => required("width");
+    pub thickness: String => required("thickness");
+    pub catch_length: String => required("catchLength");
+    pub catch_height: String => required("catchHeight");
+}
+}
+impl crate::wire::featureargs::Arg for SnapFit {
+    fn kind(&self) -> String {
+        "snapFit".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSplit splits picked faces along their intersections (KindSplit).\n```"]
+pub struct Split {
+    pub face_refs: Option<Vec<String>> => required("faceRefs");
+}
+}
+impl crate::wire::featureargs::Arg for Split {
+    fn kind(&self) -> String {
+        "split".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSplitSolid splits the solid along a work plane: trim one side, split into bodies, or split faces\nonly (KindSplitSolid). Type mirrors the frozen api/types SplitType (#330).\n```"]
+pub struct SplitSolid {
+    pub work_plane_index: i64 => required("workPlaneIndex");
+    pub keep: String => omitted("keep", "crate::json::is_zero");
+    pub type_: String => omitted("type", "crate::json::is_zero");
+#[doc = "```text\nTool is the GEOMETRY the split cuts with — the reference CAD API's SplitToolTypeEnum (#1891):\n\"workPlane\" (default, uses WorkPlaneIndex), \"workSurface\" or \"surfaceBody\" (both use\nToolIndex), or \"path\" (a 2D sketch path projected onto a face). Type says what the split\nDOES; Tool says what it cuts with, and the two are independent.\n```"]
+    pub tool: String => omitted("tool", "crate::json::is_zero");
+#[doc = "```text\nToolIndex addresses the surface tool: a position in the part's work surfaces for\n\"workSurface\", or a body index for \"surfaceBody\". Ignored for \"workPlane\".\n```"]
+    pub tool_index: i64 => omitted("toolIndex", "crate::json::is_zero");
+#[doc = "```text\nSketchIndex and ProfileIndex address the sketch profile the \"path\" tool projects onto the\nfaces and scores them with (#2068). Ignored by every other tool. They follow the same\nsketch/profile addressing every profile-based feature uses (e.g. Extrude).\n```"]
+    pub sketch_index: i64 => omitted("sketchIndex", "crate::json::is_zero");
+    pub profile_index: i64 => omitted("profileIndex", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for SplitSolid {
+    fn kind(&self) -> String {
+        "splitSolid".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nStitch stitches surface bodies into a quilt (or solid) within Tolerance (KindStitch).\n```"]
+pub struct Stitch {
+    pub tolerance: String => omitted("tolerance", "crate::json::is_zero");
+    pub maintain_as_surface: bool => omitted("maintainAsSurface", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Stitch {
+    fn kind(&self) -> String {
+        "stitch".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSurfaceOffset offsets the part's surface bodies by a distance (KindSurfaceOffset).\n```"]
+pub struct SurfaceOffset {
+    pub distance: String => required("distance");
+}
+}
+impl crate::wire::featureargs::Arg for SurfaceOffset {
+    fn kind(&self) -> String {
+        "surfaceOffset".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSweep sweeps a profile along an open path (rail) into a solid (KindSweep). DefinitionType\ndiscriminates the union (path | pathAndGuideRail | pathAndGuideSurface | pathAndSectionTwists |\nsolid), mirroring the frozen api/types sweep spellings (#314).\n```"]
+pub struct Sweep {
+    pub sketch_index: i64 => required("sketchIndex");
+    pub profile_index: i64 => required("profileIndex");
+    pub path_sketch_index: i64 => required("pathSketchIndex");
+    pub path_index: i64 => required("pathIndex");
+    pub twist: String => omitted("twist", "crate::json::is_zero");
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+    pub definition_type: String => omitted("definitionType", "crate::json::is_zero");
+    pub orientation: String => omitted("orientation", "crate::json::is_zero");
+    pub align_vector: Option<Vec<f64>> => omitted_finite("alignVector", "crate::json::slice_is_empty");
+    pub taper: String => omitted("taper", "crate::json::is_zero");
+    pub twist_stations: Option<Vec<crate::wire::featureargs::SweepTwistStation>> => omitted("twistStations", "crate::json::slice_is_empty");
+    pub rail_sketch_index: i64 => omitted("railSketchIndex", "crate::json::is_zero");
+    pub rail_index: i64 => omitted("railIndex", "crate::json::is_zero");
+    pub scaling: String => omitted("scaling", "crate::json::is_zero");
+    pub guide_face_key: String => omitted("guideFaceKey", "crate::json::is_zero");
+    pub tool_body_index: Option<Box<i64>> => omitted("toolBodyIndex", "Option::is_none");
+#[doc = "```text\nPathPoints is an explicit 3D polyline path in cm (each entry an [x,y,z] point), mirroring\nhow LoftRail.Points overrides its sketch path; nil ⇒ use the PathSketchIndex/PathIndex arg.\n```"]
+    pub path_points: Option<Vec<Option<Vec<f64>>>> => omitted_finite("pathPoints", "crate::json::slice_is_empty");
+}
+}
+impl crate::wire::featureargs::Arg for Sweep {
+    fn kind(&self) -> String {
+        "sweep".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nSweepTwistStation is one pathAndSectionTwists row: a twist Angle at normalized arclength T.\n```"]
+pub struct SweepTwistStation {
+    pub t: f64 => finite("t");
+    pub angle: String => required("angle");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nThicken thickens a surface body into a solid — or, with Operation surface, offsets it as a\nsurface (KindThicken). Direction (positive|negative|symmetric, default positive per the reference CAD API)\npicks the offset side(s); Operation (join|cut|intersect|surface) picks the output; FaceRefs\nthickens a subset (empty = whole body); CreateVerticalSurfaces (default true) closes subset\nboundaries with side walls. AutomaticFaceChain / AutomaticBlending are accepted for parity but,\nsince selection is explicit, are not geometrically applied. Approximation is accepted for #331\nparity; the kernel computes the exact offset (#1876).\n```"]
+pub struct Thicken {
+    pub thickness: String => required("thickness");
+    pub approximation: String => omitted("approximation", "crate::json::is_zero");
+    pub direction: String => omitted("direction", "crate::json::is_zero");
+    pub operation: String => omitted("operation", "crate::json::is_zero");
+    pub face_refs: Option<Vec<String>> => omitted("faceRefs", "crate::json::slice_is_empty");
+    pub create_vertical_surfaces: Option<Box<bool>> => omitted("createVerticalSurfaces", "Option::is_none");
+    pub automatic_face_chain: bool => omitted("automaticFaceChain", "crate::json::is_zero");
+    pub automatic_blending: bool => omitted("automaticBlending", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Thicken {
+    fn kind(&self) -> String {
+        "thicken".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nThread threads a cylindrical face — cosmetic (display) or a real modeled cut (KindThread).\n```"]
+pub struct Thread {
+    pub face_ref: String => required("faceRef");
+    pub designation: String => required("designation");
+    pub cut: bool => omitted("cut", "crate::json::is_zero");
+    pub class: String => omitted("class", "crate::json::is_zero");
+    pub tapered: bool => omitted("tapered", "crate::json::is_zero");
+    pub model_diameter: String => omitted("modelDiameter", "crate::json::is_zero");
+#[doc = "```text\nLength is the threaded run along the cylinder axis (a distance expression), measured from\nthe face's start edge plus Offset. Empty ⇒ the thread runs the full length of the face\n(the reference CAD API's FullDepth). A double-ended stud threads only b1 at one end and b2 at the other,\neach a separate Thread with its own Offset+Length on the same face.\n```"]
+    pub length: String => omitted("length", "crate::json::is_zero");
+#[doc = "```text\nOffset is the distance (expression) from the face's start edge to where the thread begins\n(the reference CAD API's ThreadOffset). Empty ⇒ 0 (the thread starts at the face's start edge).\n```"]
+    pub offset: String => omitted("offset", "crate::json::is_zero");
+#[doc = "```text\nLeftHanded reverses the thread's sense — a turnbuckle end, a left pedal, a gas fitting\n(#1892). The reference CAD API spells this RightHanded (default true); a JSON bool cannot default to\ntrue, so the field is named for the LEFT hand and the ordinary right-hand thread is the\nzero value, matching [Hole.LeftHanded]. Designations may also carry it as an \"-LH\" suffix;\neither says left-handed, and the two never contradict.\n```"]
+    pub left_handed: bool => omitted("leftHanded", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Thread {
+    fn kind(&self) -> String {
+        "thread".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nToleranceFrame is one feature-control frame: a geometric Characteristic + zone Value applied to\nthe geometry named by Geometry (a reference key), optionally referencing Datums.\n```"]
+pub struct ToleranceFrame {
+    pub geometry: String => required("geometry");
+    pub characteristic: String => required("characteristic");
+    pub value: String => required("value");
+    pub datums: Option<Vec<String>> => required("datums");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTrim trims a surface body with a cutting tool, keeping one side (KindTrim). The tool is one of:\nan explicit plane (Origin+Normal), a work plane / planar face (ToolRef), a planar surface body\n(ToolBodyIndex), or a straight sketch line (ToolSketchIndex+ToolLineIndex — the line swept along\nits sketch normal). KeepPositive selects the kept side. Curved tool surfaces / curved sketch\ncurves and multi-region selection are phase C (#1880).\n```"]
+pub struct Trim {
+    pub origin: Option<Vec<f64>> => omitted_finite("origin", "crate::json::slice_is_empty");
+    pub normal: Option<Vec<f64>> => omitted_finite("normal", "crate::json::slice_is_empty");
+    pub keep_positive: bool => omitted("keepPositive", "crate::json::is_zero");
+    pub tool_ref: String => omitted("toolRef", "crate::json::is_zero");
+    pub tool_body_index: Option<Box<i64>> => omitted("toolBodyIndex", "Option::is_none");
+    pub tool_sketch_index: Option<Box<i64>> => omitted("toolSketchIndex", "Option::is_none");
+    pub tool_line_index: i64 => omitted("toolLineIndex", "crate::json::is_zero");
+}
+}
+impl crate::wire::featureargs::Arg for Trim {
+    fn kind(&self) -> String {
+        "trim".into()
+    }
+}
+
+generated_dto! {
+#[doc = "```text\nUnwrap flattens a cylindrical face into a flat sheet patch (KindUnwrap).\n```"]
+pub struct Unwrap {
+    pub face_ref: String => required("faceRef");
+}
+}
+impl crate::wire::featureargs::Arg for Unwrap {
+    fn kind(&self) -> String {
+        "unwrap".into()
     }
 }

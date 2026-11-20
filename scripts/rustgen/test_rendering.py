@@ -5,7 +5,8 @@ import unittest
 from clients import render_group, render_rpc
 from declarations import (
     render_declaration,
-    render_field,
+    render_dto_field,
+    dto_field_rule,
     render_method,
     omission_predicate,
     needs_finite_check,
@@ -94,6 +95,26 @@ class TypeMappingTests(unittest.TestCase):
 
 
 class DeclarationTests(unittest.TestCase):
+    def test_shared_dto_rules_keep_field_semantics(self) -> None:
+        with self.assertRaisesRegex(ValueError, "expected a nonempty attribute list"):
+            dto_field_rule([])
+        for shape, tag, rule in [
+            (Shape("basic", "uint64"), "id", 'required("id")'),
+            (
+                Shape("basic", "string"),
+                "name,omitempty",
+                'omitted("name", "crate::json::is_zero")',
+            ),
+            (Shape("basic", "float64"), "value", 'finite("value")'),
+            (
+                Shape("basic", "float64"),
+                "value,omitempty",
+                'omitted_finite("value", "crate::json::is_zero")',
+            ),
+        ]:
+            with self.subTest(tag=tag):
+                self.assertIn(rule, render_dto_field(Field("Name", shape, tag), set()))
+
     def test_custom_values_are_owned_by_the_runtime(self) -> None:
         self.assertEqual(
             render_declaration(declaration(Shape("struct"), name="Point"), set()), ""
@@ -102,9 +123,15 @@ class DeclarationTests(unittest.TestCase):
         self.assertIn("```text", rust_doc("original Go example"))
 
     def test_scalars_constants_and_aliases(self) -> None:
-        for name in ["uint8", "string", "float64"]:
+        for name, kind in [
+            ("uint8", "integer"),
+            ("string", "string"),
+            ("float64", "float"),
+        ]:
             text = render_declaration(declaration(Shape("basic", name)), set())
             self.assertIn("pub struct Example", text)
+            self.assertIn(f"generated_scalar! {{ {kind},", text)
+            self.assertIn("Example documents intent.", text)
         text = render_declaration(
             declaration(Shape("basic", "string"), alias=True), set()
         )
@@ -129,11 +156,9 @@ class DeclarationTests(unittest.TestCase):
 
     def test_struct_fields_preserve_wire_names_and_omission_rules(self) -> None:
         field = Field("Type", Shape("basic", "float64"), "type,omitempty")
-        output = render_field(field, set())
-        self.assertIn('rename = "type"', output)
+        output = render_dto_field(field, set())
+        self.assertIn('omitted_finite("type", "crate::json::is_zero")', output)
         self.assertIn("pub type_: f64", output)
-        self.assertIn("finite::serialize", output)
-        self.assertIn("null_default", output)
         shape = Shape(
             "struct", fields=[field, Field("Hidden", Shape("basic", "int"), "-")]
         )
@@ -182,10 +207,10 @@ class DeclarationTests(unittest.TestCase):
 
     def test_embedded_fields_and_custom_json(self) -> None:
         embedded = Field("Info", Shape("named", "Info", "wire"), embedded=True)
-        self.assertIn("flatten", render_field(embedded, set()))
+        self.assertIn("flatten", render_dto_field(embedded, set()))
         self.assertNotIn(
             "null_default",
-            render_field(Field("Origin", Shape("named", "Point", "types")), set()),
+            render_dto_field(Field("Origin", Shape("named", "Point", "types")), set()),
         )
 
     def test_contract_methods_errors_generics_and_aliases(self) -> None:

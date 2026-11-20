@@ -356,6 +356,16 @@ impl<T: super::Caller> ModelStates<'_, T> {
             .invoke(crate::wire::METHOD_MODEL_STATES_DELETE, Some(args))
     }
 
+    /// Call `MethodModelStatesGetTable` with the canonical request and response types.
+    /// Example: `client.model_states().get_table(&args)`.
+    pub fn get_table(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::ModelStateTableView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_MODEL_STATES_GET_TABLE, Some(args))
+    }
+
     /// Call `MethodModelStatesList` with the canonical request and response types.
     /// Example: `client.model_states().list(&args)`.
     pub fn list(
@@ -375,81 +385,24 @@ impl<T: super::Caller> ModelStates<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_MODEL_STATES_RENAME, Some(args))
     }
-}
 
-/// Typed `Options` calls over the shared API transport.
-pub struct Options<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `Options` API. Example: `client.options()`.
-    pub fn options(&self) -> Options<'_, T> {
-        Options(self)
-    }
-}
-impl<T: super::Caller> Options<'_, T> {
-    /// Call `MethodOptionsListGroups` with the canonical request and response types.
-    /// Example: `client.options().groups()`.
-    pub fn groups(&self) -> Result<crate::wire::ListOptionGroupsResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_OPTIONS_LIST_GROUPS, None::<&()>)
-    }
-
-    /// Call `MethodOptionsSetGroup` with the canonical request and response types.
-    /// Example: `client.options().set_display(&args)`.
-    pub fn set_display(
+    /// Call `MethodModelStatesSetTable` with the canonical request and response types.
+    /// Example: `client.model_states().set_table(&args)`.
+    pub fn set_table(
         &self,
-        args: &crate::wire::OptionGroupView,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
+        args: &crate::wire::SetModelStateTableArgs,
+    ) -> Result<crate::wire::ModelStateTableResult, crate::Error> {
         self.0
-            .invoke(crate::wire::METHOD_OPTIONS_SET_GROUP, Some(args))
+            .invoke(crate::wire::METHOD_MODEL_STATES_SET_TABLE, Some(args))
     }
 
-    /// Call `MethodOptionsSetGroup` with the canonical request and response types.
-    /// Example: `client.options().set_general(&args)`.
-    pub fn set_general(
+    /// Call `MethodModelStatesVerifyTable` with the canonical request and response types.
+    /// Example: `client.model_states().verify_table(&args)`.
+    pub fn verify_table(
         &self,
-        args: &crate::wire::OptionGroupView,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
+        args: &crate::wire::SetModelStateTableArgs,
+    ) -> Result<crate::wire::ModelStateTableVerification, crate::Error> {
         self.0
-            .invoke(crate::wire::METHOD_OPTIONS_SET_GROUP, Some(args))
-    }
-
-    /// Call `MethodOptionsSetGroup` with the canonical request and response types.
-    /// Example: `client.options().set_part(&args)`.
-    pub fn set_part(
-        &self,
-        args: &crate::wire::OptionGroupView,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_OPTIONS_SET_GROUP, Some(args))
-    }
-
-    /// Call `MethodOptionsSetGroup` with the canonical request and response types.
-    /// Example: `client.options().set_save(&args)`.
-    pub fn set_save(
-        &self,
-        args: &crate::wire::OptionGroupView,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_OPTIONS_SET_GROUP, Some(args))
-    }
-
-    /// Call `MethodOptionsSetGroup` with the canonical request and response types.
-    /// Example: `client.options().set_sketch(&args)`.
-    pub fn set_sketch(
-        &self,
-        args: &crate::wire::OptionGroupView,
-    ) -> Result<crate::wire::OKResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_OPTIONS_SET_GROUP, Some(args))
-    }
-
-    /// Call `MethodOptionsGetGroup` with the canonical request and response types.
-    /// Example: `client.options().get_group(&args)`.
-    pub fn get_group(
-        &self,
-        args: &crate::wire::GetOptionGroupArgs,
-    ) -> Result<crate::wire::OptionGroupView, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_OPTIONS_GET_GROUP, Some(args))
+            .invoke(crate::wire::METHOD_MODEL_STATES_VERIFY_TABLE, Some(args))
     }
 }

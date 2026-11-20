@@ -3,6 +3,57 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+/// Typed `Display` calls over the shared API transport.
+pub struct Display<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `Display` API. Example: `client.display()`.
+    pub fn display(&self) -> Display<'_, T> {
+        Display(self)
+    }
+}
+impl<T: super::Caller> Display<'_, T> {
+    /// Call `MethodDisplayGetOptions` with the canonical request and response types.
+    /// Example: `client.display().options()`.
+    pub fn options(&self) -> Result<crate::wire::DisplayModeOptionsView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DISPLAY_GET_OPTIONS, None::<&()>)
+    }
+
+    /// Call `MethodDisplaySetOptions` with the canonical request and response types.
+    /// Example: `client.display().set_options(&args)`.
+    pub fn set_options(
+        &self,
+        args: &crate::wire::DisplayModeOptionsView,
+    ) -> Result<crate::wire::DisplayModeOptionsView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DISPLAY_SET_OPTIONS, Some(args))
+    }
+
+    /// Call `MethodDocumentSetDisplaySettings` with the canonical request and response types.
+    /// Example: `client.display().set_settings(&args)`.
+    pub fn set_settings(
+        &self,
+        args: &crate::wire::SetDisplaySettingsArgs,
+    ) -> Result<crate::wire::DisplaySettingsView, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_DOCUMENT_SET_DISPLAY_SETTINGS,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodDocumentGetDisplaySettings` with the canonical request and response types.
+    /// Example: `client.display().settings(&args)`.
+    pub fn settings(
+        &self,
+        args: &crate::wire::GetDisplaySettingsArgs,
+    ) -> Result<crate::wire::DisplaySettingsView, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_DOCUMENT_GET_DISPLAY_SETTINGS,
+            Some(args),
+        )
+    }
+}
+
 /// Typed `DockableWindows` calls over the shared API transport.
 pub struct DockableWindows<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {
@@ -269,6 +320,16 @@ impl<T: super::Caller> super::Documents<'_, T> {
             .invoke(crate::wire::METHOD_DOCUMENTS_LIST_PROPERTIES, Some(args))
     }
 
+    /// Call `MethodDocumentsLoadFull` with the canonical request and response types.
+    /// Example: `client.documents().load_full(&args)`.
+    pub fn load_full(
+        &self,
+        args: &crate::wire::LoadFullDocumentArgs,
+    ) -> Result<crate::wire::DocumentInfo, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_DOCUMENTS_LOAD_FULL, Some(args))
+    }
+
     /// Call `MethodDocumentsOpen` with the canonical request and response types.
     /// Example: `client.documents().open(&args)`.
     pub fn open(
@@ -384,34 +445,5 @@ impl<T: super::Caller> super::Documents<'_, T> {
     ) -> Result<crate::wire::SketchSettingsResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_DOCUMENT_SET_SKETCH_SETTINGS, Some(args))
-    }
-
-    /// Call `MethodDocumentsSetUnits` with the canonical request and response types.
-    /// Example: `client.documents().set_units(&args)`.
-    pub fn set_units(
-        &self,
-        args: &crate::wire::SetDocumentUnitsArgs,
-    ) -> Result<crate::wire::DocumentUnitsInfo, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_DOCUMENTS_SET_UNITS, Some(args))
-    }
-}
-
-impl<T: super::Caller> super::Documents<'_, T> {
-    /// Call `MethodDocumentsListSubTypes` with the canonical request and response types.
-    /// Example: `client.documents().sub_types()`.
-    pub fn sub_types(&self) -> Result<crate::wire::ListDocumentSubTypesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_DOCUMENTS_LIST_SUB_TYPES, None::<&()>)
-    }
-
-    /// Call `MethodDocumentsUpdate` with the canonical request and response types.
-    /// Example: `client.documents().update(&args)`.
-    pub fn update(
-        &self,
-        args: &crate::wire::UpdateDocumentArgs,
-    ) -> Result<crate::wire::UpdateDocumentResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_DOCUMENTS_UPDATE, Some(args))
     }
 }

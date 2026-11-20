@@ -9,11 +9,16 @@
 //! assert_eq!(oblikovati_api::API_MAJOR, 0);
 //! ```
 
+#[macro_use]
+mod generated_scalar;
+#[macro_use]
+mod generated_dto;
 pub mod client;
 pub mod contract;
 mod error;
 pub mod ffi;
 pub mod json;
+mod startup_sketch_plane;
 pub mod types;
 pub mod wire;
 pub use error::Error;

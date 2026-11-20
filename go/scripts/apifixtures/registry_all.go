@@ -21,4 +21,5 @@ var fixtureRegistry = [][]fixtureType{
 	fixtureGroup14,
 	fixtureGroup15,
 	fixtureGroup16,
+	fixtureGroup17,
 }

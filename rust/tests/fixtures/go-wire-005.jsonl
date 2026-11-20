@@ -10,6 +10,12 @@
 {"Name":"types.ModelDiameterFromThread","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ModelDiameterFromThread","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelDiameterFromThread","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"zero","Payload":{"set":"","name":""},"Canonical":{"set":"","name":""},"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"filled","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.ModelStatePropertyKey","Case":"empty","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.ModelStateTableColumnKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelValueType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ModelValueType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ModelValueType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -88,6 +94,15 @@
 {"Name":"types.ParameterKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.ParameterKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.ParameterKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}
+{"Name":"types.PartAnnotationScale","Case":"zero","Payload":{"mode":"","numerator":0,"denominator":0},"Canonical":{"mode":"","numerator":0,"denominator":0},"Error":""}
+{"Name":"types.PartAnnotationScale","Case":"filled","Payload":{"mode":"example \u003c\u0026\u003e 日本語","numerator":7,"denominator":7},"Canonical":{"mode":"example \u003c\u0026\u003e 日本語","numerator":7,"denominator":7},"Error":""}
+{"Name":"types.PartAnnotationScale","Case":"empty","Payload":{"mode":"example \u003c\u0026\u003e 日本語","numerator":7,"denominator":7},"Canonical":{"mode":"example \u003c\u0026\u003e 日本語","numerator":7,"denominator":7},"Error":""}
+{"Name":"types.PartAnnotationScaleMode","Case":"zero","Payload":"","Canonical":"","Error":""}
+{"Name":"types.PartAnnotationScaleMode","Case":"filled","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.PartAnnotationScaleMode","Case":"empty","Payload":"example \u003c\u0026\u003e 日本語","Canonical":"example \u003c\u0026\u003e 日本語","Error":""}
+{"Name":"types.PartDesignViewCamera","Case":"zero","Payload":{"eye":[0,0,0],"target":[0,0,0],"up":[0,0,0],"scale":0,"near":0,"far":0,"projection":0},"Canonical":{"eye":[0,0,0],"target":[0,0,0],"up":[0,0,0],"scale":0,"near":0,"far":0,"projection":0},"Error":""}
+{"Name":"types.PartDesignViewCamera","Case":"filled","Payload":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"scale":1.25,"near":1.25,"far":1.25,"projection":7},"Canonical":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"scale":1.25,"near":1.25,"far":1.25,"projection":7},"Error":""}
+{"Name":"types.PartDesignViewCamera","Case":"empty","Payload":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"scale":1.25,"near":1.25,"far":1.25,"projection":7},"Canonical":{"eye":[1.25,1.25,1.25],"target":[1.25,1.25,1.25],"up":[1.25,1.25,1.25],"scale":1.25,"near":1.25,"far":1.25,"projection":7},"Error":""}
 {"Name":"types.PatternBoundaryInclusion","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.PatternBoundaryInclusion","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.PatternBoundaryInclusion","Case":"empty","Payload":7,"Canonical":7,"Error":""}
@@ -133,18 +148,3 @@
 {"Name":"types.PromptRestriction","Case":"zero","Payload":0,"Canonical":0,"Error":""}
 {"Name":"types.PromptRestriction","Case":"filled","Payload":7,"Canonical":7,"Error":""}
 {"Name":"types.PromptRestriction","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.PunchRepresentationType","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RayTracingQualityEnum","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ReferenceStatus","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ReferenceStatus","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ReferenceStatus","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ReliefShape","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.ReliefShape","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.ReliefShape","Case":"empty","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RepresentationKind","Case":"zero","Payload":0,"Canonical":0,"Error":""}
-{"Name":"types.RepresentationKind","Case":"filled","Payload":7,"Canonical":7,"Error":""}
-{"Name":"types.RepresentationKind","Case":"empty","Payload":7,"Canonical":7,"Error":""}

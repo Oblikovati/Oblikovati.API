@@ -14,6 +14,21 @@ func TestRustParityConstrainDelete(t *testing.T) {
 	checkGoGroup(t, c, "Constrain", "Delete")
 }
 
+func TestRustParityConstrainGlyphVisibility(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchConstraintGlyphVisibility})
+	checkGoGroup(t, c, "Constrain", "GlyphVisibility")
+}
+
+func TestRustParityConstrainSetAllGlyphsVisible(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetAllConstraintGlyphsVisibility})
+	checkGoGroup(t, c, "Constrain", "SetAllGlyphsVisible")
+}
+
+func TestRustParityConstrainSetGlyphVisible(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketchSetConstraintGlyphVisibility})
+	checkGoGroup(t, c, "Constrain", "SetGlyphVisible")
+}
+
 func TestRustParityContactSetsAddMember(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodContactSetsAddMember})
 	checkGoGroup(t, c, "ContactSets", "AddMember")
@@ -142,19 +157,4 @@ func TestRustParityDimensionAddWith(t *testing.T) {
 func TestRustParityDimensionDelete(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketchDeleteDimension})
 	checkGoGroup(t, c, "Dimension", "Delete")
-}
-
-func TestRustParityDimensionMove(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchMoveDimension})
-	checkGoGroup(t, c, "Dimension", "Move")
-}
-
-func TestRustParityDisplayOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDisplayGetOptions})
-	checkGoGroup(t, c, "Display", "Options")
-}
-
-func TestRustParityDisplaySetOptions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDisplaySetOptions})
-	checkGoGroup(t, c, "Display", "SetOptions")
 }

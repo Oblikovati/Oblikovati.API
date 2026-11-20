@@ -11,6 +11,7 @@ type DocumentInfo struct {
 	Dirty   bool   `json:"dirty"`
 	Visible bool   `json:"visible"`
 	Active  bool   `json:"active"`
+	Express bool   `json:"express,omitempty"` // assembly presentation is open without fully loaded components
 }
 
 // ListDocumentsResult is the response of [MethodDocumentsList]: every open document
@@ -50,9 +51,11 @@ type CloseAllDocumentsArgs struct {
 }
 
 // CloseDocumentsResult is the response of [MethodDocumentsClose] /
-// [MethodDocumentsCloseAll]: how many documents were closed.
+// [MethodDocumentsCloseAll]: how many documents were closed and any nonfatal
+// warnings from saving them.
 type CloseDocumentsResult struct {
-	Closed int `json:"closed"`
+	Closed   int           `json:"closed"`
+	Warnings []SaveWarning `json:"warnings,omitempty"`
 }
 
 // RegisterDocumentSubTypeArgs is the request of [MethodDocumentsRegisterSubType]:

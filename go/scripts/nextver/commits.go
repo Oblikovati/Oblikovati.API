@@ -41,6 +41,22 @@ var headerRe = regexp.MustCompile(`^([A-Za-z]+)(?:\([^)]*\))?(!)?:`)
 // line ("BREAKING CHANGE:" or "BREAKING-CHANGE:").
 var breakingFooterRe = regexp.MustCompile(`(?m)^BREAKING[ -]CHANGE:`)
 
+// additiveScopeRe allows a release correction to state the additive scope of
+// existing commits without rewriting their published identities (#3965).
+var additiveScopeRe = regexp.MustCompile(`(?m)^Release-Scope: feature[\t ]*\r?$`)
+
+// validateReleaseScopes refuses misspelled release directives before any bump.
+func validateReleaseScopes(messages []string) error {
+	for _, message := range messages {
+		for _, line := range strings.Split(message, "\n") {
+			if strings.HasPrefix(line, "Release-Scope:") && strings.TrimSpace(line) != "Release-Scope: feature" {
+				return fmt.Errorf("release scope %q: expected Release-Scope: feature", line)
+			}
+		}
+	}
+	return nil
+}
+
 // patchTypes are the conventional types that warrant a PATCH; featureTypes a feature;
 // silentTypes nothing. An unrecognized type defaults to changePatch so the version
 // never silently stalls on a real change — but additive surface changes should use
@@ -87,6 +103,9 @@ func classify(messages []string) change {
 		if c := classifyOne(m); c > strongest {
 			strongest = c
 		}
+		if additiveScopeRe.MatchString(m) && strongest < changeFeature {
+			strongest = changeFeature
+		}
 	}
 	return strongest
 }
@@ -110,16 +129,47 @@ func notesGroups(messages []string) (added, changed, fixed []string) {
 		if subject == "" {
 			continue
 		}
-		switch classifyOne(m) {
-		case changeFeature:
+		switch noteCategory(m) {
+		case noteAdded:
 			added = append(added, subject)
-		case changePatch:
+		case noteFixed:
 			fixed = append(fixed, subject)
-		case changeBreaking:
+		case noteChanged:
 			changed = append(changed, subject)
 		}
 	}
 	return added, changed, fixed
+}
+
+type noteGroup int
+
+const (
+	noteSkip noteGroup = iota
+	noteAdded
+	noteChanged
+	noteFixed
+)
+
+// noteCategory classifies presentation separately from semantic version scope.
+func noteCategory(message string) noteGroup {
+	match := headerRe.FindStringSubmatch(strings.TrimSpace(message))
+	if match == nil {
+		return noteChanged
+	}
+	kind := strings.ToLower(match[1])
+	if !featureTypes[kind] && !patchTypes[kind] && !silentTypes[kind] {
+		return noteChanged
+	}
+	switch classifyOne(message) {
+	case changeFeature:
+		return noteAdded
+	case changePatch:
+		return noteFixed
+	case changeBreaking:
+		return noteChanged
+	default:
+		return noteSkip
+	}
 }
 
 func writeGroup(b *strings.Builder, heading string, items []string) {

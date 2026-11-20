@@ -68,6 +68,7 @@ const (
 	// Document open/save lifecycle (#138) and the save policy layer around it:
 	// SaveCopyAs and batch save (M03-F09, #610).
 	MethodDocumentsOpen       = "documents.open"
+	MethodDocumentsLoadFull   = "documents.loadFull"
 	MethodDocumentsSave       = "documents.save"
 	MethodDocumentsSaveAs     = "documents.saveAs"
 	MethodDocumentsSaveCopyAs = "documents.saveCopyAs"
@@ -179,14 +180,21 @@ const (
 	MethodSketchDimensions  = "sketch.dimensions"
 	MethodSketchSetProperty = "sketch.setProperty"
 	MethodSketchAddEntity   = "sketch.addEntity"
+	// MethodSketchAddAssociativeEntity requires persistent parameter associations
+	// for referenced length expressions. It uses AddSketchEntityArgs and Result.
+	// Older hosts return an unknown-method error rather than silently baking values.
+	MethodSketchAddAssociativeEntity = "sketch.addAssociativeEntity"
 
 	// Custom line types loaded from industry-standard .lin definition files
 	// (issue Oblikovati#161).
 	MethodSketchGetCustomLineType = "sketch.getCustomLineType"
 	MethodSketchSetCustomLineType = "sketch.setCustomLineType"
 
-	MethodSketchAddConstraint    = "sketch.addConstraint"
-	MethodSketchDeleteConstraint = "sketch.deleteConstraint"
+	MethodSketchAddConstraint                    = "sketch.addConstraint"
+	MethodSketchDeleteConstraint                 = "sketch.deleteConstraint"
+	MethodSketchConstraintGlyphVisibility        = "sketch.constraintGlyphVisibility"
+	MethodSketchSetConstraintGlyphVisibility     = "sketch.setConstraintGlyphVisibility"
+	MethodSketchSetAllConstraintGlyphsVisibility = "sketch.setAllConstraintGlyphsVisibility"
 
 	MethodSketchAddDimension    = "sketch.addDimension"
 	MethodSketchDriveDimension  = "sketch.driveDimension"
@@ -196,6 +204,8 @@ const (
 	MethodSketchConstraintStatus = "sketch.constraintStatus"
 	MethodSketchProfiles         = "sketch.profiles"
 	MethodSketchTransform        = "sketch.transform"
+	MethodSketchPlanMove         = "sketch.planMove"
+	MethodSketchCommitMove       = "sketch.commitMove"
 	MethodSketchCopyTo           = "sketch.copyTo"
 	MethodSketchAddPattern       = "sketch.addPattern"
 	MethodSketchOffset           = "sketch.offset"
@@ -216,11 +226,14 @@ const (
 
 	// Sketch blocks: reusable entity groups instanced with a placement
 	// transform (M06-F07, Oblikovati/Oblikovati#622).
-	MethodSketchBlockDefinitionCreate = "sketch.blockDefinitions.create"
-	MethodSketchBlockDefinitionList   = "sketch.blockDefinitions.list"
-	MethodSketchBlockDefinitionDelete = "sketch.blockDefinitions.delete"
-	MethodSketchAddBlockInstance      = "sketch.addBlockInstance"
-	MethodSketchListBlockInstances    = "sketch.blockInstances"
+	MethodSketchBlockDefinitionCreate   = "sketch.blockDefinitions.create"
+	MethodSketchBlockDefinitionList     = "sketch.blockDefinitions.list"
+	MethodSketchBlockDefinitionDelete   = "sketch.blockDefinitions.delete"
+	MethodSketchAddBlockInstance        = "sketch.addBlockInstance"
+	MethodSketchListBlockInstances      = "sketch.blockInstances"
+	MethodSketchExplodeBlockInstance    = "sketch.explodeBlockInstance"
+	MethodSketchSetBlockDefinitionColor = "sketch.blockDefinitions.setColor"
+	MethodSketchSetBlockInstanceColor   = "sketch.blockInstances.setColor"
 
 	// Region properties of a closed profile (M06-F08, #623).
 	MethodSketchRegionProperties = "sketch.regionProperties"
@@ -229,6 +242,9 @@ const (
 	// (M06-F10, #625).
 	MethodSketchSetInferenceOptions = "sketch.setInferenceOptions"
 	MethodSketchGetInferenceOptions = "sketch.getInferenceOptions"
+	// Candidate geometry for a named 2D sketch in the current document session (Oblikovati/Oblikovati#4107).
+	MethodSketchGetInferenceScope = "sketch.getInferenceScope"
+	MethodSketchSetInferenceScope = "sketch.setInferenceScope"
 
 	// The sketch Format panel (Oblikovati/Oblikovati#2015): per-entity line type, colour and
 	// stroke width, and the panel's armed creation modes.

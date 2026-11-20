@@ -3,6 +3,28 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nEditableModelState is a model-state member whose owning collection supports\nnaming and copying. The built-in Primary member cannot be renamed or deleted.\nA copy receives a new identity and does not replace the active source member.\n```"]
+pub trait EditableModelState: crate::contract::ModelState {
+    #[doc = "```text\nCopy makes an inactive copy; an empty name asks the owner for a unique name.\n```"]
+    fn copy(
+        &self,
+        new_name: String,
+    ) -> Result<std::sync::Arc<dyn crate::contract::ModelState>, crate::Error>;
+    #[doc = "```text\nPrimary identifies the built-in member without relying on its display name.\n```"]
+    fn primary(&self) -> bool;
+    #[doc = "```text\nSetName changes a non-primary member's unique name without changing its ID.\n```"]
+    fn set_name(&self, name: String) -> Result<(), crate::Error>;
+}
+
+#[doc = "```text\nEllipseFull is a full 3D ellipse.\n```"]
+pub trait EllipseFull: crate::contract::Curve {
+    fn center(&self) -> crate::types::Point;
+    fn major_axis(&self) -> crate::types::UnitVector;
+    fn major_radius(&self) -> f64;
+    fn minor_radius(&self) -> f64;
+    fn normal(&self) -> crate::types::UnitVector;
+}
+
 #[doc = "```text\nEllipseFull2d is a full 2D ellipse.\n```"]
 pub trait EllipseFull2d: crate::contract::Curve2d {
     fn center(&self) -> crate::types::Point2d;
@@ -430,28 +452,4 @@ impl<
         > + ?Sized,
 > LevelOfDetailRepresentations for T
 {
-}
-
-#[doc = "```text\nLight is the in-process contract for one scene light, scoped to the\nproperties our renderer consumes. It is read-mostly here; mutation goes through the wire\nmethods / the app. The GPL app satisfies it (compile-time asserted there).\n\nDirection and Position are world-space [3]float64 (cm); Direction points from a lit surface\ntoward the light. Color is a [types.Rgba]; Intensity scales it. Spot and attenuation getters\nare meaningful only for the matching [types.LightDefinitionTypeEnum].\n```"]
-pub trait Light {
-    #[doc = "```text\nAttenuation is the (constant, linear, quadratic) distance falloff (point/spot).\n```"]
-    fn attenuation(&self) -> [f64; 3];
-    #[doc = "```text\nColor is the light's color.\n```"]
-    fn color(&self) -> crate::types::Rgba;
-    #[doc = "```text\nDirection is the unit vector from a lit surface toward the light (directional/spot).\n```"]
-    fn direction(&self) -> [f64; 3];
-    #[doc = "```text\nIntensity scales the color (≥ 0).\n```"]
-    fn intensity(&self) -> f64;
-    #[doc = "```text\nLightDefinitionType is the emission shape (directional/point/spot).\n```"]
-    fn light_definition_type(&self) -> crate::types::LightDefinitionTypeEnum;
-    #[doc = "```text\nLightType is the coordinate space the light lives in (model/view/ground-plane).\n```"]
-    fn light_type(&self) -> crate::types::LightTypeEnum;
-    #[doc = "```text\nOn reports whether the light contributes to the scene.\n```"]
-    fn on(&self) -> bool;
-    #[doc = "```text\nPosition is the light's world-space position (point/spot).\n```"]
-    fn position(&self) -> [f64; 3];
-    #[doc = "```text\nSpotInnerAngle is the spot cone's inner half-angle in radians (full intensity within).\n```"]
-    fn spot_inner_angle(&self) -> f64;
-    #[doc = "```text\nSpotOuterAngle is the spot cone's outer half-angle in radians (zero intensity beyond).\n```"]
-    fn spot_outer_angle(&self) -> f64;
 }

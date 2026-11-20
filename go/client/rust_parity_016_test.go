@@ -9,6 +9,86 @@ import (
 	"testing"
 )
 
+func TestRustParityRibbonList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodRibbonList})
+	checkGoGroup(t, c, "Ribbon", "List")
+}
+
+func TestRustParityScriptsRun(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodScriptRun})
+	checkGoGroup(t, c, "Scripts", "Run")
+}
+
+func TestRustParitySheetMetalBendAllowance(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBendAllowance})
+	checkGoGroup(t, c, "SheetMetal", "BendAllowance")
+}
+
+func TestRustParitySheetMetalBends(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalBends})
+	checkGoGroup(t, c, "SheetMetal", "Bends")
+}
+
+func TestRustParitySheetMetalGetStyle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalGetStyle})
+	checkGoGroup(t, c, "SheetMetal", "GetStyle")
+}
+
+func TestRustParitySheetMetalSetStyle(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalSetStyle})
+	checkGoGroup(t, c, "SheetMetal", "SetStyle")
+}
+
+func TestRustParitySheetMetalUnfold(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSheetMetalUnfold})
+	checkGoGroup(t, c, "SheetMetal", "Unfold")
+}
+
+func TestRustParitySketch3DAddConstraint(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DAddConstraint})
+	checkGoGroup(t, c, "Sketch3D", "AddConstraint")
+}
+
+func TestRustParitySketch3DAddDimension(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DAddDimension})
+	checkGoGroup(t, c, "Sketch3D", "AddDimension")
+}
+
+func TestRustParitySketch3DAddEntity(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DAddEntity})
+	checkGoGroup(t, c, "Sketch3D", "AddEntity")
+}
+
+func TestRustParitySketch3DAddSurfaceCurve(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DAddSurfaceCurve})
+	checkGoGroup(t, c, "Sketch3D", "AddSurfaceCurve")
+}
+
+func TestRustParitySketch3DConstraintStatus(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DConstraintStatus})
+	checkGoGroup(t, c, "Sketch3D", "ConstraintStatus")
+}
+
+func TestRustParitySketch3DConstraints(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DConstraints})
+	checkGoGroup(t, c, "Sketch3D", "Constraints")
+}
+
+func TestRustParitySketch3DCreate(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DCreate})
+	checkGoGroup(t, c, "Sketch3D", "Create")
+}
+
+func TestRustParitySketch3DDelete(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DDelete})
+	checkGoGroup(t, c, "Sketch3D", "Delete")
+}
+
+func TestRustParitySketch3DDeleteConstraint(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodSketch3DDeleteConstraint})
+	checkGoGroup(t, c, "Sketch3D", "DeleteConstraint")
+}
+
 func TestRustParitySketch3DDimensions(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DDimensions})
 	checkGoGroup(t, c, "Sketch3D", "Dimensions")
@@ -77,84 +157,4 @@ func TestRustParitySketch3DReferenceKey(t *testing.T) {
 func TestRustParitySketch3DRegionProperties(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodSketch3DRegionProperties})
 	checkGoGroup(t, c, "Sketch3D", "RegionProperties")
-}
-
-func TestRustParitySketch3DSetProperty(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetProperty})
-	checkGoGroup(t, c, "Sketch3D", "SetProperty")
-}
-
-func TestRustParitySketch3DSetSplineHandle(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSetSplineHandle})
-	checkGoGroup(t, c, "Sketch3D", "SetSplineHandle")
-}
-
-func TestRustParitySketch3DSolve(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DSolve})
-	checkGoGroup(t, c, "Sketch3D", "Solve")
-}
-
-func TestRustParitySketch3DTransform(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketch3DTransform})
-	checkGoGroup(t, c, "Sketch3D", "Transform")
-}
-
-func TestRustParitySketchAddBlockInstance(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddBlockInstance})
-	checkGoGroup(t, c, "Sketch", "AddBlockInstance")
-}
-
-func TestRustParitySketchAddEntity(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddEntity})
-	checkGoGroup(t, c, "Sketch", "AddEntity")
-}
-
-func TestRustParitySketchAddFillRegion(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddFillRegion})
-	checkGoGroup(t, c, "Sketch", "AddFillRegion")
-}
-
-func TestRustParitySketchAddImage(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddImage})
-	checkGoGroup(t, c, "Sketch", "AddImage")
-}
-
-func TestRustParitySketchAddText(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddText})
-	checkGoGroup(t, c, "Sketch", "AddText")
-}
-
-func TestRustParitySketchAddTextWith(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAddText})
-	checkGoGroup(t, c, "Sketch", "AddTextWith")
-}
-
-func TestRustParitySketchAutoDimension(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchAutoDimension})
-	checkGoGroup(t, c, "Sketch", "AutoDimension")
-}
-
-func TestRustParitySketchBlockDefinitions(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchBlockDefinitionList})
-	checkGoGroup(t, c, "Sketch", "BlockDefinitions")
-}
-
-func TestRustParitySketchBlockInstances(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchListBlockInstances})
-	checkGoGroup(t, c, "Sketch", "BlockInstances")
-}
-
-func TestRustParitySketchConstraintStatus(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchConstraintStatus})
-	checkGoGroup(t, c, "Sketch", "ConstraintStatus")
-}
-
-func TestRustParitySketchConstraints(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchConstraints})
-	checkGoGroup(t, c, "Sketch", "Constraints")
-}
-
-func TestRustParitySketchCopyTo(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodSketchCopyTo})
-	checkGoGroup(t, c, "Sketch", "CopyTo")
 }

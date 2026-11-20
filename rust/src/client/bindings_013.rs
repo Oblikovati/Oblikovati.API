@@ -3,6 +3,85 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+/// Typed `Scripts` calls over the shared API transport.
+pub struct Scripts<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `Scripts` API. Example: `client.scripts()`.
+    pub fn scripts(&self) -> Scripts<'_, T> {
+        Scripts(self)
+    }
+}
+impl<T: super::Caller> Scripts<'_, T> {
+    /// Call `MethodScriptRun` with the canonical request and response types.
+    /// Example: `client.scripts().run(&args)`.
+    pub fn run(
+        &self,
+        args: &crate::wire::ScriptRunArgs,
+    ) -> Result<crate::wire::ScriptRunResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SCRIPT_RUN, Some(args))
+    }
+}
+
+/// Typed `SheetMetal` calls over the shared API transport.
+pub struct SheetMetal<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
+impl<T: super::Caller> super::Client<T> {
+    /// Access the `SheetMetal` API. Example: `client.sheet_metal()`.
+    pub fn sheet_metal(&self) -> SheetMetal<'_, T> {
+        SheetMetal(self)
+    }
+}
+impl<T: super::Caller> SheetMetal<'_, T> {
+    /// Call `MethodSheetMetalBendAllowance` with the canonical request and response types.
+    /// Example: `client.sheet_metal().bend_allowance(&args)`.
+    pub fn bend_allowance(
+        &self,
+        args: &crate::wire::BendAllowanceArgs,
+    ) -> Result<crate::wire::BendAllowanceResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_BEND_ALLOWANCE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalBends` with the canonical request and response types.
+    /// Example: `client.sheet_metal().bends(&args)`.
+    pub fn bends(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::BendsResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_BENDS, Some(args))
+    }
+
+    /// Call `MethodSheetMetalGetStyle` with the canonical request and response types.
+    /// Example: `client.sheet_metal().get_style(&args)`.
+    pub fn get_style(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_GET_STYLE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalSetStyle` with the canonical request and response types.
+    /// Example: `client.sheet_metal().set_style(&args)`.
+    pub fn set_style(
+        &self,
+        args: &crate::wire::SetSheetMetalStyleArgs,
+    ) -> Result<crate::wire::SheetMetalStyleResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_SET_STYLE, Some(args))
+    }
+
+    /// Call `MethodSheetMetalUnfold` with the canonical request and response types.
+    /// Example: `client.sheet_metal().unfold(&args)`.
+    pub fn unfold(
+        &self,
+        args: &crate::json::EmptyObject,
+    ) -> Result<crate::wire::UnfoldResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SHEET_METAL_UNFOLD, Some(args))
+    }
+}
+
 /// Typed `Sketch` calls over the shared API transport.
 pub struct Sketch<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
 impl<T: super::Caller> super::Client<T> {
@@ -12,6 +91,18 @@ impl<T: super::Caller> super::Client<T> {
     }
 }
 impl<T: super::Caller> Sketch<'_, T> {
+    /// Call `MethodSketchAddAssociativeEntity` with the canonical request and response types.
+    /// Example: `client.sketch().add_associative_entity(&args)`.
+    pub fn add_associative_entity(
+        &self,
+        args: &crate::wire::AddSketchEntityArgs,
+    ) -> Result<crate::wire::AddSketchEntityResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchAddBlockInstance` with the canonical request and response types.
     /// Example: `client.sketch().add_block_instance(&args)`.
     pub fn add_block_instance(
@@ -103,6 +194,16 @@ impl<T: super::Caller> Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_LIST_BLOCK_INSTANCES, Some(args))
     }
 
+    /// Call `MethodSketchCommitMove` with the canonical request and response types.
+    /// Example: `client.sketch().commit_move(&args)`.
+    pub fn commit_move(
+        &self,
+        args: &crate::wire::CommitSketchMoveArgs,
+    ) -> Result<crate::wire::CommitSketchMoveResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_COMMIT_MOVE, Some(args))
+    }
+
     /// Call `MethodSketchConstraintStatus` with the canonical request and response types.
     /// Example: `client.sketch().constraint_status(&args)`.
     pub fn constraint_status(
@@ -153,7 +254,9 @@ impl<T: super::Caller> Sketch<'_, T> {
             Some(args),
         )
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchDelete` with the canonical request and response types.
     /// Example: `client.sketch().delete(&args)`.
     pub fn delete(
@@ -174,9 +277,7 @@ impl<T: super::Caller> Sketch<'_, T> {
             Some(args),
         )
     }
-}
 
-impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchDependents` with the canonical request and response types.
     /// Example: `client.sketch().dependents(&args)`.
     pub fn dependents(
@@ -246,6 +347,18 @@ impl<T: super::Caller> super::Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_EXIT_EDIT, Some(args))
     }
 
+    /// Call `MethodSketchExplodeBlockInstance` with the canonical request and response types.
+    /// Example: `client.sketch().explode_block_instance(&args)`.
+    pub fn explode_block_instance(
+        &self,
+        args: &crate::wire::ExplodeSketchBlockArgs,
+    ) -> Result<crate::wire::ExplodeSketchBlockResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_EXPLODE_BLOCK_INSTANCE,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchGetFormatModes` with the canonical request and response types.
     /// Example: `client.sketch().format_modes()`.
     pub fn format_modes(&self) -> Result<crate::wire::SketchFormatModesView, crate::Error> {
@@ -291,37 +404,13 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         )
     }
 
-    /// Call `MethodSketchList` with the canonical request and response types.
-    /// Example: `client.sketch().list()`.
-    pub fn list(&self) -> Result<crate::wire::ListSketchesResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SKETCH_LIST, None::<&()>)
-    }
-
-    /// Call `MethodSketchOffset` with the canonical request and response types.
-    /// Example: `client.sketch().offset(&args)`.
-    pub fn offset(
+    /// Call `MethodSketchGetInferenceScope` with the canonical request and response types.
+    /// Example: `client.sketch().inference_scope(&args)`.
+    pub fn inference_scope(
         &self,
-        args: &crate::wire::OffsetSketchArgs,
-    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
-    }
-
-    /// Call `MethodSketchOffset` with the canonical request and response types.
-    /// Example: `client.sketch().offset_chain(&args)`.
-    pub fn offset_chain(
-        &self,
-        args: &crate::wire::OffsetSketchArgs,
-    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
-        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
-    }
-
-    /// Call `MethodSketchProfiles` with the canonical request and response types.
-    /// Example: `client.sketch().profiles(&args)`.
-    pub fn profiles(
-        &self,
-        args: &crate::wire::SketchArgs,
-    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
+        args: &crate::wire::SketchInferenceScopeArgs,
+    ) -> Result<crate::wire::SketchInferenceScopeView, crate::Error> {
         self.0
-            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
+            .invoke(crate::wire::METHOD_SKETCH_GET_INFERENCE_SCOPE, Some(args))
     }
 }

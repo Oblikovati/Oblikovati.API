@@ -29,4 +29,5 @@ pub const CONTENTS: &str = concat!(
     include_str!("go-wire-024.jsonl"),
     include_str!("go-wire-025.jsonl"),
     include_str!("go-wire-026.jsonl"),
+    include_str!("go-wire-027.jsonl"),
 );

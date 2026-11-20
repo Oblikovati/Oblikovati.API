@@ -3,459 +3,368 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nMaterialRemoval is the surface-texture symbol variant — whether material removal (machining) is\nallowed, required or forbidden. The zero value is MaterialRemovalAny (the basic √ symbol).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MaterialRemoval(pub i32);
+pub const TRANSACTION_POINT_UNKNOWN: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3585);
 
-pub const MATERIAL_REMOVAL_ANY: crate::types::MaterialRemoval = crate::types::MaterialRemoval(0);
+pub const TRANSACTION_POINT_UP_TO_SPECIFIED: crate::types::TransactionPoint =
+    crate::types::TransactionPoint(3589);
 
-pub const MATERIAL_REMOVAL_PROHIBITED: crate::types::MaterialRemoval =
-    crate::types::MaterialRemoval(2);
+pub const TRANSIENT_CLIENT_GRAPHICS: crate::types::ClientGraphicsTypeEnum =
+    crate::types::ClientGraphicsTypeEnum(45313);
 
-pub const MATERIAL_REMOVAL_REQUIRED: crate::types::MaterialRemoval =
-    crate::types::MaterialRemoval(1);
+pub const TRANSLATOR_ADD_IN: crate::types::AddInKind = crate::types::AddInKind(1);
 
-pub const MEAN_APPROXIMATION: crate::types::FeatureApproximationType =
-    crate::types::FeatureApproximationType(60674);
-
-pub const MEASURE_ANGLE: crate::types::MeasureType = crate::types::MeasureType(4);
-
-pub const MEASURE_AREA: crate::types::MeasureType = crate::types::MeasureType(1);
-
-pub const MEASURE_DISTANCE: crate::types::MeasureType = crate::types::MeasureType(2);
-
-pub const MEASURE_LENGTH: crate::types::MeasureType = crate::types::MeasureType(0);
-
-pub const MEASURE_LOOP_LENGTH: crate::types::MeasureType = crate::types::MeasureType(5);
-
-pub const MEASURE_MIN_DISTANCE: crate::types::MeasureType = crate::types::MeasureType(3);
-
-#[doc = "```text\nMeasureType is the quantity a measurement reports. The zero value is MeasureLength.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MeasureType(pub i32);
-
-#[doc = "```text\nMechanical groups a material's structural properties. Units follow common\nmechanical-CAD conventions so values transfer 1:1 from existing material libraries.\nThe yaml tags keep the on-disk document/library form readable (the tags are plain\nstrings, so types still has no yaml dependency).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Mechanical {
-    #[doc = "```text\nGPa\n```"]
-    #[serde(
-        rename = "youngsModulus",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub youngs_modulus: f64,
-    #[doc = "```text\ndimensionless\n```"]
-    #[serde(
-        rename = "poissonsRatio",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub poissons_ratio: f64,
-    #[doc = "```text\nMPa\n```"]
-    #[serde(
-        rename = "yieldStrength",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub yield_strength: f64,
-    #[doc = "```text\nMPa\n```"]
-    #[serde(
-        rename = "ultimateTensileStrength",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ultimate_tensile_strength: f64,
+generated_scalar! { integer,
+#[doc = "```text\nTransparencyTypeEnum is how transparency is rendered: per-pixel alpha blending or a\nscreen-door (stipple) approximation. Frozen ids 58625–58626.\n```"]
+pub struct TransparencyTypeEnum(pub i32);
 }
 
-pub const MEDIUM_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
-    crate::types::DisplayQualityEnum(58882);
+pub const TRANSVERSELY_ISOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("transversely-isotropic"));
 
-#[doc = "```text\nMeshResolution selects the tessellation density of an exported mesh: coarser (low)\nto finer (high). It maps in the host to chord/angle tolerances — higher resolution\nyields more triangles for curved bodies (planar bodies are unaffected; they\ntriangulate exactly). The zero value \"\" is treated as Medium.\n\nExample:\n\n\treq := wire.ExportRequest{Path: \"p.stl\", Format: \"stl\", Resolution: string(types.ResolutionHigh)}\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MeshResolution(pub std::borrow::Cow<'static, str>);
+pub const TRIAD_FREE: crate::types::TriadMoveType = crate::types::TriadMoveType(3);
 
-#[doc = "```text\nMessageSeverity grades a message-center entry (M05-F09, #616). The zero value is\ninformational so a bare message is never accidentally an error.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MessageSeverity(pub u8);
-impl From<u8> for MessageSeverity {
+generated_scalar! { integer,
+#[doc = "```text\nTriadMoveType is the motion a drag produces — the TriadMoveTypeEnum equivalent.\n```"]
+pub struct TriadMoveType(pub u8);
+}
+impl From<u8> for TriadMoveType {
     fn from(value: u8) -> Self {
         Self(value)
     }
 }
-impl From<MessageSeverity> for u8 {
-    fn from(value: MessageSeverity) -> Self {
+impl From<TriadMoveType> for u8 {
+    fn from(value: TriadMoveType) -> Self {
         value.0
     }
 }
 
-pub const MINI_TOOLBAR_BUTTON: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(0);
+pub const TRIAD_ORIGIN: crate::types::TriadSegment = crate::types::TriadSegment(0);
 
-pub const MINI_TOOLBAR_CHECKBOX: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(1);
+pub const TRIAD_ROTATE: crate::types::TriadMoveType = crate::types::TriadMoveType(2);
 
-pub const MINI_TOOLBAR_COMBO: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(2);
-
-#[doc = "```text\nMiniToolbarControlKind is the kind of one declarative control on an in-canvas\nmini-toolbar — the MiniToolbarControlTypeEnum equivalent (M05-F07, #614). Like\nthe dockable-window panel controls, a mini-toolbar is declared data the host\nrenders, not a widget toolkit.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MiniToolbarControlKind(pub u8);
-impl From<u8> for MiniToolbarControlKind {
+generated_scalar! { integer,
+#[doc = "```text\nTriadSegment is the part of the move/rotate triad the user grabbed — the\nTriadSegmentEnum equivalent (M05-F13, #620).\n```"]
+pub struct TriadSegment(pub u8);
+}
+impl From<u8> for TriadSegment {
     fn from(value: u8) -> Self {
         Self(value)
     }
 }
-impl From<MiniToolbarControlKind> for u8 {
-    fn from(value: MiniToolbarControlKind) -> Self {
+impl From<TriadSegment> for u8 {
+    fn from(value: TriadSegment) -> Self {
         value.0
     }
 }
 
-pub const MINI_TOOLBAR_SLIDER: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(3);
+pub const TRIAD_TRANSLATE: crate::types::TriadMoveType = crate::types::TriadMoveType(0);
 
-pub const MINI_TOOLBAR_TEXT_BOX: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(4);
+pub const TRIAD_TRANSLATE_PLANAR: crate::types::TriadMoveType = crate::types::TriadMoveType(1);
 
-pub const MINI_TOOLBAR_TEXT_EDITOR: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(6);
+pub const TRIAD_X_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(1);
 
-pub const MINI_TOOLBAR_VALUE_EDITOR: crate::types::MiniToolbarControlKind =
-    crate::types::MiniToolbarControlKind(5);
+pub const TRIAD_X_RING: crate::types::TriadSegment = crate::types::TriadSegment(7);
 
-#[doc = "```text\nModelDiameterFromThread selects which diameter of a thread definition the\nmodeled cylindrical face represents (#325 parity).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ModelDiameterFromThread(pub i32);
+pub const TRIAD_XY_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(4);
 
-pub const MODEL_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(1);
+pub const TRIAD_XZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(6);
 
-pub const MODEL_SPACE: crate::types::LineDefinitionSpaceEnum =
-    crate::types::LineDefinitionSpaceEnum(49922);
+pub const TRIAD_Y_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(2);
 
-pub const MODEL_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52993);
+pub const TRIAD_Y_RING: crate::types::TriadSegment = crate::types::TriadSegment(8);
 
-pub const MODEL_VALUE_LOWER: crate::types::ModelValueType = crate::types::ModelValueType(31490);
+pub const TRIAD_YZ_PLANE: crate::types::TriadSegment = crate::types::TriadSegment(5);
 
-pub const MODEL_VALUE_MEDIAN: crate::types::ModelValueType = crate::types::ModelValueType(31492);
+pub const TRIAD_Z_AXIS: crate::types::TriadSegment = crate::types::TriadSegment(3);
 
-pub const MODEL_VALUE_NOMINAL: crate::types::ModelValueType = crate::types::ModelValueType(31489);
+pub const TRIAD_Z_RING: crate::types::TriadSegment = crate::types::TriadSegment(9);
 
-#[doc = "```text\nModelValueType selects which value within a tolerance band the model actually\nconsumes when recomputing (parity: ModelValueTypeEnum). The numeric values\nare frozen at the reference API's ids and must never be renumbered.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ModelValueType(pub i32);
+pub const TRIM_SOLID_SPLIT: crate::types::SplitType = crate::types::SplitType(32769);
 
-pub const MODEL_VALUE_UPPER: crate::types::ModelValueType = crate::types::ModelValueType(31491);
+pub const TRIM_TO_BEND_BEND_TRANSITION: crate::types::BendTransition =
+    crate::types::BendTransition(4);
 
-pub const MONOCHROME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8713);
+pub const UNDEFINED_EDGE_COLLECTION: crate::types::EdgeCollectionKind =
+    crate::types::EdgeCollectionKind(27652);
 
-pub const MOVE_ALONG_RAY: crate::types::MoveOperationType =
-    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("alongRay"));
-
-pub const MOVE_FREE_DRAG: crate::types::MoveOperationType =
-    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("freeDrag"));
-
-#[doc = "```text\nMoveOperationType discriminates one entry in a Move feature's ordered operation list\n(M20·F20 parity). A move definition composes a sequence of independently parametric\noperations rather than a single baked transform, so \"rotate 30° about this edge then\nslide 5 mm along it\" round-trips as two separately driven operations. The reference\nAPI models these as typed operation objects (free-drag / move-along-ray /\nrotate-about-line) with no numeric enum; the string values are the stable wire\nvocabulary — treat them as frozen.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation maps each to its\nmodel operation builder.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct MoveOperationType(pub std::borrow::Cow<'static, str>);
-
-pub const MOVE_ROTATE_ABOUT_LINE: crate::types::MoveOperationType =
-    crate::types::MoveOperationType(std::borrow::Cow::Borrowed("rotateAboutLine"));
-
-pub const MOVEABLE_BY_DIMENSION_CHANGE: crate::types::GeometryMoveableStatus =
-    crate::types::GeometryMoveableStatus(53506);
-
-pub const MOVEABLE_FIXED: crate::types::GeometryMoveableStatus =
-    crate::types::GeometryMoveableStatus(53507);
-
-pub const MOVEABLE_FREE: crate::types::GeometryMoveableStatus =
-    crate::types::GeometryMoveableStatus(53505);
-
-pub const MOVEABLE_UNKNOWN: crate::types::GeometryMoveableStatus =
-    crate::types::GeometryMoveableStatus(53508);
-
-pub const NEVER_TOO_THICK_APPROXIMATION: crate::types::FeatureApproximationType =
-    crate::types::FeatureApproximationType(60675);
-
-pub const NEVER_TOO_THIN_APPROXIMATION: crate::types::FeatureApproximationType =
-    crate::types::FeatureApproximationType(60676);
-
-#[doc = "```text\nNewFileMetadata is the typed \"new file\" descriptor consumed by operations\nthat mint a file the user never explicitly created — save-copy-as targets\ntoday; model-state and member exports later (M03-F09,\nOblikovati/Oblikovati#610). Zero-value fields inherit from the source\ndocument of the operation.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct NewFileMetadata {
-    #[doc = "```text\nFileName is the target full file name, when the operation does not\nalready carry one.\n```"]
-    #[serde(
-        rename = "fileName",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub file_name: String,
-    #[doc = "```text\nDisplayName overrides the new file's display name.\n```"]
-    #[serde(
-        rename = "displayName",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub display_name: String,
-    #[doc = "```text\nTemplateFile seeds the new file from a template package.\n```"]
-    #[serde(
-        rename = "templateFile",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub template_file: String,
-    #[doc = "```text\nSubType stamps the new file with a flavored document subtype id.\n```"]
-    #[serde(
-        rename = "subType",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub sub_type: String,
+generated_scalar! { integer,
+#[doc = "```text\nUnfoldMethodType names how a bend's flat length (its bend allowance) is computed when\nthe part is developed into its flat pattern. The three methods are the industry\nstandard set: a single K-factor, a per-angle bend table, or a custom equation.\n```"]
+pub struct UnfoldMethodType(pub i32);
 }
 
-pub const NO_APPROXIMATION: crate::types::FeatureApproximationType =
-    crate::types::FeatureApproximationType(60673);
+pub const UNIQUE_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(1);
 
-pub const NO_BEND_TRANSITION: crate::types::BendTransition = crate::types::BendTransition(0);
+pub const UNITS_ANGLE: crate::types::UnitsType = crate::types::UnitsType(2);
 
-pub const NO_BORDER_LABEL: crate::types::BorderLabelMode = crate::types::BorderLabelMode(2);
+pub const UNITS_AREA: crate::types::UnitsType = crate::types::UnitsType(3);
 
-pub const NO_CROP_BREAK_MARK: crate::types::CropBreakMarkLineType =
-    crate::types::CropBreakMarkLineType(0);
+pub const UNITS_LENGTH: crate::types::UnitsType = crate::types::UnitsType(1);
 
-pub const NO_DEGREE_OF_FREEDOM_STATE: crate::types::OccurrenceDOFState =
-    crate::types::OccurrenceDOFState(0);
+pub const UNITS_MASS: crate::types::UnitsType = crate::types::UnitsType(5);
 
-pub const NO_GRAPHICS_SELECTABLE: crate::types::GraphicsSelectabilityEnum =
-    crate::types::GraphicsSelectabilityEnum(25345);
+pub const UNITS_TIME: crate::types::UnitsType = crate::types::UnitsType(6);
 
-pub const NO_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
-    crate::types::GraphicsVisibilityEnum(25089);
-
-pub const NO_GROUND_SHADOW: crate::types::GroundShadowEnum = crate::types::GroundShadowEnum(69121);
-
-pub const NO_INSPECTION_BORDER: crate::types::InspectionShape = crate::types::InspectionShape(0);
-
-pub const NO_PROFILE_SCALING: crate::types::SweepProfileScaling =
-    crate::types::SweepProfileScaling(59395);
-
-pub const NO_SECTION_VIEW: crate::types::SectionViewType = crate::types::SectionViewType(0);
-
-pub const NO_SNAP_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20233);
-
-pub const NO_SOLUTION: crate::types::SolutionNature = crate::types::SolutionNature(4);
-
-pub const NO_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(0);
-
-pub const NO_TRANSFORM_BEHAVIORS: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26116);
-
-pub const NON_MAGNETIC: crate::types::MagneticClass =
-    crate::types::MagneticClass(std::borrow::Cow::Borrowed("non-magnetic"));
-
-pub const NONE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
-    crate::types::CachedGraphicsStatusEnum(103169);
-
-pub const NONE_DISPLAY_SEPARATE_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127489);
-
-pub const NONE_SUPPRESSED: crate::types::OccurrencePatternSuppression =
-    crate::types::OccurrencePatternSuppression(118530);
-
-#[doc = "```text\nNormalBindingEnum is how a primitive's normals bind to its geometry: per-vertex (smooth),\nper-strip, per-item, or one overall normal. Frozen ids 19713–19716.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct NormalBindingEnum(pub i32);
-
-pub const NORMAL_TO_PATH: crate::types::SweepProfileOrientation =
-    crate::types::SweepProfileOrientation(59649);
-
-pub const NOTE_BOOK_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9220);
-
-pub const NUMERIC_BORDER_LABEL: crate::types::BorderLabelMode = crate::types::BorderLabelMode(1);
-
-#[doc = "```text\nObjectKind identifies the kind of document object a metadata-mutation event concerns\n(Oblikovati/Oblikovati#1644): a body, sketch, feature, occurrence, or the document itself. It is\nthe discriminator carried by object.renamed and property.changed so ONE generic event serves\nevery rename / property change instead of a bespoke event per mutation — an add-in matches on\nKind to route the event to the right mirror of the document structure.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ObjectKind(pub std::borrow::Cow<'static, str>);
-
-pub const OBJECT_KIND_BODY: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("body"));
-
-pub const OBJECT_KIND_DOCUMENT: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("document"));
-
-pub const OBJECT_KIND_FEATURE: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("feature"));
-
-pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("occurrence"));
-
-pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
-    crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));
-
-#[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ObjectRef {
-    #[serde(rename = "kind", deserialize_with = "crate::json::null_default")]
-    pub kind: String,
-    #[serde(rename = "id", deserialize_with = "crate::json::null_default")]
-    pub id: u64,
+generated_scalar! { integer,
+#[doc = "```text\nUnitsType is the dimension category of a measured value (parity:\nValueUnitsTypeEnum) — the kind of quantity a unit name belongs to, as opposed\nto the unit name itself (\"mm\", \"in\"). It is carried on the wire by its\nspelling (UnitsType.String()); the numeric ids are stable and must never be\nrenumbered.\n\nThis is the canonical, Apache-2.0 definition. The host's parameter engine has\nits own richer internal category type (which also models non-arithmetic flag/\ntext values); it maps to and from these spellings at the wire boundary.\n```"]
+pub struct UnitsType(pub i32);
 }
 
-#[doc = "```text\nOccurrenceDOFState classifies a single degree of freedom for \"show DOF\" purposes (the reference CAD API's\nOccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state\nvalue. The zero value is NoDegreeOfFreedomState.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct OccurrenceDOFState(pub i32);
+pub const UNITS_UNITLESS: crate::types::UnitsType = crate::types::UnitsType(0);
+
+pub const UNITS_VOLUME: crate::types::UnitsType = crate::types::UnitsType(4);
+
+pub const UNKNOWN_CONTAINMENT: crate::types::Containment = crate::types::Containment(30977);
+
+pub const UNKNOWN_CURVE: crate::types::CurveType = crate::types::CurveType(5121);
+
+pub const UNKNOWN_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5249);
+
+pub const UNKNOWN_DOCUMENT_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("UnknownDocument"));
+
+pub const UNKNOWN_DRAWING_EDGE: crate::types::DrawingEdgeType = crate::types::DrawingEdgeType(0);
+
+pub const UNKNOWN_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
+    crate::types::FlatPatternFaceType(0);
+
+pub const UNKNOWN_SOLUTION_NATURE: crate::types::SolutionNature = crate::types::SolutionNature(0);
+
+pub const UNKNOWN_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5889);
+
+pub const UNKNOWN_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117761);
+
+pub const UNKNOWN_VIEW_TYPE: crate::types::ViewTypeEnum = crate::types::ViewTypeEnum(9217);
+
+pub const UP_TO_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103171);
+
+pub const USER_PARAM: crate::types::ParameterKind = crate::types::ParameterKind(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nValueType is the type tag of a [Variant]. Numeric values are FROZEN to the\nreference ValueTypeEnum — clients and saved automations depend on them.\n```"]
+pub struct ValueType(pub i32);
+}
+
+pub const VERTICAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(1);
+
+pub const VERTICAL_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(2);
+
+pub const VERTICAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
+    crate::types::DrawingViewAlignment(2);
+
+pub const VERTICAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
+    crate::types::ViewTileTypeEnum(117764);
+
+generated_scalar! { integer,
+#[doc = "```text\nViewJustification is how a view centres itself on recompute (the reference CAD API's ViewJustificationEnum). The\nzero value is CenteredViewJustification.\n```"]
+pub struct ViewJustification(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewLayout is how a document's open views are tiled in the viewport — how many views\nare shown at once and in what arrangement. A document always has at least one view;\nthe layout decides how many of them render simultaneously (many MCAD apps show views\nin separate windows; we tile them in one viewport). This is the canonical Apache-2.0\ndefinition; the GPL implementation aliases it and maps it onto the tiled renderer.\n```"]
+pub struct ViewLayout(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewOperationTypeEnum is an interactive view manipulation: rotate (orbit), pan, or zoom.\nFrozen ids 30209–30211.\n```"]
+pub struct ViewOperationTypeEnum(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewOrientationTypeEnum names a standard camera orientation — the front/top/iso… presets a\nview cube or the named-view picker restores. The numeric ids are stable, frozen values\n(10753–10773).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it.\n```"]
+pub struct ViewOrientationTypeEnum(pub i32);
+}
+
+pub const VIEW_SPACE_LIGHT: crate::types::LightTypeEnum = crate::types::LightTypeEnum(52994);
+
+generated_scalar! { integer,
+#[doc = "```text\nViewTileTypeEnum is how a document's views are tiled when more than one is shown: a single\narrange, or a horizontal/vertical split. Frozen ids 117761–117764. (This is the typed\ncounterpart of the numeric [ViewLayout] used by the views collection.)\n```"]
+pub struct ViewTileTypeEnum(pub i32);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nViewTypeEnum is the kind of view in a document's view collection: a graphics (3D) view, the\nmodel-browser pane, or a notebook view. Frozen ids 9217–9220.\n```"]
+pub struct ViewTypeEnum(pub i32);
+}
+
+pub const WATERCOLOR_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8714);
+
+pub const WINDOW_MAXIMIZED: crate::types::WindowState = crate::types::WindowState(1);
+
+pub const WINDOW_MINIMIZED: crate::types::WindowState = crate::types::WindowState(2);
+
+pub const WINDOW_NORMAL: crate::types::WindowState = crate::types::WindowState(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nWindowState is a view frame's window state — the WindowsSizeEnum equivalent\n(M05-F10, #617).\n```"]
+pub struct WindowState(pub u8);
+}
+impl From<u8> for WindowState {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<WindowState> for u8 {
+    fn from(value: WindowState) -> Self {
+        value.0
+    }
+}
+
+pub const WIREFRAME_NO_HIDDEN_EDGES: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8711);
+
+pub const WIREFRAME_RENDERING: crate::types::DisplayModeEnum = crate::types::DisplayModeEnum(8706);
+
+pub const WIREFRAME_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(1);
+
+pub const WIREFRAME_WITH_HIDDEN_EDGES_RENDERING: crate::types::DisplayModeEnum =
+    crate::types::DisplayModeEnum(8712);
+
+pub const WORK_AXIS_ANALYTIC_EDGE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("analytic-edge"));
+
+generated_scalar! { string,
+#[doc = "```text\nWorkAxisKind names a datum-axis constructor, the discriminator of a work-axis\ncreate request. The string values are the stable wire vocabulary — treat them as\nfrozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor.\n```"]
+pub struct WorkAxisKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const WORK_AXIS_LINE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line"));
+
+pub const WORK_AXIS_LINE_AND_PLANE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-and-plane"));
+
+pub const WORK_AXIS_LINE_AND_POINT: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-and-point"));
+
+pub const WORK_AXIS_LINE_BY_ENTITY: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("line-by-entity"));
+
+pub const WORK_AXIS_PLANE_INTERSECTION: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("plane-intersection"));
+
+pub const WORK_AXIS_POINT_AND_PLANE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("point-and-plane"));
+
+pub const WORK_AXIS_REVOLVED_FACE: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("revolved-face"));
+
+pub const WORK_AXIS_TWO_POINTS: crate::types::WorkAxisKind =
+    crate::types::WorkAxisKind(std::borrow::Cow::Borrowed("two-points"));
+
+pub const WORK_PLANE_FIXED: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("fixed-frame"));
+
+generated_scalar! { string,
+#[doc = "```text\nWorkPlaneKind names a datum-plane constructor, the discriminator of a work-plane\ncreate request. The string values are the stable\nwire vocabulary — treat them as frozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor.\n```"]
+pub struct WorkPlaneKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const WORK_PLANE_LINE_AND_POINT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-point"));
+
+pub const WORK_PLANE_LINE_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-tangent"));
+
+pub const WORK_PLANE_LINE_PLANE_ANGLE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("line-plane-angle"));
+
+pub const WORK_PLANE_NORMAL_TO_CURVE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("normal-to-curve"));
+
+pub const WORK_PLANE_OFFSET: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-offset"));
+
+pub const WORK_PLANE_PLANE_AND_POINT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-point"));
+
+pub const WORK_PLANE_PLANE_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("plane-tangent"));
+
+pub const WORK_PLANE_POINT_AND_TANGENT: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("point-tangent"));
+
+pub const WORK_PLANE_THREE_POINTS: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("three-points"));
+
+pub const WORK_PLANE_TORUS_MID_PLANE: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("torus-midplane"));
+
+pub const WORK_PLANE_TWO_LINES: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("two-lines"));
+
+pub const WORK_PLANE_TWO_PLANES: crate::types::WorkPlaneKind =
+    crate::types::WorkPlaneKind(std::borrow::Cow::Borrowed("two-planes"));
+
+pub const WORK_POINT_CENTROID: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("centroid"));
+
+pub const WORK_POINT_CLOUD: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("cloud-point"));
+
+pub const WORK_POINT_CURVE_AND_ENTITY: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("curve-and-entity"));
+
+pub const WORK_POINT_FACE_CENTER: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("face-center"));
+
+generated_scalar! { string,
+#[doc = "```text\nWorkPointKind names a datum-point constructor, the discriminator of a work-point\ncreate request. The string values are the stable wire vocabulary — treat them as\nfrozen.\n\nThis is the canonical, Apache-2.0 definition of the public kind names; the GPL host\nmaps each to its model constructor. An empty kind means [WorkPointPosition] so the\noriginal position-only request (just \"at\") keeps working unchanged.\n```"]
+pub struct WorkPointKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const WORK_POINT_MIDPOINT_OF_EDGE: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("edge-midpoint"));
+
+pub const WORK_POINT_ON_POINT: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("point"));
+
+pub const WORK_POINT_PLANE_AXIS_INTERSECTION: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("plane-axis-intersection"));
+
+pub const WORK_POINT_POSITION: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("position"));
+
+pub const WORK_POINT_THREE_PLANES: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("three-planes"));
+
+pub const WORK_POINT_TWO_LINES: crate::types::WorkPointKind =
+    crate::types::WorkPointKind(std::borrow::Cow::Borrowed("two-lines"));
+
+pub const WORK_REF_CENTER: &str = "origin/point/center";
+
+pub const WORK_REF_X_AXIS: &str = "origin/axis/x";
+
+pub const WORK_REF_XY_PLANE: &str = "origin/plane/xy";
+
+pub const WORK_REF_XZ_PLANE: &str = "origin/plane/xz";
+
+pub const WORK_REF_Y_AXIS: &str = "origin/axis/y";
+
+pub const WORK_REF_YZ_PLANE: &str = "origin/plane/yz";
+
+pub const WORK_REF_Z_AXIS: &str = "origin/axis/z";
+
+pub const X_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20225);
+
+pub const X_PROFILE_SCALING: crate::types::SweepProfileScaling =
+    crate::types::SweepProfileScaling(59394);
+
+pub const X_RAY_GROUND_SHADOW: crate::types::GroundShadowEnum =
+    crate::types::GroundShadowEnum(69123);
+
+pub const XY_PROFILE_SCALING: crate::types::SweepProfileScaling =
+    crate::types::SweepProfileScaling(59393);
+
+pub const ZERO_DOC_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("ZeroDoc"));
+
+pub const ZIGZAG_CROP_BREAK_MARK: crate::types::CropBreakMarkLineType =
+    crate::types::CropBreakMarkLineType(2);
+
+pub const ZOOM_VIEW_OPERATION: crate::types::ViewOperationTypeEnum =
+    crate::types::ViewOperationTypeEnum(30211);

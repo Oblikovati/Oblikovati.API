@@ -3,6 +3,21 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nTransientObjects is the discoverable construction point for the utility\ncollections, mirroring the reference factory so add-in code ports naturally\n(geometry construction is [TransientGeometry]).\n```"]
+pub trait TransientObjects {
+    #[doc = "```text\nCreateNameValueMap returns an empty ordered options bag.\n```"]
+    fn create_name_value_map(&self) -> std::sync::Arc<dyn crate::contract::NameValueMap>;
+    #[doc = "```text\nCreateObjectCollection returns a collection seeded with refs, in order.\n```"]
+    fn create_object_collection(
+        &self,
+        refs: Option<Vec<crate::types::ObjectRef>>,
+    ) -> std::sync::Arc<dyn crate::contract::ObjectCollection>;
+    #[doc = "```text\nCreateObjectCollectionByVariant returns an empty keyed collection.\n```"]
+    fn create_object_collection_by_variant(
+        &self,
+    ) -> std::sync::Arc<dyn crate::contract::ObjectCollectionByVariant>;
+}
+
 #[doc = "```text\nTransientSurfaces constructs the transient surfaces (analytic and NURBS).\n```"]
 pub trait TransientSurfaces {
     fn create_b_spline_surface(

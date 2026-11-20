@@ -41,6 +41,42 @@ impl<T: super::Caller> Constrain<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_DELETE_CONSTRAINT, Some(args))
     }
+
+    /// Call `MethodSketchConstraintGlyphVisibility` with the canonical request and response types.
+    /// Example: `client.constrain().glyph_visibility(&args)`.
+    pub fn glyph_visibility(
+        &self,
+        args: &crate::wire::ConstraintGlyphsVisibilityArgs,
+    ) -> Result<crate::wire::ConstraintGlyphsVisibilityResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_CONSTRAINT_GLYPH_VISIBILITY,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodSketchSetAllConstraintGlyphsVisibility` with the canonical request and response types.
+    /// Example: `client.constrain().set_all_glyphs_visible(&args)`.
+    pub fn set_all_glyphs_visible(
+        &self,
+        args: &crate::wire::AllConstraintGlyphsVisibilityArgs,
+    ) -> Result<crate::wire::OKResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_ALL_CONSTRAINT_GLYPHS_VISIBILITY,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodSketchSetConstraintGlyphVisibility` with the canonical request and response types.
+    /// Example: `client.constrain().set_glyph_visible(&args)`.
+    pub fn set_glyph_visible(
+        &self,
+        args: &crate::wire::ConstraintGlyphVisibilityArgs,
+    ) -> Result<crate::wire::OKResult, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_CONSTRAINT_GLYPH_VISIBILITY,
+            Some(args),
+        )
+    }
 }
 
 /// Typed `ContactSets` calls over the shared API transport.
@@ -385,56 +421,5 @@ impl<T: super::Caller> Dimension<'_, T> {
     ) -> Result<crate::wire::OKResult, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_DRIVE_DIMENSION, Some(args))
-    }
-}
-
-/// Typed `Display` calls over the shared API transport.
-pub struct Display<'a, T: super::Caller>(pub(super) &'a super::Client<T>);
-impl<T: super::Caller> super::Client<T> {
-    /// Access the `Display` API. Example: `client.display()`.
-    pub fn display(&self) -> Display<'_, T> {
-        Display(self)
-    }
-}
-impl<T: super::Caller> Display<'_, T> {
-    /// Call `MethodDisplayGetOptions` with the canonical request and response types.
-    /// Example: `client.display().options()`.
-    pub fn options(&self) -> Result<crate::wire::DisplayModeOptionsView, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_DISPLAY_GET_OPTIONS, None::<&()>)
-    }
-
-    /// Call `MethodDisplaySetOptions` with the canonical request and response types.
-    /// Example: `client.display().set_options(&args)`.
-    pub fn set_options(
-        &self,
-        args: &crate::wire::DisplayModeOptionsView,
-    ) -> Result<crate::wire::DisplayModeOptionsView, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_DISPLAY_SET_OPTIONS, Some(args))
-    }
-
-    /// Call `MethodDocumentSetDisplaySettings` with the canonical request and response types.
-    /// Example: `client.display().set_settings(&args)`.
-    pub fn set_settings(
-        &self,
-        args: &crate::wire::SetDisplaySettingsArgs,
-    ) -> Result<crate::wire::DisplaySettingsView, crate::Error> {
-        self.0.invoke(
-            crate::wire::METHOD_DOCUMENT_SET_DISPLAY_SETTINGS,
-            Some(args),
-        )
-    }
-
-    /// Call `MethodDocumentGetDisplaySettings` with the canonical request and response types.
-    /// Example: `client.display().settings(&args)`.
-    pub fn settings(
-        &self,
-        args: &crate::wire::GetDisplaySettingsArgs,
-    ) -> Result<crate::wire::DisplaySettingsView, crate::Error> {
-        self.0.invoke(
-            crate::wire::METHOD_DOCUMENT_GET_DISPLAY_SETTINGS,
-            Some(args),
-        )
     }
 }

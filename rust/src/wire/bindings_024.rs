@@ -3,459 +3,148 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nJointLimits bounds a joint's driven values: a linear range (slider/cylindrical\ntranslation, cm) and an angular range (rotational/cylindrical rotation, radians). Each\nbound is independently optional.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct JointLimits {
-    #[serde(
-        rename = "hasLinearMin",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_linear_min: bool,
-    #[serde(
-        rename = "linearMin",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub linear_min: f64,
-    #[serde(
-        rename = "hasLinearMax",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_linear_max: bool,
-    #[serde(
-        rename = "linearMax",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub linear_max: f64,
-    #[serde(
-        rename = "hasAngularMin",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_angular_min: bool,
-    #[serde(
-        rename = "angularMin",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angular_min: f64,
-    #[serde(
-        rename = "hasAngularMax",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub has_angular_max: bool,
-    #[serde(
-        rename = "angularMax",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub angular_max: f64,
+generated_dto! {
+#[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
+pub struct WireInfo {
+    pub index: i64 => required("index");
+    pub closed: bool => required("closed");
+    pub planar: bool => required("planar");
+    pub edges: i64 => required("edges");
+#[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
+    pub key: String => required("key");
+    pub transient_key: u64 => required("transientKey");
+}
 }
 
-#[doc = "```text\nKeyedObjectRef is one string-keyed object reference: the canonical element\nof an ObjectCollectionByVariant over the wire.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct KeyedObjectRef {
-    #[serde(rename = "key", deserialize_with = "crate::json::null_default")]
-    pub key: String,
-    #[serde(rename = "ref", deserialize_with = "crate::json::null_default")]
-    pub ref_: crate::types::ObjectRef,
+generated_dto! {
+#[doc = "```text\nWirePolyline is one wire's sampled polyline: flattened xyz triplets.\n```"]
+pub struct WirePolyline {
+    pub points: Option<Vec<f64>> => finite("points");
+    pub closed: bool => omitted("closed", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nKeyedObjectRefList is the ordered, string-keyed object-reference list.\n```"]
-pub type KeyedObjectRefList = Option<Vec<crate::wire::KeyedObjectRef>>;
-
-#[doc = "```text\nKeymapExport is the response of [MethodKeymapExport] and the request of\n[MethodKeymapImport]: the user's full customization delta, portable across installs.\nKeys are action ids; chord values are canonical chord strings. Importing replaces the\ncurrent customization.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct KeymapExport {
-    #[serde(
-        rename = "chords",
-        skip_serializing_if = "crate::json::map_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub chords: Option<std::collections::BTreeMap<String, String>>,
-    #[serde(
-        rename = "aliases",
-        skip_serializing_if = "crate::json::map_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub aliases: Option<std::collections::BTreeMap<String, String>>,
+generated_dto! {
+#[doc = "```text\nWireframeDisplayModeOptionsView is the JSON shape of the wireframe-mode sub-options — a member\nof [DisplayModeOptionsView].\n```"]
+pub struct WireframeDisplayModeOptionsView {
+    pub depth_dimming: bool => required("depthDimming");
+    pub silhouettes: bool => required("silhouettes");
+    pub dimmed_hidden_edges: bool => required("dimmedHiddenEdges");
+}
 }
 
-#[doc = "```text\nLODInfo is one level-of-detail representation: its identity and the count of suppressed\noccurrences.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LODInfo {
-    #[serde(flatten, deserialize_with = "crate::json::null_default")]
-    pub representation_info: crate::wire::RepresentationInfo,
-    #[serde(
-        rename = "suppressedCount",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub suppressed_count: i64,
+generated_dto! {
+#[doc = "```text\nWorkAxisInfo is one row of [MethodWorkAxesList]: a datum axis's identity and current\ngeometry (Origin point and unit Direction, in database units), whether it is one of the\norigin coordinate-system axes, its health, and its constructor Kind. Origin axes report\nIsOrigin=true.\n```"]
+pub struct WorkAxisInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+#[doc = "```text\na types.WorkAxisKind value\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+    pub origin: Option<Vec<f64>> => finite("origin");
+    pub direction: Option<Vec<f64>> => finite("direction");
+    pub is_origin: bool => required("isOrigin");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nResult envelopes.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LODResult {
-    #[serde(
-        rename = "representation",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub representation: crate::wire::LODInfo,
+generated_dto! {
+#[doc = "```text\nWorkPlaneInfo is one row of [MethodWorkPlanesList]: a datum plane's identity and\ncurrent geometry (origin and unit normal, in model units), whether it is one of the\norigin coordinate-system planes, its health, its constructor Kind, and — for a user\nplane — the editable inputs [MethodWorkPlanesRedefine] accepts (its scalars and its\nre-pickable reference slots). Origin planes report no scalars/slots (not redefinable).\n```"]
+pub struct WorkPlaneInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub origin: Option<Vec<f64>> => finite("origin");
+    pub normal: Option<Vec<f64>> => finite("normal");
+    pub is_origin: bool => required("isOrigin");
+    pub visible: bool => required("visible");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+#[doc = "```text\ndisplayed size tracks the component box (#1851)\n```"]
+    pub auto_resize: bool => omitted("autoResize", "crate::json::is_zero");
+#[doc = "```text\ngrounded flag (#1851)\n```"]
+    pub grounded: bool => omitted("grounded", "crate::json::is_zero");
+#[doc = "```text\ndisplayed rectangle extents: two corners [x,y,z] cm (#1851)\n```"]
+    pub size: Option<Vec<Option<Vec<f64>>>> => omitted_finite("size", "crate::json::slice_is_empty");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+#[doc = "```text\na types.WorkPlaneKind value\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+#[doc = "```text\neditable distance/angle inputs\n```"]
+    pub scalars: Option<Vec<crate::wire::WorkPlaneScalar>> => omitted("scalars", "crate::json::slice_is_empty");
+#[doc = "```text\nre-pickable reference inputs\n```"]
+    pub slots: Option<Vec<crate::wire::WorkPlaneRefSlot>> => omitted("slots", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nResult envelopes.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LODsResult {
-    #[serde(
-        rename = "representations",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub representations: Option<Vec<crate::wire::LODInfo>>,
+generated_dto! {
+#[doc = "```text\nWorkPlaneRefSlot describes one re-pickable reference of a work plane: its slot Index, Label,\nand Kind — \"plane\" | \"axis\" | \"point\" | \"face\" — so a client knows what reference string a\n[SlotRepick] for this slot accepts (an origin constant, a List ref, or a face key).\n```"]
+pub struct WorkPlaneRefSlot {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub kind: String => required("kind");
+}
 }
 
-#[doc = "```text\nLanguageInfoResult is the response of [MethodLanguageInfo]: the host's locale as\na BCP-47 tag (e.g. \"en-US\"), for add-ins formatting numbers/dates to match.\nTranslated-name catalogs do not exist yet; command display names are canonical\n(the #160 ADR records the declined translation surface).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LanguageInfoResult {
-    #[serde(rename = "locale", deserialize_with = "crate::json::null_default")]
-    pub locale: String,
+generated_dto! {
+#[doc = "```text\nWorkPlaneScalar describes one editable scalar of a work plane (offset distance, line-plane\nangle): its slot Index, Label, the Unit its value is shown in (\"mm\", \"deg\", …), and the\ncurrent Value in that unit. A redefine sets it via [ScalarEdit] keyed on Index.\n```"]
+pub struct WorkPlaneScalar {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub unit: String => omitted("unit", "crate::json::is_zero");
+    pub value: f64 => finite("value");
+}
 }
 
-#[doc = "```text\nLayoutResult is the response of [MethodViewsGetLayout] / [MethodViewsSetLayout]: the\ndocument's current tiling layout.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LayoutResult {
-    #[serde(
-        rename = "document",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub document: u64,
-    #[serde(rename = "layout", deserialize_with = "crate::json::null_default")]
-    pub layout: crate::types::ViewLayout,
+generated_dto! {
+#[doc = "```text\nWorkPointInfo is one row of [MethodWorkPointsList]: a datum point's identity, current position\n([x, y, z] in model units), whether it is the origin centre point, its visibility, health, and\nconstructor kind. #1842.\n```"]
+pub struct WorkPointInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub position: Option<Vec<f64>> => finite("position");
+    pub is_origin: bool => required("isOrigin");
+    pub visible: bool => required("visible");
+#[doc = "```text\nhidden, consumer-tied datum (#1849)\n```"]
+    pub construction: bool => omitted("construction", "crate::json::is_zero");
+    pub healthy: bool => required("healthy");
+#[doc = "```text\nwhy Healthy is false (empty when healthy)\n```"]
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+#[doc = "```text\nthe point's constructor kind\n```"]
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nLightInfo is the JSON shape of one scene light — the element of [LightListResult] and the\npayload of [MethodLightingAddLight] / [MethodLightingSetLight]. Direction/Position are\nworld-space (cm); Color is the light color and Intensity scales it.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LightInfo {
-    #[serde(rename = "index", deserialize_with = "crate::json::null_default")]
-    pub index: i64,
-    #[serde(rename = "lightType", deserialize_with = "crate::json::null_default")]
-    pub light_type: crate::types::LightTypeEnum,
-    #[serde(
-        rename = "definitionType",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub light_definition_type: crate::types::LightDefinitionTypeEnum,
-    #[serde(rename = "on", deserialize_with = "crate::json::null_default")]
-    pub on: bool,
-    #[serde(rename = "color", deserialize_with = "crate::json::null_default")]
-    pub color: crate::types::Rgba,
-    #[serde(
-        rename = "intensity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub intensity: f64,
-    #[serde(rename = "direction")]
-    pub direction: crate::types::Vector,
-    #[serde(rename = "position")]
-    pub position: crate::types::Point,
-    #[serde(
-        rename = "spotInnerAngle",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spot_inner_angle: f64,
-    #[serde(
-        rename = "spotOuterAngle",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub spot_outer_angle: f64,
-    #[serde(
-        rename = "attenuation",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub attenuation: [f64; 3],
+generated_dto! {
+#[doc = "```text\nWorkSurfaceDetailResult is the response of [MethodWorkSurfacesGet],\n[MethodWorkSurfacesSetVisible], and [MethodWorkSurfacesRename]: the surface's refreshed\nstate after the call.\n```"]
+pub struct WorkSurfaceDetailResult {
+    pub surface: crate::wire::WorkSurfaceInfo => required("surface");
+}
 }
 
-#[doc = "```text\nLightListResult is the response of [MethodLightingListLights].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LightListResult {
-    #[serde(rename = "lights", deserialize_with = "crate::json::null_default")]
-    pub lights: Option<Vec<crate::wire::LightInfo>>,
+generated_dto! {
+#[doc = "```text\nWorkSurfaceInfo is one row of [MethodWorkSurfacesList] and the payload of\n[MethodWorkSurfacesGet]: a construction surface's identity, display state, the count of\nsurface bodies it wraps, the feature that produced it, and a stable reference for\nconsuming it as a feature input.\n```"]
+pub struct WorkSurfaceInfo {
+    pub index: i64 => required("index");
+    pub name: String => required("name");
+    pub ref_: String => required("ref");
+    pub visible: bool => required("visible");
+    pub translucent: bool => required("translucent");
+#[doc = "```text\nnumber of surface bodies wrapped\n```"]
+    pub bodies: i64 => required("bodies");
+#[doc = "```text\nname of the feature that produced it\n```"]
+    pub source: String => omitted("source", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nLightingStyleInfo is one entry of [LightingStyleListResult]: a selectable style and whether\nit is the active one.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LightingStyleInfo {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "active", deserialize_with = "crate::json::null_default")]
-    pub active: bool,
+generated_dto! {
+#[doc = "```text\nWorkSurfaceRefArgs is the request of [MethodWorkSurfacesGet]: one work surface by its\nIndex in the collection (from [MethodWorkSurfacesList]).\n```"]
+pub struct WorkSurfaceRefArgs {
+    pub index: i64 => required("index");
 }
-
-#[doc = "```text\nLightingStyleListResult is the response of [MethodLightingListStyles].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LightingStyleListResult {
-    #[serde(rename = "styles", deserialize_with = "crate::json::null_default")]
-    pub styles: Option<Vec<crate::wire::LightingStyleInfo>>,
-}
-
-#[doc = "```text\nLightingStyleView is the JSON shape of the active lighting style — the response of\n[MethodLightingGetStyle] and [MethodLightingSetStyle].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LightingStyleView {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(rename = "styleType", deserialize_with = "crate::json::null_default")]
-    pub style_type: crate::types::LightingStyleTypeEnum,
-    #[serde(
-        rename = "ambience",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ambience: f64,
-    #[serde(
-        rename = "brightness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub brightness: f64,
-    #[serde(
-        rename = "exposure",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub exposure: f64,
-    #[serde(
-        rename = "iblBrightness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ibl_brightness: f64,
-    #[serde(
-        rename = "iblRotation",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub ibl_rotation: f64,
-    #[serde(
-        rename = "shadowDensity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shadow_density: f64,
-    #[serde(
-        rename = "shadowSoftness",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shadow_softness: f64,
-    #[serde(
-        rename = "shadowDirection",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shadow_dir: crate::types::ShadowDirectionEnum,
-}
-
-#[doc = "```text\nLineStyleInfo is the JSON shape of a drawing line style.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct LineStyleInfo {
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
-    #[serde(
-        rename = "weightMm",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub weight_mm: f64,
-}
-
-#[doc = "```text\nListAddInsResult is the response of [MethodAddInsList], in registration order.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAddInsResult {
-    #[serde(rename = "addIns", deserialize_with = "crate::json::null_default")]
-    pub add_ins: Option<Vec<crate::wire::AddInInfo>>,
-}
-
-#[doc = "```text\nListAppearancesResult is the [MethodAppearancesList] response.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAppearancesResult {
-    #[serde(rename = "appearances", deserialize_with = "crate::json::null_default")]
-    pub appearances: Option<Vec<crate::wire::AppearanceInfo>>,
-}
-
-#[doc = "```text\nListAttachmentsArgs is the request of [MethodDocumentsListAttachments].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttachmentsArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-}
-
-#[doc = "```text\nListAttachmentsResult is the response of [MethodDocumentsListAttachments].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttachmentsResult {
-    #[serde(rename = "attachments", deserialize_with = "crate::json::null_default")]
-    pub attachments: Option<Vec<crate::wire::AttachmentInfo>>,
-}
-
-#[doc = "```text\nListAttributeSetsArgs is the request of [MethodAttributesListSets]: the document whose attribute\nset names to enumerate.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttributeSetsArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-}
-
-#[doc = "```text\nListAttributeSetsResult is the response of [MethodAttributesListSets]: the set names, sorted.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttributeSetsResult {
-    #[serde(rename = "sets", deserialize_with = "crate::json::null_default")]
-    pub sets: Option<Vec<String>>,
-}
-
-#[doc = "```text\nListAttributesArgs is the request of [MethodAttributesList]: every attribute on the document, or\nonly those in Set when it is non-empty. By default it lists the document-scoped attributes;\nset Target to list a specific entity's attributes, or set AllTargets to list every attribute on\nevery target (each carrying its Target in the result).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttributesArgs {
-    #[serde(rename = "document", deserialize_with = "crate::json::null_default")]
-    pub document: u64,
-    #[serde(
-        rename = "set",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub set: String,
-    #[serde(
-        rename = "target",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub target: String,
-    #[serde(
-        rename = "allTargets",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub all_targets: bool,
-}
-
-#[doc = "```text\nListAttributesResult is the response of [MethodAttributesList]: the matching attributes in set\nthen insertion order.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListAttributesResult {
-    #[serde(rename = "attributes", deserialize_with = "crate::json::null_default")]
-    pub attributes: Option<Vec<crate::wire::AttributeInfo>>,
-}
-
-#[doc = "```text\nListBindingsResult is the response of [MethodKeymapList]: the full catalog, in a\nstable display order (commands first in registration order, then built-ins).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListBindingsResult {
-    #[serde(rename = "bindings", deserialize_with = "crate::json::null_default")]
-    pub bindings: Option<Vec<crate::wire::BindingInfo>>,
-}
-
-#[doc = "```text\nListBlockDefinitionsResult is the response of [MethodSketchBlockDefinitionList]:\nevery block definition of the active part's component definition.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListBlockDefinitionsResult {
-    #[serde(rename = "definitions", deserialize_with = "crate::json::null_default")]
-    pub definitions: Option<Vec<crate::wire::SketchBlockDefinitionInfo>>,
-}
-
-#[doc = "```text\nListBlockInstancesResult is the response of [MethodSketchListBlockInstances].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListBlockInstancesResult {
-    #[serde(rename = "instances", deserialize_with = "crate::json::null_default")]
-    pub instances: Option<Vec<crate::wire::SketchBlockInfo>>,
-}
-
-#[doc = "```text\nListBrowserPanesResult is the response of [MethodBrowserListPanes]: every add-in\npane in creation order (the built-in Model pane is not listed — it is the\ndocument tree, served by model.tree).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListBrowserPanesResult {
-    #[serde(rename = "panes", deserialize_with = "crate::json::null_default")]
-    pub panes: Option<Vec<crate::wire::BrowserPaneSpec>>,
-}
-
-#[doc = "```text\nListClientApplicationsResult is the response of [MethodClientAppsList], in\nregistration order.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListClientApplicationsResult {
-    #[serde(rename = "clients", deserialize_with = "crate::json::null_default")]
-    pub clients: Option<Vec<crate::wire::ClientApplicationInfo>>,
-}
-
-#[doc = "```text\nListClientGraphicsResult is the response of [MethodClientGraphicsList].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListClientGraphicsResult {
-    #[serde(rename = "groups", deserialize_with = "crate::json::null_default")]
-    pub groups: Option<Vec<crate::wire::ClientGraphicsInfo>>,
-}
-
-#[doc = "```text\nListCommandsResult is the response of [MethodCommandsList].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListCommandsResult {
-    #[serde(rename = "commands", deserialize_with = "crate::json::null_default")]
-    pub commands: Option<Vec<crate::wire::CommandInfo>>,
-}
-
-#[doc = "```text\nListConstraints3DResult is the response of [MethodSketch3DConstraints].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListConstraints3DResult {
-    #[serde(rename = "constraints", deserialize_with = "crate::json::null_default")]
-    pub constraints: Option<Vec<crate::wire::Constraint3DInfo>>,
-}
-
-#[doc = "```text\nListConstraintsResult is the response of [MethodSketchConstraints].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListConstraintsResult {
-    #[serde(rename = "constraints", deserialize_with = "crate::json::null_default")]
-    pub constraints: Option<Vec<crate::wire::ConstraintInfo>>,
-}
-
-#[doc = "```text\nListDerivedParameterTablesResult is the response of\n[MethodParametersDerivedTablesList].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct ListDerivedParameterTablesResult {
-    #[serde(
-        rename = "tables",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tables: Option<Vec<crate::wire::DerivedParameterTableInfo>>,
 }

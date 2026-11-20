@@ -17,6 +17,9 @@ type SketchSettings struct {
 	AutoApplyConstraints bool `json:"autoApplyConstraints"`
 	// ConstraintPriority picks the constraint family when the inference engine could apply either.
 	ConstraintPriority ConstraintInferencePriority `json:"constraintPriority"`
+	// CustomInferenceTypes selects InferenceTypes; false retains the legacy inference policy.
+	CustomInferenceTypes bool                 `json:"customInferenceTypes,omitempty"`
+	InferenceTypes       SketchInferenceTypes `json:"inferenceTypes,omitempty"`
 
 	// Snap/grid defaults (the reference CAD API's SketchSettings, #1877). XSnapSpacing/YSnapSpacing are the grid
 	// snap increments in cm; SnapsPerMinorGrid subdivides a minor grid cell and
@@ -37,12 +40,11 @@ type SketchSettings struct {
 	EditDimensionsWhenCreated    bool                             `json:"editDimensionsWhenCreated"`
 	OverConstrainedBehavior      OverConstrainedDimensionBehavior `json:"overConstrainedBehavior"`
 
-	// Relax-mode settings (the reference CAD API's SketchConstraintSettings, #1877): EnableRelaxMode lets dragging
-	// drop conflicting constraints, and KeepDimensionsWithEquationInRelaxMode preserves dimensions
-	// whose value is an equation while relaxing. The reference CAD API's GeometricConstraintsToRemoveInRelaxMode
-	// (a constraint-family bitmask selecting which relations relax may drop) is intentionally out of
-	// scope: Oblikovati's solver has no selective per-family relax pass to configure yet, and adding
-	// a list field would also make this value struct non-comparable. #1877.
+	// CustomRelaxTypes selects RelaxTypes; false retains the legacy removal policy.
+	// Selective removal was previously unavailable because the solver did not expose it (#1877).
+	CustomRelaxTypes bool             `json:"customRelaxTypes,omitempty"`
+	RelaxTypes       SketchRelaxTypes `json:"relaxTypes,omitempty"`
+	// EnableRelaxMode and KeepDimensionsWithEquationInRelaxMode control relaxation.
 	EnableRelaxMode                       bool `json:"enableRelaxMode"`
 	KeepDimensionsWithEquationInRelaxMode bool `json:"keepDimensionsWithEquationInRelaxMode"`
 }

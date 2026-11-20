@@ -35,13 +35,25 @@ version from the **scope of the commits merged since the last tag** and does the
 2. It rewrites `Version` in `go/version.go` and rolls `CHANGELOG.md` (moves `## [Unreleased]`
    over a new `## [x.y.z] - DATE` section and refreshes the compare links).
 3. `make generate` updates the Rust package version and C ABI handshake constants.
-   `make gate` checks source drift, both language suites, JSON parity, C ABI calls,
-   lint, licenses, and the generated wiki. `cargo package` verifies the release archive.
-   The workflow checks that the public Go import metadata selects `go/`.
-4. The workflow commits that back to `develop` as `chore(release): vX.Y.Z [skip ci]`
-   (the `[skip ci]` stops the bump commit from triggering another release), tags
-   `vX.Y.Z` and `go/vX.Y.Z`. It pushes the commit and both tags in one atomic operation.
-   The GitHub release contains the notes and the verified Rust `.crate` archive.
+   The workflow commits the synchronized changes as a unique release candidate.
+   `cargo package` checks that exact commit, and the workflow checks the public Go
+   import metadata selects `go/`.
+4. The workflow pushes a temporary candidate branch and dispatches `CI` for it.
+   It accepts only the returned run on the candidate SHA, with the Linux gate and
+   both Windows and macOS jobs completed successfully. Missing, skipped, failed,
+   or mismatched jobs prevent publication. `workflow_dispatch` can start a run
+   with the workflow token even though ordinary token-generated pushes cannot.
+5. Only after CI succeeds does the workflow create annotated `vX.Y.Z` and
+   `go/vX.Y.Z` tags. It atomically pushes the tested commit and both tags, with a
+   lease that rejects a changed `develop`. The GitHub release contains the notes
+   and verified Rust `.crate` archive. The workflow deletes its candidate branch
+   only if that branch still points to its candidate commit.
+
+If release creation succeeds but its archive upload fails, the workflow retries
+and checks the existing release's author, notes, tag targets, and archive bytes.
+It never replaces an existing tag or asset. If retries fail after the atomic
+push, investigate and publish the verified archive for the existing tag after
+checking its SHA and CI result. A new release must use a new version.
 
 A merge whose commits are all `docs`/`chore`/`ci`/`test`/`refactor` releases nothing.
 
@@ -61,6 +73,12 @@ Any **unrecognized** subject (no conventional type, e.g. `wire: add …`) is tre
 conservative **PATCH** so the version never silently stalls — but an additive surface
 change deserves a MINOR, so prefix it with `feat:`. The logic lives in `go/scripts/nextver`
 and is covered by `go test ./scripts/nextver`.
+
+When an already published commit has a nonconventional subject that understates
+an additive API change, add a correction commit that explains the affected
+changes and includes `Release-Scope: feature` on a separate line in its body.
+The trailer sets a minimum feature scope for the release. A breaking-change
+marker still takes precedence. This preserves the original commit identities.
 
 ## Consuming a release
 

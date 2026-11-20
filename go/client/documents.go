@@ -128,6 +128,17 @@ func (d Documents) Open(args wire.OpenDocumentArgs) (wire.DocumentInfo, error) {
 	return call[wire.DocumentInfo](d.c, wire.MethodDocumentsOpen, args)
 }
 
+// LoadFull loads an express assembly's components and returns its updated state.
+// Failure leaves the document in express mode.
+//
+//	info, err := c.Documents().LoadFull(7)
+//
+// mcp:tool documents_load_full
+// mcp:summary Load all components of an express assembly.
+func (d Documents) LoadFull(id uint64) (wire.DocumentInfo, error) {
+	return call[wire.DocumentInfo](d.c, wire.MethodDocumentsLoadFull, wire.LoadFullDocumentArgs{ID: id})
+}
+
 // Save writes the document at its current file binding (#138).
 //
 // mcp:tool documents_save

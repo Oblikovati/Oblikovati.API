@@ -10,6 +10,29 @@ import (
 	"oblikovati.org/api/wire"
 )
 
+func TestExplodeBlockInstanceSendsIdentityAndReturnsEntities(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityRefs":[17,18,19]}`)}
+	got, err := New(ft).Sketch().ExplodeBlockInstance(wire.ExplodeSketchBlockArgs{
+		SketchIndex: 2, InstanceID: 41,
+	})
+	if err != nil {
+		t.Fatalf("ExplodeBlockInstance: %v", err)
+	}
+	if ft.gotMethod != wire.MethodSketchExplodeBlockInstance {
+		t.Errorf("method = %q, want %q", ft.gotMethod, wire.MethodSketchExplodeBlockInstance)
+	}
+	var sent wire.ExplodeSketchBlockArgs
+	if err := json.Unmarshal(ft.gotReq, &sent); err != nil {
+		t.Fatalf("request not valid JSON: %v", err)
+	}
+	if sent.SketchIndex != 2 || sent.InstanceID != 41 {
+		t.Errorf("request = %+v, want sketch 2 and instance 41", sent)
+	}
+	if len(got.EntityRefs) != 3 || got.EntityRefs[0] != 17 || got.EntityRefs[2] != 19 {
+		t.Errorf("response = %+v, want entity identities 17, 18, 19", got)
+	}
+}
+
 func TestCreateBlockDefinitionSendsSelectionAndDecodes(t *testing.T) {
 	ft := &fakeTransport{reply: []byte(`{"index":0,"name":"fastener","entityCount":3,"instanceCount":1}`)}
 	c := New(ft)

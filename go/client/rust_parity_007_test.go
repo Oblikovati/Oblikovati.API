@@ -9,6 +9,26 @@ import (
 	"testing"
 )
 
+func TestRustParityDocumentsLoadFull(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsLoadFull})
+	checkGoGroup(t, c, "Documents", "LoadFull")
+}
+
+func TestRustParityDocumentsOpen(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsOpen})
+	checkGoGroup(t, c, "Documents", "Open")
+}
+
+func TestRustParityDocumentsRebuild(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsRebuild})
+	checkGoGroup(t, c, "Documents", "Rebuild")
+}
+
+func TestRustParityDocumentsRegisterSubType(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDocumentsRegisterSubType})
+	checkGoGroup(t, c, "Documents", "RegisterSubType")
+}
+
 func TestRustParityDocumentsRemoveAttachment(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDocumentsRemoveAttachment})
 	checkGoGroup(t, c, "Documents", "RemoveAttachment")
@@ -137,24 +157,4 @@ func TestRustParityDrawingAnnotationsAddHoleNotes(t *testing.T) {
 func TestRustParityDrawingAnnotationsAddHoleTable(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddHoleTable})
 	checkGoGroup(t, c, "DrawingAnnotations", "AddHoleTable")
-}
-
-func TestRustParityDrawingAnnotationsAddNote(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddNote})
-	checkGoGroup(t, c, "DrawingAnnotations", "AddNote")
-}
-
-func TestRustParityDrawingAnnotationsAddPartsList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddPartsList})
-	checkGoGroup(t, c, "DrawingAnnotations", "AddPartsList")
-}
-
-func TestRustParityDrawingAnnotationsAddRevisionCloud(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevisionCloud})
-	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionCloud")
-}
-
-func TestRustParityDrawingAnnotationsAddRevisionTable(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTable})
-	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTable")
 }

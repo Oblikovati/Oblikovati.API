@@ -8,6 +8,46 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Typed sketch constraint glyph visibility queries and edits, including Show All
+  and per-constraint Hide (Oblikovati/Oblikovati#4166).
+
+- Optional per-type sketch inference and Relax Mode selections. The default
+  configuration retains the host legacy policy (#312).
+
+- Typed definition and placed-instance color overrides for sketch blocks (#311).
+
+- A typed sketch block Explode operation that returns the resulting entity
+  references while retaining the definition and other instances (#310).
+
+- Constraint-aware sketch Move planning and commit operations with explicit
+  policies, impact reporting, approval, and stale-plan refusal (#304).
+
+- Express assembly open state and a typed Load Full operation.
+
+- Typed nonfatal save warnings for single saves, batch saves, and save-on-close.
+
+- Optional Part options for sketch-facing behavior and the startup sketch
+  plane. Hosts must reject unknown startup plane values and preserve omitted
+  options on write.
+
+- A distinct associative sketch entity operation that older hosts reject
+  instead of silently discarding the parameter binding.
+
+### Changed
+
+- Rust callers that construct `OpenDocumentArgs`, `DocumentInfo`,
+  `SaveDocumentResult`, `CloseDocumentsResult`, `BatchSaveItemResult`,
+  `SketchSettings`, or `PartOptionsView` with exhaustive struct literals must supply their new fields
+  or use defaults.
+  Go callers using unkeyed literals for the corresponding structs must update
+  them. Existing wire payloads without the new fields retain their defaults.
+
+- Named parameter expressions in sketch entity size fields now create driving
+  dimensions. Callers that previously added a separate dimension for the same
+  size must remove that duplicate to avoid overconstraining the sketch.
+
 ## [0.159.0] - 2026-11-07
 
 ### Added

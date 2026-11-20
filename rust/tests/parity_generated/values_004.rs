@@ -74,6 +74,18 @@ fn types_model_diameter_from_thread() {
 }
 
 #[test]
+fn types_model_state_property_key() {
+    super::check::<oblikovati_api::types::ModelStatePropertyKey>("types.ModelStatePropertyKey");
+}
+
+#[test]
+fn types_model_state_table_column_kind() {
+    super::check::<oblikovati_api::types::ModelStateTableColumnKind>(
+        "types.ModelStateTableColumnKind",
+    );
+}
+
+#[test]
 fn types_model_value_type() {
     super::check::<oblikovati_api::types::ModelValueType>("types.ModelValueType");
 }
@@ -208,6 +220,21 @@ fn types_parameter_kind() {
 }
 
 #[test]
+fn types_part_annotation_scale() {
+    super::check::<oblikovati_api::types::PartAnnotationScale>("types.PartAnnotationScale");
+}
+
+#[test]
+fn types_part_annotation_scale_mode() {
+    super::check::<oblikovati_api::types::PartAnnotationScaleMode>("types.PartAnnotationScaleMode");
+}
+
+#[test]
+fn types_part_design_view_camera() {
+    super::check::<oblikovati_api::types::PartDesignViewCamera>("types.PartDesignViewCamera");
+}
+
+#[test]
 fn types_pattern_boundary_inclusion() {
     super::check::<oblikovati_api::types::PatternBoundaryInclusion>(
         "types.PatternBoundaryInclusion",
@@ -286,29 +313,4 @@ fn types_projection_type_enum() {
 #[test]
 fn types_prompt_restriction() {
     super::check::<oblikovati_api::types::PromptRestriction>("types.PromptRestriction");
-}
-
-#[test]
-fn types_punch_representation_type() {
-    super::check::<oblikovati_api::types::PunchRepresentationType>("types.PunchRepresentationType");
-}
-
-#[test]
-fn types_ray_tracing_quality_enum() {
-    super::check::<oblikovati_api::types::RayTracingQualityEnum>("types.RayTracingQualityEnum");
-}
-
-#[test]
-fn types_reference_status() {
-    super::check::<oblikovati_api::types::ReferenceStatus>("types.ReferenceStatus");
-}
-
-#[test]
-fn types_relief_shape() {
-    super::check::<oblikovati_api::types::ReliefShape>("types.ReliefShape");
-}
-
-#[test]
-fn types_representation_kind() {
-    super::check::<oblikovati_api::types::RepresentationKind>("types.RepresentationKind");
 }

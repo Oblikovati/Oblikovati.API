@@ -43,6 +43,27 @@ func (s Sketch) AddBlockInstance(args wire.AddSketchBlockArgs) (wire.AddSketchBl
 	return call[wire.AddSketchBlockResult](s.c, wire.MethodSketchAddBlockInstance, args)
 }
 
+// ExplodeBlockInstance replaces one instance with independent sketch entities.
+// Example: result, err := sketch.ExplodeBlockInstance(wire.ExplodeSketchBlockArgs{SketchIndex: 0, InstanceID: 42}).
+//
+// mcp:tool sketch_explode_block_instance
+// mcp:summary Replaces one sketch block instance with independent entities.
+func (s Sketch) ExplodeBlockInstance(args wire.ExplodeSketchBlockArgs) (wire.ExplodeSketchBlockResult, error) {
+	return call[wire.ExplodeSketchBlockResult](s.c, wire.MethodSketchExplodeBlockInstance, args)
+}
+
+// SetBlockDefinitionColor changes or clears a definition color override.
+// Example: sketch.SetBlockDefinitionColor(wire.SetBlockDefinitionColorArgs{Name: "Rib"}).
+func (s Sketch) SetBlockDefinitionColor(args wire.SetBlockDefinitionColorArgs) (wire.SketchBlockDefinitionInfo, error) {
+	return call[wire.SketchBlockDefinitionInfo](s.c, wire.MethodSketchSetBlockDefinitionColor, args)
+}
+
+// SetBlockInstanceColor changes or clears an instance color override.
+// Example: sketch.SetBlockInstanceColor(wire.SetBlockInstanceColorArgs{InstanceID: 42}).
+func (s Sketch) SetBlockInstanceColor(args wire.SetBlockInstanceColorArgs) (wire.SketchBlockInfo, error) {
+	return call[wire.SketchBlockInfo](s.c, wire.MethodSketchSetBlockInstanceColor, args)
+}
+
 // BlockInstances enumerates a sketch's placed block instances.
 //
 // mcp:tool sketch_block_instances

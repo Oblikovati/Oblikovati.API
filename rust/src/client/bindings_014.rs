@@ -4,6 +4,50 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 impl<T: super::Caller> super::Sketch<'_, T> {
+    /// Call `MethodSketchList` with the canonical request and response types.
+    /// Example: `client.sketch().list()`.
+    pub fn list(&self) -> Result<crate::wire::ListSketchesResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SKETCH_LIST, None::<&()>)
+    }
+
+    /// Call `MethodSketchOffset` with the canonical request and response types.
+    /// Example: `client.sketch().offset(&args)`.
+    pub fn offset(
+        &self,
+        args: &crate::wire::OffsetSketchArgs,
+    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
+    }
+
+    /// Call `MethodSketchOffset` with the canonical request and response types.
+    /// Example: `client.sketch().offset_chain(&args)`.
+    pub fn offset_chain(
+        &self,
+        args: &crate::wire::OffsetSketchArgs,
+    ) -> Result<crate::wire::OffsetSketchResult, crate::Error> {
+        self.0.invoke(crate::wire::METHOD_SKETCH_OFFSET, Some(args))
+    }
+
+    /// Call `MethodSketchPlanMove` with the canonical request and response types.
+    /// Example: `client.sketch().plan_move(&args)`.
+    pub fn plan_move(
+        &self,
+        args: &crate::wire::PlanSketchMoveArgs,
+    ) -> Result<crate::wire::PlanSketchMoveResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_PLAN_MOVE, Some(args))
+    }
+
+    /// Call `MethodSketchProfiles` with the canonical request and response types.
+    /// Example: `client.sketch().profiles(&args)`.
+    pub fn profiles(
+        &self,
+        args: &crate::wire::SketchArgs,
+    ) -> Result<crate::wire::ListProfilesResult, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_PROFILES, Some(args))
+    }
+
     /// Call `MethodSketchProject` with the canonical request and response types.
     /// Example: `client.sketch().project(&args)`.
     pub fn project(
@@ -74,6 +118,30 @@ impl<T: super::Caller> super::Sketch<'_, T> {
             .invoke(crate::wire::METHOD_SKETCH_RESOLVE_REFERENCE, Some(args))
     }
 
+    /// Call `MethodSketchSetBlockDefinitionColor` with the canonical request and response types.
+    /// Example: `client.sketch().set_block_definition_color(&args)`.
+    pub fn set_block_definition_color(
+        &self,
+        args: &crate::wire::SetBlockDefinitionColorArgs,
+    ) -> Result<crate::wire::SketchBlockDefinitionInfo, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_BLOCK_DEFINITION_COLOR,
+            Some(args),
+        )
+    }
+
+    /// Call `MethodSketchSetBlockInstanceColor` with the canonical request and response types.
+    /// Example: `client.sketch().set_block_instance_color(&args)`.
+    pub fn set_block_instance_color(
+        &self,
+        args: &crate::wire::SetBlockInstanceColorArgs,
+    ) -> Result<crate::wire::SketchBlockInfo, crate::Error> {
+        self.0.invoke(
+            crate::wire::METHOD_SKETCH_SET_BLOCK_INSTANCE_COLOR,
+            Some(args),
+        )
+    }
+
     /// Call `MethodSketchSetCustomLineType` with the canonical request and response types.
     /// Example: `client.sketch().set_custom_line_type(&args)`.
     pub fn set_custom_line_type(
@@ -93,7 +161,9 @@ impl<T: super::Caller> super::Sketch<'_, T> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_ENTITY_FORMAT, Some(args))
     }
+}
 
+impl<T: super::Caller> super::Sketch<'_, T> {
     /// Call `MethodSketchSetFormatModes` with the canonical request and response types.
     /// Example: `client.sketch().set_format_modes(&args)`.
     pub fn set_format_modes(
@@ -112,6 +182,16 @@ impl<T: super::Caller> super::Sketch<'_, T> {
     ) -> Result<crate::wire::InferenceOptionsView, crate::Error> {
         self.0
             .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_OPTIONS, Some(args))
+    }
+
+    /// Call `MethodSketchSetInferenceScope` with the canonical request and response types.
+    /// Example: `client.sketch().set_inference_scope(&args)`.
+    pub fn set_inference_scope(
+        &self,
+        args: &crate::wire::SketchInferenceScopeView,
+    ) -> Result<crate::wire::SketchInferenceScopeView, crate::Error> {
+        self.0
+            .invoke(crate::wire::METHOD_SKETCH_SET_INFERENCE_SCOPE, Some(args))
     }
 
     /// Call `MethodSketchSetProperty` with the canonical request and response types.
@@ -330,114 +410,5 @@ impl<T: super::Caller> Sketch3D<'_, T> {
         args: &crate::wire::Sketch3DArgs,
     ) -> Result<crate::wire::Sketch3DInfo, crate::Error> {
         self.0.invoke(crate::wire::METHOD_SKETCH3_D_GET, Some(args))
-    }
-}
-
-impl<T: super::Caller> super::Sketch3D<'_, T> {
-    /// Call `MethodSketch3DInclude` with the canonical request and response types.
-    /// Example: `client.sketch3_d().include(&args)`.
-    pub fn include(
-        &self,
-        args: &crate::wire::IncludeSketch3DArgs,
-    ) -> Result<crate::wire::IncludeSketch3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_INCLUDE, Some(args))
-    }
-
-    /// Call `MethodSketch3DIncludeSketch` with the canonical request and response types.
-    /// Example: `client.sketch3_d().include_sketch(&args)`.
-    pub fn include_sketch(
-        &self,
-        args: &crate::wire::IncludeSketch2DArgs,
-    ) -> Result<crate::wire::IncludeSketch3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_INCLUDE_SKETCH, Some(args))
-    }
-
-    /// Call `MethodSketch3DList` with the canonical request and response types.
-    /// Example: `client.sketch3_d().list()`.
-    pub fn list(&self) -> Result<crate::wire::ListSketches3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_LIST, None::<&()>)
-    }
-
-    /// Call `MethodSketch3DPaths` with the canonical request and response types.
-    /// Example: `client.sketch3_d().paths(&args)`.
-    pub fn paths(
-        &self,
-        args: &crate::wire::Sketch3DArgs,
-    ) -> Result<crate::wire::ListPaths3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_PATHS, Some(args))
-    }
-
-    /// Call `MethodSketch3DProfiles` with the canonical request and response types.
-    /// Example: `client.sketch3_d().profiles(&args)`.
-    pub fn profiles(
-        &self,
-        args: &crate::wire::Sketch3DArgs,
-    ) -> Result<crate::wire::ListProfiles3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_PROFILES, Some(args))
-    }
-
-    /// Call `MethodSketch3DReferenceKey` with the canonical request and response types.
-    /// Example: `client.sketch3_d().reference_key(&args)`.
-    pub fn reference_key(
-        &self,
-        args: &crate::wire::Sketch3DArgs,
-    ) -> Result<crate::wire::SketchReferenceKeyResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_REFERENCE_KEY, Some(args))
-    }
-
-    /// Call `MethodSketch3DRegionProperties` with the canonical request and response types.
-    /// Example: `client.sketch3_d().region_properties(&args)`.
-    pub fn region_properties(
-        &self,
-        args: &crate::wire::RegionPropertiesArgs,
-    ) -> Result<crate::wire::RegionPropertiesResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_REGION_PROPERTIES, Some(args))
-    }
-
-    /// Call `MethodSketch3DSetProperty` with the canonical request and response types.
-    /// Example: `client.sketch3_d().set_property(&args)`.
-    pub fn set_property(
-        &self,
-        args: &crate::wire::SetSketch3DPropertyArgs,
-    ) -> Result<crate::wire::Sketch3DInfo, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_SET_PROPERTY, Some(args))
-    }
-
-    /// Call `MethodSketch3DSetSplineHandle` with the canonical request and response types.
-    /// Example: `client.sketch3_d().set_spline_handle(&args)`.
-    pub fn set_spline_handle(
-        &self,
-        args: &crate::wire::SetSplineHandleArgs,
-    ) -> Result<crate::wire::SplineHandleInfo, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_SET_SPLINE_HANDLE, Some(args))
-    }
-
-    /// Call `MethodSketch3DSolve` with the canonical request and response types.
-    /// Example: `client.sketch3_d().solve(&args)`.
-    pub fn solve(
-        &self,
-        args: &crate::wire::Sketch3DArgs,
-    ) -> Result<crate::wire::SolveSketch3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_SOLVE, Some(args))
-    }
-
-    /// Call `MethodSketch3DTransform` with the canonical request and response types.
-    /// Example: `client.sketch3_d().transform(&args)`.
-    pub fn transform(
-        &self,
-        args: &crate::wire::Transform3DArgs,
-    ) -> Result<crate::wire::Transform3DResult, crate::Error> {
-        self.0
-            .invoke(crate::wire::METHOD_SKETCH3_D_TRANSFORM, Some(args))
     }
 }

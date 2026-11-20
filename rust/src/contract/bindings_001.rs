@@ -3,6 +3,22 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+#[doc = "```text\nCurve is the umbrella every 3D transient curve satisfies.\n```"]
+pub trait Curve {
+    #[doc = "```text\nCurveType identifies the concrete kind (frozen reference values).\n```"]
+    fn curve_type(&self) -> crate::types::CurveType;
+    #[doc = "```text\nDomain returns the parameter range (±Inf for unbounded curves).\n```"]
+    fn domain(&self) -> (f64, f64);
+    #[doc = "```text\nEvaluate returns the position at parameter t.\n```"]
+    fn evaluate(&self, t: f64) -> crate::types::Point;
+    #[doc = "```text\nEvaluator returns the member-level query surface of this curve.\n```"]
+    fn evaluator(&self) -> std::sync::Arc<dyn crate::contract::CurveEvaluator>;
+    #[doc = "```text\nGeometryForm reports whether the curve is exactly NURBS-representable.\n```"]
+    fn geometry_form(&self) -> crate::types::CurveGeometryForm;
+    #[doc = "```text\nTangent returns the (unnormalized) first derivative at t.\n```"]
+    fn tangent(&self, t: f64) -> crate::types::Vector;
+}
+
 #[doc = "```text\nCurve2d is the umbrella every 2D transient curve satisfies.\n```"]
 pub trait Curve2d {
     fn curve_type(&self) -> crate::types::Curve2dType;
@@ -434,26 +450,4 @@ pub trait EdgeDisplaySettings {
     fn edge_color(&self) -> crate::types::Color;
     #[doc = "```text\nHiddenLineDimmingPercent is the 0–100 dimming applied to hidden lines.\n```"]
     fn hidden_line_dimming_percent(&self) -> i64;
-}
-
-#[doc = "```text\nEditableModelState is a model-state member whose owning collection supports\nnaming and copying. The built-in Primary member cannot be renamed or deleted.\nA copy receives a new identity and does not replace the active source member.\n```"]
-pub trait EditableModelState: crate::contract::ModelState {
-    #[doc = "```text\nCopy makes an inactive copy; an empty name asks the owner for a unique name.\n```"]
-    fn copy(
-        &self,
-        new_name: String,
-    ) -> Result<std::sync::Arc<dyn crate::contract::ModelState>, crate::Error>;
-    #[doc = "```text\nPrimary identifies the built-in member without relying on its display name.\n```"]
-    fn primary(&self) -> bool;
-    #[doc = "```text\nSetName changes a non-primary member's unique name without changing its ID.\n```"]
-    fn set_name(&self, name: String) -> Result<(), crate::Error>;
-}
-
-#[doc = "```text\nEllipseFull is a full 3D ellipse.\n```"]
-pub trait EllipseFull: crate::contract::Curve {
-    fn center(&self) -> crate::types::Point;
-    fn major_axis(&self) -> crate::types::UnitVector;
-    fn major_radius(&self) -> f64;
-    fn minor_radius(&self) -> f64;
-    fn normal(&self) -> crate::types::UnitVector;
 }

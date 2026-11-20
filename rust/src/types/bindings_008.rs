@@ -3,458 +3,462 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nGridCell is the explicit placement of one child inside its parent grid. Col is the\n0-based column; ColSpan (>=1; 0 is treated as 1) is how many columns the child covers.\nA child with no Cell (nil pointer on the wire) auto-flows into the next free cell.\n\nRow and RowSpan are reserved for a later slice: the wire shape accepts them so it stays\nforward-stable, but the host renders rows as content-height auto-flow, so RowSpan must be\n1 in this version (the router rejects RowSpan > 1).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GridCell {
-    #[serde(
-        rename = "col",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub col: i64,
-    #[serde(
-        rename = "row",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub row: i64,
-    #[serde(
-        rename = "colSpan",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub col_span: i64,
-    #[serde(
-        rename = "rowSpan",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub row_span: i64,
+pub const SHEET_SIZE_A2: crate::types::SheetSize = crate::types::SheetSize(3);
+
+pub const SHEET_SIZE_A3: crate::types::SheetSize = crate::types::SheetSize(4);
+
+pub const SHEET_SIZE_A4: crate::types::SheetSize = crate::types::SheetSize(5);
+
+pub const SHEET_SIZE_ANSI_A: crate::types::SheetSize = crate::types::SheetSize(6);
+
+pub const SHEET_SIZE_ANSI_B: crate::types::SheetSize = crate::types::SheetSize(7);
+
+pub const SHEET_SIZE_ANSI_C: crate::types::SheetSize = crate::types::SheetSize(8);
+
+pub const SHEET_SIZE_ANSI_D: crate::types::SheetSize = crate::types::SheetSize(9);
+
+pub const SHEET_SIZE_ANSI_E: crate::types::SheetSize = crate::types::SheetSize(10);
+
+pub const SHEET_SIZE_CUSTOM: crate::types::SheetSize = crate::types::SheetSize(0);
+
+generated_scalar! { integer,
+#[doc = "```text\nShrinkwrapEnvelopeStyle selects how kept parts are replaced by simpler proxy\ngeometry — the reference API's envelopes-replace style. Envelopes erase internal\ndetail (and, by construction, holes) so the result is a lightweight closed solid.\n```"]
+pub struct ShrinkwrapEnvelopeStyle(pub i32);
 }
 
-#[doc = "```text\nGridTrack is one column track of a grid. Value is pixels when Fixed and the fraction\nweight when Fraction (ignored when Auto). MinPx/MaxPx (0 = unset) clamp the resolved\nwidth, expressing CSS minmax(): e.g. a 1fr track that never shrinks below 80px is\n{Kind: GridTrackFraction, Value: 1, MinPx: 80}.\n\nExample: a label/field form is two tracks — TrackAuto() for labels, TrackFr(1) for fields.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct GridTrack {
-    #[serde(
-        rename = "kind",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub kind: crate::types::GridTrackKind,
-    #[serde(
-        rename = "value",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub value: f64,
-    #[serde(
-        rename = "minPx",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub min_px: f64,
-    #[serde(
-        rename = "maxPx",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub max_px: f64,
+generated_scalar! { integer,
+#[doc = "```text\nShrinkwrapRemoveStyle selects which source parts a shrinkwrap drops before merging —\nthe reference API's shrinkwrap remove style. Removal makes the result lighter by\ndiscarding parts a viewer never sees or that are too small to matter.\n```"]
+pub struct ShrinkwrapRemoveStyle(pub i32);
 }
 
-pub const GRID_TRACK_AUTO: crate::types::GridTrackKind = crate::types::GridTrackKind(0);
+pub const SINGLE_POINT_RIP: crate::types::RipType = crate::types::RipType(1);
 
-pub const GRID_TRACK_FIXED: crate::types::GridTrackKind = crate::types::GridTrackKind(1);
+pub const SKETCH2_D_AND_CENTERMARK_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(4);
 
-pub const GRID_TRACK_FRACTION: crate::types::GridTrackKind = crate::types::GridTrackKind(2);
+pub const SKETCH2_D_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
+    crate::types::PunchRepresentationType(2);
 
-#[doc = "```text\nGridTrackKind is how one grid column track is sized.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GridTrackKind(pub u8);
-impl From<u8> for GridTrackKind {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
-}
-impl From<GridTrackKind> for u8 {
-    fn from(value: GridTrackKind) -> Self {
-        value.0
-    }
-}
+pub const SKETCH3_D_ENTITY_ARC: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("arc"));
 
-pub const GROUND_PLANE_SPACE_LIGHT: crate::types::LightTypeEnum =
-    crate::types::LightTypeEnum(52995);
+pub const SKETCH3_D_ENTITY_BEND: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("bend"));
 
-pub const GROUND_SHADOW: crate::types::GroundShadowEnum = crate::types::GroundShadowEnum(69122);
+pub const SKETCH3_D_ENTITY_CIRCLE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("circle"));
 
-#[doc = "```text\nGroundShadowEnum is how the scene casts shadows onto the ground plane: none, a standard\nground shadow, or an X-ray (see-through) ground shadow. The numeric ids are stable,\nfrozen values (69121–69123).\n\nThis is the canonical Apache-2.0 definition; the GPL implementation aliases it\n(app.GroundShadowEnum).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct GroundShadowEnum(pub i32);
+pub const SKETCH3_D_ENTITY_CONTROL_POINT_SPLINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("controlPointSpline"));
 
-pub const HALF_SECTION_VIEW: crate::types::SectionViewType = crate::types::SectionViewType(2);
+pub const SKETCH3_D_ENTITY_ELLIPSE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipse"));
 
-pub const HARD_MAGNETIC: crate::types::MagneticClass =
-    crate::types::MagneticClass(std::borrow::Cow::Borrowed("hard-magnetic"));
+pub const SKETCH3_D_ENTITY_ELLIPTICAL_ARC: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("ellipticalArc"));
 
-pub const HATCH_ANSI31: crate::types::HatchPattern = crate::types::HatchPattern(2);
+pub const SKETCH3_D_ENTITY_EQUATION_CURVE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("equationCurve"));
 
-pub const HATCH_CROSS: crate::types::HatchPattern = crate::types::HatchPattern(1);
+pub const SKETCH3_D_ENTITY_FIXED_SPLINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("fixedSpline"));
 
-pub const HATCH_GENERAL: crate::types::HatchPattern = crate::types::HatchPattern(0);
+pub const SKETCH3_D_ENTITY_HELICAL: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("helical"));
 
-#[doc = "```text\nHatchPattern is a built-in hatch line family. The zero value is HatchGeneral (single 45° lines).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct HatchPattern(pub i32);
+pub const SKETCH3_D_ENTITY_INCLUDED_CURVE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedCurve"));
 
-#[doc = "```text\nHeadsUpDisplayOptions is the application's in-canvas input configuration while sketching: the\npointer-input boxes that place a shape's first point by coordinate, the dimension-input boxes\nthat size the shape being placed, and whether a typed value becomes a persistent dimension\n(Oblikovati/Oblikovati#2014).\n\nPointer input and dimension input are separate on purpose: they answer different questions\n(\"where does this start?\" versus \"how big is it?\") and a user may want one without the other.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct HeadsUpDisplayOptions {
-    #[doc = "```text\nEnabled switches the whole in-canvas input off, leaving only the command line.\n```"]
-    #[serde(rename = "enabled", deserialize_with = "crate::json::null_default")]
-    pub enabled: bool,
-    #[doc = "```text\nPointerInputEnabled shows the coordinate boxes for a shape's first point, and\nPointerInputInCartesianCoordinates shows them as X/Y rather than length and angle.\n```"]
-    #[serde(
-        rename = "pointerInputEnabled",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub pointer_input_enabled: bool,
-    #[serde(
-        rename = "pointerInputInCartesianCoordinates",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub pointer_input_in_cartesian_coordinates: bool,
-    #[doc = "```text\nDimensionInputEnabled shows the boxes that size the shape being placed, and\nDimensionInputInCartesianCoordinates shows them as width/height rather than length and\nangle where the shape offers both readings.\n```"]
-    #[serde(
-        rename = "dimensionInputEnabled",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dimension_input_enabled: bool,
-    #[serde(
-        rename = "dimensionInputInCartesianCoordinates",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub dimension_input_in_cartesian_coordinates: bool,
-    #[doc = "```text\nCreateDimensionsOnValueInput makes a value the user types into a dimension box become a\npersistent driving dimension when the shape commits. With it off the typed value still\nsizes the shape, but states nothing afterwards.\n```"]
-    #[serde(
-        rename = "createDimensionsOnValueInput",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub create_dimensions_on_value_input: bool,
+pub const SKETCH3_D_ENTITY_INCLUDED_POINT: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("includedPoint"));
+
+pub const SKETCH3_D_ENTITY_INTERSECTION: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("intersection"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketch3DEntityKind discriminates the kind of a 3D (non-planar) sketch entity in the\nwire protocol — the value of\n[oblikovati.org/api/wire.AddSketch3DEntityArgs.Kind] and of each enumerated\n3D entity's Kind. The set is the full 3D-sketch geometry family; the string\nvalues are frozen. Members are wired in across M22 (F02 base curves, F03 conics/\nsplines, F04 helix, F11 surface-derived curves).\n```"]
+pub struct Sketch3DEntityKind(pub std::borrow::Cow<'static, str>);
 }
 
-pub const HEALTH_OK: crate::types::HealthStatus = crate::types::HealthStatus(0);
+pub const SKETCH3_D_ENTITY_LINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("line"));
 
-pub const HEALTH_SICK: crate::types::HealthStatus = crate::types::HealthStatus(2);
+pub const SKETCH3_D_ENTITY_OFFSET: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("offset"));
 
-#[doc = "```text\nHealthStatus is the condition a constraint (or any modeling entity) reports when it\ncannot be fully evaluated — the public, Apache-2.0 form of the host's health\nvocabulary (model/health). A constraint whose geometry vanished goes Sick and is\nre-selectable; an over-constrained assembly that still solved reports Warning.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct HealthStatus(pub u8);
-impl From<u8> for HealthStatus {
-    fn from(value: u8) -> Self {
-        Self(value)
-    }
+pub const SKETCH3_D_ENTITY_ON_FACE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("onFace"));
+
+pub const SKETCH3_D_ENTITY_POINT: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("point"));
+
+pub const SKETCH3_D_ENTITY_PROJECT_TO_SURFACE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("projectToSurface"));
+
+pub const SKETCH3_D_ENTITY_SILHOUETTE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("silhouette"));
+
+pub const SKETCH3_D_ENTITY_SPLINE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("spline"));
+
+pub const SKETCH3_D_ENTITY_SPLINE_HANDLE: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("splineHandle"));
+
+pub const SKETCH3_D_ENTITY_UNKNOWN: crate::types::Sketch3DEntityKind =
+    crate::types::Sketch3DEntityKind(std::borrow::Cow::Borrowed("unknown"));
+
+pub const SKETCH3_D_ENVIRONMENT: crate::types::Environment = crate::types::Environment(2);
+
+pub const SKETCH_CIRCLE_ENTITY: crate::types::DrawingSketchEntityKind =
+    crate::types::DrawingSketchEntityKind(1);
+
+pub const SKETCH_ENTITY_ARC: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("arc"));
+
+pub const SKETCH_ENTITY_CHAMFER: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("chamfer"));
+
+pub const SKETCH_ENTITY_CIRCLE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("circle"));
+
+pub const SKETCH_ENTITY_CONTROL_POINT_SPLINE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("controlPointSpline"));
+
+pub const SKETCH_ENTITY_ELLIPSE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("ellipse"));
+
+pub const SKETCH_ENTITY_ELLIPTICAL_ARC: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("ellipticalArc"));
+
+pub const SKETCH_ENTITY_EQUATION_CURVE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("equationCurve"));
+
+pub const SKETCH_ENTITY_FILL_REGION: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("fillRegion"));
+
+pub const SKETCH_ENTITY_FILLET: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("fillet"));
+
+pub const SKETCH_ENTITY_FIXED_SPLINE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("fixedSpline"));
+
+generated_dto! {
+#[doc = "```text\nSketchEntityFormat is one sketch entity's formatting overrides — the line type, colour and\nstroke width the sketch Format panel's three lists set, and the values a DWG or DXF import\ncarries in from the file's layer table (Oblikovati/Oblikovati#2015).\n\nEach field independently means \"inherit\" when unset, so an entity can override its colour while\ntaking the sketch's line type. An entity with no overrides at all has no format: reading one\nback reports that, rather than returning a struct of empty fields that might be mistaken for\nexplicit defaults.\n\n\tf := types.SketchEntityFormat{LineType: types.SketchLineDashed}\n\tf.OverrideColor = types.NewColor(255, 0, 0)\n```"]
+pub struct SketchEntityFormat {
+#[doc = "```text\nLineType is the dash pattern; the empty value inherits the sketch's line type.\n```"]
+    pub line_type: crate::types::SketchLineType => omitted("lineType", "crate::json::is_zero");
+#[doc = "```text\nOverrideColor is the entity's colour. A colour whose Source is not OverrideColorSource\ninherits instead — see [Color.IsOverride].\n```"]
+    pub override_color: crate::types::Color => required("overrideColor");
+#[doc = "```text\nLineWeight is the plotted stroke width in millimetres; 0 inherits.\n```"]
+    pub line_weight: f64 => omitted_finite("lineWeight", "crate::json::is_zero");
 }
-impl From<HealthStatus> for u8 {
-    fn from(value: HealthStatus) -> Self {
-        value.0
-    }
-}
-
-pub const HEALTH_SUPPRESSED: crate::types::HealthStatus = crate::types::HealthStatus(3);
-
-pub const HEALTH_WARNING: crate::types::HealthStatus = crate::types::HealthStatus(1);
-
-#[doc = "```text\nHelicalShapeDefinitionKind discriminates how a helical curve's shape is\nspecified (M06-F09, Oblikovati/Oblikovati#624). The wire spellings double as\nthe helix Mode strings already accepted by sketch3d.addEntity since M22-F04.\n\nThe values are a frozen block matching the reference API's helical-shape\ndefinition enum; never renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct HelicalShapeDefinitionKind(pub i32);
-
-pub const HELIX_CURVE: crate::types::CurveType = crate::types::CurveType(5130);
-
-pub const HELIX_END_FLAT: crate::types::HelixEndKind = crate::types::HelixEndKind(115970);
-
-#[doc = "```text\nHelixEndKind is the transition condition at one end of a helical curve\n(M06-F09). A natural end stops on the helix; a flat end appends a planar\ntransition (governed by the definition's transition/flat angles) so the\ncoil seats flat — the standard spring end treatment.\n\nThe values are a frozen block matching the reference API's helix-end enum;\nnever renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct HelixEndKind(pub i32);
-
-pub const HELIX_END_NATURAL: crate::types::HelixEndKind = crate::types::HelixEndKind(115969);
-
-pub const HELIX_SHAPE_PITCH_HEIGHT: crate::types::HelicalShapeDefinitionKind =
-    crate::types::HelicalShapeDefinitionKind(115714);
-
-pub const HELIX_SHAPE_PITCH_REVOLUTION: crate::types::HelicalShapeDefinitionKind =
-    crate::types::HelicalShapeDefinitionKind(115713);
-
-pub const HELIX_SHAPE_REVOLUTION_HEIGHT: crate::types::HelicalShapeDefinitionKind =
-    crate::types::HelicalShapeDefinitionKind(115715);
-
-pub const HELIX_SHAPE_SPIRAL: crate::types::HelicalShapeDefinitionKind =
-    crate::types::HelicalShapeDefinitionKind(115716);
-
-pub const HIDDEN_EDGE_RENDERING: crate::types::DisplayModeEnum =
-    crate::types::DisplayModeEnum(8707);
-
-pub const HIDDEN_LINE_REMOVED_VIEW_STYLE: crate::types::DrawingViewStyle =
-    crate::types::DrawingViewStyle(3);
-
-pub const HIDDEN_LINE_VIEW_STYLE: crate::types::DrawingViewStyle =
-    crate::types::DrawingViewStyle(0);
-
-pub const HIGH_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
-    crate::types::RayTracingQualityEnum(95750);
-
-pub const HOLE_NOTE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(14);
-
-pub const HOLE_NOTE_COMBINED: crate::types::HoleNoteQuantity = crate::types::HoleNoteQuantity(1);
-
-pub const HOLE_NOTE_PER_HOLE: crate::types::HoleNoteQuantity = crate::types::HoleNoteQuantity(0);
-
-#[doc = "```text\nHoleNoteQuantity is how hole notes treat multiple holes of the same size. The zero value is\nHoleNotePerHole (one callout per hole).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct HoleNoteQuantity(pub i32);
-
-pub const HOLE_TABLE_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(9);
-
-pub const HORIZONTAL_ALIGNMENT: crate::types::AlignmentType = crate::types::AlignmentType(0);
-
-pub const HORIZONTAL_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(1);
-
-pub const HORIZONTAL_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
-    crate::types::DrawingViewAlignment(1);
-
-pub const HORIZONTAL_VIEW_TILE_TYPE: crate::types::ViewTileTypeEnum =
-    crate::types::ViewTileTypeEnum(117763);
-
-pub const HYBRID_SPACE: crate::types::LineDefinitionSpaceEnum =
-    crate::types::LineDefinitionSpaceEnum(49923);
-
-pub const I_FEATURES_RIBBON: crate::types::RibbonKey =
-    crate::types::RibbonKey(std::borrow::Cow::Borrowed("iFeatures"));
-
-pub const ILLUSTRATION_RENDERING: crate::types::DisplayModeEnum =
-    crate::types::DisplayModeEnum(8715);
-
-pub const IMAGE_BACKGROUND: crate::types::BackgroundTypeEnum =
-    crate::types::BackgroundTypeEnum(52739);
-
-pub const IMAGE_BASED_LIGHTING_STYLE: crate::types::LightingStyleTypeEnum =
-    crate::types::LightingStyleTypeEnum(50750978);
-
-pub const IN_POSITION_VIEW_ALIGNMENT: crate::types::DrawingViewAlignment =
-    crate::types::DrawingViewAlignment(0);
-
-pub const INCLUDE_BY_BASE_POINT: crate::types::PatternBoundaryInclusion =
-    crate::types::PatternBoundaryInclusion(128771);
-
-pub const INCLUDE_BY_CENTROID: crate::types::PatternBoundaryInclusion =
-    crate::types::PatternBoundaryInclusion(128770);
-
-pub const INCLUDE_ENCLOSED_GEOMETRY: crate::types::PatternBoundaryInclusion =
-    crate::types::PatternBoundaryInclusion(128769);
-
-pub const INFER_COINCIDENT: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(1);
-
-pub const INFER_HORIZONTAL: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(2);
-
-pub const INFER_INTERSECTION: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(4);
-
-pub const INFER_MIDPOINT: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(8);
-
-pub const INFER_ON_CURVE: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(16);
-
-pub const INFER_PARALLEL: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(32);
-
-pub const INFER_PERPENDICULAR: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(64);
-
-pub const INFER_TANGENT: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(128);
-
-pub const INFER_VERTICAL: crate::types::ConstraintInferenceKind =
-    crate::types::ConstraintInferenceKind(256);
-
-pub const INFERENCE_NONE: crate::types::PointInferenceKind = crate::types::PointInferenceKind(0);
-
-pub const INFERENCE_POINT: crate::types::PointInferenceKind = crate::types::PointInferenceKind(1);
-
-pub const INFINITELY_MANY_SOLUTIONS: crate::types::SolutionNature = crate::types::SolutionNature(3);
-
-pub const INSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30978);
-
-#[doc = "```text\nInspectionDimension is a dimension's inspection annotation (#1996): the border shape, and the\nQA label and sampling rate shown with it. A NoInspectionBorder shape means the dimension is not\nan inspection dimension (Label and Rate are then ignored).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct InspectionDimension {
-    #[serde(rename = "shape", deserialize_with = "crate::json::null_default")]
-    pub shape: crate::types::InspectionShape,
-    #[serde(
-        rename = "label",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub label: String,
-    #[serde(
-        rename = "rate",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub rate: String,
 }
 
-#[doc = "```text\nInspectionShape selects the border an inspection dimension wraps its text in, matching\nthe reference CAD API's InspectionDimensionShapeEnum. The zero value is NoInspectionBorder — the dimension\nis not an inspection dimension. An inspection dimension additionally carries a label and a\nsampling rate for QA / first-article drawings (#1996).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct InspectionShape(pub i32);
+pub const SKETCH_ENTITY_IMAGE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("image"));
 
-pub const INTEGER_VALUE: crate::types::ValueType = crate::types::ValueType(14593);
+generated_scalar! { string,
+#[doc = "```text\nSketchEntityKind discriminates the kind of a 2D sketch entity in the wire\nprotocol — the value of [oblikovati.org/api/wire.AddSketchEntityArgs.Kind]\nand of each enumerated entity's Kind. The set grows as M21 adds entity families\n(conics/splines, slots, polygons, …); the string values are frozen.\n```"]
+pub struct SketchEntityKind(pub std::borrow::Cow<'static, str>);
+}
 
-pub const INTERACTIVE_RAY_TRACING_QUALITY: crate::types::RayTracingQualityEnum =
-    crate::types::RayTracingQualityEnum(95745);
+pub const SKETCH_ENTITY_LINE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("line"));
 
-pub const INTEREST_NONE: crate::types::DocumentInterestType =
-    crate::types::DocumentInterestType(68865);
+pub const SKETCH_ENTITY_OFFSET_SPLINE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("offsetSpline"));
 
-pub const INTERESTED: crate::types::DocumentInterestType =
-    crate::types::DocumentInterestType(68866);
+pub const SKETCH_ENTITY_POINT: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("point"));
 
-pub const INTERSECTION_BEND_TRANSITION: crate::types::BendTransition =
-    crate::types::BendTransition(1);
+pub const SKETCH_ENTITY_POLYGON: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("polygon"));
 
-pub const ISO_BOTTOM_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10762);
+pub const SKETCH_ENTITY_PROJECTED_CURVE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("projectedCurve"));
 
-pub const ISO_BOTTOM_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10761);
+pub const SKETCH_ENTITY_PROJECTED_POINT: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("projectedPoint"));
 
-pub const ISO_TOP_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10760);
+pub const SKETCH_ENTITY_RECTANGLE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("rectangle"));
 
-pub const ISO_TOP_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10759);
+pub const SKETCH_ENTITY_SLOT: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("slot"));
 
-pub const ISOTROPIC: crate::types::IsotropyClass =
-    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("isotropic"));
+pub const SKETCH_ENTITY_SPLINE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("spline"));
+
+pub const SKETCH_ENTITY_SPLINE_HANDLE: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("splineHandle"));
+
+pub const SKETCH_ENTITY_TEXT: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("text"));
+
+pub const SKETCH_ENTITY_UNKNOWN: crate::types::SketchEntityKind =
+    crate::types::SketchEntityKind(std::borrow::Cow::Borrowed("unknown"));
+
+pub const SKETCH_ENVIRONMENT: crate::types::Environment = crate::types::Environment(1);
+
+generated_dto! {
+#[doc = "```text\nSketchFormatModes is the Format panel's armed creation state: what newly drawn geometry becomes\n(Oblikovati/Oblikovati#2015).\n\nEach mode is what the matching panel button arms when it is pressed with nothing selected. With\ngeometry selected the same button converts the selection instead, which is an action rather\nthan a setting and so is not represented here.\n```"]
+pub struct SketchFormatModes {
+#[doc = "```text\nConstruction makes new geometry construction geometry, excluded from profiles.\n```"]
+    pub construction: bool => required("construction");
+#[doc = "```text\nCenterline makes new lines centerlines — an axis for revolve, mirror and symmetry.\n```"]
+    pub centerline: bool => required("centerline");
+#[doc = "```text\nCenterPoint makes the point tool place hole-centre markers rather than plain points.\n```"]
+    pub center_point: bool => required("centerPoint");
+#[doc = "```text\nDrivenDimension makes new dimensions driven by the geometry rather than driving it.\n```"]
+    pub driven_dimension: bool => required("drivenDimension");
+#[doc = "```text\nSuppressFormatOverrides draws the sketch with DEFAULT attributes, hiding per-entity\nformatting. It is the Show Format button, whose behaviour is the inverse of its label:\non shows the default format, off shows the user's.\n```"]
+    pub suppress_format_overrides: bool => required("suppressFormatOverrides");
+}
+}
+
+pub const SKETCH_INFER_COINCIDENT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(256);
+
+pub const SKETCH_INFER_HORIZONTAL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(1);
+
+pub const SKETCH_INFER_INTERSECTION: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(16);
+
+pub const SKETCH_INFER_MIDPOINT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(32);
+
+pub const SKETCH_INFER_ON_CURVE: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(64);
+
+pub const SKETCH_INFER_PARALLEL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(4);
+
+pub const SKETCH_INFER_PERPENDICULAR: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(8);
+
+pub const SKETCH_INFER_TANGENT: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(128);
+
+pub const SKETCH_INFER_VERTICAL: crate::types::SketchInferenceTypes =
+    crate::types::SketchInferenceTypes(2);
+
+pub const SKETCH_INFERENCE_AT_INTERSECTION: crate::types::SketchPointInferenceKind =
+    crate::types::SketchPointInferenceKind(22273);
+
+pub const SKETCH_INFERENCE_AT_MIDPOINT: crate::types::SketchPointInferenceKind =
+    crate::types::SketchPointInferenceKind(22276);
+
+pub const SKETCH_INFERENCE_ON_CURVE: crate::types::SketchPointInferenceKind =
+    crate::types::SketchPointInferenceKind(22274);
+
+pub const SKETCH_INFERENCE_ON_POINT: crate::types::SketchPointInferenceKind =
+    crate::types::SketchPointInferenceKind(22275);
+
+generated_scalar! { string,
+#[doc = "```text\nSketchInferenceScope identifies the geometry eligible for 2D sketch inference.\nExample: `scope := types.InferenceScopeAllGeometry`.\n```"]
+pub struct SketchInferenceScope(pub std::borrow::Cow<'static, str>);
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nSketchInferenceTypes is a bit set of selected inference relation types.\nCombine choices with bitwise OR; for example, SketchInferHorizontal | SketchInferVertical.\n```"]
+pub struct SketchInferenceTypes(pub u32);
+}
+
+pub const SKETCH_LINE_CENTER: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("center"));
+
+pub const SKETCH_LINE_CONTINUOUS: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("continuous"));
+
+pub const SKETCH_LINE_CUSTOM: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("custom"));
+
+pub const SKETCH_LINE_DASHED: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("dashed"));
+
+pub const SKETCH_LINE_ENTITY: crate::types::DrawingSketchEntityKind =
+    crate::types::DrawingSketchEntityKind(0);
+
+pub const SKETCH_LINE_HIDDEN: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("hidden"));
+
+pub const SKETCH_LINE_PHANTOM: crate::types::SketchLineType =
+    crate::types::SketchLineType(std::borrow::Cow::Borrowed("phantom"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchLineType is a sketch's line-style override. The empty value means \"inherit the\ndocument default\". String values are frozen.\n```"]
+pub struct SketchLineType(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_DIMENSION_ALWAYS: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_DIMENSION_IF_NO_EQUATION: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("ifNoEquation"));
+
+pub const SKETCH_MOVE_DIMENSION_NEVER: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveDimensionPolicy controls whether a planned move may change dimensions.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveDimensionPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_DIMENSION_PROMPT: crate::types::SketchMoveDimensionPolicy =
+    crate::types::SketchMoveDimensionPolicy(std::borrow::Cow::Borrowed("prompt"));
+
+pub const SKETCH_MOVE_GEOMETRIC_ALWAYS: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("always"));
+
+pub const SKETCH_MOVE_GEOMETRIC_NEVER: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("never"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchMoveGeometricPolicy controls whether a planned move may remove relations.\nA plan request must choose a supported nonempty value; there is no wire default.\n```"]
+pub struct SketchMoveGeometricPolicy(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_MOVE_GEOMETRIC_PROMPT: crate::types::SketchMoveGeometricPolicy =
+    crate::types::SketchMoveGeometricPolicy(std::borrow::Cow::Borrowed("prompt"));
+
+pub const SKETCH_PATTERN_CIRCULAR: crate::types::SketchPatternKind =
+    crate::types::SketchPatternKind(std::borrow::Cow::Borrowed("circular"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchPatternKind discriminates a sketch pattern. String values are frozen.\n```"]
+pub struct SketchPatternKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_PATTERN_RECTANGULAR: crate::types::SketchPatternKind =
+    crate::types::SketchPatternKind(std::borrow::Cow::Borrowed("rectangular"));
+
+generated_scalar! { integer,
+#[doc = "```text\nSketchPointInferenceKind describes how a placed sketch point was inferred\nfrom nearby geometry (M06-F10, Oblikovati/Oblikovati#625). This is the\nsketch-domain inference vocabulary; the host-level drag-snap kind stays in\n[PointInferenceKind].\n\nThe values are a frozen block matching the reference API's point-inference\nenum; never renumber them.\n```"]
+pub struct SketchPointInferenceKind(pub i32);
+}
+
+pub const SKETCH_RECTANGLE_ENTITY: crate::types::DrawingSketchEntityKind =
+    crate::types::DrawingSketchEntityKind(2);
+
+pub const SKETCH_RELAX_COINCIDENT: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(1);
+
+pub const SKETCH_RELAX_COLLINEAR: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(16);
+
+pub const SKETCH_RELAX_CONCENTRIC: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(32);
+
+pub const SKETCH_RELAX_EQUAL: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(1024);
+
+pub const SKETCH_RELAX_FIX: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(2048);
+
+pub const SKETCH_RELAX_HORIZONTAL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(64);
+
+pub const SKETCH_RELAX_PARALLEL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(256);
+
+pub const SKETCH_RELAX_PERPENDICULAR: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(512);
+
+pub const SKETCH_RELAX_SMOOTH: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(4);
+
+pub const SKETCH_RELAX_SYMMETRIC: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(8);
+
+pub const SKETCH_RELAX_TANGENT: crate::types::SketchRelaxTypes = crate::types::SketchRelaxTypes(2);
+
+generated_scalar! { integer,
+#[doc = "```text\nSketchRelaxTypes is a bit set of selected relaxation relation types.\nCombine choices with bitwise OR; for example, SketchRelaxCoincident | SketchRelaxTangent.\n```"]
+pub struct SketchRelaxTypes(pub u32);
+}
+
+pub const SKETCH_RELAX_VERTICAL: crate::types::SketchRelaxTypes =
+    crate::types::SketchRelaxTypes(128);
+
+generated_dto! {
+#[doc = "```text\nSketchSettings is a part document's persisted sketch-authoring defaults (#147) — the per-document\nsurface of the Document Settings dialog's Sketch tab. It lifts the constraint-inference preferences\nthat were previously session-only into the document (persisted in the .obk), so each part keeps its\nown: whether inference snaps points and auto-applies constraints while sketching, and which\nconstraint family wins when two could apply. (3D-sketch and modeling settings are separate future\nobjects; this starts with the inference toggles the sketch tools already read.)\n```"]
+pub struct SketchSettings {
+#[doc = "```text\nInferConstraints runs point snapping (endpoint → existing point, intersection, midpoint, …)\nwhile sketching, surfacing inferred relations.\n```"]
+    pub infer_constraints: bool => required("inferConstraints");
+#[doc = "```text\nAutoApplyConstraints commits the inferred constraints automatically as geometry is placed\n(off leaves the snap as a hint without persisting the relation).\n```"]
+    pub auto_apply_constraints: bool => required("autoApplyConstraints");
+#[doc = "```text\nConstraintPriority picks the constraint family when the inference engine could apply either.\n```"]
+    pub constraint_priority: crate::types::ConstraintInferencePriority => required("constraintPriority");
+#[doc = "```text\nCustomInferenceTypes selects InferenceTypes; false retains the legacy inference policy.\n```"]
+    pub custom_inference_types: bool => omitted("customInferenceTypes", "crate::json::is_zero");
+    pub inference_types: crate::types::SketchInferenceTypes => omitted("inferenceTypes", "crate::json::is_zero");
+#[doc = "```text\nSnap/grid defaults (the reference CAD API's SketchSettings, #1877). XSnapSpacing/YSnapSpacing are the grid\nsnap increments in cm; SnapsPerMinorGrid subdivides a minor grid cell and\nMinorLinesPerMajorGridLine sets how many minor lines fall between major grid lines.\n```"]
+    pub x_snap_spacing: f64 => finite("xSnapSpacing");
+    pub y_snap_spacing: f64 => finite("ySnapSpacing");
+    pub snaps_per_minor_grid: i64 => required("snapsPerMinorGrid");
+    pub minor_lines_per_major_grid_line: i64 => required("minorLinesPerMajorGridLine");
+#[doc = "```text\nConstraint display / creation behaviour (the reference CAD API's SketchConstraintSettings, #1877).\nPersistInferredConstraints keeps inferred constraints as persistent relations — the reference CAD API's\nEnablePersistConstraints, distinct from AutoApplyConstraints (which governs whether inference\napplies them at all). DisplayConstraintsOnCreation shows constraint glyphs as geometry is\nplaced; EditDimensionsWhenCreated pops the value editor for a new dimension; OverConstrained\nBehavior decides what a redundant dimension does.\n```"]
+    pub persist_inferred_constraints: bool => required("persistInferredConstraints");
+    pub display_constraints_on_creation: bool => required("displayConstraintsOnCreation");
+    pub edit_dimensions_when_created: bool => required("editDimensionsWhenCreated");
+    pub over_constrained_behavior: crate::types::OverConstrainedDimensionBehavior => required("overConstrainedBehavior");
+#[doc = "```text\nCustomRelaxTypes selects RelaxTypes; false retains the legacy removal policy.\nSelective removal was previously unavailable because the solver did not expose it (#1877).\n```"]
+    pub custom_relax_types: bool => omitted("customRelaxTypes", "crate::json::is_zero");
+    pub relax_types: crate::types::SketchRelaxTypes => omitted("relaxTypes", "crate::json::is_zero");
+#[doc = "```text\nEnableRelaxMode and KeepDimensionsWithEquationInRelaxMode control relaxation.\n```"]
+    pub enable_relax_mode: bool => required("enableRelaxMode");
+    pub keep_dimensions_with_equation_in_relax_mode: bool => required("keepDimensionsWithEquationInRelaxMode");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketchTextStyle is the renderable description of a sketch text entity: the content plus\nthe type-setting parameters MCAD apps split across a text box + text style (font Family,\nFontSize in cm, the character Height in cm that scales the glyph em, the Rotation about\nthe anchor in radians CCW, and horizontal/vertical alignment). It is the value carried\nby the wire DTOs and the typed client so an add-in can author/edit text without\nre-deriving the field set.\n\nExample: SketchTextStyle{Content: \"PART A\", Family: \"Liberation Sans\", FontSize: 0.5,\nHeight: 0.5, HAlign: TextAlignCenter, VAlign: TextAlignBaseline}.\n```"]
+pub struct SketchTextStyle {
+    pub content: String => required("content");
+#[doc = "```text\nfont family (\"\" ⇒ document default)\n```"]
+    pub family: String => omitted("family", "crate::json::is_zero");
+#[doc = "```text\ncm; 0 ⇒ track Height\n```"]
+    pub font_size: f64 => omitted_finite("fontSize", "crate::json::is_zero");
+#[doc = "```text\ncharacter (em) height in cm\n```"]
+    pub height: f64 => finite("height");
+#[doc = "```text\nradians CCW about the anchor\n```"]
+    pub rotation: f64 => omitted_finite("rotation", "crate::json::is_zero");
+    pub h_align: crate::types::TextHorizontalAlign => omitted("hAlign", "crate::json::is_zero");
+    pub v_align: crate::types::TextVerticalAlign => omitted("vAlign", "crate::json::is_zero");
+}
+}
+
+pub const SMALL_ICON_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(1);
+
+pub const SMOOTH_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
+    crate::types::DisplayQualityEnum(58881);
+
+pub const SMOOTHER_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
+    crate::types::DisplayQualityEnum(58884);
+
+pub const SOFT_MAGNETIC: crate::types::MagneticClass =
+    crate::types::MagneticClass(std::borrow::Cow::Borrowed("soft-magnetic"));
+
+pub const SOLID_SWEEP_DEF: crate::types::SweepDefinitionType =
+    crate::types::SweepDefinitionType(59141);
+
+generated_scalar! { integer,
+#[doc = "```text\nSolutionNature classifies the solution set of a geometric query such as\nclosest-point: how many equally good answers exist.\n```"]
+pub struct SolutionNature(pub i32);
+}
+
+pub const SOME_ELEMENTS_SUPPRESSED: crate::types::OccurrencePatternSuppression =
+    crate::types::OccurrencePatternSuppression(118531);
+
+pub const SOME_GRAPHICS_SELECTABLE: crate::types::GraphicsSelectabilityEnum =
+    crate::types::GraphicsSelectabilityEnum(25346);
+
+pub const SOME_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
+    crate::types::GraphicsVisibilityEnum(25090);
+
+pub const SPACING_BETWEEN: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33537);
+
+pub const SPACING_FIT_TO_PATH_LENGTH: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33539);
+
+pub const SPACING_FITTED: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33538);

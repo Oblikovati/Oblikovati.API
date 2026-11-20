@@ -59,6 +59,12 @@ type SketchOptionsView struct {
 // PartOptionsView is the "part" group: part-modeling defaults.
 type PartOptionsView struct {
 	ChamferFlatCorners bool `json:"chamferFlatCorners"`
+	// StartupSketchPlane selects the sketch created for a new part. Nil leaves
+	// the current value unchanged on write and means unavailable on read.
+	StartupSketchPlane *types.StartupSketchPlane `json:"startupSketchPlane,omitempty"`
+	// LookAtSketchPlane controls whether entering a sketch faces its support plane.
+	// Nil means unavailable on read and leaves the current setting unchanged on write.
+	LookAtSketchPlane *bool `json:"lookAtSketchPlane,omitempty"`
 }
 
 // GetOptionGroupArgs is the request of [MethodOptionsGetGroup].

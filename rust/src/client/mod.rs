@@ -39,6 +39,8 @@ mod bindings_016;
 pub use bindings_016::*;
 mod bindings_017;
 pub use bindings_017::*;
+mod bindings_018;
+pub use bindings_018::*;
 mod transport;
 pub use transport::*;
 mod host;

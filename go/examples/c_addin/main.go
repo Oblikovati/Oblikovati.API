@@ -22,7 +22,7 @@ import (
 
 // C exports have no instance parameter. Keep only the worker's lifecycle at this boundary.
 var activationMu sync.Mutex
-var versionDone chan C.int
+var versionDone chan int
 
 //export ObkAddInId
 func ObkAddInId() *C.char { return C.example_id() }
@@ -41,25 +41,29 @@ func ObkAddInActivate(call C.ObkHostCall, free C.ObkHostFree) C.int {
 	if call == nil || free == nil {
 		return C.OBK_ERR
 	}
+	return C.int(activateVersionProbe(cgoCaller{call, free}))
+}
+
+func activateVersionProbe(host client.Caller) int {
 	activationMu.Lock()
 	defer activationMu.Unlock()
 	if versionDone != nil {
-		return C.OBK_ERR
+		return int(C.OBK_ERR)
 	}
-	versionDone = make(chan C.int, 1)
-	// Activation runs on the host session thread. Return so it can drain queued calls.
-	go probeVersion(cgoCaller{call, free}, versionDone)
-	return C.OBK_OK
+	versionDone = make(chan int, 1)
+	// Return to the host session thread so it can drain queued calls.
+	go probeVersion(host, versionDone)
+	return int(C.OBK_OK)
 }
 
-func probeVersion(host cgoCaller, done chan<- C.int) {
+func probeVersion(host client.Caller, done chan<- int) {
 	version, err := client.New(host).Application().ApiVersion()
 	if err != nil || version.Major != api.Major() || version.Minor < api.Minor() {
-		done <- C.OBK_ERR
+		done <- int(C.OBK_ERR)
 		return
 	}
 	slog.New(slog.NewJSONHandler(os.Stderr, nil)).Info("api-version", "language", "go", "version", version.Version)
-	done <- C.OBK_OK
+	done <- int(C.OBK_OK)
 }
 
 //export ObkAddInDeactivate
@@ -71,7 +75,7 @@ func ObkAddInDeactivate() C.int {
 	if done == nil {
 		return C.OBK_OK
 	}
-	return <-done
+	return C.int(<-done)
 }
 
 //export ObkAddInNotify

@@ -9,6 +9,26 @@ import (
 	"testing"
 )
 
+func TestRustParityDrawingAnnotationsAddNote(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddNote})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddNote")
+}
+
+func TestRustParityDrawingAnnotationsAddPartsList(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddPartsList})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddPartsList")
+}
+
+func TestRustParityDrawingAnnotationsAddRevisionCloud(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevisionCloud})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionCloud")
+}
+
+func TestRustParityDrawingAnnotationsAddRevisionTable(t *testing.T) {
+	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTable})
+	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTable")
+}
+
 func TestRustParityDrawingAnnotationsAddRevisionTag(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingAnnotationsAddRevTag})
 	checkGoGroup(t, c, "DrawingAnnotations", "AddRevisionTag")
@@ -137,24 +157,4 @@ func TestRustParityDrawingSetSheetRevision(t *testing.T) {
 func TestRustParityDrawingSetTitleBlock(t *testing.T) {
 	c := client.New(parityCaller{t, wire.MethodDrawingSetTitleBlock})
 	checkGoGroup(t, c, "Drawing", "SetTitleBlock")
-}
-
-func TestRustParityDrawingSketchesAdd(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAdd})
-	checkGoGroup(t, c, "DrawingSketches", "Add")
-}
-
-func TestRustParityDrawingSketchesAddEntity(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAddEntity})
-	checkGoGroup(t, c, "DrawingSketches", "AddEntity")
-}
-
-func TestRustParityDrawingSketchesAddHatchRegion(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingSketchesAddHatch})
-	checkGoGroup(t, c, "DrawingSketches", "AddHatchRegion")
-}
-
-func TestRustParityDrawingSketchesList(t *testing.T) {
-	c := client.New(parityCaller{t, wire.MethodDrawingSketchesList})
-	checkGoGroup(t, c, "DrawingSketches", "List")
 }

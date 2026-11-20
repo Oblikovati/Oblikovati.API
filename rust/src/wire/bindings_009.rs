@@ -3,460 +3,456 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nBodyRangeBoxArgs is the request of [MethodBodyRangeBox]: the topology box\nby default, the tessellation-tight box with Precise, the minimal oriented\nbox with Oriented.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyRangeBoxArgs {
-    #[serde(rename = "bodyIndex", deserialize_with = "crate::json::null_default")]
-    pub body_index: i64,
-    #[serde(
-        rename = "precise",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub precise: bool,
-    #[serde(
-        rename = "oriented",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub oriented: bool,
+generated_dto! {
+#[doc = "```text\nFacesResult is the reply of faces: the developed flat's classified faces (front and back).\n```"]
+pub struct FacesResult {
+    pub faces: Option<Vec<crate::wire::FlatFaceInfo>> => required("faces");
+}
 }
 
-#[doc = "```text\nBodyRangeBoxResult is the response of [MethodBodyRangeBox]: Min/Max for the\naxis-aligned forms; Corner plus the three edge vectors for the oriented one.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyRangeBoxResult {
-    #[serde(
-        rename = "min",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub min: Option<Vec<f64>>,
-    #[serde(
-        rename = "max",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub max: Option<Vec<f64>>,
-    #[serde(
-        rename = "corner",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub corner: Option<Vec<f64>>,
-    #[serde(
-        rename = "directionOne",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction_one: Option<Vec<f64>>,
-    #[serde(
-        rename = "directionTwo",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction_two: Option<Vec<f64>>,
-    #[serde(
-        rename = "directionThree",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub direction_three: Option<Vec<f64>>,
+generated_dto! {
+#[doc = "```text\nFacetSetResult is the facet payload: triangle mesh plus the per-face\ntriangle-index counts (in body face order; one entry for a face-level set).\n```"]
+pub struct FacetSetResult {
+    pub vertex_count: i64 => required("vertexCount");
+    pub facet_count: i64 => required("facetCount");
+    pub vertex_coordinates: Option<Vec<f64>> => omitted_finite("vertexCoordinates", "crate::json::slice_is_empty");
+    pub normal_vectors: Option<Vec<f64>> => omitted_finite("normalVectors", "crate::json::slice_is_empty");
+    pub vertex_indices: Option<Vec<i64>> => omitted("vertexIndices", "crate::json::slice_is_empty");
+    pub texture_coordinates: Option<Vec<f64>> => omitted_finite("textureCoordinates", "crate::json::slice_is_empty");
+    pub index_count_per_face: Option<Vec<i64>> => omitted("indexCountPerFace", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBodyRenameArgs is the request of [MethodBodyRename]: set the display name of the body at\nBodyIndex (from [MethodBodyList]). The name is stored per body (keyed by its reference key),\nsurvives recompute, and round-trips in the .obk; an empty name reverts to the index-derived\ndefault (\"Solid{N}\").\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyRenameArgs {
-    #[serde(rename = "bodyIndex", deserialize_with = "crate::json::null_default")]
-    pub body_index: i64,
-    #[serde(rename = "name", deserialize_with = "crate::json::null_default")]
-    pub name: String,
+generated_dto! {
+#[doc = "```text\nFacetTolerancesResult is the response of [MethodBodyFacetTolerances] and\n[MethodBodyStrokeTolerances]: the tolerances cached sets exist at, ascending.\n```"]
+pub struct FacetTolerancesResult {
+    pub tolerances: Option<Vec<f64>> => omitted_finite("tolerances", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBodySetVisibleArgs is the request of [MethodBodySetVisible]: show or hide the body at\nBodyIndex (from [MethodBodyList]). Visible is set, not toggled, so the call is idempotent.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodySetVisibleArgs {
-    #[serde(rename = "bodyIndex", deserialize_with = "crate::json::null_default")]
-    pub body_index: i64,
-    #[serde(rename = "visible", deserialize_with = "crate::json::null_default")]
-    pub visible: bool,
+generated_dto! {
+#[doc = "```text\nFeatureDetail is one placed feature with its history position and the editable inputs\n[MethodFeaturesEdit] accepts: scalar fields ([FeatureScalar]) and re-pickable geometry\nslots ([FeatureSlot]). Both are empty for features whose definition exposes nothing of\nthat kind (e.g. a cosmetic feature has neither).\n```"]
+pub struct FeatureDetail {
+    pub feature_info: crate::wire::FeatureInfo => raw(flatten, deserialize_with = "crate::json::null_default");
+    pub index: i64 => required("index");
+    pub scalars: Option<Vec<crate::wire::FeatureScalar>> => omitted("scalars", "crate::json::slice_is_empty");
+    pub slots: Option<Vec<crate::wire::FeatureSlot>> => omitted("slots", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBodyShellsResult is the response of [MethodBodyShells].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyShellsResult {
-    #[serde(
-        rename = "shells",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub shells: Option<Vec<crate::wire::FaceShellInfo>>,
+generated_dto! {
+#[doc = "```text\nFeatureDetailResult is the response of [MethodFeaturesGet], [MethodFeaturesEdit],\n[MethodFeaturesRename], [MethodFeaturesSetSuppressed], and [MethodFeaturesReorder]:\nthe feature's refreshed state after the call (post-recompute health included).\n```"]
+pub struct FeatureDetailResult {
+    pub feature: crate::wire::FeatureDetail => required("feature");
+}
 }
 
-#[doc = "```text\nBodyTopology groups one body's faces/edges/vertices by reference key.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyTopology {
-    #[serde(rename = "faces", deserialize_with = "crate::json::null_default")]
-    pub faces: Option<Vec<crate::wire::TopologyRef>>,
-    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
-    pub edges: Option<Vec<crate::wire::TopologyRef>>,
-    #[serde(rename = "vertices", deserialize_with = "crate::json::null_default")]
-    pub vertices: Option<Vec<crate::wire::TopologyRef>>,
+generated_dto! {
+#[doc = "```text\nFeatureError is one feature that failed to evaluate during an update/rebuild: its stable id\n(from model.tree), display name, kind, and the reason it is sick.\n```"]
+pub struct FeatureError {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub message: String => omitted("message", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBodyWiresResult is the response of [MethodBodyWires].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BodyWiresResult {
-    #[serde(
-        rename = "wires",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub wires: Option<Vec<crate::wire::WireInfo>>,
+generated_dto! {
+#[doc = "```text\nFeatureHealth is one feature's health on the wire: its Name, Status (\"ok\"/\"warning\"/\"sick\"/\n\"suppressed\", matching [oblikovati.org/api/types.HealthStatus]) and a Reason when not OK.\n```"]
+pub struct FeatureHealth {
+    pub name: String => required("name");
+    pub status: String => required("status");
+    pub reason: String => omitted("reason", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepBodyRef addresses an operation source: exactly one of Handle (transient,\n1-based) or BodyIndex (document body) must be set.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepBodyRef {
-    #[serde(
-        rename = "handle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub handle: i64,
-    #[serde(
-        rename = "bodyIndex",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub body_index: Option<Box<i64>>,
+generated_dto! {
+#[doc = "```text\nFeatureInfo is the JSON shape of one feature in the model tree. Health is empty\nwhen the feature is healthy.\n```"]
+pub struct FeatureInfo {
+    pub id: u64 => required("id");
+    pub name: String => required("name");
+    pub kind: String => required("kind");
+    pub suppressed: bool => required("suppressed");
+    pub health: String => omitted("health", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepBodyStats summarizes a transient body after an operation.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepBodyStats {
-    #[serde(rename = "solid", deserialize_with = "crate::json::null_default")]
-    pub solid: bool,
-    #[serde(rename = "faces", deserialize_with = "crate::json::null_default")]
-    pub faces: i64,
-    #[serde(rename = "edges", deserialize_with = "crate::json::null_default")]
-    pub edges: i64,
-    #[serde(rename = "vertices", deserialize_with = "crate::json::null_default")]
-    pub vertices: i64,
-    #[serde(rename = "shells", deserialize_with = "crate::json::null_default")]
-    pub shells: i64,
-    #[serde(rename = "wires", deserialize_with = "crate::json::null_default")]
-    pub wires: i64,
-    #[serde(
-        rename = "volume",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub volume: f64,
+generated_dto! {
+#[doc = "```text\nFeatureKindInfo is the self-describing entry for one feature operation: its name,\nsummary, and JSON Schema for arguments — enough for a client (or an LLM) to call\n[MethodFeaturesAdd].\n```"]
+pub struct FeatureKindInfo {
+    pub kind: String => required("kind");
+    pub summary: String => required("summary");
+    pub schema: crate::json::JsonValue => raw(rename = "schema");
+}
 }
 
-#[doc = "```text\nBrepBooleanArgs is the request of [MethodBrepBoolean]: the blank (a\ntransient handle — it is modified in place) combined with the tool under\nOperation (a [oblikovati.org/api/types.BooleanType] wire spelling).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepBooleanArgs {
-    #[serde(rename = "blankHandle", deserialize_with = "crate::json::null_default")]
-    pub blank_handle: i64,
-    #[serde(rename = "tool", deserialize_with = "crate::json::null_default")]
-    pub tool: crate::wire::BrepBodyRef,
-    #[serde(rename = "operation", deserialize_with = "crate::json::null_default")]
-    pub operation: String,
+pub const FEATURE_KIND_MIRROR: &str = "mirror";
+
+pub const FEATURE_KIND_PATTERN_CIRCULAR: &str = "patternCircular";
+
+pub const FEATURE_KIND_PATTERN_RECTANGULAR: &str = "patternRectangular";
+
+generated_dto! {
+#[doc = "```text\nFeatureLifecycleEvent is the JSON shape of the [EventFeatureAdded] / [EventFeatureEdited] /\n[EventFeatureDeleted] push events (#148): a feature was created, modified, or removed on a\ndocument. Delivered to an add-in's Notify entry point (ADR-0016) with no request/response —\nan add-in matches on Type and reads the affected feature's identity from the payload (so it\nneed not diff model.tree). Kind is the feature's operation kind (e.g. \"extrude\", \"circular-\npattern\"); Name is its tree name. The Feature id is stable across rename/reorder.\n\nFires for both UI-driven and add-in-driven feature creation, editing, and deletion — the host\nemits at its session-level feature seams, so an interactive extrude and a features.add call alike\nreach the add-in (Oblikovati/Oblikovati#1085, lifting #148's router-only v1 scope). The batched\n[ModelChangedEvent] remains the coarse signal that also covers other model paths.\n```"]
+pub struct FeatureLifecycleEvent {
+#[doc = "```text\nEventFeatureAdded, EventFeatureEdited, or EventFeatureDeleted\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub feature: u64 => required("feature");
+    pub name: String => omitted("name", "crate::json::is_zero");
+    pub kind: String => omitted("kind", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepCopyArgs is the request of [MethodBrepCopy].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepCopyArgs {
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: crate::wire::BrepBodyRef,
+generated_dto! {
+#[doc = "```text\nFeatureRefArgs is the request of [MethodFeaturesGet] and [MethodFeaturesDelete]:\none placed feature, addressed by the stable id from [FeatureInfo] (model.tree).\nThe id survives rename and reorder; an index does not, so the wire never uses one\nto address a feature.\n```"]
+pub struct FeatureRefArgs {
+    pub id: u64 => required("id");
+}
 }
 
-#[doc = "```text\nBrepCreateFromDefinitionArgs is the request of\n[MethodBrepCreateFromDefinition]: the bottom-up definition graph.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepCreateFromDefinitionArgs {
-    #[serde(rename = "definition", deserialize_with = "crate::json::null_default")]
-    pub definition: crate::types::BrepBodyDefinition,
+generated_dto! {
+#[doc = "```text\nFeatureRepick re-points one geometric Slot (a [FeatureSlot] index) of a placed feature.\nThe fields read by the slot's Kind:\n  - edges/faces/face: Ref is a topology reference key from [MethodModelReferenceKeys].\n  - profile: SketchIndex + ProfileIndex name a sketch region (from model.tree / sketch.profiles).\n  - plane: Ref is a planar-face key, a work-plane ref (\"plane/N\"), or an origin plane (\"origin/plane/xy\").\n\nClear empties a clearable multi-slot (edges/faces) and ignores the other fields.\n```"]
+pub struct FeatureRepick {
+    pub slot: i64 => required("slot");
+    pub ref_: String => omitted("ref", "crate::json::is_zero");
+    pub sketch_index: i64 => omitted("sketchIndex", "crate::json::is_zero");
+    pub profile_index: i64 => omitted("profileIndex", "crate::json::is_zero");
+    pub clear: bool => omitted("clear", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepCreateFromDefinitionResult is the response: a handle on success, the\nper-definition issues otherwise (no body is created when issues exist).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepCreateFromDefinitionResult {
-    #[serde(
-        rename = "handle",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub handle: i64,
-    #[serde(rename = "stats", deserialize_with = "crate::json::null_default")]
-    pub stats: crate::wire::BrepBodyStats,
-    #[serde(
-        rename = "issues",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub issues: Option<Vec<crate::types::BrepDefinitionIssue>>,
+generated_dto! {
+#[doc = "```text\nFeatureScalar describes one editable scalar of a placed feature — a distance,\nradius, angle, or pattern count — mirroring [WorkPlaneScalar]: its slot Index,\nLabel, the Unit its value is shown in (\"mm\", \"deg\", …), and the current Value in\nthat unit. Integer marks a whole-number input (a pattern count). An edit sets it\nvia [ScalarEdit] keyed on Index.\n```"]
+pub struct FeatureScalar {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub unit: String => omitted("unit", "crate::json::is_zero");
+    pub value: f64 => finite("value");
+    pub integer: bool => omitted("integer", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepDeleteFacesArgs is the request of [MethodBrepDeleteFaces]: faces named\nby reference key are deleted (or with KeepInstead, everything BUT them);\nthe openings stay open (the result may become a surface body).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepDeleteFacesArgs {
-    #[serde(rename = "handle", deserialize_with = "crate::json::null_default")]
-    pub handle: i64,
-    #[serde(rename = "faceKeys", deserialize_with = "crate::json::null_default")]
-    pub face_keys: Option<Vec<String>>,
-    #[serde(
-        rename = "keepInstead",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub keep_instead: bool,
+generated_dto! {
+#[doc = "```text\nFeatureSlot describes one re-pickable geometric input of a placed feature — the edges\nof a fillet, the removed faces of a shell, a hole's face, an extrude's profile, a\nmirror's plane. Index addresses it in a [FeatureRepick]; Kind (\"edges\"|\"faces\"|\"face\"|\n\"profile\"|\"plane\") says what reference it accepts; Multi marks a slot that accumulates\nseveral references (edges/faces) and can be cleared; Count is how many it currently holds.\n```"]
+pub struct FeatureSlot {
+    pub index: i64 => required("index");
+    pub label: String => required("label");
+    pub kind: String => required("kind");
+    pub multi: bool => omitted("multi", "crate::json::is_zero");
+    pub count: i64 => required("count");
+}
 }
 
-#[doc = "```text\nBrepHandleArgs addresses one transient body.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepHandleArgs {
-    #[serde(rename = "handle", deserialize_with = "crate::json::null_default")]
-    pub handle: i64,
+generated_dto! {
+#[doc = "```text\nFileDialogChosenEvent is the push event (type [EventFileDialogChosen]) that\ndelivers the user's choice; Cancelled true means they dismissed the dialog.\n```"]
+pub struct FileDialogChosenEvent {
+#[doc = "```text\nalways EventFileDialogChosen\n```"]
+    pub type_: String => required("type");
+    pub id: String => required("id");
+    pub paths: Option<Vec<String>> => omitted("paths", "crate::json::slice_is_empty");
+    pub cancelled: bool => omitted("cancelled", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepHandleResult is the common \"a transient body came back\" payload.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepHandleResult {
-    #[serde(rename = "handle", deserialize_with = "crate::json::null_default")]
-    pub handle: i64,
-    #[serde(rename = "stats", deserialize_with = "crate::json::null_default")]
-    pub stats: crate::wire::BrepBodyStats,
+generated_dto! {
+#[doc = "```text\nFileDialogHookPayload is the JSON shape of the file-UI hook events\n([EventFileNew], [EventFileNewDialog], [EventFileOpenDialog],\n[EventFileSaveAsDialog], [EventFileOpenFromMRU],\n[EventFilePopulateMetadata]). Only the fields relevant to the hook are set:\nDocumentType for a new document, TemplateFile/FileName for the dialog flows\n(the path a subscriber pre-seeded, or the one the user chose), SaveCopyAs for\nthe save-as variant, Metadata for the populate-metadata collection.\n```"]
+pub struct FileDialogHookPayload {
+    pub type_: String => required("type");
+    pub document_type: crate::types::DocumentType => omitted("documentType", "crate::json::is_zero");
+    pub template_file: String => omitted("templateFile", "crate::json::is_zero");
+    pub file_name: String => omitted("fileName", "crate::json::is_zero");
+    pub save_copy_as: bool => omitted("saveCopyAs", "crate::json::is_zero");
+    pub metadata: Option<Vec<crate::wire::FileMetadataEntry>> => omitted("metadata", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBrepIdenticalBodiesArgs is the request of [MethodBrepIdenticalBodies].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepIdenticalBodiesArgs {
-    #[serde(rename = "sources", deserialize_with = "crate::json::null_default")]
-    pub sources: Option<Vec<crate::wire::BrepBodyRef>>,
-    #[doc = "```text\nTolerance is relative (0 → 1e-6, the reference default).\n```"]
-    #[serde(
-        rename = "tolerance",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tolerance: f64,
-    #[serde(
-        rename = "matchTopology",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub match_topology: bool,
-    #[doc = "```text\nMatchReflection defaults TRUE (mirrored bodies match) per the\nreference; the pointer distinguishes \"unset\" from explicit false.\n```"]
-    #[serde(
-        rename = "matchReflection",
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub match_reflection: Option<Box<bool>>,
+generated_dto! {
+#[doc = "```text\nFileDirtyEventPayload is the JSON shape of [EventFileDirty]: a document\ngained unsaved changes (the clean→dirty transition; further edits while\nalready dirty do not re-fire).\n```"]
+pub struct FileDirtyEventPayload {
+#[doc = "```text\nalways EventFileDirty\n```"]
+    pub type_: String => required("type");
+    pub document: u64 => required("document");
+    pub full_document_name: String => required("fullDocumentName");
+}
 }
 
-#[doc = "```text\nBrepIdenticalBodiesResult groups indices into Sources; identical bodies\nshare a group.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepIdenticalBodiesResult {
-    #[serde(
-        rename = "groups",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub groups: Option<Vec<Option<Vec<i64>>>>,
+generated_dto! {
+#[doc = "```text\nFileInfo is the response of [MethodFilesGet]: one file's identity and load\nstate. InternalName is the stable GUID minted at creation; RevisionID stamps\nthe file's content as of its last save, DatabaseRevisionID stamps only the\nmodel (geometry/reference) content, so an unchanged model keeps its database\nrevision across property-only saves.\n```"]
+pub struct FileInfo {
+    pub full_file_name: String => required("fullFileName");
+    pub internal_name: String => required("internalName");
+    pub revision_id: String => required("revisionId");
+    pub database_revision_id: String => required("databaseRevisionId");
+    pub save_counter: i64 => required("saveCounter");
+    pub version_created: String => omitted("versionCreated", "crate::json::is_zero");
+    pub version_saved: String => omitted("versionSaved", "crate::json::is_zero");
+    pub loaded: bool => required("loaded");
+    pub referenced: bool => required("referenced");
+    pub documents: Option<Vec<u64>> => omitted("documents", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBrepImprintArgs is the request of [MethodBrepImprint].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepImprintArgs {
-    #[serde(rename = "bodyOne", deserialize_with = "crate::json::null_default")]
-    pub body_one: crate::wire::BrepBodyRef,
-    #[serde(rename = "bodyTwo", deserialize_with = "crate::json::null_default")]
-    pub body_two: crate::wire::BrepBodyRef,
-    #[doc = "```text\nImprintCoincidentEdges is accepted for reference parity; coincident\nboundary edges are always imprinted by the planar arrangement.\n```"]
-    #[serde(
-        rename = "imprintCoincidentEdges",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub imprint_coincident_edges: bool,
+generated_dto! {
+#[doc = "```text\nFileMetadataEntry is one name/value pair collected by the\n[EventFilePopulateMetadata] hook (file properties gathered around a save).\n```"]
+pub struct FileMetadataEntry {
+    pub name: String => required("name");
+    pub value: String => required("value");
+}
 }
 
-#[doc = "```text\nBrepImprintResult is the response of [MethodBrepImprint]: imprinted copies\nplus the touched faces / new imprint edges of each, by reference key.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepImprintResult {
-    #[serde(rename = "handleOne", deserialize_with = "crate::json::null_default")]
-    pub handle_one: i64,
-    #[serde(rename = "handleTwo", deserialize_with = "crate::json::null_default")]
-    pub handle_two: i64,
-    #[serde(
-        rename = "oneTouchedFaceKeys",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub one_touched_face_keys: Option<Vec<String>>,
-    #[serde(
-        rename = "twoTouchedFaceKeys",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub two_touched_face_keys: Option<Vec<String>>,
-    #[serde(
-        rename = "oneImprintedEdgeKeys",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub one_imprinted_edge_keys: Option<Vec<String>>,
-    #[serde(
-        rename = "twoImprintedEdgeKeys",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub two_imprinted_edge_keys: Option<Vec<String>>,
+generated_dto! {
+#[doc = "```text\nFileReferenceInfo is one persisted file-to-file reference record of\n[MethodFilesListReferences] — the as-saved logical name (relative + library),\nwhere it resolved this session, and the broken-reference detail flags that\nexplain a non-upToDate status.\n```"]
+pub struct FileReferenceInfo {
+    pub full_file_name: String => required("fullFileName");
+    pub relative_file_name: String => omitted("relativeFileName", "crate::json::is_zero");
+    pub library_name: String => omitted("libraryName", "crate::json::is_zero");
+    pub location_type: crate::types::FileLocationType => required("locationType");
+    pub resolved_file_name: String => omitted("resolvedFileName", "crate::json::is_zero");
+    pub referenced_internal_name: String => omitted("referencedInternalName", "crate::json::is_zero");
+    pub save_counter: i64 => omitted("saveCounter", "crate::json::is_zero");
+    pub status: crate::types::ReferenceStatus => required("status");
+    pub missing: bool => omitted("missing", "crate::json::is_zero");
+    pub replaced: bool => omitted("replaced", "crate::json::is_zero");
+    pub location_different: bool => omitted("locationDifferent", "crate::json::is_zero");
+    pub internal_name_different: bool => omitted("internalNameDifferent", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepListResult is the response of [MethodBrepList].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepListResult {
-    #[serde(
-        rename = "handles",
-        skip_serializing_if = "crate::json::slice_is_empty",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub handles: Option<Vec<i64>>,
+generated_dto! {
+#[doc = "```text\nFileResolutionEventPayload is the JSON shape of [EventFileResolution]: a\nreferenced document name failed to resolve. ResolvedName is the substitute a\nsubscriber supplied (\"\" when nothing resolved it and the open failed).\n```"]
+pub struct FileResolutionEventPayload {
+#[doc = "```text\nalways EventFileResolution\n```"]
+    pub type_: String => required("type");
+    pub requested_name: String => required("requestedName");
+    pub resolved_name: String => omitted("resolvedName", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepOffsetFacesArgs is the request of [MethodBrepOffsetFaces]: offset the faces of Source named by\nreference key outward by Distance along their surface normals, returning a transient body of the\noffset faces (addressable by the other brep.* methods — e.g. tessellate or [MethodBodyFaceEvaluate]\nto sample it). CAM uses it for 3D surfacing tool compensation: offset the part surface by the tool\nradius, then drop the tool onto the offset. The offset is exact for analytic surfaces (plane,\ncylinder, sphere, cone, torus) and a tolerant parallel surface otherwise.\n\nThe parameters are Distance, Reverse (offset the opposite way,\ninto the solid), and Tolerance (the chordal tolerance for offsetting a freeform surface; 0 ⇒ a\nkernel default).\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepOffsetFacesArgs {
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: crate::wire::BrepBodyRef,
-    #[serde(rename = "faceKeys", deserialize_with = "crate::json::null_default")]
-    pub face_keys: Option<Vec<String>>,
-    #[serde(
-        rename = "distance",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub distance: f64,
-    #[serde(
-        rename = "reverse",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub reverse: bool,
-    #[serde(
-        rename = "tolerance",
-        skip_serializing_if = "crate::json::is_zero",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub tolerance: f64,
+generated_dto! {
+#[doc = "```text\nFindByAttributeArgs is the request of [MethodAttributesFind]: locate the open documents carrying\nan attribute in Set; restrict to a given Name when it is non-empty.\n```"]
+pub struct FindByAttributeArgs {
+    pub set: String => required("set");
+    pub name: String => omitted("name", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepRuledSurfaceArgs is the request of [MethodBrepRuledSurface].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepRuledSurfaceArgs {
-    #[serde(rename = "sectionOne", deserialize_with = "crate::json::null_default")]
-    pub section_one: crate::wire::BrepWireRef,
-    #[serde(rename = "sectionTwo", deserialize_with = "crate::json::null_default")]
-    pub section_two: crate::wire::BrepWireRef,
+generated_dto! {
+#[doc = "```text\nFindByAttributeResult is the response of [MethodAttributesFind]: every match across open documents.\n```"]
+pub struct FindByAttributeResult {
+    pub matches: Option<Vec<crate::wire::AttributeMatch>> => required("matches");
+}
 }
 
-#[doc = "```text\nBrepSectionArgs is the request of [MethodBrepSectionWithPlane].\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepSectionArgs {
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: crate::wire::BrepBodyRef,
-    #[serde(
-        rename = "planeOrigin",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane_origin: Option<Vec<f64>>,
-    #[serde(
-        rename = "planeNormal",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub plane_normal: Option<Vec<f64>>,
+generated_dto! {
+#[doc = "```text\nFindUsingRayArgs is the request of [MethodBodyFindUsingRay].\n```"]
+pub struct FindUsingRayArgs {
+    pub body_index: i64 => required("bodyIndex");
+    pub origin: Option<Vec<f64>> => finite("origin");
+    pub direction: Option<Vec<f64>> => finite("direction");
+#[doc = "```text\nRadius widens the ray into a pick cylinder for edges and vertices.\n```"]
+    pub radius: f64 => omitted_finite("radius", "crate::json::is_zero");
+    pub find_first_only: bool => omitted("findFirstOnly", "crate::json::is_zero");
+}
 }
 
-#[doc = "```text\nBrepSilhouetteArgs is the request of [MethodBrepSilhouette]: the silhouette\ncurves of one face viewed along ViewDirection.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepSilhouetteArgs {
-    #[serde(rename = "source", deserialize_with = "crate::json::null_default")]
-    pub source: crate::wire::BrepBodyRef,
-    #[serde(rename = "faceKey", deserialize_with = "crate::json::null_default")]
-    pub face_key: String,
-    #[serde(
-        rename = "viewDirection",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub view_direction: Option<Vec<f64>>,
-    #[doc = "```text\nIncludeBoundary keeps silhouette runs lying on the face's own edges.\n```"]
-    #[serde(
-        rename = "includeBoundary",
-        skip_serializing_if = "crate::json::is_zero",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub include_boundary: bool,
+generated_dto! {
+#[doc = "```text\nFindUsingRayResult is the response of [MethodBodyFindUsingRay], nearest\nfirst.\n```"]
+pub struct FindUsingRayResult {
+    pub hits: Option<Vec<crate::wire::LocatedEntityInfo>> => omitted("hits", "crate::json::slice_is_empty");
+}
 }
 
-#[doc = "```text\nBrepTransformArgs is the request of [MethodBrepTransform]: a 4×4 row-major\nmatrix restricted to rotation/translation/reflection/uniform scale.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepTransformArgs {
-    #[serde(rename = "handle", deserialize_with = "crate::json::null_default")]
-    pub handle: i64,
-    #[serde(
-        rename = "matrix",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub matrix: Option<Vec<f64>>,
+generated_dto! {
+#[doc = "```text\nFitPointCloudPlaneArgs is the request of [MethodPointCloudsFitPlane]: fit a work plane to the\nnamed cloud's currently displayed points — those in model space passing the cloud's active crops\n— so cropping to a planar region first selects what the plane is fitted to.\n```"]
+pub struct FitPointCloudPlaneArgs {
+    pub cloud: String => required("cloud");
+}
 }
 
-#[doc = "```text\nBrepWireRef addresses one wire of a body for the ruled surface.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct BrepWireRef {
-    #[serde(rename = "body", deserialize_with = "crate::json::null_default")]
-    pub body: crate::wire::BrepBodyRef,
-    #[serde(rename = "wireIndex", deserialize_with = "crate::json::null_default")]
-    pub wire_index: i64,
+generated_dto! {
+#[doc = "```text\nFitPointCloudPlaneResult is the response of [MethodPointCloudsFitPlane]: the created work plane's\nbrowser name, and the fitted plane's Origin (the points' centroid) and unit Normal (the\nleast-variance direction). Normal is a direction, not a position.\n```"]
+pub struct FitPointCloudPlaneResult {
+    pub work_plane: String => required("workPlane");
+    pub origin: crate::types::Point => raw(rename = "origin");
+    pub normal: crate::types::Point => raw(rename = "normal");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatBendLineInfo is one fold line in the flat pattern: the segment (in base-plane 2D, cm)\nand the bend angle in degrees — what a DXF export draws on the bend layer.\n```"]
+pub struct FlatBendLineInfo {
+    pub start: crate::types::Point2d => raw(rename = "start");
+    pub end: crate::types::Point2d => raw(rename = "end");
+    pub angle: f64 => finite("angle");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatEdgeInfo is one classified edge of the developed flat: the fold/tangent line segment\n(in flat 2D, database units cm) and its type, plus the bend angle for a fold line.\n```"]
+pub struct FlatEdgeInfo {
+    pub start: crate::types::Point2d => raw(rename = "start");
+    pub end: crate::types::Point2d => raw(rename = "end");
+    pub type_: String => required("type");
+    pub angle: f64 => omitted_finite("angle", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatFaceInfo is one classified flat face: its type (\"front\"/\"back\"/…) and developed area\n(cm²).\n```"]
+pub struct FlatFaceInfo {
+    pub type_: String => required("type");
+    pub area: f64 => finite("area");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatPatternInfo is the developed flat: its 2D extents (the footprint bounding box in\nbase-plane coordinates), the gauge, the developed footprint area, and the fold lines. All\nlengths are in database units (cm), matching the rest of the sheet-metal surface; areas in\ncm². It lets an add-in size stock and place bend lines before cutting.\n```"]
+pub struct FlatPatternInfo {
+    pub extents: crate::types::Box2d => required("extents");
+    pub thickness: f64 => finite("thickness");
+    pub area: f64 => finite("area");
+    pub bends: Option<Vec<crate::wire::FlatBendLineInfo>> => required("bends");
+#[doc = "```text\nPunches are the punch instances developed into this flat (#1963), the same list\nflatPattern.listPunches reports.\n```"]
+    pub punches: Option<Vec<crate::wire::FlatPunchInfo>> => omitted("punches", "crate::json::slice_is_empty");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatPatternOrientationInfo is one orientation, as reported by listOrientations and returned\nby addOrientation/activateOrientation. AlignmentRotation is in degrees; Length and Width are\nthe flat's extents under this orientation (database units, cm). AlignmentAxis is a topology\nreference key, empty when the orientation uses the part's natural axes.\n```"]
+pub struct FlatPatternOrientationInfo {
+    pub name: String => required("name");
+    pub alignment_type: String => required("alignmentType");
+    pub alignment_rotation: f64 => finite("alignmentRotation");
+    pub alignment_axis: String => omitted("alignmentAxis", "crate::json::is_zero");
+    pub flip_alignment_axis: bool => omitted("flipAlignmentAxis", "crate::json::is_zero");
+    pub flip_base_face: bool => omitted("flipBaseFace", "crate::json::is_zero");
+    pub active: bool => omitted("active", "crate::json::is_zero");
+    pub length: f64 => finite("length");
+    pub width: f64 => finite("width");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatPatternSettings is the per-document flat-pattern settings. DeferUpdate suppresses the\nautomatic flat-pattern recompute, so a heavy flat is only developed on demand.\n```"]
+pub struct FlatPatternSettings {
+    pub defer_update: bool => required("deferUpdate");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlatPunchInfo is one punch instance in the developed flat — the data a nest, a DXF punch layer\nor a punch note needs (#1963): which punch it came from, where its outline sits and how it is\nturned in the flat, whether it was punched from the front or the back, and how deep it goes.\n\nDepth is only meaningful when HasDepth is set: a through punch has no depth, and reporting one\nas 0 would read as a zero-deep punch rather than a cut clean through.\n```"]
+pub struct FlatPunchInfo {
+    pub id: String => required("id");
+    pub position: crate::types::Point2d => raw(rename = "position");
+    pub angle: f64 => finite("angle");
+    pub direction_up: bool => required("directionUp");
+    pub has_depth: bool => omitted("hasDepth", "crate::json::is_zero");
+    pub depth: f64 => omitted_finite("depth", "crate::json::is_zero");
+    pub outline: Option<Vec<crate::types::Point2d>> => omitted("outline", "crate::json::slice_is_empty");
+#[doc = "```text\nRepresentationType is the punch's flat/drawing representation (PunchRepresentationType, #1968) —\nwhat a punch note or DXF layer draws for it. Empty ⇒ the document default.\n```"]
+    pub representation_type: String => omitted("representationType", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlipWorkPlaneArgs is the request of [MethodWorkPlanesFlipNormal]: reverse the normal of the user\nwork plane at Index (its position in [MethodWorkPlanesList]). The flip is recorded on the\ndefinition and persists across recompute; the plane does not move, only its normal reverses (an\noffset plane keeps its offset sign relative to the new normal). The reference CAD API's WorkPlane.FlipNormal.\n#1851.\n```"]
+pub struct FlipWorkPlaneArgs {
+    pub index: i64 => required("index");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFlipWorkPlaneResult is the response of [MethodWorkPlanesFlipNormal]: the plane's refreshed info\nwith its reversed normal. #1851.\n```"]
+pub struct FlipWorkPlaneResult {
+    pub plane: crate::wire::WorkPlaneInfo => required("plane");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nFontFace is one selectable font in the picker: a family + style, its Source (\"embedded\" for\nan application-bundled face, \"system\" for a host-installed one), and — for a system face —\nthe file Path whose bytes are embedded into the document when it is chosen (ADR-0031).\n```"]
+pub struct FontFace {
+    pub family: String => required("family");
+    pub style: String => omitted("style", "crate::json::is_zero");
+#[doc = "```text\n\"embedded\" | \"system\"\n```"]
+    pub source: String => required("source");
+#[doc = "```text\nsystem fonts only: the file to embed on select\n```"]
+    pub path: String => omitted("path", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGeneralOptionsView is the \"general\" group: application-level behavior.\n```"]
+pub struct GeneralOptionsView {
+    pub startup_action: crate::types::StartupActionType => required("startupAction");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetAttributeArgs is the request of [MethodAttributesGet]: address one attribute by its set and\nname on the document, anchored to Target (empty = the document itself).\n```"]
+pub struct GetAttributeArgs {
+    pub document: u64 => required("document");
+    pub set: String => required("set");
+    pub name: String => required("name");
+    pub target: String => omitted("target", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetCameraArgs is the request of [MethodViewGetCamera]: which document's active-view\ncamera to read. Document is optional and defaults to the active document (so a no-arg\ncall reads the active document's active view, as before camera became per-view).\n```"]
+pub struct GetCameraArgs {
+#[doc = "```text\n0 ⇒ active document; reads that document's active view\n```"]
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetDisplaySettingsArgs is the request of [MethodDocumentGetDisplaySettings]: which document's\nsettings to read (empty selects the active document).\n```"]
+pub struct GetDisplaySettingsArgs {
+    pub document: String => omitted("document", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetFileArgs is the request of [MethodFilesGet] and [MethodFilesListReferences]:\nthe full file name of an open file.\n```"]
+pub struct GetFileArgs {
+    pub full_file_name: String => required("fullFileName");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetMarkingMenuArgs is the request of [MethodUIGetMarkingMenu].\n```"]
+pub struct GetMarkingMenuArgs {
+    pub environment: crate::types::Environment => required("environment");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetOptionGroupArgs is the request of [MethodOptionsGetGroup].\n```"]
+pub struct GetOptionGroupArgs {
+    pub group: String => required("group");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetPropertyArgs is the request of [MethodDocumentsGetProperty]: address one property by its\nset and name on the document.\n```"]
+pub struct GetPropertyArgs {
+    pub document: u64 => required("document");
+    pub set: String => required("set");
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetSketchSettingsArgs is the request of [MethodDocumentGetSketchSettings]: the document whose\nsketch settings to read.\n```"]
+pub struct GetSketchSettingsArgs {
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetStyleArgs is the request of [MethodStylesGet] / [MethodStylesDelete]: the style by name.\n```"]
+pub struct GetStyleArgs {
+    pub name: String => required("name");
+}
 }

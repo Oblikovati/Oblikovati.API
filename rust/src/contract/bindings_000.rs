@@ -199,6 +199,14 @@ impl<T: crate::contract::Enumerable<std::sync::Arc<dyn crate::contract::Assembly
 {
 }
 
+#[doc = "```text\nAssemblyLoading exposes whether an assembly uses a saved express presentation.\nExample: `if assembly.ExpressMode() { err = assembly.LoadFull() }`.\n```"]
+pub trait AssemblyLoading {
+    #[doc = "```text\nExpressMode reports that component geometry has not been fully loaded.\n```"]
+    fn express_mode(&self) -> bool;
+    #[doc = "```text\nLoadFull loads the components; on error the express state remains active.\n```"]
+    fn load_full(&self) -> Result<(), crate::Error>;
+}
+
 #[doc = "```text\nAssemblySymmetryConstraint positions two geometries symmetrically about a plane.\n```"]
 pub trait AssemblySymmetryConstraint: crate::contract::AssemblyConstraint {}
 
@@ -409,6 +417,14 @@ pub trait Cone: crate::contract::Surface {
     fn half_angle(&self) -> f64;
 }
 
+#[doc = "```text\nConstraintGlyphVisibility is a sketch's geometric-constraint display state.\nRelation IDs are stable within their owning sketch.\nExample: `shown := visibility.ConstraintGlyphsShown()`.\n```"]
+pub trait ConstraintGlyphVisibility {
+    #[doc = "```text\nConstraintGlyphVisible reports whether a current relation's glyph is visible.\n```"]
+    fn constraint_glyph_visible(&self, id: u64) -> Result<bool, crate::Error>;
+    #[doc = "```text\nConstraintGlyphsShown reports whether the global display switch is on.\n```"]
+    fn constraint_glyphs_shown(&self) -> bool;
+}
+
 #[doc = "```text\nConstraintLimits bounds a constraint's driven value. Each bound is independently\noptional; an absent bound does not clamp.\n```"]
 pub trait ConstraintLimits {
     #[doc = "```text\nMaximum returns the upper bound and whether it is set.\n```"]
@@ -445,20 +461,4 @@ pub trait ContactSolver {
     fn enabled(&self) -> bool;
     #[doc = "```text\nSetCount returns the number of contact sets the solver governs.\n```"]
     fn set_count(&self) -> i64;
-}
-
-#[doc = "```text\nCurve is the umbrella every 3D transient curve satisfies.\n```"]
-pub trait Curve {
-    #[doc = "```text\nCurveType identifies the concrete kind (frozen reference values).\n```"]
-    fn curve_type(&self) -> crate::types::CurveType;
-    #[doc = "```text\nDomain returns the parameter range (±Inf for unbounded curves).\n```"]
-    fn domain(&self) -> (f64, f64);
-    #[doc = "```text\nEvaluate returns the position at parameter t.\n```"]
-    fn evaluate(&self, t: f64) -> crate::types::Point;
-    #[doc = "```text\nEvaluator returns the member-level query surface of this curve.\n```"]
-    fn evaluator(&self) -> std::sync::Arc<dyn crate::contract::CurveEvaluator>;
-    #[doc = "```text\nGeometryForm reports whether the curve is exactly NURBS-representable.\n```"]
-    fn geometry_form(&self) -> crate::types::CurveGeometryForm;
-    #[doc = "```text\nTangent returns the (unnormalized) first derivative at t.\n```"]
-    fn tangent(&self, t: f64) -> crate::types::Vector;
 }

@@ -8,12 +8,26 @@ import (
 )
 
 // AddEntity is the general entity constructor — the escape hatch covering every kind and
-// variant; prefer the typed helpers below for the common constructors.
+// variant; prefer the typed helpers below for the common constructors. Named length
+// expressions create driving dimensions in a conforming host; see wire.AddSketchEntityArgs.
+// Older hosts can silently bake such values. Use AddAssociativeEntity to reject them.
 //
 // mcp:tool add_sketch_entity
 // mcp:summary Add a 2D primitive to a sketch: {sketchIndex, kind, points:[[x,y],…]} with kind one of line|circle|arc|rectangle|slot|polygon|polyline|ellipse|spline|point. Optional variant (e.g. "threePoint","centerPoint"), radius (unit expr), ccw, construction. For kind "polyline" pass points:[[x,y],…] and optional closed:true (an arbitrary outline; closed ⇒ one closed profile). Coordinates are cm in sketch space.
 func (s Sketch) AddEntity(args wire.AddSketchEntityArgs) (wire.AddSketchEntityResult, error) {
 	return call[wire.AddSketchEntityResult](s.c, wire.MethodSketchAddEntity, args)
+}
+
+// AddAssociativeEntity creates sketch geometry while requiring the persistent
+// length-expression associations described by wire.AddSketchEntityArgs. Older
+// hosts reject this method, so they cannot silently bake a parameter value.
+// PointExprs describes initial points; this method does not bind those coordinates.
+// Example: c.Sketch().AddAssociativeEntity(wire.AddSketchEntityArgs{Kind: "circle", Points: [][]float64{{0, 0}}, Radius: "bore_r"}).
+//
+// mcp:tool sketch_add_associative_entity
+// mcp:summary Add sketch geometry with persistent parameter-driven lengths.
+func (s Sketch) AddAssociativeEntity(args wire.AddSketchEntityArgs) (wire.AddSketchEntityResult, error) {
+	return call[wire.AddSketchEntityResult](s.c, wire.MethodSketchAddAssociativeEntity, args)
 }
 
 // AddLine adds a line between two points (each [x,y] in cm).
@@ -43,8 +57,10 @@ func (s Sketch) AddPoint(index int, p []float64) (wire.AddSketchEntityResult, er
 	})
 }
 
-// AddCircleByCenterRadius adds a circle from a center [x,y] (cm) and a unit-bearing
-// radius ("10 mm").
+// AddCircleByCenterRadius adds a circle from a center [x,y] (cm) and a length
+// expression ("10 mm" or "bore_r"). Named references create driving dimensions.
+// Older hosts can silently bake values; use AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddCircleByCenterRadius(0, []float64{0, 0}, "bore_r", false).
 func (s Sketch) AddCircleByCenterRadius(index int, center []float64, radius string, construction bool) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityCircle), Variant: "centerRadius",
@@ -106,7 +122,10 @@ func (s Sketch) AddArcByCenterStartEndExpr(index int, center, start, end []strin
 }
 
 // AddEllipse adds a full ellipse from a center [x,y] (cm), a major-axis direction [x,y],
-// and unit-bearing major/minor radii ("20 mm").
+// and major/minor length expressions ("20 mm" or "major_r"). Named references
+// create driving dimensions. Older hosts can silently bake values; use
+// AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddEllipse(0, []float64{0, 0}, []float64{1, 0}, "major_r", "10 mm", false).
 func (s Sketch) AddEllipse(index int, center, axis []float64, majorR, minorR string, construction bool) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityEllipse),
@@ -161,7 +180,10 @@ func (s Sketch) AddFixedSpline(index int, points [][]float64) (wire.AddSketchEnt
 	})
 }
 
-// AddOffsetSpline adds the offset of a parent spline (by id) at a unit-bearing distance.
+// AddOffsetSpline adds the offset of a parent spline (by id) at a length expression.
+// Named references create driving dimensions, or the host rejects the request.
+// Older hosts can silently bake values; use AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddOffsetSpline(0, 7, "offset_width").
 func (s Sketch) AddOffsetSpline(index int, parentSpline uint64, distance string) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityOffsetSpline),
@@ -186,7 +208,10 @@ func (s Sketch) AddPolygon(index int, center, through []float64, sides int, vari
 	})
 }
 
-// AddSlot adds a center-to-center straight slot of the given unit-bearing width.
+// AddSlot adds a center-to-center straight slot of the given length expression.
+// Named references create driving dimensions, or the host rejects the request.
+// Older hosts can silently bake values; use AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddSlot(0, []float64{0, 0}, []float64{1, 0}, "slot_width", false).
 func (s Sketch) AddSlot(index int, c0, c1 []float64, width string, construction bool) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntitySlot),
@@ -195,7 +220,10 @@ func (s Sketch) AddSlot(index int, c0, c1 []float64, width string, construction 
 }
 
 // AddFillet rounds the corner between two existing lines (by entity id) with a tangent
-// arc of the given unit-bearing radius, trimming both lines.
+// arc of the given radius expression, trimming both lines. Named references create
+// driving dimensions, or the host rejects the request without trimming. Older
+// hosts can silently bake values; use AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddFillet(0, 3, 4, "corner_radius").
 func (s Sketch) AddFillet(index int, line1, line2 uint64, radius string) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityFillet),
@@ -204,7 +232,10 @@ func (s Sketch) AddFillet(index int, line1, line2 uint64, radius string) (wire.A
 }
 
 // AddChamfer bevels the corner between two existing lines with distances d1 and d2 (each
-// unit-bearing); pass an empty d2 for an equal-distance chamfer.
+// length expressions); pass an empty d2 for an equal-distance chamfer. Parameter
+// references create driving dimensions, or the host rejects the request without
+// trimming. Older hosts can silently bake values; use AddAssociativeEntity to reject them.
+// Example: c.Sketch().AddChamfer(0, 3, 4, "chamfer_a", "chamfer_b").
 func (s Sketch) AddChamfer(index int, line1, line2 uint64, d1, d2 string) (wire.AddSketchEntityResult, error) {
 	return s.AddEntity(wire.AddSketchEntityArgs{
 		SketchIndex: index, Kind: string(types.SketchEntityChamfer),

@@ -2,6 +2,8 @@
 
 package contract
 
+import "oblikovati.org/api/types"
+
 // SketchBlockDefinition is the scalar view of a reusable sketch entity group
 // owned by a part's component definition (M06-F07,
 // Oblikovati/Oblikovati#622). The host's model/sketch.BlockDefinition
@@ -22,4 +24,25 @@ type SketchBlock interface {
 	DefinitionName() string
 	// EntityCount is the live entity count of the instanced definition.
 	EntityCount() int
+}
+
+// SketchBlockExploder separates one instance into independent sketch entities.
+// For example, ids, err := block.Explode() returns the new entity identities.
+type SketchBlockExploder interface {
+	// Explode deletes the instance and returns its newly created entity IDs.
+	Explode() ([]uint64, error)
+}
+
+// SketchBlockColor provides a placed instance's optional color override.
+// For example, SetColor(nil) restores inheritance from its definition.
+type SketchBlockColor interface {
+	Color() *types.Color
+	SetColor(color *types.Color) error
+}
+
+// SketchBlockDefinitionColor provides a definition's optional color override.
+// For example, SetColor(nil) restores the owning sketch's default color.
+type SketchBlockDefinitionColor interface {
+	Color() *types.Color
+	SetColor(color *types.Color) error
 }

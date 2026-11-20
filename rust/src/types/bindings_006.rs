@@ -3,461 +3,451 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
-#[doc = "```text\nDrawingViewType discriminates the kind of a drawing view. The reference contracts model\nauxiliary/overlay/slice as a base DrawingView carrying this discriminator (not distinct\ninterfaces); only section and detail are also distinct contracts. The zero value is\nDrawingViewBase.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DrawingViewType(pub i32);
-
-pub const DRIVE_ANGULAR: crate::types::DriveVariable = crate::types::DriveVariable(1);
-
-pub const DRIVE_LINEAR: crate::types::DriveVariable = crate::types::DriveVariable(2);
-
-pub const DRIVE_NATURAL: crate::types::DriveVariable = crate::types::DriveVariable(0);
-
-#[doc = "```text\nDriveVariable selects which of a relationship's driven variables a drive sweeps. A\nrotational joint has one angular variable; a slider one linear; a cylindrical joint both,\nso the caller must pick. The zero value asks for the relationship's natural variable.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct DriveVariable(pub u32);
-
-pub const EACH_PART_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127493);
-
-pub const EACH_TOP_LEVEL_COMPONENT_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127491);
-
-pub const EACH_UNIQUE_PART_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127492);
-
-pub const EACH_UNIQUE_TOP_LEVEL_COMPONENT_COLORS: crate::types::DisplaySeparateColorsTypeEnum =
-    crate::types::DisplaySeparateColorsTypeEnum(127490);
-
-#[doc = "```text\nEdgeCollectionKind identifies a body's classified edge collection\n(SurfaceBody.ConvexEdges / ConcaveEdges and tangentially connected sets).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct EdgeCollectionKind(pub i32);
-
-pub const EDGE_FILLET: crate::types::FilletType = crate::types::FilletType(61697);
-
-#[doc = "```text\nElectrical groups a material's electrical properties. Common mechanical-CAD material\nmodels stop at mechanical/thermal; electrical is added here because the user models it\nexplicitly.\n```"]
-#[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
-#[serde(default)]
-pub struct Electrical {
-    #[doc = "```text\nΩ·m\n```"]
-    #[serde(
-        rename = "resistivity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub resistivity: f64,
-    #[doc = "```text\ndimensionless (εr)\n```"]
-    #[serde(
-        rename = "relativePermittivity",
-        serialize_with = "crate::json::finite::serialize",
-        deserialize_with = "crate::json::null_default"
-    )]
-    pub relative_permittivity: f64,
+generated_scalar! { string,
+#[doc = "```text\nObjectKind identifies the kind of document object a metadata-mutation event concerns\n(Oblikovati/Oblikovati#1644): a body, sketch, feature, occurrence, or the document itself. It is\nthe discriminator carried by object.renamed and property.changed so ONE generic event serves\nevery rename / property change instead of a bespoke event per mutation — an add-in matches on\nKind to route the event to the right mirror of the document structure.\n```"]
+pub struct ObjectKind(pub std::borrow::Cow<'static, str>);
 }
 
-pub const ELLIPSE_FULL_CURVE: crate::types::CurveType = crate::types::CurveType(5126);
+pub const OBJECT_KIND_BODY: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("body"));
 
-pub const ELLIPSE_FULL_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5254);
+pub const OBJECT_KIND_DOCUMENT: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("document"));
 
-pub const ELLIPTICAL_ARC_CURVE: crate::types::CurveType = crate::types::CurveType(5127);
+pub const OBJECT_KIND_FEATURE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("feature"));
 
-pub const ELLIPTICAL_ARC_CURVE2D: crate::types::Curve2dType = crate::types::Curve2dType(5255);
+pub const OBJECT_KIND_OCCURRENCE: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("occurrence"));
 
-pub const ELLIPTICAL_CONE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5894);
+pub const OBJECT_KIND_SKETCH: crate::types::ObjectKind =
+    crate::types::ObjectKind(std::borrow::Cow::Borrowed("sketch"));
 
-pub const ELLIPTICAL_CYLINDER_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5892);
+generated_dto! {
+#[doc = "```text\nObjectRef identifies one host-owned object across the contract: the numeric\nid every wire surface already hands out, qualified by the stable camelCase\nkind name (\"sketchLine\", \"extrudeFeature\", …) so heterogeneous collections\nstay self-describing (M00-F05, #601). The kind is an open string, not a\nfrozen enum: each surface documents its kind names, and a collection can mix\nkinds the way the reference ObjectCollection mixes object types.\n```"]
+pub struct ObjectRef {
+    pub kind: String => required("kind");
+    pub id: u64 => required("id");
+}
+}
 
-pub const END_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20234);
+generated_scalar! { integer,
+#[doc = "```text\nOccurrenceDOFState classifies a single degree of freedom for \"show DOF\" purposes (the reference CAD API's\nOccurrenceDOFStateEnum): a DOF that can be retained, one that can be ignored, or the no-state\nvalue. The zero value is NoDegreeOfFreedomState.\n```"]
+pub struct OccurrenceDOFState(pub i32);
+}
 
-pub const ENVELOPE_NONE: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(0);
+generated_scalar! { integer,
+#[doc = "```text\nOccurrencePatternSuppression reports how much of an occurrence pattern is suppressed\n(parity: OccurrencePatternSuppressionEnum). It is a derived read state, not a request:\nsuppressing the pattern or its elements moves it between these.\n```"]
+pub struct OccurrencePatternSuppression(pub i32);
+}
 
-pub const ENVELOPE_PER_PART: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(1);
+generated_scalar! { integer,
+#[doc = "```text\nOffsetCornerClosureType selects how a planar wire offset closes a gap\ncorner (Wire.OffsetPlanarWire).\n```"]
+pub struct OffsetCornerClosureType(pub i32);
+}
 
-pub const ENVELOPE_WHOLE: crate::types::ShrinkwrapEnvelopeStyle =
-    crate::types::ShrinkwrapEnvelopeStyle(2);
+pub const ON_CONTAINMENT: crate::types::Containment = crate::types::Containment(30979);
 
-#[doc = "```text\nEnvironment is a ribbon context within a document. The base environment is always shown; a\ncontextual environment (e.g. sketch editing) contributes its tabs only while it is active —\nthe mechanism behind a contextual tab such as the Sketch tab. An add-in scopes a control\nto an environment so it appears only in that context.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(app.Environment) so existing call sites are unaffected.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct Environment(pub u8);
-impl From<u8> for Environment {
+pub const ON_CURVE_POINT_STYLE: crate::types::PointRenderStyleEnum =
+    crate::types::PointRenderStyleEnum(20232);
+
+pub const ONE_COLOR_BACKGROUND: crate::types::BackgroundTypeEnum =
+    crate::types::BackgroundTypeEnum(52737);
+
+generated_dto! {
+#[doc = "```text\nOpenPBRBase groups OpenPBR Surface's Base parameter group (spec §Base,\nparametrization.md.html) — the diffuse/metal foundation lobe every other layer sits on\ntop of. Field defaults mirror the spec's table exactly; see [DefaultOpenPBRBase].\n```"]
+pub struct OpenPBRBase {
+#[doc = "```text\nbase_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\nbase_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\nbase_metalness, [0,1]\n```"]
+    pub metalness: f32 => finite("metalness");
+#[doc = "```text\nbase_diffuse_roughness, [0,1]\n```"]
+    pub diffuse_roughness: f32 => finite("diffuseRoughness");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRCoat groups OpenPBR Surface's Coat parameter group (spec §Coat) — a clear\ndielectric layer above everything else (Base, Specular, Transmission, Subsurface). IOR\nhas norm range [1,3] though its full range is (0,∞). Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRCoat].\n```"]
+pub struct OpenPBRCoat {
+#[doc = "```text\ncoat_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\ncoat_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\ncoat_roughness, [0,1]\n```"]
+    pub roughness: f32 => finite("roughness");
+#[doc = "```text\ncoat_roughness_anisotropy, [0,1]\n```"]
+    pub roughness_anisotropy: f32 => finite("roughnessAnisotropy");
+#[doc = "```text\ncoat_ior, (0,∞), norm [1,3]\n```"]
+    pub ior: f32 => finite("ior");
+#[doc = "```text\ncoat_darkening, [0,1]\n```"]
+    pub darkening: f32 => finite("darkening");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBREmission groups OpenPBR Surface's Emission parameter group (spec §Emission) —\nself-emitted radiance, independent of every reflective/transmissive lobe. Luminance is\nin nits (cd/m²) with norm range [0,1000] though its full range is [0,∞); Color is\nunbounded above (unlike every other Color3 field in this package's OpenPBR groups).\nField defaults mirror the spec's table exactly; see [DefaultOpenPBREmission].\n```"]
+pub struct OpenPBREmission {
+#[doc = "```text\nemission_luminance, [0,∞), nits, norm [0,1000]\n```"]
+    pub luminance: f32 => finite("luminance");
+#[doc = "```text\nemission_color, [0,∞)^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRFuzz groups OpenPBR Surface's Fuzz parameter group (spec §Fuzz) — a\nsheen/velvet-like retroreflective lobe (Zeltner sheen BRDF) layered above Coat. Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRFuzz].\n```"]
+pub struct OpenPBRFuzz {
+#[doc = "```text\nfuzz_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\nfuzz_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\nfuzz_roughness, [0,1]\n```"]
+    pub roughness: f32 => finite("roughness");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRGeometry groups OpenPBR Surface's Geometry parameter group (spec §Geometry) —\nsurface-level overrides that apply regardless of which lobes are active. Normal/Tangent/\nCoatNormal/CoatTangent are nil by default (\"unperturbed\": use the surface's own\ngeometric normal/tangent); a non-nil override is a per-point perturbation (e.g. a normal\nmap), not a per-appearance constant, but the constant form is represented the same way.\nField defaults mirror the spec's table exactly; see [DefaultOpenPBRGeometry].\n```"]
+pub struct OpenPBRGeometry {
+#[doc = "```text\ngeometry_opacity, [0,1]\n```"]
+    pub opacity: f32 => finite("opacity");
+#[doc = "```text\ngeometry_thin_walled\n```"]
+    pub thin_walled: bool => required("thinWalled");
+#[doc = "```text\ngeometry_normal\n```"]
+    pub normal: Option<Box<crate::types::Vector>> => omitted("normal", "Option::is_none");
+#[doc = "```text\ngeometry_tangent\n```"]
+    pub tangent: Option<Box<crate::types::Vector>> => omitted("tangent", "Option::is_none");
+#[doc = "```text\ngeometry_coat_normal\n```"]
+    pub coat_normal: Option<Box<crate::types::Vector>> => omitted("coatNormal", "Option::is_none");
+#[doc = "```text\ngeometry_coat_tangent\n```"]
+    pub coat_tangent: Option<Box<crate::types::Vector>> => omitted("coatTangent", "Option::is_none");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRSpecular groups OpenPBR Surface's Specular parameter group (spec §Specular) — the\ndielectric microfacet lobe layered over Base. Weight has norm range [0,1] though its full\nrange is unbounded; IOR has norm range [1,3] though its full range is (0,∞). Field\ndefaults mirror the spec's table exactly; see [DefaultOpenPBRSpecular].\n```"]
+pub struct OpenPBRSpecular {
+#[doc = "```text\nspecular_weight, [0,∞), norm [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\nspecular_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\nspecular_roughness, [0,1]\n```"]
+    pub roughness: f32 => finite("roughness");
+#[doc = "```text\nspecular_roughness_anisotropy, [0,1]\n```"]
+    pub roughness_anisotropy: f32 => finite("roughnessAnisotropy");
+#[doc = "```text\nspecular_ior, (0,∞), norm [1,3]\n```"]
+    pub ior: f32 => finite("ior");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRSubsurface groups OpenPBR Surface's Subsurface parameter group (spec\n§Subsurface) — volumetric subsurface scattering coupled to the Base diffuse lobe.\nRadius is in scene length units; norm range [0,1]. Field defaults mirror the spec's\ntable exactly; see [DefaultOpenPBRSubsurface].\n```"]
+pub struct OpenPBRSubsurface {
+#[doc = "```text\nsubsurface_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\nsubsurface_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\nsubsurface_radius, [0,∞), length, norm [0,1]\n```"]
+    pub radius: f32 => finite("radius");
+#[doc = "```text\nsubsurface_radius_scale, [0,1]^3\n```"]
+    pub radius_scale: crate::types::Color3 => required("radiusScale");
+#[doc = "```text\nsubsurface_scatter_anisotropy, [-1,1]\n```"]
+    pub scatter_anisotropy: f32 => finite("scatterAnisotropy");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRThinFilm groups OpenPBR Surface's Thin-film parameter group (spec §Thin-film) —\nwavelength-dependent iridescence from a microscopically thin dielectric film over\nSpecular/Base (Airy-summation interference). Thickness is in micrometres, norm range\n[0,1]. IOR has norm range [1,3] though its full range is (0,∞). Field defaults mirror\nthe spec's table exactly; see [DefaultOpenPBRThinFilm].\n```"]
+pub struct OpenPBRThinFilm {
+#[doc = "```text\nthin_film_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\nthin_film_thickness, [0,∞), µm, norm [0,1]\n```"]
+    pub thickness: f32 => finite("thickness");
+#[doc = "```text\nthin_film_ior, (0,∞), norm [1,3]\n```"]
+    pub ior: f32 => finite("ior");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nOpenPBRTransmission groups OpenPBR Surface's Transmission parameter group (spec\n§Transmission) — dielectric refraction through the Base layer, with volumetric\nscattering/absorption and physical dispersion. Depth is in scene length units; norm\nrange [0,1]. Abbe number has norm range [9,91] (its full range is (0,∞)). Field defaults\nmirror the spec's table exactly; see [DefaultOpenPBRTransmission].\n```"]
+pub struct OpenPBRTransmission {
+#[doc = "```text\ntransmission_weight, [0,1]\n```"]
+    pub weight: f32 => finite("weight");
+#[doc = "```text\ntransmission_color, [0,1]^3\n```"]
+    pub color: crate::types::Color3 => required("color");
+#[doc = "```text\ntransmission_depth, [0,∞), length, norm [0,1]\n```"]
+    pub depth: f32 => finite("depth");
+#[doc = "```text\ntransmission_scatter, [0,1]^3\n```"]
+    pub scatter: crate::types::Color3 => required("scatter");
+#[doc = "```text\ntransmission_scatter_anisotropy, [-1,1]\n```"]
+    pub scatter_anisotropy: f32 => finite("scatterAnisotropy");
+#[doc = "```text\ntransmission_dispersion_scale, [0,1]\n```"]
+    pub dispersion_scale: f32 => finite("dispersionScale");
+#[doc = "```text\ntransmission_dispersion_abbe_number, (0,∞), norm [9,91]\n```"]
+    pub dispersion_abbe_number: f32 => finite("dispersionAbbeNumber");
+}
+}
+
+generated_scalar! { integer,
+#[doc = "```text\nOrbitTypeEnum is how the orbit gesture is constrained: a free (trackball) orbit or a\nconstrained (turntable) orbit about vertical. Frozen ids 86017–86018.\n```"]
+pub struct OrbitTypeEnum(pub i32);
+}
+
+pub const ORDINATE_DIMENSION: crate::types::DrawingDimensionType =
+    crate::types::DrawingDimensionType(6);
+
+pub const ORIENT_IDENTICAL: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33793);
+
+pub const ORIENT_TO_DIRECTION1: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33794);
+
+pub const ORIENT_TO_DIRECTION2: crate::types::PatternOrientation =
+    crate::types::PatternOrientation(33795);
+
+generated_dto! {
+#[doc = "```text\nOrientedBox is a box aligned to its own orthonormal frame: corner point plus\nthree edge DIRECTIONS with per-axis extents (the reference's corner+vectors\nform, expressed with the unit/length split kept explicit).\n```"]
+pub struct OrientedBox {
+    pub corner: crate::types::Point => raw(rename = "corner");
+    pub x_axis: crate::types::UnitVector => raw(rename = "xAxis");
+    pub y_axis: crate::types::UnitVector => raw(rename = "yAxis");
+    pub z_axis: crate::types::UnitVector => raw(rename = "zAxis");
+#[doc = "```text\nedge lengths along the three axes\n```"]
+    pub extents: crate::types::Vector => raw(rename = "extents");
+}
+}
+
+pub const ORTHOGRAPHIC_PROJECTION: crate::types::ProjectionTypeEnum =
+    crate::types::ProjectionTypeEnum(86273);
+
+pub const ORTHOTROPIC: crate::types::IsotropyClass =
+    crate::types::IsotropyClass(std::borrow::Cow::Borrowed("orthotropic"));
+
+pub const OUT_OF_DATE_CACHED_GRAPHICS: crate::types::CachedGraphicsStatusEnum =
+    crate::types::CachedGraphicsStatusEnum(103170);
+
+pub const OUTSIDE_CONTAINMENT: crate::types::Containment = crate::types::Containment(30980);
+
+pub const OVER_CONSTRAINED_APPLY_DRIVEN: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(0);
+
+pub const OVER_CONSTRAINED_APPLY_DRIVING: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(1);
+
+generated_scalar! { integer,
+#[doc = "```text\nOverConstrainedDimensionBehavior is a document's preference for what happens when a dimension the\nuser adds would over-constrain the sketch (the reference CAD API's SketchConstraintSettings.\nOverConstrainedDimensionBehavior, #1877). The reference enum's numeric ids are not in-repo, so\nthis is an Oblikovati-owned frozen block — the wire contract is the string spelling; never\nrenumber the ids.\n```"]
+pub struct OverConstrainedDimensionBehavior(pub i32);
+}
+
+pub const OVER_CONSTRAINED_PROMPT: crate::types::OverConstrainedDimensionBehavior =
+    crate::types::OverConstrainedDimensionBehavior(2);
+
+pub const OVERALL_COLOR: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19460);
+
+pub const OVERALL_NORMAL: crate::types::NormalBindingEnum = crate::types::NormalBindingEnum(19716);
+
+pub const OVERRIDE_COLOR_SOURCE: crate::types::ColorSourceTypeEnum =
+    crate::types::ColorSourceTypeEnum(79105);
+
+pub const OVERRIDE_DISPLAY_MODE_SOURCE: crate::types::DisplayModeSourceTypeEnum =
+    crate::types::DisplayModeSourceTypeEnum(54274);
+
+pub const PAN_VIEW_OPERATION: crate::types::ViewOperationTypeEnum =
+    crate::types::ViewOperationTypeEnum(30210);
+
+pub const PANEL_BUTTON: crate::types::PanelControlKind = crate::types::PanelControlKind(1);
+
+pub const PANEL_CHECK_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(5);
+
+pub const PANEL_COMBO_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(7);
+
+generated_scalar! { integer,
+#[doc = "```text\nPanelControlKind is the kind of one declarative control inside an add-in panel\nsurface (a dockable window; also mini-toolbars, M05-F07). A panel is declared data the\nhost renders, not a widget toolkit (M05-F03, #247). The editable kinds mirror a\nconventional mini-toolbar control set (check box / combo box / dropdown / value editor /\nslider / text box) so add-ins get a familiar form vocabulary. Each editable control carries an ID;\nwhen the user changes it the host pushes a [PanelValueChangedEvent] to the add-in.\n```"]
+pub struct PanelControlKind(pub u8);
+}
+impl From<u8> for PanelControlKind {
     fn from(value: u8) -> Self {
         Self(value)
     }
 }
-impl From<Environment> for u8 {
-    fn from(value: Environment) -> Self {
+impl From<PanelControlKind> for u8 {
+    fn from(value: PanelControlKind) -> Self {
         value.0
     }
 }
 
-pub const ENVIRONMENT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92168);
+pub const PANEL_DROPDOWN: crate::types::PanelControlKind = crate::types::PanelControlKind(6);
 
-pub const EQUATION_UNFOLD: crate::types::UnfoldMethodType = crate::types::UnfoldMethodType(2);
+pub const PANEL_GRID: crate::types::PanelControlKind = crate::types::PanelControlKind(9);
 
-#[doc = "```text\nExchangeFormat names a foreign file format the host can import from or export to.\nIt is a pure value enum (a stable wire string); the parser/encoder lives in the GPL\nhost, never here. STEP is reserved (its translator ships separately, M17-F02).\n\nExample:\n\n\treq := wire.ExportRequest{Path: \"part.stl\", Format: string(types.FormatSTL)}\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct ExchangeFormat(pub std::borrow::Cow<'static, str>);
+pub const PANEL_GROUP: crate::types::PanelControlKind = crate::types::PanelControlKind(10);
 
-pub const EXTEND_CORNER_CLOSURE: crate::types::OffsetCornerClosureType =
-    crate::types::OffsetCornerClosureType(96259);
+pub const PANEL_LABEL: crate::types::PanelControlKind = crate::types::PanelControlKind(0);
 
-pub const FACE_EXTENTS_RIP: crate::types::RipType = crate::types::RipType(2);
+pub const PANEL_REFERENCE_LIST: crate::types::PanelControlKind = crate::types::PanelControlKind(12);
 
-pub const FACE_FILLET: crate::types::FilletType = crate::types::FilletType(61698);
+pub const PANEL_SEPARATOR: crate::types::PanelControlKind = crate::types::PanelControlKind(2);
 
-#[doc = "```text\nFeatureApproximationType is the approximation a thicken / face-offset\nfeature may accept when the exact offset is not computable (#331 parity).\nAn exact result satisfies every bound below, so a kernel computing the\nexact offset honours any requested approximation.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FeatureApproximationType(pub i32);
+pub const PANEL_SLIDER: crate::types::PanelControlKind = crate::types::PanelControlKind(8);
 
-pub const FEATURE_CONTROL_FRAME_ANNOTATION: crate::types::DrawingAnnotationKind =
-    crate::types::DrawingAnnotationKind(4);
+pub const PANEL_TABLE: crate::types::PanelControlKind = crate::types::PanelControlKind(14);
 
-#[doc = "```text\nFileLocationType classifies where a referenced file lives relative to the\ndesign project's search roots — the editable workspace, a shared workgroup,\na read-only library, or somewhere unmanaged (M03-F07,\nOblikovati/Oblikovati#608).\n\nThe values are a frozen block matching the reference API's location-type\nenum; never renumber them.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FileLocationType(pub i32);
+pub const PANEL_TABS: crate::types::PanelControlKind = crate::types::PanelControlKind(11);
 
-pub const FILLED_CIRCLE_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20228);
+pub const PANEL_TEXT_BOX: crate::types::PanelControlKind = crate::types::PanelControlKind(3);
 
-pub const FILLED_CIRCLE_SELECT_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20229);
+pub const PANEL_TREE: crate::types::PanelControlKind = crate::types::PanelControlKind(13);
 
-pub const FILLED_CROSS_POINT_STYLE: crate::types::PointRenderStyleEnum =
-    crate::types::PointRenderStyleEnum(20231);
+pub const PANEL_VALUE_EDITOR: crate::types::PanelControlKind = crate::types::PanelControlKind(4);
 
-pub const FILLET_CONCAVE_INWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200112);
+pub const PARALLEL_TO_ORIGINAL_PROFILE: crate::types::SweepProfileOrientation =
+    crate::types::SweepProfileOrientation(59650);
 
-pub const FILLET_CONCAVE_OUTWARD: crate::types::FilletConcaveStrategy =
-    crate::types::FilletConcaveStrategy(200111);
+generated_dto! {
+#[doc = "```text\nParamAnomaly reports the irregularities of one parameter direction: whether\nthe parameterization wraps (and with what period), hits singular points\n(a sphere pole, a cone apex, a polyline corner), or runs unbounded.\n```"]
+pub struct ParamAnomaly {
+    pub periodic: bool => omitted("periodic", "crate::json::is_zero");
+    pub period: f64 => omitted_finite("period", "crate::json::is_zero");
+    pub singular: bool => omitted("singular", "crate::json::is_zero");
+    pub unbounded: bool => omitted("unbounded", "crate::json::is_zero");
+}
+}
 
-#[doc = "```text\nFilletConcaveStrategy selects how a fillet treats a CONCAVE (internal) edge — one where the two\nfaces fold over the material (dihedral > π), e.g. the inside corner where a rib meets a plate. A\nconvex edge always rounds its corner away and ignores this. The fillet keeps an exact rolling-ball\ncylinder face either way; only which side the ball rolls on (and thus whether material is added or\nremoved) changes. An Oblikovati extension (no reference-API equivalent); the block is OURS but, once\nshipped, equally frozen: never renumber.\n\n  - FilletConcaveOutward — fill the inside corner with material (a concave fillet bridging the two\n    faces). The DEFAULT; the zero value resolves to it.\n  - FilletConcaveInward — round a recess into the corner instead (material removed).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletConcaveStrategy(pub i32);
+generated_scalar! { integer,
+#[doc = "```text\nParameterDisplayFormat is how a parameter's numeric value is rendered for\ndisplay (parity: ParameterDisplayFormatEnum). It affects presentation only,\nnever the stored or model value. The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases\nit (ADR-0018).\n```"]
+pub struct ParameterDisplayFormat(pub i32);
+}
 
-pub const FILLET_CORNER_MITER: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200001);
+generated_scalar! { string,
+#[doc = "```text\nParameterGroupKey is the immutable, locale-stable internal name that\nidentifies a custom parameter group for its whole life (M02-F05,\nOblikovati/Oblikovati#604). The editable, localizable display name lives\nbeside it; persistence, wire methods, and membership all address a group by\nthis key, so renaming the display never breaks references.\n\n\tkey := types.ParameterGroupKey(\"com.example.gears:ratios\")\n```"]
+pub struct ParameterGroupKey(pub std::borrow::Cow<'static, str>);
+}
 
-pub const FILLET_CORNER_ROUND: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200003);
+generated_scalar! { integer,
+#[doc = "```text\nParameterKind is a parameter's category, with stable explicit ids.\nModel/User/Table parameters are user-editable; Reference\n(driven by geometry) and Derived (linked from another document) are read-only.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases it\n(model/param.ParameterKind) so existing call sites are unaffected.\n```"]
+pub struct ParameterKind(pub u8);
+}
+impl From<u8> for ParameterKind {
+    fn from(value: u8) -> Self {
+        Self(value)
+    }
+}
+impl From<ParameterKind> for u8 {
+    fn from(value: ParameterKind) -> Self {
+        value.0
+    }
+}
 
-pub const FILLET_CORNER_SETBACK: crate::types::FilletCornerType =
-    crate::types::FilletCornerType(200002);
+generated_dto! {
+#[doc = "```text\nPartAnnotationScale is Auto or a positive finite ratio of drawing to model units.\nAuto has numerator and denominator zero; Fixed and Custom require both positive.\nEquivalent ratios retain the mode and values chosen by the caller.\nExample: `scale := types.PartAnnotationScale{Mode: types.PartAnnotationScaleCustom, Numerator: 3, Denominator: 2}`.\n```"]
+pub struct PartAnnotationScale {
+    pub mode: crate::types::PartAnnotationScaleMode => required("mode");
+    pub numerator: u32 => required("numerator");
+    pub denominator: u32 => required("denominator");
+}
+}
 
-#[doc = "```text\nFilletCornerType selects how an edge fillet treats a corner where two filleted edges meet at a\nvertex whose third edge stays sharp (the two rolling-ball cylinders cannot be joined by a single\nsphere unless that third edge is also rounded). It is an Oblikovati extension with no reference-API\nequivalent, so the numeric block below is OURS (chosen clear of the frozen reference blocks above)\n— but, once shipped, it is equally frozen: never renumber.\n\n  - FilletCornerMiter — the two cylinders mutually trim along their intersection seam (a crease);\n    the geometrically exact rolling-ball result for rounding only two of a corner's three edges.\n  - FilletCornerSetback — a spherical corner patch tangent to the three faces, set back from the\n    sharp edge by a small planar setback face (a smoothed corner; not the exact rolling-ball form).\n  - FilletCornerRound — round the corner fully into a single sphere octant by also rolling over the\n    third edge (the true 3-edge blend; the corner becomes G1-smooth all round).\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletCornerType(pub i32);
+pub const PART_ANNOTATION_SCALE_AUTO: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("auto"));
 
-#[doc = "```text\nFilletCrossSection selects the shape of an edge blend's cross-section profile (M36-F08): the\ndefault circular arc (G1 — tangent to both walls), a curvature-continuous G2 profile (zero\ncurvature at the tangency lines, so a blend between flat walls has no curvature jump), or a conic\n(rho-controlled) profile whose shoulder fullness is set by a separate rho parameter. It is a\nstring enum so the empty value reads as the arc default; the kernel maps it to its blend builder.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletCrossSection(pub std::borrow::Cow<'static, str>);
+pub const PART_ANNOTATION_SCALE_CUSTOM: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("custom"));
 
-pub const FILLET_SECTION_ARC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("arc"));
+pub const PART_ANNOTATION_SCALE_FIXED: crate::types::PartAnnotationScaleMode =
+    crate::types::PartAnnotationScaleMode(std::borrow::Cow::Borrowed("fixed"));
 
-pub const FILLET_SECTION_CONIC: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("conic"));
+generated_scalar! { string,
+#[doc = "```text\nPartAnnotationScaleMode identifies an automatic, fixed-ratio, or custom ratio scale.\nExample: `mode := types.PartAnnotationScaleAuto`.\n```"]
+pub struct PartAnnotationScaleMode(pub std::borrow::Cow<'static, str>);
+}
 
-pub const FILLET_SECTION_G2: crate::types::FilletCrossSection =
-    crate::types::FilletCrossSection(std::borrow::Cow::Borrowed("g2"));
+generated_dto! {
+#[doc = "```text\nPartDesignViewCamera is the complete viewport camera stored by a part view.\nScale is the view height at Target. Near and Far are positive clipping distances.\nEye, Target and Up form a usable finite camera frame. Projection selects the\nprojection mode; a host declines projection modes it cannot represent.\nExample: `camera := types.PartDesignViewCamera{Scale: 20, Near: 1, Far: 100}`.\n```"]
+pub struct PartDesignViewCamera {
+    pub eye: crate::types::Point => raw(rename = "eye");
+    pub target: crate::types::Point => raw(rename = "target");
+    pub up: crate::types::Vector => raw(rename = "up");
+    pub scale: f64 => finite("scale");
+    pub near: f64 => finite("near");
+    pub far: f64 => finite("far");
+    pub projection: crate::types::ProjectionTypeEnum => required("projection");
+}
+}
 
-#[doc = "```text\nFilletType discriminates the fillet definition: edge sets, a face-pair\nfillet, or a full round across three face sets.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FilletType(pub i32);
+pub const PART_FILE_EXTENSION: &str = ".opd";
 
-pub const FITS_TOLERANCE: crate::types::DimensionToleranceType =
-    crate::types::DimensionToleranceType(4);
+pub const PART_RIBBON: crate::types::RibbonKey =
+    crate::types::RibbonKey(std::borrow::Cow::Borrowed("Part"));
 
-pub const FIXED_VIEW_JUSTIFICATION: crate::types::ViewJustification =
-    crate::types::ViewJustification(1);
+pub const PARTS_LIST_ANNOTATION: crate::types::DrawingAnnotationKind =
+    crate::types::DrawingAnnotationKind(7);
 
-pub const FLAT_BACKSIDE_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10773);
+pub const PATH_AND_GUIDE_RAIL_SWEEP_DEF: crate::types::SweepDefinitionType =
+    crate::types::SweepDefinitionType(59138);
 
-pub const FLAT_BACKSIDE_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10772);
+pub const PATH_AND_GUIDE_RAIL_SWEEP_TYPE: crate::types::SweepType = crate::types::SweepType(104450);
 
-pub const FLAT_BACKSIDE_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10771);
+pub const PATH_AND_GUIDE_SURFACE_SWEEP_DEF: crate::types::SweepDefinitionType =
+    crate::types::SweepDefinitionType(59139);
 
-pub const FLAT_BACKSIDE_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10770);
+pub const PATH_AND_GUIDE_SURFACE_SWEEP_TYPE: crate::types::SweepType =
+    crate::types::SweepType(104451);
 
-#[doc = "```text\nFlatPatternEdgeType classifies an edge of the developed flat for manufacturing and drawing:\na fold line where the sheet bends up or down, or a tangent line where a curved wall met the\nflat tangentially. Outer-profile (cut) edges carry no flat-pattern type.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FlatPatternEdgeType(pub i32);
+pub const PATH_AND_SECTION_TWIST_SWEEP_TYPE: crate::types::SweepType =
+    crate::types::SweepType(104452);
 
-#[doc = "```text\nFlatPatternFaceType classifies a face of the developed flat: the front (top) face the\norientation presents, the back (bottom) face, a detail face, or unknown.\n```"]
-#[derive(
-    Debug,
-    Clone,
-    Default,
-    PartialEq,
-    PartialOrd,
-    serde::Serialize,
-    serde::Deserialize,
-    Eq,
-    Ord,
-    Hash,
-    Copy,
-)]
-#[repr(transparent)]
-#[serde(transparent)]
-pub struct FlatPatternFaceType(pub i32);
+pub const PATH_AND_SECTION_TWISTS_SWEEP_DEF: crate::types::SweepDefinitionType =
+    crate::types::SweepDefinitionType(59140);
 
-pub const FLAT_PIVOT180_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10769);
+pub const PATH_SWEEP_DEF: crate::types::SweepDefinitionType =
+    crate::types::SweepDefinitionType(59137);
 
-pub const FLAT_PIVOT_LEFT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10768);
+pub const PATH_SWEEP_TYPE: crate::types::SweepType = crate::types::SweepType(104449);
 
-pub const FLAT_PIVOT_RIGHT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10767);
+generated_scalar! { integer,
+#[doc = "```text\nPatternBoundaryInclusion decides whether an occurrence inside/outside a bounding\nprofile is kept, by which point of the occurrence is tested (parity:\nPatternBoundaryInclusionEnum).\n```"]
+pub struct PatternBoundaryInclusion(pub i32);
+}
 
-pub const FORESHORTENED_DIMENSION: crate::types::DrawingDimensionType =
-    crate::types::DrawingDimensionType(8);
+generated_scalar! { integer,
+#[doc = "```text\nPatternComputeType selects how each occurrence's geometry is computed (parity:\nPatternComputeTypeEnum).\n```"]
+pub struct PatternComputeType(pub i32);
+}
 
-pub const FORMAT3_MF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("3mf"));
+generated_scalar! { integer,
+#[doc = "```text\nPatternOrientation selects how each occurrence is rotated relative to the seed\n(parity: PatternOrientationEnum).\n```"]
+pub struct PatternOrientation(pub i32);
+}
 
-pub const FORMAT_DWG: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dwg"));
+generated_scalar! { integer,
+#[doc = "```text\nPatternPositioningMethod selects how occurrences are positioned along a direction\n(parity: PatternPositioningMethodEnum).\n```"]
+pub struct PatternPositioningMethod(pub i32);
+}
 
-pub const FORMAT_DXF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("dxf"));
+generated_scalar! { integer,
+#[doc = "```text\nPatternSpacingType interprets a pattern direction's spacing value (parity:\nPatternSpacingTypeEnum).\n```"]
+pub struct PatternSpacingType(pub i32);
+}
 
-pub const FORMAT_E57: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("e57"));
+pub const PER_ITEM_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19459);
 
-pub const FORMAT_GLTF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("gltf"));
+pub const PER_ITEM_NORMALS: crate::types::NormalBindingEnum =
+    crate::types::NormalBindingEnum(19715);
 
-pub const FORMAT_LAS: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("las"));
+pub const PER_STRIP_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19458);
 
-pub const FORMAT_OBJ: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("obj"));
+pub const PER_STRIP_NORMALS: crate::types::NormalBindingEnum =
+    crate::types::NormalBindingEnum(19714);
 
-pub const FORMAT_PDF: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("pdf"));
+pub const PER_VERTEX_COLORS: crate::types::ColorBindingEnum = crate::types::ColorBindingEnum(19457);
 
-pub const FORMAT_PLY: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("ply"));
+pub const PER_VERTEX_NORMALS: crate::types::NormalBindingEnum =
+    crate::types::NormalBindingEnum(19713);
 
-pub const FORMAT_STEP: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("step"));
+pub const PERSPECTIVE_PROJECTION: crate::types::ProjectionTypeEnum =
+    crate::types::ProjectionTypeEnum(86274);
 
-pub const FORMAT_STL: crate::types::ExchangeFormat =
-    crate::types::ExchangeFormat(std::borrow::Cow::Borrowed("stl"));
-
-pub const FORMED_FEATURE_PUNCH_REPRESENTATION: crate::types::PunchRepresentationType =
-    crate::types::PunchRepresentationType(1);
-
-pub const FORTY_FIVE_DEGREES_LEFT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92161);
-
-pub const FORTY_FIVE_DEGREES_RIGHT_SHADOW: crate::types::ShadowDirectionEnum =
-    crate::types::ShadowDirectionEnum(92162);
-
-pub const FREE_ORBIT: crate::types::OrbitTypeEnum = crate::types::OrbitTypeEnum(86017);
-
-pub const FROM_BASE_VIEW_STYLE: crate::types::DrawingViewStyle = crate::types::DrawingViewStyle(4);
-
-pub const FRONT_FACING_AND_PIXEL_SCALING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26115);
-
-pub const FRONT_FACING_BEHAVIOR: crate::types::DisplayTransformBehaviorEnum =
-    crate::types::DisplayTransformBehaviorEnum(26113);
-
-pub const FRONT_FLAT_PATTERN_FACE: crate::types::FlatPatternFaceType =
-    crate::types::FlatPatternFaceType(1);
-
-pub const FRONT_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
-    crate::types::ViewOrientationTypeEnum(10764);
-
-pub const FULL_ROUND_FILLET: crate::types::FilletType = crate::types::FilletType(61699);
-
-pub const GEO3_D_BEND: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("bend"));
-
-pub const GEO3_D_COINCIDENT: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("coincident"));
-
-pub const GEO3_D_COLLINEAR: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("collinear"));
-
-pub const GEO3_D_CONCENTRIC: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("concentric"));
-
-pub const GEO3_D_EQUAL: crate::types::Geometric3DConstraintKind =
-    crate::types::Geometric3DConstraintKind(std::borrow::Cow::Borrowed("equal"));
+pub const PERSPECTIVE_WITH_ORTHO_FACES_PROJECTION: crate::types::ProjectionTypeEnum =
+    crate::types::ProjectionTypeEnum(86275);
