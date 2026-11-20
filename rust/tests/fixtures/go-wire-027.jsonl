@@ -1,3 +1,9 @@
+{"Name":"wire.UnitStringArgs","Case":"zero","Payload":{"unitString":""},"Canonical":{"unitString":""},"Error":""}
+{"Name":"wire.UnitStringArgs","Case":"filled","Payload":{"unitString":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitString":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.UnitStringArgs","Case":"empty","Payload":{"unitString":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitString":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.UnitsTypeArgs","Case":"zero","Payload":{"unitsType":""},"Canonical":{"unitsType":""},"Error":""}
+{"Name":"wire.UnitsTypeArgs","Case":"filled","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.UnitsTypeArgs","Case":"empty","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.UnitsTypeResult","Case":"zero","Payload":{"unitsType":""},"Canonical":{"unitsType":""},"Error":""}
 {"Name":"wire.UnitsTypeResult","Case":"filled","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.UnitsTypeResult","Case":"empty","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}

@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup13 = []fixtureType{
+	{"wire.ParameterGroupDeleteArgs", reflect.TypeFor[wire.ParameterGroupDeleteArgs]()},
+	{"wire.ParameterGroupDisplayNameArgs", reflect.TypeFor[wire.ParameterGroupDisplayNameArgs]()},
 	{"wire.ParameterGroupInfo", reflect.TypeFor[wire.ParameterGroupInfo]()},
 	{"wire.ParameterGroupMemberArgs", reflect.TypeFor[wire.ParameterGroupMemberArgs]()},
 	{"wire.ParameterImportArgs", reflect.TypeFor[wire.ParameterImportArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup13 = []fixtureType{
 	{"wire.RemoveViewCropArgs", reflect.TypeFor[wire.RemoveViewCropArgs]()},
 	{"wire.RenameFeatureArgs", reflect.TypeFor[wire.RenameFeatureArgs]()},
 	{"wire.RenamePartDesignViewArgs", reflect.TypeFor[wire.RenamePartDesignViewArgs]()},
-	{"wire.RenameViewArgs", reflect.TypeFor[wire.RenameViewArgs]()},
-	{"wire.RenameWorkSurfaceArgs", reflect.TypeFor[wire.RenameWorkSurfaceArgs]()},
 }

@@ -1,3 +1,9 @@
+{"Name":"wire.SetFlexibleChildArgs","Case":"zero","Payload":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
+{"Name":"wire.SetFlexibleChildArgs","Case":"filled","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
+{"Name":"wire.SetFlexibleChildArgs","Case":"empty","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
+{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
+{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
+{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFreeformLevelArgs","Case":"zero","Payload":{"id":0,"level":0},"Canonical":{"id":0,"level":0},"Error":""}
 {"Name":"wire.SetFreeformLevelArgs","Case":"filled","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}
 {"Name":"wire.SetFreeformLevelArgs","Case":"empty","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.SetStatusTextArgs","Case":"zero","Payload":{"text":""},"Canonical":{"text":""},"Error":""}
 {"Name":"wire.SetStatusTextArgs","Case":"filled","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetStatusTextArgs","Case":"empty","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetSuppressedArgs","Case":"zero","Payload":{"rep":0,"occurrence":0,"suppressed":false},"Canonical":{"rep":0,"occurrence":0,"suppressed":false},"Error":""}
-{"Name":"wire.SetSuppressedArgs","Case":"filled","Payload":{"rep":7,"occurrence":7,"suppressed":true},"Canonical":{"rep":7,"occurrence":7,"suppressed":true},"Error":""}
-{"Name":"wire.SetSuppressedArgs","Case":"empty","Payload":{"rep":7,"occurrence":7,"suppressed":true},"Canonical":{"rep":7,"occurrence":7,"suppressed":true},"Error":""}
-{"Name":"wire.SetTextFontArgs","Case":"zero","Payload":{"sketchIndex":0,"entityId":0},"Canonical":{"sketchIndex":0,"entityId":0},"Error":""}
-{"Name":"wire.SetTextFontArgs","Case":"filled","Payload":{"sketchIndex":7,"entityId":7,"family":"example \u003c\u0026\u003e 日本語","path":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"entityId":7,"family":"example \u003c\u0026\u003e 日本語","path":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetTextFontArgs","Case":"empty","Payload":{"sketchIndex":7,"entityId":7,"family":"example \u003c\u0026\u003e 日本語","path":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"entityId":7,"family":"example \u003c\u0026\u003e 日本語","path":"example \u003c\u0026\u003e 日本語"},"Error":""}

@@ -70,6 +70,8 @@ pub struct EditTextArgs {
     pub font_size: String => omitted("fontSize", "crate::json::is_zero");
 #[doc = "```text\nOmit to keep existing runs, or pass an empty array to clear. When Text\nreplaces the content, omitting runs creates plain text. Explicit runs\napply to the replacement content or, when Text is absent, the stored content.\n```"]
     pub formatting_runs: Option<Box<Option<Vec<crate::types::SketchTextRun>>>> => omitted("formattingRuns", "Option::is_none");
+#[doc = "```text\nOmit to preserve spacing. Set Mode to single to reset the spacing.\n```"]
+    pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
 }
 }
 

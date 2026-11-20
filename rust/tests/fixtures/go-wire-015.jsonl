@@ -1,3 +1,9 @@
+{"Name":"wire.EndOfPartResult","Case":"zero","Payload":{"position":0,"rolledBack":false},"Canonical":{"position":0,"rolledBack":false},"Error":""}
+{"Name":"wire.EndOfPartResult","Case":"filled","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
+{"Name":"wire.EndOfPartResult","Case":"empty","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
+{"Name":"wire.EndProgressArgs","Case":"zero","Payload":{"id":0},"Canonical":{"id":0},"Error":""}
+{"Name":"wire.EndProgressArgs","Case":"filled","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
+{"Name":"wire.EndProgressArgs","Case":"empty","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
 {"Name":"wire.EnumerateEntities3DResult","Case":"zero","Payload":{"entities":null},"Canonical":{"entities":null},"Error":""}
 {"Name":"wire.EnumerateEntities3DResult","Case":"filled","Payload":{"entities":[{"index":7,"id":7,"kind":"example \u003c\u0026\u003e 日本語","construction":true,"points":[[1.25]],"radius":1.25,"referenceKey":"example \u003c\u0026\u003e 日本語","moveableStatus":"example \u003c\u0026\u003e 日本語","coordinateSystem":"example \u003c\u0026\u003e 日本語"}]},"Canonical":{"entities":[{"index":7,"id":7,"kind":"example \u003c\u0026\u003e 日本語","construction":true,"points":[[1.25]],"radius":1.25,"referenceKey":"example \u003c\u0026\u003e 日本語","moveableStatus":"example \u003c\u0026\u003e 日本語","coordinateSystem":"example \u003c\u0026\u003e 日本語"}]},"Error":""}
 {"Name":"wire.EnumerateEntities3DResult","Case":"empty","Payload":{"entities":[]},"Canonical":{"entities":[]},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.FindByAttributeResult","Case":"zero","Payload":{"matches":null},"Canonical":{"matches":null},"Error":""}
 {"Name":"wire.FindByAttributeResult","Case":"filled","Payload":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Canonical":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Error":""}
 {"Name":"wire.FindByAttributeResult","Case":"empty","Payload":{"matches":[]},"Canonical":{"matches":[]},"Error":""}
-{"Name":"wire.FindUsingRayArgs","Case":"zero","Payload":{"bodyIndex":0,"origin":null,"direction":null},"Canonical":{"bodyIndex":0,"origin":null,"direction":null},"Error":""}
-{"Name":"wire.FindUsingRayArgs","Case":"filled","Payload":{"bodyIndex":7,"origin":[1.25],"direction":[1.25],"radius":1.25,"findFirstOnly":true},"Canonical":{"bodyIndex":7,"origin":[1.25],"direction":[1.25],"radius":1.25,"findFirstOnly":true},"Error":""}
-{"Name":"wire.FindUsingRayArgs","Case":"empty","Payload":{"bodyIndex":7,"origin":[],"direction":[],"radius":1.25,"findFirstOnly":true},"Canonical":{"bodyIndex":7,"origin":[],"direction":[],"radius":1.25,"findFirstOnly":true},"Error":""}
-{"Name":"wire.FindUsingRayResult","Case":"zero","Payload":{},"Canonical":{},"Error":""}
-{"Name":"wire.FindUsingRayResult","Case":"filled","Payload":{"hits":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"point":[1.25],"distance":1.25}]},"Canonical":{"hits":[{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"point":[1.25],"distance":1.25}]},"Error":""}
-{"Name":"wire.FindUsingRayResult","Case":"empty","Payload":{},"Canonical":{},"Error":""}

@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup10 = []fixtureType{
+	{"wire.FindUsingRayArgs", reflect.TypeFor[wire.FindUsingRayArgs]()},
+	{"wire.FindUsingRayResult", reflect.TypeFor[wire.FindUsingRayResult]()},
 	{"wire.FitPointCloudPlaneArgs", reflect.TypeFor[wire.FitPointCloudPlaneArgs]()},
 	{"wire.FitPointCloudPlaneResult", reflect.TypeFor[wire.FitPointCloudPlaneResult]()},
 	{"wire.FlatBendLineInfo", reflect.TypeFor[wire.FlatBendLineInfo]()},
@@ -87,6 +89,4 @@ var fixtureGroup10 = []fixtureType{
 	{"wire.ListAttachmentsArgs", reflect.TypeFor[wire.ListAttachmentsArgs]()},
 	{"wire.ListAttachmentsResult", reflect.TypeFor[wire.ListAttachmentsResult]()},
 	{"wire.ListAttributeSetsArgs", reflect.TypeFor[wire.ListAttributeSetsArgs]()},
-	{"wire.ListAttributeSetsResult", reflect.TypeFor[wire.ListAttributeSetsResult]()},
-	{"wire.ListAttributesArgs", reflect.TypeFor[wire.ListAttributesArgs]()},
 }

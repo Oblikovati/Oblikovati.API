@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup12 = []fixtureType{
+	{"wire.MassPropertiesResult", reflect.TypeFor[wire.MassPropertiesResult]()},
+	{"wire.MaterialInfo", reflect.TypeFor[wire.MaterialInfo]()},
 	{"wire.MeasureArgs", reflect.TypeFor[wire.MeasureArgs]()},
 	{"wire.MeasureResult", reflect.TypeFor[wire.MeasureResult]()},
 	{"wire.MeshColorsResult", reflect.TypeFor[wire.MeshColorsResult]()},
@@ -87,6 +89,4 @@ var fixtureGroup12 = []fixtureType{
 	{"wire.ParameterExportResult", reflect.TypeFor[wire.ParameterExportResult]()},
 	{"wire.ParameterExpressionListArgs", reflect.TypeFor[wire.ParameterExpressionListArgs]()},
 	{"wire.ParameterGroupAddArgs", reflect.TypeFor[wire.ParameterGroupAddArgs]()},
-	{"wire.ParameterGroupDeleteArgs", reflect.TypeFor[wire.ParameterGroupDeleteArgs]()},
-	{"wire.ParameterGroupDisplayNameArgs", reflect.TypeFor[wire.ParameterGroupDisplayNameArgs]()},
 }

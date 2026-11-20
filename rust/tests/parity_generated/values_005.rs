@@ -153,6 +153,11 @@ fn types_sketch_settings() {
 }
 
 #[test]
+fn types_sketch_text_line_spacing() {
+    super::check::<oblikovati_api::types::SketchTextLineSpacing>("types.SketchTextLineSpacing");
+}
+
+#[test]
 fn types_sketch_text_run() {
     super::check::<oblikovati_api::types::SketchTextRun>("types.SketchTextRun");
 }
@@ -233,6 +238,11 @@ fn types_text_horizontal_align() {
 }
 
 #[test]
+fn types_text_line_spacing_mode() {
+    super::check::<oblikovati_api::types::TextLineSpacingMode>("types.TextLineSpacingMode");
+}
+
+#[test]
 fn types_text_vertical_align() {
     super::check::<oblikovati_api::types::TextVerticalAlign>("types.TextVerticalAlign");
 }
@@ -295,14 +305,4 @@ fn types_triad_segment() {
 #[test]
 fn types_unfold_method_type() {
     super::check::<oblikovati_api::types::UnfoldMethodType>("types.UnfoldMethodType");
-}
-
-#[test]
-fn types_unit_vector() {
-    super::check::<oblikovati_api::types::UnitVector>("types.UnitVector");
-}
-
-#[test]
-fn types_unit_vector2d() {
-    super::check::<oblikovati_api::types::UnitVector2d>("types.UnitVector2d");
 }

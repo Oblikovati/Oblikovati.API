@@ -1,7 +1,33 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use super::{OVERRIDE_COLOR_SOURCE, SketchTextRun};
+use super::{OVERRIDE_COLOR_SOURCE, SketchTextLineSpacing, SketchTextRun};
 use crate::Error;
+
+impl SketchTextLineSpacing {
+    /// Validate optional spacing, for example `SketchTextLineSpacing::validate(Some(&spacing))?`.
+    pub fn validate(spacing: Option<&Self>) -> Result<(), Error> {
+        let Some(spacing) = spacing else {
+            return Ok(());
+        };
+        let expected = match spacing.mode.0.as_ref() {
+            "single" | "oneAndHalf" | "double" if spacing.value == 0. => return Ok(()),
+            "single" | "oneAndHalf" | "double" => "zero for a fixed mode",
+            "multiple" | "exactly" if spacing.value > 0. && spacing.value.is_finite() => {
+                return Ok(());
+            }
+            "multiple" | "exactly" => "a positive finite value",
+            mode => {
+                return Err(Error(format!(
+                    "line spacing mode {mode:?}: expected single, oneAndHalf, double, multiple, or exactly"
+                )));
+            }
+        };
+        Err(Error(format!(
+            "line spacing {:?} value {:?}: expected {expected}",
+            spacing.mode.0, spacing.value
+        )))
+    }
+}
 
 impl SketchTextRun {
     /// Validate style runs against Unicode scalar positions. `None` defers the length check.
