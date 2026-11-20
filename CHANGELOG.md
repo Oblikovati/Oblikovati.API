@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.162.0] - 2026-11-20
+
+### Changed
+
+- Carry line spacing in Sketch Text requests
+
 ### Added
 
 - Added optional line spacing to Sketch Text styles, requests, and results. (#316)
@@ -1464,7 +1470,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.161.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.162.0...HEAD
+[0.162.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.161.0...v0.162.0
 [0.161.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.160.0...v0.161.0
 [0.160.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.159.0...v0.160.0
 [0.159.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.158.0...v0.159.0
