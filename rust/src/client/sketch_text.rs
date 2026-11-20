@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::{Error, types::SketchTextRun, wire};
+use crate::{
+    Error,
+    types::{SketchTextLineSpacing, SketchTextRun},
+    wire,
+};
 use serde::de::DeserializeOwned;
 
 pub(super) fn validate_request(method: &str, bytes: &[u8]) -> Result<(), Error> {
@@ -11,6 +15,7 @@ pub(super) fn validate_request(method: &str, bytes: &[u8]) -> Result<(), Error> 
                 Some(&args.text),
                 args.formatting_runs.as_deref().unwrap_or(&[]),
             )
+            .and_then(|()| SketchTextLineSpacing::validate(args.line_spacing.as_deref()))
         }
         wire::METHOD_SKETCH_EDIT_TEXT => {
             let args: wire::EditTextArgs = decode(method, "request", bytes)?;
@@ -19,6 +24,7 @@ pub(super) fn validate_request(method: &str, bytes: &[u8]) -> Result<(), Error> 
                 args.text.as_deref().map(String::as_str),
                 runs.unwrap_or(&[]),
             )
+            .and_then(|()| SketchTextLineSpacing::validate(args.line_spacing.as_deref()))
         }
         _ => return Ok(()),
     }
@@ -35,6 +41,7 @@ pub(super) fn validate_response(method: &str, bytes: &[u8]) -> Result<(), Error>
     let result: wire::SketchTextResult = decode(method, "response", bytes)?;
     let runs = result.style.formatting_runs.as_deref().unwrap_or(&[]);
     SketchTextRun::validate(Some(&result.style.content), runs)
+        .and_then(|()| SketchTextLineSpacing::validate(result.style.line_spacing.as_deref()))
         .map_err(|error| Error(format!("method {method:?} response: {error}")))
 }
 

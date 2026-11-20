@@ -176,6 +176,7 @@ pub struct AddTextArgs {
 #[doc = "```text\nunit-bearing; \"\" ⇒ track Height\n```"]
     pub font_size: String => omitted("fontSize", "crate::json::is_zero");
     pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
+    pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
 }
 }
 
@@ -453,13 +454,5 @@ pub struct AssignAppearanceArgs {
     pub scope: String => required("scope");
     pub key: String => omitted("key", "crate::json::is_zero");
     pub appearance_id: String => required("appearanceId");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nAssignMaterialArgs assigns a material to a body, or to the part default when BodyKey is\nempty. BodyKey is the body's hex reference key (stable across recompute).\n```"]
-pub struct AssignMaterialArgs {
-    pub body_key: String => omitted("bodyKey", "crate::json::is_zero");
-    pub material_id: String => required("materialId");
 }
 }

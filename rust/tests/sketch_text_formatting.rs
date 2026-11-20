@@ -3,7 +3,9 @@
 use oblikovati_api::{
     Error,
     client::{Caller, Client},
-    types::{Color, OVERRIDE_COLOR_SOURCE, SketchTextRun},
+    types::{
+        Color, OVERRIDE_COLOR_SOURCE, SketchTextLineSpacing, SketchTextRun, TextLineSpacingMode,
+    },
     wire,
 };
 use serde_json::{Value, json};
@@ -221,5 +223,96 @@ fn invalid_typed_requests_and_responses_are_rejected() {
             .unwrap_err()
             .0
             .contains("3 Unicode scalars")
+    );
+}
+
+fn text_spacing(mode: &str, value: f64) -> SketchTextLineSpacing {
+    SketchTextLineSpacing {
+        mode: TextLineSpacingMode(mode.to_owned().into()),
+        value,
+    }
+}
+
+#[test]
+fn line_spacing_validates_modes_and_values() {
+    assert!(SketchTextLineSpacing::validate(None).is_ok());
+    for (mode, value) in [
+        ("single", 0.),
+        ("oneAndHalf", 0.),
+        ("double", 0.),
+        ("multiple", 1.75),
+        ("exactly", 0.61),
+    ] {
+        assert!(SketchTextLineSpacing::validate(Some(&text_spacing(mode, value))).is_ok());
+    }
+    for (mode, value) in [
+        ("unknown", 0.),
+        ("double", 2.),
+        ("multiple", 0.),
+        ("exactly", -1.),
+        ("multiple", f64::INFINITY),
+        ("exactly", f64::NAN),
+    ] {
+        assert!(SketchTextLineSpacing::validate(Some(&text_spacing(mode, value))).is_err());
+    }
+}
+
+#[test]
+fn typed_spacing_edits_distinguish_preserve_and_single() {
+    let requests = RefCell::new(Vec::new());
+    let client = Client::new(TextFormattingHost {
+        requests: &requests,
+        resolved: r#"{"entityId":42,"style":{"content":"a\nb","height":0.5,"lineSpacing":{"mode":"double"}}}"#,
+    });
+    let sketch = client.sketch();
+    let mut edit = wire::EditTextArgs {
+        entity_id: 42,
+        ..Default::default()
+    };
+    let prior = sketch.edit_text(&edit).unwrap();
+    assert_eq!(
+        prior.style.line_spacing.as_deref(),
+        Some(&text_spacing("double", 0.))
+    );
+    edit.line_spacing = Some(Box::new(text_spacing("single", 0.)));
+    sketch.edit_text(&edit).unwrap();
+    assert!(requests.borrow()[0].get("lineSpacing").is_none());
+    assert_eq!(
+        requests.borrow()[1]["lineSpacing"],
+        json!({"mode":"single"})
+    );
+}
+
+#[test]
+fn invalid_typed_spacing_is_rejected_on_both_sides() {
+    let requests = RefCell::new(Vec::new());
+    let client = Client::new(TextFormattingHost {
+        requests: &requests,
+        resolved: r#"{"entityId":42,"style":{"content":"a","height":0.5,"lineSpacing":{"mode":"exactly"}}}"#,
+    });
+    let sketch = client.sketch();
+    let add = wire::AddTextArgs {
+        text: "a".into(),
+        line_spacing: Some(Box::new(text_spacing("multiple", 0.))),
+        ..Default::default()
+    };
+    assert!(
+        sketch
+            .add_text(&add)
+            .unwrap_err()
+            .0
+            .contains("positive finite")
+    );
+    assert!(requests.borrow().is_empty());
+    let read = wire::GetTextArgs {
+        entity_id: 42,
+        ..Default::default()
+    };
+    assert!(
+        sketch
+            .get_text(&read)
+            .unwrap_err()
+            .0
+            .contains("positive finite")
     );
 }

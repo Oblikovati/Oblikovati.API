@@ -19,6 +19,7 @@ var fixtureGroup4 = []fixtureType{
 	{"types.SketchPointInferenceKind", reflect.TypeFor[types.SketchPointInferenceKind]()},
 	{"types.SketchRelaxTypes", reflect.TypeFor[types.SketchRelaxTypes]()},
 	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
+	{"types.SketchTextLineSpacing", reflect.TypeFor[types.SketchTextLineSpacing]()},
 	{"types.SketchTextRun", reflect.TypeFor[types.SketchTextRun]()},
 	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
 	{"types.SolutionNature", reflect.TypeFor[types.SolutionNature]()},
@@ -35,6 +36,7 @@ var fixtureGroup4 = []fixtureType{
 	{"types.SweepProfileScaling", reflect.TypeFor[types.SweepProfileScaling]()},
 	{"types.SweepType", reflect.TypeFor[types.SweepType]()},
 	{"types.TextHorizontalAlign", reflect.TypeFor[types.TextHorizontalAlign]()},
+	{"types.TextLineSpacingMode", reflect.TypeFor[types.TextLineSpacingMode]()},
 	{"types.TextVerticalAlign", reflect.TypeFor[types.TextVerticalAlign]()},
 	{"types.ThemeKind", reflect.TypeFor[types.ThemeKind]()},
 	{"types.ThemeToken", reflect.TypeFor[types.ThemeToken]()},
@@ -88,6 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddBendNoteArgs", reflect.TypeFor[wire.AddBendNoteArgs]()},
 	{"wire.AddBreakViewArgs", reflect.TypeFor[wire.AddBreakViewArgs]()},
 	{"wire.AddBreakoutViewArgs", reflect.TypeFor[wire.AddBreakoutViewArgs]()},
-	{"wire.AddCenterMarksArgs", reflect.TypeFor[wire.AddCenterMarksArgs]()},
-	{"wire.AddCenterlineArgs", reflect.TypeFor[wire.AddCenterlineArgs]()},
 }

@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CreaseFreeformEdgesArgs", reflect.TypeFor[wire.CreaseFreeformEdgesArgs]()},
+	{"wire.CreateAppearanceArgs", reflect.TypeFor[wire.CreateAppearanceArgs]()},
 	{"wire.CreateBlockDefinitionArgs", reflect.TypeFor[wire.CreateBlockDefinitionArgs]()},
 	{"wire.CreateCommandArgs", reflect.TypeFor[wire.CreateCommandArgs]()},
 	{"wire.CreateContactSetArgs", reflect.TypeFor[wire.CreateContactSetArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DockableWindowChangedEvent", reflect.TypeFor[wire.DockableWindowChangedEvent]()},
 	{"wire.DockableWindowSpec", reflect.TypeFor[wire.DockableWindowSpec]()},
 	{"wire.DocumentFileReferenceInfo", reflect.TypeFor[wire.DocumentFileReferenceInfo]()},
-	{"wire.DocumentInfo", reflect.TypeFor[wire.DocumentInfo]()},
-	{"wire.DocumentSubTypeInfo", reflect.TypeFor[wire.DocumentSubTypeInfo]()},
 }

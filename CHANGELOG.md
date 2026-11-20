@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Added optional line spacing to Sketch Text styles, requests, and results. (#316)
+
 ## [0.161.0] - 2026-11-20
 
 ### Changed

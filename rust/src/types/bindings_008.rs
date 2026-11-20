@@ -410,6 +410,14 @@ pub struct SketchSettings {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchTextLineSpacing specifies how successive text baselines are placed.\nSingle, OneAndHalf and Double use the font's normal baseline advance scaled\nby 1, 1.5 and 2. Multiple scales that advance by Value. Exactly uses Value\ncentimetres between baselines. Omitting the spacing uses Single.\n```"]
+pub struct SketchTextLineSpacing {
+    pub mode: crate::types::TextLineSpacingMode => required("mode");
+    pub value: f64 => omitted_finite("value", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketchTextRun applies one style to a half-open range of zero-based Unicode\nscalar positions in the original content. Combining marks each occupy one\nposition. Omitted settings use the base style and gaps retain plain text.\nFor example, SketchTextRun{Start: 1, End: 2, Bold: true} styles 界 in \"a界🙂\".\nRuns are sorted by Start, do not overlap, and may be adjacent.\n```"]
 pub struct SketchTextRun {
     pub start: u32 => required("start");
@@ -439,6 +447,7 @@ pub struct SketchTextStyle {
     pub h_align: crate::types::TextHorizontalAlign => omitted("hAlign", "crate::json::is_zero");
     pub v_align: crate::types::TextVerticalAlign => omitted("vAlign", "crate::json::is_zero");
     pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
+    pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
 }
 }
 
@@ -452,14 +461,3 @@ pub const SMOOTHER_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
 
 pub const SOFT_MAGNETIC: crate::types::MagneticClass =
     crate::types::MagneticClass(std::borrow::Cow::Borrowed("soft-magnetic"));
-
-pub const SOLID_SWEEP_DEF: crate::types::SweepDefinitionType =
-    crate::types::SweepDefinitionType(59141);
-
-generated_scalar! { integer,
-#[doc = "```text\nSolutionNature classifies the solution set of a geometric query such as\nclosest-point: how many equally good answers exist.\n```"]
-pub struct SolutionNature(pub i32);
-}
-
-pub const SOME_ELEMENTS_SUPPRESSED: crate::types::OccurrencePatternSuppression =
-    crate::types::OccurrencePatternSuppression(118531);

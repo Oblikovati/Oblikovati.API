@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nAssignMaterialArgs assigns a material to a body, or to the part default when BodyKey is\nempty. BodyKey is the body's hex reference key (stable across recompute).\n```"]
+pub struct AssignMaterialArgs {
+    pub body_key: String => omitted("bodyKey", "crate::json::is_zero");
+    pub material_id: String => required("materialId");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nAttachPointCloudArgs is the request of [MethodPointCloudsAttach]: read the scan file at\nFullFileName and attach it to the active part. Name is the unique cloud name; when empty the\nhost mints one (Cloud1, Cloud2, …).\n```"]
 pub struct AttachPointCloudArgs {
     pub name: String => omitted("name", "crate::json::is_zero");

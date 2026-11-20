@@ -1,3 +1,9 @@
+{"Name":"wire.SaveWarning","Case":"zero","Payload":{"document":0,"code":"","detail":""},"Canonical":{"document":0,"code":"","detail":""},"Error":""}
+{"Name":"wire.SaveWarning","Case":"filled","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.SaveWarning","Case":"empty","Payload":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Canonical":{"document":7,"code":"example \u003c\u0026\u003e 日本語","detail":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ScalarEdit","Case":"zero","Payload":{"index":0,"value":""},"Canonical":{"index":0,"value":""},"Error":""}
+{"Name":"wire.ScalarEdit","Case":"filled","Payload":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.ScalarEdit","Case":"empty","Payload":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Canonical":{"index":7,"value":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.ScriptRunArgs","Case":"zero","Payload":{"source":""},"Canonical":{"source":""},"Error":""}
 {"Name":"wire.ScriptRunArgs","Case":"filled","Payload":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Canonical":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Error":""}
 {"Name":"wire.ScriptRunArgs","Case":"empty","Payload":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Canonical":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.SetFlexibleArgs","Case":"zero","Payload":{"rep":0,"occurrence":0,"flexible":false},"Canonical":{"rep":0,"occurrence":0,"flexible":false},"Error":""}
 {"Name":"wire.SetFlexibleArgs","Case":"filled","Payload":{"rep":7,"occurrence":7,"flexible":true},"Canonical":{"rep":7,"occurrence":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFlexibleArgs","Case":"empty","Payload":{"rep":7,"occurrence":7,"flexible":true},"Canonical":{"rep":7,"occurrence":7,"flexible":true},"Error":""}
-{"Name":"wire.SetFlexibleChildArgs","Case":"zero","Payload":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
-{"Name":"wire.SetFlexibleChildArgs","Case":"filled","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.SetFlexibleChildArgs","Case":"empty","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
-{"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}

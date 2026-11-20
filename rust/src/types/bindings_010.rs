@@ -3,6 +3,38 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TOLERANCE_LIMITS_FITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31241);
+
+pub const TOLERANCE_LIMITS_STACKED: crate::types::ToleranceType =
+    crate::types::ToleranceType(31237);
+
+pub const TOLERANCE_MAX: crate::types::ToleranceType = crate::types::ToleranceType(31239);
+
+pub const TOLERANCE_MIN: crate::types::ToleranceType = crate::types::ToleranceType(31240);
+
+pub const TOLERANCE_OVERRIDE: crate::types::ToleranceType = crate::types::ToleranceType(31234);
+
+pub const TOLERANCE_REFERENCE: crate::types::ToleranceType = crate::types::ToleranceType(31246);
+
+pub const TOLERANCE_SYMMETRIC: crate::types::ToleranceType = crate::types::ToleranceType(31235);
+
+generated_scalar! { integer,
+#[doc = "```text\nToleranceType is the engineering-tolerance flavor attached to a parameter or\ndimension (parity: ToleranceTypeEnum). The numeric values are frozen at the\nreference API's ids and must never be renumbered.\n\nThis is the canonical, Apache-2.0 definition; the GPL implementation aliases\nit (ADR-0018).\n```"]
+pub struct ToleranceType(pub i32);
+}
+
+pub const TOP_LEFT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(2);
+
+pub const TOP_RIGHT_TITLE_BLOCK: crate::types::TitleBlockLocation =
+    crate::types::TitleBlockLocation(3);
+
+pub const TOP_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
+    crate::types::ViewOrientationTypeEnum(10754);
+
+pub const TORUS_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5895);
+
 generated_scalar! { integer,
 #[doc = "```text\nTransactionPoint identifies a position on a document's transaction stream\nrelative to the cursor — which step a transaction event or navigation acts\non. A committed edit acts on the current point, undo acts on the previous\none, redo on the next (M04-F05, Oblikovati/Oblikovati#613).\n\nThe values are a frozen block matching the reference API's transaction-point\nenum; never renumber them.\n```"]
 pub struct TransactionPoint(pub i32);

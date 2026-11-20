@@ -75,3 +75,34 @@ func TestSketchTextClientRejectsInvalidRuns(t *testing.T) {
 		t.Fatalf("got %v: expected invalid host result to be rejected", err)
 	}
 }
+
+func TestSketchTextLineSpacingPreserveAndReset(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":42,"style":{"content":"a\nb","height":0.5,"lineSpacing":{"mode":"double"}}}`)}
+	sketch := New(ft).Sketch()
+	result, err := sketch.EditText(wire.EditTextArgs{EntityID: 42})
+	if err != nil || result.Style.LineSpacing == nil || result.Style.LineSpacing.Mode != types.TextLineSpacingDouble {
+		t.Fatalf("style %+v: expected stored double spacing, got %v", result.Style, err)
+	}
+	if strings.Contains(string(ft.gotReq), `"lineSpacing"`) {
+		t.Fatalf("request %s: expected omitted spacing for a partial edit", ft.gotReq)
+	}
+	reset := &types.SketchTextLineSpacing{Mode: types.TextLineSpacingSingle}
+	if _, err := sketch.EditText(wire.EditTextArgs{EntityID: 42, LineSpacing: reset}); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(ft.gotReq), `"lineSpacing":{"mode":"single"}`) {
+		t.Fatalf("request %s: expected explicit single spacing", ft.gotReq)
+	}
+}
+
+func TestSketchTextLineSpacingRejectsMalformedPayloads(t *testing.T) {
+	ft := &fakeTransport{reply: []byte(`{"entityId":42,"style":{"content":"a","height":0.5,"lineSpacing":{"mode":"exactly"}}}`)}
+	sketch := New(ft).Sketch()
+	invalid := &types.SketchTextLineSpacing{Mode: types.TextLineSpacingMultiple}
+	if _, err := sketch.AddTextWith(wire.AddTextArgs{Text: "a", LineSpacing: invalid}); err == nil || ft.gotMethod != "" {
+		t.Fatalf("invalid spacing must fail before transport, method %q, error %v", ft.gotMethod, err)
+	}
+	if _, err := sketch.GetText(0, 42); err == nil || !strings.Contains(err.Error(), "positive finite") {
+		t.Fatalf("got %v: expected malformed host spacing to be rejected", err)
+	}
+}

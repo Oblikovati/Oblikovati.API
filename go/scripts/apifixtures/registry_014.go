@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.RenameViewArgs", reflect.TypeFor[wire.RenameViewArgs]()},
+	{"wire.RenameWorkSurfaceArgs", reflect.TypeFor[wire.RenameWorkSurfaceArgs]()},
 	{"wire.ReorderFeatureArgs", reflect.TypeFor[wire.ReorderFeatureArgs]()},
 	{"wire.RepRef", reflect.TypeFor[wire.RepRef]()},
 	{"wire.ReplaceFileReferenceArgs", reflect.TypeFor[wire.ReplaceFileReferenceArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetEnvironmentArgs", reflect.TypeFor[wire.SetEnvironmentArgs]()},
 	{"wire.SetFeatureSuppressedArgs", reflect.TypeFor[wire.SetFeatureSuppressedArgs]()},
 	{"wire.SetFlexibleArgs", reflect.TypeFor[wire.SetFlexibleArgs]()},
-	{"wire.SetFlexibleChildArgs", reflect.TypeFor[wire.SetFlexibleChildArgs]()},
-	{"wire.SetFlexibleOccurrenceArgs", reflect.TypeFor[wire.SetFlexibleOccurrenceArgs]()},
 }
