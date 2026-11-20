@@ -1,3 +1,6 @@
+{"Name":"wire.CreateSketch3DResult","Case":"zero","Payload":{"sketchIndex":0},"Canonical":{"sketchIndex":0},"Error":""}
+{"Name":"wire.CreateSketch3DResult","Case":"filled","Payload":{"sketchIndex":7},"Canonical":{"sketchIndex":7},"Error":""}
+{"Name":"wire.CreateSketch3DResult","Case":"empty","Payload":{"sketchIndex":7},"Canonical":{"sketchIndex":7},"Error":""}
 {"Name":"wire.CreateSketchArgs","Case":"zero","Payload":{},"Canonical":{},"Error":""}
 {"Name":"wire.CreateSketchArgs","Case":"filled","Payload":{"plane":"example \u003c\u0026\u003e 日本語","workPlaneIndex":7,"orientation":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true,"origin":[1.25]}},"Canonical":{"plane":"example \u003c\u0026\u003e 日本語","workPlaneIndex":7,"orientation":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true,"origin":[1.25]}},"Error":""}
 {"Name":"wire.CreateSketchArgs","Case":"empty","Payload":{"plane":"example \u003c\u0026\u003e 日本語","workPlaneIndex":7,"orientation":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true}},"Canonical":{"plane":"example \u003c\u0026\u003e 日本語","workPlaneIndex":7,"orientation":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true}},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.DerivedParameterTableSetLinkedArgs","Case":"zero","Payload":{"id":0},"Canonical":{"id":0},"Error":""}
 {"Name":"wire.DerivedParameterTableSetLinkedArgs","Case":"filled","Payload":{"id":7,"linked":["example \u003c\u0026\u003e 日本語"]},"Canonical":{"id":7,"linked":["example \u003c\u0026\u003e 日本語"]},"Error":""}
 {"Name":"wire.DerivedParameterTableSetLinkedArgs","Case":"empty","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
-{"Name":"wire.DeselectArgs","Case":"zero","Payload":{"refs":null},"Canonical":{"refs":null},"Error":""}
-{"Name":"wire.DeselectArgs","Case":"filled","Payload":{"refs":["example \u003c\u0026\u003e 日本語"]},"Canonical":{"refs":["example \u003c\u0026\u003e 日本語"]},"Error":""}
-{"Name":"wire.DeselectArgs","Case":"empty","Payload":{"refs":[]},"Canonical":{"refs":[]},"Error":""}

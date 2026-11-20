@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.ReorderFeatureArgs", reflect.TypeFor[wire.ReorderFeatureArgs]()},
 	{"wire.RepRef", reflect.TypeFor[wire.RepRef]()},
 	{"wire.ReplaceFileReferenceArgs", reflect.TypeFor[wire.ReplaceFileReferenceArgs]()},
 	{"wire.ReplaceOccurrenceArgs", reflect.TypeFor[wire.ReplaceOccurrenceArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetFlexibleArgs", reflect.TypeFor[wire.SetFlexibleArgs]()},
 	{"wire.SetFlexibleChildArgs", reflect.TypeFor[wire.SetFlexibleChildArgs]()},
 	{"wire.SetFlexibleOccurrenceArgs", reflect.TypeFor[wire.SetFlexibleOccurrenceArgs]()},
-	{"wire.SetFreeformLevelArgs", reflect.TypeFor[wire.SetFreeformLevelArgs]()},
 }

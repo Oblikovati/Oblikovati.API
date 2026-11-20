@@ -56,6 +56,9 @@ func (c *Client) invoke(method string, req, out any) error {
 	}
 	var body []byte
 	if req != nil {
+		if err := validateSketchTextWireValue(req, method, "request"); err != nil {
+			return err
+		}
 		b, err := json.Marshal(req)
 		if err != nil {
 			return fmt.Errorf("client: marshal %q request: %w", method, err)
@@ -69,6 +72,16 @@ func (c *Client) invoke(method string, req, out any) error {
 	if out != nil {
 		if err := json.Unmarshal(resp, out); err != nil {
 			return fmt.Errorf("client: unmarshal %q response %q: %w", method, string(resp), err)
+		}
+		return validateSketchTextWireValue(out, method, "response")
+	}
+	return nil
+}
+
+func validateSketchTextWireValue(value any, method, role string) error {
+	if hook, ok := value.(interface{ ValidateSketchTextFormatting() error }); ok {
+		if err := hook.ValidateSketchTextFormatting(); err != nil {
+			return fmt.Errorf("client: %q %s: %w", method, role, err)
 		}
 	}
 	return nil

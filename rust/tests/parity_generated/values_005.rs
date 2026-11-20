@@ -153,6 +153,11 @@ fn types_sketch_settings() {
 }
 
 #[test]
+fn types_sketch_text_run() {
+    super::check::<oblikovati_api::types::SketchTextRun>("types.SketchTextRun");
+}
+
+#[test]
 fn types_sketch_text_style() {
     super::check::<oblikovati_api::types::SketchTextStyle>("types.SketchTextStyle");
 }
@@ -300,9 +305,4 @@ fn types_unit_vector() {
 #[test]
 fn types_unit_vector2d() {
     super::check::<oblikovati_api::types::UnitVector2d>("types.UnitVector2d");
-}
-
-#[test]
-fn types_units_type() {
-    super::check::<oblikovati_api::types::UnitsType>("types.UnitsType");
 }

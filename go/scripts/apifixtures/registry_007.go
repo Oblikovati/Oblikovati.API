@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup7 = []fixtureType{
+	{"wire.BrepSectionArgs", reflect.TypeFor[wire.BrepSectionArgs]()},
 	{"wire.BrepSilhouetteArgs", reflect.TypeFor[wire.BrepSilhouetteArgs]()},
 	{"wire.BrepTransformArgs", reflect.TypeFor[wire.BrepTransformArgs]()},
 	{"wire.BrepWireRef", reflect.TypeFor[wire.BrepWireRef]()},
@@ -88,5 +89,4 @@ var fixtureGroup7 = []fixtureType{
 	{"wire.CopySketchResult", reflect.TypeFor[wire.CopySketchResult]()},
 	{"wire.CreaseFreeformEdgesArgs", reflect.TypeFor[wire.CreaseFreeformEdgesArgs]()},
 	{"wire.CreateAppearanceArgs", reflect.TypeFor[wire.CreateAppearanceArgs]()},
-	{"wire.CreateBlockDefinitionArgs", reflect.TypeFor[wire.CreateBlockDefinitionArgs]()},
 }

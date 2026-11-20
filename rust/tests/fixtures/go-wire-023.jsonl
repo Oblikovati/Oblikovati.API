@@ -1,3 +1,6 @@
+{"Name":"wire.ScriptRunArgs","Case":"zero","Payload":{"source":""},"Canonical":{"source":""},"Error":""}
+{"Name":"wire.ScriptRunArgs","Case":"filled","Payload":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Canonical":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Error":""}
+{"Name":"wire.ScriptRunArgs","Case":"empty","Payload":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Canonical":{"source":"example \u003c\u0026\u003e 日本語","wallMs":7},"Error":""}
 {"Name":"wire.ScriptRunResult","Case":"zero","Payload":{"output":"","durationMs":0},"Canonical":{"output":"","durationMs":0},"Error":""}
 {"Name":"wire.ScriptRunResult","Case":"filled","Payload":{"output":"example \u003c\u0026\u003e 日本語","error":"example \u003c\u0026\u003e 日本語","durationMs":7,"ops":7},"Canonical":{"output":"example \u003c\u0026\u003e 日本語","error":"example \u003c\u0026\u003e 日本語","durationMs":7,"ops":7},"Error":""}
 {"Name":"wire.ScriptRunResult","Case":"empty","Payload":{"output":"example \u003c\u0026\u003e 日本語","error":"example \u003c\u0026\u003e 日本語","durationMs":7,"ops":7},"Canonical":{"output":"example \u003c\u0026\u003e 日本語","error":"example \u003c\u0026\u003e 日本語","durationMs":7,"ops":7},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"zero","Payload":{"id":0,"flexible":false},"Canonical":{"id":0,"flexible":false},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"filled","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFlexibleOccurrenceArgs","Case":"empty","Payload":{"id":7,"flexible":true},"Canonical":{"id":7,"flexible":true},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"zero","Payload":{"id":0,"level":0},"Canonical":{"id":0,"level":0},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"filled","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}
-{"Name":"wire.SetFreeformLevelArgs","Case":"empty","Payload":{"id":7,"level":7},"Canonical":{"id":7,"level":7},"Error":""}

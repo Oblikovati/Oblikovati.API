@@ -410,6 +410,21 @@ pub struct SketchSettings {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchTextRun applies one style to a half-open range of zero-based Unicode\nscalar positions in the original content. Combining marks each occupy one\nposition. Omitted settings use the base style and gaps retain plain text.\nFor example, SketchTextRun{Start: 1, End: 2, Bold: true} styles 界 in \"a界🙂\".\nRuns are sorted by Start, do not overlap, and may be adjacent.\n```"]
+pub struct SketchTextRun {
+    pub start: u32 => required("start");
+    pub end: u32 => required("end");
+    pub bold: bool => omitted("bold", "crate::json::is_zero");
+    pub italic: bool => omitted("italic", "crate::json::is_zero");
+    pub underline: bool => omitted("underline", "crate::json::is_zero");
+#[doc = "```text\npositive percent; 100 leaves the width unchanged\n```"]
+    pub width_percent: Option<Box<f64>> => omitted_finite("widthPercent", "Option::is_none");
+#[doc = "```text\nexplicit override with opacity in [0,1]\n```"]
+    pub color: Option<Box<crate::types::Color>> => omitted("color", "Option::is_none");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketchTextStyle is the renderable description of a sketch text entity: the content plus\nthe type-setting parameters MCAD apps split across a text box + text style (font Family,\nFontSize in cm, the character Height in cm that scales the glyph em, the Rotation about\nthe anchor in radians CCW, and horizontal/vertical alignment). It is the value carried\nby the wire DTOs and the typed client so an add-in can author/edit text without\nre-deriving the field set.\n\nExample: SketchTextStyle{Content: \"PART A\", Family: \"Liberation Sans\", FontSize: 0.5,\nHeight: 0.5, HAlign: TextAlignCenter, VAlign: TextAlignBaseline}.\n```"]
 pub struct SketchTextStyle {
     pub content: String => required("content");
@@ -423,6 +438,7 @@ pub struct SketchTextStyle {
     pub rotation: f64 => omitted_finite("rotation", "crate::json::is_zero");
     pub h_align: crate::types::TextHorizontalAlign => omitted("hAlign", "crate::json::is_zero");
     pub v_align: crate::types::TextVerticalAlign => omitted("vAlign", "crate::json::is_zero");
+    pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
 }
 }
 
@@ -447,18 +463,3 @@ pub struct SolutionNature(pub i32);
 
 pub const SOME_ELEMENTS_SUPPRESSED: crate::types::OccurrencePatternSuppression =
     crate::types::OccurrencePatternSuppression(118531);
-
-pub const SOME_GRAPHICS_SELECTABLE: crate::types::GraphicsSelectabilityEnum =
-    crate::types::GraphicsSelectabilityEnum(25346);
-
-pub const SOME_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
-    crate::types::GraphicsVisibilityEnum(25090);
-
-pub const SPACING_BETWEEN: crate::types::PatternSpacingType =
-    crate::types::PatternSpacingType(33537);
-
-pub const SPACING_FIT_TO_PATH_LENGTH: crate::types::PatternSpacingType =
-    crate::types::PatternSpacingType(33539);
-
-pub const SPACING_FITTED: crate::types::PatternSpacingType =
-    crate::types::PatternSpacingType(33538);

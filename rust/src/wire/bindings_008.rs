@@ -68,6 +68,8 @@ pub struct EditTextArgs {
     pub v_justify: String => omitted("vJustify", "crate::json::is_zero");
     pub font: String => omitted("font", "crate::json::is_zero");
     pub font_size: String => omitted("fontSize", "crate::json::is_zero");
+#[doc = "```text\nOmit to keep existing runs, or pass an empty array to clear. When Text\nreplaces the content, omitting runs creates plain text. Explicit runs\napply to the replacement content or, when Text is absent, the stored content.\n```"]
+    pub formatting_runs: Option<Box<Option<Vec<crate::types::SketchTextRun>>>> => omitted("formattingRuns", "Option::is_none");
 }
 }
 

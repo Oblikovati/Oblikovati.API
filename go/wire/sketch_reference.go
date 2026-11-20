@@ -110,15 +110,16 @@ type AddFillRegionArgs struct {
 // the geometry and an emboss that references the text recomputes from it — nothing is baked
 // into the document. A letter's counter (the hole in A/O/B) becomes a profile hole.
 type AddTextArgs struct {
-	SketchIndex int       `json:"sketchIndex"`
-	Anchor      []float64 `json:"anchor"`
-	Text        string    `json:"text"`
-	Height      string    `json:"height"`
-	Rotation    string    `json:"rotation,omitempty"`
-	Justify     string    `json:"justify,omitempty"`  // horizontal alignment
-	VJustify    string    `json:"vJustify,omitempty"` // vertical alignment
-	Font        string    `json:"font,omitempty"`     // font family name ("" ⇒ document default)
-	FontSize    string    `json:"fontSize,omitempty"` // unit-bearing; "" ⇒ track Height
+	SketchIndex    int                   `json:"sketchIndex"`
+	Anchor         []float64             `json:"anchor"`
+	Text           string                `json:"text"`
+	Height         string                `json:"height"`
+	Rotation       string                `json:"rotation,omitempty"`
+	Justify        string                `json:"justify,omitempty"`  // horizontal alignment
+	VJustify       string                `json:"vJustify,omitempty"` // vertical alignment
+	Font           string                `json:"font,omitempty"`     // font family name ("" ⇒ document default)
+	FontSize       string                `json:"fontSize,omitempty"` // unit-bearing; "" ⇒ track Height
+	FormattingRuns []types.SketchTextRun `json:"formattingRuns,omitempty"`
 }
 
 // EditTextArgs is the request of [MethodSketchEditText]: edit the existing sketch text
@@ -135,6 +136,10 @@ type EditTextArgs struct {
 	VJustify    string  `json:"vJustify,omitempty"`
 	Font        string  `json:"font,omitempty"`
 	FontSize    string  `json:"fontSize,omitempty"`
+	// Omit to keep existing runs, or pass an empty array to clear. When Text
+	// replaces the content, omitting runs creates plain text. Explicit runs
+	// apply to the replacement content or, when Text is absent, the stored content.
+	FormattingRuns *[]types.SketchTextRun `json:"formattingRuns,omitempty"`
 }
 
 // GetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text
