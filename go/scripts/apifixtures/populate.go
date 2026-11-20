@@ -36,6 +36,10 @@ func populateValue(value reflect.Value, mode string, depth int) {
 
 func populateCustom(value reflect.Value) bool {
 	switch value.Type() {
+	case reflect.TypeFor[types.SketchTextRun]():
+		width := 75.0
+		color := types.NewColor(35, 60, 155)
+		value.Set(reflect.ValueOf(types.SketchTextRun{Start: 1, End: 3, Bold: true, Italic: true, Underline: true, WidthPercent: &width, Color: &color}))
 	case reflect.TypeFor[types.Variant]():
 		value.Set(reflect.ValueOf(types.UnitVariant(2.5, "mm")))
 	case reflect.TypeFor[types.UnitVector]():

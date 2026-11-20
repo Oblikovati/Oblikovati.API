@@ -175,6 +175,7 @@ pub struct AddTextArgs {
     pub font: String => omitted("font", "crate::json::is_zero");
 #[doc = "```text\nunit-bearing; \"\" ⇒ track Height\n```"]
     pub font_size: String => omitted("fontSize", "crate::json::is_zero");
+    pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
 }
 }
 

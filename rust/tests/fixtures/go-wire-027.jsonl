@@ -1,3 +1,6 @@
+{"Name":"wire.UnitsTypeResult","Case":"zero","Payload":{"unitsType":""},"Canonical":{"unitsType":""},"Error":""}
+{"Name":"wire.UnitsTypeResult","Case":"filled","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.UnitsTypeResult","Case":"empty","Payload":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Canonical":{"unitsType":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.UnregisterClientApplicationArgs","Case":"zero","Payload":{"id":0},"Canonical":{"id":0},"Error":""}
 {"Name":"wire.UnregisterClientApplicationArgs","Case":"filled","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
 {"Name":"wire.UnregisterClientApplicationArgs","Case":"empty","Payload":{"id":7},"Canonical":{"id":7},"Error":""}

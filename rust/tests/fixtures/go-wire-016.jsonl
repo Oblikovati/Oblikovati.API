@@ -1,3 +1,6 @@
+{"Name":"wire.FitPointCloudPlaneArgs","Case":"zero","Payload":{"cloud":""},"Canonical":{"cloud":""},"Error":""}
+{"Name":"wire.FitPointCloudPlaneArgs","Case":"filled","Payload":{"cloud":"example \u003c\u0026\u003e 日本語"},"Canonical":{"cloud":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.FitPointCloudPlaneArgs","Case":"empty","Payload":{"cloud":"example \u003c\u0026\u003e 日本語"},"Canonical":{"cloud":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.FitPointCloudPlaneResult","Case":"zero","Payload":{"workPlane":"","origin":[0,0,0],"normal":[0,0,0]},"Canonical":{"workPlane":"","origin":[0,0,0],"normal":[0,0,0]},"Error":""}
 {"Name":"wire.FitPointCloudPlaneResult","Case":"filled","Payload":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
 {"Name":"wire.FitPointCloudPlaneResult","Case":"empty","Payload":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Canonical":{"workPlane":"example \u003c\u0026\u003e 日本語","origin":[1.25,1.25,1.25],"normal":[1.25,1.25,1.25]},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.IncludeSketch3DResult","Case":"zero","Payload":{"healthy":false},"Canonical":{"healthy":false},"Error":""}
 {"Name":"wire.IncludeSketch3DResult","Case":"filled","Payload":{"created":[7],"healthy":true},"Canonical":{"created":[7],"healthy":true},"Error":""}
 {"Name":"wire.IncludeSketch3DResult","Case":"empty","Payload":{"healthy":true},"Canonical":{"healthy":true},"Error":""}
-{"Name":"wire.InferenceOptionsView","Case":"zero","Payload":{"inferEnabled":false,"constrainEnabled":false},"Canonical":{"inferEnabled":false,"constrainEnabled":false},"Error":""}
-{"Name":"wire.InferenceOptionsView","Case":"filled","Payload":{"inferEnabled":true,"constrainEnabled":true,"priority":"example \u003c\u0026\u003e 日本語"},"Canonical":{"inferEnabled":true,"constrainEnabled":true,"priority":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.InferenceOptionsView","Case":"empty","Payload":{"inferEnabled":true,"constrainEnabled":true,"priority":"example \u003c\u0026\u003e 日本語"},"Canonical":{"inferEnabled":true,"constrainEnabled":true,"priority":"example \u003c\u0026\u003e 日本語"},"Error":""}

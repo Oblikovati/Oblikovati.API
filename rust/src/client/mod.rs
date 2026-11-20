@@ -46,3 +46,4 @@ pub use transport::*;
 mod host;
 pub use host::HostTransport;
 mod features;
+mod sketch_text;

@@ -3,6 +3,21 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SOME_GRAPHICS_SELECTABLE: crate::types::GraphicsSelectabilityEnum =
+    crate::types::GraphicsSelectabilityEnum(25346);
+
+pub const SOME_GRAPHICS_VISIBLE: crate::types::GraphicsVisibilityEnum =
+    crate::types::GraphicsVisibilityEnum(25090);
+
+pub const SPACING_BETWEEN: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33537);
+
+pub const SPACING_FIT_TO_PATH_LENGTH: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33539);
+
+pub const SPACING_FITTED: crate::types::PatternSpacingType =
+    crate::types::PatternSpacingType(33538);
+
 pub const SPHERE_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5896);
 
 pub const SPINNER_CONTROL: crate::types::ControlKind = crate::types::ControlKind(3);
@@ -447,17 +462,3 @@ pub const TOP_VIEW_ORIENTATION: crate::types::ViewOrientationTypeEnum =
     crate::types::ViewOrientationTypeEnum(10754);
 
 pub const TORUS_SURFACE: crate::types::SurfaceType = crate::types::SurfaceType(5895);
-
-generated_scalar! { integer,
-#[doc = "```text\nTransactionPoint identifies a position on a document's transaction stream\nrelative to the cursor — which step a transaction event or navigation acts\non. A committed edit acts on the current point, undo acts on the previous\none, redo on the next (M04-F05, Oblikovati/Oblikovati#613).\n\nThe values are a frozen block matching the reference API's transaction-point\nenum; never renumber them.\n```"]
-pub struct TransactionPoint(pub i32);
-}
-
-pub const TRANSACTION_POINT_CURRENT: crate::types::TransactionPoint =
-    crate::types::TransactionPoint(3588);
-
-pub const TRANSACTION_POINT_NEXT: crate::types::TransactionPoint =
-    crate::types::TransactionPoint(3586);
-
-pub const TRANSACTION_POINT_PREVIOUS: crate::types::TransactionPoint =
-    crate::types::TransactionPoint(3587);

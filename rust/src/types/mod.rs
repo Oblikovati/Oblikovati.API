@@ -29,3 +29,4 @@ mod geometry;
 pub use geometry::*;
 mod variant;
 pub use variant::*;
+mod sketch_text;

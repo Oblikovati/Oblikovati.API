@@ -36,11 +36,12 @@ const (
 // Example: SketchTextStyle{Content: "PART A", Family: "Liberation Sans", FontSize: 0.5,
 // Height: 0.5, HAlign: TextAlignCenter, VAlign: TextAlignBaseline}.
 type SketchTextStyle struct {
-	Content  string              `json:"content"`
-	Family   string              `json:"family,omitempty"`   // font family ("" ⇒ document default)
-	FontSize float64             `json:"fontSize,omitempty"` // cm; 0 ⇒ track Height
-	Height   float64             `json:"height"`             // character (em) height in cm
-	Rotation float64             `json:"rotation,omitempty"` // radians CCW about the anchor
-	HAlign   TextHorizontalAlign `json:"hAlign,omitempty"`
-	VAlign   TextVerticalAlign   `json:"vAlign,omitempty"`
+	Content        string              `json:"content"`
+	Family         string              `json:"family,omitempty"`   // font family ("" ⇒ document default)
+	FontSize       float64             `json:"fontSize,omitempty"` // cm; 0 ⇒ track Height
+	Height         float64             `json:"height"`             // character (em) height in cm
+	Rotation       float64             `json:"rotation,omitempty"` // radians CCW about the anchor
+	HAlign         TextHorizontalAlign `json:"hAlign,omitempty"`
+	VAlign         TextVerticalAlign   `json:"vAlign,omitempty"`
+	FormattingRuns []SketchTextRun     `json:"formattingRuns,omitempty"`
 }

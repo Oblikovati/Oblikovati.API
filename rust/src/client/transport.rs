@@ -25,6 +25,7 @@ impl<T: Caller> Client<T> {
         request: Option<&Q>,
     ) -> Result<R, crate::Error> {
         let response = self.send(method, request)?;
+        super::sketch_text::validate_response(method, &response)?;
         serde_json::from_slice(&response).map_err(|error| {
             crate::Error(format!(
                 "method {method:?} response {:?}: expected its documented JSON result: {error}",
@@ -56,6 +57,7 @@ impl<T: Caller> Client<T> {
             })?
             .unwrap_or_default();
         validate_options_request(method, &bytes)?;
+        super::sketch_text::validate_request(method, &bytes)?;
         self.transport.call(method, &bytes)
     }
 }

@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CreateBlockDefinitionArgs", reflect.TypeFor[wire.CreateBlockDefinitionArgs]()},
 	{"wire.CreateCommandArgs", reflect.TypeFor[wire.CreateCommandArgs]()},
 	{"wire.CreateContactSetArgs", reflect.TypeFor[wire.CreateContactSetArgs]()},
 	{"wire.CreateDocumentArgs", reflect.TypeFor[wire.CreateDocumentArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DocumentFileReferenceInfo", reflect.TypeFor[wire.DocumentFileReferenceInfo]()},
 	{"wire.DocumentInfo", reflect.TypeFor[wire.DocumentInfo]()},
 	{"wire.DocumentSubTypeInfo", reflect.TypeFor[wire.DocumentSubTypeInfo]()},
-	{"wire.DocumentUnitsInfo", reflect.TypeFor[wire.DocumentUnitsInfo]()},
 }

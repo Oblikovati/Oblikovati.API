@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup9 = []fixtureType{
+	{"wire.DocumentUnitsInfo", reflect.TypeFor[wire.DocumentUnitsInfo]()},
 	{"wire.DragContext", reflect.TypeFor[wire.DragContext]()},
 	{"wire.DrawingAnnotationInfo", reflect.TypeFor[wire.DrawingAnnotationInfo]()},
 	{"wire.DrawingCurveSegment", reflect.TypeFor[wire.DrawingCurveSegment]()},
@@ -88,5 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.FindByAttributeResult", reflect.TypeFor[wire.FindByAttributeResult]()},
 	{"wire.FindUsingRayArgs", reflect.TypeFor[wire.FindUsingRayArgs]()},
 	{"wire.FindUsingRayResult", reflect.TypeFor[wire.FindUsingRayResult]()},
-	{"wire.FitPointCloudPlaneArgs", reflect.TypeFor[wire.FitPointCloudPlaneArgs]()},
 }

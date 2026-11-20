@@ -69,7 +69,7 @@ def generate_values(
         ]
         additions = "pub mod featureargs;\n" if package == "wire" else ""
         if package == "types":
-            additions += "mod geometry;\npub use geometry::*;\nmod variant;\npub use variant::*;\n"
+            additions += "mod geometry;\npub use geometry::*;\nmod variant;\npub use variant::*;\nmod sketch_text;\n"
         write_module(directory, chunks, additions)
 
 
@@ -87,7 +87,7 @@ def generate_clients(
     write_module(
         root / "client",
         chunks,
-        "mod transport;\npub use transport::*;\nmod host;\npub use host::HostTransport;\nmod features;\n",
+        "mod transport;\npub use transport::*;\nmod host;\npub use host::HostTransport;\nmod features;\nmod sketch_text;\n",
     )
 
 

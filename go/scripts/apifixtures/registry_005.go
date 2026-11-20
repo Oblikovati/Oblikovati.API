@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup5 = []fixtureType{
+	{"wire.AddCenterlinesArgs", reflect.TypeFor[wire.AddCenterlinesArgs]()},
 	{"wire.AddChamferNoteArgs", reflect.TypeFor[wire.AddChamferNoteArgs]()},
 	{"wire.AddCoGMarkerArgs", reflect.TypeFor[wire.AddCoGMarkerArgs]()},
 	{"wire.AddConstraintArgs", reflect.TypeFor[wire.AddConstraintArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup5 = []fixtureType{
 	{"wire.AddVirtualArgs", reflect.TypeFor[wire.AddVirtualArgs]()},
 	{"wire.AlignViewArgs", reflect.TypeFor[wire.AlignViewArgs]()},
 	{"wire.AllConstraintGlyphsVisibilityArgs", reflect.TypeFor[wire.AllConstraintGlyphsVisibilityArgs]()},
-	{"wire.AnalyzeInterferenceArgs", reflect.TypeFor[wire.AnalyzeInterferenceArgs]()},
 }
