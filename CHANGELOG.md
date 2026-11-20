@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Sketch Text requests and results carry character formatting for Unicode ranges.
+
 ## [0.160.0] - 2026-11-20
 
 ### Added
