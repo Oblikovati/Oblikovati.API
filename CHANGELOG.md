@@ -8,6 +8,47 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.160.0] - 2026-11-20
+
+### Added
+
+- feat(sketch): define block explode contract
+- feat(sketch): add fail-closed associative entity contract
+
+### Changed
+
+- Keep glyph visibility contract read only
+- Define constraint glyph visibility operations
+- Define selectable sketch constraint policies
+- Define independent sketch block color overrides
+- Use one model-state table contract
+- Define model-state table edits and verification
+- Use keyed camera values in API test
+- Format generated part view API fixtures
+- Define part view representation contract
+- Clarify inference scope session ownership
+- Define sketch inference scope contract
+- Include all API source in duplication checks
+- Mark sketch expression behavior as breaking
+- Describe sketch expression migration
+- Define live bindings for existing sketch creation
+- Keep duplication checks focused
+- Include migration notes in API releases
+- Gate API releases on the tested commit
+- Define explicit sketch move planning and commit
+- Enforce the API duplication limit
+- Expose part sketch startup and view preferences
+- Test example add-in lifecycle and version output
+- Share generated DTO field rules
+- Share generated scalar definitions
+- Define express assembly loading operations
+- Report nonfatal warnings for saved documents
+
+### Fixed
+
+- fix(release): group untyped subjects as changes
+- fix(release): allow explicit additive scope correction
+
 ### Added
 
 - Typed sketch constraint glyph visibility queries and edits, including Show All
@@ -1409,7 +1450,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.159.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.160.0...HEAD
+[0.160.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.159.0...v0.160.0
 [0.159.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.158.0...v0.159.0
 [0.158.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.157.0...v0.158.0
 [0.157.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.156.0...v0.157.0
