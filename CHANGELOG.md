@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Added typed Sketch Text fields for model parameters and file names. (#321)
+
 ## [0.164.0] - 2026-11-21
 
 ### Added

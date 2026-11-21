@@ -40,6 +40,9 @@ func populateCustom(value reflect.Value) bool {
 		width := 75.0
 		color := types.NewColor(35, 60, 155)
 		value.Set(reflect.ValueOf(types.SketchTextRun{Start: 1, End: 3, Bold: true, Italic: true, Underline: true, StrikeThrough: true, WidthPercent: &width, Color: &color}))
+	case reflect.TypeFor[types.SketchTextField]():
+		precision := uint8(0)
+		value.Set(reflect.ValueOf(types.SketchTextField{At: 1, Kind: types.SketchTextFieldModelParameter, Parameter: "d0", Precision: &precision}))
 	case reflect.TypeFor[types.SketchTextLineSpacing]():
 		value.Set(reflect.ValueOf(types.SketchTextLineSpacing{Mode: types.TextLineSpacingMultiple, Value: 1.75}))
 	case reflect.TypeFor[types.Variant]():

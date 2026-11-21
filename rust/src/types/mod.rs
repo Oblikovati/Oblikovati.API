@@ -25,6 +25,8 @@ mod bindings_009;
 pub use bindings_009::*;
 mod bindings_010;
 pub use bindings_010::*;
+mod bindings_011;
+pub use bindings_011::*;
 mod geometry;
 pub use geometry::*;
 mod variant;

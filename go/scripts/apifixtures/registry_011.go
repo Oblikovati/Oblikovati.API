@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListAttachmentsArgs", reflect.TypeFor[wire.ListAttachmentsArgs]()},
+	{"wire.ListAttachmentsResult", reflect.TypeFor[wire.ListAttachmentsResult]()},
 	{"wire.ListAttributeSetsArgs", reflect.TypeFor[wire.ListAttributeSetsArgs]()},
 	{"wire.ListAttributeSetsResult", reflect.TypeFor[wire.ListAttributeSetsResult]()},
 	{"wire.ListAttributesArgs", reflect.TypeFor[wire.ListAttributesArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.ManipulatorHandleSpec", reflect.TypeFor[wire.ManipulatorHandleSpec]()},
 	{"wire.MapEntityArgs", reflect.TypeFor[wire.MapEntityArgs]()},
 	{"wire.MapEntityResult", reflect.TypeFor[wire.MapEntityResult]()},
-	{"wire.MarkingMenuItem", reflect.TypeFor[wire.MarkingMenuItem]()},
-	{"wire.MarkingMenuView", reflect.TypeFor[wire.MarkingMenuView]()},
 }

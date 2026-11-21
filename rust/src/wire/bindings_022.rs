@@ -284,7 +284,7 @@ pub struct SketchSettingsResult {
 }
 
 generated_dto! {
-#[doc = "```text\nSketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):\nthe entity id plus its resolved text style.\n```"]
+#[doc = "```text\nSketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):\nthe entity id plus its stored text style, including any linked field placeholders.\n```"]
 pub struct SketchTextResult {
     pub entity_id: u64 => required("entityId");
     pub style: crate::types::SketchTextStyle => required("style");

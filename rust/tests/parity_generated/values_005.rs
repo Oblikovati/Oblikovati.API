@@ -153,6 +153,16 @@ fn types_sketch_settings() {
 }
 
 #[test]
+fn types_sketch_text_field() {
+    super::check::<oblikovati_api::types::SketchTextField>("types.SketchTextField");
+}
+
+#[test]
+fn types_sketch_text_field_kind() {
+    super::check::<oblikovati_api::types::SketchTextFieldKind>("types.SketchTextFieldKind");
+}
+
+#[test]
 fn types_sketch_text_fraction() {
     super::check::<oblikovati_api::types::SketchTextFraction>("types.SketchTextFraction");
 }
@@ -295,14 +305,4 @@ fn types_transaction_point() {
 #[test]
 fn types_transparency_type_enum() {
     super::check::<oblikovati_api::types::TransparencyTypeEnum>("types.TransparencyTypeEnum");
-}
-
-#[test]
-fn types_triad_move_type() {
-    super::check::<oblikovati_api::types::TriadMoveType>("types.TriadMoveType");
-}
-
-#[test]
-fn types_triad_segment() {
-    super::check::<oblikovati_api::types::TriadSegment>("types.TriadSegment");
 }

@@ -1,3 +1,9 @@
+{"Name":"wire.BrepBodyStats","Case":"zero","Payload":{"solid":false,"faces":0,"edges":0,"vertices":0,"shells":0,"wires":0,"volume":0},"Canonical":{"solid":false,"faces":0,"edges":0,"vertices":0,"shells":0,"wires":0,"volume":0},"Error":""}
+{"Name":"wire.BrepBodyStats","Case":"filled","Payload":{"solid":true,"faces":7,"edges":7,"vertices":7,"shells":7,"wires":7,"volume":1.25},"Canonical":{"solid":true,"faces":7,"edges":7,"vertices":7,"shells":7,"wires":7,"volume":1.25},"Error":""}
+{"Name":"wire.BrepBodyStats","Case":"empty","Payload":{"solid":true,"faces":7,"edges":7,"vertices":7,"shells":7,"wires":7,"volume":1.25},"Canonical":{"solid":true,"faces":7,"edges":7,"vertices":7,"shells":7,"wires":7,"volume":1.25},"Error":""}
+{"Name":"wire.BrepBooleanArgs","Case":"zero","Payload":{"blankHandle":0,"tool":{},"operation":""},"Canonical":{"blankHandle":0,"tool":{},"operation":""},"Error":""}
+{"Name":"wire.BrepBooleanArgs","Case":"filled","Payload":{"blankHandle":7,"tool":{"handle":7,"bodyIndex":7},"operation":"example \u003c\u0026\u003e 日本語"},"Canonical":{"blankHandle":7,"tool":{"handle":7,"bodyIndex":7},"operation":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.BrepBooleanArgs","Case":"empty","Payload":{"blankHandle":7,"tool":{"handle":7,"bodyIndex":7},"operation":"example \u003c\u0026\u003e 日本語"},"Canonical":{"blankHandle":7,"tool":{"handle":7,"bodyIndex":7},"operation":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.BrepCopyArgs","Case":"zero","Payload":{"source":{}},"Canonical":{"source":{}},"Error":""}
 {"Name":"wire.BrepCopyArgs","Case":"filled","Payload":{"source":{"handle":7,"bodyIndex":7}},"Canonical":{"source":{"handle":7,"bodyIndex":7}},"Error":""}
 {"Name":"wire.BrepCopyArgs","Case":"empty","Payload":{"source":{"handle":7,"bodyIndex":7}},"Canonical":{"source":{"handle":7,"bodyIndex":7}},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.CloseTaskPanelArgs","Case":"zero","Payload":{"id":""},"Canonical":{"id":""},"Error":""}
 {"Name":"wire.CloseTaskPanelArgs","Case":"filled","Payload":{"id":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.CloseTaskPanelArgs","Case":"empty","Payload":{"id":"example \u003c\u0026\u003e 日本語"},"Canonical":{"id":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.CloseViewArgs","Case":"zero","Payload":{"index":0},"Canonical":{"index":0},"Error":""}
-{"Name":"wire.CloseViewArgs","Case":"filled","Payload":{"document":7,"index":7},"Canonical":{"document":7,"index":7},"Error":""}
-{"Name":"wire.CloseViewArgs","Case":"empty","Payload":{"document":7,"index":7},"Canonical":{"document":7,"index":7},"Error":""}
-{"Name":"wire.CloseViewTabArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
-{"Name":"wire.CloseViewTabArgs","Case":"filled","Payload":{"document":7,"force":true},"Canonical":{"document":7,"force":true},"Error":""}
-{"Name":"wire.CloseViewTabArgs","Case":"empty","Payload":{"document":7,"force":true},"Canonical":{"document":7,"force":true},"Error":""}

@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup16 = []fixtureType{
+	{"wire.Sketch3DEntityInfo", reflect.TypeFor[wire.Sketch3DEntityInfo]()},
+	{"wire.Sketch3DInfo", reflect.TypeFor[wire.Sketch3DInfo]()},
 	{"wire.SketchArgs", reflect.TypeFor[wire.SketchArgs]()},
 	{"wire.SketchBlockDefinitionInfo", reflect.TypeFor[wire.SketchBlockDefinitionInfo]()},
 	{"wire.SketchBlockInfo", reflect.TypeFor[wire.SketchBlockInfo]()},
@@ -87,6 +89,4 @@ var fixtureGroup16 = []fixtureType{
 	{"wire.UpdateAppearanceArgs", reflect.TypeFor[wire.UpdateAppearanceArgs]()},
 	{"wire.UpdateDocumentArgs", reflect.TypeFor[wire.UpdateDocumentArgs]()},
 	{"wire.UpdateDocumentResult", reflect.TypeFor[wire.UpdateDocumentResult]()},
-	{"wire.UpdateInteractionGraphicsArgs", reflect.TypeFor[wire.UpdateInteractionGraphicsArgs]()},
-	{"wire.UpdateMiniToolbarArgs", reflect.TypeFor[wire.UpdateMiniToolbarArgs]()},
 }

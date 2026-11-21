@@ -3,6 +3,46 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TOKEN_SKETCH_CANDIDATE: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_candidate"));
+
+pub const TOKEN_SKETCH_GEOMETRY: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_geometry"));
+
+pub const TOKEN_SKETCH_PREVIEW: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_preview"));
+
+pub const TOKEN_SKETCH_SELECTED: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.sketch_selected"));
+
+pub const TOKEN_SNAP_GLYPH: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.snap_glyph"));
+
+pub const TOKEN_VIEWPORT_ACTIVE_BORDER: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.active_border"));
+
+pub const TOKEN_VIEWPORT_BG: crate::types::ThemeToken =
+    crate::types::ThemeToken(std::borrow::Cow::Borrowed("viewport.bg"));
+
+generated_dto! {
+#[doc = "```text\nTolerance is an engineering tolerance: a flavor plus the deviation band from the nominal\nvalue (Upper, Lower, database units). The zero Tolerance means \"standard/default tolerance,\nno explicit band\"; [Tolerance.Kind] maps the zero Type onto [ToleranceDefault], so a\n`t != Tolerance{}` has-explicit-tolerance check keeps working. Which value within the band\nthe model consumes is the parameter's [ModelValueType] (the reference API splits\nTolerance.ToleranceType from Parameter.ModelValueType).\n\nHoleTolerance and ShaftTolerance are the ISO limits-and-fits class strings (e.g. \"H7\",\n\"g6\") for a fits tolerance (parity: Tolerance.HoleTolerance/ShaftTolerance, #1848); they\nare empty for the non-fits flavors. Both are plain comparable strings, so Tolerance stays\ncomparable (the `t != Tolerance{}` guard is preserved).\n```"]
+pub struct Tolerance {
+    pub type_: crate::types::ToleranceType => required("Type");
+    pub upper: f64 => finite("Upper");
+    pub lower: f64 => finite("Lower");
+    pub hole_tolerance: String => required("HoleTolerance");
+    pub shaft_tolerance: String => required("ShaftTolerance");
+}
+}
+
+pub const TOLERANCE_BASIC: crate::types::ToleranceType = crate::types::ToleranceType(31245);
+
+pub const TOLERANCE_DEFAULT: crate::types::ToleranceType = crate::types::ToleranceType(31233);
+
+pub const TOLERANCE_DEVIATION: crate::types::ToleranceType = crate::types::ToleranceType(31236);
+
+pub const TOLERANCE_LIMIT_LINEAR: crate::types::ToleranceType = crate::types::ToleranceType(31238);
+
 pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
     crate::types::ToleranceType(31242);
 
@@ -417,9 +457,3 @@ pub const XY_PROFILE_SCALING: crate::types::SweepProfileScaling =
 
 pub const ZERO_DOC_RIBBON: crate::types::RibbonKey =
     crate::types::RibbonKey(std::borrow::Cow::Borrowed("ZeroDoc"));
-
-pub const ZIGZAG_CROP_BREAK_MARK: crate::types::CropBreakMarkLineType =
-    crate::types::CropBreakMarkLineType(2);
-
-pub const ZOOM_VIEW_OPERATION: crate::types::ViewOperationTypeEnum =
-    crate::types::ViewOperationTypeEnum(30211);

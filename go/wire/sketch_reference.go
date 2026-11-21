@@ -122,6 +122,7 @@ type AddTextArgs struct {
 	FormattingRuns   []types.SketchTextRun        `json:"formattingRuns,omitempty"`
 	LineSpacing      *types.SketchTextLineSpacing `json:"lineSpacing,omitempty"`
 	StackedFractions []types.SketchTextFraction   `json:"stackedFractions,omitempty"`
+	LinkedFields     []types.SketchTextField      `json:"linkedFields,omitempty"`
 }
 
 // EditTextArgs is the request of [MethodSketchEditText]: edit the existing sketch text
@@ -147,6 +148,10 @@ type EditTextArgs struct {
 	// Omit to preserve ranges in a format-only edit or clear them on text replacement.
 	// An explicit empty list clears the ranges without changing the content.
 	StackedFractions *[]types.SketchTextFraction `json:"stackedFractions,omitempty"`
+	// Omit to preserve fields in a format-only edit or clear them on text replacement.
+	// An explicit empty array clears the field definitions. Supply replacement text
+	// to remove their placeholders as well.
+	LinkedFields *[]types.SketchTextField `json:"linkedFields,omitempty"`
 }
 
 // GetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text
@@ -157,7 +162,7 @@ type GetTextArgs struct {
 }
 
 // SketchTextResult is the response of [MethodSketchGetText] (and of [MethodSketchEditText]):
-// the entity id plus its resolved text style.
+// the entity id plus its stored text style, including any linked field placeholders.
 type SketchTextResult struct {
 	EntityID uint64                `json:"entityId"`
 	Style    types.SketchTextStyle `json:"style"`

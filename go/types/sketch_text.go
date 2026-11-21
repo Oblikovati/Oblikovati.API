@@ -46,4 +46,5 @@ type SketchTextStyle struct {
 	FormattingRuns   []SketchTextRun        `json:"formattingRuns,omitempty"`
 	LineSpacing      *SketchTextLineSpacing `json:"lineSpacing,omitempty"`
 	StackedFractions []SketchTextFraction   `json:"stackedFractions,omitempty"`
+	LinkedFields     []SketchTextField      `json:"linkedFields,omitempty"`
 }
