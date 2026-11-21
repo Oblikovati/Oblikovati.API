@@ -4,6 +4,25 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nFaceShellInfo is one shell in [MethodBodyShells]'s result.\n```"]
+pub struct FaceShellInfo {
+    pub index: i64 => required("index");
+#[doc = "```text\nClosed: the shell bounds a region; Void: it is an inner cavity skin.\n```"]
+    pub closed: bool => required("closed");
+    pub void: bool => omitted("void", "crate::json::is_zero");
+    pub faces: i64 => required("faces");
+    pub edges: i64 => required("edges");
+#[doc = "```text\nVolume is the magnitude of the bounded region's volume in cm³.\n```"]
+    pub volume: f64 => finite("volume");
+#[doc = "```text\nRangeBox is [minX, minY, minZ, maxX, maxY, maxZ].\n```"]
+    pub range_box: Option<Vec<f64>> => omitted_finite("rangeBox", "crate::json::slice_is_empty");
+#[doc = "```text\nKey is the persistent reference key; TransientKey the session id.\n```"]
+    pub key: String => required("key");
+    pub transient_key: u64 => required("transientKey");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nFacesResult is the reply of faces: the developed flat's classified faces (front and back).\n```"]
 pub struct FacesResult {
     pub faces: Option<Vec<crate::wire::FlatFaceInfo>> => required("faces");
@@ -439,20 +458,6 @@ generated_dto! {
 pub struct GetPropertyArgs {
     pub document: u64 => required("document");
     pub set: String => required("set");
-    pub name: String => required("name");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nGetSketchSettingsArgs is the request of [MethodDocumentGetSketchSettings]: the document whose\nsketch settings to read.\n```"]
-pub struct GetSketchSettingsArgs {
-    pub document: u64 => required("document");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nGetStyleArgs is the request of [MethodStylesGet] / [MethodStylesDelete]: the style by name.\n```"]
-pub struct GetStyleArgs {
     pub name: String => required("name");
 }
 }

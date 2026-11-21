@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetFlexibleArgs", reflect.TypeFor[wire.SetFlexibleArgs]()},
 	{"wire.SetFlexibleChildArgs", reflect.TypeFor[wire.SetFlexibleChildArgs]()},
 	{"wire.SetFlexibleOccurrenceArgs", reflect.TypeFor[wire.SetFlexibleOccurrenceArgs]()},
 	{"wire.SetFreeformLevelArgs", reflect.TypeFor[wire.SetFreeformLevelArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.Sketch3DArgs", reflect.TypeFor[wire.Sketch3DArgs]()},
 	{"wire.Sketch3DEntityInfo", reflect.TypeFor[wire.Sketch3DEntityInfo]()},
 	{"wire.Sketch3DInfo", reflect.TypeFor[wire.Sketch3DInfo]()},
-	{"wire.SketchArgs", reflect.TypeFor[wire.SketchArgs]()},
 }

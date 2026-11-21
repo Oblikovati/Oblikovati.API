@@ -16,6 +16,7 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ### Added
 
+- Added stacked fraction ranges to Sketch Text styles, requests, and results. (#318)
 - Added optional line spacing to Sketch Text styles, requests, and results. (#316)
 
 ## [0.161.0] - 2026-11-20

@@ -4,6 +4,20 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetCameraArgs is the request of [MethodViewSetCamera]: the camera frame to apply, plus\noptional addressing of which document it applies to. Camera state is per-view (a\ndocument owns a Views collection, each view owns a camera); the frame is applied to the\naddressed document's active view (Document 0 ⇒ the active document). To target a\nnon-active view, activate it first ([MethodViewsActivate]); every view's camera is also\nreadable via [MethodViewsList]. The frame fields mirror [CameraView] (a distinct type so\nrequest and response evolve independently, like [SetDisplayModeArgs] vs [DisplayModeView]).\n```"]
+pub struct SetCameraArgs {
+#[doc = "```text\n0 ⇒ active document; applies to that document's active view\n```"]
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub eye: crate::types::Point => raw(rename = "eye");
+    pub target: crate::types::Point => raw(rename = "target");
+    pub up: crate::types::Vector => raw(rename = "up");
+    pub fov: f64 => finite("fov");
+#[doc = "```text\nProjection changes how the view projects. Omit (0) to leave it as it is — a caller moving\nthe camera should not have to restate the projection to keep it.\n```"]
+    pub projection: crate::types::ProjectionTypeEnum => omitted("projection", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetChordArgs is the request of [MethodKeymapSetChord]: rebind one action's keyboard\nshortcut. Chord is the canonical chord string; an empty Chord clears the binding. The\nhost rejects a chord already bound to another action.\n```"]
 pub struct SetChordArgs {
     pub action_id: String => required("actionId");
@@ -442,16 +456,5 @@ pub struct SetPartDesignViewBodyVisibilityArgs {
     pub id: u64 => required("id");
     pub body_keys: Option<Vec<String>> => required("bodyKeys");
     pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetPartDesignViewOptionsArgs changes only the supplied options atomically.\nA locked view retains its stored camera and body visibility when the active\ndisplay is changed; reactivation restores the stored state. Unlocking does not\nsilently replace that stored state. Annotation scale\napplies to the active view; changing an inactive view's scale is refused. Invalid options leave all state\nunchanged. Omitted fields preserve their existing values.\nExample: `args := wire.SetPartDesignViewOptionsArgs{ID: 2, Locked: new(bool)}`.\n```"]
-pub struct SetPartDesignViewOptionsArgs {
-    pub id: u64 => required("id");
-    pub locked: Option<Box<bool>> => omitted("locked", "Option::is_none");
-    pub published: Option<Box<bool>> => omitted("published", "Option::is_none");
-    pub autosave_camera: Option<Box<bool>> => omitted("autosaveCamera", "Option::is_none");
-    pub annotation_scale: Option<Box<crate::types::PartAnnotationScale>> => omitted("annotationScale", "Option::is_none");
 }
 }

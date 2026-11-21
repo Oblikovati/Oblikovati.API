@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup5 = []fixtureType{
+	{"wire.AddBreakoutViewArgs", reflect.TypeFor[wire.AddBreakoutViewArgs]()},
 	{"wire.AddCenterMarksArgs", reflect.TypeFor[wire.AddCenterMarksArgs]()},
 	{"wire.AddCenterlineArgs", reflect.TypeFor[wire.AddCenterlineArgs]()},
 	{"wire.AddCenterlinesArgs", reflect.TypeFor[wire.AddCenterlinesArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup5 = []fixtureType{
 	{"wire.AddTranslateTranslateArgs", reflect.TypeFor[wire.AddTranslateTranslateArgs]()},
 	{"wire.AddViewArgs", reflect.TypeFor[wire.AddViewArgs]()},
 	{"wire.AddViewCropArgs", reflect.TypeFor[wire.AddViewCropArgs]()},
-	{"wire.AddVirtualArgs", reflect.TypeFor[wire.AddVirtualArgs]()},
 }

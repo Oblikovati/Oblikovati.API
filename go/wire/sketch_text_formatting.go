@@ -10,6 +10,9 @@ func (args AddTextArgs) ValidateSketchTextFormatting() error {
 	if err := args.LineSpacing.Validate(); err != nil {
 		return err
 	}
+	if err := types.ValidateSketchTextFractions(&args.Text, args.StackedFractions); err != nil {
+		return err
+	}
 	return types.ValidateSketchTextRuns(&args.Text, args.FormattingRuns)
 }
 
@@ -18,6 +21,11 @@ func (args AddTextArgs) ValidateSketchTextFormatting() error {
 func (args EditTextArgs) ValidateSketchTextFormatting() error {
 	if err := args.LineSpacing.Validate(); err != nil {
 		return err
+	}
+	if args.StackedFractions != nil {
+		if err := types.ValidateSketchTextFractions(args.Text, *args.StackedFractions); err != nil {
+			return err
+		}
 	}
 	if args.FormattingRuns == nil {
 		return nil
@@ -29,6 +37,9 @@ func (args EditTextArgs) ValidateSketchTextFormatting() error {
 // For example, validate a host result before passing it to a text editor.
 func (result SketchTextResult) ValidateSketchTextFormatting() error {
 	if err := result.Style.LineSpacing.Validate(); err != nil {
+		return err
+	}
+	if err := types.ValidateSketchTextFractions(&result.Style.Content, result.Style.StackedFractions); err != nil {
 		return err
 	}
 	return types.ValidateSketchTextRuns(&result.Style.Content, result.Style.FormattingRuns)

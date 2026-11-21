@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nListSketches3DResult is the response of [MethodSketch3DList].\n```"]
+pub struct ListSketches3DResult {
+    pub sketches: Option<Vec<crate::wire::Sketch3DInfo>> => required("sketches");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nListSketchesResult is the response of [MethodSketchList].\n```"]
 pub struct ListSketchesResult {
     pub sketches: Option<Vec<crate::wire::SketchInfo>> => required("sketches");
@@ -455,9 +462,3 @@ pub const METHOD_ASSEMBLY_FEATURES_ADD_MOVE_FACE: &str = "assemblyFeatures.addMo
 pub const METHOD_ASSEMBLY_FEATURES_ADD_PROXY_CUT: &str = "assemblyFeatures.addProxyCut";
 
 pub const METHOD_ASSEMBLY_FEATURES_ADD_REVOLVE: &str = "assemblyFeatures.addRevolve";
-
-pub const METHOD_ASSEMBLY_FEATURES_ADD_SWEEP: &str = "assemblyFeatures.addSweep";
-
-pub const METHOD_ASSEMBLY_FEATURES_EDIT: &str = "assemblyFeatures.edit";
-
-pub const METHOD_ASSEMBLY_FEATURES_LIST: &str = "assemblyFeatures.list";

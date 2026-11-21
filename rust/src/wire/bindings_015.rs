@@ -3,6 +3,12 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_SKETCH3_D_TRANSFORM: &str = "sketch3d.transform";
+
+pub const METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY: &str = "sketch.addAssociativeEntity";
+
+pub const METHOD_SKETCH_ADD_BLOCK_INSTANCE: &str = "sketch.addBlockInstance";
+
 pub const METHOD_SKETCH_ADD_CONSTRAINT: &str = "sketch.addConstraint";
 
 pub const METHOD_SKETCH_ADD_DIMENSION: &str = "sketch.addDimension";
@@ -449,13 +455,5 @@ pub struct ModelStateInfo {
     pub active: bool => omitted("active", "crate::json::is_zero");
 #[doc = "```text\nPrimary marks the built-in member; its identity is not inferred from Name.\n```"]
     pub primary: bool => omitted("primary", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nModelStateNameArgs selects an existing member and requests a name for rename or copy.\nRename requires a nonempty unique name. Copy may omit Name to request a generated name.\n```"]
-pub struct ModelStateNameArgs {
-    pub id: u64 => required("id");
-    pub name: String => omitted("name", "crate::json::is_zero");
 }
 }

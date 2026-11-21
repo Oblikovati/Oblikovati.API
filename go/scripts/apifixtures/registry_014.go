@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup14 = []fixtureType{
+	{"wire.RenamePartDesignViewArgs", reflect.TypeFor[wire.RenamePartDesignViewArgs]()},
 	{"wire.RenameViewArgs", reflect.TypeFor[wire.RenameViewArgs]()},
 	{"wire.RenameWorkSurfaceArgs", reflect.TypeFor[wire.RenameWorkSurfaceArgs]()},
 	{"wire.ReorderFeatureArgs", reflect.TypeFor[wire.ReorderFeatureArgs]()},
@@ -88,5 +89,4 @@ var fixtureGroup14 = []fixtureType{
 	{"wire.SetEndOfPartArgs", reflect.TypeFor[wire.SetEndOfPartArgs]()},
 	{"wire.SetEnvironmentArgs", reflect.TypeFor[wire.SetEnvironmentArgs]()},
 	{"wire.SetFeatureSuppressedArgs", reflect.TypeFor[wire.SetFeatureSuppressedArgs]()},
-	{"wire.SetFlexibleArgs", reflect.TypeFor[wire.SetFlexibleArgs]()},
 }

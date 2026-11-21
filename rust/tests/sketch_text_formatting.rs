@@ -4,7 +4,8 @@ use oblikovati_api::{
     Error,
     client::{Caller, Client},
     types::{
-        Color, OVERRIDE_COLOR_SOURCE, SketchTextLineSpacing, SketchTextRun, TextLineSpacingMode,
+        Color, OVERRIDE_COLOR_SOURCE, SketchTextFraction, SketchTextLineSpacing, SketchTextRun,
+        TextLineSpacingMode,
     },
     wire,
 };
@@ -314,5 +315,87 @@ fn invalid_typed_spacing_is_rejected_on_both_sides() {
             .unwrap_err()
             .0
             .contains("positive finite")
+    );
+}
+
+const FRACTION: SketchTextFraction = SketchTextFraction { start: 1, end: 4 };
+const FRACTION_STYLE: &str = r#"{"entityId":42,"style":{"content":"⌀1/2","height":0.5,"stackedFractions":[{"start":1,"end":4}]}}"#;
+
+#[test]
+fn stacked_fraction_checks_bounds_and_both_terms() {
+    for text in ["⌀1/2", "⌀界/二"] {
+        assert!(SketchTextFraction::validate(Some(text), &[FRACTION]).is_ok());
+    }
+    assert!(SketchTextFraction::validate(None, &[FRACTION]).is_ok());
+    assert!(SketchTextFraction::validate(None, &[FRACTION, FRACTION]).is_err());
+    for text in ["1/2", "⌀ /2", "⌀123", "⌀1//", "⌀1/\n"] {
+        assert!(
+            SketchTextFraction::validate(Some(text), &[FRACTION]).is_err(),
+            "{text:?}"
+        );
+    }
+}
+
+#[test]
+fn typed_stacked_fraction_round_trips_and_distinguishes_empty_edit() {
+    let requests = RefCell::new(Vec::new());
+    let client = Client::new(TextFormattingHost {
+        requests: &requests,
+        resolved: FRACTION_STYLE,
+    });
+    let sketch = client.sketch();
+    let add = wire::AddTextArgs {
+        text: "⌀1/2".into(),
+        stacked_fractions: Some(vec![FRACTION]),
+        ..Default::default()
+    };
+    assert_eq!(sketch.add_text_with(&add).unwrap().entity_id, 42);
+    let mut edit = wire::EditTextArgs {
+        entity_id: 42,
+        ..Default::default()
+    };
+    assert_eq!(
+        sketch.edit_text(&edit).unwrap().style.stacked_fractions,
+        Some(vec![FRACTION])
+    );
+    edit.stacked_fractions = Some(Box::new(Some(Vec::new())));
+    sketch.edit_text(&edit).unwrap();
+    assert_eq!(requests.borrow()[0]["stackedFractions"], json!([FRACTION]));
+    assert!(requests.borrow()[1].get("stackedFractions").is_none());
+    assert_eq!(requests.borrow()[2]["stackedFractions"], json!([]));
+}
+
+#[test]
+fn typed_fraction_validates_request_and_response() {
+    let requests = RefCell::new(Vec::new());
+    let bad_style = FRACTION_STYLE.replace("\"end\":4", "\"end\":6");
+    let client = Client::new(TextFormattingHost {
+        requests: &requests,
+        resolved: &bad_style,
+    });
+    let sketch = client.sketch();
+    let add = wire::AddTextArgs {
+        text: "⌀123".into(),
+        stacked_fractions: Some(vec![FRACTION]),
+        ..Default::default()
+    };
+    assert!(
+        sketch
+            .add_text_with(&add)
+            .unwrap_err()
+            .0
+            .contains("one slash")
+    );
+    assert!(requests.borrow().is_empty());
+    let args = wire::GetTextArgs {
+        entity_id: 42,
+        ..Default::default()
+    };
+    assert!(
+        sketch
+            .get_text(&args)
+            .unwrap_err()
+            .0
+            .contains("4 Unicode scalars")
     );
 }

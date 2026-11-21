@@ -410,6 +410,14 @@ pub struct SketchSettings {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchTextFraction stacks a slash-delimited range without altering the source\ntext. Start and End are zero-based Unicode scalar offsets in a half-open\nrange. For example, {Start: 1, End: 4} stacks \"1/2\" in \"⌀1/2\".\n```"]
+pub struct SketchTextFraction {
+    pub start: u32 => required("start");
+    pub end: u32 => required("end");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketchTextLineSpacing specifies how successive text baselines are placed.\nSingle, OneAndHalf and Double use the font's normal baseline advance scaled\nby 1, 1.5 and 2. Multiple scales that advance by Value. Exactly uses Value\ncentimetres between baselines. Omitting the spacing uses Single.\n```"]
 pub struct SketchTextLineSpacing {
     pub mode: crate::types::TextLineSpacingMode => required("mode");
@@ -448,16 +456,8 @@ pub struct SketchTextStyle {
     pub v_align: crate::types::TextVerticalAlign => omitted("vAlign", "crate::json::is_zero");
     pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
     pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
+    pub stacked_fractions: Option<Vec<crate::types::SketchTextFraction>> => omitted("stackedFractions", "crate::json::slice_is_empty");
 }
 }
 
 pub const SMALL_ICON_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(1);
-
-pub const SMOOTH_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
-    crate::types::DisplayQualityEnum(58881);
-
-pub const SMOOTHER_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
-    crate::types::DisplayQualityEnum(58884);
-
-pub const SOFT_MAGNETIC: crate::types::MagneticClass =
-    crate::types::MagneticClass(std::borrow::Cow::Borrowed("soft-magnetic"));

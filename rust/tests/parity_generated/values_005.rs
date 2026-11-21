@@ -153,6 +153,11 @@ fn types_sketch_settings() {
 }
 
 #[test]
+fn types_sketch_text_fraction() {
+    super::check::<oblikovati_api::types::SketchTextFraction>("types.SketchTextFraction");
+}
+
+#[test]
 fn types_sketch_text_line_spacing() {
     super::check::<oblikovati_api::types::SketchTextLineSpacing>("types.SketchTextLineSpacing");
 }
@@ -300,9 +305,4 @@ fn types_triad_move_type() {
 #[test]
 fn types_triad_segment() {
     super::check::<oblikovati_api::types::TriadSegment>("types.TriadSegment");
-}
-
-#[test]
-fn types_unfold_method_type() {
-    super::check::<oblikovati_api::types::UnfoldMethodType>("types.UnfoldMethodType");
 }

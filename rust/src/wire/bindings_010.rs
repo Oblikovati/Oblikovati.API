@@ -4,6 +4,20 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nGetSketchSettingsArgs is the request of [MethodDocumentGetSketchSettings]: the document whose\nsketch settings to read.\n```"]
+pub struct GetSketchSettingsArgs {
+    pub document: u64 => required("document");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nGetStyleArgs is the request of [MethodStylesGet] / [MethodStylesDelete]: the style by name.\n```"]
+pub struct GetStyleArgs {
+    pub name: String => required("name");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nGetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text\nentity EntityID in sketch SketchIndex.\n```"]
 pub struct GetTextArgs {
     pub sketch_index: i64 => required("sketchIndex");
@@ -444,13 +458,5 @@ generated_dto! {
 #[doc = "```text\nLanguageInfoResult is the response of [MethodLanguageInfo]: the host's locale as\na BCP-47 tag (e.g. \"en-US\"), for add-ins formatting numbers/dates to match.\nTranslated-name catalogs do not exist yet; command display names are canonical\n(the #160 ADR records the declined translation surface).\n```"]
 pub struct LanguageInfoResult {
     pub locale: String => required("locale");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nLayoutResult is the response of [MethodViewsGetLayout] / [MethodViewsSetLayout]: the\ndocument's current tiling layout.\n```"]
-pub struct LayoutResult {
-    pub document: u64 => omitted("document", "crate::json::is_zero");
-    pub layout: crate::types::ViewLayout => required("layout");
 }
 }

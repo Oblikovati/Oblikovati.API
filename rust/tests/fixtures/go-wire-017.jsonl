@@ -1,3 +1,6 @@
+{"Name":"wire.IncludeSketch2DArgs","Case":"zero","Payload":{"sketchIndex":0,"sourceSketchIndex":0,"entityIDs":null},"Canonical":{"sketchIndex":0,"sourceSketchIndex":0,"entityIDs":null},"Error":""}
+{"Name":"wire.IncludeSketch2DArgs","Case":"filled","Payload":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[7]},"Canonical":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[7]},"Error":""}
+{"Name":"wire.IncludeSketch2DArgs","Case":"empty","Payload":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[]},"Canonical":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[]},"Error":""}
 {"Name":"wire.IncludeSketch3DArgs","Case":"zero","Payload":{"sketchIndex":0,"refs":null},"Canonical":{"sketchIndex":0,"refs":null},"Error":""}
 {"Name":"wire.IncludeSketch3DArgs","Case":"filled","Payload":{"sketchIndex":7,"refs":["example \u003c\u0026\u003e 日本語"]},"Canonical":{"sketchIndex":7,"refs":["example \u003c\u0026\u003e 日本語"]},"Error":""}
 {"Name":"wire.IncludeSketch3DArgs","Case":"empty","Payload":{"sketchIndex":7,"refs":[]},"Canonical":{"sketchIndex":7,"refs":[]},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.ListDocumentFileReferencesResult","Case":"zero","Payload":{"references":null},"Canonical":{"references":null},"Error":""}
 {"Name":"wire.ListDocumentFileReferencesResult","Case":"filled","Payload":{"references":[{"displayName":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語","status":7,"documentFound":true,"differentDocument":true}]},"Canonical":{"references":[{"displayName":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語","status":7,"documentFound":true,"differentDocument":true}]},"Error":""}
 {"Name":"wire.ListDocumentFileReferencesResult","Case":"empty","Payload":{"references":[]},"Canonical":{"references":[]},"Error":""}
-{"Name":"wire.ListDocumentInterestsArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
-{"Name":"wire.ListDocumentInterestsArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
-{"Name":"wire.ListDocumentInterestsArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
