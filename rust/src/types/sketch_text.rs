@@ -3,6 +3,9 @@
 use super::{OVERRIDE_COLOR_SOURCE, SketchTextFraction, SketchTextLineSpacing, SketchTextRun};
 use crate::Error;
 
+#[path = "sketch_text_fields.rs"]
+mod sketch_text_fields;
+
 impl SketchTextLineSpacing {
     /// Validate optional spacing, for example `SketchTextLineSpacing::validate(Some(&spacing))?`.
     pub fn validate(spacing: Option<&Self>) -> Result<(), Error> {

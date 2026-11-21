@@ -1,3 +1,9 @@
+{"Name":"wire.ListDocumentFileReferencesArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
+{"Name":"wire.ListDocumentFileReferencesArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.ListDocumentFileReferencesArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
+{"Name":"wire.ListDocumentFileReferencesResult","Case":"zero","Payload":{"references":null},"Canonical":{"references":null},"Error":""}
+{"Name":"wire.ListDocumentFileReferencesResult","Case":"filled","Payload":{"references":[{"displayName":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語","status":7,"documentFound":true,"differentDocument":true}]},"Canonical":{"references":[{"displayName":"example \u003c\u0026\u003e 日本語","fullFileName":"example \u003c\u0026\u003e 日本語","status":7,"documentFound":true,"differentDocument":true}]},"Error":""}
+{"Name":"wire.ListDocumentFileReferencesResult","Case":"empty","Payload":{"references":[]},"Canonical":{"references":[]},"Error":""}
 {"Name":"wire.ListDocumentInterestsArgs","Case":"zero","Payload":{"document":0},"Canonical":{"document":0},"Error":""}
 {"Name":"wire.ListDocumentInterestsArgs","Case":"filled","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
 {"Name":"wire.ListDocumentInterestsArgs","Case":"empty","Payload":{"document":7},"Canonical":{"document":7},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.LoadFullDocumentArgs","Case":"zero","Payload":{"id":0},"Canonical":{"id":0},"Error":""}
 {"Name":"wire.LoadFullDocumentArgs","Case":"filled","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
 {"Name":"wire.LoadFullDocumentArgs","Case":"empty","Payload":{"id":7},"Canonical":{"id":7},"Error":""}
-{"Name":"wire.LocateUsingPointArgs","Case":"zero","Payload":{"bodyIndex":0,"point":null,"proximityTolerance":0},"Canonical":{"bodyIndex":0,"point":null,"proximityTolerance":0},"Error":""}
-{"Name":"wire.LocateUsingPointArgs","Case":"filled","Payload":{"bodyIndex":7,"point":[1.25],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Canonical":{"bodyIndex":7,"point":[1.25],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Error":""}
-{"Name":"wire.LocateUsingPointArgs","Case":"empty","Payload":{"bodyIndex":7,"point":[],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Canonical":{"bodyIndex":7,"point":[],"entityKind":"example \u003c\u0026\u003e 日本語","proximityTolerance":1.25},"Error":""}
-{"Name":"wire.LocateUsingPointResult","Case":"zero","Payload":{"found":false,"entity":{"kind":"","key":"","transientKey":0,"distance":0}},"Canonical":{"found":false,"entity":{"kind":"","key":"","transientKey":0,"distance":0}},"Error":""}
-{"Name":"wire.LocateUsingPointResult","Case":"filled","Payload":{"found":true,"entity":{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"point":[1.25],"distance":1.25}},"Canonical":{"found":true,"entity":{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"point":[1.25],"distance":1.25}},"Error":""}
-{"Name":"wire.LocateUsingPointResult","Case":"empty","Payload":{"found":true,"entity":{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"distance":1.25}},"Canonical":{"found":true,"entity":{"kind":"example \u003c\u0026\u003e 日本語","key":"example \u003c\u0026\u003e 日本語","transientKey":7,"distance":1.25}},"Error":""}

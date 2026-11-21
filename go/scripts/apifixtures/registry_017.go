@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup17 = []fixtureType{
+	{"wire.UpdateInteractionGraphicsArgs", reflect.TypeFor[wire.UpdateInteractionGraphicsArgs]()},
+	{"wire.UpdateMiniToolbarArgs", reflect.TypeFor[wire.UpdateMiniToolbarArgs]()},
 	{"wire.UpdateProgressArgs", reflect.TypeFor[wire.UpdateProgressArgs]()},
 	{"wire.UpdateProgressResult", reflect.TypeFor[wire.UpdateProgressResult]()},
 	{"wire.ValidateBodyArgs", reflect.TypeFor[wire.ValidateBodyArgs]()},

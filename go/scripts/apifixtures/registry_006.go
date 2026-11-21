@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup6 = []fixtureType{
+	{"wire.AddViewArgs", reflect.TypeFor[wire.AddViewArgs]()},
+	{"wire.AddViewCropArgs", reflect.TypeFor[wire.AddViewCropArgs]()},
 	{"wire.AddVirtualArgs", reflect.TypeFor[wire.AddVirtualArgs]()},
 	{"wire.AlignViewArgs", reflect.TypeFor[wire.AlignViewArgs]()},
 	{"wire.AllConstraintGlyphsVisibilityArgs", reflect.TypeFor[wire.AllConstraintGlyphsVisibilityArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup6 = []fixtureType{
 	{"wire.BrepHandleResult", reflect.TypeFor[wire.BrepHandleResult]()},
 	{"wire.BrepIdenticalBodiesArgs", reflect.TypeFor[wire.BrepIdenticalBodiesArgs]()},
 	{"wire.BrepIdenticalBodiesResult", reflect.TypeFor[wire.BrepIdenticalBodiesResult]()},
-	{"wire.BrepImprintArgs", reflect.TypeFor[wire.BrepImprintArgs]()},
-	{"wire.BrepImprintResult", reflect.TypeFor[wire.BrepImprintResult]()},
 }

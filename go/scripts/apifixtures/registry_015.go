@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup15 = []fixtureType{
+	{"wire.SetEnvironmentArgs", reflect.TypeFor[wire.SetEnvironmentArgs]()},
+	{"wire.SetFeatureSuppressedArgs", reflect.TypeFor[wire.SetFeatureSuppressedArgs]()},
 	{"wire.SetFlexibleArgs", reflect.TypeFor[wire.SetFlexibleArgs]()},
 	{"wire.SetFlexibleChildArgs", reflect.TypeFor[wire.SetFlexibleChildArgs]()},
 	{"wire.SetFlexibleOccurrenceArgs", reflect.TypeFor[wire.SetFlexibleOccurrenceArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup15 = []fixtureType{
 	{"wire.ShowWebDialogArgs", reflect.TypeFor[wire.ShowWebDialogArgs]()},
 	{"wire.ShrinkwrapCreateArgs", reflect.TypeFor[wire.ShrinkwrapCreateArgs]()},
 	{"wire.Sketch3DArgs", reflect.TypeFor[wire.Sketch3DArgs]()},
-	{"wire.Sketch3DEntityInfo", reflect.TypeFor[wire.Sketch3DEntityInfo]()},
-	{"wire.Sketch3DInfo", reflect.TypeFor[wire.Sketch3DInfo]()},
 }

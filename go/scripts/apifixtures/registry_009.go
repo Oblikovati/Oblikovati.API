@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup9 = []fixtureType{
+	{"wire.DockableWindowChangedEvent", reflect.TypeFor[wire.DockableWindowChangedEvent]()},
+	{"wire.DockableWindowSpec", reflect.TypeFor[wire.DockableWindowSpec]()},
 	{"wire.DocumentFileReferenceInfo", reflect.TypeFor[wire.DocumentFileReferenceInfo]()},
 	{"wire.DocumentInfo", reflect.TypeFor[wire.DocumentInfo]()},
 	{"wire.DocumentSubTypeInfo", reflect.TypeFor[wire.DocumentSubTypeInfo]()},
@@ -87,6 +89,4 @@ var fixtureGroup9 = []fixtureType{
 	{"wire.FileInfo", reflect.TypeFor[wire.FileInfo]()},
 	{"wire.FileMetadataEntry", reflect.TypeFor[wire.FileMetadataEntry]()},
 	{"wire.FileReferenceInfo", reflect.TypeFor[wire.FileReferenceInfo]()},
-	{"wire.FileResolutionEventPayload", reflect.TypeFor[wire.FileResolutionEventPayload]()},
-	{"wire.FindByAttributeArgs", reflect.TypeFor[wire.FindByAttributeArgs]()},
 }

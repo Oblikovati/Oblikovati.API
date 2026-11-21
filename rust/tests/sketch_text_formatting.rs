@@ -409,3 +409,6 @@ fn typed_fraction_validates_request_and_response() {
             .contains("4 Unicode scalars")
     );
 }
+
+#[path = "sketch_text_formatting/linked_fields.rs"]
+mod linked_fields;

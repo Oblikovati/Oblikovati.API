@@ -9,6 +9,8 @@ import (
 )
 
 var fixtureGroup8 = []fixtureType{
+	{"wire.CopyPartDesignViewArgs", reflect.TypeFor[wire.CopyPartDesignViewArgs]()},
+	{"wire.CopySketchArgs", reflect.TypeFor[wire.CopySketchArgs]()},
 	{"wire.CopySketchResult", reflect.TypeFor[wire.CopySketchResult]()},
 	{"wire.CreaseFreeformEdgesArgs", reflect.TypeFor[wire.CreaseFreeformEdgesArgs]()},
 	{"wire.CreateAppearanceArgs", reflect.TypeFor[wire.CreateAppearanceArgs]()},
@@ -87,6 +89,4 @@ var fixtureGroup8 = []fixtureType{
 	{"wire.DisplayModeView", reflect.TypeFor[wire.DisplayModeView]()},
 	{"wire.DisplayOptionsView", reflect.TypeFor[wire.DisplayOptionsView]()},
 	{"wire.DisplaySettingsView", reflect.TypeFor[wire.DisplaySettingsView]()},
-	{"wire.DockableWindowChangedEvent", reflect.TypeFor[wire.DockableWindowChangedEvent]()},
-	{"wire.DockableWindowSpec", reflect.TypeFor[wire.DockableWindowSpec]()},
 }

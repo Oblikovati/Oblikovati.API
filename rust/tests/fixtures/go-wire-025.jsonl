@@ -1,3 +1,9 @@
+{"Name":"wire.SetSplineHandleArgs","Case":"zero","Payload":{"sketchIndex":0,"spline":0,"fitPointIndex":0,"active":false},"Canonical":{"sketchIndex":0,"spline":0,"fitPointIndex":0,"active":false},"Error":""}
+{"Name":"wire.SetSplineHandleArgs","Case":"filled","Payload":{"sketchIndex":7,"spline":7,"fitPointIndex":7,"active":true,"tangent":[1.25],"weight":1.25},"Canonical":{"sketchIndex":7,"spline":7,"fitPointIndex":7,"active":true,"tangent":[1.25],"weight":1.25},"Error":""}
+{"Name":"wire.SetSplineHandleArgs","Case":"empty","Payload":{"sketchIndex":7,"spline":7,"fitPointIndex":7,"active":true,"weight":1.25},"Canonical":{"sketchIndex":7,"spline":7,"fitPointIndex":7,"active":true,"weight":1.25},"Error":""}
+{"Name":"wire.SetStandardArgs","Case":"zero","Payload":{"standard":""},"Canonical":{"standard":""},"Error":""}
+{"Name":"wire.SetStandardArgs","Case":"filled","Payload":{"standard":"example \u003c\u0026\u003e 日本語"},"Canonical":{"standard":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.SetStandardArgs","Case":"empty","Payload":{"standard":"example \u003c\u0026\u003e 日本語"},"Canonical":{"standard":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetStatusTextArgs","Case":"zero","Payload":{"text":""},"Canonical":{"text":""},"Error":""}
 {"Name":"wire.SetStatusTextArgs","Case":"filled","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetStatusTextArgs","Case":"empty","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
@@ -142,9 +148,3 @@
 {"Name":"wire.SketchOrientation","Case":"zero","Payload":{"axis":""},"Canonical":{"axis":""},"Error":""}
 {"Name":"wire.SketchOrientation","Case":"filled","Payload":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true,"origin":[1.25]},"Canonical":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true,"origin":[1.25]},"Error":""}
 {"Name":"wire.SketchOrientation","Case":"empty","Payload":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true},"Canonical":{"axis":"example \u003c\u0026\u003e 日本語","axisIsX":true,"reverse":true},"Error":""}
-{"Name":"wire.SketchRectangleArgs","Case":"zero","Payload":{"sketchIndex":0,"width":"","height":""},"Canonical":{"sketchIndex":0,"width":"","height":""},"Error":""}
-{"Name":"wire.SketchRectangleArgs","Case":"filled","Payload":{"sketchIndex":7,"width":"example \u003c\u0026\u003e 日本語","height":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"width":"example \u003c\u0026\u003e 日本語","height":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SketchRectangleArgs","Case":"empty","Payload":{"sketchIndex":7,"width":"example \u003c\u0026\u003e 日本語","height":"example \u003c\u0026\u003e 日本語"},"Canonical":{"sketchIndex":7,"width":"example \u003c\u0026\u003e 日本語","height":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SketchRectangleResult","Case":"zero","Payload":{"sketchIndex":0,"profiles":0},"Canonical":{"sketchIndex":0,"profiles":0},"Error":""}
-{"Name":"wire.SketchRectangleResult","Case":"filled","Payload":{"sketchIndex":7,"profiles":7},"Canonical":{"sketchIndex":7,"profiles":7},"Error":""}
-{"Name":"wire.SketchRectangleResult","Case":"empty","Payload":{"sketchIndex":7,"profiles":7},"Canonical":{"sketchIndex":7,"profiles":7},"Error":""}

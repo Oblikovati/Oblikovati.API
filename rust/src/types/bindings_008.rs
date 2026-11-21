@@ -410,6 +410,31 @@ pub struct SketchSettings {
 }
 
 generated_dto! {
+#[doc = "```text\nSketchTextField binds the placeholder at At, a zero-based Unicode scalar offset.\nFor example, At: 1 links the placeholder in \"⌀\\uFFFC\". Formatting runs may style\nthe placeholder and apply to the entire displayed value. Fractions cannot contain\na linked placeholder. Only placeholders named by a field resolve to a value.\n```"]
+pub struct SketchTextField {
+    pub at: u32 => required("at");
+    pub kind: crate::types::SketchTextFieldKind => required("kind");
+#[doc = "```text\nCurrent name from the document parameter API.\n```"]
+    pub parameter: String => omitted("parameter", "crate::json::is_zero");
+#[doc = "```text\nModel parameters default to three decimal places.\n```"]
+    pub precision: Option<Box<u8>> => omitted("precision", "Option::is_none");
+}
+}
+
+pub const SKETCH_TEXT_FIELD_FILE_NAME: crate::types::SketchTextFieldKind =
+    crate::types::SketchTextFieldKind(std::borrow::Cow::Borrowed("fileName"));
+
+generated_scalar! { string,
+#[doc = "```text\nSketchTextFieldKind identifies the source of a live Sketch Text value.\n```"]
+pub struct SketchTextFieldKind(pub std::borrow::Cow<'static, str>);
+}
+
+pub const SKETCH_TEXT_FIELD_MODEL_PARAMETER: crate::types::SketchTextFieldKind =
+    crate::types::SketchTextFieldKind(std::borrow::Cow::Borrowed("modelParameter"));
+
+pub const SKETCH_TEXT_FIELD_PLACEHOLDER: &str = "￼";
+
+generated_dto! {
 #[doc = "```text\nSketchTextFraction stacks a slash-delimited range without altering the source\ntext. Start and End are zero-based Unicode scalar offsets in a half-open\nrange. For example, {Start: 1, End: 4} stacks \"1/2\" in \"⌀1/2\".\n```"]
 pub struct SketchTextFraction {
     pub start: u32 => required("start");
@@ -424,42 +449,3 @@ pub struct SketchTextLineSpacing {
     pub value: f64 => omitted_finite("value", "crate::json::is_zero");
 }
 }
-
-generated_dto! {
-#[doc = "```text\nSketchTextRun applies one style to a half-open range of zero-based Unicode\nscalar positions in the original content. Combining marks each occupy one\nposition. Omitted settings use the base style and gaps retain plain text.\nFor example, SketchTextRun{Start: 1, End: 2, Bold: true} styles 界 in \"a界🙂\".\nRuns are sorted by Start, do not overlap, and may be adjacent.\n```"]
-pub struct SketchTextRun {
-    pub start: u32 => required("start");
-    pub end: u32 => required("end");
-    pub bold: bool => omitted("bold", "crate::json::is_zero");
-    pub italic: bool => omitted("italic", "crate::json::is_zero");
-#[doc = "```text\ndraws a line across the selected characters\n```"]
-    pub strike_through: bool => omitted("strikeThrough", "crate::json::is_zero");
-    pub underline: bool => omitted("underline", "crate::json::is_zero");
-#[doc = "```text\npositive percent; 100 leaves the width unchanged\n```"]
-    pub width_percent: Option<Box<f64>> => omitted_finite("widthPercent", "Option::is_none");
-#[doc = "```text\nexplicit override with opacity in [0,1]\n```"]
-    pub color: Option<Box<crate::types::Color>> => omitted("color", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketchTextStyle is the renderable description of a sketch text entity: the content plus\nthe type-setting parameters MCAD apps split across a text box + text style (font Family,\nFontSize in cm, the character Height in cm that scales the glyph em, the Rotation about\nthe anchor in radians CCW, and horizontal/vertical alignment). It is the value carried\nby the wire DTOs and the typed client so an add-in can author/edit text without\nre-deriving the field set.\n\nExample: SketchTextStyle{Content: \"PART A\", Family: \"Liberation Sans\", FontSize: 0.5,\nHeight: 0.5, HAlign: TextAlignCenter, VAlign: TextAlignBaseline}.\n```"]
-pub struct SketchTextStyle {
-    pub content: String => required("content");
-#[doc = "```text\nfont family (\"\" ⇒ document default)\n```"]
-    pub family: String => omitted("family", "crate::json::is_zero");
-#[doc = "```text\ncm; 0 ⇒ track Height\n```"]
-    pub font_size: f64 => omitted_finite("fontSize", "crate::json::is_zero");
-#[doc = "```text\ncharacter (em) height in cm\n```"]
-    pub height: f64 => finite("height");
-#[doc = "```text\nradians CCW about the anchor\n```"]
-    pub rotation: f64 => omitted_finite("rotation", "crate::json::is_zero");
-    pub h_align: crate::types::TextHorizontalAlign => omitted("hAlign", "crate::json::is_zero");
-    pub v_align: crate::types::TextVerticalAlign => omitted("vAlign", "crate::json::is_zero");
-    pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
-    pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
-    pub stacked_fractions: Option<Vec<crate::types::SketchTextFraction>> => omitted("stackedFractions", "crate::json::slice_is_empty");
-}
-}
-
-pub const SMALL_ICON_BUTTON: crate::types::ButtonStyle = crate::types::ButtonStyle(1);

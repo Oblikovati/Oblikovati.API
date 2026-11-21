@@ -74,6 +74,8 @@ pub struct EditTextArgs {
     pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
 #[doc = "```text\nOmit to preserve ranges in a format-only edit or clear them on text replacement.\nAn explicit empty list clears the ranges without changing the content.\n```"]
     pub stacked_fractions: Option<Box<Option<Vec<crate::types::SketchTextFraction>>>> => omitted("stackedFractions", "Option::is_none");
+#[doc = "```text\nOmit to preserve fields in a format-only edit or clear them on text replacement.\nAn explicit empty array clears the field definitions. Supply replacement text\nto remove their placeholders as well.\n```"]
+    pub linked_fields: Option<Box<Option<Vec<crate::types::SketchTextField>>>> => omitted("linkedFields", "Option::is_none");
 }
 }
 
