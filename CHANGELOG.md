@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.164.0] - 2026-11-21
+
+### Added
+
+- feat: carry strike-through in Sketch Text formatting ranges
+
 ### Added
 
 - Added optional strike-through formatting to Sketch Text character ranges.
@@ -1481,7 +1487,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.163.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.164.0...HEAD
+[0.164.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.163.0...v0.164.0
 [0.163.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.162.0...v0.163.0
 [0.162.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.161.0...v0.162.0
 [0.161.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.160.0...v0.161.0
