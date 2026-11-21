@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.165.0] - 2026-11-21
+
+### Added
+
+- feat: carry linked fields in Sketch Text
+
 ### Added
 
 - Added typed Sketch Text fields for model parameters and file names. (#321)
@@ -1491,7 +1497,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.164.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.165.0...HEAD
+[0.165.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.164.0...v0.165.0
 [0.164.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.163.0...v0.164.0
 [0.163.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.162.0...v0.163.0
 [0.162.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.161.0...v0.162.0
