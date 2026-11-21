@@ -13,7 +13,7 @@ use serde_json::{Value, json};
 use std::cell::RefCell;
 
 const MIXED: &str = "A🦀e\u{0301}界";
-const STYLE: &str = r#"{"entityId":42,"style":{"content":"A🦀界","height":0.5,"formattingRuns":[{"start":1,"end":2,"bold":true}]}}"#;
+const STYLE: &str = r#"{"entityId":42,"style":{"content":"A🦀界","height":0.5,"formattingRuns":[{"start":1,"end":2,"bold":true,"strikeThrough":true}]}}"#;
 
 fn bold_run() -> SketchTextRun {
     SketchTextRun {
@@ -130,6 +130,10 @@ impl Caller for TextFormattingHost<'_> {
 
 #[test]
 fn typed_sketch_text_methods_round_trip_character_formatting() {
+    let run = SketchTextRun {
+        strike_through: true,
+        ..bold_run()
+    };
     let requests = RefCell::new(Vec::new());
     let client = Client::new(TextFormattingHost {
         requests: &requests,
@@ -138,24 +142,30 @@ fn typed_sketch_text_methods_round_trip_character_formatting() {
     let sketch = client.sketch();
     let add = wire::AddTextArgs {
         text: "A🦀界".into(),
-        formatting_runs: Some(vec![bold_run()]),
+        formatting_runs: Some(vec![run.clone()]),
         ..Default::default()
     };
     assert_eq!(sketch.add_text_with(&add).unwrap().entity_id, 42);
     let edit = wire::EditTextArgs {
         entity_id: 42,
-        formatting_runs: Some(Box::new(Some(vec![bold_run()]))),
+        formatting_runs: Some(Box::new(Some(vec![run.clone()]))),
         ..Default::default()
     };
     let edited = sketch.edit_text(&edit).unwrap();
-    assert_eq!(edited.style.formatting_runs, Some(vec![bold_run()]));
+    assert_eq!(edited.style.formatting_runs, Some(vec![run.clone()]));
     let args = wire::GetTextArgs {
         entity_id: 42,
         ..Default::default()
     };
     assert_eq!(sketch.get_text(&args).unwrap(), edited);
-    assert_eq!(requests.borrow()[0]["formattingRuns"], json!([bold_run()]));
-    assert_eq!(requests.borrow()[1]["formattingRuns"], json!([bold_run()]));
+    assert_eq!(
+        requests.borrow()[0]["formattingRuns"],
+        json!([{"start":1,"end":2,"bold":true,"strikeThrough":true}])
+    );
+    assert_eq!(
+        requests.borrow()[1]["formattingRuns"],
+        json!([{"start":1,"end":2,"bold":true,"strikeThrough":true}])
+    );
 }
 
 #[test]
