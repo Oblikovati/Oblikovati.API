@@ -11,30 +11,30 @@ import (
 	"oblikovati.org/api/wire"
 )
 
-const formattedSketchTextReply = `{"entityId":42,"style":{"content":"A🦀界","height":0.5,"formattingRuns":[{"start":1,"end":2,"bold":true}]}}`
+const formattedSketchTextReply = `{"entityId":42,"style":{"content":"A🦀界","height":0.5,"formattingRuns":[{"start":1,"end":2,"bold":true,"strikeThrough":true}]}}`
 
 func TestSketchTextFormattingRoundTrips(t *testing.T) {
-	runs := []types.SketchTextRun{{Start: 1, End: 2, Bold: true}}
+	runs := []types.SketchTextRun{{Start: 1, End: 2, Bold: true, StrikeThrough: true}}
 	text := "A🦀界"
 	ft := &fakeTransport{reply: []byte(`{"entityId":42}`)}
 	sketch := New(ft).Sketch()
 	if _, err := sketch.AddTextWith(wire.AddTextArgs{Text: text, FormattingRuns: runs}); err != nil {
 		t.Fatal(err)
 	}
-	assertTextRunsRequest(t, ft.gotReq, `[{"start":1,"end":2,"bold":true}]`)
+	assertTextRunsRequest(t, ft.gotReq, `[{"start":1,"end":2,"bold":true,"strikeThrough":true}]`)
 	ft.reply = []byte(formattedSketchTextReply)
 	result, err := sketch.EditText(wire.EditTextArgs{EntityID: 42, FormattingRuns: &runs})
-	assertBoldSketchTextResult(t, result, err)
-	assertTextRunsRequest(t, ft.gotReq, `[{"start":1,"end":2,"bold":true}]`)
+	assertDecoratedSketchTextResult(t, result, err)
+	assertTextRunsRequest(t, ft.gotReq, `[{"start":1,"end":2,"bold":true,"strikeThrough":true}]`)
 	result, err = sketch.GetText(0, 42)
-	assertBoldSketchTextResult(t, result, err)
+	assertDecoratedSketchTextResult(t, result, err)
 }
 
-func assertBoldSketchTextResult(t *testing.T, result wire.SketchTextResult, err error) {
+func assertDecoratedSketchTextResult(t *testing.T, result wire.SketchTextResult, err error) {
 	t.Helper()
 	runs := result.Style.FormattingRuns
-	if err != nil || result.Style.Content != "A🦀界" || len(runs) != 1 || !runs[0].Bold {
-		t.Fatalf("result %+v: expected one bold run in A🦀界, got %v", result, err)
+	if err != nil || result.Style.Content != "A🦀界" || len(runs) != 1 || !runs[0].Bold || !runs[0].StrikeThrough {
+		t.Fatalf("result %+v: expected one bold, struck run in A🦀界, got %v", result, err)
 	}
 }
 

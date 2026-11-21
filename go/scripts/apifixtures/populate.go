@@ -39,7 +39,7 @@ func populateCustom(value reflect.Value) bool {
 	case reflect.TypeFor[types.SketchTextRun]():
 		width := 75.0
 		color := types.NewColor(35, 60, 155)
-		value.Set(reflect.ValueOf(types.SketchTextRun{Start: 1, End: 3, Bold: true, Italic: true, Underline: true, WidthPercent: &width, Color: &color}))
+		value.Set(reflect.ValueOf(types.SketchTextRun{Start: 1, End: 3, Bold: true, Italic: true, Underline: true, StrikeThrough: true, WidthPercent: &width, Color: &color}))
 	case reflect.TypeFor[types.SketchTextLineSpacing]():
 		value.Set(reflect.ValueOf(types.SketchTextLineSpacing{Mode: types.TextLineSpacingMultiple, Value: 1.75}))
 	case reflect.TypeFor[types.Variant]():

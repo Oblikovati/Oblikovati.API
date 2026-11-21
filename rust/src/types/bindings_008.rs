@@ -432,6 +432,8 @@ pub struct SketchTextRun {
     pub end: u32 => required("end");
     pub bold: bool => omitted("bold", "crate::json::is_zero");
     pub italic: bool => omitted("italic", "crate::json::is_zero");
+#[doc = "```text\ndraws a line across the selected characters\n```"]
+    pub strike_through: bool => omitted("strikeThrough", "crate::json::is_zero");
     pub underline: bool => omitted("underline", "crate::json::is_zero");
 #[doc = "```text\npositive percent; 100 leaves the width unchanged\n```"]
     pub width_percent: Option<Box<f64>> => omitted_finite("widthPercent", "Option::is_none");

@@ -8,6 +8,10 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Added optional strike-through formatting to Sketch Text character ranges.
+
 ## [0.163.0] - 2026-11-21
 
 ### Added

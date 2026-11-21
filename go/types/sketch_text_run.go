@@ -14,13 +14,14 @@ import (
 // For example, SketchTextRun{Start: 1, End: 2, Bold: true} styles 界 in "a界🙂".
 // Runs are sorted by Start, do not overlap, and may be adjacent.
 type SketchTextRun struct {
-	Start        uint32   `json:"start"`
-	End          uint32   `json:"end"`
-	Bold         bool     `json:"bold,omitempty"`
-	Italic       bool     `json:"italic,omitempty"`
-	Underline    bool     `json:"underline,omitempty"`
-	WidthPercent *float64 `json:"widthPercent,omitempty"` // positive percent; 100 leaves the width unchanged
-	Color        *Color   `json:"color,omitempty"`        // explicit override with opacity in [0,1]
+	Start         uint32   `json:"start"`
+	End           uint32   `json:"end"`
+	Bold          bool     `json:"bold,omitempty"`
+	Italic        bool     `json:"italic,omitempty"`
+	StrikeThrough bool     `json:"strikeThrough,omitempty"` // draws a line across the selected characters
+	Underline     bool     `json:"underline,omitempty"`
+	WidthPercent  *float64 `json:"widthPercent,omitempty"` // positive percent; 100 leaves the width unchanged
+	Color         *Color   `json:"color,omitempty"`        // explicit override with opacity in [0,1]
 }
 
 // ValidateSketchTextRuns verifies ordered ranges and their formatting. A nil
