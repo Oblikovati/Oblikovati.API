@@ -1,3 +1,6 @@
+{"Name":"wire.EndOfFeaturesResult","Case":"zero","Payload":{"position":0,"rolledBack":false},"Canonical":{"position":0,"rolledBack":false},"Error":""}
+{"Name":"wire.EndOfFeaturesResult","Case":"filled","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
+{"Name":"wire.EndOfFeaturesResult","Case":"empty","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
 {"Name":"wire.EndOfPartResult","Case":"zero","Payload":{"position":0,"rolledBack":false},"Canonical":{"position":0,"rolledBack":false},"Error":""}
 {"Name":"wire.EndOfPartResult","Case":"filled","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
 {"Name":"wire.EndOfPartResult","Case":"empty","Payload":{"position":7,"rolledBack":true},"Canonical":{"position":7,"rolledBack":true},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.FindByAttributeArgs","Case":"zero","Payload":{"set":""},"Canonical":{"set":""},"Error":""}
 {"Name":"wire.FindByAttributeArgs","Case":"filled","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.FindByAttributeArgs","Case":"empty","Payload":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Canonical":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.FindByAttributeResult","Case":"zero","Payload":{"matches":null},"Canonical":{"matches":null},"Error":""}
-{"Name":"wire.FindByAttributeResult","Case":"filled","Payload":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Canonical":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Error":""}
-{"Name":"wire.FindByAttributeResult","Case":"empty","Payload":{"matches":[]},"Canonical":{"matches":[]},"Error":""}

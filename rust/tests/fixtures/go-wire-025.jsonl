@@ -1,3 +1,6 @@
+{"Name":"wire.SetStatusTextArgs","Case":"zero","Payload":{"text":""},"Canonical":{"text":""},"Error":""}
+{"Name":"wire.SetStatusTextArgs","Case":"filled","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
+{"Name":"wire.SetStatusTextArgs","Case":"empty","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetSuppressedArgs","Case":"zero","Payload":{"rep":0,"occurrence":0,"suppressed":false},"Canonical":{"rep":0,"occurrence":0,"suppressed":false},"Error":""}
 {"Name":"wire.SetSuppressedArgs","Case":"filled","Payload":{"rep":7,"occurrence":7,"suppressed":true},"Canonical":{"rep":7,"occurrence":7,"suppressed":true},"Error":""}
 {"Name":"wire.SetSuppressedArgs","Case":"empty","Payload":{"rep":7,"occurrence":7,"suppressed":true},"Canonical":{"rep":7,"occurrence":7,"suppressed":true},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SketchRectangleResult","Case":"zero","Payload":{"sketchIndex":0,"profiles":0},"Canonical":{"sketchIndex":0,"profiles":0},"Error":""}
 {"Name":"wire.SketchRectangleResult","Case":"filled","Payload":{"sketchIndex":7,"profiles":7},"Canonical":{"sketchIndex":7,"profiles":7},"Error":""}
 {"Name":"wire.SketchRectangleResult","Case":"empty","Payload":{"sketchIndex":7,"profiles":7},"Canonical":{"sketchIndex":7,"profiles":7},"Error":""}
-{"Name":"wire.SketchReferenceKeyResult","Case":"zero","Payload":{"referenceKey":""},"Canonical":{"referenceKey":""},"Error":""}
-{"Name":"wire.SketchReferenceKeyResult","Case":"filled","Payload":{"referenceKey":"example \u003c\u0026\u003e 日本語"},"Canonical":{"referenceKey":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SketchReferenceKeyResult","Case":"empty","Payload":{"referenceKey":"example \u003c\u0026\u003e 日本語"},"Canonical":{"referenceKey":"example \u003c\u0026\u003e 日本語"},"Error":""}

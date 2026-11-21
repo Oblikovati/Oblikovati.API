@@ -4,6 +4,28 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nTaskPanelSpec is a modal task panel that takes over the host task area (FreeCAD Task-dialog\nsemantics): declarative PanelControlSpec content with OK/Cancel. Showing is asynchronous — like\nfile dialogs it must never block the session goroutine — so the user's accept/cancel arrives as a\n[TaskPanelClosedEvent]. While open, edits to its controls push the same PanelValueChangedEvent /\nPanelReferencesChangedEvent keyed on this panel's ID. Unlike WebDialogSpec it is built from the\nshared control vocabulary, so a referenceList composes inside it.\n```"]
+pub struct TaskPanelSpec {
+    pub id: String => required("id");
+    pub title: String => required("title");
+    pub controls: Option<Vec<crate::wire::PanelControlSpec>> => omitted("controls", "crate::json::slice_is_empty");
+#[doc = "```text\ndefault \"OK\"\n```"]
+    pub ok_label: String => omitted("okLabel", "crate::json::is_zero");
+#[doc = "```text\ndefault \"Cancel\"\n```"]
+    pub cancel_label: String => omitted("cancelLabel", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nTextStyleInfo is the JSON shape of an annotation text style.\n```"]
+pub struct TextStyleInfo {
+    pub name: String => required("name");
+    pub font_name: String => required("fontName");
+    pub height_mm: f64 => finite("heightMm");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nThemeSummary is the lightweight entry of [MethodThemeList]: enough to populate a\ntheme picker without sending every color.\n```"]
 pub struct ThemeSummary {
     pub name: String => required("name");
@@ -432,27 +454,5 @@ pub struct ViewTabInfo {
     pub title: String => required("title");
     pub active: bool => required("active");
     pub dirty: bool => omitted("dirty", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWebDialogChangedEvent is the push event (type [EventWebDialogChanged]) fired when\na web view's visibility changes (shown, or closed by the user/the owner).\n```"]
-pub struct WebDialogChangedEvent {
-#[doc = "```text\nalways EventWebDialogChanged\n```"]
-    pub type_: String => required("type");
-    pub id: String => required("id");
-    pub visible: bool => required("visible");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nWebDialogSpec is one web view the host presents: a floating dialog (Modal pins\nit on top) or, with Dock set, a view docked into the chrome like an add-in\nwindow. The host's web rendering is behind a thin engine seam; a host without an\nembedded engine shows the URL with an open-in-browser affordance.\n```"]
-pub struct WebDialogSpec {
-    pub id: String => required("id");
-    pub title: String => required("title");
-    pub url: String => required("url");
-    pub modal: bool => omitted("modal", "crate::json::is_zero");
-    pub dock: crate::types::DockingState => omitted("dock", "crate::json::is_zero");
-    pub visible: bool => required("visible");
 }
 }

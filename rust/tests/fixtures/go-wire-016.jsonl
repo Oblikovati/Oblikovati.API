@@ -1,3 +1,6 @@
+{"Name":"wire.FindByAttributeResult","Case":"zero","Payload":{"matches":null},"Canonical":{"matches":null},"Error":""}
+{"Name":"wire.FindByAttributeResult","Case":"filled","Payload":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Canonical":{"matches":[{"document":7,"attribute":{"set":"example \u003c\u0026\u003e 日本語","name":"example \u003c\u0026\u003e 日本語","value":{"type":"double","value":2.5,"unit":"mm"},"target":"example \u003c\u0026\u003e 日本語"}}]},"Error":""}
+{"Name":"wire.FindByAttributeResult","Case":"empty","Payload":{"matches":[]},"Canonical":{"matches":[]},"Error":""}
 {"Name":"wire.FindUsingRayArgs","Case":"zero","Payload":{"bodyIndex":0,"origin":null,"direction":null},"Canonical":{"bodyIndex":0,"origin":null,"direction":null},"Error":""}
 {"Name":"wire.FindUsingRayArgs","Case":"filled","Payload":{"bodyIndex":7,"origin":[1.25],"direction":[1.25],"radius":1.25,"findFirstOnly":true},"Canonical":{"bodyIndex":7,"origin":[1.25],"direction":[1.25],"radius":1.25,"findFirstOnly":true},"Error":""}
 {"Name":"wire.FindUsingRayArgs","Case":"empty","Payload":{"bodyIndex":7,"origin":[],"direction":[],"radius":1.25,"findFirstOnly":true},"Canonical":{"bodyIndex":7,"origin":[],"direction":[],"radius":1.25,"findFirstOnly":true},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.ImportStyleLibraryArgs","Case":"zero","Payload":{"path":""},"Canonical":{"path":""},"Error":""}
 {"Name":"wire.ImportStyleLibraryArgs","Case":"filled","Payload":{"path":"example \u003c\u0026\u003e 日本語"},"Canonical":{"path":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.ImportStyleLibraryArgs","Case":"empty","Payload":{"path":"example \u003c\u0026\u003e 日本語"},"Canonical":{"path":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.IncludeSketch2DArgs","Case":"zero","Payload":{"sketchIndex":0,"sourceSketchIndex":0,"entityIDs":null},"Canonical":{"sketchIndex":0,"sourceSketchIndex":0,"entityIDs":null},"Error":""}
-{"Name":"wire.IncludeSketch2DArgs","Case":"filled","Payload":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[7]},"Canonical":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[7]},"Error":""}
-{"Name":"wire.IncludeSketch2DArgs","Case":"empty","Payload":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[]},"Canonical":{"sketchIndex":7,"sourceSketchIndex":7,"entityIDs":[]},"Error":""}

@@ -1,3 +1,6 @@
+{"Name":"wire.SetFlexibleArgs","Case":"zero","Payload":{"rep":0,"occurrence":0,"flexible":false},"Canonical":{"rep":0,"occurrence":0,"flexible":false},"Error":""}
+{"Name":"wire.SetFlexibleArgs","Case":"filled","Payload":{"rep":7,"occurrence":7,"flexible":true},"Canonical":{"rep":7,"occurrence":7,"flexible":true},"Error":""}
+{"Name":"wire.SetFlexibleArgs","Case":"empty","Payload":{"rep":7,"occurrence":7,"flexible":true},"Canonical":{"rep":7,"occurrence":7,"flexible":true},"Error":""}
 {"Name":"wire.SetFlexibleChildArgs","Case":"zero","Payload":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Canonical":{"occurrence":0,"child":"","transform":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"Error":""}
 {"Name":"wire.SetFlexibleChildArgs","Case":"filled","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
 {"Name":"wire.SetFlexibleChildArgs","Case":"empty","Payload":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Canonical":{"occurrence":7,"child":"example \u003c\u0026\u003e 日本語","transform":[1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25,1.25]},"Error":""}
@@ -145,6 +148,3 @@
 {"Name":"wire.SetStandardArgs","Case":"zero","Payload":{"standard":""},"Canonical":{"standard":""},"Error":""}
 {"Name":"wire.SetStandardArgs","Case":"filled","Payload":{"standard":"example \u003c\u0026\u003e 日本語"},"Canonical":{"standard":"example \u003c\u0026\u003e 日本語"},"Error":""}
 {"Name":"wire.SetStandardArgs","Case":"empty","Payload":{"standard":"example \u003c\u0026\u003e 日本語"},"Canonical":{"standard":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetStatusTextArgs","Case":"zero","Payload":{"text":""},"Canonical":{"text":""},"Error":""}
-{"Name":"wire.SetStatusTextArgs","Case":"filled","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}
-{"Name":"wire.SetStatusTextArgs","Case":"empty","Payload":{"text":"example \u003c\u0026\u003e 日本語"},"Canonical":{"text":"example \u003c\u0026\u003e 日本語"},"Error":""}

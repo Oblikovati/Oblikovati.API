@@ -177,6 +177,7 @@ pub struct AddTextArgs {
     pub font_size: String => omitted("fontSize", "crate::json::is_zero");
     pub formatting_runs: Option<Vec<crate::types::SketchTextRun>> => omitted("formattingRuns", "crate::json::slice_is_empty");
     pub line_spacing: Option<Box<crate::types::SketchTextLineSpacing>> => omitted("lineSpacing", "Option::is_none");
+    pub stacked_fractions: Option<Vec<crate::types::SketchTextFraction>> => omitted("stackedFractions", "crate::json::slice_is_empty");
 }
 }
 

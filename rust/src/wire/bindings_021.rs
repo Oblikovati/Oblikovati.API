@@ -4,6 +4,17 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nSetPartDesignViewOptionsArgs changes only the supplied options atomically.\nA locked view retains its stored camera and body visibility when the active\ndisplay is changed; reactivation restores the stored state. Unlocking does not\nsilently replace that stored state. Annotation scale\napplies to the active view; changing an inactive view's scale is refused. Invalid options leave all state\nunchanged. Omitted fields preserve their existing values.\nExample: `args := wire.SetPartDesignViewOptionsArgs{ID: 2, Locked: new(bool)}`.\n```"]
+pub struct SetPartDesignViewOptionsArgs {
+    pub id: u64 => required("id");
+    pub locked: Option<Box<bool>> => omitted("locked", "Option::is_none");
+    pub published: Option<Box<bool>> => omitted("published", "Option::is_none");
+    pub autosave_camera: Option<Box<bool>> => omitted("autosaveCamera", "Option::is_none");
+    pub annotation_scale: Option<Box<crate::types::PartAnnotationScale>> => omitted("annotationScale", "Option::is_none");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSetPatternElementSuppressedArgs is the request of [MethodAssemblyPatternElementSetSuppressed]:\nsuppress or unsuppress one element (by index) of the pattern (by id).\n```"]
 pub struct SetPatternElementSuppressedArgs {
     pub pattern: u64 => required("pattern");
@@ -441,24 +452,5 @@ generated_dto! {
 #[doc = "```text\nShowWebDialogArgs is the request of [MethodDialogsShowWebDialog]: create the web\nview or replace its title/URL if it exists.\n```"]
 pub struct ShowWebDialogArgs {
     pub dialog: crate::wire::WebDialogSpec => required("dialog");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nShrinkwrapCreateArgs is the request of [MethodAssemblyShrinkwrapCreate]: derive the\nopen assembly document Source into the active part as a simplified, lightweight base\nbody. RemoveStyle/MinPartVolume drop parts before merging (MinPartVolume in document\nunits³ applies to RemoveSmallParts); EnvelopeStyle replaces the kept parts with\nbounding-box proxies; PatchHoles fills internal voids first; MaxHoleDiameter (when > 0,\ndocument units) caps surface-opening through-holes/pockets no wider than it, closing them\nflush while keeping the real outer geometry. The zero options reduce to a plain include-all\nderive.\n```"]
-pub struct ShrinkwrapCreateArgs {
-    pub source: u64 => required("source");
-    pub remove_style: crate::types::ShrinkwrapRemoveStyle => omitted("removeStyle", "crate::json::is_zero");
-    pub min_part_volume: f64 => omitted_finite("minPartVolume", "crate::json::is_zero");
-    pub envelope_style: crate::types::ShrinkwrapEnvelopeStyle => omitted("envelopeStyle", "crate::json::is_zero");
-    pub patch_holes: bool => omitted("patchHoles", "crate::json::is_zero");
-    pub max_hole_diameter: f64 => omitted_finite("maxHoleDiameter", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSketch3DArgs is the request of the per-3D-sketch methods that take only a target:\n[MethodSketch3DGet], [MethodSketch3DEdit], [MethodSketch3DExitEdit],\n[MethodSketch3DSolve], [MethodSketch3DDelete], [MethodSketch3DEntities],\n[MethodSketch3DConstraints], [MethodSketch3DDimensions],\n[MethodSketch3DConstraintStatus]. SketchIndex is the sketch's index in the active\npart's 3D-sketch collection (as returned by [MethodSketch3DCreate]/[MethodSketch3DList]).\n```"]
-pub struct Sketch3DArgs {
-    pub sketch_index: i64 => required("sketchIndex");
 }
 }

@@ -19,6 +19,7 @@ var fixtureGroup4 = []fixtureType{
 	{"types.SketchPointInferenceKind", reflect.TypeFor[types.SketchPointInferenceKind]()},
 	{"types.SketchRelaxTypes", reflect.TypeFor[types.SketchRelaxTypes]()},
 	{"types.SketchSettings", reflect.TypeFor[types.SketchSettings]()},
+	{"types.SketchTextFraction", reflect.TypeFor[types.SketchTextFraction]()},
 	{"types.SketchTextLineSpacing", reflect.TypeFor[types.SketchTextLineSpacing]()},
 	{"types.SketchTextRun", reflect.TypeFor[types.SketchTextRun]()},
 	{"types.SketchTextStyle", reflect.TypeFor[types.SketchTextStyle]()},
@@ -89,5 +90,4 @@ var fixtureGroup4 = []fixtureType{
 	{"wire.AddBaseViewArgs", reflect.TypeFor[wire.AddBaseViewArgs]()},
 	{"wire.AddBendNoteArgs", reflect.TypeFor[wire.AddBendNoteArgs]()},
 	{"wire.AddBreakViewArgs", reflect.TypeFor[wire.AddBreakViewArgs]()},
-	{"wire.AddBreakoutViewArgs", reflect.TypeFor[wire.AddBreakoutViewArgs]()},
 }

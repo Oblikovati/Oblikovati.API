@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nLayoutResult is the response of [MethodViewsGetLayout] / [MethodViewsSetLayout]: the\ndocument's current tiling layout.\n```"]
+pub struct LayoutResult {
+    pub document: u64 => omitted("document", "crate::json::is_zero");
+    pub layout: crate::types::ViewLayout => required("layout");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nLightInfo is the JSON shape of one scene light — the element of [LightListResult] and the\npayload of [MethodLightingAddLight] / [MethodLightingSetLight]. Direction/Position are\nworld-space (cm); Color is the light color and Intensity scales it.\n```"]
 pub struct LightInfo {
     pub index: i64 => required("index");
@@ -449,12 +457,5 @@ generated_dto! {
 pub struct ListSheetsResult {
     pub sheets: Option<Vec<crate::wire::SheetInfo>> => required("sheets");
     pub model_reference: String => omitted("modelReference", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nListSketches3DResult is the response of [MethodSketch3DList].\n```"]
-pub struct ListSketches3DResult {
-    pub sketches: Option<Vec<crate::wire::Sketch3DInfo>> => required("sketches");
 }
 }

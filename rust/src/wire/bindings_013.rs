@@ -3,6 +3,12 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_ASSEMBLY_FEATURES_ADD_SWEEP: &str = "assemblyFeatures.addSweep";
+
+pub const METHOD_ASSEMBLY_FEATURES_EDIT: &str = "assemblyFeatures.edit";
+
+pub const METHOD_ASSEMBLY_FEATURES_LIST: &str = "assemblyFeatures.list";
+
 pub const METHOD_ASSEMBLY_FEATURES_SET_PARTICIPANT_PATHS: &str =
     "assemblyFeatures.setParticipantPaths";
 
@@ -457,9 +463,3 @@ pub const METHOD_DRAWING_STYLES_GET_ACTIVE_STYLE: &str = "drawingStyles.getActiv
 pub const METHOD_DRAWING_STYLES_LIST_STANDARDS: &str = "drawingStyles.listStandards";
 
 pub const METHOD_DRAWING_STYLES_SET_STANDARD: &str = "drawingStyles.setStandard";
-
-pub const METHOD_DRAWING_TITLE_BLOCK_FIELDS: &str = "drawing.titleBlockFields";
-
-pub const METHOD_DRAWING_VIEWS_ADD_AUXILIARY: &str = "drawingViews.addAuxiliary";
-
-pub const METHOD_DRAWING_VIEWS_ADD_BASE: &str = "drawingViews.addBase";

@@ -3,6 +3,15 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
+    crate::types::ToleranceType(31242);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_SIZE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31243);
+
+pub const TOLERANCE_LIMITS_FITS_SHOW_TOLERANCE: crate::types::ToleranceType =
+    crate::types::ToleranceType(31244);
+
 pub const TOLERANCE_LIMITS_FITS_STACKED: crate::types::ToleranceType =
     crate::types::ToleranceType(31241);
 

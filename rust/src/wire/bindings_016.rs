@@ -4,6 +4,14 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nModelStateNameArgs selects an existing member and requests a name for rename or copy.\nRename requires a nonempty unique name. Copy may omit Name to request a generated name.\n```"]
+pub struct ModelStateNameArgs {
+    pub id: u64 => required("id");
+    pub name: String => omitted("name", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nResult envelopes.\n```"]
 pub struct ModelStateResult {
     pub model_state: crate::wire::ModelStateInfo => required("modelState");
@@ -450,12 +458,5 @@ pub struct OptionGroupView {
     pub sketch: Option<Box<crate::wire::SketchOptionsView>> => omitted("sketch", "Option::is_none");
     pub part: Option<Box<crate::wire::PartOptionsView>> => omitted("part", "Option::is_none");
     pub save: Option<Box<crate::wire::SaveOptionsView>> => omitted("save", "Option::is_none");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nOrientationResult is the reply of addOrientation/activateOrientation: the affected\norientation after the call.\n```"]
-pub struct OrientationResult {
-    pub orientation: crate::wire::FlatPatternOrientationInfo => required("orientation");
 }
 }

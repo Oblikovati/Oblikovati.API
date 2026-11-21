@@ -4,6 +4,25 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nShrinkwrapCreateArgs is the request of [MethodAssemblyShrinkwrapCreate]: derive the\nopen assembly document Source into the active part as a simplified, lightweight base\nbody. RemoveStyle/MinPartVolume drop parts before merging (MinPartVolume in document\nunits³ applies to RemoveSmallParts); EnvelopeStyle replaces the kept parts with\nbounding-box proxies; PatchHoles fills internal voids first; MaxHoleDiameter (when > 0,\ndocument units) caps surface-opening through-holes/pockets no wider than it, closing them\nflush while keeping the real outer geometry. The zero options reduce to a plain include-all\nderive.\n```"]
+pub struct ShrinkwrapCreateArgs {
+    pub source: u64 => required("source");
+    pub remove_style: crate::types::ShrinkwrapRemoveStyle => omitted("removeStyle", "crate::json::is_zero");
+    pub min_part_volume: f64 => omitted_finite("minPartVolume", "crate::json::is_zero");
+    pub envelope_style: crate::types::ShrinkwrapEnvelopeStyle => omitted("envelopeStyle", "crate::json::is_zero");
+    pub patch_holes: bool => omitted("patchHoles", "crate::json::is_zero");
+    pub max_hole_diameter: f64 => omitted_finite("maxHoleDiameter", "crate::json::is_zero");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nSketch3DArgs is the request of the per-3D-sketch methods that take only a target:\n[MethodSketch3DGet], [MethodSketch3DEdit], [MethodSketch3DExitEdit],\n[MethodSketch3DSolve], [MethodSketch3DDelete], [MethodSketch3DEntities],\n[MethodSketch3DConstraints], [MethodSketch3DDimensions],\n[MethodSketch3DConstraintStatus]. SketchIndex is the sketch's index in the active\npart's 3D-sketch collection (as returned by [MethodSketch3DCreate]/[MethodSketch3DList]).\n```"]
+pub struct Sketch3DArgs {
+    pub sketch_index: i64 => required("sketchIndex");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nSketch3DEntityInfo is one enumerated entity from [MethodSketch3DEntities]: its index,\nsession id, kind ([oblikovati.org/api/types.Sketch3DEntityKind]), construction\nflag, the defining points (each [x,y,z] in model database units, cm), and a radius for\ncircular kinds (0 otherwise). MoveableStatus answers whether interactive tools may\ndrag the entity ([oblikovati.org/api/types.GeometryMoveableStatus] wire spelling —\nM06-F11, Oblikovati/Oblikovati#626).\n```"]
 pub struct Sketch3DEntityInfo {
     pub index: i64 => required("index");
@@ -434,27 +453,5 @@ pub struct TaskPanelClosedEvent {
     pub type_: String => required("type");
     pub id: String => required("id");
     pub accepted: bool => required("accepted");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nTaskPanelSpec is a modal task panel that takes over the host task area (FreeCAD Task-dialog\nsemantics): declarative PanelControlSpec content with OK/Cancel. Showing is asynchronous — like\nfile dialogs it must never block the session goroutine — so the user's accept/cancel arrives as a\n[TaskPanelClosedEvent]. While open, edits to its controls push the same PanelValueChangedEvent /\nPanelReferencesChangedEvent keyed on this panel's ID. Unlike WebDialogSpec it is built from the\nshared control vocabulary, so a referenceList composes inside it.\n```"]
-pub struct TaskPanelSpec {
-    pub id: String => required("id");
-    pub title: String => required("title");
-    pub controls: Option<Vec<crate::wire::PanelControlSpec>> => omitted("controls", "crate::json::slice_is_empty");
-#[doc = "```text\ndefault \"OK\"\n```"]
-    pub ok_label: String => omitted("okLabel", "crate::json::is_zero");
-#[doc = "```text\ndefault \"Cancel\"\n```"]
-    pub cancel_label: String => omitted("cancelLabel", "crate::json::is_zero");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nTextStyleInfo is the JSON shape of an annotation text style.\n```"]
-pub struct TextStyleInfo {
-    pub name: String => required("name");
-    pub font_name: String => required("fontName");
-    pub height_mm: f64 => finite("heightMm");
 }
 }

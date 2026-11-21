@@ -4,6 +4,16 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nPlateInfo is one developed flat plate — a connected flat region of a (possibly multi-body)\nsheet-metal part: its index, and its extents/area under the active orientation (database\nunits cm; cm²).\n```"]
+pub struct PlateInfo {
+    pub index: i64 => required("index");
+    pub length: f64 => finite("length");
+    pub width: f64 => finite("width");
+    pub area: f64 => finite("area");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nPlatesResult is the reply of listPlates: the developed flat's plates (one per connected\nregion).\n```"]
 pub struct PlatesResult {
     pub plates: Option<Vec<crate::wire::PlateInfo>> => required("plates");
@@ -447,14 +457,5 @@ generated_dto! {
 #[doc = "```text\nRepRef names a representation (or model state) by id — the request of activate/delete.\n```"]
 pub struct RepRef {
     pub id: u64 => required("id");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nReplaceFileReferenceArgs is the request of [MethodFilesReplaceReference]: the\nrepair operation re-pointing one reference of FullFileName — the record whose\nas-saved name is RequestedName — at NewFileName. The owning file reports the\nreference as replaced until it is saved.\n```"]
-pub struct ReplaceFileReferenceArgs {
-    pub full_file_name: String => required("fullFileName");
-    pub requested_name: String => required("requestedName");
-    pub new_file_name: String => required("newFileName");
 }
 }

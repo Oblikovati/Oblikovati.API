@@ -3,6 +3,15 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const SMOOTH_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
+    crate::types::DisplayQualityEnum(58881);
+
+pub const SMOOTHER_DISPLAY_QUALITY: crate::types::DisplayQualityEnum =
+    crate::types::DisplayQualityEnum(58884);
+
+pub const SOFT_MAGNETIC: crate::types::MagneticClass =
+    crate::types::MagneticClass(std::borrow::Cow::Borrowed("soft-magnetic"));
+
 pub const SOLID_SWEEP_DEF: crate::types::SweepDefinitionType =
     crate::types::SweepDefinitionType(59141);
 
@@ -452,12 +461,3 @@ pub const TOLERANCE_DEFAULT: crate::types::ToleranceType = crate::types::Toleran
 pub const TOLERANCE_DEVIATION: crate::types::ToleranceType = crate::types::ToleranceType(31236);
 
 pub const TOLERANCE_LIMIT_LINEAR: crate::types::ToleranceType = crate::types::ToleranceType(31238);
-
-pub const TOLERANCE_LIMITS_FITS_LINEAR: crate::types::ToleranceType =
-    crate::types::ToleranceType(31242);
-
-pub const TOLERANCE_LIMITS_FITS_SHOW_SIZE: crate::types::ToleranceType =
-    crate::types::ToleranceType(31243);
-
-pub const TOLERANCE_LIMITS_FITS_SHOW_TOLERANCE: crate::types::ToleranceType =
-    crate::types::ToleranceType(31244);

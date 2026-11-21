@@ -3,6 +3,12 @@
 // Preserve Go signatures and nullable collection layers at this language boundary.
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
+pub const METHOD_DRAWING_TITLE_BLOCK_FIELDS: &str = "drawing.titleBlockFields";
+
+pub const METHOD_DRAWING_VIEWS_ADD_AUXILIARY: &str = "drawingViews.addAuxiliary";
+
+pub const METHOD_DRAWING_VIEWS_ADD_BASE: &str = "drawingViews.addBase";
+
 pub const METHOD_DRAWING_VIEWS_ADD_BREAK: &str = "drawingViews.addBreak";
 
 pub const METHOD_DRAWING_VIEWS_ADD_BREAKOUT: &str = "drawingViews.addBreakout";
@@ -456,9 +462,3 @@ pub const METHOD_SKETCH3_D_SET_PROPERTY: &str = "sketch3d.setProperty";
 pub const METHOD_SKETCH3_D_SET_SPLINE_HANDLE: &str = "sketch3d.setSplineHandle";
 
 pub const METHOD_SKETCH3_D_SOLVE: &str = "sketch3d.solve";
-
-pub const METHOD_SKETCH3_D_TRANSFORM: &str = "sketch3d.transform";
-
-pub const METHOD_SKETCH_ADD_ASSOCIATIVE_ENTITY: &str = "sketch.addAssociativeEntity";
-
-pub const METHOD_SKETCH_ADD_BLOCK_INSTANCE: &str = "sketch.addBlockInstance";

@@ -4,6 +4,15 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nReplaceFileReferenceArgs is the request of [MethodFilesReplaceReference]: the\nrepair operation re-pointing one reference of FullFileName — the record whose\nas-saved name is RequestedName — at NewFileName. The owning file reports the\nreference as replaced until it is saved.\n```"]
+pub struct ReplaceFileReferenceArgs {
+    pub full_file_name: String => required("fullFileName");
+    pub requested_name: String => required("requestedName");
+    pub new_file_name: String => required("newFileName");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nReplaceOccurrenceArgs is the request of [MethodAssemblyReplace]: swap the component of the\noccurrence with id ID for the one held by the open Document (by document id), keeping the\noccurrence's id, name, transform, and state — the \"replace component\" operation.\n```"]
 pub struct ReplaceOccurrenceArgs {
     pub id: u64 => required("id");
@@ -442,19 +451,5 @@ generated_dto! {
 #[doc = "```text\nSetBrowserPaneArgs is the request of [MethodBrowserSetPane]: create the pane or\nreplace its content if it exists.\n```"]
 pub struct SetBrowserPaneArgs {
     pub pane: crate::wire::BrowserPaneSpec => required("pane");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nSetCameraArgs is the request of [MethodViewSetCamera]: the camera frame to apply, plus\noptional addressing of which document it applies to. Camera state is per-view (a\ndocument owns a Views collection, each view owns a camera); the frame is applied to the\naddressed document's active view (Document 0 ⇒ the active document). To target a\nnon-active view, activate it first ([MethodViewsActivate]); every view's camera is also\nreadable via [MethodViewsList]. The frame fields mirror [CameraView] (a distinct type so\nrequest and response evolve independently, like [SetDisplayModeArgs] vs [DisplayModeView]).\n```"]
-pub struct SetCameraArgs {
-#[doc = "```text\n0 ⇒ active document; applies to that document's active view\n```"]
-    pub document: u64 => omitted("document", "crate::json::is_zero");
-    pub eye: crate::types::Point => raw(rename = "eye");
-    pub target: crate::types::Point => raw(rename = "target");
-    pub up: crate::types::Vector => raw(rename = "up");
-    pub fov: f64 => finite("fov");
-#[doc = "```text\nProjection changes how the view projects. Omit (0) to leave it as it is — a caller moving\nthe camera should not have to restate the projection to keep it.\n```"]
-    pub projection: crate::types::ProjectionTypeEnum => omitted("projection", "crate::json::is_zero");
 }
 }

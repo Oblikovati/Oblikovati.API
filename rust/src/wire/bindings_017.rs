@@ -4,6 +4,13 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nOrientationResult is the reply of addOrientation/activateOrientation: the affected\norientation after the call.\n```"]
+pub struct OrientationResult {
+    pub orientation: crate::wire::FlatPatternOrientationInfo => required("orientation");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nOrientationsResult is the reply of listOrientations: every orientation in creation order\n(the active one flagged).\n```"]
 pub struct OrientationsResult {
     pub orientations: Option<Vec<crate::wire::FlatPatternOrientationInfo>> => required("orientations");
@@ -450,15 +457,5 @@ pub struct PlanSketchMoveResult {
     pub token: String => required("token");
     pub dimensions: Option<Vec<crate::wire::SketchMoveDimensionChange>> => required("dimensions");
     pub geometric: Option<Vec<crate::wire::SketchMoveGeometricChange>> => required("geometric");
-}
-}
-
-generated_dto! {
-#[doc = "```text\nPlateInfo is one developed flat plate — a connected flat region of a (possibly multi-body)\nsheet-metal part: its index, and its extents/area under the active orientation (database\nunits cm; cm²).\n```"]
-pub struct PlateInfo {
-    pub index: i64 => required("index");
-    pub length: f64 => finite("length");
-    pub width: f64 => finite("width");
-    pub area: f64 => finite("area");
 }
 }

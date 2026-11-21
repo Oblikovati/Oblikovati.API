@@ -4,6 +4,28 @@
 #![allow(clippy::type_complexity, clippy::too_many_arguments)]
 
 generated_dto! {
+#[doc = "```text\nWebDialogChangedEvent is the push event (type [EventWebDialogChanged]) fired when\na web view's visibility changes (shown, or closed by the user/the owner).\n```"]
+pub struct WebDialogChangedEvent {
+#[doc = "```text\nalways EventWebDialogChanged\n```"]
+    pub type_: String => required("type");
+    pub id: String => required("id");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
+#[doc = "```text\nWebDialogSpec is one web view the host presents: a floating dialog (Modal pins\nit on top) or, with Dock set, a view docked into the chrome like an add-in\nwindow. The host's web rendering is behind a thin engine seam; a host without an\nembedded engine shows the URL with an open-in-browser affordance.\n```"]
+pub struct WebDialogSpec {
+    pub id: String => required("id");
+    pub title: String => required("title");
+    pub url: String => required("url");
+    pub modal: bool => omitted("modal", "crate::json::is_zero");
+    pub dock: crate::types::DockingState => omitted("dock", "crate::json::is_zero");
+    pub visible: bool => required("visible");
+}
+}
+
+generated_dto! {
 #[doc = "```text\nWireInfo is one wire in [MethodBodyWires]'s result.\n```"]
 pub struct WireInfo {
     pub index: i64 => required("index");

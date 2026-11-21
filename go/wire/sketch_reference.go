@@ -110,17 +110,18 @@ type AddFillRegionArgs struct {
 // the geometry and an emboss that references the text recomputes from it — nothing is baked
 // into the document. A letter's counter (the hole in A/O/B) becomes a profile hole.
 type AddTextArgs struct {
-	SketchIndex    int                          `json:"sketchIndex"`
-	Anchor         []float64                    `json:"anchor"`
-	Text           string                       `json:"text"`
-	Height         string                       `json:"height"`
-	Rotation       string                       `json:"rotation,omitempty"`
-	Justify        string                       `json:"justify,omitempty"`  // horizontal alignment
-	VJustify       string                       `json:"vJustify,omitempty"` // vertical alignment
-	Font           string                       `json:"font,omitempty"`     // font family name ("" ⇒ document default)
-	FontSize       string                       `json:"fontSize,omitempty"` // unit-bearing; "" ⇒ track Height
-	FormattingRuns []types.SketchTextRun        `json:"formattingRuns,omitempty"`
-	LineSpacing    *types.SketchTextLineSpacing `json:"lineSpacing,omitempty"`
+	SketchIndex      int                          `json:"sketchIndex"`
+	Anchor           []float64                    `json:"anchor"`
+	Text             string                       `json:"text"`
+	Height           string                       `json:"height"`
+	Rotation         string                       `json:"rotation,omitempty"`
+	Justify          string                       `json:"justify,omitempty"`  // horizontal alignment
+	VJustify         string                       `json:"vJustify,omitempty"` // vertical alignment
+	Font             string                       `json:"font,omitempty"`     // font family name ("" ⇒ document default)
+	FontSize         string                       `json:"fontSize,omitempty"` // unit-bearing; "" ⇒ track Height
+	FormattingRuns   []types.SketchTextRun        `json:"formattingRuns,omitempty"`
+	LineSpacing      *types.SketchTextLineSpacing `json:"lineSpacing,omitempty"`
+	StackedFractions []types.SketchTextFraction   `json:"stackedFractions,omitempty"`
 }
 
 // EditTextArgs is the request of [MethodSketchEditText]: edit the existing sketch text
@@ -143,6 +144,9 @@ type EditTextArgs struct {
 	FormattingRuns *[]types.SketchTextRun `json:"formattingRuns,omitempty"`
 	// Omit to preserve spacing. Set Mode to single to reset the spacing.
 	LineSpacing *types.SketchTextLineSpacing `json:"lineSpacing,omitempty"`
+	// Omit to preserve ranges in a format-only edit or clear them on text replacement.
+	// An explicit empty list clears the ranges without changing the content.
+	StackedFractions *[]types.SketchTextFraction `json:"stackedFractions,omitempty"`
 }
 
 // GetTextArgs is the request of [MethodSketchGetText]: read back the style of sketch text

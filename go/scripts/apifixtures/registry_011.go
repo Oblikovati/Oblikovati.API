@@ -9,6 +9,7 @@ import (
 )
 
 var fixtureGroup11 = []fixtureType{
+	{"wire.ListAttributeSetsArgs", reflect.TypeFor[wire.ListAttributeSetsArgs]()},
 	{"wire.ListAttributeSetsResult", reflect.TypeFor[wire.ListAttributeSetsResult]()},
 	{"wire.ListAttributesArgs", reflect.TypeFor[wire.ListAttributesArgs]()},
 	{"wire.ListAttributesResult", reflect.TypeFor[wire.ListAttributesResult]()},
@@ -88,5 +89,4 @@ var fixtureGroup11 = []fixtureType{
 	{"wire.MapEntityResult", reflect.TypeFor[wire.MapEntityResult]()},
 	{"wire.MarkingMenuItem", reflect.TypeFor[wire.MarkingMenuItem]()},
 	{"wire.MarkingMenuView", reflect.TypeFor[wire.MarkingMenuView]()},
-	{"wire.MassPropertiesArgs", reflect.TypeFor[wire.MassPropertiesArgs]()},
 }
