@@ -29,6 +29,10 @@ Releases are **not** hand-cut. On every merge to `develop` the release workflow
 ([`.github/workflows/release.yml`](.github/workflows/release.yml)) derives the next
 version from the **scope of the commits merged since the last tag** and does the rest:
 
+Before versioning, the workflow checks every Go wire method for a client-side
+`mcp:tool` and `mcp:summary`, or an intentional `mcp:skip` with a reason. The
+candidate CI gate runs the same test before publication.
+
 1. [`go/scripts/nextver`](go/scripts/nextver) reads the conventional-commit messages since the
    last `vX.Y.Z` tag, picks the strongest scope, and applies the policy above to compute
    the next version.
