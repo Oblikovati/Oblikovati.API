@@ -46,6 +46,9 @@ jobs:
           node-version: 22
       - run: go install github.com/princjef/gomarkdoc/cmd/gomarkdoc@e62c5abf78916697dbc4b25f590deb28f26f5184
 
+      - name: Require MCP annotations for all wire methods
+        run: cd go && go test ./client -run '^TestMCPWireAnnotations$'
+
       - name: Require synchronized inputs before changing the version
         run: make check-generated
 

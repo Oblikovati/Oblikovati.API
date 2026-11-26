@@ -54,12 +54,18 @@ func (s Sketch) ExplodeBlockInstance(args wire.ExplodeSketchBlockArgs) (wire.Exp
 
 // SetBlockDefinitionColor changes or clears a definition color override.
 // Example: sketch.SetBlockDefinitionColor(wire.SetBlockDefinitionColorArgs{Name: "Rib"}).
+//
+// mcp:tool set_sketch_block_definition_color
+// mcp:summary Set the color override for a sketch block definition. Use null to restore inheritance.
 func (s Sketch) SetBlockDefinitionColor(args wire.SetBlockDefinitionColorArgs) (wire.SketchBlockDefinitionInfo, error) {
 	return call[wire.SketchBlockDefinitionInfo](s.c, wire.MethodSketchSetBlockDefinitionColor, args)
 }
 
 // SetBlockInstanceColor changes or clears an instance color override.
 // Example: sketch.SetBlockInstanceColor(wire.SetBlockInstanceColorArgs{InstanceID: 42}).
+//
+// mcp:tool set_sketch_block_instance_color
+// mcp:summary Set the color override for a placed sketch block instance. Use null to restore inheritance.
 func (s Sketch) SetBlockInstanceColor(args wire.SetBlockInstanceColorArgs) (wire.SketchBlockInfo, error) {
 	return call[wire.SketchBlockInfo](s.c, wire.MethodSketchSetBlockInstanceColor, args)
 }

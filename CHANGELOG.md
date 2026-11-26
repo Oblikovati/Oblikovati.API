@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+### Added
+
+- Expose model-state tables, part design views, sketch constraint glyphs, and
+  sketch block colors as MCP tools. Require MCP annotations before releasing new
+  wire methods.
+
 ## [0.165.0] - 2026-11-21
 
 ### Added
