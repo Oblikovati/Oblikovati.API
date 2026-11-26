@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.166.0] - 2026-11-26
+
+### Added
+
+- feat: expose missing MCP tools and guard API releases
+
 ### Added
 
 - Expose model-state tables, part design views, sketch constraint glyphs, and
@@ -1503,7 +1509,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.165.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.166.0...HEAD
+[0.166.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.165.0...v0.166.0
 [0.165.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.164.0...v0.165.0
 [0.164.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.163.0...v0.164.0
 [0.163.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.162.0...v0.163.0
