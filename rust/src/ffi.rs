@@ -6,6 +6,8 @@ use std::ffi::{c_char, c_int};
 
 pub const OBK_OK: c_int = 0;
 pub const OBK_ERR: c_int = 1;
+/// Add-in catalogue platform key for browser WebAssembly (`GOOS=js GOARCH=wasm`) builds.
+pub const WASM_PLATFORM: &str = "js-wasm";
 
 pub type ObkHostCall =
     unsafe extern "C" fn(*const c_char, *const u8, c_int, *mut *mut u8, *mut c_int) -> c_int;
