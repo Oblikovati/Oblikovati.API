@@ -8,6 +8,12 @@ not part of the semver string). See [RELEASING.md](RELEASING.md).
 
 ## [Unreleased]
 
+## [0.167.0] - 2026-11-28
+
+### Added
+
+- feat(wasm): add js-wasm add-in ABI bridge and platform constant
+
 ## [0.166.0] - 2026-11-26
 
 ### Added
@@ -1509,7 +1515,8 @@ release (semver §4); there is no backward-compatibility guarantee yet.
 - `api.Version` — the module's semantic-version constant, the single source of
   truth a release is tagged from.
 
-[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.166.0...HEAD
+[Unreleased]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.167.0...HEAD
+[0.167.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.166.0...v0.167.0
 [0.166.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.165.0...v0.166.0
 [0.165.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.164.0...v0.165.0
 [0.164.0]: https://github.com/Oblikovati/Oblikovati.API/compare/v0.163.0...v0.164.0
